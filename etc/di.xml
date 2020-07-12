@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Instant Purchase override -->
+    <preference for="Naxero\InstantPurchase\CustomerData\InstantPurchase" type="Naxero\InstantPurchase\Model\InstantPurchase\CustomerData" />
+    <!-- END Instant Purchase override -->
+</config>

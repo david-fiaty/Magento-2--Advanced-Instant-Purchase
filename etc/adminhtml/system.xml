@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright Naxero.com
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="advanced_instant_purchase">
+            <label>Advanced Instant Purschase</label>
+        </tab>
+        <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Advanced Instant Purschase</label>
+            <tab>naxero</tab>
+            <resource>Naxero_AdvancedInstantPurchase::config</resource>
+            <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General settings</label>
+                <field id="enable" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>    
+            </group>
+         </section>
+    </system>
+</config>
