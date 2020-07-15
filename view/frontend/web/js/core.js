@@ -21,6 +21,8 @@ define(
     function ($, core, __) {
         'use strict';
         
+        alert('core js loaded');
+
         return {
             load: function () {
                 return this;
