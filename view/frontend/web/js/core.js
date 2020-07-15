@@ -20,11 +20,10 @@ define(
     ],
     function ($, core, __) {
         'use strict';
-        
-        alert('core js loaded');
 
         return {
             load: function () {
+                alert('core js loaded');
                 return this;
             }
         };

@@ -7,6 +7,7 @@ define([
     'jquery',
     'underscore',
     'uiComponent',
+    'aiicore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'mage/url',
@@ -14,7 +15,7 @@ define([
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -40,10 +41,14 @@ define([
 
         /** @inheritdoc */
         initialize: function () {
-            alert('ip js loaded');
+
+            AAICore.load();
 
             var instantPurchase = customerData.get('instant-purchase');
 
+
+            console.log();
+            
             this._super();
 
             this.setPurchaseData(instantPurchase());
