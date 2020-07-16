@@ -43,15 +43,14 @@ define([
         initialize: function () {
 
             AAICore.load();
-
             var instantPurchase = customerData.get('instant-purchase');
-
-
-            console.log();
-            
             this._super();
 
             this.setPurchaseData(instantPurchase());
+
+            console.log("instantPurchase\n" + instantPurchase);
+            console.log("setPurchaseData\n" + this.setPurchaseData);
+
             instantPurchase.subscribe(this.setPurchaseData, this);
         },
 
