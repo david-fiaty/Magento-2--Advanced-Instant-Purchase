@@ -80,12 +80,16 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             return $data;
         }
 
-        // Build the instant purchase data
+        // Get the card data
         $paymentToken = $this->vaultHandler->getLastSavedCard();
+
+        // Load the option
         $instantPurchaseOption = $this->instantPurchase->getOption(
             $this->storeManager->getStore(),
             $this->customerSession->getCustomer()
         );
+
+        // Get the required data
         if ($instantPurchaseOption) {
             $shippingAddress = $instantPurchaseOption->getShippingAddress();
             $billingAddress = $instantPurchaseOption->getBillingAddress();
