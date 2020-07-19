@@ -20,7 +20,6 @@
         <advanced_instant_purchase>
             <general>
                 <enabled>1</enabled>
-                <show_guest_button>1</show_guest_button>
             </general>
             <display>
                 <show_guest_button>1</show_guest_button>
