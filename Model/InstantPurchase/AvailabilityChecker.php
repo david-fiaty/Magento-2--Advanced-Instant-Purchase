@@ -38,6 +38,7 @@ class AvailabilityChecker
         $logger->addWriter($writer);
         $logger->info(print_r($this->config->value('general/enabled'), 1));
         $logger->info(print_r($this->config->value('display/show_guest_button'), 1));
+        $logger->info(print_r($this->config->value('display/login_flow'), 1));
 
         return true;
     }
