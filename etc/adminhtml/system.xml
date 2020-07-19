@@ -21,7 +21,7 @@
             <label>Naxero</label>
         </tab>
         <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Advanced Instant Purschase</label>
+            <label>Instant Purchase</label>
             <tab>naxero</tab>
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -29,10 +29,12 @@
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
                 <field id="display_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Display guest button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Instant Purchase button to guest users.</comment>
                 </field> 
             </group>
          </section>
