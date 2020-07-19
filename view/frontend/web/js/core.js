@@ -15,15 +15,26 @@
 define(
     [
         'jquery',
+        'Magento_Customer/js/model/customer',
         'aiiDisplay',
         'mage/translate',
     ],
-    function ($, AAIDisplay, __) {
+    function ($, Customer, AAIDisplay, __) {
         'use strict';
 
         return {
+            storage: JSON.parse(window.localStorage.getItem('mage-cache-storage')),                
+            showButton: function (data) {
+                // data.available
+                // Customer.isLoggedIn()
+                console.log('showButton');
+                console.log(this.storage);
+
+                return true;
+            },
+
             test: function () {
-                alert('core js test');
+                console.log('core.js');
 
                 AAIDisplay.test();
 

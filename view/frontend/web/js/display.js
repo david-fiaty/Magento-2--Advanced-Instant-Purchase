@@ -22,8 +22,7 @@ define(
 
         return {
             test: function () {
-                console.log('mage-cache-storage');
-                console.log(window.localStorage.getItem('mage-cache-storage'));
+                console.log('display.js');
                 return this;
             }
         };
