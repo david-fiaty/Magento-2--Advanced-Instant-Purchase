@@ -24,6 +24,7 @@
             </general>
             <display>
                 <show_guest_button>1</show_guest_button>
+                <login_flow>popup</login_flow>
             </display>
         </advanced_instant_purchase> 
     </default>
