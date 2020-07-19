@@ -1,10 +1,7 @@
 <?php
-namespace Naxero\InstantPurchase\Model\Service;
+namespace Naxero\AdvancedInstantPurchase\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
-use \Checkout\Models\Payments\TokenSource;
-use \Checkout\Models\Payments\Payment;
-use \Checkout\Models\Payments\ThreeDs;
 
 /**
  * Class VaultHandlerService.

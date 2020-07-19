@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\InstantPurchase\Model\InstantPurchase;
+namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
 /**
  * Class CustomerData
@@ -53,11 +53,11 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
         \Magento\Customer\Model\Session $customerSession,
-        \Naxero\InstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Naxero\InstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\InstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
     ) {
         $this->storeManager = $storeManager;
         $this->instantPurchase = $instantPurchase;

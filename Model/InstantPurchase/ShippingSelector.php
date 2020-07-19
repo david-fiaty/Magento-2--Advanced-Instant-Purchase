@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\InstantPurchase\Model\InstantPurchase;
+namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
 /**
  * Class ShippingSelector

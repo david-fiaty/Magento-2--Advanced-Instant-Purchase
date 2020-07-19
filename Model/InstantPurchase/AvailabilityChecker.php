@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\InstantPurchase\Model\InstantPurchase;
+namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
 /**
  * Class AvailabilityChecker
@@ -20,8 +20,8 @@ class AvailabilityChecker
      * AvailabilityChecker constructor
      */
     public function __construct(
-        \Naxero\InstantPurchase\Helper\Config $config,
-        \Naxero\InstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->config = $config;
         $this->vaultHandler = $vaultHandler;

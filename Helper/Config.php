@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\InstantPurchase\Helper;
+namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
  * Class Connfig
