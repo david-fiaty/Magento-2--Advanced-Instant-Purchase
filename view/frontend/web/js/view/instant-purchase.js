@@ -43,12 +43,12 @@ define([
 
         /** @inheritdoc */
         initialize: function () {
-            AAICore.test();
             var instantPurchase = customerData.get('instant-purchase');
             this._super();
-
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
+
+            AAICore.test();
         },
 
         /** @inheritdoc */
