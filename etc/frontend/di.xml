@@ -4,6 +4,7 @@
         <arguments>
             <argument name="sectionSourceMap" xsi:type="array">
                 <item name="instant-purchase" xsi:type="string">Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData</item>
+                <item name="aii-config" xsi:type="string">Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ConfigProvider</item>
             </argument>
         </arguments>
     </type>
