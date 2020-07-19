@@ -32,6 +32,7 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {
+        return true;
         return $this->config->value('general', 'enabled');
     }
 }

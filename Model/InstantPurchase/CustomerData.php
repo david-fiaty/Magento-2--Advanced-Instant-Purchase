@@ -87,9 +87,9 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             $this->customerSession->getCustomer()
         );
         if ($instantPurchaseOption) {
-            $shippingAddress = $this->instantPurchaseOption->getShippingAddress();
-            $billingAddress = $this->instantPurchaseOption->getBillingAddress();
-            $shippingMethod = $this->instantPurchaseOption->getShippingMethod();
+            $shippingAddress = $instantPurchaseOption->getShippingAddress();
+            $billingAddress = $instantPurchaseOption->getBillingAddress();
+            $shippingMethod = $instantPurchaseOption->getShippingMethod();
             $data += [
                 'paymentToken' => [
                     'publicHash' => $paymentToken->getPublicHash(),

@@ -63,6 +63,7 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
+            console.log(data);
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
