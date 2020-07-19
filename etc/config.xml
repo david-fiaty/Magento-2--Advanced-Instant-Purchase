@@ -20,9 +20,11 @@
         <advanced_instant_purchase>
             <general>
                 <enabled>1</enabled>
+            </general>
+            <payment>
                 <available>Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker</available>
                 <tokenFormat>Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter</tokenFormat>
-            </general>
+            </payment>
         </advanced_instant_purchase> 
     </default>
 </config>
