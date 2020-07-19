@@ -23,16 +23,6 @@ define(
         'use strict';
 
         return {
-            storage: JSON.parse(window.localStorage.getItem('mage-cache-storage')),                
-            showButton: function (data) {
-                // data.available
-                // Customer.isLoggedIn()
-                console.log('showButton');
-                console.log(this.storage);
-
-                return true;
-            },
-
             test: function () {
                 console.log('core.js');
 
