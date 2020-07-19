@@ -75,8 +75,9 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     public function getSectionData() : array
     {
         // Set the instant purchase availability
-        $data = ['available' => $this->availabilityChecker->isAvailable()];
-        if (!$this->availabilityChecker->isAvailable()) {
+        $isAvailalbe = $this->availabilityChecker->isAvailable();
+        $data = ['available' => $isAvailalbe];
+        if (!$isAvailalbe) {
             return $data;
         }
 
