@@ -25,7 +25,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function value($field)
     {
-        $path = 'advanced_instant_purchase/general/' . $field;
+        $path = 'advanced_instant_purchase/' . $field;
         return $this->scopeConfig->getValue(
             $path,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
