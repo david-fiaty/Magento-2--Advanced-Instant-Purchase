@@ -32,15 +32,6 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {
-
-
-        $var = $this->config->value('general', 'enabled');
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($var, 1));
-
         return $this->config->value('general', 'enabled');
     }
 }
