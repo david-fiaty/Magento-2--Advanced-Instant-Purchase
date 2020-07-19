@@ -17,8 +17,8 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="advanced_instant_purchase">
-            <label>Advanced Instant Purschase</label>
+        <tab id="naxero">
+            <label>Naxero</label>
         </tab>
         <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Advanced Instant Purschase</label>
@@ -26,10 +26,14 @@
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
-                <field id="enable" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable</label>
+                <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>    
+                <field id="display_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display guest button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
             </group>
          </section>
     </system>
