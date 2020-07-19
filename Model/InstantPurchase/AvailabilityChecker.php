@@ -36,8 +36,8 @@ class AvailabilityChecker
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/x.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
-        $logger->info(print_r($this->config->value('enabled'), 1));
-        $logger->info(print_r($this->config->value('display_guest_button'), 1));
+        $logger->info(print_r($this->config->value('general/enabled'), 1));
+        $logger->info(print_r($this->config->value('display/show_guest_button'), 1));
 
         return true;
     }

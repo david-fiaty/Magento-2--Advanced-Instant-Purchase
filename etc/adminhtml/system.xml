@@ -31,10 +31,17 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
-                <field id="display_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Display guest button</label>
+                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show guest button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Instant Purchase button to guest users.</comment>
+                    <comment>Show the Instant Purchase button to guest users.</comment>
+                </field> 
+                <field id="login_flow" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Login flow</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\LoginFlow</source_model>
+                    <depends>
+                        <field id="show_guest_button">1</field>
+                    </depends>
                 </field> 
             </group>
          </section>
