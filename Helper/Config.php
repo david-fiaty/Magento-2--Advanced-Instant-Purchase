@@ -56,12 +56,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         // Load the config data
         $output = $this->xmlParser
             ->load($this->getFilePath(self::CONFIG_FILE_NAME))
-            ->xmlToArray()['config']['_value']['default'];
-
-            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/xdata.log');
-            $logger = new \Zend\Log\Logger();
-            $logger->addWriter($writer);
-            $logger->info(print_r($output, 1));
+            ->xmlToArray()['config']['_value']['default']['advanced_instant_purchase'];
 
         return $output;
     }
