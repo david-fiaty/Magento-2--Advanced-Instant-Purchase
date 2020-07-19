@@ -41,8 +41,7 @@ define([
 
         /** @inheritdoc */
         initialize: function () {
-
-            AAICore.load();
+            AAICore.test();
             var instantPurchase = customerData.get('instant-purchase');
             this._super();
 

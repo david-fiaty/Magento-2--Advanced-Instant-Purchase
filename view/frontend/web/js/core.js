@@ -21,7 +21,7 @@ define(
         'use strict';
 
         return {
-            load: function () {
+            test: function () {
                 alert('core js loaded');
                 return this;
             }
