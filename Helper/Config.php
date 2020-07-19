@@ -54,9 +54,18 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public function getValues()
     {   
         // Load the config data
-        $output = $this->xmlParser
+        $output = [];
+        $configData = $this->xmlParser
             ->load($this->getFilePath(self::CONFIG_FILE_NAME))
             ->xmlToArray()['config']['_value']['default']['advanced_instant_purchase'];
+
+        // Update the array with database values
+        foreach ($configData as $group => $fields) {
+            $output[$group] = [];
+            foreach ($fields as $key => $value) {
+                $output[$group][$key] = $this->value($group . '/' . $key);
+            }
+        }
 
         return $output;
     }
