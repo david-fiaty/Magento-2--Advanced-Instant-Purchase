@@ -12,19 +12,14 @@
  * @link      https://www.naxero.com
  */
 
-define(
+require(
     [
         'jquery',
         'mage/translate'
     ],
     function ($, __) {
-        'use strict';
-
-        return {
-            test: function () {
-                alert('core js test');
-                return this;
-            }
-        };
+        $(document).ready(function() {
+            alert('display.js');
+        });
     }
 );

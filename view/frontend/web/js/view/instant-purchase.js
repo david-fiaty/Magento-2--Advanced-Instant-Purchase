@@ -7,7 +7,7 @@ define([
     'jquery',
     'underscore',
     'uiComponent',
-    'aiicore',
+    'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'mage/url',
@@ -46,10 +46,6 @@ define([
             this._super();
 
             this.setPurchaseData(instantPurchase());
-
-            console.log("instantPurchase\n" + instantPurchase);
-            console.log("setPurchaseData\n" + this.setPurchaseData);
-
             instantPurchase.subscribe(this.setPurchaseData, this);
         },
 
@@ -67,6 +63,8 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
+            console.log(data);
+
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);

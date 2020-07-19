@@ -15,12 +15,7 @@
  var config = {
     map: {
         '*': {
-            aiicore:  'Naxero_AdvancedInstantPurchase/js/core',
-        }
-    },
-    shim: {
-        tabulator: {
-            deps: ['jquery', 'jquery/ui']
+            aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
         }
     }
 };
