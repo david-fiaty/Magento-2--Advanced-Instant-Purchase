@@ -9,13 +9,14 @@ define([
     'uiComponent',
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
+    'Magento_Customer/js/model/customer',
     'Magento_Customer/js/customer-data',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customer, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -36,7 +37,8 @@ define([
                 billingAddressTitle: $t('Billing Address'),
                 paymentMethodTitle: $t('Payment Method'),
                 shippingMethodTitle: $t('Shipping Method')
-            }
+            },
+            storage: JSON.parse(window.localStorage.getItem('mage-cache-storage'))
         },
 
         /** @inheritdoc */
@@ -63,11 +65,24 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
-            this.showButton(data.available);
+            this.showButton(data);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
+        },
+
+        /**
+         * Show the purchase button.
+         *
+         * @param {Object} data
+         */
+        showButton: function (data) {
+            console.log(this.storage);
+            //return data.available
+            //&& this.storage
+
+            return true;
         },
 
         /**

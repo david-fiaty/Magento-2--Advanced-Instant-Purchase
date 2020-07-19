@@ -15,14 +15,18 @@
 define(
     [
         'jquery',
-        'mage/translate'
+        'aiiDisplay',
+        'mage/translate',
     ],
-    function ($, __) {
+    function ($, __, AAIdisplay) {
         'use strict';
 
         return {
             test: function () {
                 alert('core js test');
+
+                AAIdisplay.test();
+                
                 return this;
             }
         };

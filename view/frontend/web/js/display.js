@@ -12,17 +12,20 @@
  * @link      https://www.naxero.com
  */
 
-require(
+define(
     [
         'jquery',
-        'mage/translate'
+        'mage/translate',
     ],
     function ($, __) {
-        $(document).ready(function() {
-            console.log('mage-cache-storage');
-            console.log(window.localStorage.getItem('mage-cache-storage'));
+        'use strict';
 
-            alert('display.js');
-        });
+        return {
+            test: function () {
+                console.log('mage-cache-storage');
+                console.log(window.localStorage.getItem('mage-cache-storage'));
+                return this;
+            }
+        };
     }
 );
