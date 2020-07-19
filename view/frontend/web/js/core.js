@@ -15,10 +15,9 @@
 define(
     [
         'jquery',
-        'aiicore',
         'mage/translate'
     ],
-    function ($, core, __) {
+    function ($, __) {
         'use strict';
 
         return {
