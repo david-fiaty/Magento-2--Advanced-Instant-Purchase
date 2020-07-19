@@ -19,6 +19,9 @@ require(
     ],
     function ($, __) {
         $(document).ready(function() {
+            console.log('mage-cache-storage');
+            console.log(window.localStorage.getItem('mage-cache-storage'));
+
             alert('display.js');
         });
     }
