@@ -10,12 +10,13 @@ define([
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
+    'Magento_Customer/js/model/customer',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customerData, Customer, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -69,11 +70,11 @@ define([
         },
 
         isAvailable: function (data) {
-            // data.available
-            // Customer.isLoggedIn()
-            console.log('this.storage');
-            AAICore.test();
-            return true;
+            if (data.available && data.aiiConfig.display.show_guest_button == '1' && !Customer.isLoggedIn()) {
+                return true;
+            }
+
+            return data.available;
         },
 
         /**

@@ -15,23 +15,14 @@
 define(
     [
         'jquery',
-        'Magento_Customer/js/model/customer',
         'aiiDisplay',
         'mage/translate',
     ],
-    function ($, Customer, AAIDisplay, __) {
+    function ($, AAIDisplay, __) {
         'use strict';
 
         return {
-            test: function () {
-
-                var test = JSON.parse(window.localStorage.getItem('mage-cache-storage'))
-                console.log('core.js');
-                console.log(test);
-
-                AAIDisplay.test();
-
-                return test;
+            getConfig: function () {
             }
         };
     }
