@@ -39,10 +39,16 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {
-        if ($this->config->value('general/enabled')) {
-            if ($this->config->value('display/show_guest_button') || $this->customerSession->isLoggedIn()) {
+        if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
+            // Guest button display
+            if ($this->config->value('display/show_guest_button')) {
                 return true;
             }
+
+            // Logged in button display
+            if ($this->customerSession->isLoggedIn()) {
+                return true;
+            }        
 
             return false;
         }

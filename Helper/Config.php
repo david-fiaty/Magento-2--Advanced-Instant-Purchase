@@ -83,4 +83,19 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             'Naxero_AdvancedInstantPurchase'
         ) . '/' . $fileName;
     }
+
+    /**
+     * Check if the core instant purchase feature is enabled.
+     *
+     * @param string $fileName
+     * @return string
+     */
+    public function isCoreInstantPurchaseEnabled()
+    {
+        $path = 'sales/instant_purchase/active';
+        return $this->scopeConfig->getValue(
+            $path,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
 }
