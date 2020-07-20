@@ -32,7 +32,7 @@
                     <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
             </group>
-            <group id="display" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show guest button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
