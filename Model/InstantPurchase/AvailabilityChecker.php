@@ -40,8 +40,14 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {
-        return $this->customerSession->isLoggedIn()
-        && $this->config->value('general/enabled') == 1
-        && $this->config->value('display/show_guest_button');
+        if ($this->config->value('general/enabled')) {
+            if ($this->config->value('display/show_guest_button') || $this->customerSession->isLoggedIn()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
     }
 }
