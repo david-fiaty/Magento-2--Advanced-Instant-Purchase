@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
     /**
+     * @var Config
+     */
+    public $config;
+
+    /**
      * @var StoreManagerInterface
      */
     private $storeManager;
@@ -50,6 +55,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
      * InstantPurchase constructor.
      */
     public function __construct(
+        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
         \Magento\Customer\Model\Session $customerSession,
@@ -59,6 +65,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
     ) {
+        $this->config = $config;
         $this->storeManager = $storeManager;
         $this->instantPurchase = $instantPurchase;
         $this->customerSession = $customerSession;
@@ -96,6 +103,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             $billingAddress = $instantPurchaseOption->getBillingAddress();
             $shippingMethod = $instantPurchaseOption->getShippingMethod();
             $data += [
+                'aiiConfig' => $this->config->getValues(),
                 'paymentToken' => [
                     'publicHash' => $paymentToken->getPublicHash(),
                     'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken),

@@ -45,7 +45,6 @@ define([
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
-            AAICore.test();
         },
 
         /** @inheritdoc */
@@ -62,22 +61,18 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
-            var self = this;
-            $(document).ready(function () {  
-                self.showButton(self.isAvailable(data));
-                self.paymentToken(data.paymentToken);
-                self.shippingAddress(data.shippingAddress);
-                self.billingAddress(data.billingAddress);
-                self.shippingMethod(data.shippingMethod);
-            });
+            this.showButton(this.isAvailable(data));
+            this.paymentToken(data.paymentToken);
+            this.shippingAddress(data.shippingAddress);
+            this.billingAddress(data.billingAddress);
+            this.shippingMethod(data.shippingMethod);
         },
 
         isAvailable: function (data) {
             // data.available
             // Customer.isLoggedIn()
-
-            console.log(JSON.parse(window.localStorage.getItem('mage-cache-storage')));
-            
+            console.log('this.storage');
+            AAICore.test();
             return true;
         },
 

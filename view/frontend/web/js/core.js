@@ -24,11 +24,14 @@ define(
 
         return {
             test: function () {
+
+                var test = JSON.parse(window.localStorage.getItem('mage-cache-storage'))
                 console.log('core.js');
+                console.log(test);
 
                 AAIDisplay.test();
 
-                return this;
+                return test;
             }
         };
     }
