@@ -6,6 +6,12 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
  */
 class AvailabilityChecker
 {
+
+    /**
+     * @var CustomerSession
+     */
+    public $customerSession;
+
     /**
      * @var Config
      */
@@ -20,9 +26,11 @@ class AvailabilityChecker
      * AvailabilityChecker constructor
      */
     public function __construct(
+        \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
+        $this->customerSession = $customerSession;
         $this->config = $config;
         $this->vaultHandler = $vaultHandler;
     }
@@ -32,6 +40,8 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {
-        return $this->config->value('general/enabled') == 1;
+        return $this->customerSession->isLoggedIn()
+        && $this->config->value('general/enabled') == 1
+        && $this->config->value('display/show_guest_button');
     }
 }

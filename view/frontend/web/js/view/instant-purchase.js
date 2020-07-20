@@ -10,13 +10,12 @@ define([
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
-    'Magento_Customer/js/model/customer',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customerData, Customer, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -62,19 +61,11 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
-            this.showButton(this.isAvailable(data));
+            this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
-        },
-
-        isAvailable: function (data) {
-            if (data.available && data.aiiConfig.display.show_guest_button == '1' && !Customer.isLoggedIn()) {
-                return true;
-            }
-
-            return data.available;
         },
 
         /**
