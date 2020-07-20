@@ -40,19 +40,41 @@ class AvailabilityChecker
     public function isAvailable()
     {
         if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
-            // Guest button display
-            if ($this->config->value('display/show_guest_button')) {
-                return true;
-            }
-
             // Logged in button display
             if ($this->customerSession->isLoggedIn()) {
-                return true;
+                return $this->shippingValid()
+                && $this->billingValid()
+                && $this->paymentValid();
             }        
 
-            return false;
+            // Guest button display
+            return $this->config->value('display/show_guest_button');
         }
 
         return false;
+    }
+
+    /**
+     * Check if shipping is valid for display.
+     */
+    public function shippingValid()
+    {
+        return $this->config->value('display/bypass_missing_shipping');
+    }
+
+    /**
+     * Check if billing is valid for display.
+     */
+    public function billingValid()
+    {
+        return $this->config->value('display/bypass_missing_billing');
+    }
+
+    /**
+     * Check if payment is valid for display.
+     */
+    public function paymentValid()
+    {
+        return $this->config->value('display/bypass_missing_payment');
     }
 }
