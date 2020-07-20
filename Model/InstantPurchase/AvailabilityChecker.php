@@ -6,7 +6,6 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
  */
 class AvailabilityChecker
 {
-
     /**
      * @var CustomerSession
      */
