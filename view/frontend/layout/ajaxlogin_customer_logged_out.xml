@@ -1,20 +1,6 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <!-- Blank theme -->
-        <referenceBlock name="authorization-link">
-            <arguments>
-                <argument name="class" xsi:type="string">trigger-ajax-login</argument>
-            </arguments>
-        </referenceBlock>
- 
-        <!-- Luma -->
-        <referenceBlock name="authorization-link-login">
-            <arguments>
-                <argument name="class" xsi:type="string">trigger-ajax-login</argument>
-            </arguments>
-        </referenceBlock>
-
         <referenceContainer name="content">
             <block class="Magento\Customer\Block\Account\AuthenticationPopup" name="ajaxlogin-popup" as="ajaxlogin-popup"
                    before="-" template="Naxero_AdvancedInstantPurchase::account/ajaxlogin-popup.phtml">
