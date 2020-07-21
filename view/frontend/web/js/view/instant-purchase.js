@@ -11,12 +11,13 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/model/customer',
     'Magento_Customer/js/customer-data',
+    'Naxero_AdvancedInstantPurchase/js/view/ajaxlogin-popup',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customer, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customer, customerData, ajaxLoginPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -83,7 +84,7 @@ define([
          */
         instantPurchaseLogin: function () {
             // Todo - open the login popup
-            alert('open login popup');
+            ajaxLoginPopup.showModal();
         },
         
         /**
