@@ -84,6 +84,7 @@ define([
          */
         instantPurchaseLogin: function () {
             // Todo - open the login popup
+            alert('modal called');
             ajaxLoginPopup.showModal();
         },
         
