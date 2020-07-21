@@ -70,6 +70,14 @@ define([
         },
 
         /**
+         * Open the login popup.
+         */
+        instantPurchaseLogin: function () {
+            // Todo - open the login popup
+            alert('open login popup');
+        },
+        
+        /**
          * Confirmation method
          */
         instantPurchase: function () {
