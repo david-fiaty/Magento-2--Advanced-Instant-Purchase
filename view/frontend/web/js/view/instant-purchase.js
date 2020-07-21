@@ -82,9 +82,9 @@ define([
                     shippingMethod: this.shippingMethod().summary
                 });
 
-            if (!(form.validation() && form.validation('isValid'))) {
+            /*if (!(form.validation() && form.validation('isValid'))) {
                 return;
-            }
+            }*/
 
             confirm({
                 title: this.confirmationTitle,
