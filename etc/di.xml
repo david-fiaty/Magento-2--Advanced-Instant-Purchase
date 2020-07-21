@@ -4,4 +4,10 @@
     <preference for="Magento\InstantPurchase\PaymentMethodIntegration\PaymentTokenFormatterInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter" />
     <preference for="Magento\InstantPurchase\CustomerData\InstantPurchase" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData" />
     <!-- END Instant Purchase override -->
+
+    <!-- Login href override -->
+    <type name="Magento\Customer\Block\Account\AuthorizationLink">
+        <plugin name="modify_signin_href" type="Naxero\AdvancedInstantPurchase\Plugin\ModifySignInHrefPlugin" />
+    </type>
+    <!-- END Login href override -->
 </config>
