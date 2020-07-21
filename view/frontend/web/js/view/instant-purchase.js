@@ -100,6 +100,7 @@ define([
                     shippingMethod: this.shippingMethod().summary
                 });
 
+            // Todo - Check the validation rules
             /*if (!(form.validation() && form.validation('isValid'))) {
                 return;
             }*/
