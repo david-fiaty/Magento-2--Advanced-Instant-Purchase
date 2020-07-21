@@ -6,7 +6,6 @@ namespace Naxero\AdvancedInstantPurchase\Observer;
  */
 class AddLoggedOutHandleObserver implements \Magento\Framework\Event\ObserverInterface
 {
-
     /**
      * @var Session
      */
