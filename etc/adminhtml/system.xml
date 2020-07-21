@@ -32,7 +32,8 @@
                     <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
             </group>
-            <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Guest user settings</label>
                 <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show guest button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -45,6 +46,9 @@
                         <field id="show_guest_button">1</field>
                     </depends>
                 </field>
+            </group>
+            <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Registered user settings</label>
                 <field id="show_registered_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show registered button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

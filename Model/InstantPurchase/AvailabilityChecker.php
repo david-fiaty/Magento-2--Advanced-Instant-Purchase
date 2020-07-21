@@ -48,7 +48,7 @@ class AvailabilityChecker
             }        
 
             // Guest button display
-            return $this->config->value('display/show_guest_button');
+            return $this->config->value('guest/show_guest_button');
         }
 
         return false;
@@ -59,7 +59,7 @@ class AvailabilityChecker
      */
     public function shippingValid()
     {
-        return $this->config->value('display/bypass_missing_shipping');
+        return $this->config->value('registered/bypass_missing_shipping');
     }
 
     /**
@@ -67,7 +67,7 @@ class AvailabilityChecker
      */
     public function billingValid()
     {
-        return $this->config->value('display/bypass_missing_billing');
+        return $this->config->value('registered/bypass_missing_billing');
     }
 
     /**
@@ -75,6 +75,6 @@ class AvailabilityChecker
      */
     public function paymentValid()
     {
-        return $this->config->value('display/bypass_missing_payment');
+        return $this->config->value('registered/bypass_missing_payment');
     }
 }
