@@ -28,7 +28,7 @@ class AddLoggedOutHandleObserver implements \Magento\Framework\Event\ObserverInt
      * @param Observer $observer
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function execute(Observer $observer)
+    public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $layout = $observer->getEvent()->getLayout();
  
