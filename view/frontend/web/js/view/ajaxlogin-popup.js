@@ -4,7 +4,7 @@ define([
     'Magento_Ui/js/form/form',
     'Naxero_AdvancedInstantPurchase/js/action/login',
     'Magento_Customer/js/customer-data',
-    'Naxero_AdvancedInstantPurchase/js/model/ajaxlogin-popup',
+    'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/translate',
     'mage/url',
     'mage/validation'
