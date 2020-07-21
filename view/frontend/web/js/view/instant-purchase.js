@@ -9,13 +9,14 @@ define([
     'uiComponent',
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
+    'Magento_Customer/js/model/customer',
     'Magento_Customer/js/customer-data',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AAICore, confirm, customer, customerData, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({

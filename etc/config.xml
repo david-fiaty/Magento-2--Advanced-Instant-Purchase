@@ -21,14 +21,16 @@
             <general>
                 <enabled>1</enabled>
             </general>
-            <display>
+            <guest>
                 <show_guest_button>1</show_guest_button>
                 <login_flow>popup</login_flow>
+            </guest>
+            <registered>
                 <show_registered_button>1</show_registered_button>
                 <bypass_missing_payment>1</bypass_missing_payment>
                 <bypass_missing_billing>1</bypass_missing_billing>
                 <bypass_missing_shipping>1</bypass_missing_shipping>
-            </display>
+            </registered>
         </advanced_instant_purchase> 
     </default>
 </config>
