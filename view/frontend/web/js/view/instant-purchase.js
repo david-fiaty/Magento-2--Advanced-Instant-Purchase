@@ -85,7 +85,6 @@ define([
         instantPurchaseLogin: function () {
             // Todo - open the login popup
             alert('instantPurchaseLogin x');
-            authPopup.createPopUp();
             authPopup.showModal();
         },
         
