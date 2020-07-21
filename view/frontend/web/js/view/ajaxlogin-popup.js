@@ -47,7 +47,7 @@ define([
         isActive: function () {
             var customer = customerData.get('customer');
  
-            return customer() == false; //eslint-disable-line eqeqeq
+            return customer() == false;
         },
  
         /** Show login popup window */
