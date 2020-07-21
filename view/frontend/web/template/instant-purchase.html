@@ -5,12 +5,23 @@
  */
 -->
 <if args="showButton()">
-    <button type="button"
-            class="action primary instant-purchase"
-            click="instantPurchase"
-            attr="title: $t(buttonText)">
-        <span translate="buttonText" />
-    </button>
+    <if args="isLoggedIn()">
+       <button type="button"
+              class="action primary instant-purchase"
+              click="instantPurchase"
+              attr="title: $t(buttonText)">
+              <span translate="buttonText" />
+       </button>
+    </if>
+    <if args="!isLoggedIn()">
+       <button type="button"
+              class="action primary instant-purchase trigger-ajax-login"
+              click="instantPurchaseLogin"
+              attr="title: $t(buttonText)">
+              <span translate="buttonText" />
+       </button>
+    </if>
+
     <input if="paymentToken()"
            type="hidden"
            name="instant_purchase_payment_token"
