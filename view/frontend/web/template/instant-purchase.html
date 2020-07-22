@@ -6,7 +6,8 @@
 -->
 <if args="showButton()">
     <button type="button"
-           class="action primary instant-purchase aii-login-popup"
+           data-bind="css: isLoggedIn() ? 'aii-login-popup' : ''"
+           class="action primary instant-purchase"
            click="instantPurchase"
            attr="title: $t(buttonText)">
            <span translate="buttonText" />

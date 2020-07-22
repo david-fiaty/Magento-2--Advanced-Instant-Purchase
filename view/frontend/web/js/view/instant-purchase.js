@@ -73,10 +73,17 @@ define([
         },
 
         /**
+         * Check if customer is logged in
+         */
+        isLoggedIn: function () {
+            return customer.isLoggedIn();
+        },
+
+        /**
          * Instant purchase action
          */
         instantPurchase: function () {
-            if (customer.isLoggedIn()) {
+            if (this.isLoggedIn()) {
                 this.purchasePopup();
             }
             else {
