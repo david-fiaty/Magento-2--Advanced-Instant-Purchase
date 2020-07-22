@@ -95,6 +95,7 @@ define([
          * Login popup.
          */
         loginPopup: function () {
+            authPopup.removeModal();
             authPopup.createPopUp('.block-authentication');
             authPopup.showModal();
         },
