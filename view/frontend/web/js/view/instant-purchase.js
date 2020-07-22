@@ -7,9 +7,7 @@ define([
     'jquery',
     'underscore',
     'uiComponent',
-    'aiiCore',
     'Magento_Ui/js/modal/confirm',
-    'Magento_Customer/js/model/customer',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
@@ -17,7 +15,7 @@ define([
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, AAICore, confirm, customer, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, confirm, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -76,7 +74,8 @@ define([
          * Check if customer is logged in
          */
         isLoggedIn: function () {
-            return customer.isLoggedIn();
+            var data = customerData.get('customer')();
+            return data.hasOwnProperty('data_id');
         },
 
         /**
