@@ -35,11 +35,6 @@ define([
         /** Show login popup window */
         showModal: function () {
             $(this.modalWindow).modal('openModal').trigger('contentUpdated');
-        },
-
-        removeModal: function () {
-            $(this.modalWindow).modal('hide').remove();
         }
-
     };
 });
