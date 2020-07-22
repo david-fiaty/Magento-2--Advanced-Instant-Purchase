@@ -80,18 +80,6 @@ define([
         },
 
         /**
-         * Instant purchase action
-         */
-        instantPurchase: function () {
-            if (this.isLoggedIn()) {
-                this.purchasePopup();
-            }
-            else {
-                this.loginPopup();
-            }
-        },
-
-        /**
          * Login popup.
          */
         loginPopup: function () {
