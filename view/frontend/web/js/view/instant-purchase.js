@@ -73,24 +73,29 @@ define([
         },
 
         /**
-         * Check if the customer is logged in.
+         * Instant purchase action
          */
-        isLoggedIn: function () {
-            return customer.isLoggedIn();
+        instantPurchase: function () {
+            if (customer.isLoggedIn()) {
+                this.purchasePopup();
+            }
+            else {
+                this.loginPopup();
+            }
         },
 
         /**
-         * Open the login popup.
+         * Login popup.
          */
-        instantPurchaseLogin: function () {
+        loginPopup: function () {
             authPopup.createPopUp('.block-authentication');
             authPopup.showModal();
         },
         
         /**
-         * Confirmation method
+         * Purchase popup
          */
-        instantPurchase: function () {
+        purchasePopup: function () {
             var form = $(this.productFormSelector),
                 confirmTemplate = mageTemplate(confirmationTemplate),
                 confirmData = _.extend({}, this.confirmationData, {
