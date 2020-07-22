@@ -24,7 +24,7 @@ define([
                 'focus': '[name=username]',
                 'responsive': true,
                 'innerScroll': true,
-                'trigger': '.proceed-to-checkout, .aii-login-popup',
+                'trigger': '.proceed-to-checkout, .aii-button',
                 'buttons': []
             };
 
