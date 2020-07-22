@@ -5,23 +5,12 @@
  */
 -->
 <if args="showButton()">
-    <if args="isLoggedIn()">
-       <button type="button"
-              class="action primary instant-purchase aii-login-popup"
-              click="purchasePopup"
-              attr="title: $t(buttonText)">
-              <span translate="buttonText" />
-       </button>
-    </if>
-    <if args="!isLoggedIn()">
-       <button type="button"
-              class="action primary instant-purchase"
-              click="loginPopup"
-              attr="title: $t(buttonText)">
-              <span translate="buttonText" />
-       </button>
-    </if>
-
+    <button type="button"
+           class="action primary instant-purchase aii-login-popup"
+           data-bind="click: isLoggedIn() ? purchasePopup : loginPopup"
+           attr="title: $t(buttonText)">
+           <span translate="buttonText" />
+    </button>
     <input if="paymentToken()"
            type="hidden"
            name="instant_purchase_payment_token"
