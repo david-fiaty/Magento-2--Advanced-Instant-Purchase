@@ -79,13 +79,6 @@ class AvailabilityChecker
      */
     public function shippingValid($instantPurchaseOption)
     {
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/shipping.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($this->config->value('registered/bypass_missing_shipping'), 1));
-        $logger->info(print_r($instantPurchaseOption->getShippingAddress(), 1));
-        $logger->info(print_r($instantPurchaseOption->getShippingMethod(), 1));
-
         if ($this->config->value('registered/bypass_missing_shipping')) {
             return true;
         }
@@ -99,13 +92,6 @@ class AvailabilityChecker
      */
     public function billingValid($instantPurchaseOption)
     {
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/billing.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($this->config->value('registered/bypass_missing_billing'), 1));
-        $logger->info(print_r($instantPurchaseOption->getBillingAddress(), 1));
-
         if ($this->config->value('registered/bypass_missing_billing')) {
             return true;
         }
@@ -118,6 +104,7 @@ class AvailabilityChecker
      */
     public function paymentValid($instantPurchaseOption)
     {
+        return true;
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/payment.log');
         $logger = new \Zend\Log\Logger();
