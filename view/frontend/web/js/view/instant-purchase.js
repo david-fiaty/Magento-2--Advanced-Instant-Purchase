@@ -62,6 +62,7 @@ define([
          */
         setPurchaseData: function (data) {
             // Todo - check availability rules
+            console.log(data);
             this.showButton(data.available);
             //this.showButton(true);
             this.paymentToken(data.paymentToken);
