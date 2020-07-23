@@ -1,4 +1,4 @@
-<if args="showButton() || <?= json_encode($block->getConfig()['guest/show_guest_button']) ?>">
+<if args="showButton()">
     <button type="button"
            class="action primary instant-purchase"
            data-bind="click: isLoggedIn() ? purchasePopup : loginPopup, css: isLoggedIn() ? 'aii-login-popup' : ''"

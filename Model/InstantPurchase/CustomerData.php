@@ -29,27 +29,27 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     /**
      * @var CustomerAddressesFormatter
      */
-    private $customerAddressesFormatter;
+    public $customerAddressesFormatter;
 
     /**
      * @var ShippingMethodFormatter
      */
-    private $shippingMethodFormatter;
+    public $shippingMethodFormatter;
 
     /**
      * @var VaultHandlerService
      */
-    private $vaultHandler;
+    public $vaultHandler;
 
     /**
      * @var AvailabilityChecker
      */
-    private $availabilityChecker;
+    public $availabilityChecker;
 
     /**
      * @var PaymentTokenFormatter
      */
-    private $paymentTokenFormatter;
+    public $paymentTokenFormatter;
 
     /**
      * InstantPurchase constructor.
