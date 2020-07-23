@@ -17,9 +17,19 @@ class AvailabilityChecker
     public $config;
 
     /**
+     * @var InstantPurchaseInterface
+     */
+    public $instantPurchase;
+
+    /**
      * @var VaultHandlerService
      */
-    private $vaultHandler;
+    public $vaultHandler;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
 
     /**
      * AvailabilityChecker constructor
@@ -27,11 +37,15 @@ class AvailabilityChecker
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $config,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->customerSession = $customerSession;
         $this->config = $config;
+        $this->instantPurchase = $instantPurchase;
         $this->vaultHandler = $vaultHandler;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -40,11 +54,17 @@ class AvailabilityChecker
     public function isAvailable()
     {
         if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
+            // Load the option
+            $instantPurchaseOption = $this->instantPurchase->getOption(
+                $this->storeManager->getStore(),
+                $this->customerSession->getCustomer()
+            );
+
             // Logged in button display
             if ($this->customerSession->isLoggedIn()) {
-                return $this->shippingValid()
-                && $this->billingValid()
-                && $this->paymentValid();
+                return $this->shippingValid($instantPurchaseOption)
+                && $this->billingValid($instantPurchaseOption)
+                && $this->paymentValid($instantPurchaseOption);
             }        
 
             // Guest button display
@@ -57,24 +77,58 @@ class AvailabilityChecker
     /**
      * Check if shipping is valid for display.
      */
-    public function shippingValid()
+    public function shippingValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_shipping');
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/shipping.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($this->config->value('registered/bypass_missing_shipping'), 1));
+        $logger->info(print_r($instantPurchaseOption->getShippingAddress(), 1));
+        $logger->info(print_r($instantPurchaseOption->getShippingMethod(), 1));
+
+        if ($this->config->value('registered/bypass_missing_shipping')) {
+            return true;
+        }
+
+        return $instantPurchaseOption->getShippingAddress()
+        && $instantPurchaseOption->getShippingMethod();
     }
 
     /**
      * Check if billing is valid for display.
      */
-    public function billingValid()
+    public function billingValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_billing');
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/billing.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($this->config->value('registered/bypass_missing_billing'), 1));
+        $logger->info(print_r($instantPurchaseOption->getBillingAddress(), 1));
+
+        if ($this->config->value('registered/bypass_missing_billing')) {
+            return true;
+        }
+
+        return $instantPurchaseOption->getBillingAddress();
     }
 
     /**
      * Check if payment is valid for display.
      */
-    public function paymentValid()
+    public function paymentValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_payment');
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/payment.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($this->config->value('registered/bypass_missing_payment'), 1));
+        $logger->info(print_r($this->vaultHandler->getLastSavedCard(), 1));
+
+        if ($this->config->value('registered/bypass_missing_payment')) {
+            return true;
+        }
+
+        return $this->vaultHandler->getLastSavedCard();
     }
 }
