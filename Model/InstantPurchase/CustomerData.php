@@ -1,11 +1,16 @@
 <?php
-namespace Naxero\InstantPurchase\Model\InstantPurchase;
+namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
 /**
  * Class CustomerData
  */
 class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
+    /**
+     * @var Config
+     */
+    public $config;
+
     /**
      * @var StoreManagerInterface
      */
@@ -50,15 +55,17 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
      * InstantPurchase constructor.
      */
     public function __construct(
+        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
         \Magento\Customer\Model\Session $customerSession,
-        \Naxero\InstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Naxero\InstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\InstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
     ) {
+        $this->config = $config;
         $this->storeManager = $storeManager;
         $this->instantPurchase = $instantPurchase;
         $this->customerSession = $customerSession;
@@ -75,22 +82,28 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     public function getSectionData() : array
     {
         // Set the instant purchase availability
-        $data = ['available' => $this->availabilityChecker->isAvailable()];
-        if (!$this->availabilityChecker->isAvailable()) {
+        $isAvailalbe = $this->availabilityChecker->isAvailable();
+        $data = ['available' => $isAvailalbe];
+        if (!$isAvailalbe) {
             return $data;
         }
 
-        // Build the instant purchase data
+        // Get the card data
         $paymentToken = $this->vaultHandler->getLastSavedCard();
+
+        // Load the option
         $instantPurchaseOption = $this->instantPurchase->getOption(
             $this->storeManager->getStore(),
             $this->customerSession->getCustomer()
         );
+
+        // Get the required data
         if ($instantPurchaseOption) {
-            $shippingAddress = $this->instantPurchaseOption->getShippingAddress();
-            $billingAddress = $this->instantPurchaseOption->getBillingAddress();
-            $shippingMethod = $this->instantPurchaseOption->getShippingMethod();
+            $shippingAddress = $instantPurchaseOption->getShippingAddress();
+            $billingAddress = $instantPurchaseOption->getBillingAddress();
+            $shippingMethod = $instantPurchaseOption->getShippingMethod();
             $data += [
+                'aiiConfig' => $this->config->getValues(),
                 'paymentToken' => [
                     'publicHash' => $paymentToken->getPublicHash(),
                     'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken),
@@ -109,6 +122,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
                     'summary' => $this->shippingMethodFormatter->format($shippingMethod),
                 ]
             ];
+        }
 
         return $data;
     }

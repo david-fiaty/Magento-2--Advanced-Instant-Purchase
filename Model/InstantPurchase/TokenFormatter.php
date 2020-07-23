@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\InstantPurchase\Model\InstantPurchase;
+namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 
@@ -17,7 +17,7 @@ class TokenFormatter
      * TokenFormatter constructor.
      */
     public function __construct(
-        \Naxero\InstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->vaultHandler = $vaultHandler;
     }

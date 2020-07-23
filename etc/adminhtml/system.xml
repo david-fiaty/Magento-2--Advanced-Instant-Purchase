@@ -17,19 +17,67 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="advanced_instant_purchase">
-            <label>Advanced Instant Purschase</label>
+        <tab id="naxero">
+            <label>Naxero</label>
         </tab>
         <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Advanced Instant Purschase</label>
+            <label>Instant Purchase</label>
             <tab>naxero</tab>
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
-                <field id="enable" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable</label>
+                <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
+            </group>
+            <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Guest user settings</label>
+                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show guest button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the Instant Purchase button to guest users.</comment>
+                </field> 
+                <field id="login_flow" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Login flow</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\LoginFlow</source_model>
+                    <depends>
+                        <field id="show_guest_button">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Registered user settings</label>
+                <field id="show_registered_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show registered button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the Instant Purchase button to registered users.</comment>
+                </field> 
+                <field id="bypass_missing_payment" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass missing payemnt</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_registered_button">1</field>
+                    </depends>
+                    <comment>Show the Instant Purchase button to registered users even if they have no stored payment method available.</comment>
+                </field> 
+                <field id="bypass_missing_billing" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass missing billing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_registered_button">1</field>
+                    </depends>
+                    <comment>Show the Instant Purchase button to registered users even if they have no saved billing address available.</comment>
+                </field> 
+                <field id="bypass_missing_shipping" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass missing shipping</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_registered_button">1</field>
+                    </depends>
+                    <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
+                </field> 
             </group>
          </section>
     </system>
