@@ -104,14 +104,6 @@ class AvailabilityChecker
      */
     public function paymentValid($instantPurchaseOption)
     {
-        return true;
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/payment.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($this->config->value('registered/bypass_missing_payment'), 1));
-        $logger->info(print_r($this->vaultHandler->getLastSavedCard(), 1));
-
         if ($this->config->value('registered/bypass_missing_payment')) {
             return true;
         }
