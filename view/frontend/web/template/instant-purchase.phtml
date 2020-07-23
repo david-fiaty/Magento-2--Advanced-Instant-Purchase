@@ -1,10 +1,4 @@
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<if args="showButton()">
+<if args="showButton() || <?= json_encode($block->getConfig()['guest/show_guest_button']) ?>">
     <button type="button"
            class="action primary instant-purchase"
            data-bind="click: isLoggedIn() ? purchasePopup : loginPopup, css: isLoggedIn() ? 'aii-login-popup' : ''"

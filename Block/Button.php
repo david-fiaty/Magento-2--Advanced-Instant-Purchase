@@ -1,36 +1,41 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Block;
 
-use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
-use Magento\InstantPurchase\Model\Config;
-
 /**
  * Configuration for JavaScript instant purchase button component.
- *
- * @api
- * @since 100.2.0
  */
-class Button extends Template
+class Button extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Config
      */
-    private $instantPurchaseConfig;
+    public $instantPurchaseConfig;
 
     /**
-     * Button constructor.
-     * @param Context $context
-     * @param Config $instantPurchaseConfig
-     * @param array $data
+     * @var Config
+     */
+    public $config;
+
+    /**
+     * Button class constructor.
      */
     public function __construct(
-        Context $context,
-        Config $instantPurchaseConfig,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
+        $this->config = $config;
+    }
+
+    /**
+     * Get the module config values.
+     */
+    public function getConfig()
+    {
+        return $this->config->getValues();
     }
 
     /**
@@ -64,7 +69,7 @@ class Button extends Template
      *
      * @return int
      */
-    private function getCurrentStoreId(): int
+    public function getCurrentStoreId(): int
     {
         return $this->_storeManager->getStore()->getId();
     }
