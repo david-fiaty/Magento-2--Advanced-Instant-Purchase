@@ -62,7 +62,6 @@ define([
          */
         setPurchaseData: function (data) {
             this.showButton(data.available);
-            //this.showButton(true);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
