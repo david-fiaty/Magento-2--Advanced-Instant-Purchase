@@ -46,7 +46,9 @@ class Button extends \Magento\Framework\View\Element\Template
      */
     public function isEnabled(): bool
     {
-        return $this->instantPurchaseConfig->isModuleEnabled($this->getCurrentStoreId());
+        return true;
+        return $this->instantPurchaseConfig->isModuleEnabled($this->getCurrentStoreId())
+        || $this->getConfig()['guest']['show_guest_button'] == 1;
     }
 
     /**

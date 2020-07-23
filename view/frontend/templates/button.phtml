@@ -2,11 +2,6 @@
 /** @var \Naxero\AdvancedInstantPurchase\Block\Button $block */
 ?>
 
-<script>
-       console.log('xxx');
-       console.log(<?= $block->getConfig() ?>);
-</script>
-
 <?php if ($block->isEnabled()) : ?>
 <div id="instant-purchase" data-bind="scope:'instant-purchase'">
     <!-- ko template: getTemplate() --><!-- /ko -->

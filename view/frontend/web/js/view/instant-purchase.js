@@ -20,7 +20,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Magento_InstantPurchase/instant-purchase.phtml',
+            template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
             purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
             showButton: false,
