@@ -52,10 +52,7 @@ class AvailabilityChecker
      * @inheritdoc
      */
     public function isAvailable()
-    {
-
-        return true;
-        
+    {        
         if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
             // Load the option
             $instantPurchaseOption = $this->instantPurchase->getOption(
