@@ -15,14 +15,15 @@
 define(
     [
         'jquery',
-        'aiiDisplay',
         'mage/translate',
     ],
-    function ($, AAIDisplay, __) {
+    function ($, __) {
         'use strict';
 
         return {
             getConfig: function () {
+                alert ('core.js loaded');
+                console.log(window);
             }
         };
     }

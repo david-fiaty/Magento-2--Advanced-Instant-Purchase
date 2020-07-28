@@ -7,6 +7,7 @@ define([
     'jquery',
     'underscore',
     'uiComponent',
+    'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
@@ -15,7 +16,7 @@ define([
     'mage/translate',
     'text!Magento_InstantPurchase/template/confirmation.html',
     'mage/validation'
-], function (ko, $, _, Component, confirm, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, aiiCore, confirm, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -41,6 +42,9 @@ define([
 
         /** @inheritdoc */
         initialize: function () {
+            alert('initialize ip');
+            aiiCore.getConfig();
+
             var instantPurchase = customerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
@@ -72,8 +76,8 @@ define([
          * Check if customer is logged in
          */
         isLoggedIn: function () {
-            var data = customerData.get('customer')();
-            return data.hasOwnProperty('data_id');
+            var customer = customerData.get('customer')();
+            return customer.fullname && customer.firstname;
         },
 
         /**
