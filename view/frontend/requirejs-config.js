@@ -18,6 +18,7 @@
             aiiDisplay: 'Naxero_AdvancedInstantPurchase/js/display',
             aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
         }
-    }
+    },
+    urlArgs: "bust=" + (new Date()).getTime()
 };
 
