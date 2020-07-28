@@ -72,7 +72,6 @@ define([
          * Check if the button can be displayed
          */
         canDisplayButton: function (data) {
-
             return data.available;
         },
 

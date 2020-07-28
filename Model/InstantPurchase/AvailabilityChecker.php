@@ -54,21 +54,24 @@ class AvailabilityChecker
     public function isAvailable()
     {        
         if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
-            // Load the option
-            $instantPurchaseOption = $this->instantPurchase->getOption(
-                $this->storeManager->getStore(),
-                $this->customerSession->getCustomer()
-            );
-
             // Logged in button display
             if ($this->customerSession->isLoggedIn()) {
+                // Load the option
+                $instantPurchaseOption = $this->instantPurchase->getOption(
+                    $this->storeManager->getStore(),
+                    $this->customerSession->getCustomer()
+                );
+
+                // Test the availability
                 return $this->shippingValid($instantPurchaseOption)
                 && $this->billingValid($instantPurchaseOption)
                 && $this->paymentValid($instantPurchaseOption);
-            }        
+            }
+            else if ($this->config->value('guest/show_guest_button')) {
+                return true;
+            }     
 
-            // Guest button display
-            return $this->config->value('guest/show_guest_button');
+            return false;
         }
 
         return false;
