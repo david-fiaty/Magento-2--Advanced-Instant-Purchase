@@ -25,6 +25,6 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
      */
     public function getSectionData() : array
     {
-        return ['aiiConfig' => $this->config->getValues()];
+        return $this->config->getValues();
     }
 }

@@ -21,6 +21,7 @@ define([
 
     return Component.extend({
         defaults: {
+            config: aiiCore.getConfig(),
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
             purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
@@ -43,7 +44,8 @@ define([
         /** @inheritdoc */
         initialize: function () {
             alert('initialize ip');
-            aiiCore.getConfig();
+            console.log('aiiconfig');
+            console.log(this.config);
 
             var instantPurchase = customerData.get('instant-purchase');
             this._super();

@@ -22,8 +22,7 @@ define(
 
         return {
             getConfig: function () {
-                alert ('core.js loaded');
-                console.log(window);
+                return window
             }
         };
     }
