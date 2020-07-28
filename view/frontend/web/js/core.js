@@ -21,8 +21,7 @@ define(
         'use strict';
 
         return {
-            getConfig: function () {
-                return window
+            test: function () {
             }
         };
     }

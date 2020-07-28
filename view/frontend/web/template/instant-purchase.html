@@ -1,4 +1,4 @@
-<if args="showButton()">
+<if args="showButton() || bypassLogin()">
     <button type="button"
            class="action primary instant-purchase"
            data-bind="click: isLoggedIn() ? purchasePopup : loginPopup, css: isLoggedIn() ? 'aii-login-popup' : ''"

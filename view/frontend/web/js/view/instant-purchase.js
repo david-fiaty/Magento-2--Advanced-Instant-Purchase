@@ -43,10 +43,6 @@ define([
 
         /** @inheritdoc */
         initialize: function () {
-            alert('initialize ip');
-            console.log('aiiconfig');
-            console.log(this.config);
-
             var instantPurchase = customerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
@@ -75,11 +71,24 @@ define([
         },
 
         /**
+         * Bypass the logged in requirement
+         */
+        bypassLogin: function () {
+            var cartData = customerData.get('cart')();
+
+            console.log('cartData');
+            console.log(cartData);
+
+            return cartData['advanced-instant-purchase'].general.enabled
+            && cartData['advanced-instant-purchase'].guest.show_guest_button;
+        },
+
+        /**
          * Check if customer is logged in
          */
         isLoggedIn: function () {
-            var customer = customerData.get('customer')();
-            return customer.fullname && customer.firstname;
+            var customerData = customerData.get('customer')();
+            return customerData.fullname && customerData.firstname;
         },
 
         /**
