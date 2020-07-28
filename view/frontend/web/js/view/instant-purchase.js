@@ -61,6 +61,8 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
+            console.log('canDisplayButton');
+            console.log(data);
             this.showButton(this.canDisplayButton(data));
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
