@@ -25,6 +25,6 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
      */
     public function getSectionData() : array
     {
-        return $this->config->getValues();
+        return ['advanced-instant-purchase' => $this->config->getValues()];
     }
 }
