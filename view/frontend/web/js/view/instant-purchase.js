@@ -61,20 +61,11 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function (data) {
-            console.log('canDisplayButton');
-            console.log(data);
-            this.showButton(this.canDisplayButton(data));
+            this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
-        },
-
-        /**
-         * Check if the button can be displayed
-         */
-        canDisplayButton: function (data) {
-            return data.available;
         },
 
         /**
