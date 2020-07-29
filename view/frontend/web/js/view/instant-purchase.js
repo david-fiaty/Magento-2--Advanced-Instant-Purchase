@@ -21,7 +21,6 @@ define([
 
     return Component.extend({
         defaults: {
-            config: aiiCore.getConfig(),
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
             purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
@@ -74,6 +73,7 @@ define([
          * Bypass the logged in requirement
          */
         bypassLogin: function () {
+
             var cartData = customerData.get('cart')();
 
             console.log('cartData');
