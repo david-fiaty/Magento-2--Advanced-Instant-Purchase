@@ -23,7 +23,7 @@
             </general>
             <guest>
                 <show_guest_button>1</show_guest_button>
-                <login_flow>popup</login_flow>
+                <click_event>popup</click_event>
             </guest>
             <registered>
                 <show_registered_button>1</show_registered_button>

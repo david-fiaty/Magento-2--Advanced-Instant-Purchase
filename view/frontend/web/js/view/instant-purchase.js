@@ -70,7 +70,7 @@ define([
         },
 
         /**
-         * Bypass the logged in requirement
+         * Bypass the logged in requirement.
          */
         bypassLogin: function() {
             // Get the cart local storage
@@ -86,7 +86,7 @@ define([
         },
 
         /**
-         * Check if customer is logged in
+         * Check if customer is logged in.
          */
         isLoggedIn: function() {
             var customer = customerData.get('customer')();
@@ -94,15 +94,69 @@ define([
         },
 
         /**
-         * Login popup.
+         * Handle the button click event.
+         */
+        handleButtonClick: function() {
+            // Get the cart local storage
+            var cartData = customerData.get('cart')();
+
+            // Check button click event
+            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
+                var aii = cartData['advanced-instant-purchase'];
+
+                // Handle the button click logic
+                if (this.isLoggedIn()) {
+                    this.purchasePopup();
+                } else {
+                    switch(aii.guest.click_event) {
+                        case 'popup':
+                            this.loginPopup();
+                          break;
+
+                        case 'redirect':
+                            this.loginRedirect();
+                        break;
+                    }
+                }
+            }
+        },
+
+        /**
+         * Create a login popup.
          */
         loginPopup: function() {
             authPopup.createPopUp('.block-authentication');
             authPopup.showModal();
         },
-        
+
         /**
-         * Purchase popup
+         * Create a login redirection.
+         */
+        loginRedirect: function() {
+            var loginUrl = urlBuilder.build('customer/account/login');
+            window.location.href = loginUrl;
+        },
+
+        /**
+         * Get the button state.
+         */
+        shouldDisableButton: function() {
+            // Get the cart local storage
+            var cartData = customerData.get('cart')();
+
+            // Check button state
+            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
+                var aii = cartData['advanced-instant-purchase'];
+                return aii.guest.click_event == 'disabled'
+                ? aii.guest.click_event
+                : '';
+            }
+
+            return 'disabled';
+        },
+
+        /**
+         * Purchase popup.
          */
         purchasePopup: function() {
             var form = $(this.productFormSelector),
