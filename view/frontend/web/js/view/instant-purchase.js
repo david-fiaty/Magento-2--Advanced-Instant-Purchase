@@ -79,16 +79,16 @@ define([
             console.log('cartData');
             console.log(cartData);
 
-            return cartData['advanced-instant-purchase'].general.enabled
-            && cartData['advanced-instant-purchase'].guest.show_guest_button;
+            //return cartData['advanced-instant-purchase'].general.enabled
+            //&& cartData['advanced-instant-purchase'].guest.show_guest_button;
         },
 
         /**
          * Check if customer is logged in
          */
         isLoggedIn: function () {
-            var customerData = customerData.get('customer')();
-            return customerData.fullname && customerData.firstname;
+            var customer = customerData.get('customer')();
+            return customer.fullname && customer.firstname;
         },
 
         /**
