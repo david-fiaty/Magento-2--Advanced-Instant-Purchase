@@ -21,7 +21,7 @@ define(
         'use strict';
 
         return {
-            test: function () {
+            test: function() {
             }
         };
     }

@@ -41,7 +41,7 @@ define([
         },
 
         /** @inheritdoc */
-        initialize: function () {
+        initialize: function() {
             var instantPurchase = customerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
@@ -49,7 +49,7 @@ define([
         },
 
         /** @inheritdoc */
-        initObservable: function () {
+        initObservable: function() {
             this._super()
                 .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
 
@@ -61,7 +61,7 @@ define([
          *
          * @param {Object} data
          */
-        setPurchaseData: function (data) {
+        setPurchaseData: function(data) {
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
@@ -72,21 +72,23 @@ define([
         /**
          * Bypass the logged in requirement
          */
-        bypassLogin: function () {
-
+        bypassLogin: function() {
+            // Get the cart local storage
             var cartData = customerData.get('cart')();
 
-            console.log('cartData');
-            console.log(cartData);
+            // Check bypass login
+            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
+                var aii = cartData['advanced-instant-purchase'];
+                return aii.general.enabled && aii.guest.show_guest_button;
+            }
 
-            //return cartData['advanced-instant-purchase'].general.enabled
-            //&& cartData['advanced-instant-purchase'].guest.show_guest_button;
+            return false;
         },
 
         /**
          * Check if customer is logged in
          */
-        isLoggedIn: function () {
+        isLoggedIn: function() {
             var customer = customerData.get('customer')();
             return customer.fullname && customer.firstname;
         },
@@ -94,7 +96,7 @@ define([
         /**
          * Login popup.
          */
-        loginPopup: function () {
+        loginPopup: function() {
             authPopup.createPopUp('.block-authentication');
             authPopup.showModal();
         },
@@ -102,7 +104,7 @@ define([
         /**
          * Purchase popup
          */
-        purchasePopup: function () {
+        purchasePopup: function() {
             var form = $(this.productFormSelector),
                 confirmTemplate = mageTemplate(confirmationTemplate),
                 confirmData = _.extend({}, this.confirmationData, {
@@ -124,7 +126,7 @@ define([
                 }),
                 actions: {
                     /** @inheritdoc */
-                    confirm: function () {
+                    confirm: function() {
                         $.ajax({
                             url: this.purchaseUrl,
                             data: form.serialize(),
@@ -132,7 +134,7 @@ define([
                             dataType: 'json',
 
                             /** Show loader before send */
-                            beforeSend: function () {
+                            beforeSend: function() {
                                 $('body').trigger('processStart');
                             }
                         }).always(function () {
