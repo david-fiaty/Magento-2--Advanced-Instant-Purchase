@@ -103,22 +103,29 @@ define([
             // Check button click event
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
                 var aii = cartData['advanced-instant-purchase'];
+                var buttonEvent = '';
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
-                    this.purchasePopup();
+                    buttonEvent = 'purchasePopup';
                 } else {
                     switch(aii.guest.click_event) {
                         case 'popup':
-                            this.loginPopup();
-                          break;
+                            buttonEvent = 'loginPopup';
+                        break;
 
                         case 'redirect':
-                            this.loginRedirect();
+                            buttonEvent = 'loginRedirect';
                         break;
                     }
                 }
             }
+
+            // Bind the  button event
+            $(this.buttonSelector).on('click touch', function(e) {
+                e.preventDefault();
+                buttonEvent();
+            });
         },
 
         /**
@@ -142,17 +149,17 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
+            var disabled = true;
             var cartData = customerData.get('cart')();
 
-            // Check button state
+            // Check the button state configs
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
                 var aii = cartData['advanced-instant-purchase'];
-                return aii.guest.click_event == 'disabled'
-                ? aii.guest.click_event
-                : '';
+                disabled = aii.guest.click_event == 'disabled';
             }
 
-            return 'disabled';
+            // Update the button state
+            $(this.buttonSelector).prop('disabled', disabled);
         },
 
         /**
