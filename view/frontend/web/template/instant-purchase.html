@@ -1,7 +1,7 @@
-<if args="showButton() || bypassLogin()">
+<!-- ko if: (showButton() || bypassLogin()) -->
     <button type="button"
            class="action primary instant-purchase aii-button"
-           data-bind="afterRender: shouldDisableButton(), click: handleButtonClick, css: isLoggedIn() ? 'aii-login-popup' : ''"
+           data-bind="afterRender: shouldDisableButton, click: handleButtonClick, css: isLoggedIn() ? 'aii-login-popup' : ''"
            attr="title: $t(buttonText)">
            <span translate="buttonText" />
     </button>
@@ -25,4 +25,4 @@
                name="instant_purchase_shipping"
                ko-value="shippingMethod().method" />
     </if>
-</if>
+<!-- /ko -->

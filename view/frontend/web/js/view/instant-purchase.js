@@ -103,29 +103,22 @@ define([
             // Check button click event
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
                 var aii = cartData['advanced-instant-purchase'];
-                var buttonEvent = 'disableButton';
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
-                    buttonEvent = 'purchasePopup';
+                    this.purchasePopup();
                 } else {
                     switch(aii.guest.click_event) {
                         case 'popup':
-                            buttonEvent = 'loginPopup';
+                            this.loginPopup();
                         break;
 
                         case 'redirect':
-                            buttonEvent = 'loginRedirect()';
-                        break;
-
-                        case 'disabled':
-                            buttonEvent = 'disableButton';
+                            this.loginRedirect();
                         break;
                     }
                 }
             }
-
-            return buttonEvent;
         },
 
         /**
@@ -149,17 +142,17 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
-            var disabled = true;
+            var state = 'disabled';
             var cartData = customerData.get('cart')();
+            $('.aii-button').prop('disabled', true);
 
             // Check the button state configs
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
                 var aii = cartData['advanced-instant-purchase'];
-                disabled = aii.guest.click_event == 'disabled';
+                if (aii.guest.click_event !== 'disabled') {
+                    $('.aii-button').prop('disabled', false);
+                }
             }
-
-            // Update the button state
-            $(this.buttonSelector).prop('disabled', disabled);
         },
 
         /**
