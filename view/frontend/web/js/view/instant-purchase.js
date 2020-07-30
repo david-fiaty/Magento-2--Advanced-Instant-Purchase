@@ -21,6 +21,7 @@ define([
 
     return Component.extend({
         defaults: {
+            buttonSelector: '.aii-button',
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
             purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
