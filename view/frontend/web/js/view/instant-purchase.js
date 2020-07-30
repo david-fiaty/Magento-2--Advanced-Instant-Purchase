@@ -14,7 +14,7 @@ define([
     'mage/url',
     'mage/template',
     'mage/translate',
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'mage/validation'
 ], function (ko, $, _, Component, AiiCore, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
