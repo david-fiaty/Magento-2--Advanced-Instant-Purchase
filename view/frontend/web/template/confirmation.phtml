@@ -4,6 +4,13 @@
  * See COPYING.txt for license details.
  */
 -->
+
+<pre>
+<?php
+echo print_r($block->getData('data'));
+?>
+</pre>
+
 <p class="message"><%- data.message %></p>
 <strong><%- data.shippingAddressTitle %>:</strong>
 <p><%- data.shippingAddress %></p>
@@ -13,3 +20,7 @@
 <p><%- data.paymentToken %></p>
 <strong><%- data.shippingMethodTitle %>:</strong>
 <p><%- data.shippingMethod %></p>
+
+
+<div id="aii-confirmation-content" data-bind="afterRender: getConfirmContent">
+</div>

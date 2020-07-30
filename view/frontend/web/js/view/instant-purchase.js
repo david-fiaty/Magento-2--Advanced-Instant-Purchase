@@ -153,7 +153,24 @@ define([
                 }
             }
         },
-        
+      
+        /**
+         * Get the confirmation page content.
+         */
+        getConfirmContent: function() {
+            $.ajax({
+                type: "POST",
+                url: UrlBuilder.getUrl('confirmation/display'),
+                success: function (data) {
+                    $('#aii-confirmation-content').append(data.html);
+                    console.log(data);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        },
+
         /**
          * Purchase popup.
          */
