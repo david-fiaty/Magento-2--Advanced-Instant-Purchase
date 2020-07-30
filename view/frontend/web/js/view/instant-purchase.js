@@ -10,20 +10,21 @@ define([
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
+    'Magento_Customer/js/model/address-list',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
     'mage/translate',
-    'text!Magento_InstantPurchase/template/confirmation.html',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation'
-], function (ko, $, _, Component, aiiCore, confirm, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AiiCore, ConfirmModal, CustomerData, AddressList, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
     return Component.extend({
         defaults: {
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
-            purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
+            purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -42,7 +43,7 @@ define([
 
         /** @inheritdoc */
         initialize: function() {
-            var instantPurchase = customerData.get('instant-purchase');
+            var instantPurchase = CustomerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
@@ -57,7 +58,7 @@ define([
         },
 
         /**
-         * Set data from customerData.
+         * Set data from CustomerData.
          *
          * @param {Object} data
          */
@@ -74,7 +75,7 @@ define([
          */
         bypassLogin: function() {
             // Get the cart local storage
-            var cartData = customerData.get('cart')();
+            var cartData = CustomerData.get('cart')();
 
             // Check bypass login
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
@@ -89,7 +90,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var customer = customerData.get('customer')();
+            var customer = CustomerData.get('customer')();
             return customer.fullname && customer.firstname;
         },
 
@@ -98,7 +99,7 @@ define([
          */
         handleButtonClick: function() {
             // Get the cart local storage
-            var cartData = customerData.get('cart')();
+            var cartData = CustomerData.get('cart')();
 
             // Check button click event
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
@@ -125,15 +126,15 @@ define([
          * Create a login popup.
          */
         loginPopup: function() {
-            authPopup.createPopUp('.block-authentication');
-            authPopup.showModal();
+            AuthPopup.createPopUp('.block-authentication');
+            AuthPopup.showModal();
         },
 
         /**
          * Create a login redirection.
          */
         loginRedirect: function() {
-            var loginUrl = urlBuilder.build('customer/account/login');
+            var loginUrl = UrlBuilder.build('customer/account/login');
             window.location.href = loginUrl;
         },
 
@@ -142,7 +143,7 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
-            var cartData = customerData.get('cart')();
+            var cartData = CustomerData.get('cart')();
             $('.aii-button').prop('disabled', true);
 
             // Check the button state configs
@@ -156,7 +157,7 @@ define([
 
         getBillingAddressList() {
             // Get the cart local storage
-            var customerInfo = customerData.get('customer');
+            var customerInfo = CustomerData.get('customer');
             console.log('customerInfo');
             console.log(customerInfo);
 
@@ -167,7 +168,7 @@ define([
          */
         purchasePopup: function() {
             var form = $(this.productFormSelector),
-                confirmTemplate = mageTemplate(confirmationTemplate),
+                confirmTemplate = MageTemplate(ConfirmationTemplate),
                 confirmData = _.extend({}, this.confirmationData, {
                     paymentToken: this.paymentToken().summary,
                     shippingAddress: this.shippingAddress().summary,
@@ -175,19 +176,27 @@ define([
                     shippingMethod: this.shippingMethod().summary,
                     lists: {
                         //tokens: this.getPaymentTokenList(),
-                        billingAddresses: this.getBillingAddressList(),
-                        //shippingAddresses: this.getShippingAddressList(),
+                        addresses: {
+                            //billing: CustomerData.getBillingAddressList(),
+                            //shipping: CustomerData.getShippingAddressList()
+                        }
                         //shippingMethods: this.getShippingMethodList(),
                         //paymentMethods: this.getPaymentMethodList(),
                     }
                 });
 
+                var addressOptions = addressList();
+
+                console.log('addressOptions');
+                console.log(addressOptions);
+
+                
             // Todo - Check the validation rules
             /*if (!(form.validation() && form.validation('isValid'))) {
                 return;
             }*/
 
-            confirm({
+            ConfirmModal({
                 title: this.confirmationTitle,
                 content: confirmTemplate({
                     data: confirmData
