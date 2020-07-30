@@ -25,7 +25,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * BillingAddress constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
