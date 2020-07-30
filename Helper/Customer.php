@@ -1,0 +1,74 @@
+<?php
+namespace Naxero\AdvancedInstantPurchase\Helper;
+
+/**
+ * Class Customer
+ */
+class Customer extends \Magento\Framework\App\Helper\AbstractHelper
+{
+    /**
+     * @var toreManagerInterface
+     */
+    public $storeManager;
+
+    /**
+     * @var CustomerFactory
+     */
+    public $customerFactory;
+
+    /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
+     * Class Customer constructor.
+     */
+    public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Customer\Model\Session $customerSession
+    ) {
+        $this->storeManager = $storeManager;
+        $this->customerFactory = $customerFactory;
+        $this->customerSession = $customerSession;
+    }
+
+    /**
+     * Get the current customer addresses.
+     */
+    public function getAddresses()
+    {
+        if ($customerSession->isLoggedIn()) {
+            // Prepare the required parameters
+            $customerId = $this->customerSession->getCustomer()->getId();
+            $customer = $this->customerFactory->create();
+            $websiteId = $this->storeManager->getStore()->getWebsiteId();
+            $customer->setWebsiteId($websiteId);
+            $customerModel = $customer->load($customerId);
+    
+            // Prepare the output arrays
+            $customerAddressData = [];
+
+            // Get the addresses list
+            $addresses = $customerModel->getAddresses();
+    
+            // Prepare the output
+            if (!empty($addresses)) {
+                foreach ($addresses as $address) {
+                    $customerAddressData[] = $address->toArray();
+                }
+            }
+
+
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+            $logger->info(print_r($customerAddressData, 1));
+
+            return $customerAddressData;
+        }
+
+        return [];
+    }
+}

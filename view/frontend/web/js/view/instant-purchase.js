@@ -10,14 +10,13 @@ define([
     'aiiCore',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
-    'Magento_Customer/js/model/address-list',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
     'mage/translate',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation'
-], function (ko, $, _, Component, AiiCore, ConfirmModal, CustomerData, AddressList, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
+], function (ko, $, _, Component, AiiCore, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -154,14 +153,6 @@ define([
                 }
             }
         },
-
-        getBillingAddressList() {
-            // Get the cart local storage
-            var customerInfo = CustomerData.get('customer');
-            console.log('customerInfo');
-            console.log(customerInfo);
-
-        },
         
         /**
          * Purchase popup.
@@ -184,11 +175,6 @@ define([
                         //paymentMethods: this.getPaymentMethodList(),
                     }
                 });
-
-                var addressOptions = addressList();
-
-                console.log('addressOptions');
-                console.log(addressOptions);
 
                 
             // Todo - Check the validation rules

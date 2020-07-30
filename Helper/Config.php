@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Connfig
+ * Class Config.
  */
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -24,7 +24,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
-     * Class Config constructor
+     * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
