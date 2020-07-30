@@ -142,7 +142,6 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
-            var state = 'disabled';
             var cartData = customerData.get('cart')();
             $('.aii-button').prop('disabled', true);
 
@@ -155,6 +154,14 @@ define([
             }
         },
 
+        getBillingAddressList() {
+            // Get the cart local storage
+            var customerInfo = customerData.get('customer');
+            console.log('customerInfo');
+            console.log(customerInfo);
+
+        },
+        
         /**
          * Purchase popup.
          */
@@ -165,7 +172,14 @@ define([
                     paymentToken: this.paymentToken().summary,
                     shippingAddress: this.shippingAddress().summary,
                     billingAddress: this.billingAddress().summary,
-                    shippingMethod: this.shippingMethod().summary
+                    shippingMethod: this.shippingMethod().summary,
+                    lists: {
+                        //tokens: this.getPaymentTokenList(),
+                        billingAddresses: this.getBillingAddressList(),
+                        //shippingAddresses: this.getShippingAddressList(),
+                        //shippingMethods: this.getShippingMethodList(),
+                        //paymentMethods: this.getPaymentMethodList(),
+                    }
                 });
 
             // Todo - Check the validation rules
@@ -179,15 +193,12 @@ define([
                     data: confirmData
                 }),
                 actions: {
-                    /** @inheritdoc */
                     confirm: function() {
                         $.ajax({
                             url: this.purchaseUrl,
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',
-
-                            /** Show loader before send */
                             beforeSend: function() {
                                 $('body').trigger('processStart');
                             }

@@ -16,7 +16,8 @@
     map: {
         '*': {
             aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
-        }
+        },
+        urlArgs: "bust=" + (new Date()).getTime()
     }
 };
 
