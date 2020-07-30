@@ -21,7 +21,6 @@ define([
 
     return Component.extend({
         defaults: {
-            buttonSelector: '.aii-button',
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
             purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
@@ -104,7 +103,7 @@ define([
             // Check button click event
             if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
                 var aii = cartData['advanced-instant-purchase'];
-                var buttonEvent = '';
+                var buttonEvent = 'disableButton';
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
@@ -116,17 +115,17 @@ define([
                         break;
 
                         case 'redirect':
-                            buttonEvent = 'loginRedirect';
+                            buttonEvent = 'loginRedirect()';
+                        break;
+
+                        case 'disabled':
+                            buttonEvent = 'disableButton';
                         break;
                     }
                 }
             }
 
-            // Bind the  button event
-            $(this.buttonSelector).on('click touch', function(e) {
-                e.preventDefault();
-                buttonEvent();
-            });
+            return buttonEvent;
         },
 
         /**

@@ -1,11 +1,10 @@
 <if args="showButton() || bypassLogin()">
     <button type="button"
            class="action primary instant-purchase aii-button"
-           data-bind="css: isLoggedIn() ? 'aii-login-popup' : ''"
+           data-bind="afterRender: shouldDisableButton(), click: handleButtonClick, css: isLoggedIn() ? 'aii-login-popup' : ''"
            attr="title: $t(buttonText)">
            <span translate="buttonText" />
     </button>
-    <div data-bind="afterRender: shouldDisableButton(), click: handleButtonClick()"></div>
     <input if="paymentToken()"
            type="hidden"
            name="instant_purchase_payment_token"
