@@ -17,7 +17,9 @@
         '*': {
             aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
         },
-        urlArgs: "bust=" + (new Date()).getTime()
+        paths: {
+            select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.min'
+        }
     }
 };
 
