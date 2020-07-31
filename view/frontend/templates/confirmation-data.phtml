@@ -1,9 +1,51 @@
 <H1>conf data</H1>
 <?php $items = $block->getList(); ?>
 
-<label for="aii-billing-select">
+<label for="aii-billing-address-select">
     <?= $block->escapeHtml(__('Billing address')) ?>
-    <select id="aii-billing-select" class="aii-select js-states form-control">
+    <select id="aii-billing-address-select" class="aii-select js-states form-control">
+        <?php foreach ($items as $item): ?>
+            <option value="<?= $item['entity_id'] ?>">
+                <?= $item['street'] ?>&nbsp;
+                <?= $item['postcode'] ?> &nbsp;
+                <?= $item['city'] ?> &nbsp;
+                <?= $item['country_id'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</label>
+
+<label for="aii-shipping-address-select">
+    <?= $block->escapeHtml(__('Shipping address')) ?>
+    <select id="aii-shipping-address-select" class="aii-select js-states form-control">
+        <?php foreach ($items as $item): ?>
+            <option value="<?= $item['entity_id'] ?>">
+                <?= $item['street'] ?>&nbsp;
+                <?= $item['postcode'] ?> &nbsp;
+                <?= $item['city'] ?> &nbsp;
+                <?= $item['country_id'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</label>
+
+<label for="aii-shipping-method-select">
+    <?= $block->escapeHtml(__('Shipping method')) ?>
+    <select id="aii-shipping-method-select" class="aii-select js-states form-control">
+        <?php foreach ($items as $item): ?>
+            <option value="<?= $item['entity_id'] ?>">
+                <?= $item['street'] ?>&nbsp;
+                <?= $item['postcode'] ?> &nbsp;
+                <?= $item['city'] ?> &nbsp;
+                <?= $item['country_id'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</label>
+
+<label for="aii-payment-method-select">
+    <?= $block->escapeHtml(__('Payment method')) ?>
+    <select id="aii-payment-method-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
                 <?= $item['street'] ?>&nbsp;
