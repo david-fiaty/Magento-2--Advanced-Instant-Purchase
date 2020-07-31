@@ -1,4 +1,4 @@
-<?= $items = $block->getPurchaseContent(); ?>
+<?php $items = $block->getPurchaseContent(); ?>
 <select class="js-example-basic-single" name="state">
     <?php foreach ($items as $item): ?>
         <option value="<?= $item['entity_id'] ?>">
