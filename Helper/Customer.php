@@ -56,15 +56,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             // Prepare the output
             if (!empty($addresses)) {
                 foreach ($addresses as $address) {
-                    $customerAddressData[] = $address->toArray();
+                    $addressArray = $address->toArray();
+                    if ($addressArray['is_active'] == 1) {
+                        $customerAddressData[] = $addressArray;
+                    }
                 }
             }
-
-
-            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
-            $logger = new \Zend\Log\Logger();
-            $logger->addWriter($writer);
-            $logger->info(print_r($customerAddressData, 1));
 
             return $customerAddressData;
         }

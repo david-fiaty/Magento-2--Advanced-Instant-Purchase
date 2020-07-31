@@ -6,7 +6,10 @@
     <select id="aii-billing-select" class="js-example-basic-single" class="js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
-                <?= $item['street'] ?>
+                <?= $item['street'] ?>&nbsp;
+                <?= $item['postcode'] ?> &nbsp;
+                <?= $item['city'] ?> &nbsp;
+                <?= $item['country_id'] ?>
             </option>
         <?php endforeach; ?>
     </select>
