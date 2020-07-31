@@ -19,7 +19,7 @@
         }
     },
     paths: {
-        select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.min'
+        select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full'
     }
 };
 
