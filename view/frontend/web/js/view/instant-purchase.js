@@ -153,26 +153,29 @@ define([
                 }
             }
         },
+      
+        /**
+         * Get the confirmation page content.
+         */
+        getConfirmContent: function() {
+            $.ajax({
+                type: "POST",
+                url: UrlBuilder.getUrl('confirmation/display'),
+                success: function (data) {
+                    $('#aii-confirmation-content').append(data.html);
+                    console.log(data);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        },
 
         /**
-         * Purchase popup.
+         * Get the confirmation page modal popup.
          */
-        purchasePopup: function() {
-            var form = $(this.productFormSelector),
-                confirmTemplate = MageTemplate(ConfirmationTemplate),
-                confirmData = _.extend({}, this.confirmationData, {
-                    paymentToken: this.paymentToken().summary,
-                    shippingAddress: this.shippingAddress().summary,
-                    billingAddress: this.billingAddress().summary,
-                    shippingMethod: this.shippingMethod().summary
-                });
-
-                
-            // Todo - Check the validation rules
-            /*if (!(form.validation() && form.validation('isValid'))) {
-                return;
-            }*/
-
+        getConfirmModal: function(confirmData, form) {
+            var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
                 title: this.confirmationTitle,
                 clickableOverlay: true,
@@ -195,6 +198,30 @@ define([
                     }.bind(this)
                 }
             });
+        },
+
+        /**
+         * Purchase popup.
+         */
+        purchasePopup: function() {
+            var form = $(this.productFormSelector),
+            confirmData = _.extend({}, this.confirmationData, {
+                paymentToken: this.paymentToken().summary,
+                shippingAddress: this.shippingAddress().summary,
+                billingAddress: this.billingAddress().summary,
+                shippingMethod: this.shippingMethod().summary
+            });
+
+            // Todo - Check the validation rules
+            /*if (!(form.validation() && form.validation('isValid'))) {
+                return;
+            }*/
+
+            // Open the modal
+            this.getConfirmModal(confirmData, form);
+
+            // Get the AJAX content
+            this.getConfirmContent();
         }
     });
 });

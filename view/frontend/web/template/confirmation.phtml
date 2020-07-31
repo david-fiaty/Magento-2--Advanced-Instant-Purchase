@@ -17,24 +17,3 @@
 
 <div id="aii-confirmation-content">
 </div>
-
-<script>
-    require([
-        'jquery',
-        'mage/url'
-    ], function($, UrlBuilder){
-        $(document).ready(function () {   
-            $.ajax({
-                type: "POST",
-                url: UrlBuilder.getUrl('confirmation/display'),
-                success: function (data) {
-                    $('#aii-confirmation-content').append(data.html);
-                    console.log(data);
-                },
-                error: function (request, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-    });  
-</script>
