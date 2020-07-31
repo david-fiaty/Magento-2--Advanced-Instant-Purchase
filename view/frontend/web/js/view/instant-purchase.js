@@ -160,7 +160,7 @@ define([
         getConfirmContent: function() {
             $.ajax({
                 type: "POST",
-                url: UrlBuilder.getUrl('confirmation/display'),
+                url: UrlBuilder.build('aii/confirmation/display'),
                 success: function (data) {
                     $('#aii-confirmation-content').append(data.html);
                     console.log(data);
