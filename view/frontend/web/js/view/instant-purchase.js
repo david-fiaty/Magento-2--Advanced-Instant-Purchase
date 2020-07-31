@@ -20,6 +20,8 @@ define([
 ], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
+    const SECTION_NAME = 'advanced-instant-purchase';
+
     return Component.extend({
         defaults: {
             template: 'Magento_InstantPurchase/instant-purchase',
@@ -78,8 +80,8 @@ define([
             var cartData = CustomerData.get('cart')();
 
             // Check bypass login
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
                 return aii.general.enabled && aii.guest.show_guest_button;
             }
 
@@ -102,8 +104,8 @@ define([
             var cartData = CustomerData.get('cart')();
 
             // Check button click event
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
@@ -147,8 +149,8 @@ define([
             $('.aii-button').prop('disabled', true);
 
             // Check the button state configs
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
                 if (aii.guest.click_event !== 'disabled') {
                     $('.aii-button').prop('disabled', false);
                 }
