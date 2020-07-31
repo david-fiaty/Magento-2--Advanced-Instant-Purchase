@@ -1,13 +1,8 @@
-<H1>conf data</H1>
-
+<?= $items = $block->getPurchaseContent(); ?>
 <select class="js-example-basic-single" name="state">
-  <option value="AL">Alabama</option>
-  <option value="WY">Wyoming</option>
+    <?php foreach ($items as $item): ?>
+        <option value="<?= $item['entity_id'] ?>">
+            <?= $item['street'] ?>
+        </option>
+    <?php endforeach; ?>
 </select>
-
-<pre>
-<?php
-echo print_r($block->getList(), 1);
-?>
-
-</pre>
