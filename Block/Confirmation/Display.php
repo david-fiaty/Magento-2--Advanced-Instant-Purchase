@@ -26,7 +26,7 @@ class Display extends \Magento\Framework\View\Element\Template
     /**
      * Get a list of customer addresses.
      */
-    public function getList() {
-        return $this->customerHelper->getAddresses();
+    public function getPurchaseContent() {
+        return $this->customerHelper->getPurchaseContent();
     }
 }
