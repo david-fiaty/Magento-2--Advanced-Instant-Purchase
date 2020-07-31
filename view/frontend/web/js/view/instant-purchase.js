@@ -166,7 +166,7 @@ define([
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
                     $('#aii-confirmation-content').append(data.html);
-                    $('.js-example-basic-single').select2({
+                    $('.aii-select').select2({
                         language: "en",
                         theme: "classic",
                         placeholder: "Select a state"
