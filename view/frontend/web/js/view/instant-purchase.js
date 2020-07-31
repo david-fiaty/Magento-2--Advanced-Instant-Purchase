@@ -163,6 +163,7 @@ define([
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
                     $('#aii-confirmation-content').append(data.html);
+                    $('.quick-links').dropdown();
                 },
                 error: function (request, status, error) {
                     console.log(error);
