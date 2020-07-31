@@ -17,7 +17,7 @@ define([
     'mage/translate',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation'
-], function (ko, $, _, Component, AiiCore, Select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
+], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -164,7 +164,7 @@ define([
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
                     $('#aii-confirmation-content').append(data.html);
-                    $('.js-example-basic-single').Select2();
+                    $('.js-example-basic-single').select2();
                 },
                 error: function (request, status, error) {
                     console.log(error);
