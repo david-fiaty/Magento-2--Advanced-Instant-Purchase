@@ -3,7 +3,7 @@
 
 <label for="aii-billing-select">
     <?= $block->escapeHtml(__('Billing address')) ?>
-    <select id="aii-billing-select" class="aii-select" class="js-states form-control">
+    <select id="aii-billing-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
                 <?= $item['street'] ?>&nbsp;
