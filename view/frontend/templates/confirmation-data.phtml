@@ -1,11 +1,13 @@
-<?php $items = $block->getPurchaseContent(); ?>
-
-<pre>
-    <?php echo print_r($items ,1)?>
-</pre>
+<H1>conf data</H1>
 
 <select class="js-example-basic-single" name="state">
   <option value="AL">Alabama</option>
   <option value="WY">Wyoming</option>
 </select>
 
+<pre>
+<?php
+echo print_r($block->getList(), 1);
+?>
+
+</pre>
