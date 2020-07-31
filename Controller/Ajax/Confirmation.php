@@ -50,7 +50,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             $items = $this->customerHelper->getAddresses();
 
             // Load the block HTMLs
-            $html .= $this->loadBlock($item);
+            $html .= $this->loadBlock($items);
         }
 
         return $this->jsonFactory->create()->setData(

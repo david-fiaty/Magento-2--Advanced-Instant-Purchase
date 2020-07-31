@@ -39,7 +39,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getAddresses()
     {
-        if ($customerSession->isLoggedIn()) {
+        if ($this->customerSession->isLoggedIn()) {
             // Prepare the required parameters
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerFactory->create();
