@@ -1,0 +1,40 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<p class="message"><%- data.message %></p>
+<strong><%- data.shippingAddressTitle %>:</strong>
+<p><%- data.shippingAddress %></p>
+<strong><%- data.billingAddressTitle %>:</strong>
+<p><%- data.billingAddress %></p>
+<strong><%- data.paymentMethodTitle %>:</strong>
+<p><%- data.paymentToken %></p>
+<strong><%- data.shippingMethodTitle %>:</strong>
+<p><%- data.shippingMethod %></p>
+
+<div id="aii-confirmation-content">
+</div>
+
+<script>
+    require([
+        'jquery',
+        'mage/url'
+    ], function($, UrlBuilder){
+        $(document).ready(function () {   
+            $.ajax({
+                type: "POST",
+                url: UrlBuilder.getUrl('confirmation/display'),
+                success: function (data) {
+                    $('#aii-confirmation-content').append(data.html);
+                    console.log(data);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });  
+</script>

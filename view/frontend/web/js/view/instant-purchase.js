@@ -14,7 +14,7 @@ define([
     'mage/url',
     'mage/template',
     'mage/translate',
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation'
 ], function (ko, $, _, Component, AiiCore, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
@@ -153,23 +153,6 @@ define([
                 }
             }
         },
-      
-        /**
-         * Get the confirmation page content.
-         */
-        getConfirmContent: function() {
-            $.ajax({
-                type: "POST",
-                url: UrlBuilder.getUrl('confirmation/display'),
-                success: function (data) {
-                    $('#aii-confirmation-content').append(data.html);
-                    console.log(data);
-                },
-                error: function (request, status, error) {
-                    console.log(error);
-                }
-            });
-        },
 
         /**
          * Purchase popup.
@@ -181,16 +164,7 @@ define([
                     paymentToken: this.paymentToken().summary,
                     shippingAddress: this.shippingAddress().summary,
                     billingAddress: this.billingAddress().summary,
-                    shippingMethod: this.shippingMethod().summary,
-                    lists: {
-                        //tokens: this.getPaymentTokenList(),
-                        addresses: {
-                            //billing: CustomerData.getBillingAddressList(),
-                            //shipping: CustomerData.getShippingAddressList()
-                        }
-                        //shippingMethods: this.getShippingMethodList(),
-                        //paymentMethods: this.getPaymentMethodList(),
-                    }
+                    shippingMethod: this.shippingMethod().summary
                 });
 
                 
@@ -201,6 +175,7 @@ define([
 
             ConfirmModal({
                 title: this.confirmationTitle,
+                clickableOverlay: true,
                 content: confirmTemplate({
                     data: confirmData
                 }),
