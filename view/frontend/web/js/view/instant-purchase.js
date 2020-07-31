@@ -169,7 +169,7 @@ define([
                     $('.aii-select').select2({
                         language: "en",
                         theme: "classic",
-                        placeholder: "Select a state"
+                        placeholder: $t("Select an option")
                     });
                 },
                 error: function (request, status, error) {
