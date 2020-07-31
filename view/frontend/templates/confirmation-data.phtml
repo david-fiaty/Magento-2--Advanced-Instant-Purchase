@@ -1,13 +1,13 @@
 <H1>conf data</H1>
+<?php $items = $block->getList(); ?>
 
-<select class="js-example-basic-single" name="state">
-  <option value="AL">Alabama</option>
-  <option value="WY">Wyoming</option>
-</select>
-
-<pre>
-<?php
-echo print_r($block->getList(), 1);
-?>
-
-</pre>
+<label for="aii-billing-select">
+    Click this to highlight the single select element
+    <select id="aii-billing-select" class="js-example-basic-single" class="js-states form-control">
+        <?php foreach ($items as $item): ?>
+            <option value="<?= $item['entity_id'] ?>">
+                <?= $item['street'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</label>
