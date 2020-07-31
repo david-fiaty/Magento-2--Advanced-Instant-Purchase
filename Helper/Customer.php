@@ -37,7 +37,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current customer addresses.
      */
-    public function getPurchaseContent()
+    public function getAddresses()
     {
         if ($this->customerSession->isLoggedIn()) {
             // Prepare the required parameters
@@ -56,9 +56,15 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             // Prepare the output
             if (!empty($addresses)) {
                 foreach ($addresses as $address) {
-                    $customerAddressData['addresses']['billing'][] = $address->toArray();
+                    $customerAddressData[] = $address->toArray();
                 }
             }
+
+
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
+            $logger = new \Zend\Log\Logger();
+            $logger->addWriter($writer);
+            $logger->info(print_r($customerAddressData, 1));
 
             return $customerAddressData;
         }
