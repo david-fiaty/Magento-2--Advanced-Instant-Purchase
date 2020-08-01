@@ -20,7 +20,7 @@ define([
 ], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
-    const SECTION_NAME = 'advanced-instant-purchase';
+    const SECTION_NAME = 'advancedInstantPurchase';
 
     return Component.extend({
         defaults: {
