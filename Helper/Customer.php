@@ -57,7 +57,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             $customerModel = $customer->load($customerId);
     
             // Prepare the output arrays
-            $customerData = [];
+            $confirmationData = [];
 
             // Get the addresses list
             $addresses = $customerModel->getAddresses();
@@ -67,24 +67,21 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
                 foreach ($addresses as $address) {
                     $addressArray = $address->toArray();
                     if ($addressArray['is_active'] == 1) {
-                        $customerData['addresses'][] = $addressArray;
+                        $confirmationData['addresses'][] = $addressArray;
                     }
                 }
             }
 
             // Prepare the shipping rates
-            $shippingMethods = $this->shippingSelector->getShippingRates($customer);
-            if (!empty($shippingMethods)) {
-                $customerData['shippingRates'] = $shippingMethods;
-            }
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
             // Prepare the instant purchase data
             $customerData = $this->customerData->getSectionData();
             if (!empty($customerData)) {
-                $customerData['sectionData'] = $customerData;
+                $confirmationData['sectionData'] = $customerData;
             }
 
-            return $customerData;
+            return $confirmationData;
         }
 
         return [];

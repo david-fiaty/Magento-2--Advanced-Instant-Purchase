@@ -7,17 +7,24 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class ShippingSelector
 {
     /**
-     * @var Shipping
+     * @var Config
      */
     public $shippingModel;
+
+    /**
+     * @var Config
+     */
+    public $configHelper;
 
     /**
      * ShippingSelector constructor.
      */
     public function __construct(
-        \Magento\Shipping\Model\Shipping $shippingModel
+        \Magento\Shipping\Model\Config $shippingModel,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         $this->shippingModel = $shippingModel;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -31,7 +38,6 @@ class ShippingSelector
         $address->setCollectShippingRates(true);
         $address->collectShippingRates();
         $shippingRates = $address->getAllShippingRates();
-
         if (empty($shippingRates)) {
             return null;
         }
@@ -41,26 +47,31 @@ class ShippingSelector
     }
 
     /**
-     * Gets all shipping rates avaiable.
+     * Gets all shipping methods avaiable.
      *
      * @param Customer $customer
      * @return Array
      */
     public function getShippingRates($customer)
     {
-        // Get the default shipping address
-        $address = $customer->getDefaultShippingAddress();
-        
-        // Collect the shipping rates
-        $shippingRates = $address->collectRatesByAddress($address);
+        $carriers = $this->shippingModel->getActiveCarriers();
+        $methods = [];
+        foreach ($carriers as $shippingCode => $shippingModel)
+        {
+            $carrierMethods = $shippingModel->getAllowedMethods();
+            if ($carrierMethods) {
+                foreach ($carrierMethods as $methodCode => $method) {
+                    $code = $shippingCode . '_' . $methodCode;
+                    $carrierTitle = $this->configHelper->value('carriers/'. $shippingCode.'/title', true);
+                    $methods[] = [
+                        'value' => $code,
+                        'label'=> $carrierTitle
+                    ];
+                }
+            }
+       }
 
-        // Format the data
-        $output = [];
-        foreach ($shippingRates as $rate) {
-            $output[] = $rate->toArray();
-        }
-
-        return $output;
+       return $methods;
     }
 
     /**
