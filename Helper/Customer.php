@@ -37,7 +37,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current customer addresses.
      */
-    public function getConfirmationContent()
+    public function getAddresses()
     {
         if ($this->customerSession->isLoggedIn()) {
             // Prepare the required parameters

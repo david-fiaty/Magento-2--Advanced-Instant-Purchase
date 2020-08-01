@@ -46,8 +46,11 @@ class Confirmation extends \Magento\Framework\App\Action\Action
 
         // Process the request
         if ($this->getRequest()->isAjax()) {
-            // Load the blocks HTML
-            $html .= $this->loadBlock();
+            // Get the list of addresses
+            $items = $this->customerHelper->getAddresses();
+
+            // Load the block HTMLs
+            $html .= $this->loadBlock($items);
         }
 
         return $this->jsonFactory->create()->setData(
@@ -58,11 +61,12 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     /**
      * Generate a block.
      */
-    public function loadBlock()
+    public function loadBlock($data)
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
+            ->setData('data', $data)
             ->toHtml();
     }
 }
