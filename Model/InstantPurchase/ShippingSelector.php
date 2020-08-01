@@ -10,16 +10,15 @@ class ShippingSelector
      * @var AddressFactory
      */
     public $addressFactory;
- 
+
     /**
      * Class ShippingSelector constructor.
      */
     public function __construct(
         \Magento\Customer\Model\AddressFactory $addressFactory
-    )
-    {
-        $this->addressFactory = $addressFactory;
-    }
+    ) {
+        $this->addressFactory = $addressFactory;
+    }
 
     /**
      * Selects a shipping method.
@@ -49,15 +48,14 @@ class ShippingSelector
      */
     public function getShippingMethods($customer)
     {
-        // Get the default shipping address
-        $shippingAddressId = $customer->getDefaultShipping();
-        $address = $this->addressFactory->create()->load($shippingAddressId);
-
+        $shippingAddressId = $customer->getDefaultShipping();
+        $address = $this->addressFactory->create()->load($shippingAddressId);
+        
         // Collect the shipping rates
         $address->setCollectShippingRates(true);
         $address->collectShippingRates();
         $shippingRates = $address->getAllShippingRates();
-
+        
         return $shippingRates;
     }
 
