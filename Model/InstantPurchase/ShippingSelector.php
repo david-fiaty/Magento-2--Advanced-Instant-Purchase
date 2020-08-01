@@ -32,7 +32,7 @@ class ShippingSelector
      * @param Customer $customer
      * @return Array
      */
-    public function getShippingMethods($customer)
+    public function getShippingRates($customer)
     {
         // Get the default shipping address
         $address = $customer->getDefaultShippingAddress();
