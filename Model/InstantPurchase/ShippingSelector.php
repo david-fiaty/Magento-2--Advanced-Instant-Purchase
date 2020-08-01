@@ -7,6 +7,20 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class ShippingSelector
 {
     /**
+     * @var Shipping
+     */
+    public $shippingModel;
+
+    /**
+     * ShippingSelector constructor.
+     */
+    public function __construct(
+        \Magento\Shipping\Model\Shipping $shippingModel
+    ) {
+        $this->shippingModel = $shippingModel;
+    }
+
+    /**
      * Selects a shipping method.
      *
      * @param Address $address
@@ -27,7 +41,7 @@ class ShippingSelector
     }
 
     /**
-     * Gets all shipping methods avaiable.
+     * Gets all shipping rates avaiable.
      *
      * @param Customer $customer
      * @return Array
@@ -38,11 +52,15 @@ class ShippingSelector
         $address = $customer->getDefaultShippingAddress();
         
         // Collect the shipping rates
-        $address->setCollectShippingRates(true);
-        $address->collectShippingRates();
-        $shippingRates = $address->getAllShippingRates();
+        $shippingRates = $address->collectRatesByAddress($address);
 
-        return $shippingRates;
+        // Format the data
+        $output = [];
+        foreach ($shippingRates as $rate) {
+            $output[] = $rate->toArray();
+        }
+
+        return $output;
     }
 
     /**

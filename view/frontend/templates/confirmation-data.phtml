@@ -1,10 +1,13 @@
 <?php 
+    // Get the confirmation screen content
     $content = $block->getConfirmContent();
     $addresses = $content['addresses'];
+    $shippingRates = $content['shippingRates'];
+
+    // Get the default values
     $paymentToken = $content['sectionData']['paymentToken'];
     $shippingAddress = $content['sectionData']['shippingAddress'];
     $billingAddress = $content['sectionData']['billingAddress'];
-    $shippingMethod = $content['sectionData']['shippingMethod'];
 ?>
 <label for="aii-billing-address-select">
     <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
@@ -42,7 +45,7 @@
     <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
     <p>
         <select id="aii-shipping-method-select" class="aii-select js-states form-control">
-            <?php foreach ($addresses as $item): ?>
+            <?php foreach ($shippingRates as $item): ?>
                 <option value="<?= $item['entity_id'] ?>">
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?> &nbsp;
