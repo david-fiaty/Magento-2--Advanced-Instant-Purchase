@@ -7,7 +7,7 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var toreManagerInterface
+     * @var StoreManagerInterface
      */
     public $storeManager;
 
@@ -73,7 +73,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             }
 
             // Prepare the shipping methods
-            $shippingMethods = $this->shippingSelector->getShippingMethods();
+            $shippingMethods = $this->shippingSelector->getShippingMethods($customer);
             if (!empty($shippingMethods)) {
                 $customerAddressData['shippingMethods'] = $shippingMethods;
             }
