@@ -1,6 +1,6 @@
 <?php $items = $block->getConfirmContent(); ?>
 <label for="aii-billing-address-select">
-    <strong><?= $block->escapeHtml(__('Billing address')) ?></strong>
+    <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
     <select id="aii-billing-address-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
@@ -14,7 +14,7 @@
 </label>
 
 <label for="aii-shipping-address-select">
-    <strong><?= $block->escapeHtml(__('Shipping address')) ?></strong>
+    <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
     <select id="aii-shipping-address-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
@@ -28,7 +28,7 @@
 </label>
 
 <label for="aii-shipping-method-select">
-    <strong><?= $block->escapeHtml(__('Shipping method')) ?></strong>
+    <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
     <select id="aii-shipping-method-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
@@ -42,7 +42,7 @@
 </label>
 
 <label for="aii-payment-method-select">
-    <?= $block->escapeHtml(__('Payment method')) ?>
+    <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
     <select id="aii-payment-method-select" class="aii-select js-states form-control">
         <?php foreach ($items as $item): ?>
             <option value="<?= $item['entity_id'] ?>">
