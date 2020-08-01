@@ -224,6 +224,12 @@ define([
                 return;
             }*/
 
+            console.log('form.serializeArray');
+            console.log(form.serializeArray());
+
+            console.log('form.serializ');
+            console.log(form.serialize());
+
             // Open the modal
             this.getConfirmModal(confirmData, form);
 
