@@ -33,12 +33,14 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData 
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector
     ) {
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerData = $customerData;
+        $this->shippingSelector = $shippingSelector;
     }
 
     /**
@@ -68,6 +70,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
                         $customerAddressData['addresses'][] = $addressArray;
                     }
                 }
+            }
+
+            // Prepare the shipping methods
+            $shippingMethods = $this->shippingSelector->getShippingMethods();
+            if (!empty($shippingMethods)) {
+                $customerAddressData['shippingMethods'] = $shippingMethods;
             }
 
             // Prepare the instant purchase data

@@ -27,6 +27,25 @@ class ShippingSelector
     }
 
     /**
+     * Gets all shipping methods.
+     *
+     * @param Address $address
+     * @return Array
+     */
+    public function getShippingMethods($address)
+    {
+        $address->setCollectShippingRates(true);
+        $address->collectShippingRates();
+        $shippingRates = $address->getAllShippingRates();
+
+        if (empty($shippingRates)) {
+            return null;
+        }
+
+        return $shippingRates;
+    }
+
+    /**
      * Selects shipping price with minimal price.
      *
      * @param Rate[] $shippingRates
