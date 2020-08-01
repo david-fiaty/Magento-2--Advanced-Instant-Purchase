@@ -1,56 +1,64 @@
 <?php $items = $block->getConfirmContent(); ?>
 <label for="aii-billing-address-select">
     <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
-    <select id="aii-billing-address-select" class="aii-select js-states form-control">
-        <?php foreach ($items as $item): ?>
-            <option value="<?= $item['entity_id'] ?>">
-                <?= $item['street'] ?>&nbsp;
-                <?= $item['postcode'] ?> &nbsp;
-                <?= $item['city'] ?> &nbsp;
-                <?= $item['country_id'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <p>
+        <select id="aii-billing-address-select" class="aii-select js-states form-control">
+            <?php foreach ($items as $item): ?>
+                <option value="<?= $item['entity_id'] ?>">
+                    <?= $item['street'] ?>&nbsp;
+                    <?= $item['postcode'] ?> &nbsp;
+                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['country_id'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
 </label>
 
 <label for="aii-shipping-address-select">
     <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
-    <select id="aii-shipping-address-select" class="aii-select js-states form-control">
-        <?php foreach ($items as $item): ?>
-            <option value="<?= $item['entity_id'] ?>">
-                <?= $item['street'] ?>&nbsp;
-                <?= $item['postcode'] ?> &nbsp;
-                <?= $item['city'] ?> &nbsp;
-                <?= $item['country_id'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <p>
+        <select id="aii-shipping-address-select" class="aii-select js-states form-control">
+            <?php foreach ($items as $item): ?>
+                <option value="<?= $item['entity_id'] ?>">
+                    <?= $item['street'] ?>&nbsp;
+                    <?= $item['postcode'] ?> &nbsp;
+                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['country_id'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
 </label>
 
 <label for="aii-shipping-method-select">
     <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
-    <select id="aii-shipping-method-select" class="aii-select js-states form-control">
-        <?php foreach ($items as $item): ?>
-            <option value="<?= $item['entity_id'] ?>">
-                <?= $item['street'] ?>&nbsp;
-                <?= $item['postcode'] ?> &nbsp;
-                <?= $item['city'] ?> &nbsp;
-                <?= $item['country_id'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <p>
+        <select id="aii-shipping-method-select" class="aii-select js-states form-control">
+            <?php foreach ($items as $item): ?>
+                <option value="<?= $item['entity_id'] ?>">
+                    <?= $item['street'] ?>&nbsp;
+                    <?= $item['postcode'] ?> &nbsp;
+                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['country_id'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
 </label>
 
 <label for="aii-payment-method-select">
     <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
-    <select id="aii-payment-method-select" class="aii-select js-states form-control">
-        <?php foreach ($items as $item): ?>
-            <option value="<?= $item['entity_id'] ?>">
-                <?= $item['street'] ?>&nbsp;
-                <?= $item['postcode'] ?> &nbsp;
-                <?= $item['city'] ?> &nbsp;
-                <?= $item['country_id'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <p>
+        <select id="aii-payment-method-select" class="aii-select js-states form-control">
+            <?php foreach ($items as $item): ?>
+                <option value="<?= $item['entity_id'] ?>">
+                    <?= $item['street'] ?>&nbsp;
+                    <?= $item['postcode'] ?> &nbsp;
+                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['country_id'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
 </label>
