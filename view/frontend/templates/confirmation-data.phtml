@@ -1,10 +1,17 @@
-<?php $items = $block->getConfirmContent(); ?>
+<?php 
+    $content = $block->getConfirmContent();
+    $addresses = $content['addresses'];
+    $paymentToken = $content['sectionData']['paymentToken'];
+    $shippingAddress = $content['sectionData']['shippingAddress'];
+    $billingAddress = $content['sectionData']['billingAddress'];
+    $shippingMethod = $content['sectionData']['shippingMethod'];
+?>
 <label for="aii-billing-address-select">
     <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
     <p>
         <select id="aii-billing-address-select" class="aii-select js-states form-control">
-            <?php foreach ($items as $item): ?>
-                <option value="<?= $item['entity_id'] ?>">
+            <?php foreach ($addresses as $item): ?>
+                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $billingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?> &nbsp;
                     <?= $item['city'] ?> &nbsp;
@@ -19,8 +26,8 @@
     <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
     <p>
         <select id="aii-shipping-address-select" class="aii-select js-states form-control">
-            <?php foreach ($items as $item): ?>
-                <option value="<?= $item['entity_id'] ?>">
+            <?php foreach ($addresses as $item): ?>
+                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $shippingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?> &nbsp;
                     <?= $item['city'] ?> &nbsp;
@@ -35,7 +42,7 @@
     <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
     <p>
         <select id="aii-shipping-method-select" class="aii-select js-states form-control">
-            <?php foreach ($items as $item): ?>
+            <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>">
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?> &nbsp;
@@ -51,7 +58,7 @@
     <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
     <p>
         <select id="aii-payment-method-select" class="aii-select js-states form-control">
-            <?php foreach ($items as $item): ?>
+            <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>">
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?> &nbsp;

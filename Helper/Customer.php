@@ -22,16 +22,23 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
+     * @var CustomerData
+     */
+    public $customerData;
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData 
     ) {
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
+        $this->customerData = $customerData;
     }
 
     /**
@@ -53,14 +60,20 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             // Get the addresses list
             $addresses = $customerModel->getAddresses();
     
-            // Prepare the output
+            // Prepare the addresses
             if (!empty($addresses)) {
                 foreach ($addresses as $address) {
                     $addressArray = $address->toArray();
                     if ($addressArray['is_active'] == 1) {
-                        $customerAddressData[] = $addressArray;
+                        $customerAddressData['addresses'][] = $addressArray;
                     }
                 }
+            }
+
+            // Prepare the instant purchase data
+            $customerData = $this->customerData->getSectionData();
+            if (!empty($customerData)) {
+                $customerAddressData['sectionData'] = $customerData;
             }
 
             return $customerAddressData;
