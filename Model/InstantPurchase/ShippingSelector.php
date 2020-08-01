@@ -7,20 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class ShippingSelector
 {
     /**
-     * @var AddressFactory
-     */
-    public $addressFactory;
-
-    /**
-     * Class ShippingSelector constructor.
-     */
-    public function __construct(
-        \Magento\Customer\Model\AddressFactory $addressFactory
-    ) {
-        $this->addressFactory = $addressFactory;
-    }
-
-    /**
      * Selects a shipping method.
      *
      * @param Address $address
@@ -48,14 +34,14 @@ class ShippingSelector
      */
     public function getShippingMethods($customer)
     {
-        $shippingAddressId = $customer->getDefaultShipping();
-        $address = $this->addressFactory->create()->load($shippingAddressId);
+        // Get the default shipping address
+        $address = $customer->getDefaultShippingAddress();
         
         // Collect the shipping rates
         $address->setCollectShippingRates(true);
         $address->collectShippingRates();
         $shippingRates = $address->getAllShippingRates();
-        
+
         return $shippingRates;
     }
 
