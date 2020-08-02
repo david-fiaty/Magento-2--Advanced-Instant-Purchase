@@ -105,8 +105,8 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             $data += [
                 'advancedInstantPurchase' => $this->config->getValues(),
                 'paymentToken' => [
-                    'publicHash' => $paymentToken->getPublicHash(),
-                    'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken),
+                    'publicHash' => $paymentToken['data']->getPublicHash(),
+                    'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken['data']),
                 ],
                 'shippingAddress' => [
                     'id' => $shippingAddress->getId(),
