@@ -192,7 +192,7 @@ class  VaultHandlerService
                 if ($this->cardHandler->isCardActive($card)) {
                     $output[] = [
                         'data' => $card,
-                        'icon' => $this->cardHandler->getIcon($card->getType())
+                        'icon' => $this->cardHandler->getCardIcon($card->getType())
                     ];
                 }
             }
