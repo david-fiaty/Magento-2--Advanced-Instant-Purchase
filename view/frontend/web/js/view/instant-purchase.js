@@ -162,10 +162,7 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            console.log('option');
-            console.log(state);
-
-            if (!state.id) {
+            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
                 return state.text;
             }
 

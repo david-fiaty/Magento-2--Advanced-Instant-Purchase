@@ -59,7 +59,7 @@
 <label for="aii-payment-method-select">
     <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
     <p>
-        <select id="aii-payment-method-select" class="aii-select js-states form-control">
+        <select id="aii-payment-method-select" class="aii-select aii-payment-method-select js-states form-control">
             <?php foreach ($cards as $item): ?>
                 <option value="<?= $item['icon'] ?>">
                     <?= $item['data']->getType() ?>&nbsp;
