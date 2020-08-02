@@ -168,6 +168,7 @@ define([
             }
 
             var iconUrl = state.element.value.split('*~*')[1];
+            // Todo - move the card icon CSS to a CSS file
             var iconHtml = $(
                 '<span style="display:flex; align-items:center;"><img src="' + iconUrl + '" class="img-flag">'
                 + state.text + '</span>'
