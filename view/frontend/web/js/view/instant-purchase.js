@@ -167,13 +167,14 @@ define([
                 return state.text;
             }
 
-            var imageHtml = $(
+            var iconUrl = state.element.value.split('*~*')[1];
+            var iconHtml = $(
                 '<span><img src="'
-                + self.getOptionIconUrl(state.element.value)
+                + iconUrl
                 + '" class="img-flag" /> ' + state.text + '</span>'
             );
 
-            return imageHtml;
+            return iconHtml;
         },
 
         /**
@@ -181,13 +182,6 @@ define([
          */
         getOptionPublicHash: function(val) {
             return val.split('*~*')[0];
-        },
-
-        /**
-         * Get a card option icon URL.
-         */
-        getOptionIconUrl: function(val) {
-            return val.split('*~*')[1];
         },
 
         /**
