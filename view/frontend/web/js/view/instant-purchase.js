@@ -196,7 +196,8 @@ define([
 
                     // Set the lists events
                     $('.aii-select').on('change', function () {
-                        
+                        var targetField = $(this).attr('data-field');
+                        $('input[name="' + targetField + '"]').val($(this).val());
                     });
                 },
                 error: function (request, status, error) {
