@@ -169,7 +169,7 @@ define([
 
             var iconUrl = state.element.value.split('*~*')[1];
             var iconHtml = $(
-                '<span style="display:flex; align-items:center; margin-right: 15px"><img src="' + iconUrl + '" class="img-flag">'
+                '<span style="display:flex; align-items:center; margin: 10px"><img src="' + iconUrl + '" class="img-flag">'
                 + state.text + '</span>'
             );
 
