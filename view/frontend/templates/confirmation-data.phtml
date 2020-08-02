@@ -62,7 +62,7 @@
         <select id="aii-payment-method-select" class="aii-select js-states form-control">
             <?php foreach ($cards as $item): ?>
                 <option value="<?= $item['data']->getPublicHash() ?>">
-                    <img src="<?= $item['icon'] ?>" alt="<?= $item['data']->getType() ?>">&nbsp;
+                    <span><img src="<?= $item['icon'] ?>" alt="<?= $item['data']->getType() ?>" class="img-flag"></span>&nbsp;
                     <?= $item['data']->getType() ?>&nbsp;
                     <?= $item['data']->getExpiresAt() ?>&nbsp;
                     <?= $item['data']->getPaymentMethodCode() ?>
