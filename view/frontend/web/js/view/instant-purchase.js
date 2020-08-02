@@ -34,6 +34,7 @@ define([
             shippingMethod: null,
             productFormSelector: '#product_addtocart_form',
             buttonSelector: '.aii-button',
+            listSelector: '.aii-select',
             confirmationTitle: $t('Instant Purchase Confirmation'),
             confirmationData: {
                 message: $t('Are you sure you want to place order and pay?'),
@@ -162,7 +163,6 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            var self = this;
             if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
                 return state.text;
             }
@@ -197,7 +197,7 @@ define([
                     $('#aii-confirmation-content').append(data.html);
 
                     // Initialise the select lists
-                    $('.aii-select').select2({
+                    $(self.listSelector).select2({
                         language: 'en',
                         theme: 'classic',
                         templateResult: self.formatIcon,
@@ -205,7 +205,7 @@ define([
                     });
 
                     // Set the lists events
-                    $('.aii-select').on('change', function () {
+                    $(self.listSelector).on('change', function () {
                         var targetField = $(this).attr('data-field');
                         var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
                         ? self.getOptionPublicHash(fieldValue)
