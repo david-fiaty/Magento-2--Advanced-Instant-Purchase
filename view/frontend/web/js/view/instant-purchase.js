@@ -200,7 +200,6 @@ define([
                     $('.aii-select').select2({
                         language: 'en',
                         theme: 'classic',
-                        placeholder: $t('Select an option'),
                         templateResult: self.formatIcon,
                         templateSelection: self.formatIcon
                     });
