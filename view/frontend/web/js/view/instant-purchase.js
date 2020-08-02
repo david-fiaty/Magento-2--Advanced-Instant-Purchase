@@ -167,10 +167,26 @@ define([
             }
 
             var imageHtml = $(
-                '<span><img src="' + state.element.value + '" class="img-flag" /> ' + state.text + '</span>'
+                '<span><img src="'
+                + this.getOptionIconUrl(state.element.value)
+                + '" class="img-flag" /> ' + state.text + '</span>'
             );
 
             return imageHtml;
+        },
+
+        /**
+         * Get a card option public hash.
+         */
+        getOptionPublicHash: function(val) {
+            return val.split('*~*')[0];
+        },
+
+        /**
+         * Get a card option icon URL.
+         */
+        getOptionIconUrl: function(val) {
+            return val.split('*~*')[1];
         },
 
         /**
@@ -179,7 +195,7 @@ define([
         getConfirmContent: function() {
             var self = this;
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
                     // Get the HTML content
@@ -187,9 +203,9 @@ define([
 
                     // Initialise the select lists
                     $('.aii-select').select2({
-                        language: "en",
-                        theme: "classic",
-                        placeholder: $t("Select an option"),
+                        language: 'en',
+                        theme: 'classic',
+                        placeholder: $t('Select an option'),
                         templateResult: self.formatIcon,
                         templateSelection: self.formatIcon
                     });
@@ -197,7 +213,10 @@ define([
                     // Set the lists events
                     $('.aii-select').on('change', function () {
                         var targetField = $(this).attr('data-field');
-                        $('input[name="' + targetField + '"]').val($(this).val());
+                        var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
+                        ? self.getOptionPublicHash(fieldValue)
+                        : fieldValue;
+                        $('input[name="' + targetField + '"]').val(fieldValue);
                     });
                 },
                 error: function (request, status, error) {
