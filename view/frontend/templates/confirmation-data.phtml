@@ -13,7 +13,7 @@
 <label for="aii-billing-address-select">
     <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
     <p>
-        <select id="aii-billing-address-select" class="aii-select js-states form-control">
+        <select id="aii-billing-address-select" data-field="instant_purchase_billing_address" class="aii-select js-states form-control">
             <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $billingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
@@ -29,7 +29,7 @@
 <label for="aii-shipping-address-select">
     <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
     <p>
-        <select id="aii-shipping-address-select" class="aii-select js-states form-control">
+        <select id="aii-shipping-address-select" data-field="instant_purchase_shipping_address" class="aii-select js-states form-control">
             <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $shippingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
@@ -45,7 +45,7 @@
 <label for="aii-shipping-method-select">
     <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
     <p>
-        <select id="aii-shipping-method-select" class="aii-select js-states form-control">
+        <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
             <?php foreach ($shippingRates as $item): ?>
                 <option value="<?= $item['value'] ?>">
                     <?= $item['label'] ?>&nbsp;
@@ -59,7 +59,7 @@
 <label for="aii-payment-method-select">
     <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
     <p>
-        <select id="aii-payment-method-select" class="aii-select aii-payment-method-select js-states form-control">
+        <select id="aii-payment-method-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
             <?php foreach ($cards as $item): ?>
                 <option value="<?= $item['icon'] ?>">
                     <?= $item['data']->getType() ?>&nbsp;

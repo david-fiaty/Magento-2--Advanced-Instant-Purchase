@@ -182,13 +182,21 @@ define([
                 type: "POST",
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
+                    // Get the HTML content
                     $('#aii-confirmation-content').append(data.html);
+
+                    // Initialise the select lists
                     $('.aii-select').select2({
                         language: "en",
                         theme: "classic",
                         placeholder: $t("Select an option"),
                         templateResult: self.formatIcon,
                         templateSelection: self.formatIcon
+                    });
+
+                    // Set the lists events
+                    $('.aii-select').on('change', function () {
+                        
                     });
                 },
                 error: function (request, status, error) {
