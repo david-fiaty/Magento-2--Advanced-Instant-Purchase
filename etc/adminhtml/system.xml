@@ -39,9 +39,9 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show the Instant Purchase button to guest users.</comment>
                 </field> 
-                <field id="login_flow" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Login flow</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\LoginFlow</source_model>
+                <field id="click_event" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Click event</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ClickEvent</source_model>
                     <depends>
                         <field id="show_guest_button">1</field>
                     </depends>

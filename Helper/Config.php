@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Connfig
+ * Class Config.
  */
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -24,7 +24,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
-     * Class Config constructor
+     * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
@@ -39,9 +39,9 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a module configuration value.
      */
-    public function value($field)
+    public function value($field, $core = false)
     {
-        $path = 'advanced_instant_purchase/' . $field;
+        $path = !$core ? 'advanced_instant_purchase/' . $field : $field;
         return $this->scopeConfig->getValue(
             $path,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE

@@ -15,9 +15,11 @@
  var config = {
     map: {
         '*': {
-            aiiDisplay: 'Naxero_AdvancedInstantPurchase/js/display',
             aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
         }
+    },
+    paths: {
+        select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full'
     }
 };
 

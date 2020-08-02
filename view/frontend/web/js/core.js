@@ -15,14 +15,13 @@
 define(
     [
         'jquery',
-        'aiiDisplay',
         'mage/translate',
     ],
-    function ($, AAIDisplay, __) {
+    function ($, __) {
         'use strict';
 
         return {
-            getConfig: function () {
+            test: function() {
             }
         };
     }

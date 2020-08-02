@@ -2,9 +2,9 @@
 namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
 
 /**
- * Class LoginFlow
+ * Class ClickEvent
  */
-class LoginFlow implements \Magento\Framework\Option\ArrayInterface
+class ClickEvent implements \Magento\Framework\Option\ArrayInterface
 {
     /**
      * Options getter
@@ -21,6 +21,10 @@ class LoginFlow implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => 'redirect',
                 'label' => __('Redirect to the login page')
+            ],
+            [
+                'value' => 'disabled',
+                'label' => __('Click disabled')
             ]
         ];
     }

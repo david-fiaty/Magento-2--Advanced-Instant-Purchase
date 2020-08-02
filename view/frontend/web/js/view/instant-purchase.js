@@ -7,22 +7,26 @@ define([
     'jquery',
     'underscore',
     'uiComponent',
+    'aiiCore',
+    'select2',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
     'mage/translate',
-    'text!Magento_InstantPurchase/template/confirmation.html',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation'
-], function (ko, $, _, Component, confirm, customerData, authPopup, urlBuilder, mageTemplate, $t, confirmationTemplate) {
+], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
+
+    const SECTION_NAME = 'advancedInstantPurchase';
 
     return Component.extend({
         defaults: {
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: $t('Instant Purchase'),
-            purchaseUrl: urlBuilder.build('instantpurchase/button/placeOrder'),
+            purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -40,15 +44,15 @@ define([
         },
 
         /** @inheritdoc */
-        initialize: function () {
-            var instantPurchase = customerData.get('instant-purchase');
+        initialize: function() {
+            var instantPurchase = CustomerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
         },
 
         /** @inheritdoc */
-        initObservable: function () {
+        initObservable: function() {
             this._super()
                 .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
 
@@ -56,14 +60,12 @@ define([
         },
 
         /**
-         * Set data from customerData.
+         * Set data from CustomerData.
          *
          * @param {Object} data
          */
-        setPurchaseData: function (data) {
-            // Todo - check availability rules
-            //this.showButton(data.available);
-            this.showButton(true);
+        setPurchaseData: function(data) {
+            this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
@@ -71,55 +73,148 @@ define([
         },
 
         /**
-         * Check if customer is logged in
+         * Bypass the logged in requirement.
          */
-        isLoggedIn: function () {
-            var data = customerData.get('customer')();
-            return data.hasOwnProperty('data_id');
+        bypassLogin: function() {
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
+
+            // Check bypass login
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
+                return aii.general.enabled && aii.guest.show_guest_button;
+            }
+
+            return false;
         },
 
         /**
-         * Login popup.
+         * Check if customer is logged in.
          */
-        loginPopup: function () {
-            authPopup.createPopUp('.block-authentication');
-            authPopup.showModal();
+        isLoggedIn: function() {
+            var customer = CustomerData.get('customer')();
+            return customer.fullname && customer.firstname;
         },
-        
+
         /**
-         * Purchase popup
+         * Handle the button click event.
          */
-        purchasePopup: function () {
-            var form = $(this.productFormSelector),
-                confirmTemplate = mageTemplate(confirmationTemplate),
-                confirmData = _.extend({}, this.confirmationData, {
-                    paymentToken: this.paymentToken().summary,
-                    shippingAddress: this.shippingAddress().summary,
-                    billingAddress: this.billingAddress().summary,
-                    shippingMethod: this.shippingMethod().summary
-                });
+        handleButtonClick: function() {
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
 
-            // Todo - Check the validation rules
-            /*if (!(form.validation() && form.validation('isValid'))) {
-                return;
-            }*/
+            // Check button click event
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
 
-            confirm({
+                // Handle the button click logic
+                if (this.isLoggedIn()) {
+                    this.purchasePopup();
+                } else {
+                    switch(aii.guest.click_event) {
+                        case 'popup':
+                            this.loginPopup();
+                        break;
+
+                        case 'redirect':
+                            this.loginRedirect();
+                        break;
+                    }
+                }
+            }
+        },
+
+        /**
+         * Create a login popup.
+         */
+        loginPopup: function() {
+            AuthPopup.createPopUp('.block-authentication');
+            AuthPopup.showModal();
+        },
+
+        /**
+         * Create a login redirection.
+         */
+        loginRedirect: function() {
+            var loginUrl = UrlBuilder.build('customer/account/login');
+            window.location.href = loginUrl;
+        },
+
+        /**
+         * Get the button state.
+         */
+        shouldDisableButton: function() {
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
+            $('.aii-button').prop('disabled', true);
+
+            // Check the button state configs
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
+                if (aii.guest.click_event !== 'disabled') {
+                    $('.aii-button').prop('disabled', false);
+                }
+            }
+        },
+
+        /**
+         * Format a card icon.
+         */
+        formatIcon: function(state) {
+            if (!state.id) {
+                return state.text;
+            }
+
+            var $state = $(
+                '<span><img src="' + state.element.value + '" class="img-flag" /> ' + state.text + '</span>'
+            );
+
+            return $state;
+        },
+
+        /**
+         * Get the confirmation page content.
+         */
+        getConfirmContent: function() {
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: UrlBuilder.build('aii/ajax/confirmation'),
+                success: function (data) {
+                    $('#aii-confirmation-content').append(data.html);
+                    $('.aii-select').select2({
+                        language: "en",
+                        theme: "classic",
+                        placeholder: $t("Select an option"),
+                        templateResult: self.formatIcon,
+                        templateSelection: self.formatIcon
+                    });
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        },
+
+        /**
+         * Get the confirmation page modal popup.
+         */
+        getConfirmModal: function(confirmData, form) {
+            var confirmTemplate = MageTemplate(ConfirmationTemplate);
+            ConfirmModal({
                 title: this.confirmationTitle,
+                clickableOverlay: true,
                 content: confirmTemplate({
                     data: confirmData
                 }),
                 actions: {
-                    /** @inheritdoc */
-                    confirm: function () {
+                    confirm: function() {
                         $.ajax({
                             url: this.purchaseUrl,
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',
-
-                            /** Show loader before send */
-                            beforeSend: function () {
+                            beforeSend: function() {
                                 $('body').trigger('processStart');
                             }
                         }).always(function () {
@@ -128,6 +223,36 @@ define([
                     }.bind(this)
                 }
             });
+        },
+
+        /**
+         * Purchase popup.
+         */
+        purchasePopup: function() {
+            var form = $(this.productFormSelector),
+            confirmData = _.extend({}, this.confirmationData, {
+                paymentToken: this.paymentToken().summary,
+                shippingAddress: this.shippingAddress().summary,
+                billingAddress: this.billingAddress().summary,
+                shippingMethod: this.shippingMethod().summary
+            });
+
+            // Todo - Check the validation rules
+            /*if (!(form.validation() && form.validation('isValid'))) {
+                return;
+            }*/
+
+            console.log('form.serializeArray');
+            console.log(form.serializeArray());
+
+            console.log('form.serializ');
+            console.log(form.serialize());
+
+            // Open the modal
+            this.getConfirmModal(confirmData, form);
+
+            // Get the AJAX content
+            this.getConfirmContent();
         }
     });
 });

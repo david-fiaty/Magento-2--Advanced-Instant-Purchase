@@ -1,13 +1,7 @@
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<if args="showButton()">
+<!-- ko if: (showButton() || bypassLogin()) -->
     <button type="button"
-           class="action primary instant-purchase"
-           data-bind="click: isLoggedIn() ? purchasePopup : loginPopup, css: isLoggedIn() ? 'aii-login-popup' : ''"
+           class="action primary instant-purchase aii-button"
+           data-bind="afterRender: shouldDisableButton, click: handleButtonClick, css: isLoggedIn() ? 'aii-login-popup' : ''"
            attr="title: $t(buttonText)">
            <span translate="buttonText" />
     </button>
@@ -31,4 +25,4 @@
                name="instant_purchase_shipping"
                ko-value="shippingMethod().method" />
     </if>
-</if>
+<!-- /ko -->

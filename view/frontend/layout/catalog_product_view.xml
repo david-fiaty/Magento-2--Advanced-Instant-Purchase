@@ -6,9 +6,12 @@
  */
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Naxero_AdvancedInstantPurchase::css/select2/select2.min.css" />
+    </head>
     <body>
         <referenceBlock name="product.info.addtocart">
-            <block name="product.info.addtocart.instantPurchase" class="Magento\InstantPurchase\Block\Button" template="Magento_InstantPurchase::button.phtml" before="-">
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button" template="Naxero_AdvancedInstantPurchase::button.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="components" xsi:type="array">

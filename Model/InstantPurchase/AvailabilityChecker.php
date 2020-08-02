@@ -17,9 +17,19 @@ class AvailabilityChecker
     public $config;
 
     /**
+     * @var InstantPurchaseInterface
+     */
+    public $instantPurchase;
+
+    /**
      * @var VaultHandlerService
      */
-    private $vaultHandler;
+    public $vaultHandler;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
 
     /**
      * AvailabilityChecker constructor
@@ -27,28 +37,41 @@ class AvailabilityChecker
     public function __construct(
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $config,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->customerSession = $customerSession;
         $this->config = $config;
+        $this->instantPurchase = $instantPurchase;
         $this->vaultHandler = $vaultHandler;
+        $this->storeManager = $storeManager;
     }
 
     /**
      * @inheritdoc
      */
     public function isAvailable()
-    {
+    {        
         if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
             // Logged in button display
             if ($this->customerSession->isLoggedIn()) {
-                return $this->shippingValid()
-                && $this->billingValid()
-                && $this->paymentValid();
-            }        
+                // Load the option
+                $instantPurchaseOption = $this->instantPurchase->getOption(
+                    $this->storeManager->getStore(),
+                    $this->customerSession->getCustomer()
+                );
 
-            // Guest button display
-            return $this->config->value('guest/show_guest_button');
+                // Test the availability
+                return $this->shippingValid($instantPurchaseOption)
+                && $this->billingValid($instantPurchaseOption)
+                && $this->paymentValid($instantPurchaseOption);
+            }
+            else if ($this->config->value('guest/show_guest_button')) {
+                return true;
+            }     
+
+            return false;
         }
 
         return false;
@@ -57,24 +80,37 @@ class AvailabilityChecker
     /**
      * Check if shipping is valid for display.
      */
-    public function shippingValid()
+    public function shippingValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_shipping');
+        if ($this->config->value('registered/bypass_missing_shipping')) {
+            return true;
+        }
+
+        return $instantPurchaseOption->getShippingAddress()
+        && $instantPurchaseOption->getShippingMethod();
     }
 
     /**
      * Check if billing is valid for display.
      */
-    public function billingValid()
+    public function billingValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_billing');
+        if ($this->config->value('registered/bypass_missing_billing')) {
+            return true;
+        }
+
+        return $instantPurchaseOption->getBillingAddress();
     }
 
     /**
      * Check if payment is valid for display.
      */
-    public function paymentValid()
+    public function paymentValid($instantPurchaseOption)
     {
-        return $this->config->value('registered/bypass_missing_payment');
+        if ($this->config->value('registered/bypass_missing_payment')) {
+            return true;
+        }
+
+        return $this->vaultHandler->getLastSavedCard();
     }
 }
