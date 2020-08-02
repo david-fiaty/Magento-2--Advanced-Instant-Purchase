@@ -166,11 +166,11 @@ define([
                 return state.text;
             }
 
-            var $state = $(
+            var imageHtml = $(
                 '<span><img src="' + state.element.value + '" class="img-flag" /> ' + state.text + '</span>'
             );
 
-            return $state;
+            return imageHtml;
         },
 
         /**
