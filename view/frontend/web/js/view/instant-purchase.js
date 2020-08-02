@@ -162,13 +162,14 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
+            var self = this;
             if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
                 return state.text;
             }
 
             var imageHtml = $(
                 '<span><img src="'
-                + this.getOptionIconUrl(state.element.value)
+                + self.getOptionIconUrl(state.element.value)
                 + '" class="img-flag" /> ' + state.text + '</span>'
             );
 
