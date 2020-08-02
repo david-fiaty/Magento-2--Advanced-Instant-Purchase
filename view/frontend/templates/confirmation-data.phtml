@@ -62,7 +62,7 @@
         <select id="aii-payment-method-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
             <?php foreach ($cards as $item): ?>
                 <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
-                    <?= $item['token'] ?>
+                    &nbsp;&nbsp;<?= $item['token'] ?>
                 </option>
             <?php endforeach; ?>
         </select>
