@@ -20,6 +20,8 @@ define([
 ], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
+    const SECTION_NAME = 'advancedInstantPurchase';
+
     return Component.extend({
         defaults: {
             template: 'Magento_InstantPurchase/instant-purchase',
@@ -78,8 +80,8 @@ define([
             var cartData = CustomerData.get('cart')();
 
             // Check bypass login
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
                 return aii.general.enabled && aii.guest.show_guest_button;
             }
 
@@ -102,8 +104,8 @@ define([
             var cartData = CustomerData.get('cart')();
 
             // Check button click event
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
@@ -147,27 +149,45 @@ define([
             $('.aii-button').prop('disabled', true);
 
             // Check the button state configs
-            if (cartData && cartData.hasOwnProperty('advanced-instant-purchase')) {
-                var aii = cartData['advanced-instant-purchase'];
+            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
+                var aii = cartData[SECTION_NAME];
                 if (aii.guest.click_event !== 'disabled') {
                     $('.aii-button').prop('disabled', false);
                 }
             }
         },
-      
+
+        /**
+         * Format a card icon.
+         */
+        formatIcon: function(state) {
+            if (!state.id) {
+                return state.text;
+            }
+
+            var $state = $(
+                '<span><img src="' + state.element.value + '" class="img-flag" /> ' + state.text + '</span>'
+            );
+
+            return $state;
+        },
+
         /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
+            var self = this;
             $.ajax({
                 type: "POST",
                 url: UrlBuilder.build('aii/ajax/confirmation'),
                 success: function (data) {
                     $('#aii-confirmation-content').append(data.html);
-                    $('.js-example-basic-single').select2({
+                    $('.aii-select').select2({
                         language: "en",
                         theme: "classic",
-                        placeholder: "Select a state"
+                        placeholder: $t("Select an option"),
+                        templateResult: self.formatIcon,
+                        templateSelection: self.formatIcon
                     });
                 },
                 error: function (request, status, error) {
@@ -221,6 +241,12 @@ define([
             /*if (!(form.validation() && form.validation('isValid'))) {
                 return;
             }*/
+
+            console.log('form.serializeArray');
+            console.log(form.serializeArray());
+
+            console.log('form.serializ');
+            console.log(form.serialize());
 
             // Open the modal
             this.getConfirmModal(confirmData, form);

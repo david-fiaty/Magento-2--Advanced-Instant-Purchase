@@ -190,7 +190,11 @@ class  VaultHandlerService
             $cards = $this->paymentTokenManagement->getListByCustomerId($customerId);
             foreach ($cards as $card) {
                 if ($this->cardHandler->isCardActive($card)) {
-                    $output[] = $card;
+                    $details = json_decode($card->getTokenDetails());
+                    $output[] = [
+                        'data' => $card,
+                        'icon' => $this->cardHandler->getCardIcon($details->type)
+                    ];
                 }
             }
         }

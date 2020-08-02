@@ -103,10 +103,10 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             $billingAddress = $instantPurchaseOption->getBillingAddress();
             $shippingMethod = $instantPurchaseOption->getShippingMethod();
             $data += [
-                'aiiConfig' => $this->config->getValues(),
+                'advancedInstantPurchase' => $this->config->getValues(),
                 'paymentToken' => [
-                    'publicHash' => $paymentToken->getPublicHash(),
-                    'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken),
+                    'publicHash' => $paymentToken['data']->getPublicHash(),
+                    'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken['data']),
                 ],
                 'shippingAddress' => [
                     'id' => $shippingAddress->getId(),

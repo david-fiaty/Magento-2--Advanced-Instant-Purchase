@@ -7,7 +7,7 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var toreManagerInterface
+     * @var StoreManagerInterface
      */
     public $storeManager;
 
@@ -22,22 +22,39 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
+     * @var CustomerData
+     */
+    public $customerData;
+
+    /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandler;
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+
     ) {
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
+        $this->customerData = $customerData;
+        $this->shippingSelector = $shippingSelector;
+        $this->vaultHandler = $vaultHandler;
     }
 
     /**
      * Get the current customer addresses.
      */
-    public function getAddresses()
+    public function getConfirmContent()
     {
         if ($this->customerSession->isLoggedIn()) {
             // Prepare the required parameters
@@ -48,22 +65,32 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             $customerModel = $customer->load($customerId);
     
             // Prepare the output arrays
-            $customerAddressData = [];
+            $confirmationData = [];
 
             // Get the addresses list
             $addresses = $customerModel->getAddresses();
-    
-            // Prepare the output
             if (!empty($addresses)) {
                 foreach ($addresses as $address) {
                     $addressArray = $address->toArray();
                     if ($addressArray['is_active'] == 1) {
-                        $customerAddressData[] = $addressArray;
+                        $confirmationData['addresses'][] = $addressArray;
                     }
                 }
             }
 
-            return $customerAddressData;
+            // Get the saved cards list
+            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
+
+            // Prepare the shipping rates
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
+
+            // Prepare the instant purchase data
+            $customerData = $this->customerData->getSectionData();
+            if (!empty($customerData)) {
+                $confirmationData['sectionData'] = $customerData;
+            }
+
+            return $confirmationData;
         }
 
         return [];
