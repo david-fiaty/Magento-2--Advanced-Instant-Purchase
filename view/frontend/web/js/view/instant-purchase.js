@@ -33,6 +33,7 @@ define([
             billingAddress: null,
             shippingMethod: null,
             productFormSelector: '#product_addtocart_form',
+            buttonSelector: '.aii-button',
             confirmationTitle: $t('Instant Purchase Confirmation'),
             confirmationData: {
                 message: $t('Are you sure you want to place order and pay?'),
@@ -146,13 +147,13 @@ define([
         shouldDisableButton: function() {
             // Get the cart local storage
             var cartData = CustomerData.get('cart')();
-            $('.aii-button').prop('disabled', true);
+            $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
             if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
                 var aii = cartData[SECTION_NAME];
                 if (aii.guest.click_event !== 'disabled') {
-                    $('.aii-button').prop('disabled', false);
+                    $(this.buttonSelector).prop('disabled', false);
                 }
             }
         },
@@ -161,6 +162,9 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
+            console.log('option');
+            console.log(state);
+
             if (!state.id) {
                 return state.text;
             }
