@@ -27,6 +27,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerData;
 
     /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandler;
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
@@ -34,13 +39,16 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+
     ) {
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerData = $customerData;
         $this->shippingSelector = $shippingSelector;
+        $this->vaultHandler = $vaultHandler;
     }
 
     /**
@@ -61,8 +69,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 
             // Get the addresses list
             $addresses = $customerModel->getAddresses();
-    
-            // Prepare the addresses
             if (!empty($addresses)) {
                 foreach ($addresses as $address) {
                     $addressArray = $address->toArray();
@@ -71,6 +77,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
                     }
                 }
             }
+
+            // Get the saved cards list
+            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
 
             // Prepare the shipping rates
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
