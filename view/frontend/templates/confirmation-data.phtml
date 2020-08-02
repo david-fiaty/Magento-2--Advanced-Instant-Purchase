@@ -4,10 +4,6 @@
     $addresses = $content['addresses'];
     $shippingRates = $content['shippingRates'];
 
-    echo "<pre>";
-    print_r($shippingRates , 1);
-    echo "</pre>";
-
     // Get the default values
     $paymentToken = $content['sectionData']['paymentToken'];
     $shippingAddress = $content['sectionData']['shippingAddress'];
@@ -20,8 +16,8 @@
             <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $billingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
-                    <?= $item['postcode'] ?> &nbsp;
-                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['postcode'] ?>&nbsp;
+                    <?= $item['city'] ?>&nbsp;
                     <?= $item['country_id'] ?>
                 </option>
             <?php endforeach; ?>
@@ -36,8 +32,8 @@
             <?php foreach ($addresses as $item): ?>
                 <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $shippingAddress['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
-                    <?= $item['postcode'] ?> &nbsp;
-                    <?= $item['city'] ?> &nbsp;
+                    <?= $item['postcode'] ?>&nbsp;
+                    <?= $item['city'] ?>&nbsp;
                     <?= $item['country_id'] ?>
                 </option>
             <?php endforeach; ?>
@@ -51,7 +47,8 @@
         <select id="aii-shipping-method-select" class="aii-select js-states form-control">
             <?php foreach ($shippingRates as $item): ?>
                 <option value="<?= $item['value'] ?>">
-                    <?= $item['label'] ?>
+                    <?= $item['label'] ?>&nbsp;
+                    <?= $item['price'] ?>
                 </option>
             <?php endforeach; ?>
         </select>

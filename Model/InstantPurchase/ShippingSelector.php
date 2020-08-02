@@ -61,12 +61,25 @@ class ShippingSelector
             $carrierMethods = $shippingModel->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    $code = $shippingCode . '_' . $methodCode;
-                    $carrierTitle = $this->configHelper->value('carriers/'. $shippingCode.'/title', true);
-                    $methods[] = [
-                        'value' => $code,
-                        'label'=> $carrierTitle
-                    ];
+                    // Get the carrier price
+                    $carrierPrice = $this->configHelper->value(
+                        'carriers/'. $shippingCode . '/price',
+                        true
+                    );
+
+                    // If the carrier has a price
+                    if ($carrierPrice) {
+                        $code = $shippingCode . '_' . $methodCode;
+                        $carrierTitle = $this->configHelper->value(
+                            'carriers/'. $shippingCode . '/title',
+                            true
+                        );
+                        $methods[] = [
+                            'value' => $code,
+                            'label'=> $carrierTitle,
+                            'price' => $carrierPrice
+                        ];
+                    }
                 }
             }
        }
