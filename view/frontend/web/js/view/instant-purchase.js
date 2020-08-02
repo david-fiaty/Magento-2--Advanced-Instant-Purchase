@@ -156,11 +156,27 @@ define([
                 }
             }
         },
-      
+
+        /**
+         * Format a card icon.
+         */
+        formatIcon: function(state) {
+            if (!state.id) {
+                return state.text;
+            }
+
+            var $state = $(
+                '<span><img src="' + state.element.value + '" class="img-flag" /> ' + state.text + '</span>'
+            );
+
+            return $state;
+        },
+
         /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
+            var self = this;
             $.ajax({
                 type: "POST",
                 url: UrlBuilder.build('aii/ajax/confirmation'),
@@ -169,7 +185,9 @@ define([
                     $('.aii-select').select2({
                         language: "en",
                         theme: "classic",
-                        placeholder: $t("Select an option")
+                        placeholder: $t("Select an option"),
+                        templateResult: self.formatIcon,
+                        templateSelection: self.formatIcon
                     });
                 },
                 error: function (request, status, error) {
