@@ -22,6 +22,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
+     * @var ConfigHelper
+     */
+    public $configHelper;
+
+    /**
      * @var CustomerData
      */
     public $customerData;
@@ -38,6 +43,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
@@ -46,6 +52,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
+        $this->configHelper = $configHelper;
         $this->customerData = $customerData;
         $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
@@ -57,6 +64,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfirmContent()
     {
         if ($this->customerSession->isLoggedIn()) {
+            $config = $this->configHelper->getValues();
+
             // Prepare the required parameters
             $customerId = $this->customerSession->getCustomer()->getId();
             $customer = $this->customerFactory->create();
@@ -77,6 +86,13 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
                     }
                 }
             }
+
+            // Get the popup title
+            $confirmationData['popup'] = [
+                'title' => $config['display']['popup_title'],
+                'header_text' => $config['display']['popup_header_text'],
+                'footer_text' => $config['display']['popup_footer_text']
+            ];
 
             // Get the saved cards list
             $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();

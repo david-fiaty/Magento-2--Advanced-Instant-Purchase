@@ -1,0 +1,12 @@
+- update the catalog_product_view_type_bundle.xml file
+- update the other product types xml layout files
+- check payment action
+- improve the config fields comments
+- add popup custom title and intro text fields
+- add button spinner 
+- add popup spinner
+
+
+QA
+- check all config fields functional
+- performance: cache js events, reduce config calls

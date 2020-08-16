@@ -193,7 +193,8 @@ class  VaultHandlerService
                     $details = json_decode($card->getTokenDetails());
                     $output[] = [
                         'data' => $card,
-                        'icon' => $this->cardHandler->getCardIcon($details->type)
+                        'icon' => $this->cardHandler->getCardIcon($details->type),
+                        'token' => $this->renderTokenData($card)
                     ];
                 }
             }
