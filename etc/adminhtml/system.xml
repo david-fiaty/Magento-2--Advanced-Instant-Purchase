@@ -59,11 +59,11 @@
                     <label>Popup title</label>
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
                 </field>
-                <field id="popup_header_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_header_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup header text</label>
                     <comment>Text for the Advanced Instant Purchase popup header.</comment>
                 </field>
-                <field id="popup_footer_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_footer_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
                     <comment>Text for the Advanced Instant Purchase popup footer.</comment>
                 </field>
