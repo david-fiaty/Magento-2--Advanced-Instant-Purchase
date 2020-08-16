@@ -22,6 +22,8 @@ define([
     'use strict';
 
     const CUSTOMER_SECTION_NAME = 'instant-purchase';
+    const AII_SECTION_NAME = 'advancedInstantPurchase';
+    const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';

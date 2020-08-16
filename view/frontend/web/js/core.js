@@ -21,9 +21,6 @@ define(
     function ($, __, CustomerData) {
         'use strict';
 
-        const AII_SECTION_NAME = 'advancedInstantPurchase';
-        const CART_SECTION_NAME = 'cart';
-
         return {
             log: function(data) {
                 var config = this.getConfig();
