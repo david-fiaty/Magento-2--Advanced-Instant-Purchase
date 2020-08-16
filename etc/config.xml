@@ -23,6 +23,7 @@
             </general>
             <guest>
                 <show_guest_button>1</show_guest_button>
+                <guest_button_state>1</guest_button_state>
                 <click_event>popup</click_event>
             </guest>
             <registered>
