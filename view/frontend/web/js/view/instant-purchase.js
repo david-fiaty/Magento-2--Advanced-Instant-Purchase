@@ -23,6 +23,7 @@ define([
 
     const SECTION_NAME = 'advancedInstantPurchase';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
+    const CONFIRMATION_URL = 'aii/ajax/confirmation';
 
     return Component.extend({
         defaults: {
@@ -35,6 +36,8 @@ define([
             billingAddress: null,
             shippingMethod: null,
             productFormSelector: '#product_addtocart_form',
+            popupContentSelector: '#aii-confirmation-content',
+            paymentMethodListClass: 'aii-payment-method-select',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
             confirmationTitle: $t('Instant Purchase Confirmation'),
@@ -171,7 +174,7 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
+            if (!state.id || !state.element.parentElement.className.includes(this.paymentMethodListClass)) {
                 return state.text;
             }
 
@@ -199,10 +202,10 @@ define([
             var self = this;
             $.ajax({
                 type: 'POST',
-                url: UrlBuilder.build('aii/ajax/confirmation'),
+                url: UrlBuilder.build(CONFIRMATION_URL),
                 success: function (data) {
                     // Get the HTML content
-                    $('#aii-confirmation-content').append(data.html);
+                    $(self.popupContentSelector).append(data.html);
 
                     // Initialise the select lists
                     $(self.listSelector).select2({

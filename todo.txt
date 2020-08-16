@@ -4,3 +4,5 @@
 - improve the config fields comments
 - check all config fields functional
 - add popup custom title and intro text fields
+- add button spinner 
+- add popup spinner
