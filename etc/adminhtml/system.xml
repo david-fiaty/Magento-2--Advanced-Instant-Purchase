@@ -53,6 +53,20 @@
                     <comment>Enable the PHP file logging (backend).</comment>
                 </field>  
             </group>
+            <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_title" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Popup title</label>
+                    <comment>Title for the Advanced Instant Purchase popup.</comment>
+                </field>
+                <field id="popup_header_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Popup header text</label>
+                    <comment>Text for the Advanced Instant Purchase popup header.</comment>
+                </field>
+                <field id="popup_title_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Popup title</label>
+                    <comment>Text for the Advanced Instant Purchase popup footer.</comment>
+                </field>
+            </group>
             <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Guest user settings</label>
                 <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">

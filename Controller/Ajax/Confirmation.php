@@ -46,10 +46,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
 
         // Process the request
         if ($this->getRequest()->isAjax()) {
-            // Get the list of addresses
-            $items = $this->customerHelper->getConfirmContent();
-
-            // Load the blocks HTML
             $html .= $this->loadBlock();
         }
 

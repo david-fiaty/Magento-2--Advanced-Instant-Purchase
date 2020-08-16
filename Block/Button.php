@@ -14,7 +14,7 @@ class Button extends \Magento\Framework\View\Element\Template
     /**
      * @var Config
      */
-    public $config;
+    public $configHelper;
 
     /**
      * Button class constructor.
@@ -22,12 +22,12 @@ class Button extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
-        $this->config = $config;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -35,7 +35,7 @@ class Button extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        return $this->config->getValues();
+        return $this->configHelper->getValues();
     }
 
     /**

@@ -1,21 +1,16 @@
 <?php 
     // Get the confirmation screen content
     $content = $block->getConfirmContent();
-    $addresses = $content['addresses'];
-    $shippingRates = $content['shippingRates'];
-    $cards = $content['savedCards'];
-
-    // Get the default values
-    $paymentToken = $content['sectionData']['paymentToken'];
-    $shippingAddress = $content['sectionData']['shippingAddress'];
-    $billingAddress = $content['sectionData']['billingAddress'];
 ?>
+
+<p><?= $content['popup']['header_text'] ?></p>
+
 <label for="aii-billing-address-select">
     <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
     <p>
         <select id="aii-billing-address-select" data-field="instant_purchase_billing_address" class="aii-select js-states form-control">
-            <?php foreach ($addresses as $item): ?>
-                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $billingAddress['id'] ? 'selected' : '' ?>>
+            <?php foreach ($content['addresses'] as $item): ?>
+                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['billingAddress']['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?>&nbsp;
                     <?= $item['city'] ?>&nbsp;
@@ -30,8 +25,8 @@
     <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
     <p>
         <select id="aii-shipping-address-select" data-field="instant_purchase_shipping_address" class="aii-select js-states form-control">
-            <?php foreach ($addresses as $item): ?>
-                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $shippingAddress['id'] ? 'selected' : '' ?>>
+            <?php foreach ($content['addresses'] as $item): ?>
+                <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
                     <?= $item['street'] ?>&nbsp;
                     <?= $item['postcode'] ?>&nbsp;
                     <?= $item['city'] ?>&nbsp;
@@ -46,7 +41,7 @@
     <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
     <p>
         <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
-            <?php foreach ($shippingRates as $item): ?>
+            <?php foreach ($content['shippingRates'] as $item): ?>
                 <option value="<?= $item['value'] ?>">
                     <?= $item['label'] ?>&nbsp;
                     <?= $item['price'] ?>
@@ -60,7 +55,7 @@
     <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
     <p>
         <select id="aii-payment-method-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
-            <?php foreach ($cards as $item): ?>
+            <?php foreach ($content['savedCards'] as $item): ?>
                 <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
                     &nbsp;&nbsp;<?= $item['token'] ?>
                 </option>
@@ -68,3 +63,5 @@
         </select>
     </p>
 </label>
+
+<p><?= $content['popup']['footer_text'] ?></p>
