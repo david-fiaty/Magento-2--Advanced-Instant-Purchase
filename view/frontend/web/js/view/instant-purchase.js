@@ -16,11 +16,13 @@ define([
     'mage/template',
     'mage/translate',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
-    'mage/validation'
+    'mage/validation',
+    'mage/cookies'
 ], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
     const SECTION_NAME = 'advancedInstantPurchase';
+    const COOKIE_NAME = 'aaiReopenPurchasePopup';
 
     return Component.extend({
         defaults: {
@@ -72,6 +74,10 @@ define([
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
+
+            if ($.cookie(COOKIE_NAME) === 'true') {
+                $(this.buttonSelector).trigger('click');
+            }
         },
 
         /**
@@ -111,6 +117,7 @@ define([
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
+                    $.cookie(COOKIE_NAME, 'false');
                     this.purchasePopup();
                 } else {
                     switch(aii.guest.click_event) {
@@ -130,6 +137,7 @@ define([
          * Create a login popup.
          */
         loginPopup: function() {
+            $.cookie(COOKIE_NAME, 'true');
             AuthPopup.createPopUp('.block-authentication');
             AuthPopup.showModal();
         },
@@ -261,9 +269,9 @@ define([
             });
 
             // Todo - Check the validation rules
-            /*if (!(form.validation() && form.validation('isValid'))) {
+            if (!(form.validation() && form.validation('isValid'))) {
                 return;
-            }*/
+            }
 
             // Open the modal
             this.getConfirmModal(confirmData, form);
