@@ -27,10 +27,31 @@
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enabled</label>
+                    <label>Module enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
+                <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the debug mode.</comment>
+                </field>  
+                <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Console logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the Javascript browser console logging (frontend).</comment>
+                </field>  
+                <field id="file_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>File logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the PHP file logging (backend).</comment>
+                </field>  
             </group>
             <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Guest user settings</label>

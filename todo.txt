@@ -6,3 +6,4 @@
 - add popup custom title and intro text fields
 - add button spinner 
 - add popup spinner
+- add debug mode logging

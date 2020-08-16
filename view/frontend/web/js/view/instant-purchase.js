@@ -37,9 +37,10 @@ define([
             shippingMethod: null,
             productFormSelector: '#product_addtocart_form',
             popupContentSelector: '#aii-confirmation-content',
-            paymentMethodListClass: 'aii-payment-method-select',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
+            paymentMethodListClass: 'aii-payment-method-select',
+            cardIconClass: 'aii-card-icon',
             confirmationTitle: $t('Instant Purchase Confirmation'),
             confirmationData: {
                 message: $t('Are you sure you want to place order and pay?'),
@@ -177,11 +178,10 @@ define([
             if (!state.id || !state.element.parentElement.className.includes(this.paymentMethodListClass)) {
                 return state.text;
             }
-
             var iconUrl = state.element.value.split('*~*')[1];
-            // Todo - move the card icon CSS to a CSS file
             var iconHtml = $(
-                '<span style="display:flex; align-items:center;"><img src="' + iconUrl + '" class="img-flag">'
+                '<span class="' + this.cardIconClass + '">'
+                + '<img src="' + iconUrl + '" class="img-flag">'
                 + state.text + '</span>'
             );
 
@@ -271,7 +271,7 @@ define([
                 shippingMethod: this.shippingMethod().summary
             });
 
-            // Todo - Check the validation rules
+            // Check the validation rules
             if (!(form.validation() && form.validation('isValid'))) {
                 return;
             }
