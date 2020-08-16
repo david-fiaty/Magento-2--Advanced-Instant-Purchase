@@ -26,6 +26,7 @@ define([
     const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
+    const LOGIN_URL = 'customer/account/login';
 
     return Component.extend({
         defaults: {
@@ -107,7 +108,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var customer = CustomerData.get('customer')();
+            var customer = CustomerData.get(CUSTOMER_SECTION_NAME)();
             return customer.fullname && customer.firstname;
         },
 
@@ -153,7 +154,7 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            var loginUrl = UrlBuilder.build('customer/account/login');
+            var loginUrl = UrlBuilder.build(LOGIN_URL);
             window.location.href = loginUrl;
         },
 
@@ -184,7 +185,7 @@ define([
             var iconUrl = state.element.value.split('*~*')[1];
             var iconHtml = $(
                 '<span class="' + this.cardIconClass + '">'
-                + '<img src="' + iconUrl + '" class="img-flag">'
+                + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );
 
