@@ -60,10 +60,6 @@ define([
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
-
-            // Load parameters
-            this.aaiConfig = AiiCore.getConfig();
-            this.buttonText = __(this.aiiConfig.display.popup_title);
         },
 
         /** @inheritdoc */
@@ -75,17 +71,38 @@ define([
         },
 
         /**
+         * Get the Advanced Instant Purchase configuration values.
+         *
+         * @param {Object} data
+         */
+        getConfig: function() {
+            var cartData = CustomerData.get(CART_SECTION_NAME)();
+
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                return cartData[AII_SECTION_NAME];
+            }
+
+            return {};
+        },
+
+        /**
          * Set data from CustomerData.
          *
          * @param {Object} data
          */
         setPurchaseData: function(data) {
+            // Load parameters
+            this.aaiConfig = AiiCore.getConfig();
+            this.buttonText = __(this.aiiConfig.display.popup_title);
+
+            // Prepare the data
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
 
+            // Cookie for after login process
             if ($.cookie(COOKIE_NAME) === 'true') {
                 $(this.buttonSelector).trigger('click');
             }
@@ -95,8 +112,8 @@ define([
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            return aiiConfig.general.enabled
-            && aiiConfig.guest.show_guest_button;
+            return this.aiiConfig.general.enabled
+            && this.aiiConfig.guest.show_guest_button;
         },
 
         /**
@@ -116,7 +133,7 @@ define([
                 $.cookie(COOKIE_NAME, 'false');
                 this.purchasePopup();
             } else {
-                switch(aiiConfig.guest.click_event) {
+                switch(this.aiiConfig.guest.click_event) {
                     case 'popup':
                         this.loginPopup();
                     break;
@@ -153,7 +170,7 @@ define([
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (aiiConfig.guest.click_event !== 'disabled') {
+            if (this.aiiConfig.guest.click_event !== 'disabled') {
                 $(this.buttonSelector).prop('disabled', false);
             }
         },

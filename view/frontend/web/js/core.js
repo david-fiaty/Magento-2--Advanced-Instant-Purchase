@@ -30,18 +30,7 @@ define(
                 if (config.general.debug_enabled && config.general.console_logging_enabled) {
                     console.log(data);
                 }
-            },
-
-            getConfig: function() {
-                var cartData = CustomerData.get(CART_SECTION_NAME)();
-
-                if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                    return cartData[AII_SECTION_NAME];
-                }
-
-                return {};
-            },
-
+            }
         };
     }
 );
