@@ -81,6 +81,7 @@ define([
             var cartData = CustomerData.get(CART_SECTION_NAME)();
 
             if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                this.buttonText = __(cartData[AII_SECTION_NAME].display.popup_title);
                 return cartData[AII_SECTION_NAME];
             }
 
@@ -95,7 +96,6 @@ define([
         setPurchaseData: function(data) {
             // Load parameters
             this.aaiConfig = this.getConfig();
-            this.buttonText = __(this.aiiConfig.display.popup_title);
 
             // Prepare the data
             this.showButton(data.available);
