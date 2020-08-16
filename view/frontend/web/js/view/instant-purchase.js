@@ -92,7 +92,7 @@ define([
          */
         setPurchaseData: function(data) {
             // Load parameters
-            this.aaiConfig = AiiCore.getConfig();
+            this.aaiConfig = this.getConfig();
             this.buttonText = __(this.aiiConfig.display.popup_title);
 
             // Prepare the data
