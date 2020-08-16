@@ -28,7 +28,7 @@ define([
 
     return Component.extend({
         defaults: {
-            aiiConfig: AiiCore.getConfig(),
+            aiiConfig: {},
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
@@ -60,6 +60,9 @@ define([
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
+
+            // Load parameters
+            this.aaiConfig = AiiCore.getConfig();
             this.buttonText = __(this.aiiConfig.display.popup_title);
         },
 

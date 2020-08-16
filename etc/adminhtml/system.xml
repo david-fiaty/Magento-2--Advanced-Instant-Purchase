@@ -54,6 +54,7 @@
                 </field>  
             </group>
             <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Display settings</label>
                 <field id="popup_title" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
@@ -62,7 +63,7 @@
                     <label>Popup header text</label>
                     <comment>Text for the Advanced Instant Purchase popup header.</comment>
                 </field>
-                <field id="popup_title_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_footer_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
                     <comment>Text for the Advanced Instant Purchase popup footer.</comment>
                 </field>
