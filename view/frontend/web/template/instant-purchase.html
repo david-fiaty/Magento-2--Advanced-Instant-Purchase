@@ -1,4 +1,12 @@
 <!-- ko if: (showButton() || bypassLogin()) -->
+    <script>
+           console.log('shippingMethod.carrier');
+           console.log(shippingMethod().carrier);
+
+           console.log('shippingMethod.method');
+           console.log(shippingMethod().method);
+    </script>
+
     <button type="button"
            class="action primary instant-purchase aii-button"
            data-bind="afterRender: shouldDisableButton, click: handleButtonClick, css: isLoggedIn() ? 'aii-login-popup' : ''"
