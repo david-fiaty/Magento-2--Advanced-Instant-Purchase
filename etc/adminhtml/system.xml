@@ -40,7 +40,7 @@
                     <comment>Show the Instant Purchase button to guest users.</comment>
                 </field>
                 <field id="guest_button_state" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Button Enabled</label>
+                    <label>Guest button enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="show_guest_button">1</field>
