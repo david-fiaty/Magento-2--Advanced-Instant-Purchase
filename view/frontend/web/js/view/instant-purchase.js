@@ -21,7 +21,9 @@ define([
 ], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
     'use strict';
 
-    const SECTION_NAME = 'advancedInstantPurchase';
+    const AII_SECTION_NAME = 'advancedInstantPurchase';
+    const CUSTOMER_SECTION_NAME = 'instant-purchase';
+    const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
 
@@ -39,6 +41,7 @@ define([
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
+            loginBlockSelector: '.block-authentication',
             paymentMethodListClass: 'aii-payment-method-select',
             cardIconClass: 'aii-card-icon',
             confirmationTitle: $t('Instant Purchase Confirmation'),
@@ -53,7 +56,7 @@ define([
 
         /** @inheritdoc */
         initialize: function() {
-            var instantPurchase = CustomerData.get('instant-purchase');
+            var instantPurchase = CustomerData.get(CUSTOMER_SECTION_NAME);
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
@@ -89,11 +92,11 @@ define([
          */
         bypassLogin: function() {
             // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
+            var cartData = CustomerData.get(CART_SECTION_NAME)();
 
             // Check bypass login
-            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
-                var aii = cartData[SECTION_NAME];
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
                 return aii.general.enabled && aii.guest.show_guest_button;
             }
 
@@ -113,11 +116,11 @@ define([
          */
         handleButtonClick: function() {
             // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
+            var cartData = CustomerData.get(CART_SECTION_NAME)();
 
             // Check button click event
-            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
-                var aii = cartData[SECTION_NAME];
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
 
                 // Handle the button click logic
                 if (this.isLoggedIn()) {
@@ -142,7 +145,7 @@ define([
          */
         loginPopup: function() {
             $.cookie(COOKIE_NAME, 'true');
-            AuthPopup.createPopUp('.block-authentication');
+            AuthPopup.createPopUp(this.loginBlockSelector);
             AuthPopup.showModal();
         },
 
@@ -159,12 +162,12 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
+            var cartData = CustomerData.get(CART_SECTION_NAME)();
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (cartData && cartData.hasOwnProperty(SECTION_NAME)) {
-                var aii = cartData[SECTION_NAME];
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
                 if (aii.guest.click_event !== 'disabled') {
                     $(this.buttonSelector).prop('disabled', false);
                 }
