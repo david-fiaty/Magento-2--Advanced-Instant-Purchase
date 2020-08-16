@@ -21,6 +21,8 @@
             <general>
                 <enabled>1</enabled>
                 <debug_enabled>0</debug_enabled>
+                <console_logging_enabled>0</console_logging_enabled>
+                <file_logging_enabled>0</file_logging_enabled>
             </general>
             <guest>
                 <show_guest_button>1</show_guest_button>

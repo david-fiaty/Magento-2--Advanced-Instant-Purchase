@@ -16,13 +16,32 @@ define(
     [
         'jquery',
         'mage/translate',
+        'Magento_Customer/js/customer-data'
     ],
-    function ($, __) {
+    function ($, __, CustomerData) {
         'use strict';
 
+        const AII_SECTION_NAME = 'advancedInstantPurchase';
+        const CART_SECTION_NAME = 'cart';
+
         return {
-            test: function() {
-            }
+            log: function(data) {
+                var config = this.getConfig();
+                if (config.general.debug_enabled && config.general.console_logging_enabled) {
+                    console.log(data);
+                }
+            },
+
+            getConfig: function() {
+                var cartData = CustomerData.get(CART_SECTION_NAME)();
+
+                if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                    return cartData[AII_SECTION_NAME];
+                }
+
+                return {};
+            },
+
         };
     }
 );

@@ -6,6 +6,7 @@ define([
     'ko',
     'jquery',
     'underscore',
+    'mage/translate',
     'uiComponent',
     'aiiCore',
     'select2',
@@ -14,24 +15,22 @@ define([
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
-    'mage/translate',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation',
     'mage/cookies'
-], function (ko, $, _, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, $t, ConfirmationTemplate) {
+], function (ko, $, _, __, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
     'use strict';
 
-    const AII_SECTION_NAME = 'advancedInstantPurchase';
     const CUSTOMER_SECTION_NAME = 'instant-purchase';
-    const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
 
     return Component.extend({
         defaults: {
+            aiiConfig: AiiCore.getConfig(),
             template: 'Magento_InstantPurchase/instant-purchase',
-            buttonText: $t('Instant Purchase'),
+            buttonText: __('Instant Purchase'),
             purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
             showButton: false,
             paymentToken: null,
@@ -45,13 +44,13 @@ define([
             loginBlockSelector: '.block-authentication',
             paymentMethodListClass: 'aii-payment-method-select',
             cardIconClass: 'aii-card-icon',
-            confirmationTitle: $t('Instant Purchase Confirmation'),
+            confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationData: {
-                message: $t('Are you sure you want to place order and pay?'),
-                shippingAddressTitle: $t('Shipping Address'),
-                billingAddressTitle: $t('Billing Address'),
-                paymentMethodTitle: $t('Payment Method'),
-                shippingMethodTitle: $t('Shipping Method')
+                message: __('Are you sure you want to place order and pay?'),
+                shippingAddressTitle: __('Shipping Address'),
+                billingAddressTitle: __('Billing Address'),
+                paymentMethodTitle: __('Payment Method'),
+                shippingMethodTitle: __('Shipping Method')
             }
         },
 
@@ -92,16 +91,8 @@ define([
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            // Get the cart local storage
-            var cartData = CustomerData.get(CART_SECTION_NAME)();
-
-            // Check bypass login
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-                return aii.general.enabled && aii.guest.show_guest_button;
-            }
-
-            return false;
+            return aiiConfig.general.enabled
+            && aiiConfig.guest.show_guest_button;
         },
 
         /**
@@ -116,27 +107,19 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            // Get the cart local storage
-            var cartData = CustomerData.get(CART_SECTION_NAME)();
+            // Handle the button click logic
+            if (this.isLoggedIn()) {
+                $.cookie(COOKIE_NAME, 'false');
+                this.purchasePopup();
+            } else {
+                switch(aiiConfig.guest.click_event) {
+                    case 'popup':
+                        this.loginPopup();
+                    break;
 
-            // Check button click event
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-
-                // Handle the button click logic
-                if (this.isLoggedIn()) {
-                    $.cookie(COOKIE_NAME, 'false');
-                    this.purchasePopup();
-                } else {
-                    switch(aii.guest.click_event) {
-                        case 'popup':
-                            this.loginPopup();
-                        break;
-
-                        case 'redirect':
-                            this.loginRedirect();
-                        break;
-                    }
+                    case 'redirect':
+                        this.loginRedirect();
+                    break;
                 }
             }
         },
@@ -162,16 +145,12 @@ define([
          * Get the button state.
          */
         shouldDisableButton: function() {
-            // Get the cart local storage
-            var cartData = CustomerData.get(CART_SECTION_NAME)();
+            // Disable the button by default
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-                if (aii.guest.click_event !== 'disabled') {
-                    $(this.buttonSelector).prop('disabled', false);
-                }
+            if (aiiConfig.guest.click_event !== 'disabled') {
+                $(this.buttonSelector).prop('disabled', false);
             }
         },
 
@@ -229,7 +208,7 @@ define([
                     });
                 },
                 error: function (request, status, error) {
-                    console.log(error);
+                    AiiCore.log.log(error);
                 }
             });
         },
