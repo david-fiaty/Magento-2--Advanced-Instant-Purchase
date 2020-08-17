@@ -21,9 +21,6 @@ define([
 ], function (ko, $, _, __, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
     'use strict';
 
-    const CUSTOMER_SECTION_NAME = 'instant-purchase';
-    const AII_SECTION_NAME = 'advancedInstantPurchase';
-    const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
@@ -58,10 +55,12 @@ define([
 
         /** @inheritdoc */
         initialize: function() {
-            var instantPurchase = CustomerData.get(CUSTOMER_SECTION_NAME);
+            var instantPurchase = CustomerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
+
+            this.aaiConfig = AiiCore.aaiConfig;
         },
 
         /** @inheritdoc */
@@ -73,30 +72,11 @@ define([
         },
 
         /**
-         * Get the Advanced Instant Purchase configuration values.
-         *
-         * @param {Object} data
-         */
-        getConfig: function() {
-            var cartData = CustomerData.get(CART_SECTION_NAME)();
-
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                this.buttonText = __(cartData[AII_SECTION_NAME].display.popup_title);
-                return cartData[AII_SECTION_NAME];
-            }
-
-            return {};
-        },
-
-        /**
          * Set data from CustomerData.
          *
          * @param {Object} data
          */
         setPurchaseData: function(data) {
-            // Load parameters
-            this.aaiConfig = this.getConfig();
-
             // Prepare the data
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
@@ -122,7 +102,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var customer = CustomerData.get(CUSTOMER_SECTION_NAME)();
+            var customer = CustomerData.get('customer')();
             return customer.fullname && customer.firstname;
         },
 

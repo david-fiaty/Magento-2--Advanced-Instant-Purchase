@@ -16,18 +16,46 @@ define(
     [
         'jquery',
         'mage/translate',
+        'uiComponent',
         'Magento_Customer/js/customer-data'
     ],
-    function ($, __, CustomerData) {
+    function ($, __, Component, CustomerData) {
         'use strict';
 
-        return {
+        const AII_SECTION_NAME = 'advancedInstantPurchase';
+
+        return Component.extend({
+            defaults: {
+                aiiConfig: {},
+            },
+
+            /** @inheritdoc */
+            initialize: function() {
+                var aiiConfig = CustomerData.get(AII_SECTION_NAME);
+                this._super();
+                this.setConfigData(aiiConfig());
+                aiiConfig.subscribe(this.setConfigData, this);
+            },
+
+            /**
+             * Log data to the browser console.
+             *
+             * @param {Object} data
+             */
             log: function(data) {
-                var config = this.getConfig();
-                if (config.general.debug_enabled && config.general.console_logging_enabled) {
+                if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
                     console.log(data);
                 }
-            }
-        };
+            },
+
+            /**
+             * Set the config data.
+             *
+             * @param {Object} data
+             */
+            setConfigData: function (data) {
+                this.aiiConfig = data;
+            }  
+        });
     }
 );
