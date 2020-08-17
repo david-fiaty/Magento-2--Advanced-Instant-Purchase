@@ -63,13 +63,13 @@ define([
             this.setConfigData(aiiConfig());
 
             instantPurchase.subscribe(this.setPurchaseData, this);
-            this.aaiConfig = aiiConfig.subscribe(this.setConfigData, this);
+            aiiConfig.subscribe(this.setConfigData, this);
         },
 
         /** @inheritdoc */
         initObservable: function() {
             this._super()
-                .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
+                .observe('loadConfigData showButton paymentToken shippingAddress billingAddress shippingMethod');
 
             return this;
         },
@@ -110,6 +110,15 @@ define([
          * @param {Object} data
          */
         setConfigData: function (data) {
+            this.loadConfigData(data);
+        },
+
+        /**
+         * Load the config data.
+         *
+         * @param {Object} data
+         */
+        loadConfigData: function (data) {
             this.aiiConfig = data;
         },
 
