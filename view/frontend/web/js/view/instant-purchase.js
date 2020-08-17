@@ -56,20 +56,15 @@ define([
         /** @inheritdoc */
         initialize: function() {
             var instantPurchase = CustomerData.get('instant-purchase');
-            var aiiConfig = CustomerData.get(AII_SECTION_NAME);
-
             this._super();
             this.setPurchaseData(instantPurchase());
-            this.setConfigData(aiiConfig());
-
             instantPurchase.subscribe(this.setPurchaseData, this);
-            aiiConfig.subscribe(this.setConfigData, this);
         },
 
         /** @inheritdoc */
         initObservable: function() {
             this._super()
-                .observe('loadConfigData showButton paymentToken shippingAddress billingAddress shippingMethod');
+                .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
 
             return this;
         },
@@ -80,8 +75,15 @@ define([
          * @param {Object} data
          */
         log: function(data) {
-            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
-                console.log(data);
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
+
+            // Check bypass login
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
+                if (aii.general.debug_enabled && aii.general.console_logging_enabled) {
+                    console.log(data);
+                }
             }
         },
 
@@ -105,29 +107,19 @@ define([
         },
 
         /**
-         * Set the config data.
-         *
-         * @param {Object} data
-         */
-        setConfigData: function (data) {
-            this.loadConfigData(data);
-        },
-
-        /**
-         * Load the config data.
-         *
-         * @param {Object} data
-         */
-        loadConfigData: function (data) {
-            this.aiiConfig = data;
-        },
-
-        /**
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            return this.aiiConfig.general.enabled
-            && this.aiiConfig.guest.show_guest_button;
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
+
+            // Check bypass login
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
+                return aii.general.enabled && aii.guest.show_guest_button;
+            }
+
+            return false;
         },
 
         /**
@@ -180,12 +172,16 @@ define([
          * Get the button state.
          */
         shouldDisableButton: function() {
-            // Disable the button by default
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (this.aiiConfig.guest.click_event !== 'disabled') {
-                $(this.buttonSelector).prop('disabled', false);
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
+                if (aii.guest.click_event !== 'disabled') {
+                    $(this.buttonSelector).prop('disabled', false);
+                }
             }
         },
 
@@ -243,7 +239,7 @@ define([
                     });
                 },
                 error: function (request, status, error) {
-                    AiiCore.log.log(error);
+                    self.log(error);
                 }
             });
         },
