@@ -8,22 +8,23 @@ define([
     'underscore',
     'mage/translate',
     'uiComponent',
-    'select2',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
+    'select2',
     'mage/validation',
     'mage/cookies'
-], function (ko, $, _, __, Component, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
     const AII_SECTION_NAME = 'advancedInstantPurchase';
+    const LOADER_ICON = 'Naxero_AdvancedInstantPurchase/images/ajax-loader.gif';
 
     return Component.extend({
         defaults: {
@@ -126,6 +127,13 @@ define([
         isLoggedIn: function() {
             var customer = CustomerData.get('customer')();
             return customer.fullname && customer.firstname;
+        },
+
+        /**
+         * Get the loader icon.
+         */
+        getLoaderIconPath: function() {
+            return require.toUrl(LOADER_ICON);
         },
 
         /**
