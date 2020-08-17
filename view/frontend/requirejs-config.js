@@ -17,4 +17,3 @@
         select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full'
     }
 };
-

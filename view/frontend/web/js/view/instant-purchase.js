@@ -8,7 +8,6 @@ define([
     'underscore',
     'mage/translate',
     'uiComponent',
-    'aiiCore',
     'select2',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
@@ -18,7 +17,7 @@ define([
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'mage/validation',
     'mage/cookies'
-], function (ko, $, _, __, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
+], function (ko, $, _, __, Component, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
     'use strict';
 
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
