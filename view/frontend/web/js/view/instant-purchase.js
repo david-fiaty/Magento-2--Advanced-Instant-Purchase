@@ -24,6 +24,7 @@ define([
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
+    const AII_SECTION_NAME = 'advancedInstantPurchase';
 
     return Component.extend({
         defaults: {
@@ -56,11 +57,15 @@ define([
         /** @inheritdoc */
         initialize: function() {
             var instantPurchase = CustomerData.get('instant-purchase');
+            var aiiConfig = CustomerData.get(AII_SECTION_NAME);
+
             this._super();
             this.setPurchaseData(instantPurchase());
-            instantPurchase.subscribe(this.setPurchaseData, this);
+            this.setConfigData(aiiConfig());
 
-            this.aaiConfig = AiiCore.aaiConfig;
+            instantPurchase.subscribe(this.setPurchaseData, this);
+            aiiConfig.subscribe(this.setConfigData, this);
+            this.aaiConfig = AiiCore.aiiConfig;
         },
 
         /** @inheritdoc */
@@ -69,6 +74,17 @@ define([
                 .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
 
             return this;
+        },
+
+        /**
+         * Log data to the browser console.
+         *
+         * @param {Object} data
+         */
+        log: function(data) {
+            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+                console.log(data);
+            }
         },
 
         /**
@@ -88,6 +104,15 @@ define([
             if ($.cookie(COOKIE_NAME) === 'true') {
                 $(this.buttonSelector).trigger('click');
             }
+        },
+
+        /**
+         * Set the config data.
+         *
+         * @param {Object} data
+         */
+        setConfigData: function (data) {
+            this.aiiConfig = data;
         },
 
         /**
