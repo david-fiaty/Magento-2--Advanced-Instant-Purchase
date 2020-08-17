@@ -41,8 +41,6 @@ define([
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
             loginBlockSelector: '.block-authentication',
-            paymentMethodListClass: 'aii-payment-method-select',
-            cardIconClass: 'aii-card-icon',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -78,7 +76,7 @@ define([
             // Get the cart local storage
             var cartData = CustomerData.get('cart')();
 
-            // Check bypass login
+            // Check console logging enabled
             if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
                 var aii = cartData[AII_SECTION_NAME];
                 if (aii.general.debug_enabled && aii.general.console_logging_enabled) {
@@ -134,19 +132,27 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            // Handle the button click logic
-            if (this.isLoggedIn()) {
-                $.cookie(COOKIE_NAME, 'false');
-                this.purchasePopup();
-            } else {
-                switch(this.aiiConfig.guest.click_event) {
-                    case 'popup':
-                        this.loginPopup();
-                    break;
+            // Get the cart local storage
+            var cartData = CustomerData.get('cart')();
 
-                    case 'redirect':
-                        this.loginRedirect();
-                    break;
+            // Handle button click
+            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
+                var aii = cartData[AII_SECTION_NAME];
+
+                // Handle the button click logic
+                if (this.isLoggedIn()) {
+                    $.cookie(COOKIE_NAME, 'false');
+                    this.purchasePopup();
+                } else {
+                    switch(aii.guest.click_event) {
+                        case 'popup':
+                            this.loginPopup();
+                        break;
+
+                        case 'redirect':
+                            this.loginRedirect();
+                        break;
+                    }
                 }
             }
         },
@@ -189,12 +195,12 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            if (!state.id || !state.element.parentElement.className.includes(this.paymentMethodListClass)) {
+            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
                 return state.text;
             }
             var iconUrl = state.element.value.split('*~*')[1];
             var iconHtml = $(
-                '<span class="' + this.cardIconClass + '">'
+                '<span class="aii-card-icon">'
                 + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );
