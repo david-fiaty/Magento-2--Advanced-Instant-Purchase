@@ -63,8 +63,7 @@ define([
             this.setConfigData(aiiConfig());
 
             instantPurchase.subscribe(this.setPurchaseData, this);
-            aiiConfig.subscribe(this.setConfigData, this);
-            this.aaiConfig = AiiCore.aiiConfig;
+            this.aaiConfig = aiiConfig.subscribe(this.setConfigData, this);
         },
 
         /** @inheritdoc */
