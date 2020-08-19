@@ -88,8 +88,8 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             return $data;
         }
 
-        // Get the card data
-        $paymentToken = $this->vaultHandler->getLastSavedCard();
+        // Payment token
+        $paymentToken = $this->preparePaymentToken();
 
         // Load the option
         $instantPurchaseOption = $this->instantPurchase->getOption(
@@ -104,10 +104,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             $shippingMethod = $instantPurchaseOption->getShippingMethod();
             $data += [
                 'advancedInstantPurchase' => $this->config->getValues(),
-                'paymentToken' => [
-                    'publicHash' => $paymentToken['data']->getPublicHash(),
-                    'summary' => $this->paymentTokenFormatter->formatPaymentToken($paymentToken['data']),
-                ],
+                'paymentToken' => $paymentToken,
                 'shippingAddress' => [
                     'id' => $shippingAddress->getId(),
                     'summary' => $this->customerAddressesFormatter->format($shippingAddress),
@@ -125,5 +122,24 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         }
 
         return $data;
+    }
+
+    public function preparePaymentToken() {
+        $card = $this->vaultHandler->getLastSavedCard();
+
+        // Summary
+        $summary = isset($card['data'])
+        ? $this->paymentTokenFormatter->formatPaymentToken($card['data'])
+        : '';
+
+        // Public hash
+        $publicHash = isset($card['data'])
+        ? $card['data']->getPublicHash()
+        : '';
+        
+        return [
+            'publicHash' => $publicHash,
+            'summary' => $summary,
+        ];
     }
 }
