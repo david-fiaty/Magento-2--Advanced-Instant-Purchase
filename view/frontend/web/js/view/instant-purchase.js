@@ -10,6 +10,7 @@ define([
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
+    //'Magento_Checkout/js/view/shipping',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
@@ -17,7 +18,7 @@ define([
     'select2',
     'mage/validation',
     'mage/cookies'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, /*ShippingView, */ AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
@@ -133,6 +134,7 @@ define([
          * Get the loader icon.
          */
         getLoaderIconPath: function() {
+            console.log(require.toUrl(LOADER_ICON));
             return require.toUrl(LOADER_ICON);
         },
 
@@ -140,6 +142,10 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
+
+            ShippingView.getPopUp();
+
+            /*
             // Get the cart local storage
             var cartData = CustomerData.get('cart')();
 
@@ -163,6 +169,8 @@ define([
                     }
                 }
             }
+
+        */
         },
 
         /**
