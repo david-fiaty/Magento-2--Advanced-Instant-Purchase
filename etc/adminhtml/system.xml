@@ -21,7 +21,7 @@
             <label>Naxero</label>
         </tab>
         <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Instant Purchase</label>
+            <label>Advanced Instant Purchase</label>
             <tab>naxero</tab>
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
