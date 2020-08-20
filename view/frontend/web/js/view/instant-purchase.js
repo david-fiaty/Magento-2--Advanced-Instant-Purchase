@@ -10,15 +10,16 @@ define([
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
-    //'Magento_Checkout/js/view/shipping',
+    'Magento_Checkout/js/view/shipping',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'select2',
     'mage/validation',
-    'mage/cookies'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, /*ShippingView, */ AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
+    'mage/cookies',
+    'domReady!'
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, ShippingView, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
@@ -142,7 +143,6 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-
             ShippingView.getPopUp();
 
             /*
