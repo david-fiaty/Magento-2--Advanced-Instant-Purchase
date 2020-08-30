@@ -14,7 +14,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'select2',
     'mage/validation',
     'mage/cookies',
