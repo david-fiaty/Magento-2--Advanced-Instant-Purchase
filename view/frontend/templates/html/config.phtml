@@ -1,0 +1,10 @@
+<?php
+$aiiConfig = $block->getConfig();
+$aiiConfig['user'] = [
+    'loggedIn' => $block->customerSession->isLoggedIn()
+];
+?>
+
+<script>
+    window.advancedInstantPurchase = <?php echo json_encode($aiiConfig); ?>;
+</script>

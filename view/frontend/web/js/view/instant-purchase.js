@@ -8,29 +8,28 @@ define([
     'underscore',
     'mage/translate',
     'uiComponent',
-    'aiiCore',
-    'select2',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
+    'select2',
     'mage/validation',
-    'mage/cookies'
-], function (ko, $, _, __, Component, AiiCore, select2, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate) {
+    'mage/cookies',
+    'domReady!'
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
-    const CUSTOMER_SECTION_NAME = 'instant-purchase';
-    const AII_SECTION_NAME = 'advancedInstantPurchase';
-    const CART_SECTION_NAME = 'cart';
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
+    const AII_SECTION_NAME = 'advancedInstantPurchase';
+    const LOADER_ICON = 'Naxero_AdvancedInstantPurchase/images/ajax-loader.gif';
 
     return Component.extend({
         defaults: {
-            aiiConfig: {},
+            aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
@@ -44,8 +43,6 @@ define([
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
             loginBlockSelector: '.block-authentication',
-            paymentMethodListClass: 'aii-payment-method-select',
-            cardIconClass: 'aii-card-icon',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -58,7 +55,7 @@ define([
 
         /** @inheritdoc */
         initialize: function() {
-            var instantPurchase = CustomerData.get(CUSTOMER_SECTION_NAME);
+            var instantPurchase = CustomerData.get('instant-purchase');
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
@@ -73,18 +70,14 @@ define([
         },
 
         /**
-         * Get the Advanced Instant Purchase configuration values.
+         * Log data to the browser console.
          *
          * @param {Object} data
          */
-        getConfig: function() {
-            var cartData = CustomerData.get(CART_SECTION_NAME)();
-
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                return cartData[AII_SECTION_NAME];
+        log: function(data) {
+            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+                console.log(data);
             }
-
-            return {};
         },
 
         /**
@@ -93,10 +86,6 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function(data) {
-            // Load parameters
-            this.aaiConfig = this.getConfig();
-            this.buttonText = __(this.aiiConfig.display.popup_title);
-
             // Prepare the data
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
@@ -122,14 +111,24 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var customer = CustomerData.get(CUSTOMER_SECTION_NAME)();
+            var customer = CustomerData.get('customer')();
             return customer.fullname && customer.firstname;
+        },
+
+        /**
+         * Get the loader icon.
+         */
+        getLoaderIconPath: function() {
+            return require.toUrl(LOADER_ICON);
         },
 
         /**
          * Handle the button click event.
          */
         handleButtonClick: function() {
+            // todo - get shipping popup
+            // ShippingView.getPopUp();
+
             // Handle the button click logic
             if (this.isLoggedIn()) {
                 $.cookie(COOKIE_NAME, 'false');
@@ -168,7 +167,7 @@ define([
          * Get the button state.
          */
         shouldDisableButton: function() {
-            // Disable the button by default
+            // Get the cart local storage
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
@@ -181,12 +180,12 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            if (!state.id || !state.element.parentElement.className.includes(this.paymentMethodListClass)) {
+            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
                 return state.text;
             }
             var iconUrl = state.element.value.split('*~*')[1];
             var iconHtml = $(
-                '<span class="' + this.cardIconClass + '">'
+                '<span class="aii-card-icon">'
                 + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );
@@ -231,7 +230,7 @@ define([
                     });
                 },
                 error: function (request, status, error) {
-                    AiiCore.log.log(error);
+                    self.log(error);
                 }
             });
         },

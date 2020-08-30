@@ -13,13 +13,7 @@
  */
 
  var config = {
-    map: {
-        '*': {
-            aiiCore: 'Naxero_AdvancedInstantPurchase/js/core'
-        }
-    },
     paths: {
         select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full'
     }
 };
-
