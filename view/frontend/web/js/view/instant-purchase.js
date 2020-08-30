@@ -14,7 +14,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation',
     'select2',
     'mage/validation',
     'mage/cookies',
@@ -143,7 +143,7 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            ShippingView.getPopUp();
+            //ShippingView.getPopUp();
 
             /*
             // Get the cart local storage

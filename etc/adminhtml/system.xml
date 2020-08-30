@@ -54,7 +54,7 @@
                 </field>  
             </group>
             <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Display settings</label>
+                <label>Popup settings</label>
                 <field id="popup_title" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
@@ -68,6 +68,51 @@
                     <comment>Text for the Advanced Instant Purchase popup footer.</comment>
                 </field>
             </group>
+            <group id="options" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>List options order</label>
+                <field id="show_saved_cards" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show the saved cards list</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the Instant Purchase button to guest users.</comment>
+                </field>
+                <field id="saved_cards" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Saved cards order</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\SavedCardsOrder</source_model>
+                    <depends>
+                        <field id="show_saved_cards">1</field>
+                    </depends>
+                </field>
+                <field id="show_billing_addresses" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show the billing addresses list</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="billing_addresses" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Billing addresses order</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\BillingAddressesOrder</source_model>
+                    <depends>
+                        <field id="show_billing_addresses">1</field>
+                    </depends>
+                </field>
+                <field id="show_shipping_addresses" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show the shipping addresses list</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipping_addresses" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping addresses order</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ShippingAddressesOrder</source_model>
+                    <depends>
+                        <field id="show_shipping_addresses">1</field>
+                    </depends>
+                </field>
+                <field id="shipping_methods" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping methods order</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ShippingMethodsOrder</source_model>
+                    <depends>
+                        <field id="shipping_methods">1</field>
+                    </depends>
+                </field>
+            </group>
+
             <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Guest user settings</label>
                 <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
