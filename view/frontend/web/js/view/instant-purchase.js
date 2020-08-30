@@ -29,7 +29,7 @@ define([
 
     return Component.extend({
         defaults: {
-            aiiConfig: {},
+            aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
@@ -75,15 +75,8 @@ define([
          * @param {Object} data
          */
         log: function(data) {
-            // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
-
-            // Check console logging enabled
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-                if (aii.general.debug_enabled && aii.general.console_logging_enabled) {
-                    console.log(data);
-                }
+            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+                console.log(data);
             }
         },
 
@@ -93,7 +86,6 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function(data) {
-            console.log(data)
             // Prepare the data
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
@@ -111,16 +103,8 @@ define([
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
-
-            // Check bypass login
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-                return aii.general.enabled && aii.guest.show_guest_button;
-            }
-
-            return false;
+            return this.aiiConfig.general.enabled
+            && this.aiiConfig.guest.show_guest_button;
         },
 
         /**
@@ -135,7 +119,6 @@ define([
          * Get the loader icon.
          */
         getLoaderIconPath: function() {
-            console.log(require.toUrl(LOADER_ICON));
             return require.toUrl(LOADER_ICON);
         },
 
@@ -146,27 +129,19 @@ define([
             // todo - get shipping popup
             // ShippingView.getPopUp();
 
-            // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
+            // Handle the button click logic
+            if (this.isLoggedIn()) {
+                $.cookie(COOKIE_NAME, 'false');
+                this.purchasePopup();
+            } else {
+                switch(this.aiiConfig.guest.click_event) {
+                    case 'popup':
+                        this.loginPopup();
+                    break;
 
-            // Handle button click
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-
-                // Handle the button click logic
-                if (this.isLoggedIn()) {
-                    $.cookie(COOKIE_NAME, 'false');
-                    this.purchasePopup();
-                } else {
-                    switch(aii.guest.click_event) {
-                        case 'popup':
-                            this.loginPopup();
-                        break;
-
-                        case 'redirect':
-                            this.loginRedirect();
-                        break;
-                    }
+                    case 'redirect':
+                        this.loginRedirect();
+                    break;
                 }
             }
         },
@@ -193,15 +168,11 @@ define([
          */
         shouldDisableButton: function() {
             // Get the cart local storage
-            var cartData = CustomerData.get('cart')();
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (cartData && cartData.hasOwnProperty(AII_SECTION_NAME)) {
-                var aii = cartData[AII_SECTION_NAME];
-                if (aii.guest.click_event !== 'disabled') {
-                    $(this.buttonSelector).prop('disabled', false);
-                }
+            if (this.aiiConfig.guest.click_event !== 'disabled') {
+                $(this.buttonSelector).prop('disabled', false);
             }
         },
 
