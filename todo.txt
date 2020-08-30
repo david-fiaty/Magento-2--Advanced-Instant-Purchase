@@ -8,6 +8,7 @@
 
 - add a ip popup closest select list option with geoloc
 
+- add shipping and billing address screens
 
 QA
 - check all config fields functional
