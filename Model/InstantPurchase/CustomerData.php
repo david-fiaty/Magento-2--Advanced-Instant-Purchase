@@ -125,6 +125,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     }
 
     public function preparePaymentToken() {
+        // Get the last saved cards
         $card = $this->vaultHandler->getLastSavedCard();
 
         // Summary

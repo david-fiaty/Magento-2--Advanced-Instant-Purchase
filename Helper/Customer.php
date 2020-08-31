@@ -37,6 +37,21 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $vaultHandler;
 
     /**
+     * @var Object
+     */
+    public $customer;
+
+    /**
+     * @var Object
+     */
+    public $customerModel;
+
+    /**
+     * @var Array
+     */
+    public $config;
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
@@ -59,56 +74,92 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current customer addresses.
+     * Get the confirmation modal content.
      */
     public function getConfirmContent()
     {
+        // Prepare the output array
+        $confirmationData = [];
+
+        // Build the confirmation data
         if ($this->customerSession->isLoggedIn()) {
-            $config = $this->configHelper->getValues();
+            // Get the config values
+            $this->loadConfigData();
 
-            // Prepare the required parameters
-            $customerId = $this->customerSession->getCustomer()->getId();
-            $customer = $this->customerFactory->create();
-            $websiteId = $this->storeManager->getStore()->getWebsiteId();
-            $customer->setWebsiteId($websiteId);
-            $customerModel = $customer->load($customerId);
-    
-            // Prepare the output arrays
-            $confirmationData = [];
+            // Load the customer data
+            $this->loadCustomerData();
 
-            // Get the addresses list
-            $addresses = $customerModel->getAddresses();
-            if (!empty($addresses)) {
-                foreach ($addresses as $address) {
-                    $addressArray = $address->toArray();
-                    if ($addressArray['is_active'] == 1) {
-                        $confirmationData['addresses'][] = $addressArray;
-                    }
-                }
-            }
-
-            // Get the popup title
-            $confirmationData['popup'] = [
-                'title' => $config['display']['popup_title'],
-                'header_text' => $config['display']['popup_header_text'],
-                'footer_text' => $config['display']['popup_footer_text']
-            ];
-
-            // Get the saved cards list
+            // Confirmation data
+            $confirmationData['addresses'] = $this->getAddresses();
+            $confirmationData['popup'] = $this->getPopupData();
             $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
+                $this->customer
+            );
 
-            // Prepare the shipping rates
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
-
-            // Prepare the instant purchase data
-            $customerData = $this->customerData->getSectionData();
-            if (!empty($customerData)) {
-                $confirmationData['sectionData'] = $customerData;
+            // Instant purchase data
+            $customerSectionData = $this->customerData->getSectionData();
+            if (!empty($customerSectionData)) {
+                $confirmationData['sectionData'] = $customerSectionData;
             }
-
-            return $confirmationData;
         }
 
-        return [];
+        return $confirmationData;
+    }
+
+    /**
+     * Load the customer data.
+     */
+    public function loadCustomerData()
+    {
+        // Load the customer instance
+        $this->customer = $this->customerFactory->create();
+        $this->customer->setWebsiteId(
+            $this->storeManager->getStore()->getWebsiteId()
+        );
+
+        // Load the customer model instance
+        $this->customerModel = $this->customer->load(
+            $this->customerSession->getCustomer()->getId()
+        );
+    }
+
+    /**
+     * Load the config data.
+     */
+    public function loadConfigData()
+    {
+        $this->config = $this->configHelper->getValues();
+    }
+
+    /**
+     * Get the popup data.
+     */
+    public function getPopupData()
+    {
+        return [
+            'title' => $this->config['display']['popup_title'],
+            'header_text' => $this->config['display']['popup_header_text'],
+            'footer_text' => $this->config['display']['popup_footer_text']
+        ];
+    }
+
+    /**
+     * Get the customer addresses.
+     */
+    public function getAddresses()
+    {
+        $output = [];
+        $addresses = $this->customerModel->getAddresses();
+        if (!empty($addresses)) {
+            foreach ($addresses as $address) {
+                $addressArray = $address->toArray();
+                if ($addressArray['is_active'] == 1) {
+                    $output[] = $addressArray;
+                }
+            }
+        }
+
+        return $output;
     }
 }

@@ -59,6 +59,9 @@ define([
             this._super();
             this.setPurchaseData(instantPurchase());
             instantPurchase.subscribe(this.setPurchaseData, this);
+
+            console.log('getLoaderIconPath');
+            console.log(this.getLoaderIconPath());
         },
 
         /** @inheritdoc */
@@ -268,6 +271,10 @@ define([
          * Purchase popup.
          */
         purchasePopup: function() {
+            console.log(this.paymentToken());
+
+           console.log(this.paymentToken());
+
             var form = $(this.productFormSelector),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.paymentToken().summary,

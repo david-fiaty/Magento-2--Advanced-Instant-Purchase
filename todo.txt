@@ -1,14 +1,13 @@
-- update the catalog_product_view_type_bundle.xml file
-- update the other product types xml layout files
 - check payment action
 - improve the config fields comments
 - add button spinner 
 - add popup spinner
 - add popup default values selected: most used, most recent, fastest, cheapest
-
 - add a ip popup closest select list option with geoloc
 
-- add shipping and billing address screens
+FEATURES
+- button in product lists
+- shipping and billing address screens
 
 QA
 - check all config fields functional
