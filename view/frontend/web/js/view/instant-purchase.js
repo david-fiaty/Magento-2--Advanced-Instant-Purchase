@@ -18,7 +18,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
