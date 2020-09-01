@@ -46,6 +46,7 @@ define([
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
             sliderSelector: '#aii-slider',
+            isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -252,6 +253,7 @@ define([
                         $(self.sliderSelector).slick('slickNext');
                         $(self.nextSlideSelectorr).show();
                         self.getNewAddressForm();
+                        self.isSubView = true;
                     });
                 },
                 error: function (request, status, error) {
@@ -276,15 +278,22 @@ define([
                 {
                     text: __('Cancel'),
                     class: 'action-secondary action-dismiss',
-                    click: function (event) {
-                        // this.closeModal(event);
-                        $(self.sliderSelector).slick('slickPrev');
+                    click: function(event) {
+                        if (self.isSubView) {
+                            $(self.sliderSelector).slick('slickPrev');
+                        }
+                        else {
+                            this.closeModal(event);
+                        }
+
+                        // Update the view state
+                        self.isSubView = false;
                     }
                 },
                 {
                     text: __('Submit'),
                     class: 'action-primary action-accept',
-                    click: function (event) {
+                    click: function(event) {
                         this.closeModal(event, true);
                     }
                 }],
