@@ -55,13 +55,41 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Generate a block.
+     * Generates a block.
      */
     public function loadBlock()
+    {
+        $html = '';
+        $action = $this->getRequest()->getParam('action');
+        if ($action && !empty($action)) {
+            $fn =  'new' . ucfirst($action) . 'Block';
+            if (method_exists($this, $fn)) {
+                return $this->$fn();
+            }
+        }
+
+        return $html;
+    }
+
+    /**
+     * Generates the confirmation block.
+     */
+    public function newConfirmationBlock()
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
+            ->toHtml();
+    }
+
+    /**
+     * Generates the new address block.
+     */
+    public function newAddressBlock()
+    {
+        return $this->pageFactory->create()->getLayout()
+            ->createBlock('Magento\Customer\Block\Address\Edit')
+            ->setTemplate('Magento_Customer::address/edit.phtml')
             ->toHtml();
     }
 }

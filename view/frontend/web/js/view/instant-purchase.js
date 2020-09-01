@@ -183,13 +183,38 @@ define([
         },
 
         /**
+         * Get the new address form.
+         */
+        getNewAddressForm: function() {
+            var self = this;
+            var params = {
+                action: 'address'
+            };
+            $.ajax({
+                type: 'POST',
+                url: UrlBuilder.build(CONFIRMATION_URL),
+                data: params,
+                success: function (data) {
+                    $(self.nextSlideSelector).html(data.html);
+                },
+                error: function (request, status, error) {
+                    self.log(error);
+                }
+            });
+        },
+
+        /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
             var self = this;
+            var params = {
+                action: 'confirmation'
+            };
             $.ajax({
                 type: 'POST',
                 url: UrlBuilder.build(CONFIRMATION_URL),
+                data: params,
                 success: function (data) {
                     // Get the HTML content
                     $(self.popupContentSelector).html(data.html);
