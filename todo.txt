@@ -12,3 +12,11 @@ FEATURES
 QA
 - check all config fields functional
 - performance: cache js events, reduce config calls
+
+
+
+
+NEW IDEAS
+
+- fancy interactive product grid in category views with masonry
+- fancy interactive images grid in product details view with masonry

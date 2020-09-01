@@ -2,3 +2,15 @@
     display:flex;
     align-items:center;
 }
+
+#aii-ajax-loader-container {
+    width: 100%;
+    height: 100%;
+}
+
+#aii-ajax-loader-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
