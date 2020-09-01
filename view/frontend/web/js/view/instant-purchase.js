@@ -13,18 +13,18 @@ define([
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'mage/url',
     'mage/template',
+    'text!Naxero_AdvancedInstantPurchase/template/confirmation.phtml',
     'select2',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, select2) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
     const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
     const LOADER_ICON = 'Naxero_AdvancedInstantPurchase/images/ajax-loader.gif';
-    const CONFIRMATION_TEMPLATE = 'Naxero_AdvancedInstantPurchase/template/confirmation.phtml';
 
     return Component.extend({
         defaults: {
@@ -238,7 +238,7 @@ define([
          * Get the confirmation page modal popup.
          */
         getConfirmModal: function(confirmData, form) {
-            var confirmTemplate = MageTemplate(CONFIRMATION_TEMPLATE);
+            var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
                 title: this.confirmationTitle,
                 clickableOverlay: true,
