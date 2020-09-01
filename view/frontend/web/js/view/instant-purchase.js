@@ -267,10 +267,6 @@ define([
          * Purchase popup.
          */
         purchasePopup: function() {
-            console.log(this.paymentToken());
-
-           console.log(this.paymentToken());
-
             var form = $(this.productFormSelector),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
