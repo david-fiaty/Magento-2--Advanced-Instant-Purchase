@@ -113,7 +113,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
                     'currentCustomer' => $this->currentCustomer
                 ]
             )
-            ->setTemplate('Magento_Customer::address/edit.phtml')
+            ->setTemplate('Naxero_AdvancedInstantPurchase::address/edit.phtml')
             ->toHtml();
     }
 
