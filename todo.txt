@@ -6,6 +6,7 @@
 FEATURES
 - button in product lists
 - shipping and billing address screens
+- add themes system
 
 QA
 - check all config fields functional

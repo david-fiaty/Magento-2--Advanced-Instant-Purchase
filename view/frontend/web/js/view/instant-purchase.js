@@ -30,7 +30,7 @@ define([
             aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
+            purchaseUrl: 'instantpurchase/button/placeOrder',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -249,8 +249,9 @@ define([
                     // Set the link events
                     $(self.linkSelector).on('click', function(e) {
                         e.preventDefault();
-                        self.getNewAddressForm();
                         $(self.sliderSelector).slick('slickNext');
+                        $(self.nextSlideSelectorr).show();
+                        self.getNewAddressForm();
                     });
                 },
                 error: function (request, status, error) {
@@ -263,17 +264,34 @@ define([
          * Get the confirmation page modal popup.
          */
         getConfirmModal: function(confirmData, form) {
+            var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
                 title: this.confirmationTitle,
-                clickableOverlay: true,
+                innerScroll: true,
                 content: confirmTemplate({
                     data: confirmData
                 }),
+                buttons: [
+                {
+                    text: __('Cancel'),
+                    class: 'action-secondary action-dismiss',
+                    click: function (event) {
+                        // this.closeModal(event);
+                        $(self.sliderSelector).slick('slickPrev');
+                    }
+                },
+                {
+                    text: __('Submit'),
+                    class: 'action-primary action-accept',
+                    click: function (event) {
+                        this.closeModal(event, true);
+                    }
+                }],
                 actions: {
                     confirm: function() {
                         $.ajax({
-                            url: this.purchaseUrl,
+                            url: UrlBuilder.build(self.purchaseUrl),
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',

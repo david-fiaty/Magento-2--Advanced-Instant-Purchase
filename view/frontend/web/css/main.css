@@ -3,7 +3,7 @@
     align-items:center;
 }
 
-#aii-ajax-loader-container {
+.aii-ajax-loader-container {
     width: 100%;
     height: 100%;
     text-align: center;
@@ -13,8 +13,10 @@
 #aii-next-slide-container {
     width: 100%;
     height: 100%;
+    display: none;
 }
 
 #aii-next-slide-container > form {
     width: 100%;
 }
+
