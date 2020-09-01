@@ -13,6 +13,8 @@
 #aii-next-slide-container {
     width: 100%;
     height: 100%;
-    background-color: red;
-    display: none;
+}
+
+#aii-next-slide-container > form {
+    width: 100%;
 }

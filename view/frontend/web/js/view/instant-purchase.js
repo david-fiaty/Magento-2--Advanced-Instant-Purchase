@@ -196,7 +196,6 @@ define([
                 data: params,
                 success: function (data) {
                     $(self.nextSlideSelector).html(data.html);
-                    $(self.nextSlideSelector).show();
                 },
                 error: function (request, status, error) {
                     self.log(error);
@@ -250,8 +249,8 @@ define([
                     // Set the link events
                     $(self.linkSelector).on('click', function(e) {
                         e.preventDefault();
-                        $(self.sliderSelector).slick('slickNext');
                         self.getNewAddressForm();
+                        $(self.sliderSelector).slick('slickNext');
                     });
                 },
                 error: function (request, status, error) {
