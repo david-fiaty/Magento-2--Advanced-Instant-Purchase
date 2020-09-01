@@ -1,3 +1,8 @@
 <div id="aii-confirmation-content">
-    <img data-bind="src: getLoaderIconPath">
+    <div id="aii-ajax-loader-container">
+        <img id="aii-ajax-loader">
+    </div>
 </div>
+<script>
+var img = document.getElementById('aii-ajax-loader').src = window.advancedInstantPurchase.ui.loader;
+</script>

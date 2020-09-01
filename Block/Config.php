@@ -17,6 +17,11 @@ class Config extends \Magento\Framework\View\Element\Template
     public $customerSession;
 
     /**
+     * @var Session
+     */
+    public $assetRepo;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -28,12 +33,14 @@ class Config extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\View\Asset\Repository $assetRepo,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->customerSession = $customerSession;
+        $this->assetRepo = $assetRepo;
         $this->configHelper = $configHelper;
     }
 
@@ -43,6 +50,14 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         return $this->configHelper->getValues();
+    }
+
+    /**
+     * Get the loader icon URL.
+     */
+    public function getLoaderIconUrl()
+    {
+        return $this->assetRepo->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
     }
 
     /**

@@ -21,11 +21,8 @@ define([
 ], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
     'use strict';
 
-    const COOKIE_NAME = 'aaiReopenPurchasePopup';
     const CONFIRMATION_URL = 'aii/ajax/confirmation';
     const LOGIN_URL = 'customer/account/login';
-    const AII_SECTION_NAME = 'advancedInstantPurchase';
-    const LOADER_ICON = 'Naxero_AdvancedInstantPurchase/images/ajax-loader.gif';
 
     return Component.extend({
         defaults: {
@@ -44,6 +41,7 @@ define([
             listSelector: '.aii-select',
             loginBlockSelector: '.block-authentication',
             confirmationTitle: __('Instant Purchase Confirmation'),
+            confirmationTemplateSelector: '#aii-confirmation-template',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -92,11 +90,6 @@ define([
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
-
-            // Cookie for after login process
-            if ($.cookie(COOKIE_NAME) === 'true') {
-                $(this.buttonSelector).trigger('click');
-            }
         },
 
         /**
@@ -116,13 +109,6 @@ define([
         },
 
         /**
-         * Get the loader icon.
-         */
-        getLoaderIconPath: function() {
-            return require.toUrl(LOADER_ICON);
-        },
-
-        /**
          * Handle the button click event.
          */
         handleButtonClick: function() {
@@ -131,18 +117,11 @@ define([
 
             // Handle the button click logic
             if (this.isLoggedIn()) {
-                $.cookie(COOKIE_NAME, 'false');
                 this.purchasePopup();
             } else {
-                switch(this.aiiConfig.guest.click_event) {
-                    case 'popup':
-                        this.loginPopup();
-                    break;
-
-                    case 'redirect':
-                        this.loginRedirect();
-                    break;
-                }
+                var val = this.aiiConfig.guest.click_event;
+                var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
+                this[fn]();
             }
         },
 
@@ -150,7 +129,6 @@ define([
          * Create a login popup.
          */
         loginPopup: function() {
-            $.cookie(COOKIE_NAME, 'true');
             AuthPopup.createPopUp(this.loginBlockSelector);
             AuthPopup.showModal();
         },
@@ -210,7 +188,7 @@ define([
                 url: UrlBuilder.build(CONFIRMATION_URL),
                 success: function (data) {
                     // Get the HTML content
-                    $(self.popupContentSelector).append(data.html);
+                    $(self.popupContentSelector).html(data.html);
 
                     // Initialise the select lists
                     $(self.listSelector).select2({
@@ -270,10 +248,10 @@ define([
         purchasePopup: function() {
             var form = $(this.productFormSelector),
             confirmData = _.extend({}, this.confirmationData, {
-                paymentToken: this.paymentToken().summary,
-                shippingAddress: this.shippingAddress().summary,
-                billingAddress: this.billingAddress().summary,
-                shippingMethod: this.shippingMethod().summary
+                paymentToken: this.getData('paymentToken'),
+                shippingAddress: this.getData('shippingAddress'),
+                billingAddress: this.getData('billingAddress'),
+                shippingMethod: this.getData('shippingMethod')
             });
 
             // Check the validation rules
@@ -286,6 +264,19 @@ define([
 
             // Get the AJAX content
             this.getConfirmContent();
-        }
+        },
+
+        /**
+         * Get the payment token.
+         */
+        getData: function(fn) {
+            var data = this[fn]();
+            var ok = data
+            && data.hasOwnProperty('summary')
+            && typeof data.summary !== 'undefined'
+            && data.summary.length > 0;
+
+            return ok ? data.summary : ' ';
+        },
     });
 });
