@@ -3,5 +3,10 @@
     <preference for="Magento\InstantPurchase\PaymentMethodIntegration\AvailabilityCheckerInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker" />
     <preference for="Magento\InstantPurchase\PaymentMethodIntegration\PaymentTokenFormatterInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter" />
     <preference for="Magento\InstantPurchase\CustomerData\InstantPurchase" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData" />
+
+    <preference for="Magento\InstantPurchase\Model\PaymentMethodChoose\PaymentTokenChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\LastCreatedPaymentTokenChooser" />
+    <preference for="Magento\InstantPurchase\Model\ShippingAddressChoose\ShippingAddressChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\DefaultShippingAddressChooser" />
+    <preference for="Magento\InstantPurchase\Model\BillingAddressChoose\BillingAddressChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\DefaultBillingAddressChooser" />
+    <preference for="Magento\InstantPurchase\Model\ShippingMethodChoose\ShippingMethodChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\CheapestMethodChooser" />
     <!-- END Instant Purchase override -->
 </config>
