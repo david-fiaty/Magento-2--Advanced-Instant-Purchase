@@ -273,10 +273,10 @@ define([
 
             var form = $(this.productFormSelector),
             confirmData = _.extend({}, this.confirmationData, {
-                paymentToken: this.paymentToken().summary,
-                shippingAddress: this.shippingAddress().summary,
-                billingAddress: this.billingAddress().summary,
-                shippingMethod: this.shippingMethod().summary
+                paymentToken: this.getData('paymentToken'),
+                shippingAddress: this.getData('shippingAddress'),
+                billingAddress: this.getData('billingAddress'),
+                shippingMethod: this.getData('shippingMethod')
             });
 
             // Check the validation rules
@@ -289,6 +289,19 @@ define([
 
             // Get the AJAX content
             this.getConfirmContent();
-        }
+        },
+
+        /**
+         * Get the payment token.
+         */
+        getData: function(fn) {
+            var data = this[fn]();
+            var ok = data
+            && data.hasOwnProperty('summary')
+            && typeof data.summary !== 'undefined'
+            && data.summary.length > 0;
+
+            return ok ? data.summary : ' ';
+        },
     });
 });
