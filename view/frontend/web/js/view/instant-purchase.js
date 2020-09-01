@@ -133,15 +133,9 @@ define([
                 $.cookie(COOKIE_NAME, 'false');
                 this.purchasePopup();
             } else {
-                switch(this.aiiConfig.guest.click_event) {
-                    case 'popup':
-                        this.loginPopup();
-                    break;
-
-                    case 'redirect':
-                        this.loginRedirect();
-                    break;
-                }
+                var val = this.aiiConfig.guest.click_event;
+                var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
+                this[fn]();
             }
         },
 
