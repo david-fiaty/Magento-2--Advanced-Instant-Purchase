@@ -22,15 +22,15 @@ define([
 ], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
-    const CONFIRMATION_URL = 'aii/ajax/confirmation';
-    const LOGIN_URL = 'customer/account/login';
-
     return Component.extend({
         defaults: {
             aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             purchaseUrl: 'instantpurchase/button/placeOrder',
+            loginUrl: 'customer/account/logins',
+            confirmUrl: 'aii/ajax/confirmation',
+            saveAddressUrl: 'customer/address/formPost',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -142,7 +142,7 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            var loginUrl = UrlBuilder.build(LOGIN_URL);
+            var loginUrl = UrlBuilder.build(this.loginUrl);
             window.location.href = loginUrl;
         },
 
@@ -193,7 +193,7 @@ define([
             };
             $.ajax({
                 type: 'POST',
-                url: UrlBuilder.build(CONFIRMATION_URL),
+                url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {
                     $(self.nextSlideSelector).html(data.html);
@@ -214,7 +214,7 @@ define([
             };
             $.ajax({
                 type: 'POST',
-                url: UrlBuilder.build(CONFIRMATION_URL),
+                url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {
                     // Get the HTML content
@@ -300,7 +300,7 @@ define([
                 actions: {
                     confirm: function() {
                         $.ajax({
-                            url: UrlBuilder.build(self.purchaseUrl),
+                            url: self.getConfirmUrl(),
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',
@@ -313,6 +313,14 @@ define([
                     }.bind(this)
                 }
             });
+        },
+
+        /**
+         * Get the modal confirmation URL.
+         */
+        getConfirmUrl: function() {
+            var url = (self.isSubView) ? self.saveAddressUrl : self.purchaseUrl;
+            return UrlBuilder.build(url);
         },
 
         /**
