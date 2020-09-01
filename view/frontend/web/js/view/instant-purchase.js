@@ -41,6 +41,7 @@ define([
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
             linkSelector: '.aii-new',
+            nextSlideSelector: '#aii-next-slide-container',
             loginBlockSelector: '.block-authentication',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
@@ -224,6 +225,7 @@ define([
                     $(self.linkSelector).on('click', function(e) {
                         e.preventDefault();
                         $(self.sliderSelector).slick('slickNext');
+                        $(self.nextSlideSelector).show();
                     });
                 },
                 error: function (request, status, error) {
