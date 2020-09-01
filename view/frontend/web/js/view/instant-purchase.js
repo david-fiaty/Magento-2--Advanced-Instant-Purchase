@@ -296,6 +296,6 @@ define([
             && data.summary.length > 0;
 
             return ok ? data.summary : ' ';
-        },
+        }
     });
 });
