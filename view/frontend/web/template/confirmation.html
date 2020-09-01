@@ -1,8 +1,11 @@
-<div id="aii-confirmation-content">
-    <div id="aii-ajax-loader-container">
-        <img id="aii-ajax-loader">
+<div id="aii-slider">
+    <div id="aii-confirmation-content">
+        <div id="aii-ajax-loader-container">
+            <img id="aii-ajax-loader">
+            <script>
+                var img = document.getElementById('aii-ajax-loader').src = window.advancedInstantPurchase.ui.loader;
+            </script>
+        </div>
     </div>
+    <div id="aii-next-slide-container"></div>
 </div>
-<script>
-var img = document.getElementById('aii-ajax-loader').src = window.advancedInstantPurchase.ui.loader;
-</script>

@@ -39,9 +39,11 @@ define([
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
+            linkSelector: '.aii-new',
             loginBlockSelector: '.block-authentication',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
+            sliderSelector: '#aii-slider',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -199,12 +201,28 @@ define([
                     });
 
                     // Set the lists events
-                    $(self.listSelector).on('change', function () {
+                    $(self.listSelector).on('change', function() {
                         var targetField = $(this).attr('data-field');
                         var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
                         ? self.getOptionPublicHash(fieldValue)
                         : fieldValue;
                         $('input[name="' + targetField + '"]').val(fieldValue);
+                    });
+
+                    // Set the slider events
+                    $(this.sliderSelector).slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: false,
+                        speed: 300,
+                        adaptiveHeight: true,
+                        arrows: false
+                    });
+
+                    // Set the link events
+                    $(this.linkSelector).on('click', function(e) {
+                        e.preventDefault();
+                        $(this.sliderSelector).slick('slickNext');
                     });
                 },
                 error: function (request, status, error) {
