@@ -9,8 +9,7 @@
 }
 
 #aii-ajax-loader-container img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: inline-block;
+    margin: auto;
+    margin-top: 30px;
 }

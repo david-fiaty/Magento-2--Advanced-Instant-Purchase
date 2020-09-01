@@ -188,7 +188,7 @@ define([
                 url: UrlBuilder.build(CONFIRMATION_URL),
                 success: function (data) {
                     // Get the HTML content
-                    $(self.popupContentSelector).append(data.html);
+                    $(self.popupContentSelector).html(data.html);
 
                     // Initialise the select lists
                     $(self.listSelector).select2({
