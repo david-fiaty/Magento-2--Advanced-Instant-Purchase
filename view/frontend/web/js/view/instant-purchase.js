@@ -15,6 +15,7 @@ define([
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'select2',
+    'slick',
     'mage/validation',
     'mage/cookies',
     'domReady!'
