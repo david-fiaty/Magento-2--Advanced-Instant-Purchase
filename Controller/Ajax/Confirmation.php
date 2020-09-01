@@ -7,6 +7,16 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
     /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
+     * @var CurrentCustomer
+     */
+    public $currentCustomer;
+
+    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -26,12 +36,16 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
         $this->customerHelper = $customerHelper;
+        $this->customerSession = $customerSession;
+        $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
     }
@@ -87,9 +101,20 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newAddressBlock()
     {
+        // Load the customer instance
+        $this->customerHelper->loadCustomerData();
+
         return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\Customer\Block\Address\Edit')
+            ->createBlock(
+                'Magento\Customer\Block\Address\Edit',
+                'customer_address_edit',
+                [
+                    'customerSession' => $this->customerSession,
+                    'currentCustomer' => $this->currentCustomer
+                ]
+            )
             ->setTemplate('Magento_Customer::address/edit.phtml')
             ->toHtml();
     }
+
 }
