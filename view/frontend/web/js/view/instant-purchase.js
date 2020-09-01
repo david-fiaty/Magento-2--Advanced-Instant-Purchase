@@ -211,7 +211,7 @@ define([
                     });
 
                     // Set the slider events
-                    $(this.sliderSelector).slick({
+                    $(self.sliderSelector).slick({
                         slidesToShow: 1,
                         slidesToScroll: 1,
                         infinite: false,
@@ -221,9 +221,9 @@ define([
                     });
 
                     // Set the link events
-                    $(this.linkSelector).on('click', function(e) {
+                    $(self.linkSelector).on('click', function(e) {
                         e.preventDefault();
-                        $(this.sliderSelector).slick('slickNext');
+                        $(self.sliderSelector).slick('slickNext');
                     });
                 },
                 error: function (request, status, error) {
