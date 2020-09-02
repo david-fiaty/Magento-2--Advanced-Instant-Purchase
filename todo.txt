@@ -1,6 +1,5 @@
 - check payment action
 - improve the config fields comments
-- add button spinner 
 - add popup default values selected: most used, most recent, fastest, cheapest
 - add a ip popup closest select list option with geoloc
 
