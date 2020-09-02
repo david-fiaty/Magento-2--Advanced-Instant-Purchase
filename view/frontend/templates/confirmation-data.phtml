@@ -20,12 +20,7 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a href="<?= $block->escapeUrl($block->getUrl(
-                'customer/account/login', [
-                    '_current' => true,
-                    '_use_rewrite' => true
-                ])); 
-            ?>">
+            <a id="new-billing-address" class="aii-new" href="javascript:void(0)">
                 <?= __('Create a billing address') ?>
             </a>
         <? endif; ?>
@@ -47,12 +42,7 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a href="<?= $block->escapeUrl($block->getUrl(
-                'customer/account/login', [
-                    '_current' => true,
-                    '_use_rewrite' => true
-                ])); 
-            ?>">
+            <a id="new-shipping-address" class="aii-new" href="javascript:void(0)">
                 <?= __('Create a shipping address') ?>
             </a>
         <? endif; ?>
@@ -85,12 +75,7 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a href="<?= $block->escapeUrl($block->getUrl(
-                'customer/account/login', [
-                    '_current' => true,
-                    '_use_rewrite' => true
-                ])); 
-            ?>">
+            <a id="new-payment-method" class="aii-new" href="javascript:void(0)">
                 <?= __('Create a saved card') ?>
             </a>
         <? endif; ?>

@@ -9,4 +9,14 @@
     <preference for="Magento\InstantPurchase\Model\BillingAddressChoose\BillingAddressChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\DefaultBillingAddressChooser" />
     <preference for="Magento\InstantPurchase\Model\ShippingMethodChoose\ShippingMethodChooserInterface" type="Naxero\AdvancedInstantPurchase\Model\InstantPurchase\Loaders\CheapestMethodChooser" />
     <!-- END Instant Purchase override -->
+
+    <preference for="Magento\Customer\Controller\Address\FormPost" type="Naxero\AdvancedInstantPurchase\Controller\Address\FormPost" />
+    <preference for="Magento\Customer\Block\Address\Edit" type="Naxero\AdvancedInstantPurchase\Block\Address\Edit" />
+    <type name="Naxero\AdvancedInstantPurchase\Block\Address\Edit">
+        <arguments>
+            <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+            <argument name="post_code_config" xsi:type="object">Magento\Customer\Block\DataProviders\PostCodesPatternsAttributeData</argument>
+        </arguments>
+    </type>
+
 </config>
