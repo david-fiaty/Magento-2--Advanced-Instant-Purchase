@@ -7,6 +7,16 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
     /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
+     * @var CurrentCustomer
+     */
+    public $currentCustomer;
+
+    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -26,12 +36,16 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
         $this->customerHelper = $customerHelper;
+        $this->customerSession = $customerSession;
+        $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
     }
@@ -55,13 +69,52 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Generate a block.
+     * Generates a block.
      */
     public function loadBlock()
+    {
+        $html = '';
+        $action = $this->getRequest()->getParam('action');
+        if ($action && !empty($action)) {
+            $fn =  'new' . ucfirst($action) . 'Block';
+            if (method_exists($this, $fn)) {
+                return $this->$fn();
+            }
+        }
+
+        return $html;
+    }
+
+    /**
+     * Generates the confirmation block.
+     */
+    public function newConfirmationBlock()
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
             ->toHtml();
     }
+
+    /**
+     * Generates the new address block.
+     */
+    public function newAddressBlock()
+    {
+        // Load the customer instance
+        $this->customerHelper->loadCustomerData();
+
+        return $this->pageFactory->create()->getLayout()
+            ->createBlock(
+                'Naxero\AdvancedInstantPurchase\Block\Address\Edit',
+                'customer_address_edit',
+                [
+                    'customerSession' => $this->customerSession,
+                    'currentCustomer' => $this->currentCustomer
+                ]
+            )
+            ->setTemplate('Naxero_AdvancedInstantPurchase::address/edit.phtml')
+            ->toHtml();
+    }
+
 }

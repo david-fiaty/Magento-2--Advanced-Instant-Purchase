@@ -15,21 +15,22 @@ define([
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'select2',
+    'slick',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
-
-    const CONFIRMATION_URL = 'aii/ajax/confirmation';
-    const LOGIN_URL = 'customer/account/login';
 
     return Component.extend({
         defaults: {
             aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            purchaseUrl: UrlBuilder.build('instantpurchase/button/placeOrder'),
+            purchaseUrl: 'instantpurchase/button/placeOrder',
+            loginUrl: 'customer/account/logins',
+            confirmUrl: 'aii/ajax/confirmation',
+            saveAddressUrl: 'customer/address/formPost',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -39,9 +40,13 @@ define([
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
+            linkSelector: '.aii-new',
+            nextSlideSelector: '#aii-next-slide-container',
             loginBlockSelector: '.block-authentication',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
+            sliderSelector: '#aii-slider',
+            isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -137,7 +142,7 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            var loginUrl = UrlBuilder.build(LOGIN_URL);
+            var loginUrl = UrlBuilder.build(this.loginUrl);
             window.location.href = loginUrl;
         },
 
@@ -179,13 +184,38 @@ define([
         },
 
         /**
+         * Get the new address form.
+         */
+        getNewAddressForm: function() {
+            var self = this;
+            var params = {
+                action: 'address'
+            };
+            $.ajax({
+                type: 'POST',
+                url: UrlBuilder.build(self.confirmUrl),
+                data: params,
+                success: function (data) {
+                    $(self.nextSlideSelector).html(data.html);
+                },
+                error: function (request, status, error) {
+                    self.log(error);
+                }
+            });
+        },
+
+        /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
             var self = this;
+            var params = {
+                action: 'confirmation'
+            };
             $.ajax({
                 type: 'POST',
-                url: UrlBuilder.build(CONFIRMATION_URL),
+                url: UrlBuilder.build(self.confirmUrl),
+                data: params,
                 success: function (data) {
                     // Get the HTML content
                     $(self.popupContentSelector).html(data.html);
@@ -199,12 +229,31 @@ define([
                     });
 
                     // Set the lists events
-                    $(self.listSelector).on('change', function () {
+                    $(self.listSelector).on('change', function() {
                         var targetField = $(this).attr('data-field');
                         var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
                         ? self.getOptionPublicHash(fieldValue)
                         : fieldValue;
                         $('input[name="' + targetField + '"]').val(fieldValue);
+                    });
+
+                    // Set the slider events
+                    $(self.sliderSelector).slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: false,
+                        speed: 300,
+                        adaptiveHeight: true,
+                        arrows: false
+                    });
+
+                    // Set the link events
+                    $(self.linkSelector).on('click', function(e) {
+                        e.preventDefault();
+                        $(self.sliderSelector).slick('slickNext');
+                        $(self.nextSlideSelectorr).show();
+                        self.getNewAddressForm();
+                        self.isSubView = true;
                     });
                 },
                 error: function (request, status, error) {
@@ -217,36 +266,73 @@ define([
          * Get the confirmation page modal popup.
          */
         getConfirmModal: function(confirmData, form) {
+            var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
                 title: this.confirmationTitle,
-                clickableOverlay: true,
+                innerScroll: true,
                 content: confirmTemplate({
                     data: confirmData
                 }),
-                actions: {
-                    confirm: function() {
+                buttons: [
+                {
+                    text: __('Cancel'),
+                    class: 'action-secondary action-dismiss',
+                    click: function(e) {
+                        if (self.isSubView) {
+                            $(self.sliderSelector).slick('slickPrev');
+                        }
+                        else {
+                            this.closeModal(e);
+                        }
+
+                        // Update the view state
+                        self.isSubView = false;
+                    }
+                },
+                {
+                    text: __('Submit'),
+                    class: 'action-primary action-accept',
+                    click: function(e) {
+                        var btn = this;
                         $.ajax({
-                            url: this.purchaseUrl,
+                            url: self.getConfirmUrl(),
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',
-                            beforeSend: function() {
-                                $('body').trigger('processStart');
+                            success: function(data) {
+                                btn.closeModal(e);
+                            },
+                            error: function(request, status, error) {
+                                self.log(error);
                             }
-                        }).always(function () {
-                            $('body').trigger('processStop');
-                        });
-                    }.bind(this)
-                }
+                        })
+                    }
+                }]
             });
+        },
+
+        /**
+         * Get the modal confirmation URL.
+         */
+        getConfirmUrl: function() {
+            var url = (this.isSubView) ? this.saveAddressUrl : this.purchaseUrl;
+            return UrlBuilder.build(url);
+        },
+
+        /**
+         * Get the current form.
+         */
+        getCurrentForm: function() {
+            var form = (this.isSubView) ? '.form-address-edit' : this.productFormSelector;
+            return $(form);
         },
 
         /**
          * Purchase popup.
          */
         purchasePopup: function() {
-            var form = $(this.productFormSelector),
+            var form = this.getCurrentForm(),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),
@@ -277,6 +363,6 @@ define([
             && data.summary.length > 0;
 
             return ok ? data.summary : ' ';
-        },
+        }
     });
 });
