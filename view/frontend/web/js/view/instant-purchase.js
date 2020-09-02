@@ -278,12 +278,12 @@ define([
                 {
                     text: __('Cancel'),
                     class: 'action-secondary action-dismiss',
-                    click: function(event) {
+                    click: function(e) {
                         if (self.isSubView) {
                             $(self.sliderSelector).slick('slickPrev');
                         }
                         else {
-                            this.closeModal(event);
+                            this.closeModal(e);
                         }
 
                         // Update the view state
@@ -293,25 +293,22 @@ define([
                 {
                     text: __('Submit'),
                     class: 'action-primary action-accept',
-                    click: function(event) {
-                        this.closeModal(event, true);
-                    }
-                }],
-                actions: {
-                    confirm: function() {
+                    click: function(e) {
+                        var btn = this;
                         $.ajax({
                             url: self.getConfirmUrl(),
                             data: form.serialize(),
                             type: 'post',
                             dataType: 'json',
-                            beforeSend: function() {
-                                $('body').trigger('processStart');
+                            success: function(data) {
+                                btn.closeModal(e);
+                            },
+                            error: function(request, status, error) {
+                                self.log(error);
                             }
-                        }).always(function () {
-                            $('body').trigger('processStop');
-                        });
-                    }.bind(this)
-                }
+                        })
+                    }
+                }]
             });
         },
 
@@ -319,15 +316,23 @@ define([
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function() {
-            var url = (self.isSubView) ? self.saveAddressUrl : self.purchaseUrl;
+            var url = (this.isSubView) ? this.saveAddressUrl : this.purchaseUrl;
             return UrlBuilder.build(url);
+        },
+
+        /**
+         * Get the current form.
+         */
+        getCurrentForm: function() {
+            var form = (this.isSubView) ? '.form-address-edit' : this.productFormSelector;
+            return $(form);
         },
 
         /**
          * Purchase popup.
          */
         purchasePopup: function() {
-            var form = $(this.productFormSelector),
+            var form = this.getCurrentForm(),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),

@@ -1,14 +1,16 @@
-- check payment action
 - improve the config fields comments
 - add popup default values selected: most used, most recent, fastest, cheapest
 - add a ip popup closest select list option with geoloc
+- add scroll color
 
 FEATURES
 - button in product lists
 - shipping and billing address screens
 - add themes system
+- order summary option, product image, price
 
 QA
+- check payment action
 - check all config fields functional
 - performance: cache js events, reduce config calls
 

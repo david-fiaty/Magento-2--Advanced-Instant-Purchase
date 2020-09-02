@@ -106,7 +106,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
 
         return $this->pageFactory->create()->getLayout()
             ->createBlock(
-                'Magento\Customer\Block\Address\Edit',
+                'Naxero\AdvancedInstantPurchase\Block\Address\Edit',
                 'customer_address_edit',
                 [
                     'customerSession' => $this->customerSession,
