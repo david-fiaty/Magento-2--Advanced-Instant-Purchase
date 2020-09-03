@@ -199,31 +199,31 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      */
     public function execute()
     {
-        $msg = [];
+        $response = [];
         $success = false;
         
-        if (!$this->_formKeyValidator->validate($this->getRequest() || !$this->getRequest()->isPost())) {
-            $msg[] = __('Invalid request');
+        if (!$this->_formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
+            $response['msg'] = __('Invalid request');
         }
 
         try {
             $address = $this->_extractAddress();
             $this->_addressRepository->save($address);
             $success = true;
-            $msg[] = __('You saved the address.');
+            $response['msg'] = __('You saved the address.');
         } catch (InputException $e) {
-            $msg[] = __($e->getMessage());
+            $response['msg'] = __($e->getMessage());
             foreach ($e->getErrors() as $error) {
-                $msg[] = __($error->getMessage());
+                $response['form'][] = __($error->getMessage());
             }
         } catch (\Exception $e) {
-            $msg[] = __('The address could not be saved.');
+            $response['msg'] = __('The address could not be saved.');
         }
 
         return $this->jsonFactory->create()->setData(
             [
                 'succes' => $success,
-                'msg' => $msg
+                'response' => $response
             ]
         );
     }

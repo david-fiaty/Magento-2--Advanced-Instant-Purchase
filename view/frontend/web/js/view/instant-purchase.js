@@ -11,6 +11,7 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/error',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
@@ -19,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, AiiError, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
     return Component.extend({
@@ -294,6 +295,7 @@ define([
                             dataType: 'json',
                             success: function(data) {
                                 console.log(data);
+                                AiiError.checkResponse(data);
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
