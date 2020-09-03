@@ -199,44 +199,32 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      */
     public function execute()
     {
-        $redirectUrl = null;
-        if (!$this->_formKeyValidator->validate($this->getRequest())) {
-            return $this->resultRedirectFactory->create()->setPath('*/*/');
-        }
-
-        if (!$this->getRequest()->isPost()) {
-            $this->_getSession()->setAddressFormData($this->getRequest()->getPostValue());
-            return $this->resultRedirectFactory->create()->setUrl(
-                $this->_redirect->error($this->_buildUrl('*/*/edit'))
-            );
+        $msg = [];
+        $success = false;
+        
+        if (!$this->_formKeyValidator->validate($this->getRequest() || !$this->getRequest()->isPost())) {
+            $msg[] = __('Invalid request');
         }
 
         try {
             $address = $this->_extractAddress();
             $this->_addressRepository->save($address);
-            $this->messageManager->addSuccessMessage(__('You saved the address.'));
-            $url = $this->_buildUrl('*/*/index', ['_secure' => true]);
-            return $this->resultRedirectFactory->create()->setUrl($this->_redirect->success($url));
+            $success = true;
+            $msg[] = __('You saved the address.');
         } catch (InputException $e) {
-            $this->messageManager->addErrorMessage($e->getMessage());
+            $msg[] = __($e->getMessage());
             foreach ($e->getErrors() as $error) {
-                $this->messageManager->addErrorMessage($error->getMessage());
+                $msg[] = __($error->getMessage());
             }
         } catch (\Exception $e) {
-            $redirectUrl = $this->_buildUrl('*/*/index');
-            $this->messageManager->addExceptionMessage($e, __('We can\'t save the address.'));
+            $msg[] = __('The address could not be saved.');
         }
-
-        $url = $redirectUrl;
-        if (!$redirectUrl) {
-            $this->_getSession()->setAddressFormData($this->getRequest()->getPostValue());
-            $url = $this->_buildUrl('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
-        }
-
-        //return $this->resultRedirectFactory->create()->setUrl($this->_redirect->error($url));
 
         return $this->jsonFactory->create()->setData(
-            ['succes' => 'processed']
+            [
+                'succes' => $success,
+                'msg' => $msg
+            ]
         );
     }
 
