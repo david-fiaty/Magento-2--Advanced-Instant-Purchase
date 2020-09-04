@@ -10,9 +10,9 @@ define([
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
-    'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
@@ -21,7 +21,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, AiiMessage, AiiUtil, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AiiMessage, AiiUtil, AiiLogin, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
     return Component.extend({
@@ -29,22 +29,17 @@ define([
             aiiConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            purchaseUrl: 'instantpurchase/button/placeOrder',
-            loginUrl: 'customer/account/logins',
             confirmUrl: 'aii/ajax/confirmation',
-            saveAddressUrl: 'customer/address/formPost',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
             billingAddress: null,
             shippingMethod: null,
-            productFormSelector: '#product_addtocart_form',
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
             listSelector: '.aii-select',
             linkSelector: '.aii-new',
             nextSlideSelector: '#aii-next-slide-container',
-            loginBlockSelector: '.block-authentication',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
             sliderSelector: '#aii-slider',
@@ -124,24 +119,8 @@ define([
             } else {
                 var val = this.aiiConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
-                this[fn]();
+                AiiLogin[fn]();
             }
-        },
-
-        /**
-         * Create a login popup.
-         */
-        loginPopup: function() {
-            AuthPopup.createPopUp(this.loginBlockSelector);
-            AuthPopup.showModal();
-        },
-
-        /**
-         * Create a login redirection.
-         */
-        loginRedirect: function() {
-            var loginUrl = UrlBuilder.build(this.loginUrl);
-            window.location.href = loginUrl;
         },
 
         /**
@@ -155,30 +134,6 @@ define([
             if (this.aiiConfig.guest.click_event !== 'disabled') {
                 $(this.buttonSelector).prop('disabled', false);
             }
-        },
-
-        /**
-         * Format a card icon.
-         */
-        formatIcon: function(state) {
-            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
-                return state.text;
-            }
-            var iconUrl = state.element.value.split('*~*')[1];
-            var iconHtml = $(
-                '<span class="aii-card-icon">'
-                + '<img src="' + iconUrl + '">'
-                + state.text + '</span>'
-            );
-
-            return iconHtml;
-        },
-
-        /**
-         * Get a card option public hash.
-         */
-        getOptionPublicHash: function(val) {
-            return val.split('*~*')[0];
         },
 
         /**
@@ -223,15 +178,15 @@ define([
                     $(self.listSelector).select2({
                         language: 'en',
                         theme: 'classic',
-                        templateResult: self.formatIcon,
-                        templateSelection: self.formatIcon
+                        templateResult: AiiUtil.formatIcon,
+                        templateSelection: AiiUtil.formatIcon
                     });
 
                     // Set the lists events
                     $(self.listSelector).on('change', function() {
                         var targetField = $(this).attr('data-field');
                         var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                        ? self.getOptionPublicHash(fieldValue)
+                        ? AiiUtil.getOptionPublicHash(fieldValue)
                         : fieldValue;
                         $('input[name="' + targetField + '"]').val(fieldValue);
                     });
@@ -287,8 +242,8 @@ define([
                     click: function(e) {
                         var btn = this;
                         $.ajax({
-                            url: self.getConfirmUrl(),
-                            data: self.getCurrentForm().serialize(),
+                            url: AiiUtil.getConfirmUrl(self.isSubView),
+                            data: AiiUtil.getCurrentForm(self.isSubView).serialize(),
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
@@ -305,22 +260,6 @@ define([
         },
 
         /**
-         * Get the modal confirmation URL.
-         */
-        getConfirmUrl: function() {
-            var url = this.isSubView ? this.saveAddressUrl : this.purchaseUrl;
-            return UrlBuilder.build(url);
-        },
-
-        /**
-         * Get the current form.
-         */
-        getCurrentForm: function() {
-            var form = this.isSubView ? '.form-address-edit' : this.productFormSelector;
-            return $(form);
-        },
-
-        /**
          * Get the current slide.
          */
         getCurrentSlide: function() {
@@ -332,7 +271,7 @@ define([
          * Purchase popup.
          */
         purchasePopup: function() {
-            var form = this.getCurrentForm(),
+            var form = AiiUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),
