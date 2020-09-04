@@ -11,7 +11,8 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/error',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
@@ -20,7 +21,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, AiiError, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, AiiMessage, AiiUtil, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
     return Component.extend({
@@ -213,6 +214,7 @@ define([
             var params = {
                 action: 'confirmation'
             };
+            AiiUtil.showLoader(self);
             $.ajax({
                 type: 'POST',
                 url: UrlBuilder.build(self.confirmUrl),
@@ -294,7 +296,7 @@ define([
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                AiiError.checkResponse(data, self.getCurrentSlide());
+                                AiiMessage.checkResponse(data, self.getCurrentSlide());
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
@@ -310,7 +312,7 @@ define([
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function() {
-            var url = (this.isSubView) ? this.saveAddressUrl : this.purchaseUrl;
+            var url = this.isSubView ? this.saveAddressUrl : this.purchaseUrl;
             return UrlBuilder.build(url);
         },
 
@@ -318,7 +320,7 @@ define([
          * Get the current form.
          */
         getCurrentForm: function() {
-            var form = (this.isSubView) ? '.form-address-edit' : this.productFormSelector;
+            var form = this.isSubView ? '.form-address-edit' : this.productFormSelector;
             return $(form);
         },
 
@@ -372,12 +374,17 @@ define([
          */
         toggleView: function(e, obj) {
             e.preventDefault();
+            AiiUtil.showLoader(obj);
             if (obj.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
+                $('.action-dismiss span').text(__('Cancel'));
+                $(this.sliderSelector).slick('unslick');
+                this.getConfirmContent();
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
+                $('.action-dismiss span').text(__('Back'));
                 $(this.nextSlideSelector).show();
                 obj.isSubView = true;
                 this.getNewAddressForm();

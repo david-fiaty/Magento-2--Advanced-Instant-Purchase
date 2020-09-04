@@ -5,8 +5,8 @@
 define([
     'jquery',
     'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/messages.html',
-], function ($, MageTemplate, MessagesTemplate) {
+    'text!Naxero_AdvancedInstantPurchase/template/message.html',
+], function ($, MageTemplate, MessageTemplate) {
     'use strict';
 
     return {
@@ -15,11 +15,12 @@ define([
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
+
         checkResponse: function(data, slide) {
             var cssClass;
             this.clearErrors(slide);
             slide.prepend(
-                MageTemplate(MessagesTemplate)({})
+                MageTemplate(MessageTemplate)({})
             );
             if (data.success === false) {
                 cssClass = 'mage-error';
