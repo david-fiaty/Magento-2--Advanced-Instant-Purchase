@@ -189,12 +189,12 @@ define([
         },
 
         /**
-         * Get the new address form.
+         * Get a form.
          */
-        getNewAddressForm: function() {
+        getForm: function(e) {
             var self = this;
             var params = {
-                action: 'address'
+                action: $(e.currentTarget).data('form');
             };
             $.ajax({
                 type: 'POST',
@@ -210,12 +210,19 @@ define([
         },
 
         /**
+         * Get the new address form.
+         */
+        getNewAddressForm: function() {
+
+        },
+
+        /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
             var self = this;
             var params = {
-                action: 'confirmation'
+                action: 'Confirmation'
             };
             AiiUtil.showLoader(self);
             $.ajax({
@@ -392,14 +399,6 @@ define([
                 this.isSubView = true;
                 this.getForm(e);
             }
-        },
-
-        /**
-         * Get a form.
-         */
-        getForm: function(e) {
-            var fn = 'getNew' + $(e.currentTarget).data('form') + 'Form';
-            this[fn]();
         }
     });
 });

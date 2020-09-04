@@ -5,12 +5,11 @@
 
 FEATURES
 - button in product lists
-- shipping and billing address screens
 - add themes system
 - order summary option, product image, price
+- add new card form
 
 QA
-- check payment action
 - check all config fields functional
 - performance: cache js events, reduce config calls
 
