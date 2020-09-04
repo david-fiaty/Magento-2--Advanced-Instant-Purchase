@@ -5,9 +5,8 @@
 define([
     'jquery',
     'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/message.html',
-    'slick'
-], function ($, MageTemplate, MessageTemplate, slick) {
+    'text!Naxero_AdvancedInstantPurchase/template/message.html'
+], function ($, MageTemplate, MessageTemplate) {
     'use strict';
 
     return {
@@ -49,7 +48,7 @@ define([
                 slide.find('.messages').show();            
             }
             else {
-                $(obj.sliderSelector).slick('slickPrev');
+                slide = obj.getCurrentSlide();
                 slide.find('.message').addClass('success');
                 slide.find('.message-text').text(data.messages.main);
                 slide.find('.messages').show();
