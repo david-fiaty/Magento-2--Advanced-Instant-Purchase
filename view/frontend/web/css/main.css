@@ -1,6 +1,6 @@
 .aii-card-icon {
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
 }
 
 .aii-ajax-loader-container {
@@ -8,6 +8,11 @@
     height: 100%;
     text-align: center;
     padding-top: 30px;
+}
+
+.aii-ajax-loader-container img {
+    display: block;
+    margin: auto;
 }
 
 #aii-next-slide-container {
@@ -23,4 +28,8 @@
 /* Slider */
 #aii-slider .messages {
     display: none;
+}
+
+#aii-slider .actions-toolbar {
+    display: none !important;
 }
