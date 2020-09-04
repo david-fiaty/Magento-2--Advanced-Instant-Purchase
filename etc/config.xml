@@ -47,8 +47,8 @@
                 <bypass_missing_shipping>1</bypass_missing_shipping>
             </registered>
             <card_form>
-                <load><![CDATA[<h1>load</h1><script>alert('load')</script>]]></load>
-                <submit><![CDATA[<h1>submit</h1><script>alert('submit')</script>]]></submit>
+                <load><![CDATA[<h1>load</h1><script>alert("load")</script>]]></load>
+                <submit><![CDATA[<h1>submit</h1><script>alert("submit")</script>]]></submit>
             </card_form>
         </advanced_instant_purchase> 
     </default>

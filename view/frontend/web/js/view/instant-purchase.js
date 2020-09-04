@@ -182,19 +182,12 @@ define([
         },
 
         /**
-         * Get the new card form.
-         */
-        getNewCardForm: function() {
-            console.log('New card form');
-        },
-
-        /**
          * Get a form.
          */
         getForm: function(e) {
             var self = this;
             var params = {
-                action: $(e.currentTarget).data('form');
+                action: $(e.currentTarget).data('form')
             };
             $.ajax({
                 type: 'POST',
@@ -207,13 +200,6 @@ define([
                     self.log(error);
                 }
             });
-        },
-
-        /**
-         * Get the new address form.
-         */
-        getNewAddressForm: function() {
-
         },
 
         /**

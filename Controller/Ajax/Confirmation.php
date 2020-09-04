@@ -129,14 +129,13 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newCardBlock()
     {
-        $config = $this->configHelper->getConfig()['payment'];
         return $this->pageFactory->create()->getLayout()
             ->createBlock(
                 'Magento\Framework\View\Element\Template',
                 'new_card_form',
                 [      
-                    'load' => $config['load'],
-                    'submit' => $config['submit']
+                    'load' => $this->configHelper->value('card_form/load'),
+                    'submit' => $this->configHelper->value('card_form/submit')
                 ]
             )
             ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
