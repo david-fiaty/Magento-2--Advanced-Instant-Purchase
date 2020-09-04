@@ -51,17 +51,9 @@ document.head.appendChild(s);
       Frames.submitCard();
     });
 
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        Frames.submitCard();
+    });
 });
-  </script>
-
-
-
-
-
-
-<script>
-form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    Frames.submitCard();
-  });
 </script>

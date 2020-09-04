@@ -1,8 +1,9 @@
 define([
     'jquery',
     'mage/template',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'text!Naxero_AdvancedInstantPurchase/template/message.html'
-], function ($, MageTemplate, MessageTemplate) {
+], function ($, MageTemplate, AiiSlider, MessageTemplate) {
     'use strict';
 
     return {
@@ -14,7 +15,7 @@ define([
 
         checkResponse: function(data, obj) {
             var cssClass;
-            var slide = obj.getCurrentSlide();
+            var slide = AiiSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
             slide.prepend(
                 MageTemplate(MessageTemplate)({})
@@ -44,7 +45,7 @@ define([
                 slide.find('.messages').show();            
             }
             else {
-                slide = obj.getCurrentSlide();
+                slide = AiiSlider.getCurrentSlide(obj);
                 slide.find('.message').addClass('success');
                 slide.find('.message-text').text(data.messages.main);
                 slide.find('.messages').show();

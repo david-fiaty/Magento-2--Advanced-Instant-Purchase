@@ -4,21 +4,14 @@
  */
 define([
     'jquery',
-    'mage/template',
-    'mage/url',
-    'text!Naxero_AdvancedInstantPurchase/template/loader.html',
-], function ($, MageTemplate, UrlBuilder, LoaderTemplate) {
+    'mage/url'
+], function ($, UrlBuilder) {
     'use strict';
 
     return {
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'instantpurchase/button/placeOrder',
         productFormSelector: '#product_addtocart_form',
-        showLoader: function(obj) {
-            obj.getCurrentSlide().html(
-                MageTemplate(LoaderTemplate)({})
-            );
-        },
 
         /**
          * Get the modal confirmation URL.

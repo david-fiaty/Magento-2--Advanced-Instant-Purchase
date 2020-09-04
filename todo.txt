@@ -2,12 +2,12 @@
 - add popup default values selected: most used, most recent, fastest, cheapest
 - add a ip popup closest select list option with geoloc
 - add scroll color
+- check slick and select2 user lang
 
 FEATURES
 - button in product lists
 - add themes system
 - order summary option, product image, price
-- add new card form
 
 QA
 - check all config fields functional

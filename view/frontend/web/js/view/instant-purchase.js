@@ -8,20 +8,21 @@ define([
     'underscore',
     'mage/translate',
     'uiComponent',
+    'mage/url',
+    'mage/template',
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
-    'mage/url',
-    'mage/template',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
+
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
-    'select2',
-    'slick',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AiiMessage, AiiUtil, AiiLogin, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
+], function (ko, $, _, __, Component, UrlBuilder, MageTemplate, ConfirmModal, CustomerData, AiiMessage, AiiUtil, AiiLogin, AiiSelect, AiiSlider, ConfirmationTemplate) {
     'use strict';
 
     return Component.extend({
@@ -37,12 +38,8 @@ define([
             shippingMethod: null,
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
-            listSelector: '.aii-select',
-            linkSelector: '.aii-new',
-            nextSlideSelector: '#aii-next-slide-container',
             confirmationTitle: __('Instant Purchase Confirmation'),
             confirmationTemplateSelector: '#aii-confirmation-template',
-            sliderSelector: '#aii-slider',
             isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -161,7 +158,7 @@ define([
                         */         
                     }
 
-                    $(self.nextSlideSelector).html(data.html);
+                    $(AiiSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
                     self.log(error);
@@ -174,10 +171,10 @@ define([
          */
         getConfirmContent: function() {
             var self = this;
+            AiiSlider.showLoader(self);
             var params = {
                 action: 'Confirmation'
             };
-            AiiUtil.showLoader(self);
             $.ajax({
                 type: 'POST',
                 url: UrlBuilder.build(self.confirmUrl),
@@ -187,36 +184,10 @@ define([
                     $(self.popupContentSelector).html(data.html);
 
                     // Initialise the select lists
-                    $(self.listSelector).select2({
-                        language: 'en',
-                        theme: 'classic',
-                        templateResult: AiiUtil.formatIcon,
-                        templateSelection: AiiUtil.formatIcon
-                    });
-
-                    // Set the lists events
-                    $(self.listSelector).on('change', function() {
-                        var targetField = $(this).attr('data-field');
-                        var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                        ? AiiUtil.getOptionPublicHash(fieldValue)
-                        : fieldValue;
-                        $('input[name="' + targetField + '"]').val(fieldValue);
-                    });
+                    AiiSelect.build(self);
 
                     // Set the slider events
-                    $(self.sliderSelector).slick({
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        infinite: false,
-                        speed: 300,
-                        adaptiveHeight: true,
-                        arrows: false
-                    });
-
-                    // Set the link events
-                    $(self.linkSelector).on('click', function(e) {
-                        self.toggleView(e);
-                    });
+                    AiiSlider.build();
                 },
                 error: function (request, status, error) {
                     self.log(error);
@@ -242,7 +213,7 @@ define([
                     class: 'action-secondary action-dismiss',
                     click: function(e) {
                         if (self.isSubView) {
-                            self.toggleView(e);                        }
+                            AiiSlider.toggleView(e, self);                        }
                         else {
                             this.closeModal(e);
                         }
@@ -269,14 +240,6 @@ define([
                     }
                 }]
             });
-        },
-
-        /**
-         * Get the current slide.
-         */
-        getCurrentSlide: function() {
-            var slide = (this.isSubView) ? this.nextSlideSelector : this.popupContentSelector;
-            return $(slide);
         },
 
         /**
@@ -314,28 +277,6 @@ define([
             && data.summary.length > 0;
 
             return ok ? data.summary : ' ';
-        },
-
-        /**
-         * Handles the view switch.
-         */
-        toggleView: function(e) {
-            e.preventDefault();
-            AiiUtil.showLoader(this);
-            if (this.isSubView) {
-                this.getConfirmContent();
-                $(this.sliderSelector).slick('slickPrev');
-                this.isSubView = false;
-                $('.action-dismiss span').text(__('Cancel'));
-                $(this.sliderSelector).slick('unslick');
-            }
-            else {
-                $(this.sliderSelector).slick('slickNext');
-                $('.action-dismiss span').text(__('Back'));
-                $(this.nextSlideSelector).show();
-                this.isSubView = true;
-                this.getForm(e);
-            }
         }
     });
 });

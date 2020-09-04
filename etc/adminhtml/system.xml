@@ -172,10 +172,8 @@
             <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Card form</label>
                 <field id="load" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>On load script</label>
-                </field>
-                <field id="submit" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>On submit script</label>
+                    <label>Code</label>
+                    <comment>Custom HTML/Javascript code for the save card form.</comment>
                 </field>
             </group>
          </section>
