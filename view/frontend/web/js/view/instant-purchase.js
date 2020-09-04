@@ -295,7 +295,7 @@ define([
                             dataType: 'json',
                             success: function(data) {
                                 console.log(data);
-                                AiiError.checkResponse(data);
+                                AiiError.checkResponse(data, self);
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
@@ -321,6 +321,14 @@ define([
         getCurrentForm: function() {
             var form = (this.isSubView) ? '.form-address-edit' : this.productFormSelector;
             return $(form);
+        },
+
+        /**
+         * Get the current slide.
+         */
+        getCurrentSlide: function() {
+            var slide = (this.isSubView) ? this.nextSlideSelector : this.popupContentSelector;
+            return $(slide);
         },
 
         /**

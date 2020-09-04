@@ -1,3 +1,7 @@
+#aii-slider .messages {
+    display: none;
+}
+
 .aii-card-icon {
     display:flex;
     align-items:center;
