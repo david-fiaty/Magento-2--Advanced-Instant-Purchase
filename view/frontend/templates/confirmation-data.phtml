@@ -20,7 +20,7 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a id="new-billing-address" class="aii-new" href="javascript:void(0)">
+            <a id="new-billing-address" class="aii-new" data-form="Address" href="javascript:void(0)">
                 <?= __('Create a billing address') ?>
             </a>
         <? endif; ?>
@@ -42,24 +42,10 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a id="new-shipping-address" class="aii-new" href="javascript:void(0)">
+            <a id="new-shipping-address" class="aii-new" data-form="Address" href="javascript:void(0)">
                 <?= __('Create a shipping address') ?>
             </a>
         <? endif; ?>
-    </p>
-</label>
-
-<label for="aii-shipping-method-select">
-    <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
-    <p>
-        <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
-            <?php foreach ($content['shippingRates'] as $item): ?>
-                <option value="<?= $item['value'] ?>">
-                    <?= $item['label'] ?>&nbsp;
-                    <?= $item['price'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
     </p>
 </label>
 
@@ -75,11 +61,25 @@
                 <?php endforeach; ?>
             </select>
         <? else: ?>
-            <a id="new-payment-method" class="aii-new" href="javascript:void(0)">
-                <?= __('Create a saved card') ?>
+            <a id="new-payment-method" class="aii-new" data-form="Card" href="javascript:void(0)">
+                <?= __('Save a new card') ?>
             </a>
         <? endif; ?>
     </p>
 </label> 
+
+<label for="aii-shipping-method-select">
+    <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
+    <p>
+        <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
+            <?php foreach ($content['shippingRates'] as $item): ?>
+                <option value="<?= $item['value'] ?>">
+                    <?= $item['label'] ?>&nbsp;
+                    <?= $item['price'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </p>
+</label>
 
 <p><?= $content['popup']['footer_text'] ?></p>

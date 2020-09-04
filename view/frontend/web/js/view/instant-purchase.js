@@ -182,6 +182,13 @@ define([
         },
 
         /**
+         * Get the new card form.
+         */
+        getNewCardForm: function() {
+            console.log('New card form');
+        },
+
+        /**
          * Get the new address form.
          */
         getNewAddressForm: function() {
@@ -383,8 +390,16 @@ define([
                 $('.action-dismiss span').text(__('Back'));
                 $(this.nextSlideSelector).show();
                 this.isSubView = true;
-                this.getNewAddressForm();
+                this.getForm(e);
             }
+        },
+
+        /**
+         * Get a form.
+         */
+        getForm: function(e) {
+            var fn = 'getNew' + $(e.currentTarget).data('form') + 'Form';
+            this[fn]();
         }
     });
 });
