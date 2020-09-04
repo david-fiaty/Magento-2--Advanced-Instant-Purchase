@@ -67,17 +67,6 @@ define([
         },
 
         /**
-         * Log data to the browser console.
-         *
-         * @param {Object} data
-         */
-        log: function(data) {
-            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
-                console.log(data);
-            }
-        },
-
-        /**
          * Set data from CustomerData.
          *
          * @param {Object} data
@@ -161,7 +150,7 @@ define([
                     $(AiiSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AiiUtil.log(error);
                 }
             });
         },
@@ -190,7 +179,7 @@ define([
                     AiiSlider.build();
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AiiUtil.log(error);
                 }
             });
         },
@@ -234,7 +223,7 @@ define([
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
-                                self.log(error);
+                                AiiUtil.log(error);
                             }
                         })
                     }
