@@ -119,10 +119,6 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            // todo - get shipping popup
-            // ShippingView.getPopUp();
-
-            // Handle the button click logic
             if (this.isLoggedIn()) {
                 this.purchasePopup();
             } else {
@@ -296,7 +292,6 @@ define([
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                console.log(data);
                                 AiiMessage.checkResponse(data, self);
                                 //btn.closeModal(e);
                             },
