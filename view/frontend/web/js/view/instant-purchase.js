@@ -252,7 +252,7 @@ define([
 
                     // Set the link events
                     $(self.linkSelector).on('click', function(e) {
-                        self.toggleView(e, self);
+                        self.toggleView(e);
                     });
                 },
                 error: function (request, status, error) {
@@ -279,7 +279,7 @@ define([
                     class: 'action-secondary action-dismiss',
                     click: function(e) {
                         if (self.isSubView) {
-                            self.toggleView(e, self);                        }
+                            self.toggleView(e);                        }
                         else {
                             this.closeModal(e);
                         }
@@ -296,7 +296,8 @@ define([
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                AiiMessage.checkResponse(data, self.getCurrentSlide());
+                                console.log(data);
+                                AiiMessage.checkResponse(data, self);
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
@@ -372,21 +373,21 @@ define([
         /**
          * Handles the view switch.
          */
-        toggleView: function(e, obj) {
+        toggleView: function(e) {
             e.preventDefault();
-            AiiUtil.showLoader(obj);
-            if (obj.isSubView) {
+            AiiUtil.showLoader(this);
+            if (this.isSubView) {
+                this.getConfirmContent();
                 $(this.sliderSelector).slick('slickPrev');
-                obj.isSubView = false;
+                this.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
-                this.getConfirmContent();
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
                 $(this.nextSlideSelector).show();
-                obj.isSubView = true;
+                this.isSubView = true;
                 this.getNewAddressForm();
             }
         }
