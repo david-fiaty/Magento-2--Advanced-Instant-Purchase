@@ -31,7 +31,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
     /**
      * @var RegionFactory
      */
-    protected $regionFactory;
+    public $regionFactory;
 
     /**
      * @var JsonFactory
@@ -41,12 +41,12 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
     /**
      * @var HelperData
      */
-    protected $helperData;
+    public $helperData;
 
     /**
      * @var Mapper
      */
-    private $customerAddressMapper;
+    public $customerAddressMapper;
 
     /**
      * @param Context $context
@@ -103,7 +103,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      *
      * @return \Magento\Customer\Api\Data\AddressInterface
      */
-    protected function _extractAddress()
+    public function _extractAddress()
     {
         $existingAddressData = $this->getExistingAddressData();
 
@@ -147,7 +147,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      * @return array
      * @throws \Exception
      */
-    protected function getExistingAddressData()
+    public function getExistingAddressData()
     {
         $existingAddressData = [];
         if ($addressId = $this->getRequest()->getParam('id')) {
@@ -167,7 +167,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      * @return void
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    protected function updateRegionData(&$attributeValues)
+    public function updateRegionData(&$attributeValues)
     {
         if (!empty($attributeValues['region_id'])) {
             $newRegion = $this->regionFactory->create()->load($attributeValues['region_id']);
@@ -199,8 +199,11 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      */
     public function execute()
     {
-        $messages = [];
         $success = false;
+        $messages = [
+            'main' => '',
+            'fields' => []
+        ];
         
         if (!$this->_formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
             $messages['main'] = __('Invalid request');
@@ -210,22 +213,24 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
             $address = $this->_extractAddress();
             $this->_addressRepository->save($address);
             $success = true;
-            $messages['main'] = __('You saved the address.');
+            $messages['main'] = __('The data was saved successfully.');
         } catch (InputException $e) {
-            $messages['main'] = __($e->getMessage());
+            $messages = $this->updateMessages($e->getMessage(), $messages);
             foreach ($e->getErrors() as $error) {
-                $messages['form'][] = __($error->getMessage());
+                $messages['main'] = __('Some required fields are invalid');
+                $messages['fields'][] = [
+                    'id' => $this->getFieldName($error->getMessage()),
+                    'txt' => __('Invalid field')
+                ];
             }
         } catch (\Exception $e) {
             $messages['main'] = __('The address could not be saved.');
         }
 
-        return $this->jsonFactory->create()->setData(
-            [
-                'success' => $success,
-                'messages' => $messages
-            ]
-        );
+        return $this->jsonFactory->create()->setData([
+            'success' => $success,
+            'messages' => $messages
+        ]);
     }
 
     /**
@@ -235,7 +240,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      *
      * @deprecated 100.1.3
      */
-    private function getCustomerAddressMapper()
+    public function getCustomerAddressMapper()
     {
         if ($this->customerAddressMapper === null) {
             $this->customerAddressMapper = ObjectManager::getInstance()->get(
@@ -243,5 +248,30 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
             );
         }
         return $this->customerAddressMapper;
+    }
+
+    /**
+     * Get the main UI message.
+     */
+    public function updateMessages($str, $messages)
+    {
+        $fieldName = $this->getFieldName($str);
+        if (!empty($fieldName)) {
+            $messages['main'] = __('Some required fields are invalid');
+            $messages['fields'][] = [
+                'id' => $fieldName,
+                'txt' => __('Invalid field')
+            ];
+        }
+        return $messages;
+    }
+
+    /**
+     * Get a field name.
+     */
+    public function getFieldName($str)
+    {
+        preg_match('/".*?"/', $str, $name);
+        return str_replace('"', '', $name);
     }
 }

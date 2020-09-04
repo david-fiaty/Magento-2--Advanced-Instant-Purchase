@@ -294,8 +294,7 @@ define([
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                console.log(data);
-                                AiiError.checkResponse(data, self);
+                                AiiError.checkResponse(data, self.getCurrentSlide());
                                 //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
