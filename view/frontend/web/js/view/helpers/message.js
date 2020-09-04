@@ -6,7 +6,8 @@ define([
     'jquery',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/message.html',
-], function ($, MageTemplate, MessageTemplate) {
+    'slick'
+], function ($, MageTemplate, MessageTemplate, slick) {
     'use strict';
 
     return {
@@ -16,8 +17,9 @@ define([
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function(data, slide) {
+        checkResponse: function(data, obj) {
             var cssClass;
+            var slide = obj.getCurrentSlide();
             this.clearErrors(slide);
             slide.prepend(
                 MageTemplate(MessageTemplate)({})
@@ -41,7 +43,13 @@ define([
                     }
                 }
             }
+            else if (data.hasOwnProperty('response')) {
+                slide.find('.message').addClass('success');
+                slide.find('.message-text').text(data.response);
+                slide.find('.messages').show();            
+            }
             else {
+                $(obj.sliderSelector).slick('slickPrev');
                 slide.find('.message').addClass('success');
                 slide.find('.message-text').text(data.messages.main);
                 slide.find('.messages').show();
