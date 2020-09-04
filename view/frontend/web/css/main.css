@@ -20,3 +20,7 @@
     width: 100%;
 }
 
+/* Slider */
+#aii-slider .messages {
+    display: none;
+}

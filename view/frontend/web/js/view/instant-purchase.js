@@ -11,6 +11,7 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/error',
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
@@ -19,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
+], function (ko, $, _, __, Component, ConfirmModal, CustomerData, AuthPopup, AiiError, UrlBuilder, MageTemplate, ConfirmationTemplate, select2, slick) {
     'use strict';
 
     return Component.extend({
@@ -249,11 +250,7 @@ define([
 
                     // Set the link events
                     $(self.linkSelector).on('click', function(e) {
-                        e.preventDefault();
-                        $(self.sliderSelector).slick('slickNext');
-                        $(self.nextSlideSelectorr).show();
-                        self.getNewAddressForm();
-                        self.isSubView = true;
+                        self.toggleView(e, self);
                     });
                 },
                 error: function (request, status, error) {
@@ -265,7 +262,7 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        getConfirmModal: function(confirmData, form) {
+        getConfirmModal: function(confirmData) {
             var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
@@ -280,14 +277,10 @@ define([
                     class: 'action-secondary action-dismiss',
                     click: function(e) {
                         if (self.isSubView) {
-                            $(self.sliderSelector).slick('slickPrev');
-                        }
+                            self.toggleView(e, self);                        }
                         else {
                             this.closeModal(e);
                         }
-
-                        // Update the view state
-                        self.isSubView = false;
                     }
                 },
                 {
@@ -297,11 +290,12 @@ define([
                         var btn = this;
                         $.ajax({
                             url: self.getConfirmUrl(),
-                            data: form.serialize(),
+                            data: self.getCurrentForm().serialize(),
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                btn.closeModal(e);
+                                AiiError.checkResponse(data, self.getCurrentSlide());
+                                //btn.closeModal(e);
                             },
                             error: function(request, status, error) {
                                 self.log(error);
@@ -329,6 +323,14 @@ define([
         },
 
         /**
+         * Get the current slide.
+         */
+        getCurrentSlide: function() {
+            var slide = (this.isSubView) ? this.nextSlideSelector : this.popupContentSelector;
+            return $(slide);
+        },
+
+        /**
          * Purchase popup.
          */
         purchasePopup: function() {
@@ -346,7 +348,7 @@ define([
             }
 
             // Open the modal
-            this.getConfirmModal(confirmData, form);
+            this.getConfirmModal(confirmData);
 
             // Get the AJAX content
             this.getConfirmContent();
@@ -363,6 +365,23 @@ define([
             && data.summary.length > 0;
 
             return ok ? data.summary : ' ';
+        },
+
+        /**
+         * Handles the view switch.
+         */
+        toggleView: function(e, obj) {
+            e.preventDefault();
+            if (obj.isSubView) {
+                $(this.sliderSelector).slick('slickPrev');
+                obj.isSubView = false;
+            }
+            else {
+                $(this.sliderSelector).slick('slickNext');
+                $(this.nextSlideSelector).show();
+                obj.isSubView = true;
+                this.getNewAddressForm();
+            }
         }
     });
 });

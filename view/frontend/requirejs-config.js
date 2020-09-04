@@ -16,5 +16,6 @@
     paths: {
         select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full',
         slick: 'Naxero_AdvancedInstantPurchase/js/slick/slick'
-    }
+    },
+    urlArgs: "bust=" + (new Date()).getTime()
 };
