@@ -133,7 +133,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
         ->setData('load', $this->configHelper->value('card_form/load'))
-        ->setData('submit', $this->configHelper->value('card_form/submit'))
         ->toHtml();
     }
 }

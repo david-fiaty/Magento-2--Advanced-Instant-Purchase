@@ -53,3 +53,15 @@ document.head.appendChild(s);
 
 });
   </script>
+
+
+
+
+
+
+<script>
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    Frames.submitCard();
+  });
+</script>

@@ -149,6 +149,18 @@ define([
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {
+                    if (params.action == 'Card') {
+                        /*
+                        window.aiiData = {
+                            currency: ,
+                            amount: ,
+                            productId: ,
+                            customerId: 
+                            customerEmail: ,
+                        }
+                        */         
+                    }
+
                     $(self.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
