@@ -49,7 +49,9 @@ class Config extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        return $this->configHelper->getValues();
+        $values = $this->configHelper->getValues();
+        unset($values['card_form']);
+        return $values;
     }
 
     /**

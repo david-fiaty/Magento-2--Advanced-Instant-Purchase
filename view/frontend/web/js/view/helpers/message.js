@@ -1,24 +1,22 @@
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 define([
     'jquery',
     'mage/template',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'text!Naxero_AdvancedInstantPurchase/template/message.html'
-], function ($, MageTemplate, MessageTemplate) {
+], function ($, MageTemplate, AiiSlider, MessageTemplate) {
     'use strict';
 
     return {
+        cancelButtonSelector: '.action-close',
         clearErrors: function(slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function(data, obj) {
+        checkResponse: function(data, e, obj) {
             var cssClass;
-            var slide = obj.getCurrentSlide();
+            var slide = AiiSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
             slide.prepend(
                 MageTemplate(MessageTemplate)({})
@@ -43,12 +41,10 @@ define([
                 }
             }
             else if (data.hasOwnProperty('response')) {
-                slide.find('.message').addClass('success');
-                slide.find('.message-text').text(data.response);
-                slide.find('.messages').show();            
+                $(this.cancelButtonSelector).trigger('click');
             }
             else {
-                slide = obj.getCurrentSlide();
+                slide = AiiSlider.getCurrentSlide(obj);
                 slide.find('.message').addClass('success');
                 slide.find('.message-text').text(data.messages.main);
                 slide.find('.messages').show();

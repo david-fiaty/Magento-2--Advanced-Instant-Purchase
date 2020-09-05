@@ -32,6 +32,11 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public $customerHelper;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+    
+    /**
      * BillingAddress constructor.
      */
     public function __construct(
@@ -40,10 +45,12 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         parent::__construct($context);
         $this->customerHelper = $customerHelper;
+        $this->configHelper = $configHelper;
         $this->customerSession = $customerSession;
         $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
@@ -76,7 +83,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $html = '';
         $action = $this->getRequest()->getParam('action');
         if ($action && !empty($action)) {
-            $fn =  'new' . ucfirst($action) . 'Block';
+            $fn =  'new' . $action . 'Block';
             if (method_exists($this, $fn)) {
                 return $this->$fn();
             }
@@ -117,4 +124,15 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             ->toHtml();
     }
 
+    /**
+     * Generates the new card block.
+     */
+    public function newCardBlock()
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
+        ->setData('load', $this->configHelper->value('card_form/load'))
+        ->toHtml();
+    }
 }
