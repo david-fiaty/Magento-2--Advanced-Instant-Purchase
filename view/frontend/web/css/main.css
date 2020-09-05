@@ -32,8 +32,20 @@
     width: 100%;
 }
 
+/* Fields */
+.aii-field {
+    margin-bottom: 1.4em;
+}
+
 .aii-select {
     width: 90%;
+}
+
+.aii-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 0.4em;
 }
 
 /* Slider */

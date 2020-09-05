@@ -3,81 +3,91 @@
     $content = $block->getConfirmContent();
 ?>
 <p><?= $content['popup']['header_text'] ?></p>
-<label for="aii-billing-address-select">
-    <strong><?= $block->escapeHtml(__('Billing address')) ?>:</strong>
-    <p>
-        <?php if (!empty($content['addresses'])): ?>
-            <select id="aii-billing-address-select" class="aii-select" data-field="instant_purchase_billing_address" class="aii-select js-states form-control">
-                <?php foreach ($content['addresses'] as $item): ?>
-                    <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['billingAddress']['id'] ? 'selected' : '' ?>>
-                        <?= $item['street'] ?>&nbsp;
-                        <?= $item['postcode'] ?>&nbsp;
-                        <?= $item['city'] ?>&nbsp;
-                        <?= $item['country_id'] ?>
+<div class="aii-field">
+    <label for="aii-billing-address-select">
+        <span class="aii-label"><?= $block->escapeHtml(__('Billing address')) ?></span>
+        <p>
+            <?php if (!empty($content['addresses'])): ?>
+                <select id="aii-billing-address-select" data-field="instant_purchase_billing_address" class="aii-select js-states form-control">
+                    <?php foreach ($content['addresses'] as $item): ?>
+                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['billingAddress']['id'] ? 'selected' : '' ?>>
+                            <?= $item['street'] ?>&nbsp;
+                            <?= $item['postcode'] ?>&nbsp;
+                            <?= $item['city'] ?>&nbsp;
+                            <?= $item['country_id'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="aii-plus-icon" data-form="Address"><i class="gg-add"></i></span>
+            <?php else: ?>
+                <a id="new-billing-address" class="aii-new" data-form="Address" href="javascript:void(0)">
+                    <?= __('Create a billing address') ?>
+                </a>
+            <?php endif; ?>
+        </p>
+    </label>
+</div>
+<div class="aii-field">
+    <label for="aii-shipping-address-select">
+        <span class="aii-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
+        <p>
+            <?php if (!empty($content['addresses'])): ?>
+                <select id="aii-shipping-address-select" data-field="instant_purchase_shipping_address" class="aii-select js-states form-control">
+                    <?php foreach ($content['addresses'] as $item): ?>
+                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
+                            <?= $item['street'] ?>&nbsp;
+                            <?= $item['postcode'] ?>&nbsp;
+                            <?= $item['city'] ?>&nbsp;
+                            <?= $item['country_id'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="aii-plus-icon" data-form="Address"><i class="gg-add"></i></span>
+            <?php else: ?>
+                <a id="new-shipping-address" class="aii-new" data-form="Address" href="javascript:void(0)">
+                    <?= __('Create a shipping address') ?>
+                </a>
+            <?php endif; ?>
+        </p>
+    </label>
+</div>
+
+<div class="aii-field">
+    <label for="aii-payment-method-select">
+        <span class="aii-label"><?= $block->escapeHtml(__('Payment method')) ?></span>
+        <p>
+            <?php if (!empty($content['savedCards'])): ?>
+                <select id="aii-payment-method-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
+                    <?php foreach ($content['savedCards'] as $item): ?>
+                        <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                            &nbsp;&nbsp;<?= $item['token'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="aii-plus-icon" data-form="Card"><i class="gg-add"></i></span>
+            <?php else: ?>
+                <a id="new-payment-method" class="aii-new" data-form="Card" href="javascript:void(0)">
+                    <?= __('Save a new card') ?>
+                </a>
+            <?php endif; ?>
+        </p>
+    </label> 
+</div>
+
+<div class="aii-field">
+    <label for="aii-shipping-method-select">
+        <span class="aii-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+        <p>
+            <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
+                <?php foreach ($content['shippingRates'] as $item): ?>
+                    <option value="<?= $item['value'] ?>">
+                        <?= $item['label'] ?>&nbsp;
+                        <?= $item['price'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
-            <span class="aii-plus-icon"><i class="gg-add"></i></span>
-        <?php else: ?>
-            <a id="new-billing-address" class="aii-new" data-form="Address" href="javascript:void(0)">
-                <?= __('Create a billing address') ?>
-            </a>
-        <?php endif; ?>
-    </p>
-</label>
-<label for="aii-shipping-address-select">
-    <strong><?= $block->escapeHtml(__('Shipping address')) ?>:</strong>
-    <p>
-        <?php if (!empty($content['addresses'])): ?>
-            <select id="aii-shipping-address-select" class="aii-select" data-field="instant_purchase_shipping_address" class="aii-select js-states form-control">
-                <?php foreach ($content['addresses'] as $item): ?>
-                    <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
-                        <?= $item['street'] ?>&nbsp;
-                        <?= $item['postcode'] ?>&nbsp;
-                        <?= $item['city'] ?>&nbsp;
-                        <?= $item['country_id'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            <span class="aii-plus-icon"><i class="gg-add"></i></span>
-        <?php else: ?>
-            <a id="new-shipping-address" class="aii-new" data-form="Address" href="javascript:void(0)">
-                <?= __('Create a shipping address') ?>
-            </a>
-        <?php endif; ?>
-    </p>
-</label>
-<label for="aii-payment-method-select">
-    <strong><?= $block->escapeHtml(__('Payment method')) ?>:</strong>
-    <p>
-        <?php if (!empty($content['savedCards'])): ?>
-            <select id="aii-payment-method-select" class="aii-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
-                <?php foreach ($content['savedCards'] as $item): ?>
-                    <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
-                        &nbsp;&nbsp;<?= $item['token'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            <span class="aii-plus-icon"><i class="gg-add"></i></span>
-        <?php else: ?>
-            <a id="new-payment-method" class="aii-new" data-form="Card" href="javascript:void(0)">
-                <?= __('Save a new card') ?>
-            </a>
-        <?php endif; ?>
-    </p>
-</label> 
-<label for="aii-shipping-method-select">
-    <strong><?= $block->escapeHtml(__('Shipping method')) ?>:</strong>
-    <p>
-        <select id="aii-shipping-method-select" class="aii-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
-            <?php foreach ($content['shippingRates'] as $item): ?>
-                <option value="<?= $item['value'] ?>">
-                    <?= $item['label'] ?>&nbsp;
-                    <?= $item['price'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </p>
-</label>
+        </p>
+    </label>
+</div>
 
 <p><?= $content['popup']['footer_text'] ?></p>
