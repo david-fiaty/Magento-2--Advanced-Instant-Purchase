@@ -28,7 +28,7 @@
 .aii-label {
     font-size: 1em;
     display: inline-block;
-    margin-bottom: 0.2em;
+    margin-bottom: 0.5em;
 }
 
 /* Slider */
@@ -72,7 +72,8 @@
 /* Product box */
 .aii-product-box {
     width: 100%;
-    margin-bottom: 2em;
+    margin-top: 1em;
+    margin-bottom: 1.8em;
 }
 
 .aii-product-box-image {

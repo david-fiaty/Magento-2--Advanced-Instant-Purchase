@@ -58,9 +58,9 @@ define([
             else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
+                obj.getForm(e);
                 $(this.nextSlideSelector).show();
                 obj.isSubView = true;
-                obj.getForm(e);
             }
         }
     };
