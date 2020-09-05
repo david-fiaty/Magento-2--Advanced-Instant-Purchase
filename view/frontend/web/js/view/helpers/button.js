@@ -15,6 +15,7 @@ define([
          */
         getCancel: function(obj) {
             var self = this;
+            AiiSlider.showLoader(obj);
             return {
                 text: __('Cancel'),
                 class: 'action-secondary action-dismiss',
@@ -32,6 +33,7 @@ define([
          * Get the modal submit button.
          */
         getSubmit: function(obj) {
+            AiiSlider.showLoader(obj);
             return {
                 text: __('Submit'),
                 class: 'action-primary action-accept',
