@@ -42,10 +42,14 @@
 }
 
 .aii-field .select2-selection,
-.aii-field .select2-selection__rendered,
-.aii-field .select2-selection__arrow {
+.aii-field .select2-selection__rendered {
     height: 2.6em !important;
     line-height: 2.6em !important;
+}
+
+.aii-field .select2-selection__arrow {
+    height: 2.50em !important;
+    line-height: 2.50em !important;
 }
 
 .aii-label {

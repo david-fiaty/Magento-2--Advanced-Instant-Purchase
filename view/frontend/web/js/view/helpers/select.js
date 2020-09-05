@@ -18,7 +18,7 @@ define([
 
             // Initialise the select lists
             $(self.listSelector).select2({
-                language: 'en',
+                language: self.getLocale(),
                 theme: 'classic',
                 templateResult: AiiUtil.formatIcon,
                 templateSelection: AiiUtil.formatIcon
@@ -37,6 +37,11 @@ define([
             $(self.linkSelector).on('click', function(e) {
                 AiiSlider.toggleView(e, obj);
             });
+        },
+
+        getLocale: function() {
+            var locale = window.advancedInstantPurchase.user.language.split('_');
+            return locale[0];
         }
     };
 });
