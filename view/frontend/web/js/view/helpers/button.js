@@ -15,11 +15,11 @@ define([
          */
         getCancel: function(obj) {
             var self = this;
-            AiiSlider.showLoader(obj);
             return {
                 text: __('Cancel'),
                 class: 'action-secondary action-dismiss',
                 click: function(e) {
+                    AiiSlider.showLoader(obj);
                     if (obj.isSubView) {
                         AiiSlider.toggleView(e, obj);                        }
                     else {
@@ -33,11 +33,11 @@ define([
          * Get the modal submit button.
          */
         getSubmit: function(obj) {
-            AiiSlider.showLoader(obj);
             return {
                 text: __('Submit'),
                 class: 'action-primary action-accept',
                 click: function(e) {
+                    AiiSlider.showLoader(obj);
                     $.ajax({
                         url: AiiUtil.getConfirmUrl(obj.isSubView),
                         data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),
