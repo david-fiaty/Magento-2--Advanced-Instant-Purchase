@@ -73,6 +73,17 @@ define([
             this.shippingMethod(data.shippingMethod);
         },
 
+       /**
+        * Log data to the browser console.
+        *
+        * @param {Object} data
+        */
+        log: function(data) {
+            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+                console.log(data);
+            }
+        },
+
         /**
          * Bypass the logged in requirement.
          */
@@ -93,10 +104,10 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            if (this.isLoggedIn()) {
+            var val = this.aiiConfig.guest.click_event;
+            if (this.isLoggedIn() || val == 'continue') {
                 this.purchasePopup();
             } else {
-                var val = this.aiiConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AiiLogin[fn]();
             }

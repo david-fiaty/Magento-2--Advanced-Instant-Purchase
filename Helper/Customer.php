@@ -80,6 +80,10 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Prepare the output array
         $confirmationData = [];
+        $confirmationData['popup'] = $this->getPopupData();
+        $confirmationData['addresses'] = [];
+        $confirmationData['savedCards'] = [];
+        $confirmationData['shippingRates'] = [];
 
         // Build the confirmation data
         if ($this->customerSession->isLoggedIn()) {
@@ -91,7 +95,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 
             // Confirmation data
             $confirmationData['addresses'] = $this->getAddresses();
-            $confirmationData['popup'] = $this->getPopupData();
             $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
                 $this->customer
