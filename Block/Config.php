@@ -27,6 +27,11 @@ class Config extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
+     * @var Resolver
+     */
+    public $localeResolver;
+
+    /**
      * Button class constructor.
      */
     public function __construct(
@@ -35,6 +40,7 @@ class Config extends \Magento\Framework\View\Element\Template
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Asset\Repository $assetRepo,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Magento\Framework\Locale\Resolver $localeResolver,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -42,6 +48,7 @@ class Config extends \Magento\Framework\View\Element\Template
         $this->customerSession = $customerSession;
         $this->assetRepo = $assetRepo;
         $this->configHelper = $configHelper;
+        $this->localeResolver = $localeResolver;
     }
 
     /**
@@ -60,6 +67,14 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getLoaderIconUrl()
     {
         return $this->assetRepo->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+    }
+
+    /**
+     * Get the user locale.
+     */
+    public function getUserLanguage()
+    {
+        return $this->localeResolver->getLocale();
     }
 
     /**

@@ -25,16 +25,11 @@
                 <file_logging_enabled>0</file_logging_enabled>
             </general>
             <display>
+                <popup_responsive>1</popup_responsive>
                 <popup_title>Advanced Instant Purchase</popup_title>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
             </display>
-            <options>
-                <saved_cards>last_used</saved_cards>
-                <billing_addresses>last_used</billing_addresses>
-                <shipping_addresses>most_used</shipping_addresses>
-                <shipping_methods>fastest</shipping_methods>
-            </options>
             <guest>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_state>1</guest_button_state>

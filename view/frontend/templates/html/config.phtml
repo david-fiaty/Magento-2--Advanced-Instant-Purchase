@@ -2,7 +2,8 @@
 $aiiConfig = $block->getConfig();
 $aiiConfig['ui']['loader'] = $block->getLoaderIconUrl();
 $aiiConfig['user'] = [
-    'loggedIn' => $block->customerSession->isLoggedIn()
+    'loggedIn' => $block->customerSession->isLoggedIn(),
+    'language' => $block->getUserLanguage()
 ];
 
 ?>

@@ -21,7 +21,7 @@ class ClickEvent implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => 'redirect',
                 'label' => __('Redirect to the login page')
-            ],
+            ]
         ];
     }
 }

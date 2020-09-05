@@ -74,6 +74,7 @@
     </label> 
 </div>
 
+<?php if (!empty($content['addresses']) && !empty($content['savedCards'])): ?>
 <div class="aii-field">
     <label for="aii-shipping-method-select">
         <span class="aii-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
@@ -89,5 +90,6 @@
         </p>
     </label>
 </div>
+<?php endif; ?>
 
 <p><?= $content['popup']['footer_text'] ?></p>
