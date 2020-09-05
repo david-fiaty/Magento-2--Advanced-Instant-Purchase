@@ -8,7 +8,7 @@ define([
 
     return {
         listSelector: '.aii-select',
-        linkSelector: '.aii-new',
+        linkSelector: '.aii-new .aii-plus-icon',
 
         /**
          * Create a login popup.

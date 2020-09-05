@@ -21,8 +21,19 @@
     display: none;
 }
 
+.aii-plus-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
 #aii-next-slide-container > form {
     width: 100%;
+}
+
+.aii-select {
+    width: 90%;
 }
 
 /* Slider */
@@ -33,3 +44,36 @@
 #aii-slider .actions-toolbar {
     display: none !important;
 }
+
+/* Icons */
+.gg-add {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    transform: scale(var(--ggs,1));
+    border-radius: 22px
+   }
+   
+   .gg-add::after,
+   .gg-add::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 5px;
+    top: 8px;
+    left: 4px
+   }
+   
+   .gg-add::after {
+    width: 2px;
+    height: 10px;
+    top: 4px;
+    left: 8px
+   } 
