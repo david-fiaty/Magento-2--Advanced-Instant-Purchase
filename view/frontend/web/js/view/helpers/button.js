@@ -8,10 +8,13 @@ define([
     'use strict';
 
     return {
+        cancelButtonSelector: '.action-close',
+
         /**
          * Get the modal cancel button.
          */
-        getCancel: function(modal, obj) {
+        getCancel: function(obj) {
+            var self = this;
             return {
                 text: __('Cancel'),
                 class: 'action-secondary action-dismiss',
@@ -19,7 +22,7 @@ define([
                     if (obj.isSubView) {
                         AiiSlider.toggleView(e, obj);                        }
                     else {
-                        modal.closeModal(e);
+                        $(self.cancelButtonSelector).trigger('click');
                     }
                 }
             }
@@ -28,7 +31,7 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmit: function(modal, obj) {
+        getSubmit: function(obj) {
             return {
                 text: __('Submit'),
                 class: 'action-primary action-accept',
@@ -39,8 +42,7 @@ define([
                         type: 'post',
                         dataType: 'json',
                         success: function(data) {
-                            AiiMessage.checkResponse(data, obj);
-                            //modal.closeModal(e);
+                            AiiMessage.checkResponse(data, e, obj);
                         },
                         error: function(request, status, error) {
                             obj.log(error);

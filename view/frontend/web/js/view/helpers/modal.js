@@ -24,8 +24,8 @@ define([
                     data: confirmData
                 }),
                 buttons: [
-                    AiiButton.getCancel(this, obj),
-                    AiiButton.getSubmit(this, obj)
+                    AiiButton.getCancel(obj),
+                    AiiButton.getSubmit(obj)
                 ]
             });
         }

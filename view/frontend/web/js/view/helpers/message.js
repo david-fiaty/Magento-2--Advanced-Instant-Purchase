@@ -7,13 +7,14 @@ define([
     'use strict';
 
     return {
+        cancelButtonSelector: '.action-close',
         clearErrors: function(slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function(data, obj) {
+        checkResponse: function(data, e, obj) {
             var cssClass;
             var slide = AiiSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
@@ -40,9 +41,7 @@ define([
                 }
             }
             else if (data.hasOwnProperty('response')) {
-                slide.find('.message').addClass('success');
-                slide.find('.message-text').text(data.response);
-                slide.find('.messages').show();            
+                $(this.cancelButtonSelector).trigger('click');
             }
             else {
                 slide = AiiSlider.getCurrentSlide(obj);
