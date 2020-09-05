@@ -1,5 +1,4 @@
 - improve the config fields comments
-- add popup default values selected: most used, most recent, fastest, cheapest
 - add a ip popup closest select list option with geoloc
 - add scroll color
 - check slick and select2 user lang
