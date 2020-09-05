@@ -41,6 +41,13 @@
     width: 90%;
 }
 
+.aii-field .select2-selection,
+.aii-field .select2-selection__rendered,
+.aii-field .select2-selection__arrow {
+    height: 2.6em !important;
+    line-height: 2.6em !important;
+}
+
 .aii-label {
     font-size: 0.9em;
     font-weight: bold;
