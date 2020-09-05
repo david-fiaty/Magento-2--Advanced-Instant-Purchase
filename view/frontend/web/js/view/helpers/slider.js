@@ -23,7 +23,6 @@ define([
                 adaptiveHeight: true,
                 arrows: false
             });
-
         },
 
         /**

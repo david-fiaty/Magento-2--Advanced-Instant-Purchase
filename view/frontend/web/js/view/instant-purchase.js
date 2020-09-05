@@ -3,26 +3,21 @@
  * See COPYING.txt for license details.
  */
 define([
-    'ko',
     'jquery',
     'underscore',
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'mage/template',
-    'Magento_Ui/js/modal/confirm',
     'Magento_Customer/js/customer-data',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-
-    'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, MageTemplate, ConfirmModal, CustomerData, AiiMessage, AiiUtil, AiiLogin, AiiSelect, AiiSlider, ConfirmationTemplate) {
+], function ($, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider) {
     'use strict';
 
     return Component.extend({
@@ -38,8 +33,6 @@ define([
             shippingMethod: null,
             popupContentSelector: '#aii-confirmation-content',
             buttonSelector: '.aii-button',
-            confirmationTitle: __('Instant Purchase Confirmation'),
-            confirmationTemplateSelector: '#aii-confirmation-template',
             isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -123,6 +116,72 @@ define([
         },
 
         /**
+         * Get the confirmation page content.
+         */
+        getConfirmContent: function() {
+            var self = this;
+            AiiSlider.showLoader(self);
+            var params = {
+                action: 'Confirmation'
+            };
+            $.ajax({
+                type: 'POST',
+                url: UrlBuilder.build(self.confirmUrl),
+                data: params,
+                success: function (data) {
+                    // Get the HTML content
+                    $(self.popupContentSelector).html(data.html);
+
+                    // Initialise the select lists
+                    AiiSelect.build(self);
+
+                    // Set the slider events
+                    AiiSlider.build();
+                },
+                error: function (request, status, error) {
+                    self.log(error);
+                }
+            });
+        },
+
+        /**
+         * Purchase popup.
+         */
+        purchasePopup: function() {
+            var form = AiiUtil.getCurrentForm(self.isSubView),
+            confirmData = _.extend({}, this.confirmationData, {
+                paymentToken: this.getData('paymentToken'),
+                shippingAddress: this.getData('shippingAddress'),
+                billingAddress: this.getData('billingAddress'),
+                shippingMethod: this.getData('shippingMethod')
+            });
+
+            // Check the validation rules
+            if (!(form.validation() && form.validation('isValid'))) {
+                return;
+            }
+
+            // Open the modal
+            AiiModal.getConfirmModal(confirmData, this);
+
+            // Get the AJAX content
+            this.getConfirmContent();
+        },
+
+        /**
+         * Get instant purchase data.
+         */
+        getData: function(fn) {
+            var data = this[fn]();
+            var ok = data
+            && data.hasOwnProperty('summary')
+            && typeof data.summary !== 'undefined'
+            && data.summary.length > 0;
+
+            return ok ? data.summary : ' ';
+        },
+
+        /**
          * Get a form.
          */
         getForm: function(e) {
@@ -150,122 +209,9 @@ define([
                     $(AiiSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
-                    AiiUtil.log(error);
+                    self.log(error);
                 }
             });
-        },
-
-        /**
-         * Get the confirmation page content.
-         */
-        getConfirmContent: function() {
-            var self = this;
-            AiiSlider.showLoader(self);
-            var params = {
-                action: 'Confirmation'
-            };
-            $.ajax({
-                type: 'POST',
-                url: UrlBuilder.build(self.confirmUrl),
-                data: params,
-                success: function (data) {
-                    // Get the HTML content
-                    $(self.popupContentSelector).html(data.html);
-
-                    // Initialise the select lists
-                    AiiSelect.build(self);
-
-                    // Set the slider events
-                    AiiSlider.build();
-                },
-                error: function (request, status, error) {
-                    AiiUtil.log(error);
-                }
-            });
-        },
-
-        /**
-         * Get the confirmation page modal popup.
-         */
-        getConfirmModal: function(confirmData) {
-            var self = this;
-            var confirmTemplate = MageTemplate(ConfirmationTemplate);
-            ConfirmModal({
-                title: this.confirmationTitle,
-                innerScroll: true,
-                content: confirmTemplate({
-                    data: confirmData
-                }),
-                buttons: [
-                {
-                    text: __('Cancel'),
-                    class: 'action-secondary action-dismiss',
-                    click: function(e) {
-                        if (self.isSubView) {
-                            AiiSlider.toggleView(e, self);                        }
-                        else {
-                            this.closeModal(e);
-                        }
-                    }
-                },
-                {
-                    text: __('Submit'),
-                    class: 'action-primary action-accept',
-                    click: function(e) {
-                        var btn = this;
-                        $.ajax({
-                            url: AiiUtil.getConfirmUrl(self.isSubView),
-                            data: AiiUtil.getCurrentForm(self.isSubView).serialize(),
-                            type: 'post',
-                            dataType: 'json',
-                            success: function(data) {
-                                AiiMessage.checkResponse(data, self);
-                                //btn.closeModal(e);
-                            },
-                            error: function(request, status, error) {
-                                AiiUtil.log(error);
-                            }
-                        })
-                    }
-                }]
-            });
-        },
-
-        /**
-         * Purchase popup.
-         */
-        purchasePopup: function() {
-            var form = AiiUtil.getCurrentForm(self.isSubView),
-            confirmData = _.extend({}, this.confirmationData, {
-                paymentToken: this.getData('paymentToken'),
-                shippingAddress: this.getData('shippingAddress'),
-                billingAddress: this.getData('billingAddress'),
-                shippingMethod: this.getData('shippingMethod')
-            });
-
-            // Check the validation rules
-            if (!(form.validation() && form.validation('isValid'))) {
-                return;
-            }
-
-            // Open the modal
-            this.getConfirmModal(confirmData);
-
-            // Get the AJAX content
-            this.getConfirmContent();
-        },
-
-        /**
-         * Get the payment token.
-         */
-        getData: function(fn) {
-            var data = this[fn]();
-            var ok = data
-            && data.hasOwnProperty('summary')
-            && typeof data.summary !== 'undefined'
-            && data.summary.length > 0;
-
-            return ok ? data.summary : ' ';
         }
     });
 });

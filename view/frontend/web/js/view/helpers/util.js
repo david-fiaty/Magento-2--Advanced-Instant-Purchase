@@ -15,17 +15,6 @@ define([
         productFormSelector: '#product_addtocart_form',
 
         /**
-         * Log data to the browser console.
-         *
-         * @param {Object} data
-         */
-        log: function(data) {
-            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
-                console.log(data);
-            }
-        },
-
-        /**
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function(isSubView) {
