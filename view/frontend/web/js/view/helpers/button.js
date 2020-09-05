@@ -19,6 +19,7 @@ define([
                 text: __('Cancel'),
                 class: 'action-secondary action-dismiss',
                 click: function(e) {
+                    AiiSlider.showLoader(obj);
                     if (obj.isSubView) {
                         AiiSlider.toggleView(e, obj);                        }
                     else {
@@ -36,6 +37,7 @@ define([
                 text: __('Submit'),
                 class: 'action-primary action-accept',
                 click: function(e) {
+                    AiiSlider.showLoader(obj);
                     $.ajax({
                         url: AiiUtil.getConfirmUrl(obj.isSubView),
                         data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),

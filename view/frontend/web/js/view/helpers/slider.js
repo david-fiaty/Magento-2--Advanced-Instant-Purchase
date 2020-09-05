@@ -29,7 +29,7 @@ define([
          * Get the current slide.
          */
         getCurrentSlide: function(obj) {
-            var slide = (obj.isSubView) ? this.nextSlideSelector : this.popupContentSelector;
+            var slide = (obj.isSubView) ? this.nextSlideSelector : obj.popupContentSelector;
             return $(slide);
         },
 
