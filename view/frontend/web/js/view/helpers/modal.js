@@ -20,6 +20,7 @@ define([
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
+                responsive: true,
                 content: confirmTemplate({
                     data: confirmData
                 }),

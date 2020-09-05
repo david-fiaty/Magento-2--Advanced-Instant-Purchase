@@ -1,6 +1,4 @@
 - improve the config fields comments
-- add scroll color
-- check slick and select2 user lang
 
 FEATURES
 - button in product lists

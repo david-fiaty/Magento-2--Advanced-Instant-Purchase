@@ -56,7 +56,7 @@
     font-size: 1em;
     font-weight: bold;
     display: inline-block;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.2em;
 }
 
 /* Slider */
@@ -66,6 +66,25 @@
 
 #aii-slider .actions-toolbar {
     display: none !important;
+}
+
+/* Modal */
+.modal-footer {
+    border: none !important;
+}
+
+.modal-popup.confirm .modal-inner-wrap {
+    max-width: 55rem !important;
+}
+
+.modal-popup.confirm .modal-inner-wrap .modal-content {
+    padding-right: 3rem !important;
+}
+
+@media (max-width: 700px) { 
+    .select2-container {
+        width: 85% !important;
+    }
 }
 
 /* Icons */
