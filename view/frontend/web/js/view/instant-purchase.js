@@ -96,8 +96,13 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var customer = CustomerData.get('customer')();
-            return customer.fullname && customer.firstname;
+            var data = CustomerData.get('customer');
+            if (data) {
+                var customer = data();
+                return customer.fullname && customer.firstname;
+            }
+
+            return false;
         },
 
         /**
