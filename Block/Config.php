@@ -32,6 +32,11 @@ class Config extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * Button class constructor.
      */
     public function __construct(
@@ -41,6 +46,7 @@ class Config extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Asset\Repository $assetRepo,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -49,6 +55,7 @@ class Config extends \Magento\Framework\View\Element\Template
         $this->assetRepo = $assetRepo;
         $this->localeResolver = $localeResolver;
         $this->configHelper = $configHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -64,6 +71,9 @@ class Config extends \Magento\Framework\View\Element\Template
 
         // Loader icon
         $aiiConfig['ui']['loader'] = $this->getLoaderIconUrl();
+
+        // Product info
+        $aiiConfig['product'] = $this->getProductData();
 
         // User info
         $aiiConfig['user'] = [
@@ -88,6 +98,13 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getUserLanguage()
     {
         return $this->localeResolver->getLocale();
+    }
+
+    /**
+     * Get the current product data.
+     */
+    public function getProductData() {
+        return $this->productHelper->getData();
     }
 
     /**

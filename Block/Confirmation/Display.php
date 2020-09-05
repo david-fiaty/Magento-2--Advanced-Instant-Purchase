@@ -24,7 +24,7 @@ class Display extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get a list of customer addresses.
+     * Get the connfirmation popup content.
      */
     public function getConfirmContent() {
         return $this->customerHelper->getConfirmContent();

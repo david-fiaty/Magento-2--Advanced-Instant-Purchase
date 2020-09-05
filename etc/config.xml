@@ -27,6 +27,7 @@
             <display>
                 <popup_responsive>1</popup_responsive>
                 <popup_title>Advanced Instant Purchase</popup_title>
+                <popup_product>1</popup_product>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
             </display>

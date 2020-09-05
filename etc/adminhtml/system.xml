@@ -64,6 +64,11 @@
                     <label>Popup title</label>
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
                 </field>
+                <field id="popup_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show a product summary in the purchase confirmation window.</comment>
+                </field>
                 <field id="popup_header_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup header text</label>
                     <comment>Text for the Advanced Instant Purchase popup header.</comment>

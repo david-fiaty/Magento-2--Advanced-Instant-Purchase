@@ -1,7 +1,7 @@
 
 /* General */
 .aii-clr {
-    display: none;
+    visibility: hidden;
     clear: both;
 }
 
@@ -27,7 +27,6 @@
 
 .aii-label {
     font-size: 1em;
-    font-weight: bold;
     display: inline-block;
     margin-bottom: 0.2em;
 }
@@ -73,24 +72,26 @@
 /* Product box */
 .aii-product-box {
     width: 100%;
+    margin-bottom: 2em;
 }
 
 .aii-product-box-image {
     float: left;
-    width: 30%;
+    width: 25%;
 }
 
 .aii-product-box-info {
     float: left;
     width: 70%;
+    padding-left: 1em;
 }
 
 .aii-product-box-name {
-    font-size: 3em;
+    font-size: 1.5em;
 }
 
 .aii-product-box-price {
-    color: red;
+    font-size: 1.2em;
 }
 /* Loader icon */
 .aii-ajax-loader-container {

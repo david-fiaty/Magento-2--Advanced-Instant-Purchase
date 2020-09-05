@@ -22,16 +22,23 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $registry; 
 
     /**
+     * @var Http
+     */
+    public $request; 
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Request\Http $request
     ) {
         $this->registry = $registry;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
+        $this->request = $request;
     }
 
     /**

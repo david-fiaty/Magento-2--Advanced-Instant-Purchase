@@ -27,11 +27,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
-     * @var Product
-     */
-    public $productHelper;
-
-    /**
      * @var CustomerData
      */
     public $customerData;
@@ -64,7 +59,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
@@ -74,7 +68,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->configHelper = $configHelper;
-        $this->productHelper = $productHelper;
         $this->customerData = $customerData;
         $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
@@ -88,7 +81,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         // Prepare the output array
         $confirmationData = [];
         $confirmationData['popup'] = $this->getPopupData();
-        $confirmationData['product'] = $this->productHelper->getData();
         $confirmationData['addresses'] = [];
         $confirmationData['savedCards'] = [];
         $confirmationData['shippingRates'] = [];

@@ -14,10 +14,11 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider) {
+], function ($, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct) {
     'use strict';
 
     return Component.extend({
@@ -147,6 +148,9 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     $(self.popupContentSelector).html(data.html);
+
+                    // Load the product view
+                    AiiProduct.loadBoxView(self.popupContentSelector);
 
                     // Initialise the select lists
                     AiiSelect.build(self);
