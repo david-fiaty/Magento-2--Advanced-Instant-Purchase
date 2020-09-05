@@ -9,6 +9,7 @@ define([
     'use strict';
 
     return {
+        aiiConfig: window.advancedInstantPurchase,
         confirmationTitle: __('Instant Purchase Confirmation'),
 
         /**
