@@ -33,12 +33,15 @@ define([
          * Get the modal submit button.
          */
         getSubmit: function(obj) {
+            var params = AiiUtil.getCurrentForm(obj.isSubView);
+            console.log(params);
+           // $(this).data('field')
             return {
                 text: __('Submit'),
                 class: 'action-primary action-accept',
                 click: function(e) {
                     AiiSlider.showLoader(obj);
-                    $.ajax({
+                    var request = {
                         url: AiiUtil.getConfirmUrl(obj.isSubView),
                         data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),
                         type: 'post',
@@ -49,7 +52,11 @@ define([
                         error: function(request, status, error) {
                             obj.log(error);
                         }
-                    })
+                    };
+
+                    console.log(request);
+
+                    $.ajax(request);
                 }
             };
         }
