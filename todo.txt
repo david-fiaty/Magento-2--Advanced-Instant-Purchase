@@ -8,6 +8,7 @@ FEATURES
 - button in product lists
 - add themes system
 - order summary option, product image, price
+- login with google, facebook
 
 QA
 - check all config fields functional
