@@ -1,0 +1,85 @@
+<?php
+namespace Naxero\AdvancedInstantPurchase\Helper;
+
+/**
+ * Class Product
+ */
+class Product extends \Magento\Framework\App\Helper\AbstractHelper
+{
+    /**
+     * @var Image
+     */
+    public $imageHelper;
+
+    /**
+     * @var Data
+     */
+    public $priceHelper;
+
+    /**
+     * @var Registry
+     */
+    public $registry; 
+
+    /**
+     * Class Customer constructor.
+     */
+    public function __construct(
+        \Magento\Catalog\Helper\Image $imageHelper,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
+        \Magento\Framework\Registry $registry
+    ) {
+        $this->registry = $registry;
+        $this->imageHelper = $imageHelper;
+        $this->priceHelper = $priceHelper;
+    }
+
+    /**
+     * Load the current product data.
+     */
+    public function getData()
+    {
+        // Product instance
+        $product = $this->getProduct();
+        return [
+            'id' => $product->getId(),
+            'name' => $product->getName(),
+            'price' => $this->getProductPrice(),
+            'url' => $this->getProductImageUrl()
+        ];
+    }
+
+    /**
+     * Get the current product.
+     */
+    public function getProduct()
+    {
+        return $this->registry->registry('current_product');
+    }
+
+    /**
+     * Get the current product price.
+     */
+    public function getProductPrice()
+    {
+        return $this->priceHelper->currency(
+            $this->getProduct()->getFinalPrice(),
+            true,
+            false
+        );
+    }
+
+    /**
+     * Get the current product image url.
+     */
+    public function getProductImageUrl()
+    {
+        return $this->imageHelper->init(
+            $this->getProduct(),
+            'product_base_image'
+        )->constrainOnly(FALSE)
+        ->keepAspectRatio(TRUE)
+        ->keepFrame(FALSE)
+        ->getUrl();
+    }
+}

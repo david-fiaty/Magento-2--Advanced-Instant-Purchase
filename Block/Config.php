@@ -19,27 +19,12 @@ class Config extends \Magento\Framework\View\Element\Template
     /**
      * @var Repository
      */
-    public $assetRepo;
-
-    /**
-     * @var Registry
-     */
-    public $registry;  
+    public $assetRepo; 
 
     /**
      * @var Resolver
      */
     public $localeResolver;
-
-    /**
-     * @var Image
-     */
-    public $imageHelper;
-
-    /**
-     * @var Data
-     */
-    public $priceHelper;
 
     /**
      * @var Config
@@ -54,10 +39,7 @@ class Config extends \Magento\Framework\View\Element\Template
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        \Magento\Framework\Registry $registry,
         \Magento\Framework\Locale\Resolver $localeResolver,
-        \Magento\Catalog\Helper\Image $imageHelper,
-        \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
     ) {
@@ -65,12 +47,8 @@ class Config extends \Magento\Framework\View\Element\Template
         $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->customerSession = $customerSession;
         $this->assetRepo = $assetRepo;
-        $this->registry = $registry;
         $this->localeResolver = $localeResolver;
-        $this->imageHelper = $imageHelper;
-        $this->priceHelper = $priceHelper;
         $this->configHelper = $configHelper;
-
     }
 
     /**
@@ -87,15 +65,6 @@ class Config extends \Magento\Framework\View\Element\Template
         // Loader icon
         $aiiConfig['ui']['loader'] = $this->getLoaderIconUrl();
 
-        // Product instance
-        $product = $this->getProduct();
-        $aiiConfig['product'] = [
-            'id' => $product->getId(),
-            'name' => $product->getName(),
-            'price' => $product->getProductPrice(),           
-            'url' => $this->getProductImageUrl()
-        ];
-
         // User info
         $aiiConfig['user'] = [
             'loggedIn' => $this->customerSession->isLoggedIn(),
@@ -103,40 +72,6 @@ class Config extends \Magento\Framework\View\Element\Template
         ];
 
         return json_encode($aiiConfig);
-    }
-
-    /**
-     * Get the current product.
-     */
-    public function getProduct()
-    {
-        return $this->registry->registry('current_product');
-    }
-
-    /**
-     * Get the current product price.
-     */
-    public function getProductPrice()
-    {
-        return $this->priceHelper->currency(
-            $this->getProduct()->getFinalPrice(),
-            true,
-            false
-        );
-    }
-
-    /**
-     * Get the current product image url.
-     */
-    public function getProductImageUrl()
-    {
-        return $this->imageHelper->init(
-            $this->getProduct(),
-            'product_base_image'
-        )->constrainOnly(FALSE)
-        ->keepAspectRatio(TRUE)
-        ->keepFrame(FALSE)
-        ->getUrl();
     }
 
     /**

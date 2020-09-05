@@ -1,35 +1,8 @@
-.aii-card-icon {
-    display: flex;
-    align-items: center;
-}
 
-.aii-ajax-loader-container {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    padding-top: 30px;
-}
-
-.aii-ajax-loader-container img {
-    display: block;
-    margin: auto;
-}
-
-#aii-next-slide-container {
-    width: 100%;
-    height: 100%;
+/* General */
+.aii-clr {
     display: none;
-}
-
-.aii-plus-icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 7px;
-    cursor: pointer;
-}
-
-#aii-next-slide-container > form {
-    width: 100%;
+    clear: both;
 }
 
 /* Fields */
@@ -68,6 +41,16 @@
     display: none !important;
 }
 
+#aii-next-slide-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#aii-next-slide-container > form {
+    width: 100%;
+}
+
 /* Modal */
 .modal-footer {
     border: none !important;
@@ -87,7 +70,56 @@
     }
 }
 
-/* Icons */
+/* Product box */
+.aii-product-box {
+    width: 100%;
+}
+
+.aii-product-box-image {
+    float: left;
+    width: 30%;
+}
+
+.aii-product-box-info {
+    float: left;
+    width: 70%;
+}
+
+.aii-product-box-name {
+    font-size: 3em;
+}
+
+.aii-product-box-price {
+    color: red;
+}
+/* Loader icon */
+.aii-ajax-loader-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.aii-ajax-loader-container img {
+    display: block;
+    margin: auto;
+}
+
+/* Card icons */
+.aii-card-icon {
+    display: flex;
+    align-items: center;
+}
+
+
+/* Plus icons */
+.aii-plus-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
 .gg-add {
     box-sizing: border-box;
     position: relative;
