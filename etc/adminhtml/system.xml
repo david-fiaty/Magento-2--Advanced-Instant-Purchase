@@ -55,6 +55,11 @@
             </group>
             <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Popup settings</label>
+                <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Responsive</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The responsive mode provides a mobile display for small screens.</comment>
+                </field>
                 <field id="popup_title" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
                     <comment>Title for the Advanced Instant Purchase popup.</comment>

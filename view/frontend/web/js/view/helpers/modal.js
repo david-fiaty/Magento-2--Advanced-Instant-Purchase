@@ -20,7 +20,7 @@ define([
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
-                responsive: true,
+                responsive: this.aiiConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
                 }),
