@@ -71,28 +71,28 @@
     display: block;
     width: 22px;
     height: 22px;
-    border: 2px solid;
+    border: 2px solid #999999;
     transform: scale(var(--ggs,1));
-    border-radius: 22px
-   }
+    border-radius: 22px;
+}
    
-   .gg-add::after,
-   .gg-add::before {
+.gg-add::after,
+.gg-add::before {
     content: "";
     display: block;
     box-sizing: border-box;
     position: absolute;
     width: 10px;
     height: 2px;
-    background: currentColor;
+    background: #999999;
     border-radius: 5px;
     top: 8px;
     left: 4px
-   }
-   
-   .gg-add::after {
+}
+
+.gg-add::after {
     width: 2px;
     height: 10px;
     top: 4px;
     left: 8px
-   } 
+} 
