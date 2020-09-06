@@ -4,8 +4,9 @@ define([
     'mage/template',
     'Magento_Ui/js/modal/confirm',
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/button'
-], function ($, __, MageTemplate, ConfirmModal, ConfirmationTemplate, AiiButton) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
+], function ($, __, MageTemplate, ConfirmModal, ConfirmationTemplate, AiiButton, AiiUtil) {
     'use strict';
 
     return {
@@ -21,6 +22,7 @@ define([
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
+                data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),
                 responsive: this.aiiConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
