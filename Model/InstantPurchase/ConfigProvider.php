@@ -25,8 +25,10 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
      */
     public function getSectionData() : array
     {
+        $aiiConfig = $this->config->getValues();  
+        unset($aiiConfig['card_form']);
         return [
-            'advancedInstantPurchase' => $this->config->getValues()
+            'advancedInstantPurchase' => $aiiConfig
         ];
     }
 }
