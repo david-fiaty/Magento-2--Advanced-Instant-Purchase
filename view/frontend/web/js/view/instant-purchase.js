@@ -3,6 +3,7 @@
  * See COPYING.txt for license details.
  */
 define([
+    'ko',
     'jquery',
     'underscore',
     'mage/translate',
@@ -18,7 +19,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct) {
     'use strict';
 
     return Component.extend({
