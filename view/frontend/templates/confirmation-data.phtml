@@ -2,6 +2,16 @@
     // Get the confirmation screen content
     $content = $block->getConfirmContent();
 ?>
+<div class="aii-product-box">
+    <div class="aii-product-box-image">
+        <img data-role="image"> 
+    </div>
+    <div class="aii-product-box-info">
+        <p class="aii-product-box-name" data-role="name"></p>
+        <p class="aii-product-box-price" data-role="price"></p>
+    </div>
+    <div class="aii-clr"></div>   
+</div>
 <p><?= $content['popup']['header_text'] ?></p>
 <div class="aii-field">
     <label for="aii-billing-address-select">

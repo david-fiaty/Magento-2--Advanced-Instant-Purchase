@@ -1,12 +1,3 @@
-<?php
-$aiiConfig = $block->getConfig();
-$aiiConfig['ui']['loader'] = $block->getLoaderIconUrl();
-$aiiConfig['user'] = [
-    'loggedIn' => $block->customerSession->isLoggedIn(),
-    'language' => $block->getUserLanguage()
-];
-
-?>
 <script>
-    window.advancedInstantPurchase = <?php echo json_encode($aiiConfig); ?>;
+    window.advancedInstantPurchase = <?= $block->getConfig(); ?>;
 </script>

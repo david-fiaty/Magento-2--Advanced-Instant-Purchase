@@ -17,9 +17,14 @@ class Config extends \Magento\Framework\View\Element\Template
     public $customerSession;
 
     /**
-     * @var Session
+     * @var Repository
      */
-    public $assetRepo;
+    public $assetRepo; 
+
+    /**
+     * @var Resolver
+     */
+    public $localeResolver;
 
     /**
      * @var Config
@@ -27,9 +32,9 @@ class Config extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
-     * @var Resolver
+     * @var Product
      */
-    public $localeResolver;
+    public $productHelper;
 
     /**
      * Button class constructor.
@@ -39,16 +44,18 @@ class Config extends \Magento\Framework\View\Element\Template
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Magento\Framework\Locale\Resolver $localeResolver,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->customerSession = $customerSession;
         $this->assetRepo = $assetRepo;
-        $this->configHelper = $configHelper;
         $this->localeResolver = $localeResolver;
+        $this->configHelper = $configHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -56,9 +63,25 @@ class Config extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        $values = $this->configHelper->getValues();
-        unset($values['card_form']);
-        return $values;
+        // Get the module config
+        $aiiConfig = $this->configHelper->getValues();
+
+        // Filter parameters
+        unset($aiiConfig['card_form']);
+
+        // Loader icon
+        $aiiConfig['ui']['loader'] = $this->getLoaderIconUrl();
+
+        // Product info
+        $aiiConfig['product'] = $this->getProductData();
+
+        // User info
+        $aiiConfig['user'] = [
+            'loggedIn' => $this->customerSession->isLoggedIn(),
+            'language' => $this->getUserLanguage()
+        ];
+
+        return json_encode($aiiConfig);
     }
 
     /**
@@ -75,6 +98,13 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getUserLanguage()
     {
         return $this->localeResolver->getLocale();
+    }
+
+    /**
+     * Get the current product data.
+     */
+    public function getProductData() {
+        return $this->productHelper->getData();
     }
 
     /**
