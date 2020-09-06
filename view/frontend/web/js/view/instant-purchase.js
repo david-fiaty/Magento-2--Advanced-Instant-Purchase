@@ -66,6 +66,9 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function(data) {
+
+            console.log(data);
+
             // Prepare the data
             this.showButton(data.available);
             this.paymentToken(data.paymentToken);
