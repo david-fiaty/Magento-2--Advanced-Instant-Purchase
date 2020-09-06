@@ -46,14 +46,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getData()
     {
-        // Product instance
+        $output = [];        
         $product = $this->getProduct();
-        return [
-            'id' => $product->getId(),
-            'name' => $product->getName(),
-            'price' => $this->getProductPrice(),
-            'url' => $this->getProductImageUrl()
-        ];
+        if ($product) {
+            $output = [
+                'id' => $product->getId(),
+                'name' => $product->getName(),
+                'price' => $this->getProductPrice(),
+                'url' => $this->getProductImageUrl()
+            ];
+        }
+
+        return $output;
     }
 
     /**
