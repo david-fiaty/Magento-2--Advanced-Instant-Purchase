@@ -37,7 +37,7 @@ define([
                 text: __('Submit'),
                 class: 'action-primary action-accept',
                 click: function(e) {
-                    var requestData = AiiUtil.getCurrentForm(obj.isSubView);
+                    var requestData = AiiUtil.getCurrentForm(obj.isSubView).serialize();
                     AiiSlider.showLoader(obj);
                     $.ajax({
                         url: AiiUtil.getConfirmUrl(obj.isSubView),
