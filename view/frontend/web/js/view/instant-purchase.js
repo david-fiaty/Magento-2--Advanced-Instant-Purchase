@@ -144,6 +144,7 @@ define([
             };
             $.ajax({
                 type: 'POST',
+                cache: false,
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {
@@ -212,6 +213,7 @@ define([
             };
             $.ajax({
                 type: 'POST',
+                cache: false,
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {

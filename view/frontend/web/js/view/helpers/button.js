@@ -40,6 +40,7 @@ define([
                     var requestData = AiiUtil.getCurrentForm(obj.isSubView).serialize();
                     AiiSlider.showLoader(obj);
                     $.ajax({
+                        cache: false,
                         url: AiiUtil.getConfirmUrl(obj.isSubView),
                         data: requestData,
                         type: 'post',
