@@ -21,7 +21,7 @@ define([
     'domReady!'
 ], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct) {
     'use strict';
-
+    
     return Component.extend({
         defaults: {
             aiiConfig: window.advancedInstantPurchase,
