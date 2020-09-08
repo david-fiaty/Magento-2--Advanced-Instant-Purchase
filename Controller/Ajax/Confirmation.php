@@ -85,7 +85,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($action && !empty($action)) {
             $fn =  'new' . $action . 'Block';
             if (method_exists($this, $fn)) {
-                return $this->$fn();
+                $html .= $this->$fn();
             }
         }
 
@@ -97,10 +97,14 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newConfirmationBlock()
     {
-        return $this->pageFactory->create()->getLayout()
+        $html = $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
             ->toHtml();
+
+        $html .= $this->getAgreements();
+
+        return $html;
     }
 
     /**
@@ -133,6 +137,16 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
         ->setData('load', $this->configHelper->value('card_form/load'))
+        ->toHtml();
+    }
+
+    /**
+     * Get the terms and conditions.
+     */
+    public function getAgreements() {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-link.phtml')
         ->toHtml();
     }
 }

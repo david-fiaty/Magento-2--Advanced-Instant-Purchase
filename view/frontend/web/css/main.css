@@ -5,6 +5,10 @@
     clear: both;
 }
 
+.aii-agrement-link-content {
+    display: none;
+}
+
 /* Fields */
 .aii-field {
     margin-bottom: 1.4em;
@@ -51,6 +55,10 @@
 }
 
 /* Modal */
+.modal-content {
+    height: 100%;
+}
+
 .modal-footer {
     border: none !important;
 }

@@ -43,5 +43,4 @@ class Display extends \Magento\Framework\View\Element\Template
     public function getConfig() {
         return $this->configHelper->getValues();
     }
-
 }
