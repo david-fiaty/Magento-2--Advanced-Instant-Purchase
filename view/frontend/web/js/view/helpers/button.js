@@ -58,6 +58,13 @@ define([
                             }
                         });
                     }
+                    else {
+                        AiiMessage.show(
+                            'error',
+                            __('Please approve the terms and conditions.'),
+                            obj
+                        );
+                    }
                 }
             };
         }
