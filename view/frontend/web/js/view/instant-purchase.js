@@ -28,7 +28,7 @@ define([
             aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            confirmUrl: 'aii/ajax/confirmation',
+            confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -223,7 +223,7 @@ define([
                 success: function (data) {
                     if (params.action == 'Card') {
                         /*
-                        window.aiiData = {
+                        window.aipData = {
                             currency: ,
                             amount: ,
                             productId: ,
