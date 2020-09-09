@@ -5,7 +5,7 @@ define([
 
     return {
         aipConfig: window.advancedInstantPurchase,
-        productBoxSelector: '.aii-product-box',
+        productBoxSelector: '.aip-product-box',
 
         /**
          * Create a login popup.

@@ -8,8 +8,8 @@ define([
     'use strict';
 
     return {
-        sliderSelector: '#aii-slider',
-        nextSlideSelector: '#aii-next-slide-container',
+        sliderSelector: '#aip-slider',
+        nextSlideSelector: '#aip-next-slide-container',
 
         /**
          * Create a login popup.

@@ -34,8 +34,8 @@ define([
             shippingAddress: null,
             billingAddress: null,
             shippingMethod: null,
-            popupContentSelector: '#aii-confirmation-content',
-            buttonSelector: '.aii-button',
+            popupContentSelector: '#aip-confirmation-content',
+            buttonSelector: '.aip-button',
             isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),

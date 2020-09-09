@@ -41,12 +41,12 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
-            if (!state.id || !state.element.parentElement.className.includes('aii-payment-method-select')) {
+            if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
                 return state.text;
             }
             var iconUrl = state.element.value.split('*~*')[1];
             var iconHtml = $(
-                '<span class="aii-card-icon">'
+                '<span class="aip-card-icon">'
                 + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );

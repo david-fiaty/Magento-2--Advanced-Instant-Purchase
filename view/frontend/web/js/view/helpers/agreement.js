@@ -7,7 +7,7 @@ define([
 
     return {
         aipConfig: window.advancedInstantPurchase,
-        agreementLinkSelector: '.aii-agreement-link',
+        agreementLinkSelector: '.aip-agreement-link',
 
         /**
          * Set the agrements events

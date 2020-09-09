@@ -7,8 +7,8 @@ define([
     'use strict';
 
     return {
-        listSelector: '.aii-select',
-        linkSelector: '.aii-new, .aii-plus-icon',
+        listSelector: '.aip-select',
+        linkSelector: '.aip-new, .aip-plus-icon',
 
         /**
          * Create a login popup.

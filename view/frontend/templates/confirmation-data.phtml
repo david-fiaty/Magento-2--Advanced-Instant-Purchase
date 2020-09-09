@@ -5,24 +5,24 @@
 ?>
 
 <?php if ($config['display']['popup_product']): ?>
-    <div class="aii-product-box">
-        <div class="aii-product-box-image">
+    <div class="aip-product-box">
+        <div class="aip-product-box-image">
             <img data-role="image"> 
         </div>
-        <div class="aii-product-box-info">
-            <p class="aii-product-box-name" data-role="name"></p>
-            <p class="aii-product-box-price" data-role="price"></p>
+        <div class="aip-product-box-info">
+            <p class="aip-product-box-name" data-role="name"></p>
+            <p class="aip-product-box-price" data-role="price"></p>
         </div>
-        <div class="aii-clr"></div>   
+        <div class="aip-clr"></div>   
     </div>
 <?php endif; ?>
 <p><?= $content['popup']['header_text'] ?></p>
-<div class="aii-field">
-    <label for="aii-billing-address-select">
-        <span class="aii-label"><?= $block->escapeHtml(__('Billing address')) ?></span>
+<div class="aip-field">
+    <label for="aip-billing-address-select">
+        <span class="aip-label"><?= $block->escapeHtml(__('Billing address')) ?></span>
         <p>
             <?php if (!empty($content['addresses'])): ?>
-                <select id="aii-billing-address-select" data-field="instant_purchase_billing_address" class="aii-select js-states form-control">
+                <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
                         <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['billingAddress']['id'] ? 'selected' : '' ?>>
                             <?= $item['street'] ?>&nbsp;
@@ -32,21 +32,21 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aii-plus-icon" data-form="Address"><i class="gg-add"></i></span>
+                <span class="aip-plus-icon" data-form="Address"><i class="gg-add"></i></span>
             <?php else: ?>
-                <a id="new-billing-address" class="aii-new" data-form="Address" href="javascript:void(0)">
+                <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
                     <?= __('Create a billing address') ?>
                 </a>
             <?php endif; ?>
         </p>
     </label>
 </div>
-<div class="aii-field">
-    <label for="aii-shipping-address-select">
-        <span class="aii-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
+<div class="aip-field">
+    <label for="aip-shipping-address-select">
+        <span class="aip-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
         <p>
             <?php if (!empty($content['addresses'])): ?>
-                <select id="aii-shipping-address-select" data-field="instant_purchase_shipping_address" class="aii-select js-states form-control">
+                <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
                         <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
                             <?= $item['street'] ?>&nbsp;
@@ -56,9 +56,9 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aii-plus-icon" data-form="Address"><i class="gg-add"></i></span>
+                <span class="aip-plus-icon" data-form="Address"><i class="gg-add"></i></span>
             <?php else: ?>
-                <a id="new-shipping-address" class="aii-new" data-form="Address" href="javascript:void(0)">
+                <a id="new-shipping-address" class="aip-new" data-form="Address" href="javascript:void(0)">
                     <?= __('Create a shipping address') ?>
                 </a>
             <?php endif; ?>
@@ -66,21 +66,21 @@
     </label>
 </div>
 
-<div class="aii-field">
-    <label for="aii-payment-method-select">
-        <span class="aii-label"><?= $block->escapeHtml(__('Payment method')) ?></span>
+<div class="aip-field">
+    <label for="aip-payment-method-select">
+        <span class="aip-label"><?= $block->escapeHtml(__('Payment method')) ?></span>
         <p>
             <?php if (!empty($content['savedCards'])): ?>
-                <select id="aii-payment-method-select" data-field="instant_purchase_payment_token" class="aii-select aii-payment-method-select js-states form-control">
+                <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
                     <?php foreach ($content['savedCards'] as $item): ?>
                         <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
                             &nbsp;&nbsp;<?= $item['token'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aii-plus-icon" data-form="Card"><i class="gg-add"></i></span>
+                <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
             <?php else: ?>
-                <a id="new-payment-method" class="aii-new" data-form="Card" href="javascript:void(0)">
+                <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
                     <?= __('Save a new card') ?>
                 </a>
             <?php endif; ?>
@@ -89,11 +89,11 @@
 </div>
 
 <?php if (!empty($content['addresses']) && !empty($content['savedCards'])): ?>
-<div class="aii-field">
-    <label for="aii-shipping-method-select">
-        <span class="aii-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+<div class="aip-field">
+    <label for="aip-shipping-method-select">
+        <span class="aip-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
         <p>
-            <select id="aii-shipping-method-select" data-field="instant_purchase_shipping" class="aii-select js-states form-control">
+            <select id="aip-shipping-method-select" data-field="instant_purchase_shipping" class="aip-select js-states form-control">
                 <?php foreach ($content['shippingRates'] as $item): ?>
                     <option value="<?= $item['value'] ?>">
                         <?= $item['label'] ?>&nbsp;
