@@ -1,9 +1,7 @@
 define([
-    'jquery',
     'mage/url',
-    'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup'
-], function ($, UrlBuilder, CustomerData, AuthPopup) {
+], function (UrlBuilder, AuthPopup) {
     'use strict';
 
     return {
