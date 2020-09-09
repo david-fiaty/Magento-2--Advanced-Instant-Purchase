@@ -2,7 +2,7 @@ define([
     'jquery',
     'mage/url',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
-], function ($, UrlBuilder, AiiSlider) {
+], function ($, UrlBuilder, AipSlider) {
     'use strict';
 
     return {
@@ -17,7 +17,7 @@ define([
                 var self = this;
                 $(self.agreementLinkSelector).on('click', function(e) {
                     self.getAgreement(e, obj);
-                    AiiSlider.toggleView(e, obj);                     
+                    AipSlider.toggleView(e, obj);                     
                 });
             }
         },
@@ -36,7 +36,7 @@ define([
                 url: UrlBuilder.build(obj.confirmUrl),
                 data: params,
                 success: function (data) {
-                    $(AiiSlider.nextSlideSelector).html(data.html);
+                    $(AipSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
                     obj.log(error);

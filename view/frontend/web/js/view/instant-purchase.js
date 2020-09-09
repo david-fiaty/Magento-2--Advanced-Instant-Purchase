@@ -20,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct, AiiAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -117,7 +117,7 @@ define([
                 this.purchasePopup();
             } else {
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
-                AiiLogin[fn]();
+                AipLogin[fn]();
             }
         },
 
@@ -152,16 +152,16 @@ define([
                     $(self.popupContentSelector).html(data.html);
 
                     // Load the product view
-                    AiiProduct.loadBoxView(self.popupContentSelector);
+                    AipProduct.loadBoxView(self.popupContentSelector);
 
                     // Initialise the select lists
-                    AiiSelect.build(self);
+                    AipSelect.build(self);
 
                     // Agreements events
-                    AiiAgreement.build(self);
+                    AipAgreement.build(self);
 
                     // Set the slider events
-                    AiiSlider.build();
+                    AipSlider.build();
 
                 },
                 error: function (request, status, error) {
@@ -174,7 +174,7 @@ define([
          * Purchase popup.
          */
         purchasePopup: function() {
-            var form = AiiUtil.getCurrentForm(self.isSubView),
+            var form = AipUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),
@@ -188,7 +188,7 @@ define([
             }
 
             // Open the modal
-            AiiModal.getConfirmModal(confirmData, this);
+            AipModal.getConfirmModal(confirmData, this);
 
             // Get the AJAX content
             this.getConfirmContent();
@@ -233,7 +233,7 @@ define([
                         */         
                     }
 
-                    $(AiiSlider.nextSlideSelector).html(data.html);
+                    $(AipSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
                     self.log(error);

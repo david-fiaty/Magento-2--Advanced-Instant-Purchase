@@ -3,7 +3,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'select2'
-], function ($, AiiUtil, AiiSlider, select2) {
+], function ($, AipUtil, AipSlider, select2) {
     'use strict';
 
     return {
@@ -20,15 +20,15 @@ define([
             $(self.listSelector).select2({
                 language: self.getLocale(),
                 theme: 'classic',
-                templateResult: AiiUtil.formatIcon,
-                templateSelection: AiiUtil.formatIcon
+                templateResult: AipUtil.formatIcon,
+                templateSelection: AipUtil.formatIcon
             });
 
             // Set the lists events
             $(self.listSelector).on('change', function() {
                 var targetField = $(this).attr('data-field');
                 var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                ? AiiUtil.getOptionPublicHash(fieldValue)
+                ? AipUtil.getOptionPublicHash(fieldValue)
                 : fieldValue;
                 $('input[name="' + targetField + '"]').val(fieldValue);
             });
@@ -36,7 +36,7 @@ define([
             // Set the link events
             $(self.linkSelector).on('click', function(e) {
                 obj.getForm(e);
-                AiiSlider.toggleView(e, obj);
+                AipSlider.toggleView(e, obj);
             });
         },
 

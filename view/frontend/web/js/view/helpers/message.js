@@ -3,7 +3,7 @@ define([
     'mage/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'text!Naxero_AdvancedInstantPurchase/template/message.html'
-], function ($, MageTemplate, AiiSlider, MessageTemplate) {
+], function ($, MageTemplate, AipSlider, MessageTemplate) {
     'use strict';
 
     return {
@@ -42,7 +42,7 @@ define([
         },
 
         show: function(type, str, obj) {
-            var slide = AiiSlider.getCurrentSlide(obj);
+            var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
             slide.prepend(
                 MageTemplate(MessageTemplate)({})

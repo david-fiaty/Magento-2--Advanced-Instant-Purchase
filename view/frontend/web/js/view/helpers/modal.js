@@ -6,7 +6,7 @@ define([
     'text!Naxero_AdvancedInstantPurchase/template/confirmation.html',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
-], function ($, __, MageTemplate, ConfirmModal, ConfirmationTemplate, AiiButton, AiiUtil) {
+], function ($, __, MageTemplate, ConfirmModal, ConfirmationTemplate, AipButton, AipUtil) {
     'use strict';
 
     return {
@@ -22,14 +22,14 @@ define([
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
-                data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),
+                data: AipUtil.getCurrentForm(obj.isSubView).serialize(),
                 responsive: this.aipConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
                 }),
                 buttons: [
-                    AiiButton.getCancel(obj),
-                    AiiButton.getSubmit(obj)
+                    AipButton.getCancel(obj),
+                    AipButton.getSubmit(obj)
                 ]
             });
         }

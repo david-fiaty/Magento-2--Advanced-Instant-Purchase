@@ -6,10 +6,10 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AiiSlider, AiiUtil, AiiMessage, AiiValidation) {
+], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation) {
     'use strict';
 
-    AdditionalValidators.registerValidator(AiiValidation);
+    AdditionalValidators.registerValidator(AipValidation);
 
     return {
         cancelButtonSelector: '.action-close',
@@ -25,7 +25,7 @@ define([
                 click: function(e) {
                     if (obj.isSubView) {
                         obj.getConfirmContent();
-                        AiiSlider.toggleView(e, obj);                        }
+                        AipSlider.toggleView(e, obj);                        }
                     else {
                         $(self.cancelButtonSelector).trigger('click');
                     }
@@ -42,16 +42,16 @@ define([
                 class: 'action-primary action-accept',
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
-                        var requestData = AiiUtil.getCurrentForm(obj.isSubView).serialize();
-                        AiiSlider.showLoader(obj);
+                        var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
+                        AipSlider.showLoader(obj);
                         $.ajax({
                             cache: false,
-                            url: AiiUtil.getConfirmUrl(obj.isSubView),
+                            url: AipUtil.getConfirmUrl(obj.isSubView),
                             data: requestData,
                             type: 'post',
                             dataType: 'json',
                             success: function(data) {
-                                AiiMessage.checkResponse(data, e, obj);
+                                AipMessage.checkResponse(data, e, obj);
                             },
                             error: function(request, status, error) {
                                 obj.log(error);
@@ -59,7 +59,7 @@ define([
                         });
                     }
                     else {
-                        AiiMessage.show(
+                        AipMessage.show(
                             'error',
                             __('Please approve the terms and conditions.'),
                             obj
