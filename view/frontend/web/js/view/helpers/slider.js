@@ -49,7 +49,6 @@ define([
             e.preventDefault();
             this.showLoader(obj);
             if (obj.isSubView) {
-                obj.getConfirmContent();
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
@@ -58,7 +57,6 @@ define([
             else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
-                obj.getForm(e);
                 $(this.nextSlideSelector).show();
                 obj.isSubView = true;
             }

@@ -16,18 +16,11 @@ define([
 
         checkResponse: function(data, e, obj) {
             var cssClass;
-            var slide = AiiSlider.getCurrentSlide(obj);
-            this.clearErrors(slide);
-            slide.prepend(
-                MageTemplate(MessageTemplate)({})
-            );
             if (data.success === false) {
                 cssClass = 'mage-error';
 
                 // Add the main message
-                slide.find('.message').addClass('error');
-                slide.find('.message-text').text(data.messages.main);
-                slide.find('.messages').show();
+                this.show('error', data.messages.main, obj);
 
                 // Add the field messages
                 if (data.messages.fields.length > 0) {
@@ -44,11 +37,19 @@ define([
                 $(this.cancelButtonSelector).trigger('click');
             }
             else {
-                slide = AiiSlider.getCurrentSlide(obj);
-                slide.find('.message').addClass('success');
-                slide.find('.message-text').text(data.messages.main);
-                slide.find('.messages').show();
+                this.show('success', data.messages.main, obj);
             }
+        },
+
+        show: function(type, str, obj) {
+            var slide = AiiSlider.getCurrentSlide(obj);
+            this.clearErrors(slide);
+            slide.prepend(
+                MageTemplate(MessageTemplate)({})
+            );
+            slide.find('.message').addClass(type);
+            slide.find('.message-text').text(str);
+            slide.find('.messages').show();
         }
     };
 });

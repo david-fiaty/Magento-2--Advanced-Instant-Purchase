@@ -51,6 +51,10 @@
 }
 
 /* Modal */
+.modal-content {
+    height: 100%;
+}
+
 .modal-footer {
     border: none !important;
 }

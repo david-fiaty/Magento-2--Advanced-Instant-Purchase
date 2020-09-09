@@ -14,16 +14,6 @@ class  VaultHandlerService
     public $storeManager;
 
     /**
-     * @var VaultToken
-     */
-    public $vaultToken;
-
-    /**
-     * @var Config
-     */
-    public $config;
-
-    /**
      * @var PaymentTokenRepositoryInterface
      */
     public $paymentTokenRepository;
@@ -42,11 +32,6 @@ class  VaultHandlerService
      * @var ManagerInterface
      */
     public $messageManager;
-
-    /**
-     * @var ApiHandlerService
-     */
-    public $apiHandlerService;
 
     /**
      * @var CardHandlerService
@@ -83,38 +68,18 @@ class  VaultHandlerService
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \CheckoutCom\Magento2\Model\Vault\VaultToken $vaultToken,
         \Magento\Vault\Api\PaymentTokenRepositoryInterface $paymentTokenRepository,
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \CheckoutCom\Magento2\Model\Service\ApiHandlerService $apiHandler,
-        \CheckoutCom\Magento2\Model\Service\CardHandlerService $cardHandler,
-        \CheckoutCom\Magento2\Gateway\Config\Config $config
+        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler
     ) {
         $this->storeManager = $storeManager;
-        $this->vaultToken = $vaultToken;
         $this->paymentTokenRepository = $paymentTokenRepository;
         $this->paymentTokenManagement = $paymentTokenManagement;
         $this->customerSession = $customerSession;
         $this->messageManager = $messageManager;
-        $this->apiHandler = $apiHandler;
         $this->cardHandler = $cardHandler;
-        $this->config = $config;
-    }
-
-    /**
-     * Returns the payment token instance if exists.
-     *
-     * @param  PaymentTokenInterface $paymentToken
-     * @return PaymentTokenInterface|null
-     */
-    private function foundExistedPaymentToken(PaymentTokenInterface $paymentToken)
-    {
-        return $this->paymentTokenManagement->getByPublicHash(
-            $paymentToken->getPublicHash(),
-            $paymentToken->getCustomerId()
-        );
     }
 
     /**

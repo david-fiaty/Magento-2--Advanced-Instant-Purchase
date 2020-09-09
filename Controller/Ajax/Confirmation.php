@@ -85,7 +85,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($action && !empty($action)) {
             $fn =  'new' . $action . 'Block';
             if (method_exists($this, $fn)) {
-                return $this->$fn();
+                $html .= $this->$fn();
             }
         }
 
@@ -97,10 +97,19 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newConfirmationBlock()
     {
-        return $this->pageFactory->create()->getLayout()
+        // Confirmation content
+        $html = $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
             ->toHtml();
+
+        // Agreements
+        $enableAgreements = $this->configHelper->value('general/enable_agreements');
+        if ($enableAgreements) {
+            $html .= $this->getAgreementsLinks();
+        }
+
+        return $html;
     }
 
     /**
@@ -134,5 +143,30 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
         ->setData('load', $this->configHelper->value('card_form/load'))
         ->toHtml();
+    }
+
+    /**
+     * Get the agreements links.
+     */
+    public function getAgreementsLinks() {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-link.phtml')
+        ->toHtml();
+    }
+
+    /**
+     * Get the terms and conditions.
+     */
+    public function newAgreementBlock() {
+        $enableAgreements = $this->configHelper->value('general/enable_agreements');
+        if ($enableAgreements) {
+            return $this->pageFactory->create()->getLayout()
+            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+            ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-detail.phtml')
+            ->toHtml();
+        }
+
+        return '';
     }
 }

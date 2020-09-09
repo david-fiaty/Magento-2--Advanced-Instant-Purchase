@@ -36,23 +36,16 @@ class CardHandlerService
     public $csvParser;
 
     /**
-     * @var Config
-     */
-    public $config;
-
-    /**
      * CardHandlerService constructor.
      */
     public function __construct(
         \Magento\Framework\View\Asset\Repository $assetRepository,
         \Magento\Framework\Module\Dir\Reader $directoryReader,
-        \Magento\Framework\File\Csv $csvParser,
-        \CheckoutCom\Magento2\Gateway\Config\Config $config
+        \Magento\Framework\File\Csv $csvParser
     ) {
         $this->assetRepository = $assetRepository;
         $this->directoryReader = $directoryReader;
         $this->csvParser = $csvParser;
-        $this->config = $config;
     }
 
     /**

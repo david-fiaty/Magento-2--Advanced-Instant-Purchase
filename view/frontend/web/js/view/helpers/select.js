@@ -35,6 +35,7 @@ define([
 
             // Set the link events
             $(self.linkSelector).on('click', function(e) {
+                obj.getForm(e);
                 AiiSlider.toggleView(e, obj);
             });
         },
