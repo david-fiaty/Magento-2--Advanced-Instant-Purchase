@@ -1,11 +1,36 @@
+"Edit Address","Edit Address"
+"Add New Address","Add New Address"
+"Invalid request","Invalid request"
+"The data was saved successfully.","The data was saved successfully."
+"Some required fields are invalid","Some required fields are invalid"
+"Invalid field","Invalid field"
+"The address could not be saved.","The address could not be saved."
 "Open a popup","Open a popup"
 "Redirect to the login page","Redirect to the login page"
+"Cheapest price","Cheapest price"
 ending,ending
 expires,expires
+"* Required Fields","* Required Fields"
+"Contact Information","Contact Information"
+Address,Address
+Street,Street
+"Street Address %1","Street Address %1"
+"VAT number","VAT number"
+City,City
+Region,Region
+"Please select a region, state or province.","Please select a region, state or province."
+"Post code","Post code"
+Country,Country
+"It's a default billing address.","It's a default billing address."
+"Use as my default billing address","Use as my default billing address"
+"It's a default shipping address.","It's a default shipping address."
+"Use as my default shipping address","Use as my default shipping address"
+"Save Address","Save Address"
+"Go back","Go back"
 "Billing address","Billing address"
 "Create a billing address","Create a billing address"
 "Shipping address","Shipping address"
 "Create a shipping address","Create a shipping address"
-"Shipping method","Shipping method"
 "Payment method","Payment method"
-"Create a saved card","Create a saved card"
+"Save a new card","Save a new card"
+"Shipping method","Shipping method"
