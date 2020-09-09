@@ -1,6 +1,7 @@
 - link the agreement clicked to detail content via http id param
 - replace the agreement link text by view icon
 - improve loaders display: after  next  slider load, before ajax call
+- implement modal buttons state checks enabled/disabled
 
 - improve the config fields comments
 - fix region field in shipping form template
