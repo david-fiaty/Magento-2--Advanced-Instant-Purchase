@@ -6,17 +6,20 @@ define([
     'use strict';
 
     return {
+        aiiConfig: window.advancedInstantPurchase,
         agreementLinkSelector: '.aii-agreement-link',
 
         /**
          * Set the agrements events
          */
         build: function(obj) {
-            var self = this;
-            $(this.agreementLinkSelector).on('click', function(e) {
-                self.getAgreement(e, obj);
-                AiiSlider.toggleView(e, obj);                     
-            });
+            if (this.aiiConfig.general.enable_agreements) {
+                var self = this;
+                $(self.agreementLinkSelector).on('click', function(e) {
+                    self.getAgreement(e, obj);
+                    AiiSlider.toggleView(e, obj);                     
+                });
+            }
         },
 
          /**
