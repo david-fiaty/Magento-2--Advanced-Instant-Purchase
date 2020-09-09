@@ -102,7 +102,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
             ->toHtml();
 
-        $html .= $this->getAgreements();
+        $html .= $this->getAgreementsLinks();
 
         return $html;
     }
@@ -141,12 +141,22 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Get the terms and conditions.
+     * Get the agreements links.
      */
-    public function getAgreements() {
+    public function getAgreementsLinks() {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
         ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-link.phtml')
+        ->toHtml();
+    }
+
+    /**
+     * Get the terms and conditions.
+     */
+    public function newAgreementBlock() {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-detail.phtml')
         ->toHtml();
     }
 }

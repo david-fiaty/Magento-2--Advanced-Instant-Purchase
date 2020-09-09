@@ -1,17 +1,13 @@
-<?php if (!$block->getAgreements()) {
+<?php 
+$agreements = $block->getAgreements();
+if (!$agreements) {
     return;
-} ?>
+}
+?>
 <ol id="checkout-agreements" class="agreements checkout items">
     <?php /** @var \Magento\CheckoutAgreements\Api\Data\AgreementInterface $agreement */ ?>
-    <?php foreach ($block->getAgreements() as $agreement): ?>
+    <?php foreach ($agreements as $agreement): ?>
         <li class="item">
-            <div class="checkout-agreement-item-content aii-agrement-link-content"<?= ($agreement->getContentHeight() ? ' style="height:' . $agreement->getContentHeight() . '"' : '') ?>>
-                <?php if ($agreement->getIsHtml()):?>
-                    <?= /* @escapeNotVerified */ $agreement->getContent() ?>
-                <?php else:?>
-                    <?= nl2br($block->escapeHtml($agreement->getContent())) ?>
-                <?php endif; ?>
-            </div>
             <form id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
                 <?php if($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_MANUAL): ?>
                 <input type="checkbox"
@@ -23,7 +19,9 @@
                        data-validate="{required:true}"/>
                 <label class="label" for="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>">
                     <span><?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?></span>
-                    <a href="javascript:void(0)"><?= __('View') ?></a>
+                    <a href="javascript:void(0)" class="aii-agreement-link" data-role="Agreement" data-id="<?= $agreement->getId() ?>">
+                        <?= __('View') ?>
+                    </a>
                 </label>
                 <?php elseif($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_AUTO): ?>
                 <div id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree">

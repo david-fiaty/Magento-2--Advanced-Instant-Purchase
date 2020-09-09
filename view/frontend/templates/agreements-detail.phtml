@@ -1,0 +1,20 @@
+<?php 
+$agreements = $block->getAgreements();
+if (!$agreements) {
+    return;
+}
+?>
+<ol id="checkout-agreements" class="agreements checkout items">
+    <?php /** @var \Magento\CheckoutAgreements\Api\Data\AgreementInterface $agreement */ ?>
+    <?php foreach ($agreements as $agreement): ?>
+        <li class="item">
+            <div class="checkout-agreement-item-content aii-agrement-link-content"<?= ($agreement->getContentHeight() ? ' style="height:' . $agreement->getContentHeight() . '"' : '') ?>>
+                <?php if ($agreement->getIsHtml()):?>
+                    <?= /* @escapeNotVerified */ $agreement->getContent() ?>
+                <?php else:?>
+                    <?= nl2br($block->escapeHtml($agreement->getContent())) ?>
+                <?php endif; ?>
+            </div>
+        </li>
+    <?php endforeach ?>
+</ol>

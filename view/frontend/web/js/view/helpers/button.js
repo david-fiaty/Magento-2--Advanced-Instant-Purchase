@@ -23,8 +23,8 @@ define([
                 text: __('Cancel'),
                 class: 'action-secondary action-dismiss',
                 click: function(e) {
-                    AiiSlider.showLoader(obj);
                     if (obj.isSubView) {
+                        obj.getConfirmContent();
                         AiiSlider.toggleView(e, obj);                        }
                     else {
                         $(self.cancelButtonSelector).trigger('click');

@@ -16,10 +16,11 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/agreement',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct, AiiAgreement) {
     'use strict';
     
     return Component.extend({
@@ -138,7 +139,6 @@ define([
          */
         getConfirmContent: function() {
             var self = this;
-            AiiSlider.showLoader(self);
             var params = {
                 action: 'Confirmation'
             };
@@ -157,8 +157,12 @@ define([
                     // Initialise the select lists
                     AiiSelect.build(self);
 
+                    // Agreements events
+                    AiiAgreement.build(self);
+                    
                     // Set the slider events
                     AiiSlider.build();
+
                 },
                 error: function (request, status, error) {
                     self.log(error);
