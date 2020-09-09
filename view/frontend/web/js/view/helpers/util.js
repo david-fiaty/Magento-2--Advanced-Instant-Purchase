@@ -9,7 +9,7 @@ define([
     'use strict';
 
     return {
-        aiiConfig: window.advancedInstantPurchase,
+        aipConfig: window.advancedInstantPurchase,
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'instantpurchase/button/placeOrder',
         productFormSelector: '#product_addtocart_form',

@@ -6,14 +6,14 @@ define([
     'use strict';
 
     return {
-        aiiConfig: window.advancedInstantPurchase,
+        aipConfig: window.advancedInstantPurchase,
         agreementLinkSelector: '.aii-agreement-link',
 
         /**
          * Set the agrements events
          */
         build: function(obj) {
-            if (this.aiiConfig.general.enable_agreements) {
+            if (this.aipConfig.general.enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click', function(e) {
                     self.getAgreement(e, obj);

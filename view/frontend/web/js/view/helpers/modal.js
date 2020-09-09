@@ -10,7 +10,7 @@ define([
     'use strict';
 
     return {
-        aiiConfig: window.advancedInstantPurchase,
+        aipConfig: window.advancedInstantPurchase,
         confirmationTitle: __('Instant Purchase Confirmation'),
 
         /**
@@ -23,7 +23,7 @@ define([
                 title: self.confirmationTitle,
                 innerScroll: true,
                 data: AiiUtil.getCurrentForm(obj.isSubView).serialize(),
-                responsive: this.aiiConfig.display.popup_responsive,
+                responsive: this.aipConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
                 }),

@@ -4,18 +4,18 @@ define([
     'use strict';
 
     return {
-        aiiConfig: window.advancedInstantPurchase,
+        aipConfig: window.advancedInstantPurchase,
         productBoxSelector: '.aii-product-box',
 
         /**
          * Create a login popup.
          */
         loadBoxView: function(container) {
-            if (this.aiiConfig.display.popup_product) {
+            if (this.aipConfig.display.popup_product) {
                 var box = $(container).find(this.productBoxSelector);
-                box.find("img[data-role='image']").attr('src', this.aiiConfig.product.url);
-                box.find("p[data-role='name']").text(this.aiiConfig.product.name);
-                box.find("p[data-role='price']").text(this.aiiConfig.product.price);
+                box.find("img[data-role='image']").attr('src', this.aipConfig.product.url);
+                box.find("p[data-role='name']").text(this.aipConfig.product.name);
+                box.find("p[data-role='price']").text(this.aipConfig.product.price);
             }
         }
     };

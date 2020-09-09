@@ -25,7 +25,7 @@ define([
     
     return Component.extend({
         defaults: {
-            aiiConfig: window.advancedInstantPurchase,
+            aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             confirmUrl: 'aii/ajax/confirmation',
@@ -82,7 +82,7 @@ define([
         * @param {Object} data
         */
         log: function(data) {
-            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+            if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
                 console.log(data);
             }
         },
@@ -91,8 +91,8 @@ define([
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            return this.aiiConfig.general.enabled
-            && this.aiiConfig.guest.show_guest_button;
+            return this.aipConfig.general.enabled
+            && this.aipConfig.guest.show_guest_button;
         },
 
         /**
@@ -112,7 +112,7 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            var val = this.aiiConfig.guest.click_event;
+            var val = this.aipConfig.guest.click_event;
             if (this.isLoggedIn()) {
                 this.purchasePopup();
             } else {
@@ -129,7 +129,7 @@ define([
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (this.aiiConfig.guest.click_event !== 'disabled') {
+            if (this.aipConfig.guest.click_event !== 'disabled') {
                 $(this.buttonSelector).prop('disabled', false);
             }
         },
@@ -159,7 +159,7 @@ define([
 
                     // Agreements events
                     AiiAgreement.build(self);
-                    
+
                     // Set the slider events
                     AiiSlider.build();
 
