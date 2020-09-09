@@ -18,9 +18,10 @@ if (!$agreements) {
                        class="checkbox"
                        data-validate="{required:true}"/>
                 <label class="label" for="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>">
-                    <span><?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?></span>
                     <a href="javascript:void(0)" class="aii-agreement-link" data-role="Agreement" data-id="<?= $agreement->getId() ?>">
-                        <?= __('View') ?>
+                        <span>
+                            <?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?>
+                        </span>
                     </a>
                 </label>
                 <?php elseif($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_AUTO): ?>
