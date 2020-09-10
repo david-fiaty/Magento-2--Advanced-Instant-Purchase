@@ -28,7 +28,7 @@ define([
             aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            confirmUrl: 'aip/ajax/confirmation',
+            confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
