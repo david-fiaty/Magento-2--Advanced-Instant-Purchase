@@ -145,6 +145,7 @@ define([
             };                       
 
             // Send the request
+            AipSlider.showLoader(self);
             $.ajax({
                 type: 'POST',
                 cache: false,

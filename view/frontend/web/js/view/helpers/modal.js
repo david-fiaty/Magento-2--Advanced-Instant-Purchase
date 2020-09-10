@@ -12,15 +12,16 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         confirmationTitle: __('Instant Purchase Confirmation'),
+        modalWrapperSelector: '.modal-inner-wrap',
 
         /**
          * Add HTML to a container.
          */
         addHtml: function(target, html) {
             $(target).html(html);
-            $('.modal-inner-wrap').animate({
+            $(this.modalWrapperSelector).animate({
                 minHeight: $(target).height()  + 'px'
-            }, 200 );
+            }, 300 );
         },
 
         /**
