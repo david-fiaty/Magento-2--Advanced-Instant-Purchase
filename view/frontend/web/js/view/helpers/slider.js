@@ -51,15 +51,14 @@ define([
             if (e) e.preventDefault();
 
             // Handle the toggle logic
+            this.showLoader(obj);
             if (obj.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                this.showLoader(obj);
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
-                this.showLoader(obj);
                 $('.action-dismiss span').text(__('Back'));
                 obj.isSubView = true;
             }
