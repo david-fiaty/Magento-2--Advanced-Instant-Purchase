@@ -55,7 +55,6 @@ define([
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
-                $(this.sliderSelector).slick('unslick');
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
