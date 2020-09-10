@@ -18,7 +18,9 @@ define([
          */
         addHtml: function(target, html) {
             $(target).html(html);
-            $('.modal-inner-wrap').css('min-height', $(target).height()  + 'px');
+            $('.modal-inner-wrap').animate({
+                minHeight: $(target).height()  + 'px'
+            }, 200 );
         },
 
         /**
@@ -31,7 +33,6 @@ define([
                 title: self.confirmationTitle,
                 innerScroll: true,
                 data: AipUtil.getCurrentForm(obj.isSubView).serialize(),
-                responsive: this.aipConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
                 }),
