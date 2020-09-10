@@ -19,8 +19,7 @@ define([
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 infinite: false,
-                speed: 300,
-                adaptiveHeight: true,
+                speed: 500,
                 arrows: false
             });
         },
@@ -56,6 +55,7 @@ define([
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
+                $(this.sliderSelector).slick('unslick');
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
