@@ -1,5 +1,4 @@
-- link the agreement clicked to detail content via http id param
-- replace the agreement link text by view icon
+- check agreement link rendering
 - improve loaders display: after  next  slider load, before ajax call
 - implement modal buttons state checks enabled/disabled
 
