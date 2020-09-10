@@ -45,8 +45,12 @@ define([
         /**
          * Handles the view switch.
          */
-        toggleView: function(e, obj) {
-            e.preventDefault();
+        toggleView: function(obj, e) {
+            // Handle the event
+            e = e || null;
+            if (e) e.preventDefault();
+
+            // Handle the toggle logic
             this.showLoader(obj);
             if (obj.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');

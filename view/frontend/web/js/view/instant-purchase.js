@@ -138,10 +138,13 @@ define([
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
+            // Prepare the parameters
             var self = this;
             var params = {
                 action: 'Confirmation'
-            };
+            };                       
+
+            // Send the request
             $.ajax({
                 type: 'POST',
                 cache: false,

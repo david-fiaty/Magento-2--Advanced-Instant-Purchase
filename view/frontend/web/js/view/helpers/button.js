@@ -24,8 +24,10 @@ define([
                 class: 'action-secondary action-dismiss',
                 click: function(e) {
                     if (obj.isSubView) {
+                        // Toggle the view
+                        AipSlider.toggleView(obj, e); 
                         obj.getConfirmContent();
-                        AipSlider.toggleView(e, obj);                        }
+                    }
                     else {
                         $(self.cancelButtonSelector).trigger('click');
                     }

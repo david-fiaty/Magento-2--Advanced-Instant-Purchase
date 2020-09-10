@@ -17,7 +17,6 @@ define([
                 var self = this;
                 $(self.agreementLinkSelector).on('click', function(e) {
                     self.getAgreement(e, obj);
-                    AipSlider.toggleView(e, obj);                     
                 });
             }
         },
@@ -26,10 +25,16 @@ define([
          * Get an agreement.
          */
         getAgreement: function(e, obj) {
+            // Prepare the request parameters
             var params = {
                 action: $(e.currentTarget).data('role'),
                 id: $(e.currentTarget).data('id')
             };
+
+            // Toggle the view
+            AipSlider.toggleView(obj, e);       
+            
+            // Send the request
             $.ajax({
                 type: 'POST',
                 cache: false,
