@@ -20,22 +20,22 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AiiModal, AiiUtil, AiiLogin, AiiSelect, AiiSlider, AiiProduct, AiiAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
     'use strict';
     
     return Component.extend({
         defaults: {
-            aiiConfig: window.advancedInstantPurchase,
+            aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            confirmUrl: 'aii/ajax/confirmation',
+            confirmUrl: 'aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
             billingAddress: null,
             shippingMethod: null,
-            popupContentSelector: '#aii-confirmation-content',
-            buttonSelector: '.aii-button',
+            popupContentSelector: '#aip-confirmation-content',
+            buttonSelector: '.aip-button',
             isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -82,7 +82,7 @@ define([
         * @param {Object} data
         */
         log: function(data) {
-            if (this.aiiConfig.general.debug_enabled && this.aiiConfig.general.console_logging_enabled) {
+            if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
                 console.log(data);
             }
         },
@@ -91,8 +91,8 @@ define([
          * Bypass the logged in requirement.
          */
         bypassLogin: function() {
-            return this.aiiConfig.general.enabled
-            && this.aiiConfig.guest.show_guest_button;
+            return this.aipConfig.general.enabled
+            && this.aipConfig.guest.show_guest_button;
         },
 
         /**
@@ -112,12 +112,12 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            var val = this.aiiConfig.guest.click_event;
+            var val = this.aipConfig.guest.click_event;
             if (this.isLoggedIn() || val == 'continue') {
                 this.purchasePopup();
             } else {
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
-                AiiLogin[fn]();
+                AipLogin[fn]();
             }
         },
 
@@ -129,7 +129,7 @@ define([
             $(this.buttonSelector).prop('disabled', true);
 
             // Check the button state configs
-            if (this.aiiConfig.guest.click_event !== 'disabled') {
+            if (this.aipConfig.guest.click_event !== 'disabled') {
                 $(this.buttonSelector).prop('disabled', false);
             }
         },
@@ -152,16 +152,16 @@ define([
                     $(self.popupContentSelector).html(data.html);
 
                     // Load the product view
-                    AiiProduct.loadBoxView(self.popupContentSelector);
+                    AipProduct.loadBoxView(self.popupContentSelector);
 
                     // Initialise the select lists
-                    AiiSelect.build(self);
+                    AipSelect.build(self);
 
                     // Agreements events
-                    AiiAgreement.build(self);
+                    AipAgreement.build(self);
                     
                     // Set the slider events
-                    AiiSlider.build();
+                    AipSlider.build();
 
                 },
                 error: function (request, status, error) {
@@ -174,7 +174,7 @@ define([
          * Purchase popup.
          */
         purchasePopup: function() {
-            var form = AiiUtil.getCurrentForm(self.isSubView),
+            var form = AipUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),
@@ -188,7 +188,7 @@ define([
             }
 
             // Open the modal
-            AiiModal.getConfirmModal(confirmData, this);
+            AipModal.getConfirmModal(confirmData, this);
 
             // Get the AJAX content
             this.getConfirmContent();
@@ -223,7 +223,7 @@ define([
                 success: function (data) {
                     if (params.action == 'Card') {
                         /*
-                        window.aiiData = {
+                        window.aipData = {
                             currency: ,
                             amount: ,
                             productId: ,
@@ -233,7 +233,7 @@ define([
                         */         
                     }
 
-                    $(AiiSlider.nextSlideSelector).html(data.html);
+                    $(AipSlider.nextSlideSelector).html(data.html);
                 },
                 error: function (request, status, error) {
                     self.log(error);
