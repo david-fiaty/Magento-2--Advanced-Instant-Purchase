@@ -114,10 +114,14 @@ define([
         handleButtonClick: function() {
             var val = this.aipConfig.guest.click_event;
             if (this.isLoggedIn()) {
-                this.purchasePopup();
             } else {
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
-                AipLogin[fn]();
+                if (AipLogin[fn] === 'function') {
+                    AipLogin[fn]();
+                }
+                else {
+                    this.log('Unauthorized function call');
+                }
             }
         },
 
