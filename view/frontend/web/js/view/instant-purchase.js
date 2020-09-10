@@ -113,7 +113,7 @@ define([
          */
         handleButtonClick: function() {
             var val = this.aiiConfig.guest.click_event;
-            if (this.isLoggedIn()) {
+            if (this.isLoggedIn() || val == 'continue') {
                 this.purchasePopup();
             } else {
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);

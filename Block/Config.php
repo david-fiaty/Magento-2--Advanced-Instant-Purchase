@@ -64,24 +64,24 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         // Get the module config
-        $aiiConfig = $this->configHelper->getValues();
+        $aipConfig = $this->configHelper->getValues();
 
         // Filter parameters
-        unset($aiiConfig['card_form']);
+        unset($aipConfig['card_form']);
 
         // Loader icon
-        $aiiConfig['ui']['loader'] = $this->getLoaderIconUrl();
+        $aipConfig['ui']['loader'] = $this->getLoaderIconUrl();
 
         // Product info
-        $aiiConfig['product'] = $this->getProductData();
+        $aipConfig['product'] = $this->getProductData();
 
         // User info
-        $aiiConfig['user'] = [
+        $aipConfig['user'] = [
             'loggedIn' => $this->customerSession->isLoggedIn(),
             'language' => $this->getUserLanguage()
         ];
 
-        return json_encode($aiiConfig);
+        return json_encode($aipConfig);
     }
 
     /**
