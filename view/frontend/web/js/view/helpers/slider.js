@@ -19,7 +19,7 @@ define([
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 infinite: false,
-                speed: 300,
+                speed: 100,
                 adaptiveHeight: true,
                 arrows: false
             });

@@ -1,5 +1,4 @@
 - check agreement link rendering
-- improve loaders display: after  next  slider load, before ajax call
 - implement modal buttons state checks enabled/disabled
 
 - improve the config fields comments

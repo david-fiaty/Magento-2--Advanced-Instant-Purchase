@@ -14,9 +14,17 @@ define([
         confirmationTitle: __('Instant Purchase Confirmation'),
 
         /**
+         * Add HTML to a container.
+         */
+        addHtml: function(target, html) {
+            $(target).html(html);
+            $('.modal-inner-wrap').css('min-height', $(target).height()  + 'px');
+        },
+
+        /**
          * Get the confirmation page modal popup.
          */
-        getConfirmModal: function(confirmData, obj) {
+        build: function(confirmData, obj) {
             var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
