@@ -19,8 +19,7 @@ define([
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 infinite: false,
-                speed: 300,
-                adaptiveHeight: true,
+                speed: 500,
                 arrows: false
             });
         },
@@ -45,19 +44,21 @@ define([
         /**
          * Handles the view switch.
          */
-        toggleView: function(e, obj) {
-            e.preventDefault();
+        toggleView: function(obj, e) {
+            // Handle the event
+            e = e || null;
+            if (e) e.preventDefault();
+
+            // Handle the toggle logic
             this.showLoader(obj);
             if (obj.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
-                $(this.sliderSelector).slick('unslick');
             }
             else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
-                $(this.nextSlideSelector).show();
                 obj.isSubView = true;
             }
         }

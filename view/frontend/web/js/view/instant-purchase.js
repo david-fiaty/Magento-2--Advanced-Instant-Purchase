@@ -28,7 +28,7 @@ define([
             aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
-            confirmUrl: 'aip/ajax/confirmation',
+            confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
             shippingAddress: null,
@@ -113,7 +113,7 @@ define([
          */
         handleButtonClick: function() {
             var val = this.aipConfig.guest.click_event;
-            if (this.isLoggedIn() || val == 'continue') {
+            if (this.isLoggedIn()) {
                 this.purchasePopup();
             } else {
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
@@ -138,10 +138,14 @@ define([
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
+            // Prepare the parameters
             var self = this;
             var params = {
                 action: 'Confirmation'
-            };
+            };                       
+
+            // Send the request
+            AipSlider.showLoader(self);
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -149,7 +153,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    $(self.popupContentSelector).html(data.html);
+                    AipModal.addHtml(self.popupContentSelector, data.html);
 
                     // Load the product view
                     AipProduct.loadBoxView(self.popupContentSelector);
@@ -188,7 +192,7 @@ define([
             }
 
             // Open the modal
-            AipModal.getConfirmModal(confirmData, this);
+            AipModal.build(confirmData, this);
 
             // Get the AJAX content
             this.getConfirmContent();
@@ -233,7 +237,8 @@ define([
                         */         
                     }
 
-                    $(AipSlider.nextSlideSelector).html(data.html);
+                    AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
+
                 },
                 error: function (request, status, error) {
                     self.log(error);

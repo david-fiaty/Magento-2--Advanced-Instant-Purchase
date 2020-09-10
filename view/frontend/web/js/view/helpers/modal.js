@@ -12,18 +12,28 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         confirmationTitle: __('Instant Purchase Confirmation'),
+        modalWrapperSelector: '.modal-inner-wrap',
+
+        /**
+         * Add HTML to a container.
+         */
+        addHtml: function(target, html) {
+            $(target).html(html);
+            $(this.modalWrapperSelector).animate({
+                minHeight: $(target).height()  + 'px'
+            }, 300 );
+        },
 
         /**
          * Get the confirmation page modal popup.
          */
-        getConfirmModal: function(confirmData, obj) {
+        build: function(confirmData, obj) {
             var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
                 data: AipUtil.getCurrentForm(obj.isSubView).serialize(),
-                responsive: this.aipConfig.display.popup_responsive,
                 content: confirmTemplate({
                     data: confirmData
                 }),
