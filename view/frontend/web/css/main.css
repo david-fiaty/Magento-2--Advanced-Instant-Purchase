@@ -26,7 +26,8 @@
 }
 
 .aip-label {
-    font-size: 1em;
+    font-size: 0.9em;
+    font-weight: bold;
     display: inline-block;
     margin-bottom: 0.5em;
 }
