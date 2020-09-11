@@ -5,6 +5,11 @@
     clear: both;
 }
 
+/* Agreements */
+.aip-agreement-link-row.error a {
+    color: red;
+}
+
 /* Fields */
 .aip-field {
     margin-bottom: 1.4em;
@@ -26,7 +31,8 @@
 }
 
 .aip-label {
-    font-size: 1em;
+    font-size: 0.9em;
+    font-weight: bold;
     display: inline-block;
     margin-bottom: 0.5em;
 }
@@ -134,6 +140,15 @@
     border: 2px solid #999999;
     transform: scale(var(--ggs,1));
     border-radius: 22px;
+}
+
+.gg-add:hover {
+    border-color: #999999;
+    background-color: #999999;
+}
+
+.gg-add:hover:before, .gg-add:hover:after {
+    background: white;
 }
    
 .gg-add::after,
