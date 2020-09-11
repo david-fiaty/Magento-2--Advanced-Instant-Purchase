@@ -7,7 +7,7 @@ define(
         'use strict';
         return {
             aipConfig: window.advancedInstantPurchase,
-            agreementBoxSelector: '.aip-agreement-box',
+            agreementRow: '.aip-agreement-link-row',
 
             /**
              * Additional form validation.
@@ -15,8 +15,11 @@ define(
             validate: function () {
                 if (this.aipConfig.general.enable_agreements) {
                     var error = [];
-                    $(this.agreementBoxSelector).each(function(i) {
-                        if (!$(this).is(':checked')) {
+                    $(this.agreementRow).removeClass('error');
+                    $(this.agreementRow).each(function(i) {
+                        var input = $(this).find('.aip-agreement-box');
+                        if (!input.is(':checked')) {
+                            $(this).addClass('error');
                             error.push(i);
                         }
                     });

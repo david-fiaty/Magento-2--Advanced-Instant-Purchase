@@ -5,6 +5,11 @@
     clear: both;
 }
 
+/* Agreements */
+.aip-agreement-link-row.error a {
+    color: red;
+}
+
 /* Fields */
 .aip-field {
     margin-bottom: 1.4em;
