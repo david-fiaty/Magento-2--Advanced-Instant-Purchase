@@ -135,6 +135,16 @@
     transform: scale(var(--ggs,1));
     border-radius: 22px;
 }
+
+.gg-add:hover {
+    border-color: #999999;
+    background-image: linear-gradient(to right, #999999 , #888888);
+    background-color: #999999;
+}
+
+.gg-add:hover:before, .gg-add:hover:after {
+    background: white;
+}
    
 .gg-add::after,
 .gg-add::before {
