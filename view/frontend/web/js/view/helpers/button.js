@@ -13,8 +13,10 @@ define([
 
     return {
         submitButtonSelector: '.aip-submit',
+        submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
-        buttonClasses: 'action-secondary action-dismiss',
+        cancelButtonClasses: 'action-secondary action-dismiss',
+        inputSelectors: '.aip-select, .aip-box',
 
         /**
          * Update the button states.
@@ -32,7 +34,7 @@ define([
          */
         setValidationEvents() {
             var self = this;
-            $('.aip-select, .aip-box').on('change', function() {
+            $(self.inputSelectors).on('change', function() {
                 self.update(true);
             });
         },
@@ -44,7 +46,7 @@ define([
             var self = this;
             return {
                 text: __('Cancel'),
-                class: self.buttonClasses,
+                class: self.cancelButtonClasses,
                 click: function(e) {
                     if (obj.isSubView) {
                         // Toggle the view
@@ -62,9 +64,10 @@ define([
          * Get the modal submit button.
          */
         getSubmit: function(obj) {
+            var self = this;
             return {
                 text: __('Submit'),
-                class: 'action-primary action-accept aip-submit',
+                class: self.submitButtonClasses,
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
