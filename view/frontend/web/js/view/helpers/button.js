@@ -13,7 +13,31 @@ define([
 
     return {
         cancelButtonSelector: '.action-close',
+        buttonClasses: 'action-secondary action-dismiss',
 
+        /**
+         * Update the button states.
+         */
+        update(updateUi) {
+            AdditionalValidators.updateUi = updateUi || true;
+            if (AdditionalValidators.validate()) {
+                $('.aip-submit').prop('disabled', false);
+            }
+            else {
+                $('.aip-submit').prop('disabled', true);
+            }
+        },
+        
+        /**
+         * Set the additional validator events.
+         */
+        setValidationEvents() {
+            var self = this;
+            $('.aip-select, .aip-box').on('change', function() {
+                self.update();
+            });
+        },
+        
         /**
          * Get the modal cancel button.
          */
@@ -21,7 +45,7 @@ define([
             var self = this;
             return {
                 text: __('Cancel'),
-                class: 'action-secondary action-dismiss',
+                class: self.buttonClasses,
                 click: function(e) {
                     if (obj.isSubView) {
                         // Toggle the view
@@ -41,7 +65,7 @@ define([
         getSubmit: function(obj) {
             return {
                 text: __('Submit'),
-                class: 'action-primary action-accept',
+                class: 'action-primary action-accept aip-submit',
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
@@ -69,6 +93,13 @@ define([
                     }
                 }
             };
+        },
+
+        /**
+         * Enable the submit button.
+         */
+        allowSubmit: function() {
+
         }
     };
 });

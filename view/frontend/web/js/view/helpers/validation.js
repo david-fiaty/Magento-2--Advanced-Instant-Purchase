@@ -8,19 +8,23 @@ define(
         return {
             aipConfig: window.advancedInstantPurchase,
             agreementRow: '.aip-agreement-link-row',
+            updateUi: true;
 
             /**
              * Additional form validation.
              */
             validate: function () {
-                if (this.aipConfig.general.enable_agreements) {
+                var self = this;
+                if (self.aipConfig.general.enable_agreements) {
                     var error = [];
-                    $(this.agreementRow).removeClass('error');
-                    $(this.agreementRow).each(function(i) {
+                    $(self.agreementRow).removeClass('error');
+                    $(self.agreementRow).each(function(i) {
                         var input = $(this).find('.aip-agreement-box');
                         if (!input.is(':checked')) {
-                            $(this).addClass('error');
                             error.push(i);
+                            if (self.updateUi) {
+                                $(this).addClass('error');
+                            }
                         }
                     });
                      

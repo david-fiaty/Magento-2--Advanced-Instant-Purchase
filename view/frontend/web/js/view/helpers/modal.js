@@ -33,6 +33,7 @@ define([
             ConfirmModal({
                 title: self.confirmationTitle,
                 innerScroll: true,
+                modalClass: 'aip-modal',
                 data: AipUtil.getCurrentForm(obj.isSubView).serialize(),
                 content: confirmTemplate({
                     data: confirmData
