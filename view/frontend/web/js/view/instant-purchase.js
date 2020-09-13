@@ -168,9 +168,6 @@ define([
                     // Set the slider events
                     AipSlider.build();
 
-                    // Set the button states
-                    AipButton.update(false);
-
                     // Set the additional validation event
                     AipButton.setValidationEvents();
                 },

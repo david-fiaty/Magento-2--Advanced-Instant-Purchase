@@ -12,17 +12,26 @@ define([
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
+        aipConfig: window.advancedInstantPurchase,
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
         cancelButtonClasses: 'action-secondary action-dismiss',
-        inputSelectors: '.aip-select, .aip-box',
+
+        /**
+         * Initialise the button states.
+         */
+        init() {
+            $(this.submitButtonSelector).prop(
+                'disabled',
+                !AdditionalValidators.validate(true)
+            );
+        },
 
         /**
          * Update the button states.
          */
-        update(updateUi) {
-            AdditionalValidators.updateUi = updateUi;
+        update() {
             $(this.submitButtonSelector).prop(
                 'disabled',
                 !AdditionalValidators.validate()
@@ -34,8 +43,13 @@ define([
          */
         setValidationEvents() {
             var self = this;
-            $(self.inputSelectors).on('change', function() {
-                self.update(true);
+
+            // Set the button states
+            self.init();
+
+            // Fields value change event
+            $(AipValidation.inputSelectors).on('change', function() {
+                self.update();
             });
         },
 
