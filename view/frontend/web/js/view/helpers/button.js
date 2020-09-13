@@ -19,7 +19,7 @@ define([
          * Update the button states.
          */
         update(updateUi) {
-            AdditionalValidators.updateUi = updateUi || true;
+            AdditionalValidators.updateUi = updateUi;
             if (AdditionalValidators.validate()) {
                 $('.aip-submit').prop('disabled', false);
             }
@@ -34,10 +34,10 @@ define([
         setValidationEvents() {
             var self = this;
             $('.aip-select, .aip-box').on('change', function() {
-                self.update();
+                self.update(true);
             });
         },
-        
+
         /**
          * Get the modal cancel button.
          */

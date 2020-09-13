@@ -8,7 +8,7 @@ define(
         return {
             aipConfig: window.advancedInstantPurchase,
             agreementRow: '.aip-agreement-link-row',
-            updateUi: true;
+            updateUi: true,
 
             /**
              * Additional form validation.
