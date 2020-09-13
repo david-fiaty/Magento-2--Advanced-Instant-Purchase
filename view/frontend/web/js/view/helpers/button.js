@@ -12,6 +12,7 @@ define([
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
+        submitButtonSelector: '.aip-submit',
         cancelButtonSelector: '.action-close',
         buttonClasses: 'action-secondary action-dismiss',
 
@@ -20,12 +21,10 @@ define([
          */
         update(updateUi) {
             AdditionalValidators.updateUi = updateUi;
-            if (AdditionalValidators.validate()) {
-                $('.aip-submit').prop('disabled', false);
-            }
-            else {
-                $('.aip-submit').prop('disabled', true);
-            }
+            $(this.submitButtonSelector).prop(
+                'disabled',
+                !AdditionalValidators.validate()
+            );
         },
         
         /**
