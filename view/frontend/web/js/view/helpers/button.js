@@ -85,7 +85,6 @@ define([
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
-                        AipSlider.showLoader(obj);
                         $.ajax({
                             cache: false,
                             url: AipUtil.getConfirmUrl(obj.isSubView),
@@ -109,13 +108,6 @@ define([
                     }
                 }
             };
-        },
-
-        /**
-         * Enable the submit button.
-         */
-        allowSubmit: function() {
-
         }
     };
 });

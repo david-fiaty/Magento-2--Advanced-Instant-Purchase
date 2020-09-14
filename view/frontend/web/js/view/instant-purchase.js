@@ -241,7 +241,10 @@ define([
                     }
 
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
-
+                    $(AipButton.submitButtonSelector).prop(
+                        'disabled',
+                        false
+                    );
                 },
                 error: function (request, status, error) {
                     self.log(error);
