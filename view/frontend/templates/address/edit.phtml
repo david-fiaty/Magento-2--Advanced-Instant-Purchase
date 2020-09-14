@@ -184,24 +184,32 @@
         </div>
     </div>
 </form>
-<script type="text/x-magento-init">
-{
-    "#form-validate": {
-        "addressValidation": {
-            "postCodes": <?= /* @noEscape */ $block->getSerializedPostCodes(); ?>
-        }
-    },
-    "#country": {
-        "regionUpdater": {
-            "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
-            "regionListId": "#region_id",
-            "regionInputId": "#region",
-            "postcodeId": "#zip",
-            "form": "#form-validate",
-            "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
-            "defaultRegion": "<?= (int) $block->getRegionId() ?>",
-            "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
-        }
-    }
-}
+
+
+<script>
+    require([
+    'jquery',
+    'Magento_Customer/js/addressValidation',
+    'mage/adminhtml/form'
+], function ($, AddressValidation) {
+    'use strict';
+
+    var updater = new RegionUpdater(
+            $('[name=country_id]')[0],
+            $('[name=region]')[0],
+            $('[name=region_id]')[0],
+            <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+            'hide'
+        );
+        updater.optionalRegionAllowed = <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>;
+        updater.postcodeId = "#zip";
+        updater.form = "#form-validate";
+        updater.defaultRegion = "<?= (int) $block->getRegionId() ?>";
+        updater.countriesWithOptionalZip = <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>;
+        //updater.disableRegionValidation();
+        window.updater = updater;
+
+});
+    
 </script>
+

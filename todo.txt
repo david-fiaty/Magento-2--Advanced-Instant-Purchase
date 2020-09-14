@@ -1,4 +1,3 @@
-- implement modal buttons state checks enabled/disabled
 
 - improve the config fields comments
 - fix region field in shipping form template
