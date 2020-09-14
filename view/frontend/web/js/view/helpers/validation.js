@@ -48,6 +48,17 @@ define(
                 }
 
                 return errors.length == 0;
+            },
+
+            checkRegionState: function() {
+                if ($('#region_id').prop('disabled') === true) {
+                    $('#region_id').addClass('aip-region-hidden');
+                    $('#region_id').removeClass('aip-region-visible');
+                }
+                else {
+                    $('#region_id').addClass('aip-region-visible');
+                    $('#region_id').removeClass('aip-region-hidden');
+                }
             }
         }
     }

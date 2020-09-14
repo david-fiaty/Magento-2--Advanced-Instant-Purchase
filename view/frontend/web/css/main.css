@@ -11,8 +11,12 @@
 }
 
 /* Fields */
-#region_id {
+.aip-region-visible {
     display: block !important;
+}
+
+.aip-region-hidden {
+    display: none !important;
 }
 
 .aip-field {

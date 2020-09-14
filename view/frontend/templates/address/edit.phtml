@@ -190,25 +190,31 @@
     require([
     'jquery',
     'Magento_Customer/js/addressValidation',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'mage/adminhtml/form'
-], function ($, AddressValidation) {
+], function ($, AddressValidation, AipValidation) {
     'use strict';
 
     var updater = new RegionUpdater(
-            $('[name=country_id]')[0],
-            $('[name=region]')[0],
-            $('[name=region_id]')[0],
-            <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
-            'hide'
-        );
-        updater.optionalRegionAllowed = <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>;
-        updater.postcodeId = "#zip";
-        updater.form = "#form-validate";
-        updater.defaultRegion = "<?= (int) $block->getRegionId() ?>";
-        updater.countriesWithOptionalZip = <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>;
-        updater.update();
-        window.updater = updater;
+        $('[name=country_id]')[0],
+        $('[name=region]')[0],
+        $('[name=region_id]')[0],
+        <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+        'hide'
+    );
+    updater.optionalRegionAllowed = <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>;
+    updater.postcodeId = "#zip";
+    updater.form = "#form-validate";
+    updater.defaultRegion = "<?= (int) $block->getRegionId() ?>";
+    updater.countriesWithOptionalZip = <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>;
+    updater.update();
+    window.updater = updater;
 
+    // Country select on change event
+    AipValidation.checkRegionState();
+    $('#country').change(function() {
+        AipValidation.checkRegionState();
+    });
 });
     
 </script>

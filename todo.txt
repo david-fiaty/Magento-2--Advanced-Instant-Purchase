@@ -1,7 +1,5 @@
 
 - improve the config fields comments
-- fix region field in shipping form template
-
 
 FEATURES
 - add themes system
