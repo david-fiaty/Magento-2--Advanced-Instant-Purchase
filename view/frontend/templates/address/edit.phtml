@@ -206,7 +206,7 @@
         updater.form = "#form-validate";
         updater.defaultRegion = "<?= (int) $block->getRegionId() ?>";
         updater.countriesWithOptionalZip = <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>;
-        //updater.disableRegionValidation();
+        updater.update();
         window.updater = updater;
 
 });
