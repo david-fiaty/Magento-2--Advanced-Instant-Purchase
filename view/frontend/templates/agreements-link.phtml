@@ -16,7 +16,7 @@ if (!$agreements) {
                             name="agreement[<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>]"
                             value="1"
                             title="<?= $block->escapeHtml($agreement->getCheckboxText()) ?>"
-                            class="checkbox aip-agreement-box"
+                            class="checkbox aip-agreement-box aip-box"
                             data-validate="{required:true}"/>
                         <label class="label" for="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>">
                             <a href="javascript:void(0)" class="aip-agreement-link" data-role="Agreement" data-id="<?= $agreement->getId() ?>">

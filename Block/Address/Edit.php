@@ -48,6 +48,16 @@ class Edit extends \Magento\Directory\Block\Data
     private $addressMetadata;
 
     /**
+     * @var PostCodeConfig
+     */
+    private $postCodeConfig;
+
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
      * Constructor
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -78,6 +88,8 @@ class Edit extends \Magento\Directory\Block\Data
         \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\Api\DataObjectHelper $dataObjectHelper,
+        \Magento\Directory\Model\Country\Postcode\Config $postCodeConfig,
+        \Magento\Framework\Serialize\SerializerInterface $serializer,
         array $data = [],
         \Magento\Customer\Api\AddressMetadataInterface $addressMetadata = null
     ) {
@@ -87,6 +99,9 @@ class Edit extends \Magento\Directory\Block\Data
         $this->currentCustomer = $currentCustomer;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->addressMetadata = $addressMetadata;
+        $this->postCodeConfig = $postCodeConfig;
+        $this->serializer = $serializer;
+        
         parent::__construct(
             $context,
             $directoryHelper,
@@ -381,5 +396,15 @@ class Edit extends \Magento\Directory\Block\Data
     public function getConfig($path)
     {
         return $this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get serialized post codes
+     *
+     * @return string
+     */
+    public function getSerializedPostCodes(): string
+    {
+        return $this->serializer->serialize($this->postCodeConfig->getPostCodes());
     }
 }

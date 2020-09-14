@@ -10,6 +10,7 @@ define([
     'uiComponent',
     'mage/url',
     'Magento_Customer/js/customer-data',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
@@ -20,7 +21,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -167,6 +168,8 @@ define([
                     // Set the slider events
                     AipSlider.build();
 
+                    // Set the additional validation event
+                    AipButton.setValidationEvents();
                 },
                 error: function (request, status, error) {
                     self.log(error);
@@ -238,7 +241,10 @@ define([
                     }
 
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
-
+                    $(AipButton.submitButtonSelector).prop(
+                        'disabled',
+                        false
+                    );
                 },
                 error: function (request, status, error) {
                     self.log(error);

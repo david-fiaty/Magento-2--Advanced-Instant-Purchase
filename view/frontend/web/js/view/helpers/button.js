@@ -12,7 +12,46 @@ define([
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
+        aipConfig: window.advancedInstantPurchase,
+        submitButtonSelector: '.aip-submit',
+        submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
+        cancelButtonClasses: 'action-secondary action-dismiss',
+
+        /**
+         * Initialise the button states.
+         */
+        init() {
+            $(this.submitButtonSelector).prop(
+                'disabled',
+                !AdditionalValidators.validate(true)
+            );
+        },
+
+        /**
+         * Update the button states.
+         */
+        update() {
+            $(this.submitButtonSelector).prop(
+                'disabled',
+                !AdditionalValidators.validate()
+            );
+        },
+        
+        /**
+         * Set the additional validator events.
+         */
+        setValidationEvents() {
+            var self = this;
+
+            // Set the button states
+            self.init();
+
+            // Fields value change event
+            $(AipValidation.inputSelectors).on('change', function() {
+                self.update();
+            });
+        },
 
         /**
          * Get the modal cancel button.
@@ -21,7 +60,7 @@ define([
             var self = this;
             return {
                 text: __('Cancel'),
-                class: 'action-secondary action-dismiss',
+                class: self.cancelButtonClasses,
                 click: function(e) {
                     if (obj.isSubView) {
                         // Toggle the view
@@ -39,13 +78,13 @@ define([
          * Get the modal submit button.
          */
         getSubmit: function(obj) {
+            var self = this;
             return {
                 text: __('Submit'),
-                class: 'action-primary action-accept',
+                class: self.submitButtonClasses,
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
-                        AipSlider.showLoader(obj);
                         $.ajax({
                             cache: false,
                             url: AipUtil.getConfirmUrl(obj.isSubView),

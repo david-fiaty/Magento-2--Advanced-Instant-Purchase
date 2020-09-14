@@ -11,6 +11,14 @@
 }
 
 /* Fields */
+.aip-region-visible {
+    display: block !important;
+}
+
+.aip-region-hidden {
+    display: none !important;
+}
+
 .aip-field {
     margin-bottom: 1.4em;
 }
@@ -56,19 +64,19 @@
 }
 
 /* Modal */
-.modal-content {
+.aip-modal .modal-content {
     height: 100%;
 }
 
-.modal-footer {
+.aip-modal .modal-footer {
     border: none !important;
 }
 
-.modal-popup.confirm .modal-inner-wrap {
+.aip-modal.confirm .modal-inner-wrap {
     max-width: 55rem !important;
 }
 
-.modal-popup.confirm .modal-inner-wrap .modal-content {
+.aip-modal.confirm .modal-inner-wrap .modal-content {
     padding-right: 3rem !important;
 }
 
