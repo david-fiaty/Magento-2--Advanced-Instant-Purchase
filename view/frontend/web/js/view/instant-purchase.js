@@ -136,6 +136,21 @@ define([
         },
 
         /**
+         * Check the current product view.
+         */
+        isListView: function() {
+            return this.aipConfig.product.length == 0;
+        },
+
+        /**
+         * Check if the button can be displayed.
+         */
+        canDisplayButton: function() {
+            return (this.aipConfig.display.product_list && this.isListView())
+            || (this.aipConfig.display.product_view && !this.isListView());
+        },
+
+        /**
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
