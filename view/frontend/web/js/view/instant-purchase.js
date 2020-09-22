@@ -69,8 +69,11 @@ define([
          * @param {Object} data
          */
         setPurchaseData: function(data) {
+            // Get the button state
+            var showButton = data.available && this.canDisplayButton();
+
             // Prepare the data
-            this.showButton(data.available);
+            this.showButton(showButton);
             this.paymentToken(data.paymentToken);
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
@@ -135,6 +138,13 @@ define([
             }
         },
 
+        /**
+         * Get a button UUID.
+         */
+        getButtonId: function() {
+            return 'aip-button-' + Math.floor(Math.random() * 26) + Date.now();
+        },
+        
         /**
          * Check the current product view.
          */

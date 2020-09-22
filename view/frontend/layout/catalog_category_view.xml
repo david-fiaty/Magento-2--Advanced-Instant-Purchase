@@ -4,6 +4,7 @@
     </head>
     <body>
         <referenceBlock name="category.product.addto">
+            <block class="Naxero\AdvancedInstantPurchase\Block\ListButton" name="advancedInstantPurchaseListButton" template="Naxero_AdvancedInstantPurchase::list-button.phtml"/>
             <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button" template="Naxero_AdvancedInstantPurchase::button.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">

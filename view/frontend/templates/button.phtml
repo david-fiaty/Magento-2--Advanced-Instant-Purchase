@@ -1,15 +1,14 @@
 <?php if ($block->isEnabled()) : ?>
-<div id="instant-purchase" data-bind="scope:'instant-purchase'">
-<?php $uuid = uniqid(); ?>
-<div id="instant-purchase-<?= $uuid  ?>" data-bind="scope:'instant-purchase'">
-    <!-- ko template: getTemplate() --><!-- /ko -->
-</div>
-<script type="text/x-magento-init">
-    {
-        "#instant-purchase": {
-        "#instant-purchase-<?= $uuid ?>": {
-            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
+    <?php $uuid = uniqid(); ?>
+    <div id="instant-purchase-<?= $uuid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#instant-purchase": {
+            "#instant-purchase-<?= $uuid ?>": {
+                "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
+            }
         }
-    }
-</script>
+    </script>
 <?php endif; ?>
