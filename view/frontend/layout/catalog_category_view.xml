@@ -1,0 +1,23 @@
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Naxero_AdvancedInstantPurchase::css/main.css" />
+    </head>
+    <body>
+        <referenceBlock name="category.product.addto">
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button" template="Naxero_AdvancedInstantPurchase::button.phtml" before="-">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="instant-purchase" xsi:type="array">
+                                <item name="component" xsi:type="string">Naxero_AdvancedInstantPurchase/js/view/instant-purchase</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase/instant-purchase</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

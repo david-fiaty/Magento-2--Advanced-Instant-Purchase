@@ -59,7 +59,17 @@
                 </field>  
             </group>
             <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Popup settings</label>
+                <label>Display settings</label>
+                <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product view button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Advanced Instant Purchase button in the product details view.</comment>
+                </field>
+                <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product list button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
+                </field>
                 <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Responsive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
