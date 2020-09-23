@@ -27,6 +27,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var ProductHelper
+     */
+    public $productHelper;
+
+    /**
      * @var CustomerData
      */
     public $customerData;
@@ -61,13 +66,15 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
 
     ) {
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->configHelper = $configHelper;
+        $this->productHelper = $productHelper;
         $this->customerData = $customerData;
         $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
@@ -143,7 +150,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'title' => $this->config['display']['popup_title'],
             'header_text' => $this->config['display']['popup_header_text'],
-            'footer_text' => $this->config['display']['popup_footer_text']
+            'footer_text' => $this->config['display']['popup_footer_text'],
+            'product' => $this->productHelper->getData()
         ];
     }
 

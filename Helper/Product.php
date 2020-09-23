@@ -22,9 +22,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $registry; 
 
     /**
-     * @var Http
+     * @var RequestInterface
      */
     public $request; 
+
+    /**
+     * @var ProductFactory
+     */
+    public $productFactory; 
 
     /**
      * Class Customer constructor.
@@ -33,12 +38,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\Registry $registry,
-        \Magento\Framework\App\Request\Http $request
+        \Magento\Framework\App\RequestInterface $request,
+        \Magento\Catalog\Model\ProductFactory $productFactory
     ) {
         $this->registry = $registry;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
+        $this->productFactory = $productFactory;
     }
 
     /**
@@ -65,7 +72,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProduct()
     {
-        return $this->registry->registry('current_product');
+        $pid = $this->request->getParam('pid', 0);
+        if ((int) $pid > 0) {
+            return $this->productFactory->create()->load($pid);
+        }
+        else {
+            return $this->registry->registry('current_product');
+        }
     }
 
     /**

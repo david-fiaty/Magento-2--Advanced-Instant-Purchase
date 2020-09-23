@@ -27,8 +27,8 @@ define([
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
-            template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
+            targetButtonId: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
@@ -115,11 +115,11 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function() {
-            var val = this.aipConfig.guest.click_event;
-            if (this.isLoggedIn()) {
-                this.purchasePopup();
+        handleButtonClick: function(obj, e) {
+            if (obj.isLoggedIn()) {
+                obj.purchasePopup(e);
             } else {
+                var val = obj.aipConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AipLogin[fn]();
             }
@@ -142,9 +142,20 @@ define([
          * Get a button UUID.
          */
         getButtonId: function() {
-            return 'aip-button-' + Math.floor(Math.random() * 26) + Date.now();
+            return this.buttonSelector + '-' + Math.floor(Math.random() * 26) + Date.now();
         },
-        
+
+        /**
+         * Get the current product ID.
+         */
+        getProductId: function() {
+            var pid = $(this.targetButtonId)
+            .closest('input[name^="aip-pid"]')
+            .val();
+
+            return pid;
+        },
+
         /**
          * Check the current product view.
          */
@@ -167,7 +178,8 @@ define([
             // Prepare the parameters
             var self = this;
             var params = {
-                action: 'Confirmation'
+                action: 'Confirmation',
+                pid: self.getProductId()
             };                       
 
             // Send the request
@@ -182,7 +194,7 @@ define([
                     AipModal.addHtml(self.popupContentSelector, data.html);
 
                     // Load the product view
-                    AipProduct.loadBoxView(self.popupContentSelector);
+                    //AipProduct.loadBoxView(self.popupContentSelector);
 
                     // Initialise the select lists
                     AipSelect.build(self);
@@ -205,7 +217,8 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function() {
+        purchasePopup: function(e) {
+            this.targetButtonId = '#' + $(e.currentTarget).attr('id');
             var form = AipUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),

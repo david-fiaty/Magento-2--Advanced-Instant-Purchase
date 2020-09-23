@@ -73,7 +73,7 @@ class Config extends \Magento\Framework\View\Element\Template
         $aipConfig['ui']['loader'] = $this->getLoaderIconUrl();
 
         // Product info
-        $aipConfig['product'] = $this->getProductData();
+        $aipConfig['product'] = $this->productHelper->getData();
 
         // User info
         $aipConfig['user'] = [
@@ -98,13 +98,6 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getUserLanguage()
     {
         return $this->localeResolver->getLocale();
-    }
-
-    /**
-     * Get the current product data.
-     */
-    public function getProductData() {
-        return $this->productHelper->getData();
     }
 
     /**

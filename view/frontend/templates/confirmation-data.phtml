@@ -3,15 +3,14 @@
     $content = $block->getConfirmContent();
     $config = $block->getConfig();
 ?>
-
 <?php if ($config['display']['popup_product']): ?>
     <div class="aip-product-box">
         <div class="aip-product-box-image">
-            <img data-role="image"> 
+            <img src="<?= $content['product']['url'] ?>"> 
         </div>
         <div class="aip-product-box-info">
-            <p class="aip-product-box-name" data-role="name"></p>
-            <p class="aip-product-box-price" data-role="price"></p>
+            <p class="aip-product-box-name"><?= $content['product']['name'] ?></p>
+            <p class="aip-product-box-price"><?= $content['product']['price'] ?></p>
         </div>
         <div class="aip-clr"></div>   
     </div>
