@@ -1,6 +1,6 @@
 <?php if ($block->isEnabled()) : ?>
     <?php $pid = $block->getProduct()->getId() ?>
-    <div id="instant-purchase-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
+    <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
     <script type="text/x-magento-init">
