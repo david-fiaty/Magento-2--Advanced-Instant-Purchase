@@ -79,8 +79,6 @@ define([
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
-
-            this.getProductId();
         },
 
        /**

@@ -100,7 +100,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         // Confirmation content
         $html = $this->pageFactory->create()->getLayout()
             ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::confirmation-data.phtml')
+            ->setTemplate('Naxero_AdvancedInstantPurchase::popup/confirmation-data.phtml')
             ->toHtml();
 
         // Agreements
@@ -140,7 +140,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::card.phtml')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::popup/card.phtml')
         ->setData('load', $this->configHelper->value('card_form/load'))
         ->toHtml();
     }
@@ -151,7 +151,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function getAgreementsLinks() {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-link.phtml')
+        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements/agreements-link.phtml')
         ->toHtml();
     }
 
@@ -163,7 +163,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::agreements-detail.phtml')
+            ->setTemplate('Naxero_AdvancedInstantPurchase::/agreements/agreements-detail.phtml')
             ->toHtml();
         }
 

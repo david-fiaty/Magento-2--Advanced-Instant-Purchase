@@ -14,7 +14,7 @@
     </head>
     <body>
         <referenceBlock name="product.info.addtocart">
-            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button" template="Naxero_AdvancedInstantPurchase::button.phtml" before="-">
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\ViewButton" template="Naxero_AdvancedInstantPurchase::button.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="components" xsi:type="array">
@@ -30,7 +30,7 @@
             </block>
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
-            <block name="product.info.addtocart.instantPurchase.additional" class="Magento\InstantPurchase\Block\Button" template="Magento_InstantPurchase::button.phtml" before="-">
+            <block name="product.info.addtocart.instantPurchase.additional" class="Magento\InstantPurchase\Block\Button\ViewButton" template="Magento_InstantPurchase::button/view-button.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="components" xsi:type="array">
