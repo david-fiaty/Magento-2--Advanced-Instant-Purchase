@@ -140,13 +140,6 @@ define([
         },
 
         /**
-         * Get a button UUID.
-         */
-        getButtonId: function() {
-            return 'aip-button-' + Math.floor(Math.random() * 26) + Date.now();
-        },
-
-        /**
          * Check the current product view.
          */
         isListView: function() {
