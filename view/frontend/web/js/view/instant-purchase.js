@@ -27,6 +27,7 @@ define([
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
+            template: 'Magento_InstantPurchase/instant-purchase',
             buttonText: '',
             targetButtonId: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',

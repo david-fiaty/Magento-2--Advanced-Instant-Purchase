@@ -60,7 +60,7 @@ class Button extends \Magento\Framework\View\Element\Template
     {
         $buttonText = $this->instantPurchaseConfig->getButtonText($this->getCurrentStoreId());
         $purchaseUrl = $this->getUrl('instantpurchase/button/placeOrder', ['_secure' => true]);
-
+        
         // String data does not require escaping here and handled on transport level and on client side
         $this->jsLayout['components']['instant-purchase']['config']['buttonText'] = $buttonText;
         $this->jsLayout['components']['instant-purchase']['config']['purchaseUrl'] = $purchaseUrl;
