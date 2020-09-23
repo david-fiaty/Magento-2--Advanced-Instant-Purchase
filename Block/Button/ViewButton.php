@@ -17,17 +17,24 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * Button class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->configHelper = $configHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -36,6 +43,14 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         return $this->configHelper->getValues();
+    }
+
+    /**
+     * Get the current product.
+     */
+    public function getProduct()
+    {
+        return $this->productHelper->getProduct();
     }
 
     /**
