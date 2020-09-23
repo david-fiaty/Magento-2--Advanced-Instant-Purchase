@@ -2,7 +2,7 @@
     <button type="button"
            class="action primary instant-purchase aip-button"
            data-bind="afterRender: shouldDisableButton, css: isLoggedIn() ? 'aip-login-popup' : ''"
-           attr="id: getButtonId(), title: $t(buttonText)">
+           attr="title: $t(buttonText)">
            <span translate="buttonText" />
     </button>
     <input if="paymentToken()"

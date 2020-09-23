@@ -1,1 +1,17 @@
-<input type="hidden" class="aip-pid" id="aip-pid-<?= $block->getProduct()->getId() ?>" name="aip-pid-<?= $block->getProduct()->getId() ?>" value="<?= $block->getProduct()->getId() ?>"> 
+<?php $markerId = 'aip-marker-' . uniqid(); ?>
+<div id="<?= $markerId ?>"></div>
+<script>
+require([
+    'jquery',
+    'domReady!'
+], function ($) {
+    'use strict';
+
+    console.log($('#<?= $markerId ?>')
+    .closest('.aip-button'));
+    
+    $('#<?= $markerId ?>')
+    .closest('.aip-button')
+    .data('pid', <?= $block->getProduct()->getId() ?>);
+});
+</script>
