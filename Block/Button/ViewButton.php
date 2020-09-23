@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block;
+namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
  * Configuration for JavaScript instant purchase button component.
