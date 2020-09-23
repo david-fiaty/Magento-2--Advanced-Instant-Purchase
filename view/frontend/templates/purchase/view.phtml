@@ -3,12 +3,12 @@
 ?>
 
 <?php if ($block->isEnabled()) : ?>
-<div id="instant-purchase" class="aip-button-container" data-bind="scope:'instant-purchase'">
+<div id="aip" class="aip-button-container" data-bind="scope:'instant-purchase'">
     <!-- ko template: getTemplate() --><!-- /ko -->
 </div>
 <script type="text/x-magento-init">
     {
-        "#instant-purchase": {
+        "#aip": {
             "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
         }
     }
