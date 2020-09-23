@@ -30,7 +30,7 @@
             </block>
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
-            <block name="product.info.addtocart.instantPurchase.additional" class="Magento\InstantPurchase\Block\Button\ViewButton" template="Magento_InstantPurchase::purchase/view.phtml" before="-">
+            <block name="product.info.addtocart.instantPurchase.additional" class="Magento\InstantPurchase\Block\Button" template="Magento_InstantPurchase::button.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="components" xsi:type="array">
