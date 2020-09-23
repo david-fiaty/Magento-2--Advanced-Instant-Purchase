@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Block;
 /**
  * Configuration for JavaScript instant purchase button component.
  */
-class Button extends \Magento\Framework\View\Element\Template
+class ViewButton extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Config
