@@ -1,5 +1,6 @@
+--<?= $block->getProduct()->getId() ?>
 <?php if ($block->isEnabled()) : ?>
-    <?php $uuid = uniqid(); ?>
+    <?php $uuid = uniqid() ?>
     <div id="instant-purchase-<?= $uuid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
         <!-- ko template: getTemplate() --><!-- /ko -->
     </div>

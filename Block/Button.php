@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Block;
 /**
  * Configuration for JavaScript instant purchase button component.
  */
-class Button extends \Magento\Framework\View\Element\Template
+class Button extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
      * @var Config
@@ -20,7 +20,7 @@ class Button extends \Magento\Framework\View\Element\Template
      * Button class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
@@ -64,6 +64,7 @@ class Button extends \Magento\Framework\View\Element\Template
         // String data does not require escaping here and handled on transport level and on client side
         $this->jsLayout['components']['instant-purchase']['config']['buttonText'] = $buttonText;
         $this->jsLayout['components']['instant-purchase']['config']['purchaseUrl'] = $purchaseUrl;
+        $this->jsLayout['components']['instant-purchase']['config']['uuid'] = $this->uuid;
         return parent::getJsLayout();
     }
 

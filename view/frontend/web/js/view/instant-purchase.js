@@ -28,8 +28,8 @@ define([
         defaults: {
             aipConfig: window.advancedInstantPurchase,
             template: 'Magento_InstantPurchase/instant-purchase',
+            uuid: null,
             buttonText: '',
-            targetButtonId: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
@@ -79,6 +79,8 @@ define([
             this.shippingAddress(data.shippingAddress);
             this.billingAddress(data.billingAddress);
             this.shippingMethod(data.shippingMethod);
+
+            this.getProductId();
         },
 
        /**
@@ -116,9 +118,9 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function(obj, e) {
+        handleButtonClick: function() {
             if (obj.isLoggedIn()) {
-                obj.purchasePopup(e);
+                obj.purchasePopup();
             } else {
                 var val = obj.aipConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
@@ -143,18 +145,7 @@ define([
          * Get a button UUID.
          */
         getButtonId: function() {
-            return this.buttonSelector + '-' + Math.floor(Math.random() * 26) + Date.now();
-        },
-
-        /**
-         * Get the current product ID.
-         */
-        getProductId: function() {
-            var pid = $(this.targetButtonId)
-            .closest('input[name^="aip-pid"]')
-            .val();
-
-            return pid;
+            return 'aip-button-' + Math.floor(Math.random() * 26) + Date.now();
         },
 
         /**
@@ -218,8 +209,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function(e) {
-            this.targetButtonId = '#' + $(e.currentTarget).attr('id');
+        purchasePopup: function() {
             var form = AipUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
