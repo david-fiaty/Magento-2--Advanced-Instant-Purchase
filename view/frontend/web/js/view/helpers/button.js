@@ -65,7 +65,7 @@ define([
                     if (obj.isSubView) {
                         // Toggle the view
                         AipSlider.toggleView(obj, e); 
-                        obj.getConfirmContent();
+                        obj.getConfirmContent(obj, e);
                     }
                     else {
                         $(self.cancelButtonSelector).trigger('click');

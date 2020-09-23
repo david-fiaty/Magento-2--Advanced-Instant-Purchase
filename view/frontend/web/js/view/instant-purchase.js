@@ -116,9 +116,9 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function() {
+        handleButtonClick: function(obj, e) {
             if (this.isLoggedIn()) {
-                this.purchasePopup();
+                this.purchasePopup(obj, e);
             } else {
                 var val = this.aipConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
@@ -157,12 +157,17 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function() {
+        getConfirmContent: function(obj, e) {
+            // Get the product id
+            var pid = $(e.currentTarget)
+            .closest('.aip-button-container')
+            .attr('id').split('-')[1];
+
             // Prepare the parameters
             var self = this;
             var params = {
                 action: 'Confirmation',
-                pid: self.getProductId()
+                pid: pid
             };                       
 
             // Send the request
@@ -200,7 +205,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function() {
+        purchasePopup: function(obj, e) {
             var form = AipUtil.getCurrentForm(self.isSubView),
             confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
@@ -218,7 +223,7 @@ define([
             AipModal.build(confirmData, this);
 
             // Get the AJAX content
-            this.getConfirmContent();
+            this.getConfirmContent(obj, e);
         },
 
         /**
