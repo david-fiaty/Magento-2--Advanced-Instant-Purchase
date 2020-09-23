@@ -117,10 +117,10 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function() {
-            if (obj.isLoggedIn()) {
-                obj.purchasePopup();
+            if (this.isLoggedIn()) {
+                this.purchasePopup();
             } else {
-                var val = obj.aipConfig.guest.click_event;
+                var val = this.aipConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AipLogin[fn]();
             }
