@@ -142,7 +142,7 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.aipConfig.product.length == 0;
+            return this.aipConfig.isListView;
         },
 
         /**
