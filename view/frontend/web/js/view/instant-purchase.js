@@ -10,6 +10,7 @@ define([
     'uiComponent',
     'mage/url',
     'Magento_Customer/js/customer-data',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
@@ -20,7 +21,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -214,24 +215,12 @@ define([
             });
 
             // Validate the product options
-            var errors = [];
-            if (this.isListView()) {
-                $(e.currentTarget)
-                .parents('.product-item')
-                .find('input[name^="super_attribute"]')
-                .each(function() {
-                    var val = $(this).val();
-                    if (!val || val === 'undefined' || val.length == 0) {
-                        errors.push($(this).attr('name'));
-                    }
-                });
-
-                console.log(errors);
-            }
+            var errors = AipValidation.checkOptions(obj, e);
 
             // Check the validation rules
-            var isInvalid = !(form.validation() && form.validation('isValid'));
-            if (isInvalid || errors.length > 0) {
+            var condition1 = form.validation() && form.validation('isValid');
+            var condition2 = errors.length == 0;
+            if (!condition1 || !condition2) {
                 return;
             }
 

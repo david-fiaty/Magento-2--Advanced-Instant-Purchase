@@ -59,6 +59,23 @@ define(
                     $('#region_id').addClass('aip-region-visible');
                     $('#region_id').removeClass('aip-region-hidden');
                 }
+            },
+
+            checkOptions: function(obj, e) {
+                var errors = [];
+                if (obj.isListView()) {
+                    $(e.currentTarget)
+                    .parents('.product-item')
+                    .find('input[name^="super_attribute"]')
+                    .each(function() {
+                        var val = $(this).val();
+                        if (!val || val === 'undefined' || val.length == 0) {
+                            errors.push($(this).attr('name'));
+                        }
+                    });
+                }
+
+                return errors;
             }
         }
     }
