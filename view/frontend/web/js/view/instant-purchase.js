@@ -214,6 +214,16 @@ define([
                 shippingMethod: this.getData('shippingMethod')
             });
 
+            // Handle the product attributes
+            //$(e.currentTarget) 
+            $(e.currentTarget)
+            .parents('.product-item')
+            .find('input[name^="super_attribute"]')
+            .each(function() {
+                console.log($(this).attr('name'));
+                console.log($(this).val());
+            });
+
             // Check the validation rules
             if (!(form.validation() && form.validation('isValid'))) {
                 return;
