@@ -12,3 +12,19 @@ NEW IDEAS
 
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
+
+
+Check payment submit form with data:
+product: 1402
+selected_configurable_option: 
+related_product: 
+item: 1402
+form_key: M88GuGnVM1IaYmcC
+super_attribute[152]: 5593
+super_attribute[93]: 5476
+qty: 1
+instant_purchase_payment_token: 16babc465bd8c9e087a67714e20f6159df30e56e22b88a3e7fef14eb75d4f3c1
+instant_purchase_shipping_address: 1
+instant_purchase_billing_address: 1
+instant_purchase_carrier: instant-purchase
+instant_purchase_shipping: cheapest
