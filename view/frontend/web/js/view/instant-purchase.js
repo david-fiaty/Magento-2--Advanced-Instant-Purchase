@@ -216,7 +216,7 @@ define([
 
             // Validate the product options
             var errors = AipValidation.checkOptions(obj, e);
-
+            
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
             var condition2 = errors.length == 0;

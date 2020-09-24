@@ -62,7 +62,10 @@ define(
             },
 
             checkOptions: function(obj, e) {
+                // Error array
                 var errors = [];
+
+                // Check all options fields
                 if (obj.isListView()) {
                     $(e.currentTarget)
                     .parents('.product-item')
@@ -73,6 +76,16 @@ define(
                             errors.push($(this).attr('name'));
                         }
                     });
+
+                    // Handle errors
+                    if (errors.length > 0) {
+                        for (var i = 0; i < errors.length; i++) {
+                            $('input[name="' + errors[i] + '"]')
+                            .closest('div[attribute-id="' + errors[i] + '"]')
+                            .css('border-color', 'red');
+                            console.log(errors[i]);
+                        }
+                    }
                 }
 
                 return errors;
