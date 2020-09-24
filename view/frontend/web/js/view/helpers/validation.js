@@ -73,18 +73,37 @@ define(
                     .each(function() {
                         var val = $(this).val();
                         if (!val || val === 'undefined' || val.length == 0) {
-                            errors.push($(this).attr('name'));
+                            var name = $(this).attr('name');
+                            errors.push({
+                                id: name.match(/\d+/)[0],
+                                name: name
+                            });
                         }
                     });
 
                     // Handle errors
                     if (errors.length > 0) {
-                        for (var i = 0; i < errors.length; i++) {
-                            $('input[name="' + errors[i] + '"]')
-                            .closest('div[attribute-id="' + errors[i] + '"]')
-                            .css('border-color', 'red');
-                            console.log(errors[i]);
-                        }
+                        $(e.currentTarget)
+                        .closest('.product-item')
+                        .find('.aip-button')
+                        .on('focusout', function () {
+                            $(this).removeClass('popover__content__error');
+
+                            $(e.currentTarget)
+                            .closest('.product-item')
+                            .find('.popover__content')
+                            .removeClass('popover__content__error');
+                        });
+
+                        $(e.currentTarget)
+                        .closest('.product-item')
+                        .find('.popover__content')
+                        .addClass('popover__content__error');
+
+                        //for (var i = 0; i < errors.length; i++) {
+                            //.find('div[attribute-id="' + errors[i].id + '"]');
+                            //console.log(container);
+                        //}
                     }
                 }
 
