@@ -1,11 +1,4 @@
-<?xml version="1.0"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Naxero_AdvancedInstantPurchase::css/main.css" />
         <css src="Naxero_AdvancedInstantPurchase::css/select2/select2.css" />
@@ -13,8 +6,8 @@
         <css src="Naxero_AdvancedInstantPurchase::css/slick/slick-theme.css" />
     </head>
     <body>
-        <referenceBlock name="product.info.addtocart.bundle">
-            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-">
+        <referenceBlock name="category.product.addto">
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-">
                 <arguments>
                     <argument name="jsLayout" xsi:type="array">
                         <item name="components" xsi:type="array">

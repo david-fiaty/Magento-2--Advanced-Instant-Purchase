@@ -5,6 +5,12 @@
     clear: both;
 }
 
+/* Category product list */
+.products-grid .product-item .instant-purchase {
+    margin-top: 1.1em;
+    border-radius: 0px;
+}
+
 /* Agreements */
 .aip-agreement-link-row.error a {
     color: red;

@@ -1,10 +1,10 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block;
+namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
  * Configuration for JavaScript instant purchase button component.
  */
-class Button extends \Magento\Framework\View\Element\Template
+class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
      * @var Config
@@ -20,7 +20,7 @@ class Button extends \Magento\Framework\View\Element\Template
      * Button class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
@@ -28,7 +28,7 @@ class Button extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
         $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->configHelper = $configHelper;
-    }
+   }
 
     /**
      * Get the module config values.
