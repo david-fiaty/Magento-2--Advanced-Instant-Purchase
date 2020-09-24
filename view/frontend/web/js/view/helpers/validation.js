@@ -100,11 +100,11 @@ define(
              */
             displayOptionsErrors: function(errors, e) {
                 // Clear previous errors
+                var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
                 button.removeClass('aip-button-error');
 
                 // Process existing errors
                 if (errors.length > 0) {
-                    var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
                     button.popover({
                         title : '',
                         content : __('Please select the required options'),
@@ -115,7 +115,6 @@ define(
                     });
                     button.addClass('aip-button-error');
                     button.trigger('mouseover');
-                    $('.popover').css('display', 'none !imporant');
 
                     // Add the error class
                     /*
