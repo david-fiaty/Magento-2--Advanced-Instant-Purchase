@@ -1,7 +1,8 @@
 define(
     [
         'jquery',
-        'mage/translate'
+        'mage/translate',
+        'popover'
     ],
     function ($, __) {
         'use strict';
@@ -50,6 +51,9 @@ define(
                 return errors.length == 0;
             },
 
+            /**
+             * Check the region state in address form.
+             */
             checkRegionState: function() {
                 if ($('#region_id').prop('disabled') === true) {
                     $('#region_id').addClass('aip-region-hidden');
@@ -61,6 +65,9 @@ define(
                 }
             },
 
+            /**
+             * Check the category view product options.
+             */
             checkOptions: function(obj, e) {
                 // Error array
                 var errors = [];
@@ -82,20 +89,47 @@ define(
                     });
 
                     // Handle errors
-                    if (errors.length > 0) {
-                        // Add the error class
-                        var popoverContent = $(e.currentTarget).closest('.product-item').find('.popover__content');
-                        popoverContent.addClass('popover__content__error');
-
-                        // Remove the erro class button focusout event
-                        var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
-                        button.on('focusout', function() {
-                            popoverContent.removeClass('popover__content__error');
-                        });
-                    }
+                    this.displayOptionsErrors(errors, e);
                 }
 
                 return errors;
+            },
+
+            /**
+             * Display the category view product options.
+             */
+            displayOptionsErrors: function(errors, e) {
+                // Clear previous errors
+                button.removeClass('aip-button-error');
+
+                // Process existing errors
+                if (errors.length > 0) {
+                    var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
+                    button.popover({
+                        title : '',
+                        content : __('Please select the required options'),
+                        autoPlace : false,
+                        trigger : 'hover',
+                        placement : 'right',
+                        delay : 10
+                    });
+                    button.addClass('aip-button-error');
+                    button.trigger('mouseover');
+                    $('.popover').css('display', 'none !imporant');
+
+                    // Add the error class
+                    /*
+                    var popoverContent = $(e.currentTarget).closest('.product-item').find('.popover__content');
+                    popoverContent.addClass('popover__content__error');
+
+                    // Remove the error class button focusout event
+                    var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
+                    popoverContent.removeClass('primary');
+                    button.on('focusout', function() {
+                        popoverContent.removeClass('popover__content__error aip-button-error');
+                    });
+                    */
+                }
             }
         }
     }

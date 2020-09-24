@@ -1,14 +1,8 @@
 <?php if ($block->isEnabled()) : ?>
     <?php $pid = $block->getProduct()->getId() ?>
-    <div class="popover__wrapper">
-        <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
-            <!-- ko template: getTemplate() --><!-- /ko -->
-        </div>
-        <div class="popover__content">
-            <p class="popover__message">Product options are required for this action.</p>
-        </div>
+    <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
     </div>
-
     <script type="text/x-magento-init">
         {
             "#aip-<?= $pid ?>": {
@@ -17,46 +11,3 @@
         }
     </script>
 <?php endif; ?>
-
-<style>
-/* Base styling*/
-.popover__wrapper {
-  position: relative;
-}
-
-.popover__content {
-  top: calc(165%);
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  transform: translate(0, 100px);
-  padding: 0.5em 0em 0em 1em;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  width: auto;
-  font-size: 11px;
-}
-
-.popover__content:before {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  top: -10px;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent rgba(0,0,0, 0.8) transparent;
-  transition-duration: 0.3s;
-  transition-property: transform;
-}
-.popover__content__error {
-  z-index: 10;
-  opacity: 1;
-  visibility: visible;
-  background-color: rgba(0,0,0, 0.8);
-  color: white;
-  transform: translate(0, -18px);
-  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-}
-.popover__message {
-  text-align: left;
-}
-</style>
