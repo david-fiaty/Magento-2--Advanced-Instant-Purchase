@@ -88,6 +88,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         // Prepare the output array
         $confirmationData = [];
         $confirmationData['popup'] = $this->getPopupData();
+        $confirmationData['product'] = $this->productHelper->getData();
         $confirmationData['addresses'] = [];
         $confirmationData['savedCards'] = [];
         $confirmationData['shippingRates'] = [];
@@ -150,8 +151,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'title' => $this->config['display']['popup_title'],
             'header_text' => $this->config['display']['popup_header_text'],
-            'footer_text' => $this->config['display']['popup_footer_text'],
-            'product' => $this->productHelper->getData()
+            'footer_text' => $this->config['display']['popup_footer_text']
         ];
     }
 
