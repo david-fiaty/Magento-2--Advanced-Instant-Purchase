@@ -60,8 +60,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'id' => $product->getId(),
                 'name' => $product->getName(),
                 'price' => $this->getProductPrice(),
-                'url' => $this->getProductImageUrl(),
-                'list' => $this->isListView()
+                'url' => $this->getProductImageUrl()
             ];
         }
 
@@ -88,7 +87,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function isListView()
     {
         $product = $this->registry->registry('current_product');
-        return $product && $product->getId() > 0;
+        $productExists = $product && $product->getId() > 0;
+        return !$productExists;
     }
 
     /**

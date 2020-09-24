@@ -74,6 +74,7 @@ class Config extends \Magento\Framework\View\Element\Template
 
         // Product info
         $aipConfig['product'] = $this->productHelper->getData();
+        $aipConfig['isListView'] = $this->productHelper->isListView();
 
         // User info
         $aipConfig['user'] = [
