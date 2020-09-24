@@ -60,7 +60,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'id' => $product->getId(),
                 'name' => $product->getName(),
                 'price' => $this->getProductPrice(),
-                'url' => $this->getProductImageUrl()
+                'url' => $this->getProductImageUrl(),
+                'list' => $this->isListView()
             ];
         }
 
@@ -79,6 +80,15 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         else {
             return $this->registry->registry('current_product');
         }
+    }
+
+    /**
+     * Check if the user is in a list view.
+     */
+    public function isListView()
+    {
+        $product = $this->registry->registry('current_product');
+        return $product && $product->getId() > 0;
     }
 
     /**

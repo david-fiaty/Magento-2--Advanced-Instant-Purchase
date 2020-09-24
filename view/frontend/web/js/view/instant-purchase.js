@@ -16,12 +16,11 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/agreement',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -214,18 +213,25 @@ define([
                 shippingMethod: this.getData('shippingMethod')
             });
 
-            // Handle the product attributes
-            //$(e.currentTarget) 
-            $(e.currentTarget)
-            .parents('.product-item')
-            .find('input[name^="super_attribute"]')
-            .each(function() {
-                console.log($(this).attr('name'));
-                console.log($(this).val());
-            });
+            // Validate the product options
+            var errors = [];
+            if (this.isListView()) {
+                $(e.currentTarget)
+                .parents('.product-item')
+                .find('input[name^="super_attribute"]')
+                .each(function() {
+                    var val = $(this).val();
+                    if (!val || val === 'undefined' || val.length == 0) {
+                        errors.push($(this).attr('name'));
+                    }
+                });
+
+                console.log(errors);
+            }
 
             // Check the validation rules
-            if (!(form.validation() && form.validation('isValid'))) {
+            var isInvalid = !(form.validation() && form.validation('isValid'));
+            if (isInvalid || errors.length > 0) {
                 return;
             }
 
