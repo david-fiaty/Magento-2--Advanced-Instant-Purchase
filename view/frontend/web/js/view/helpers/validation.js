@@ -83,27 +83,15 @@ define(
 
                     // Handle errors
                     if (errors.length > 0) {
-                        $(e.currentTarget)
-                        .closest('.product-item')
-                        .find('.aip-button')
-                        .on('focusout', function () {
-                            $(this).removeClass('popover__content__error');
+                        // Add the error class
+                        var popoverContent = $(e.currentTarget).closest('.product-item').find('.popover__content');
+                        popoverContent.addClass('popover__content__error');
 
-                            $(e.currentTarget)
-                            .closest('.product-item')
-                            .find('.popover__content')
-                            .removeClass('popover__content__error');
+                        // Remove the erro class button focusout event
+                        var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
+                        button.on('focusout', function() {
+                            popoverContent.removeClass('popover__content__error');
                         });
-
-                        $(e.currentTarget)
-                        .closest('.product-item')
-                        .find('.popover__content')
-                        .addClass('popover__content__error');
-
-                        //for (var i = 0; i < errors.length; i++) {
-                            //.find('div[attribute-id="' + errors[i].id + '"]');
-                            //console.log(container);
-                        //}
                     }
                 }
 
