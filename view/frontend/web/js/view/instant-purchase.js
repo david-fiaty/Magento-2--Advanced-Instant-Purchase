@@ -181,9 +181,6 @@ define([
                     // Get the HTML content
                     AipModal.addHtml(self.popupContentSelector, data.html);
 
-                    // Load the product view
-                    //AipProduct.loadBoxView(self.popupContentSelector);
-
                     // Initialise the select lists
                     AipSelect.build(self);
 
