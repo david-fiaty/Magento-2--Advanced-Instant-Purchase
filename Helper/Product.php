@@ -82,6 +82,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if the user is in a list view.
+     */
+    public function isListView()
+    {
+        $product = $this->registry->registry('current_product');
+        $productExists = $product && $product->getId() > 0;
+        return !$productExists;
+    }
+
+    /**
      * Get the current product price.
      */
     public function getProductPrice()

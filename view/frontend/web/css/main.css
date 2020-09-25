@@ -11,6 +11,29 @@
     border-radius: 0px;
 }
 
+.aip-button-error {
+    background-color: red !important;
+    border: solid 1px red !important;
+}
+
+/* Popover */
+.popover {
+    z-index: 999 !important;
+}
+
+.popover .popover-title {
+    display: none !important;
+}
+
+.aip-attribute-error {
+    color: red;
+    font-size: 11px;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    cursor: pointer;
+}
+
 /* Agreements */
 .aip-agreement-link-row.error a {
     color: red;

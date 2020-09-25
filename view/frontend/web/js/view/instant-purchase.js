@@ -10,18 +10,18 @@ define([
     'uiComponent',
     'mage/url',
     'Magento_Customer/js/customer-data',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/agreement',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipProduct, AipAgreement) {
+], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -143,7 +143,7 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.aipConfig.product.length == 0;
+            return this.aipConfig.isListView;
         },
 
         /**
@@ -181,9 +181,6 @@ define([
                     // Get the HTML content
                     AipModal.addHtml(self.popupContentSelector, data.html);
 
-                    // Load the product view
-                    //AipProduct.loadBoxView(self.popupContentSelector);
-
                     // Initialise the select lists
                     AipSelect.build(self);
 
@@ -214,8 +211,13 @@ define([
                 shippingMethod: this.getData('shippingMethod')
             });
 
+            // Validate the product options
+            var errors = AipValidation.checkOptions(obj, e);
+            
             // Check the validation rules
-            if (!(form.validation() && form.validation('isValid'))) {
+            var condition1 = form.validation() && form.validation('isValid');
+            var condition2 = errors.length == 0;
+            if (!condition1 || !condition2) {
                 return;
             }
 
