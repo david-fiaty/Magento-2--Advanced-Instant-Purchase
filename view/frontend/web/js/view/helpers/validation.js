@@ -9,7 +9,10 @@ define(
         return {
             aipConfig: window.advancedInstantPurchase,
             agreementRow: '.aip-agreement-link-row',
+            agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
+            attributeErrorSelector: '.aip-attribute-error',
+            buttonErrorClass: 'aip-button-error',
 
             /**
              * Additional form validation.
@@ -23,7 +26,7 @@ define(
                 if (this.aipConfig.general.enable_agreements) {
                     $(this.agreementRow).removeClass('error');
                     $(this.agreementRow).each(function() {
-                        var input = $(this).find('.aip-agreement-box');
+                        var input = $(this).find(this.agreementBoxSelector);
                         if (!input.is(':checked')) {
                             errors.push({
                                 id: input.attr('id')
@@ -104,8 +107,8 @@ define(
                 var button = productContainer.find('.aip-button');
 
                 // Clear previous errors
-                button.removeClass('aip-button-error');
-                $('.aip-attribute-error').remove();
+                button.removeClass(this.buttonErrorClass);
+                $(this.attributeErrorSelector).remove();
 
                 // Process existing errors
                 if (errors.length > 0) {
@@ -118,7 +121,7 @@ define(
                         placement : 'right',
                         delay : 10
                     });
-                    button.addClass('aip-button-error');
+                    button.addClass(this.buttonErrorClass);
                     button.trigger('mouseover');
 
                     // Update the missing options state
@@ -127,7 +130,7 @@ define(
                         .find('[attribute-id="' + errors[i].id + '"]');
                         attributeContainer.css('position', 'relative');
                         attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
-                        attributeContainer.find('.aip-attribute-error').popover({
+                        attributeContainer.find(this.attributeErrorSelector).popover({
                             title : '',
                             content : __('Required option'),
                             autoPlace : false,
@@ -137,27 +140,14 @@ define(
                         });
                     }
 
-                    // Add the show/hide error events
+                    // Add the show/hide error events on product hover
                     productContainer.on('mouseover focusin', function() {
-                        $(this).find('.aip-attribute-error').show();
+                        $(this).find(this.attributeErrorSelector).show();
                     });
 
                     productContainer.on('mouseout focusout', function() {
-                        $(this).find('.aip-attribute-error').hide();
+                        $(this).find(this.attributeErrorSelector).hide();
                     });
-
-                    // Add the error class
-                    /*
-                    var popoverContent = $(e.currentTarget).closest('.product-item').find('.popover__content');
-                    popoverContent.addClass('popover__content__error');
-
-                    // Remove the error class button focusout event
-                    var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
-                    popoverContent.removeClass('primary');
-                    button.on('focusout', function() {
-                        popoverContent.removeClass('popover__content__error aip-button-error');
-                    });
-                    */
                 }
             }
         }
