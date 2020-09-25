@@ -47,7 +47,7 @@
     font-size: 11px;
     position: absolute;
     top: calc(1%);
-    right: 0px;
+    right: -4px;
     cursor: pointer;
 }
 
