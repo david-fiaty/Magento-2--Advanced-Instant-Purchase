@@ -99,12 +99,17 @@ define(
              * Display the category view product options.
              */
             displayOptionsErrors: function(errors, e) {
+                // Prepare variables
+                var productContainer = $(e.currentTarget).closest('.product-item');
+                var button = productContainer.find('.aip-button');
+
                 // Clear previous errors
-                var button = $(e.currentTarget).closest('.product-item').find('.aip-button');
                 button.removeClass('aip-button-error');
+                $('.aip-attribute-error').remove();
 
                 // Process existing errors
                 if (errors.length > 0) {
+                    // Update the button state
                     button.popover({
                         title : '',
                         content : __('Please select the required options'),
@@ -115,6 +120,31 @@ define(
                     });
                     button.addClass('aip-button-error');
                     button.trigger('mouseover');
+
+                    // Update the missing options state
+                    for (var i = 0; i < errors.length; i++) {
+                        var attributeContainer = productContainer
+                        .find('[attribute-id="' + errors[i].id + '"]');
+                        attributeContainer.css('position', 'relative');
+                        attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
+                        attributeContainer.find('.aip-attribute-error').popover({
+                            title : '',
+                            content : __('Required option'),
+                            autoPlace : false,
+                            trigger : 'hover',
+                            placement : 'right',
+                            delay : 10
+                        });
+                    }
+
+                    // Add the show/hide error events
+                    productContainer.on('mouseover focusin', function() {
+                        $(this).find('.aip-attribute-error').show();
+                    });
+
+                    productContainer.on('mouseout focusout', function() {
+                        $(this).find('.aip-attribute-error').hide();
+                    });
 
                     // Add the error class
                     /*
