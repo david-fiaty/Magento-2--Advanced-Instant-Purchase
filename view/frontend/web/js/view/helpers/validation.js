@@ -77,22 +77,27 @@ define(
 
                 // Check all options fields
                 if (obj.isListView()) {
-                    $(e.currentTarget)
+                    // Find existing options
+                    var productAttributes = $(e.currentTarget)
                     .parents('.product-item')
-                    .find('input[name^="super_attribute"]')
-                    .each(function() {
-                        var val = $(this).val();
-                        if (!val || val === 'undefined' || val.length == 0) {
-                            var name = $(this).attr('name');
-                            errors.push({
-                                id: name.match(/\d+/)[0],
-                                name: name
-                            });
-                        }
-                    });
+                    .find('input[name^="super_attribute"]');
 
-                    // Handle errors
-                    this.displayOptionsErrors(errors, e);
+                    // If there are attributes
+                    if (productAttributes.length > 0) {
+                        productAttributes.each(function() {
+                            var val = $(this).val();
+                            if (!val || val === 'undefined' || val.length == 0) {
+                                var name = $(this).attr('name');
+                                errors.push({
+                                    id: name.match(/\d+/)[0],
+                                    name: name
+                                });
+                            }
+                        });
+
+                        // Handle errors
+                        this.displayOptionsErrors(errors, e);
+                    }
                 }
 
                 return errors;
@@ -109,6 +114,7 @@ define(
                 // Clear previous errors
                 button.removeClass(this.buttonErrorClass);
                 $(this.attributeErrorSelector).remove();
+                $('.popover').remove();
 
                 // Process existing errors
                 if (errors.length > 0) {
@@ -135,7 +141,7 @@ define(
                             content : __('Required option'),
                             autoPlace : false,
                             trigger : 'hover',
-                            placement : 'right',
+                            placement : 'bottom',
                             delay : 10
                         });
                     }
