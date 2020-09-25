@@ -2,9 +2,9 @@ define(
     [
         'jquery',
         'mage/translate',
-        'popover'
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/popover'
     ],
-    function ($, __) {
+    function ($, __, AipPopover) {
         'use strict';
         return {
             aipConfig: window.advancedInstantPurchase,
@@ -109,36 +109,15 @@ define(
                 // Clear previous errors
                 button.removeClass(this.buttonErrorClass);
                 $(this.attributeErrorSelector).remove();
+                $('.popover').remove();
 
                 // Process existing errors
                 if (errors.length > 0) {
                     // Update the button state
-                    button.popover({
-                        title : '',
-                        content : __('Please select the required options'),
-                        autoPlace : false,
-                        trigger : 'hover',
-                        placement : 'right',
-                        delay : 10
-                    });
-                    button.addClass(this.buttonErrorClass);
-                    button.trigger('mouseover');
+                    AipPopover.getListButtonErrorPopover(button, this);
 
                     // Update the missing options state
-                    for (var i = 0; i < errors.length; i++) {
-                        var attributeContainer = productContainer
-                        .find('[attribute-id="' + errors[i].id + '"]');
-                        attributeContainer.css('position', 'relative');
-                        attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
-                        attributeContainer.find(this.attributeErrorSelector).popover({
-                            title : '',
-                            content : __('Required option'),
-                            autoPlace : false,
-                            trigger : 'hover',
-                            placement : 'right',
-                            delay : 10
-                        });
-                    }
+                    AipPopover.getListAttributeErrorPopover(productContainer, errors);
 
                     // Add the show/hide error events on product hover
                     productContainer.on('mouseover focusin', function() {

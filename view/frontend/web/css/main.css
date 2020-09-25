@@ -19,10 +19,32 @@
 /* Popover */
 .popover {
     z-index: 999 !important;
+    background-color: transparent !important;
+    padding: 0.5em !important;
+}
+
+.popover, .popover .popover-inner {
+    background-color: transparent !important;
 }
 
 .popover .popover-title {
     display: none !important;
+}
+
+.popover.popover-right .popover-arrow {
+    border-left-color:  rgba(0, 0, 0, 0.75) !important;
+    border-bottom-color:  rgba(0, 0, 0, 0.75) !important;
+}
+
+.popover.popover-bottom .popover-arrow {
+    border-left-color:  rgba(0, 0, 0, 0.75) !important;
+    border-top-color:  rgba(0, 0, 0, 0.75) !important;
+}
+
+.popover .popover-content {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white !important;
+    font-size: 0.8em !important;
 }
 
 .aip-attribute-error {
