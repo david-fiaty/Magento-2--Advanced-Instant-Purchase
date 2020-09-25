@@ -43,7 +43,12 @@
 }
 
 .aip-attribute-error {
-    border: solid 1px red;
+    color: red;
+    font-size: 11px;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    cursor: pointer;
 }
 
 /* Agreements */
