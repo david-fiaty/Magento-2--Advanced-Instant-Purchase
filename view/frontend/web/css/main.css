@@ -31,29 +31,19 @@
     display: none !important;
 }
 
-.popover.popover-right .popover-arrow {
+.popover .popover-arrow {
     border-left-color:  rgba(0, 0, 0, 0.75) !important;
     border-bottom-color:  rgba(0, 0, 0, 0.75) !important;
 }
 
-.popover.popover-bottom .popover-arrow {
-    border-left-color:  rgba(0, 0, 0, 0.75) !important;
-    border-top-color:  rgba(0, 0, 0, 0.75) !important;
-}
-
-.popover.popover-content {
+.popover .popover-content {
     background-color: rgba(0, 0, 0, 0.75);
     color: white !important;
     font-size: 0.8em !important;
 }
 
 .aip-attribute-error {
-    color: red;
-    font-size: 11px;
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    cursor: pointer;
+    border: solid 1px red;
 }
 
 /* Agreements */
