@@ -2,9 +2,9 @@ define(
     [
         'jquery',
         'mage/translate',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/popover'
+        'popover'
     ],
-    function ($, __, AipPopover) {
+    function ($, __) {
         'use strict';
         return {
             aipConfig: window.advancedInstantPurchase,
@@ -114,10 +114,32 @@ define(
                 // Process existing errors
                 if (errors.length > 0) {
                     // Update the button state
-                    AipPopover.getListButtonErrorPopover(button, this);
+                    button.popover({
+                        title : '',
+                        content : __('Please select the required options'),
+                        autoPlace : false,
+                        trigger : 'hover',
+                        placement : 'right',
+                        delay : 10
+                    });
+                    button.addClass(this.buttonErrorClass);
+                    button.trigger('mouseover');
 
                     // Update the missing options state
-                    AipPopover.getListAttributeErrorPopover(productContainer, errors);
+                    for (var i = 0; i < errors.length; i++) {
+                        var attributeContainer = productContainer
+                        .find('[attribute-id="' + errors[i].id + '"]');
+                        attributeContainer.css('position', 'relative');
+                        attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
+                        attributeContainer.find(this.attributeErrorSelector).popover({
+                            title : '',
+                            content : __('Required option'),
+                            autoPlace : false,
+                            trigger : 'hover',
+                            placement : 'bottom',
+                            delay : 10
+                        });
+                    }
 
                     // Add the show/hide error events on product hover
                     productContainer.on('mouseover focusin', function() {
