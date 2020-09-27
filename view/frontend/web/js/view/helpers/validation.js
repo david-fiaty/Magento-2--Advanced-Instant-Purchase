@@ -12,6 +12,8 @@ define(
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
             attributeErrorSelector: '.aip-attribute-error',
+            productContainerSelector: '.product-item',
+            popoverSelector: '.popover',
             buttonErrorClass: 'aip-button-error',
 
             /**
@@ -79,7 +81,7 @@ define(
                 if (obj.isListView()) {
                     // Find existing options
                     var productAttributes = $(e.currentTarget)
-                    .parents('.product-item')
+                    .parents(this.productContainerSelector)
                     .find('input[name^="super_attribute"]');
 
                     // If there are attributes
@@ -108,13 +110,12 @@ define(
              */
             displayOptionsErrors: function(errors, e) {
                 // Prepare variables
-                var productContainer = $(e.currentTarget).closest('.product-item');
+                var self = this;
+                var productContainer = $(e.currentTarget).closest(this.productContainerSelector);
                 var button = productContainer.find('.aip-button');
 
                 // Clear previous errors
-                button.removeClass(this.buttonErrorClass);
-                $(this.attributeErrorSelector).remove();
-                $('.popover').remove();
+                this.clearErrors(button);
 
                 // Process existing errors
                 if (errors.length > 0) {
@@ -147,14 +148,23 @@ define(
                     }
 
                     // Add the show/hide error events on product hover
-                    productContainer.on('mouseover focusin', function() {
-                        $(this).find(this.attributeErrorSelector).show();
+                    $(document).on('mouseover focusin', this.productContainerSelector, function() {
+                        $(this).find(self.attributeErrorSelector).show();
                     });
 
-                    productContainer.on('mouseout focusout', function() {
-                        $(this).find(this.attributeErrorSelector).hide();
+                    $(document).on('mouseout focusout', this.productContainerSelector, function() {
+                        $(this).find(self.attributeErrorSelector).hide();
                     });
                 }
+            },
+
+            /**
+             * Clear UI error messages.
+             */
+            clearErrors: function(button) {
+                button.removeClass(this.buttonErrorClass);
+                $(this.attributeErrorSelector).remove();
+                $(this.popoverSelector).remove();
             }
         }
     }

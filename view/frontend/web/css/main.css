@@ -31,9 +31,14 @@
     display: none !important;
 }
 
-.popover .popover-arrow {
+.popover.popover-right .popover-container .popover-arrow {
     border-left-color:  rgba(0, 0, 0, 0.75) !important;
     border-bottom-color:  rgba(0, 0, 0, 0.75) !important;
+}
+
+.popover.popover-bottom .popover-container .popover-arrow {
+    border-left-color:  rgba(0, 0, 0, 0.75) !important;
+    border-top-color:  rgba(0, 0, 0, 0.75) !important;
 }
 
 .popover .popover-content {
@@ -46,8 +51,8 @@
     color: red;
     font-size: 11px;
     position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    top: calc(1%);
+    right: -4px;
     cursor: pointer;
 }
 
