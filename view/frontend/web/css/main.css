@@ -31,9 +31,14 @@
     display: none !important;
 }
 
-.popover .popover-arrow {
+.popover.popover-right .popover-container .popover-arrow {
     border-left-color:  rgba(0, 0, 0, 0.75) !important;
     border-bottom-color:  rgba(0, 0, 0, 0.75) !important;
+}
+
+.popover.popover-bottom .popover-container .popover-arrow {
+    border-left-color:  rgba(0, 0, 0, 0.75) !important;
+    border-top-color:  rgba(0, 0, 0, 0.75) !important;
 }
 
 .popover .popover-content {
