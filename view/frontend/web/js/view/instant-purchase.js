@@ -203,8 +203,10 @@ define([
          * Purchase popup.
          */
         purchasePopup: function(obj, e) {
-            var form = AipUtil.getCurrentForm(self.isSubView),
-            confirmData = _.extend({}, this.confirmationData, {
+            // Prepare variables
+            var errors = [];
+            var form = AipUtil.getCurrentForm(self.isSubView);
+            var confirmData = _.extend({}, this.confirmationData, {
                 paymentToken: this.getData('paymentToken'),
                 shippingAddress: this.getData('shippingAddress'),
                 billingAddress: this.getData('billingAddress'),
@@ -212,7 +214,9 @@ define([
             });
 
             // Validate the product options
-            var errors = AipValidation.checkOptions(obj, e);
+            if (obj.isListView() && this.aipConfig.display.product_list) {
+                errors = AipValidation.checkOptions(obj, e);
+            }
             
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');

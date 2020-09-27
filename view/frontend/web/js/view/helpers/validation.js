@@ -77,31 +77,28 @@ define(
                 // Error array
                 var errors = [];
 
-                // Check all options fields
-                if (obj.isListView() && this.aipConfig.display.product_list) {
-                    // Find existing options
-                    var productAttributes = $(e.currentTarget)
-                    .parents(this.productContainerSelector)
-                    .find('input[name^="super_attribute"]');
+                // Find existing options
+                var productAttributes = $(e.currentTarget)
+                .parents(this.productContainerSelector)
+                .find('input[name^="super_attribute"]');
 
-                    // If there are attributes
-                    if (productAttributes.length > 0) {
-                        productAttributes.each(function() {
-                            var val = $(this).val();
-                            if (!val || val === 'undefined' || val.length == 0) {
-                                var name = $(this).attr('name');
-                                errors.push({
-                                    id: name.match(/\d+/)[0],
-                                    name: name
-                                });
-                            }
-                        });
+                // If there are attributes
+                if (productAttributes.length > 0) {
+                    productAttributes.each(function() {
+                        var val = $(this).val();
+                        if (!val || val === 'undefined' || val.length == 0) {
+                            var name = $(this).attr('name');
+                            errors.push({
+                                id: name.match(/\d+/)[0],
+                                name: name
+                            });
+                        }
+                    });
 
-                        // Handle errors
-                        this.displayOptionsErrors(errors, e);
-                    }
+                    // Handle errors
+                    this.displayOptionsErrors(errors, e);
                 }
-
+        
                 return errors;
             },
 
