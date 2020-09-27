@@ -122,7 +122,7 @@ define(
                     // Update the button state
                     button.popover({
                         title : '',
-                        content : __('Please select the required options'),
+                        content : __('Please select some options'),
                         autoPlace : false,
                         trigger : 'hover',
                         placement : 'right',
@@ -136,13 +136,13 @@ define(
                         var attributeContainer = productContainer
                         .find('[attribute-id="' + errors[i].id + '"]');
                         attributeContainer.css('position', 'relative');
-                        attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
+                        attributeContainer.append('<div class="aip-attribute-error"><div>&#10006;</div></div>');
                         attributeContainer.find(this.attributeErrorSelector).popover({
                             title : '',
                             content : __('Required option'),
                             autoPlace : false,
                             trigger : 'hover',
-                            placement : 'bottom',
+                            placement : 'right',
                             delay : 10
                         });
                     }

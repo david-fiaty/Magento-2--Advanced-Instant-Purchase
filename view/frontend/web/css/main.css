@@ -48,12 +48,26 @@
 }
 
 .aip-attribute-error {
-    color: red;
-    font-size: 9px;
+    background-color: red;
     position: absolute;
-    top: calc(1%);
-    right: -4px;
+    top: calc(-10%);
+    left: calc(-4%);
     cursor: pointer;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 50%;
+    z-index: 999;
+}
+
+.aip-attribute-error div {
+    font-size: 0.55em;
+    color: white;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 /* Agreements */
