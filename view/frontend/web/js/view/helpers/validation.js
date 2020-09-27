@@ -78,7 +78,7 @@ define(
                 var errors = [];
 
                 // Check all options fields
-                if (obj.isListView()) {
+                if (obj.isListView() && this.aipConfig.display.product_list) {
                     // Find existing options
                     var productAttributes = $(e.currentTarget)
                     .parents(this.productContainerSelector)
