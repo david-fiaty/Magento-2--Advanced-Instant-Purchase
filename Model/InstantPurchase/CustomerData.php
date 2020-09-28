@@ -7,11 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterface
 {
     /**
-     * @var Config
-     */
-    public $config;
-
-    /**
      * @var StoreManagerInterface
      */
     private $storeManager;
@@ -50,20 +45,19 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
      * InstantPurchase constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
-        //\Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
+        \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
     ) {
-        $this->config = $config;
+        //$this->config = $config;
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
-        //$this->shippingMethodInterface = $shippingMethodInterface;
+        $this->shippingMethodInterface = $shippingMethodInterface;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->vaultHandler = $vaultHandler;
         $this->availabilityChecker = $availabilityChecker;
