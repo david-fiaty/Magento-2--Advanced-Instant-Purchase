@@ -24,6 +24,11 @@ class  VaultHandlerService
     public $paymentTokenManagement;
 
     /**
+     * @var PaymentTokenFormatter
+     */
+    public $paymentTokenFormatter;
+
+    /**
      * @var Session
      */
     public $customerSession;
@@ -72,11 +77,13 @@ class  VaultHandlerService
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler
+        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter
     ) {
         $this->storeManager = $storeManager;
         $this->paymentTokenRepository = $paymentTokenRepository;
         $this->paymentTokenManagement = $paymentTokenManagement;
+        $this->paymentTokenFormatter = $paymentTokenFormatter;
         $this->customerSession = $customerSession;
         $this->messageManager = $messageManager;
         $this->cardHandler = $cardHandler;
@@ -185,5 +192,25 @@ class  VaultHandlerService
             __('expires'),
             $details['expirationDate']
         );
+    }
+
+    public function preparePaymentToken() {
+        // Get the last saved cards
+        $card = $this->getLastSavedCard();
+
+        // Summary
+        $summary = isset($card['data'])
+        ? $this->paymentTokenFormatter->formatPaymentToken($card['data'])
+        : '';
+
+        // Public hash
+        $publicHash = isset($card['data'])
+        ? $card['data']->getPublicHash()
+        : '';
+        
+        return [
+            'publicHash' => $publicHash,
+            'summary' => $summary,
+        ];
     }
 }

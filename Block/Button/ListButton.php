@@ -9,33 +9,32 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     /**
      * @var Config
      */
-    public $instantPurchaseConfig;
+    public $configHelper;
 
     /**
-     * @var Config
+     * @var Customer
      */
-    public $configHelper;
+    public $customerHelper;
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
 
     /**
      * Button class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
-        \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->instantPurchaseConfig = $instantPurchaseConfig;
         $this->configHelper = $configHelper;
-   }
-
-    /**
-     * Get the module config values.
-     */
-    public function getConfig()
-    {
-        return $this->configHelper->getValues();
+        $this->customerHelper = $customerHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -46,34 +45,11 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function isEnabled(): bool
     {
-        // todo - check validation rules
-        return true;
-        return $this->instantPurchaseConfig->isModuleEnabled($this->getCurrentStoreId())
-        || $this->getConfig()['guest']['show_guest_button'] == 1;
-    }
+        $config = $this->configHelper->getValues();
 
-    /**
-     * @inheritdoc
-     * @since 100.2.0
-     */
-    public function getJsLayout(): string
-    {
-        $buttonText = $this->instantPurchaseConfig->getButtonText($this->getCurrentStoreId());
-        $purchaseUrl = $this->getUrl('instantpurchase/button/placeOrder', ['_secure' => true]);
-
-        // String data does not require escaping here and handled on transport level and on client side
-        $this->jsLayout['components']['instant-purchase']['config']['buttonText'] = $buttonText;
-        $this->jsLayout['components']['instant-purchase']['config']['purchaseUrl'] = $purchaseUrl;
-        return parent::getJsLayout();
-    }
-
-    /**
-     * Returns active store view identifier.
-     *
-     * @return int
-     */
-    public function getCurrentStoreId(): int
-    {
-        return $this->_storeManager->getStore()->getId();
+        return $this->configHelper->bypassLogin()
+        && $this->configHelper->isEnabled()
+        && $config['display']['product_view']
+        && $this->productHelper->isListView();
     }
 }

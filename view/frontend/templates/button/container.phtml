@@ -1,13 +1,39 @@
-<?php if ($block->isEnabled()) : ?>
-    <?php $pid = $block->getProduct()->getId() ?>
+<?php
+    // Get the config
+    $config = $block->configHelper->getValues();
+
+    // Display settings
+    $buttonDisabled = $config['guest']['click_event'] !== 'disabled' ? '' : 'disabled';
+    $loggedInClass = $block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
+    $purchaseData = $block->customerHelper->getPurchaseData();
+?>
+<?php if (true) : ?>
+    <?php //$pid = $this->getProduct()->getId() 
+        $pid = 1562;
+    ?>
     <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
-        <!-- ko template: getTemplate() --><!-- /ko -->
+        <button type="button"
+                class="<?= $loggedInClass ?> action primary instant-purchase aip-button"
+                disabled="<?= $buttonDisabled ?>"
+                title="<?= __($config['general']['button_text']) ?>">
+                <span translate="buttonText" />
+        </button>
+        <input type="hidden" name="instant_purchase_payment_token" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+        <input type="hidden" name="instant_purchase_shipping_address" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
+        <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
+        <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
+        <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
     </div>
-    <script type="text/x-magento-init">
-        {
-            "#aip-<?= $pid ?>": {
-                "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout();?>
-            }
-        }
+
+    <script>
+        require([
+            'jquery',
+            'Naxero_AdvancedInstantPurchase/js/view/instant-purchase',
+        ], function ($, Aip) {
+            'use strict';
+
+            Aip.setPurchaseData();
+        });
     </script>
+
 <?php endif; ?>

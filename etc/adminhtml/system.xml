@@ -26,6 +26,9 @@
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
+                <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button text</label>
+                </field>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Module enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

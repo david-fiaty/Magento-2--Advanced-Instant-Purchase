@@ -17,11 +17,6 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     private $storeManager;
 
     /**
-     * @var InstantPurchaseInterface
-     */
-    private $instantPurchase;
-
-    /**
      * @var Session
      */
     public $customerSession;
@@ -37,6 +32,11 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     public $shippingMethodFormatter;
 
     /**
+     * @var ShippingMethodInterface
+     */
+    public $shippingMethodInterface;
+
+    /**
      * @var VaultHandlerService
      */
     public $vaultHandler;
@@ -47,33 +47,26 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     public $availabilityChecker;
 
     /**
-     * @var PaymentTokenFormatter
-     */
-    public $paymentTokenFormatter;
-
-    /**
      * InstantPurchase constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Config $config,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\InstantPurchase\Model\InstantPurchaseInterface $instantPurchase,
         \Magento\Customer\Model\Session $customerSession,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
+        \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
-        $this->instantPurchase = $instantPurchase;
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
+        $this->shippingMethodInterface = $shippingMethodInterface;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->vaultHandler = $vaultHandler;
         $this->availabilityChecker = $availabilityChecker;
-        $this->paymentTokenFormatter = $paymentTokenFormatter;
     }
 
     /**
@@ -88,59 +81,44 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             return $data;
         }
 
-        // Payment token
-        $paymentToken = $this->preparePaymentToken();
+        // Customer data
+        $paymentToken = $this->vaultHandler->preparePaymentToken();
+        $shippingAddress = $this->getShippingAddress();
+        $billingAddress = $this->getBillingAddress();
+        $shippingMethod = $this->shippingMethodInterface;
+        $data += [
+            'paymentToken' => $paymentToken,
+            'shippingAddress' => [
+                'id' => $shippingAddress->getId(),
+                'summary' => $this->customerAddressesFormatter->format($shippingAddress),
+            ],
+            'billingAddress' => [
+                'id' => $billingAddress->getId(),
+                'summary' => $this->customerAddressesFormatter->format($billingAddress),
+            ],
+            'shippingMethod' => [
+                'carrier' => $shippingMethod->getCarrierCode(),
+                'method' => $shippingMethod->getMethodCode(),
+                'summary' => $this->shippingMethodFormatter->format($shippingMethod),
+            ]
+        ];
 
-        // Load the option
-        $instantPurchaseOption = $this->instantPurchase->getOption(
-            $this->storeManager->getStore(),
-            $this->customerSession->getCustomer()
-        );
-
-        // Get the required data
-        if ($instantPurchaseOption) {
-            $shippingAddress = $instantPurchaseOption->getShippingAddress();
-            $billingAddress = $instantPurchaseOption->getBillingAddress();
-            $shippingMethod = $instantPurchaseOption->getShippingMethod();
-            $data += [
-                'advancedInstantPurchase' => $this->config->getValues(),
-                'paymentToken' => $paymentToken,
-                'shippingAddress' => [
-                    'id' => $shippingAddress->getId(),
-                    'summary' => $this->customerAddressesFormatter->format($shippingAddress),
-                ],
-                'billingAddress' => [
-                    'id' => $billingAddress->getId(),
-                    'summary' => $this->customerAddressesFormatter->format($billingAddress),
-                ],
-                'shippingMethod' => [
-                    'carrier' => $shippingMethod->getCarrierCode(),
-                    'method' => $shippingMethod->getMethodCode(),
-                    'summary' => $this->shippingMethodFormatter->format($shippingMethod),
-                ]
-            ];
-        }
-
-        return $data;
+        return ['customer_data' => $data];
     }
 
-    public function preparePaymentToken() {
-        // Get the last saved cards
-        $card = $this->vaultHandler->getLastSavedCard();
+    /**
+     * Get the defult user shipping address.
+     */
+    public function getShippingAddress()
+    {
+        return $this->customerSession->getCustomer()->getDefaultShippingAddress();
+    }
 
-        // Summary
-        $summary = isset($card['data'])
-        ? $this->paymentTokenFormatter->formatPaymentToken($card['data'])
-        : '';
-
-        // Public hash
-        $publicHash = isset($card['data'])
-        ? $card['data']->getPublicHash()
-        : '';
-        
-        return [
-            'publicHash' => $publicHash,
-            'summary' => $summary,
-        ];
+    /**
+     * Get the defult user billing address.
+     */
+    public function getBillingAddress()
+    {
+        return $this->customerSession->getCustomer()->getDefaultBillingAddress();
     }
 }

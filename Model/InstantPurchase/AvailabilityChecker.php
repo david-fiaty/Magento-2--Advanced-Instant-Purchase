@@ -53,7 +53,7 @@ class AvailabilityChecker
      */
     public function isAvailable()
     {        
-        if ($this->config->value('general/enabled') && $this->config->isCoreInstantPurchaseEnabled()) {
+        if ($this->config->value('general/enabled')) {
             // Logged in button display
             if ($this->customerSession->isLoggedIn()) {
                 // Load the option

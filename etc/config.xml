@@ -19,6 +19,7 @@
     <default>
         <advanced_instant_purchase>
             <general>
+                <button_text>Buy Now</button_text>
                 <enabled>1</enabled>
                 <debug_enabled>0</debug_enabled>
                 <console_logging_enabled>0</console_logging_enabled>

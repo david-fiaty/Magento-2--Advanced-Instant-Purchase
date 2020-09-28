@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Resolver
+     */
+    public $localeResolver;
+
+    /**
      * @var StoreManagerInterface
      */
     public $storeManager;
@@ -60,6 +65,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
@@ -70,6 +76,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
 
     ) {
+        $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
@@ -133,6 +140,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerModel = $this->customer->load(
             $this->customerSession->getCustomer()->getId()
         );
+
+        return $this;
     }
 
     /**
@@ -141,6 +150,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function loadConfigData()
     {
         $this->config = $this->configHelper->getValues();
+
+        return $this;
     }
 
     /**
@@ -172,5 +183,36 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get the user locale.
+     */
+    public function getUserLanguage()
+    {
+        return $this->localeResolver->getLocale();
+    }
+
+    /**
+     * Check if the cusomer is logged in.
+     */
+    public function isLoggedIn()
+    {
+        return $this->customerSession->isLoggedIn();
+    }
+
+    /**
+     * Get the customer purchase data.
+     */
+    public function getPurchaseData()
+    {
+        $aipConfig = $this->configHelper->getValues();  
+        unset($aipConfig['card_form']);
+        return [
+            'advancedInstantPurchase' => array_merge(
+                $aipConfig, 
+                $this->customerData->getSectionData()
+            )
+        ];
     }
 }

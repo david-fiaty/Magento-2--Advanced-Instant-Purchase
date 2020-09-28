@@ -85,17 +85,18 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the core instant purchase feature is enabled.
-     *
-     * @param string $fileName
-     * @return string
+     * Check the button display conditions.
      */
-    public function isCoreInstantPurchaseEnabled()
+    public function bypassLogin()
     {
-        $path = 'sales/instant_purchase/active';
-        return $this->scopeConfig->getValue(
-            $path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        return $this->getValues()['guest']['show_guest_button'];
+    }
+
+    /**
+     * Check if the module is inabled.
+     */
+    public function isEnabled()
+    {
+        return $this->getValues()['general']['enabled'];
     }
 }
