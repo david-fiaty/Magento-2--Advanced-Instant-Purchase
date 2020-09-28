@@ -26,15 +26,15 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        //\Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        //\Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        //\Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->configHelper = $configHelper;
-        $this->customerHelper = $customerHelper;
-        $this->productHelper = $productHelper;
+        //$this->configHelper = $configHelper;
+        //$this->customerHelper = $customerHelper;
+        //$this->productHelper = $productHelper;
     }
 
     /**
@@ -53,11 +53,14 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function isEnabled(): bool
     {
+        return true;
+        /*
         $config = $this->configHelper->getValues();
 
         return $this->configHelper->bypassLogin()
         && $this->configHelper->isEnabled()
         && $config['display']['product_view']
         && !$this->productHelper->isListView();
+        */
     }
 }

@@ -140,8 +140,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerModel = $this->customer->load(
             $this->customerSession->getCustomer()->getId()
         );
-
-        return $this;
     }
 
     /**
@@ -150,8 +148,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function loadConfigData()
     {
         $this->config = $this->configHelper->getValues();
-
-        return $this;
     }
 
     /**

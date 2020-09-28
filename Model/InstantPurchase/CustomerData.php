@@ -54,7 +54,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
-        \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
+        //\Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
@@ -63,7 +63,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
-        $this->shippingMethodInterface = $shippingMethodInterface;
+        //$this->shippingMethodInterface = $shippingMethodInterface;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->vaultHandler = $vaultHandler;
         $this->availabilityChecker = $availabilityChecker;
@@ -85,7 +85,7 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         $paymentToken = $this->vaultHandler->preparePaymentToken();
         $shippingAddress = $this->getShippingAddress();
         $billingAddress = $this->getBillingAddress();
-        $shippingMethod = $this->shippingMethodInterface;
+        //$shippingMethod = $this->shippingMethodInterface;
         $data += [
             'paymentToken' => $paymentToken,
             'shippingAddress' => [
@@ -97,10 +97,18 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
             'shippingMethod' => [
+                'carrier' => 'dd',
+                'method' => 'ee',
+                'summary' => 'ff'
+            ]
+
+            /*
+            'shippingMethod' => [
                 'carrier' => $shippingMethod->getCarrierCode(),
                 'method' => $shippingMethod->getMethodCode(),
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),
             ]
+            */
         ];
 
         return ['customer_data' => $data];
