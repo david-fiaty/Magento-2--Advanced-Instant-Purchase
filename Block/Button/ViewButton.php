@@ -53,6 +53,8 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function isEnabled(): bool
     {
+        return true;
+
         $config = $this->configHelper->getValues();
 
         return $this->configHelper->bypassLogin()

@@ -7,8 +7,15 @@
     $buttonDisabled = $config['guest']['click_event'] !== 'disabled' ? '' : 'disabled';
     $loggedInClass = ''; //$block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
     $purchaseData = ''; //$block->customerHelper->getPurchaseData();
+
+    var_dump('xx');
+    var_dump($block->isEnabled());
+    exit();
+
+
+
 ?>
-<?php if ($this->isEnabled()) : ?>
+<?php if ($block->isEnabled()) : ?>
     <?php //$pid = $this->getProduct()->getId() 
         $pid = 1562;
     ?>
