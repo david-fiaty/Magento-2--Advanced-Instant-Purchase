@@ -33,7 +33,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     ) {
         parent::__construct($context, $data);
         //$this->configHelper = $configHelper;
-        //$this->customerHelper = $customerHelper;
+       //$this->customerHelper = $customerHelper;
         //$this->productHelper = $productHelper;
     }
 
