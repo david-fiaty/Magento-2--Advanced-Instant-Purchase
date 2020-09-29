@@ -45,15 +45,18 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         return $this->productHelper->getProduct();
     }
 
+
+    public function test() {
+        return 'test';
+    }
     /**
-     * Checks if button enabled.
-     *
-     * @return bool
-     * @since 100.2.0
+     * Checks if the button should be didsplayed.
      */
-    public function isEnabled(): bool
+    public function shouldDisplay()
     {
+        return 'fat pussy';
         return true;
+
 
         $config = $this->configHelper->getValues();
 

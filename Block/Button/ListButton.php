@@ -31,19 +31,17 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
-        parent::__construct($context, $data);
         $this->configHelper = $configHelper;
         //$this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
+
+        parent::__construct($context, $data);
     }
 
     /**
-     * Checks if button enabled.
-     *
-     * @return bool
-     * @since 100.2.0
+     * Checks if the button should be didsplayed.
      */
-    public function isEnabled(): bool
+    public function shouldDisplay()
     {
         $config = $this->configHelper->getValues();
 

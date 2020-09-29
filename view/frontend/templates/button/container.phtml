@@ -8,14 +8,15 @@
     $loggedInClass = ''; //$block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
     $purchaseData = ''; //$block->customerHelper->getPurchaseData();
 
-    var_dump('xx');
-    var_dump($block->isEnabled());
+    var_dump('cc');
+    var_dump($block->test());
+    var_dump($block->shouldDisplay());
     exit();
 
 
 
 ?>
-<?php if ($block->isEnabled()) : ?>
+<?php if ($block->shouldDisplay()) : ?>
     <?php //$pid = $this->getProduct()->getId() 
         $pid = 1562;
     ?>
