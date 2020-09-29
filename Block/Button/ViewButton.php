@@ -45,10 +45,6 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         return $this->productHelper->getProduct();
     }
 
-
-    public function test() {
-        return 'test';
-    }
     /**
      * Checks if the button should be didsplayed.
      */
