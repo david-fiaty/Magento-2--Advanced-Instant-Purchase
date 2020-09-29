@@ -5,15 +5,8 @@
 
     // Display settings
     $buttonDisabled = $config['guest']['click_event'] !== 'disabled' ? '' : 'disabled';
-    $loggedInClass = ''; //$block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
-    $purchaseData = ''; //$block->customerHelper->getPurchaseData();
-
-    var_dump('cc');
-    var_dump($block->shouldDisplay());
-    exit();
-
-
-
+    //$loggedInClass = $block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
+    //$purchaseData = $block->customerHelper->getPurchaseData();
 ?>
 <?php if ($block->shouldDisplay()) : ?>
     <?php //$pid = $this->getProduct()->getId() 

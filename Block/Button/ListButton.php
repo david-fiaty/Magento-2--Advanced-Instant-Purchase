@@ -27,12 +27,12 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        //\Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         $this->configHelper = $configHelper;
-        //$this->customerHelper = $customerHelper;
+        $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
 
         parent::__construct($context, $data);

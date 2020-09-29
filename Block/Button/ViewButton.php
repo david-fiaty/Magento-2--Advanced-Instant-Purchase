@@ -27,13 +27,13 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        //\Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->configHelper = $configHelper;
-       //$this->customerHelper = $customerHelper;
+        $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
 
@@ -50,10 +50,6 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function shouldDisplay()
     {
-        return 'fat pussy';
-        return true;
-
-
         $config = $this->configHelper->getValues();
 
         return $this->configHelper->bypassLogin()
