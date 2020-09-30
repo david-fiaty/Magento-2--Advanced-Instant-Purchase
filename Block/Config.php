@@ -43,10 +43,7 @@ class Config extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         // Get the module config
-        $aipConfig = $this->configHelper->getValues();
-
-        // Filter parameters
-        unset($aipConfig['card_form']);
+        $aipConfig = $this->configHelper->getFilteredValues();
 
         // Loader icon
         $aipConfig['ui']['loader'] = $this->getLoaderIconUrl();

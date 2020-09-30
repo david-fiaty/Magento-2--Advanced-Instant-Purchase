@@ -7,29 +7,9 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Image
+     * @var Config
      */
-    public $imageHelper;
-
-    /**
-     * @var Data
-     */
-    public $priceHelper;
-
-    /**
-     * @var Registry
-     */
-    public $registry; 
-
-    /**
-     * @var RequestInterface
-     */
-    public $request; 
-
-    /**
-     * @var ProductFactory
-     */
-    public $productFactory; 
+    public $configHelper;
 
     /**
      * @var CustomerData
@@ -40,19 +20,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
-        \Magento\Catalog\Helper\Image $imageHelper,
-        \Magento\Framework\Pricing\Helper\Data $priceHelper,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\App\RequestInterface $request,
-        \Magento\Catalog\Model\ProductFactory $productFactory,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData
     ) {
-        $this->registry = $registry;
-        $this->imageHelper = $imageHelper;
-        $this->priceHelper = $priceHelper;
-        $this->request = $request;
-        $this->productFactory = $productFactory;
         $this->customerData = $customerData;
+        $this->configHelper = $configHelper;
     }
 
 
@@ -74,7 +46,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getData()
     {
         $aipConfig = $this->configHelper->getValues();  
-        unset($aipConfig['card_form']);
         return [
             'advancedInstantPurchase' => array_merge(
                 $aipConfig, 

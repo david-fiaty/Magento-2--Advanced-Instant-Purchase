@@ -57,11 +57,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerModel;
 
     /**
-     * @var Array
-     */
-    public $config;
-
-    /**
      * Class Customer constructor.
      */
     public function __construct(

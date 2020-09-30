@@ -71,6 +71,17 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get filtered config values for the frontend.
+     */
+    public function getFilteredValues()
+    {
+        $values = $this->getValues();
+        unset($values['card_form']);
+
+        return $values;
+    }
+
+    /**
      * Finds a file path from file name.
      *
      * @param string $fileName
