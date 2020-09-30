@@ -12,11 +12,6 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
     public $config;
 
     /**
-     * @var Purchase
-     */
-    public $purchaseHelper;
-
-    /**
      * InstantPurchase constructor.
      */
     public function __construct(
@@ -24,7 +19,6 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper
     ) {
         $this->config = $config;
-        $this->purchaseHelper = $purchaseHelper;
     }
 
     /**
@@ -32,6 +26,8 @@ class ConfigProvider implements \Magento\Customer\CustomerData\SectionSourceInte
      */
     public function getSectionData() : array
     {
-        return $this->purchaseHelper->getData();
+        return [
+            'advancedInstantPurchase' => $this->config->getValues()
+        ];
     }
 }
