@@ -83,20 +83,4 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             'Naxero_AdvancedInstantPurchase'
         ) . '/' . $fileName;
     }
-
-    /**
-     * Check the button display conditions.
-     */
-    public function bypassLogin()
-    {
-        return $this->getValues()['guest']['show_guest_button'];
-    }
-
-    /**
-     * Check if the module is inabled.
-     */
-    public function isEnabled()
-    {
-        return $this->getValues()['general']['enabled'];
-    }
 }

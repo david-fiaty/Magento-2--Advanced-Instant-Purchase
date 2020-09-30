@@ -27,19 +27,19 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * @var ConfigHelper
+     * @var Config
      */
     public $configHelper;
 
     /**
-     * @var ProductHelper
+     * @var Product
      */
     public $productHelper;
 
     /**
-     * @var CustomerData
+     * @var Purchase
      */
-    public $customerData;
+    public $purchasetHelper;
 
     /**
      * @var VaultHandlerService
@@ -70,10 +70,10 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchasetHelper
 
     ) {
         $this->localeResolver = $localeResolver;
@@ -82,7 +82,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerSession = $customerSession;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
-        $this->customerData = $customerData;
+        $this->purchasetHelper = $purchasetHelper;
         $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
     }
@@ -94,7 +94,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Prepare the output array
         $confirmationData = [];
-        $confirmationData['popup'] = $this->getPopupData();
+        $confirmationData['popup'] = $this->purchaseHelper->getPopupData();
         $confirmationData['product'] = $this->productHelper->getData();
         $confirmationData['addresses'] = [];
         $confirmationData['savedCards'] = [];
@@ -102,9 +102,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Build the confirmation data
         if ($this->customerSession->isLoggedIn()) {
-            // Get the config values
-            $this->loadConfigData();
-
             // Load the customer data
             $this->loadCustomerData();
 
@@ -143,26 +140,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Load the config data.
-     */
-    public function loadConfigData()
-    {
-        $this->config = $this->configHelper->getValues();
-    }
-
-    /**
-     * Get the popup data.
-     */
-    public function getPopupData()
-    {
-        return [
-            'title' => $this->config['display']['popup_title'],
-            'header_text' => $this->config['display']['popup_header_text'],
-            'footer_text' => $this->config['display']['popup_footer_text']
-        ];
-    }
-
-    /**
      * Get the customer addresses.
      */
     public function getAddresses()
@@ -195,20 +172,5 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function isLoggedIn()
     {
         return $this->customerSession->isLoggedIn();
-    }
-
-    /**
-     * Get the customer purchase data.
-     */
-    public function getPurchaseData()
-    {
-        $aipConfig = $this->configHelper->getValues();  
-        unset($aipConfig['card_form']);
-        return [
-            'advancedInstantPurchase' => array_merge(
-                $aipConfig, 
-                $this->customerData->getSectionData()
-            )
-        ];
     }
 }

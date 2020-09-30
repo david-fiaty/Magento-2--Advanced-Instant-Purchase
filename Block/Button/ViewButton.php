@@ -27,13 +27,13 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        //\Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->configHelper = $configHelper;
-        $this->customerHelper = $customerHelper;
+        //$this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
 
@@ -46,15 +46,16 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Checks if the button should be didsplayed.
+     * Get the block config.
      */
-    public function shouldDisplay()
+    public function getConfig()
     {
         $config = $this->configHelper->getValues();
-
-        return $this->configHelper->bypassLogin()
-        && $this->configHelper->isEnabled()
+        $condition = $config['guest']['show_guest_button']
+        && $config['general']['enabled']
         && $config['display']['product_view']
         && !$this->productHelper->isListView();
+
+        return $condition ? $config : null;
     }
 }
