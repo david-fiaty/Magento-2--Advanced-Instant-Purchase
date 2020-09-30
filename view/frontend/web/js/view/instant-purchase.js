@@ -79,13 +79,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var data = CustomerData.get('customer');
-            if (data) {
-                var customer = data();
-                return customer.fullname && customer.firstname;
-            }
-
-            return false;
+            return this.aipConfig.user.connected;
         },
 
         /**

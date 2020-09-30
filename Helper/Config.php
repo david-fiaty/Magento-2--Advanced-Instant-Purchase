@@ -24,16 +24,30 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
+     * @var Repository
+     */
+    public $assetRepo; 
+
+    /**
      * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
-        \Magento\Framework\Module\Dir\Reader $moduleDirReader
+        \Magento\Framework\Module\Dir\Reader $moduleDirReader,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\View\Asset\Repository $assetRepo
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
+        $this->customerSession = $customerSession;
+        $this->assetRepo = $assetRepo;
     }
 
     /**
@@ -75,10 +89,27 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getFilteredValues()
     {
+        // Get the config values
         $values = $this->getValues();
+
+        // Remove uneeded elements
         unset($values['card_form']);
 
+        // Add user connection status
+        $values['user']['connected'] = $this->customerSession->isLoggedIn();
+
+        // Loader icon
+        $values['ui']['loader'] = $this->getLoaderIconUrl();
+        
         return $values;
+    }
+
+    /**
+     * Get the loader icon URL.
+     */
+    public function getLoaderIconUrl()
+    {
+        return $this->assetRepo->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
     }
 
     /**
