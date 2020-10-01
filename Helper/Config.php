@@ -34,6 +34,11 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $assetRepo; 
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * Class Config constructor.
      */
     public function __construct(
@@ -41,13 +46,15 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        \Magento\Framework\View\Asset\Repository $assetRepo,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
         $this->customerSession = $customerSession;
         $this->assetRepo = $assetRepo;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -98,9 +105,13 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         // Add user connection status
         $values['user']['connected'] = $this->customerSession->isLoggedIn();
 
+        // Product info
+        $values['product'] = $this->productHelper->getData();
+        $values['isListView'] = $this->productHelper->isListView();
+
         // Loader icon
         $values['ui']['loader'] = $this->getLoaderIconUrl();
-        
+
         return $values;
     }
 
