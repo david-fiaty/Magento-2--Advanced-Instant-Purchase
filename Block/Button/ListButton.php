@@ -2,18 +2,47 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
- * Configuration for JavaScript instant purchase button component.
+ * ListButton class constructor.
  */
-class ListButton extends \Naxero\AdvancedInstantPurchase\Block\Button\AbstractButton
+class ListButton extends \Magento\Framework\View\Element\Template
 {
     /**
-     * ListButton class constructor.
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
+     * @var Purchase
+     */
+    public $purchaseHelper;
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
+     * ViewButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
+        
+        $this->configHelper = $configHelper;
+        $this->purchaseHelper = $purchaseHelper;
+        $this->customerHelper = $customerHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
