@@ -47,6 +47,11 @@ class CustomerData
     public $customerHelper;
 
     /**
+     * @var ShippingSelector
+     */
+    public $shippingSelector;
+
+    /**
      * InstantPurchase constructor.
      */
     public function __construct(
@@ -57,7 +62,8 @@ class CustomerData
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector
     ) {
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
@@ -67,6 +73,7 @@ class CustomerData
         $this->vaultHandler = $vaultHandler;
         $this->availabilityChecker = $availabilityChecker;
         $this->customerHelper = $customerHelper;
+        $this->shippingSelector = $shippingSelector;
     }
 
     /**

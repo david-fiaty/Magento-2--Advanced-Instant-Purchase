@@ -37,11 +37,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
-     * @var VaultHandlerService
-     */
-    public $vaultHandler;
-
-    /**
      * @var Object
      */
     public $customer;
@@ -60,7 +55,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
 
@@ -71,43 +65,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerSession = $customerSession;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
-        $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
-    }
-
-    /**
-     * Get the confirmation modal content.
-     */
-    public function getConfirmContent()
-    {
-        // Prepare the output array
-        $confirmationData = [];
-        $confirmationData['popup'] = $this->purchaseHelper->getPopupData();
-        $confirmationData['product'] = $this->productHelper->getData();
-        $confirmationData['addresses'] = [];
-        $confirmationData['savedCards'] = [];
-        $confirmationData['shippingRates'] = [];
-
-        // Build the confirmation data
-        if ($this->customerSession->isLoggedIn()) {
-            // Load the customer data
-            $this->loadCustomerData();
-
-            // Confirmation data
-            $confirmationData['addresses'] = $this->getAddresses();
-            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
-                $this->customer
-            );
-
-            // Instant purchase data
-            $customerSectionData = $this->customerData->getSectionData($this->customer);
-            if (!empty($customerSectionData)) {
-                $confirmationData['sectionData'] = $customerSectionData;
-            }
-        }
-
-        return $confirmationData;
     }
 
     /**
