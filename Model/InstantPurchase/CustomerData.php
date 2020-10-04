@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 /**
  * Class CustomerData
  */
-class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterface
+class CustomerData
 {
     /**
      * @var StoreManagerInterface
@@ -42,6 +42,11 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
     public $availabilityChecker;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * InstantPurchase constructor.
      */
     public function __construct(
@@ -51,9 +56,9 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker
+        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
-        //$this->config = $config;
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
@@ -61,12 +66,13 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->vaultHandler = $vaultHandler;
         $this->availabilityChecker = $availabilityChecker;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
      * @inheritdoc
      */
-    public function getSectionData() : array
+    public function getSectionData()
     {
         // Set the instant purchase availability
         $isAvailalbe = $this->availabilityChecker->isAvailable();
@@ -75,10 +81,13 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
             return $data;
         }
 
+        // Load the customer
+        $customer = $this->customerHelper->loadCustomer();
+        
         // Customer data
         $paymentToken = $this->vaultHandler->preparePaymentToken();
-        $shippingAddress = $this->getShippingAddress();
-        $billingAddress = $this->getBillingAddress();
+        $shippingAddress = $customer->getDefaultShippingAddress();
+        $billingAddress = $customer->getDefaultBillingAddress();
         //$shippingMethod = $this->shippingMethodInterface;
         $data += [
             'paymentToken' => $paymentToken,
@@ -106,21 +115,5 @@ class CustomerData implements \Magento\Customer\CustomerData\SectionSourceInterf
         ];
 
         return ['customer_data' => $data];
-    }
-
-    /**
-     * Get the defult user shipping address.
-     */
-    public function getShippingAddress()
-    {
-        return $this->customerSession->getCustomer()->getDefaultShippingAddress();
-    }
-
-    /**
-     * Get the defult user billing address.
-     */
-    public function getBillingAddress()
-    {
-        return $this->customerSession->getCustomer()->getDefaultBillingAddress();
     }
 }

@@ -37,11 +37,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
-     * @var Purchase
-     */
-    public $purchasetHelper;
-
-    /**
      * @var VaultHandlerService
      */
     public $vaultHandler;
@@ -67,8 +62,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchasetHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
 
     ) {
         $this->localeResolver = $localeResolver;
@@ -77,7 +71,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerSession = $customerSession;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
-        $this->purchasetHelper = $purchasetHelper;
         $this->shippingSelector = $shippingSelector;
         $this->vaultHandler = $vaultHandler;
     }
@@ -108,7 +101,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             );
 
             // Instant purchase data
-            $customerSectionData = $this->customerData->getSectionData();
+            $customerSectionData = $this->customerData->getSectionData($this->customer);
             if (!empty($customerSectionData)) {
                 $confirmationData['sectionData'] = $customerSectionData;
             }
@@ -118,15 +111,26 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Load a customer instance.
+     */
+    public function loadCustomer()
+    {
+        // Load the customer instance
+        $customer = $this->customerFactory->create();
+        $customer->setWebsiteId(
+            $this->storeManager->getStore()->getWebsiteId()
+        );
+
+        return $customer;
+    }
+
+    /**
      * Load the customer data.
      */
     public function loadCustomerData()
     {
         // Load the customer instance
-        $this->customer = $this->customerFactory->create();
-        $this->customer->setWebsiteId(
-            $this->storeManager->getStore()->getWebsiteId()
-        );
+        $this->customer = $this->load();
 
         // Load the customer model instance
         $this->customerModel = $this->customer->load(
