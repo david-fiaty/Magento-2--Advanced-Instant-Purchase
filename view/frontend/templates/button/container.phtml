@@ -1,17 +1,16 @@
 <?php
     // Get the config
-    //$config = $block->getConfig();
+    $config = $block->getConfig();
     $config =null;
 ?>
 <?php if ($config) : ?>
     <?php 
         // Display settings
         $buttonDisabled = $config['guest']['click_event'] !== 'disabled' ? '' : 'disabled';
-        $loggedInClass = '';
-        //$loggedInClass = $block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
-        //$purchaseData = $block->customerHelper->getPurchaseData();
+        $loggedInClass = $block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
+        $purchaseData = $block->purchaseHelper->getPurchaseData();
 
-        //$pid = $this->getProduct()->getId() 
+        //$pid = $this->productHelper->getProduct()->getId() 
         $pid = 1562;
     ?>
     <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">

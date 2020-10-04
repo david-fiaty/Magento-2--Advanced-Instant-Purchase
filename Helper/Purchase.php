@@ -56,7 +56,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the customer purchase data.
      */
-    public function getData()
+    public function getPurchaseData()
     {
         $aipConfig = $this->configHelper->getValues();  
         return [
