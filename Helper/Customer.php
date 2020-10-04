@@ -27,16 +27,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * @var Config
-     */
-    public $configHelper;
-
-    /**
-     * @var Product
-     */
-    public $productHelper;
-
-    /**
      * @var Object
      */
     public $customer;
@@ -53,19 +43,28 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
-        \Magento\Customer\Model\Session $customerSession,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
-
+        \Magento\Customer\Model\Session $customerSession
     ) {
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
-        $this->configHelper = $configHelper;
-        $this->productHelper = $productHelper;
-        $this->vaultHandler = $vaultHandler;
+    }
+
+    /**
+     * Load the customer data.
+     */
+    public function init()
+    {
+        // Load the customer instance
+        $this->customer = $this->loadCustomer();
+
+        // Load the customer model instance
+        $this->customerModel = $this->customer->load(
+            $this->customerSession->getCustomer()->getId()
+        );
+
+        return $this;
     }
 
     /**
@@ -80,20 +79,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         );
 
         return $customer;
-    }
-
-    /**
-     * Load the customer data.
-     */
-    public function loadCustomerData()
-    {
-        // Load the customer instance
-        $this->customer = $this->load();
-
-        // Load the customer model instance
-        $this->customerModel = $this->customer->load(
-            $this->customerSession->getCustomer()->getId()
-        );
     }
 
     /**

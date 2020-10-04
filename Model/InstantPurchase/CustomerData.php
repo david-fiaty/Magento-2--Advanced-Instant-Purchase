@@ -89,7 +89,7 @@ class CustomerData
         }
 
         // Load the customer
-        $customer = $this->customerHelper->loadCustomer();
+        $customer = $this->customerHelper->init()->customer;
         
         // Customer data
         $paymentToken = $this->vaultHandler->preparePaymentToken();

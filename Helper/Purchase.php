@@ -83,10 +83,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
             // Load the customer data
-            $this->loadCustomerData();
+            $this->customerHelper->loadCustomerData();
 
             // Confirmation data
-            $confirmationData['addresses'] = $this->getAddresses();
+            $confirmationData['addresses'] = $this->customerHelper->getAddresses();
             $confirmationData['savedCards'] = $this->customerData->vaultHandler->getUserCards();
             $confirmationData['shippingRates'] = $this->customerData->shippingSelector->getShippingRates(
                 $this->customer
