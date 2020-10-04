@@ -62,7 +62,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'advancedInstantPurchase' => array_merge(
                 $aipConfig, 
-                $this->customerData->getSectionData()
+                []
+                //$this->customerData->getSectionData()
             )
         ];
     }
@@ -83,7 +84,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
             // Load the customer data
-            $this->customerHelper->loadCustomerData();
+            $this->customerHelper->init();
 
             // Confirmation data
             $confirmationData['addresses'] = $this->customerHelper->getAddresses();
@@ -93,7 +94,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             );
 
             // Instant purchase data
-            $customerSectionData = $this->customerData->getSectionData($this->customer);
+            $customerSectionData = $this->customerData->getSectionData(
+                $this->customerHelper->customer
+            );
+            
             if (!empty($customerSectionData)) {
                 $confirmationData['sectionData'] = $customerSectionData;
             }

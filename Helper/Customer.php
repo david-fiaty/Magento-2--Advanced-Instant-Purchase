@@ -87,7 +87,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getAddresses()
     {
         $output = [];
-        $addresses = $this->customerModel->getAddresses();
+        $addresses = $this->init()->customerModel->getAddresses();
         if (!empty($addresses)) {
             foreach ($addresses as $address) {
                 $addressArray = $address->toArray();
