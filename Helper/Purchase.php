@@ -96,4 +96,39 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $confirmationData;
     }
+
+    /**
+     * Check if the purchase button can be displayed.
+     */
+    public function canDisplayButton()
+    {
+        return $this->bypassLogin();
+    }
+
+    /**
+     * Check if the purchase button can bypass login.
+     */
+    public function bypassLogin()
+    {
+        return $this->configHelper->value('general/enabled')
+        && $this->configHelper->value('guest/show_guest_button');
+    }
+
+    /**
+     * Check if the purchase button should be disabled.
+     */
+    public function getButtonState()
+    {
+        return $this->configHelper->value('guest/click_event') != 'disabled'
+        ? '' : 'disabled';
+    }
+
+    /**
+     * Get the logged in button classes.
+     */
+    public function getButtonCss()
+    {
+        return $this->customerHelper->isLoggedIn()
+        ? 'aip-login-popup' : '';
+    }
 }

@@ -1,28 +1,18 @@
 <?php
-    // Get the config
     $config = $block->getConfig();
-?>
-<?php if ($config) : ?>
-    <?php 
-        // Display settings
-        $buttonDisabled = $config['guest']['click_event'] !== 'disabled' ? '' : 'disabled';
-        $loggedInClass = $block->customerHelper->isLoggedIn() ? 'aip-login-popup' : '';
+    if ($config && $block->purchaseHelper->canDisplayButton()) {
         //$purchaseData = $block->purchaseHelper->getPurchaseData();
-
-        //$pid = $this->productHelper->getProduct()->getId() 
-        $pid = 1562;
-    ?>
-    <div id="aip-<?= $pid ?>" class="aip-button-container" data-bind="scope:'instant-purchase'">
-        <button type="button"
-                class="<?= $loggedInClass ?> action primary instant-purchase aip-button"
-                disabled="<?= $buttonDisabled ?>"
-                title="<?= __($config['general']['button_text']) ?>">
-                <span translate="buttonText" />
+?>
+    <div id="aip-<?= $this->productHelper->getProduct()->getId() ?>" class="aip-button-container">
+        <button 
+            type="button"
+            class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
+            disabled="<?= $block->purchaseHelper->getButtonState() ?>"
+            title="<?= __($config['general']['button_text']) ?>">
+            <?= __($config['general']['button_text']) ?>
         </button>
     </div>
 
-
- 
     <script>
         require([
             'jquery',
@@ -30,10 +20,7 @@
             'domReady!'
         ], function ($, Aip) {
             'use strict';
-
-            alert('ss');
                 //Aip.setPurchaseData();
         });
     </script>
-
-<?php endif; ?>
+<?php } ?>
