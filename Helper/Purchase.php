@@ -22,20 +22,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerHelper;
 
     /**
-     * @var CustomerData
-     */
-    public $customerData;
-
-    /**
      * Class Customer constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
-        $this->customerData = $customerData;
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
@@ -58,11 +51,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getPurchaseData()
     {
-        $aipConfig = $this->configHelper->getValues();  
         return [
             'advancedInstantPurchase' => array_merge(
-                $aipConfig, 
-                $this->customerData->getSectionData()
+                $this->configHelper->getValues(),
+                []
             )
         ];
     }

@@ -32,7 +32,7 @@ class ListButton extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        //\Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
@@ -40,7 +40,7 @@ class ListButton extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
         
         $this->configHelper = $configHelper;
-        //$this->purchaseHelper = $purchaseHelper;
+        $this->purchaseHelper = $purchaseHelper;
         $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
