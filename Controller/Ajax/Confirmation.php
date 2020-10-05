@@ -118,7 +118,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function newAddressBlock()
     {
         // Load the customer instance
-        $this->customerHelper->loadCustomerData();
+        $this->customerHelper->init();
 
         return $this->pageFactory->create()->getLayout()
             ->createBlock(

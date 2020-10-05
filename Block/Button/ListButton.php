@@ -40,7 +40,7 @@ class ListButton extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
         
         $this->configHelper = $configHelper;
-        $this->purchaseHelper = $purchaseHelper;
+        //$this->purchaseHelper = $purchaseHelper;
         $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }

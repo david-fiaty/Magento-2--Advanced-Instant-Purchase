@@ -37,11 +37,6 @@ class CustomerData
     public $vaultHandler;
 
     /**
-     * @var AvailabilityChecker
-     */
-    public $availabilityChecker;
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -61,7 +56,6 @@ class CustomerData
         \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\AvailabilityChecker $availabilityChecker,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector
     ) {
@@ -71,7 +65,6 @@ class CustomerData
         $this->shippingMethodInterface = $shippingMethodInterface;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->vaultHandler = $vaultHandler;
-        $this->availabilityChecker = $availabilityChecker;
         $this->customerHelper = $customerHelper;
         $this->shippingSelector = $shippingSelector;
     }
@@ -82,11 +75,7 @@ class CustomerData
     public function getSectionData()
     {
         // Set the instant purchase availability
-        $isAvailalbe = $this->availabilityChecker->isAvailable();
-        $data = ['available' => $isAvailalbe];
-        if (!$isAvailalbe) {
-            return $data;
-        }
+        $data = ['available' => true];
 
         // Load the customer
         $customer = $this->customerHelper->init()->customer;

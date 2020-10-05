@@ -62,8 +62,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'advancedInstantPurchase' => array_merge(
                 $aipConfig, 
-                []
-                //$this->customerData->getSectionData()
+                $this->customerData->getSectionData()
             )
         ];
     }
