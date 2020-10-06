@@ -30,7 +30,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      * ViewButton class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
