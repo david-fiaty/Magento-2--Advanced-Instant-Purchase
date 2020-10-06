@@ -119,8 +119,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getButtonState()
     {
-        return $this->configHelper->value('guest/click_event') != 'disabled'
-        ? '' : 'disabled';
+        return $this->configHelper->value('guest/click_event') == 'disabled'
+        ? 'disabled="disabled' : '';
     }
 
     /**

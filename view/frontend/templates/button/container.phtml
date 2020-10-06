@@ -7,7 +7,7 @@
         <button 
             type="button"
             class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
-            disabled="<?= $block->purchaseHelper->getButtonState() ?>"
+            <?= $block->purchaseHelper->getButtonState() ?>
             title="<?= __($config['general']['button_text']) ?>">
             <?= __($config['general']['button_text']) ?>
         </button>
