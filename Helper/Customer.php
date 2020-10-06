@@ -73,7 +73,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function loadCustomer()
     {
         // Load the customer instance
-        $customer = $this->customerFactory->create();
+        $id = $this->customerSession->getCustomer()->getId();
+        $customer = $this->customerFactory->create()->load($id);
         $customer->setWebsiteId(
             $this->storeManager->getStore()->getWebsiteId()
         );

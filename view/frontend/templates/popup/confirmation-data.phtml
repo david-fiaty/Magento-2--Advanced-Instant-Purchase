@@ -1,10 +1,6 @@
 <?php 
     // Get the confirmation screen content
     $content = $block->getConfirmContent();
-    echo "<pre>";
-    var_dump($content);
-    echo "</pre>";
-    exit();
     $config = $block->getConfig();
 ?>
 <?php if ($config['display']['popup_product']): ?>
@@ -27,7 +23,7 @@
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['billingAddress']['id'] ? 'selected' : '' ?>>
+                        <option value="<?= $item['entity_id'] ?>" >
                             <?= $item['street'] ?>&nbsp;
                             <?= $item['postcode'] ?>&nbsp;
                             <?= $item['city'] ?>&nbsp;
@@ -51,7 +47,7 @@
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
+                        <option value="<?= $item['entity_id'] ?>" >
                             <?= $item['street'] ?>&nbsp;
                             <?= $item['postcode'] ?>&nbsp;
                             <?= $item['city'] ?>&nbsp;

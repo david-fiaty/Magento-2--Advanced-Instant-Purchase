@@ -18,7 +18,7 @@ define([
 
             // Initialise the select lists
             $(self.listSelector).select2({
-                language: self.getLocale(),
+                language: self.getLocale(obj.user.language),
                 theme: 'classic',
                 templateResult: AipUtil.formatIcon,
                 templateSelection: AipUtil.formatIcon
@@ -40,9 +40,8 @@ define([
             });
         },
 
-        getLocale: function() {
-            var locale = window.advancedInstantPurchase.user.language.split('_');
-            return locale[0];
+        getLocale: function(code) {
+            return code.split('_')[0];
         }
     };
 });

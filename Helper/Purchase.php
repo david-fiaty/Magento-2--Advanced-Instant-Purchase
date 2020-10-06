@@ -7,6 +7,16 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var CustomerAddressesFormatter
+     */
+    public $customerAddressesFormatter;
+
+    /**
+     * @var ShippingMethodFormatter
+     */
+    public $shippingMethodFormatter;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -30,11 +40,15 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
+        \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
+        $this->customerAddressesFormatter = $customerAddressesFormatter;
+        $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
@@ -58,12 +72,44 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getPurchaseData()
     {
-        return [
-            'advancedInstantPurchase' => array_merge(
-                $this->configHelper->getValues(),
-                []
-            )
+        // Set the instant purchase availability
+        $data = ['available' => true];
+
+        // Load the customer
+        $customer = $this->customerHelper->init()->customer;
+        var_dump($customer->getId()); exit();
+        
+        // Customer data
+        $paymentToken = $this->vaultHandler->preparePaymentToken();
+        $shippingAddress = $customer->getDefaultShippingAddress();
+        $billingAddress = $customer->getDefaultBillingAddress();
+        //$shippingMethod = $this->shippingMethodInterface;
+        $data += [
+            'paymentToken' => $paymentToken,
+            'shippingAddress' => [
+                'id' => $shippingAddress->getId(),
+                'summary' => $this->customerAddressesFormatter->format($shippingAddress),
+            ],
+            'billingAddress' => [
+                'id' => $billingAddress->getId(),
+                'summary' => $this->customerAddressesFormatter->format($billingAddress),
+            ],
+            'shippingMethod' => [
+                'carrier' => 'dd',
+                'method' => 'ee',
+                'summary' => 'ff'
+            ]
+
+            /*
+            'shippingMethod' => [
+                'carrier' => $shippingMethod->getCarrierCode(),
+                'method' => $shippingMethod->getMethodCode(),
+                'summary' => $this->shippingMethodFormatter->format($shippingMethod),
+            ]
+            */
         ];
+
+        return ['customer_data' => $data];
     }
 
     /**
@@ -90,6 +136,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             /*$confirmationData['shippingRates'] = $this->customerData->shippingSelector->getShippingRates(
                 $this->customer
             );*/
+
+            // Instant purchase data
+            $purchaseData = $this->getPurchaseData();
+            if (!empty($purchaseData)) {
+                $confirmationData['sectionData'] = $purchaseData;
+            }
+        
         }
 
         return $confirmationData;
