@@ -32,13 +32,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
-        //\Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
-        //$this->vaultHandler = $vaultHandler;
+        $this->vaultHandler = $vaultHandler;
     }
 
     /**
