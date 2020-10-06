@@ -60,6 +60,18 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get the current user status.
+     */
+    public function getLoginStatus()
+    {
+        return [
+            'user' => [
+                'connected' => $this->customerHelper->isLoggedIn()
+            ]
+        ];
+    }
+    
+    /**
      * Get the current product.
      */
     public function getProduct()

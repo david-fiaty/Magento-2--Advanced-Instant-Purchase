@@ -77,7 +77,13 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            return this.aipConfig.user.connected;
+            var data = CustomerData.get('customer');
+            if (data) {
+                var customer = data();
+                return customer.fullname && customer.firstname;
+            }
+
+            return false;
         },
 
         /**
@@ -152,12 +158,6 @@ define([
             // Prepare variables
             var errors = [];
             var form = AipUtil.getCurrentForm(this.isSubView);
-            var confirmData = _.extend({}, this.confirmationData, {
-                paymentToken: this.getData('paymentToken'),
-                shippingAddress: this.getData('shippingAddress'),
-                billingAddress: this.getData('billingAddress'),
-                shippingMethod: this.getData('shippingMethod')
-            });
 
             // Validate the product options
             if (this.isListView() && this.aipConfig.display.product_list) {
@@ -172,7 +172,7 @@ define([
             }
 
             // Open the modal
-            AipModal.build(confirmData, this);
+            AipModal.build(this);
 
             // Get the AJAX content
             this.getConfirmContent(e);

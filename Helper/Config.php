@@ -101,11 +101,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Loader icon
         $values['ui']['loader'] = $this->getLoaderIconUrl();
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/values.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($values['user'], 1));
+        
         return $values;
     }
 

@@ -35,23 +35,6 @@ class Config extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        return json_encode(
-            array_merge(
-                $this->configHelper->getFrontendValues(),
-                $this->getLoginStatus()
-            )
-        );
-    }
-
-    /**
-     * Get the current user status.
-     */
-    public function getLoginStatus()
-    {
-        return [
-            'user' => [
-                'connected' => $this->customerHelper->isLoggedIn()
-            ]
-        ];
+        return json_encode($this->configHelper->getFrontendValues());
     }
 }

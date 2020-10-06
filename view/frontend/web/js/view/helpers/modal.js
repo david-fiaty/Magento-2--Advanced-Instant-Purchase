@@ -27,7 +27,7 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        build: function(confirmData, obj) {
+        build: function(obj) {
             var self = this;
             var confirmTemplate = MageTemplate(ConfirmationTemplate);
             ConfirmModal({
@@ -36,7 +36,7 @@ define([
                 modalClass: 'aip-modal',
                 data: AipUtil.getCurrentForm(obj.isSubView).serialize(),
                 content: confirmTemplate({
-                    data: confirmData
+                    data: {}
                 }),
                 buttons: [
                     AipButton.getCancel(obj),
