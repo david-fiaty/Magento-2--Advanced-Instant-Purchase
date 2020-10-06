@@ -3,9 +3,7 @@
  * See COPYING.txt for license details.
  */
 define([
-    'ko',
     'jquery',
-    'underscore',
     'mage/translate',
     'uiComponent',
     'mage/url',
@@ -21,14 +19,13 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
             uuid: null,
-            buttonText: '',
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
@@ -53,22 +50,22 @@ define([
         },
 
         /**
-         * Set data from CustomerData.
+         * Prepare the purchase data.
          *
          * @param {Object} data
          */
-        setPurchaseData: function() {
+        build: function() {
             var self = this;
             $(this.buttonSelector).on('click', function(e) {
                 self.handleButtonClick(e);
             }); 
         },
 
-       /**
-        * Log data to the browser console.
-        *
-        * @param {Object} data
-        */
+        /**
+         * Log data to the browser console.
+         *
+         * @param {Object} data
+         */
         log: function(data) {
             if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
                 console.log(data);
