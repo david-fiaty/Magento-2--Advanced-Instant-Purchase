@@ -12,15 +12,22 @@ class Config extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * Button class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->configHelper = $configHelper;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -28,8 +35,23 @@ class Config extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        $aipConfig = $this->configHelper->getFilteredValues();
+        return json_encode(
+            array_merge(
+                $this->configHelper->getFrontendValues(),
+                $this->getLoginStatus()
+            )
+        );
+    }
 
-        return json_encode($aipConfig);
+    /**
+     * Get the current user status.
+     */
+    public function getLoginStatus()
+    {
+        return [
+            'user' => [
+                'connected' => $this->customerHelper->isLoggedIn()
+            ]
+        ];
     }
 }

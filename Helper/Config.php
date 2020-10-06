@@ -24,11 +24,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
-     * @var Session
-     */
-    public $customerSession;
-
-    /**
      * @var Repository
      */
     public $assetRepo; 
@@ -45,14 +40,12 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader,
-        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Asset\Repository $assetRepo,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
-        $this->customerSession = $customerSession;
         $this->assetRepo = $assetRepo;
         $this->productHelper = $productHelper;
     }
@@ -94,16 +87,13 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get filtered config values for the frontend.
      */
-    public function getFilteredValues()
+    public function getFrontendValues()
     {
         // Get the config values
         $values = $this->getValues();
 
         // Remove uneeded elements
         unset($values['card_form']);
-
-        // Add user connection status
-        $values['user']['connected'] = $this->customerSession->isLoggedIn();
 
         // Product info
         $values['product'] = $this->productHelper->getData();
@@ -112,6 +102,10 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         // Loader icon
         $values['ui']['loader'] = $this->getLoaderIconUrl();
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/values.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($values['user'], 1));
         return $values;
     }
 
