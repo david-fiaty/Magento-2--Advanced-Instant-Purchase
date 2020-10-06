@@ -13,16 +13,11 @@
         </button>
     </div>
 
-    <script>
-        require([
-            'jquery',
-            'aip',
-            'domReady!'
-        ], function ($, Aip) {
-            'use strict';
-            $(function () {
-                Aip.build();
-            });
-        });
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "aip": {}
+            }
+        }
     </script>
 <?php } ?>
