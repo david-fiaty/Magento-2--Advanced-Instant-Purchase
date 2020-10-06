@@ -2,9 +2,9 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Confirmation;
 
 /**
- * Display Class.
+ * Data Class.
  */
-class Display extends \Magento\Framework\View\Element\Template
+class Data extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Purchase
@@ -17,7 +17,7 @@ class Display extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
-     * Display constructor.
+     * Data constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,

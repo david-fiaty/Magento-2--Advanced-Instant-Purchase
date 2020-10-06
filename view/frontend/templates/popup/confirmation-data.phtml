@@ -1,6 +1,10 @@
 <?php 
     // Get the confirmation screen content
     $content = $block->getConfirmContent();
+    echo "<pre>";
+    var_dump($content);
+    echo "</pre>";
+    exit();
     $config = $block->getConfig();
 ?>
 <?php if ($config['display']['popup_product']): ?>
