@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
 /**
  * ListButton class constructor.
  */
-class ListButton extends \Magento\Framework\View\Element\Template
+class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
      * @var Config
@@ -57,5 +57,13 @@ class ListButton extends \Magento\Framework\View\Element\Template
         && $this->productHelper->isListView();
 
         return $condition ? $config : null;
+    }
+
+    /**
+     * Get the current product.
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }
