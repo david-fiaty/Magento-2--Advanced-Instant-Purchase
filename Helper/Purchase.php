@@ -22,16 +22,23 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerHelper;
 
     /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandler;
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        //\Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
+        //$this->vaultHandler = $vaultHandler;
     }
 
     /**
@@ -79,19 +86,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
             // Confirmation data
             $confirmationData['addresses'] = $this->customerHelper->getAddresses();
-            $confirmationData['savedCards'] = $this->customerData->vaultHandler->getUserCards();
-            $confirmationData['shippingRates'] = $this->customerData->shippingSelector->getShippingRates(
+            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
+            /*$confirmationData['shippingRates'] = $this->customerData->shippingSelector->getShippingRates(
                 $this->customer
-            );
-
-            // Instant purchase data
-            $customerSectionData = $this->customerData->getSectionData(
-                $this->customerHelper->customer
-            );
-            
-            if (!empty($customerSectionData)) {
-                $confirmationData['sectionData'] = $customerSectionData;
-            }
+            );*/
         }
 
         return $confirmationData;

@@ -6,7 +6,7 @@ use Magento\Vault\Api\Data\PaymentTokenInterface;
 /**
  * Class VaultHandlerService.
  */
-class  VaultHandlerService
+class VaultHandlerService
 {
     /**
      * @var StoreManagerInterface
@@ -22,11 +22,6 @@ class  VaultHandlerService
      * @var PaymentTokenManagementInterface
      */
     public $paymentTokenManagement;
-
-    /**
-     * @var PaymentTokenFormatter
-     */
-    public $paymentTokenFormatter;
 
     /**
      * @var Session
@@ -77,13 +72,11 @@ class  VaultHandlerService
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\TokenFormatter $paymentTokenFormatter
+        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler
     ) {
         $this->storeManager = $storeManager;
         $this->paymentTokenRepository = $paymentTokenRepository;
         $this->paymentTokenManagement = $paymentTokenManagement;
-        $this->paymentTokenFormatter = $paymentTokenFormatter;
         $this->customerSession = $customerSession;
         $this->messageManager = $messageManager;
         $this->cardHandler = $cardHandler;
@@ -176,6 +169,14 @@ class  VaultHandlerService
     }
 
     /**
+     * Format a payment token
+     */
+    public function formatPaymentToken(PaymentTokenInterface $paymentToken)
+    {
+        return $this->renderTokenData($paymentToken);
+    }
+
+    /**
      * Render a payment token.
      */
     public function renderTokenData(PaymentTokenInterface $paymentToken)
@@ -200,7 +201,7 @@ class  VaultHandlerService
 
         // Summary
         $summary = isset($card['data'])
-        ? $this->paymentTokenFormatter->formatPaymentToken($card['data'])
+        ? $this->formatPaymentToken($card['data'])
         : '';
 
         // Public hash
