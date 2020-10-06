@@ -47,6 +47,8 @@ define([
         /** @inheritdoc */
         initialize: function() {
             this._super();
+
+            return this;
         },
 
         /**

@@ -16,11 +16,13 @@
     <script>
         require([
             'jquery',
-            'Naxero_AdvancedInstantPurchase/js/view/instant-purchase',
+            'aip',
             'domReady!'
         ], function ($, Aip) {
             'use strict';
+            $(function () {
                 Aip.build();
+            });
         });
     </script>
 <?php } ?>

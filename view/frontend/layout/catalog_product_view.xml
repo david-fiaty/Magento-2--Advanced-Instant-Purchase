@@ -2,9 +2,10 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="Naxero_AdvancedInstantPurchase::css/main.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/select2/select2.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/slick/slick.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/slick/slick-theme.css" />
+        <css src="Naxero_AdvancedInstantPurchase::css/lib/select2/select2.css" />
+        <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick.css" />
+        <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick-theme.css" />
+        <css src="Naxero_AdvancedInstantPurchase::css/lib/popover/popover.css" />
     </head>
     <body>
         <referenceBlock name="product.info.addtocart">
