@@ -81,21 +81,20 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Set the instant purchase availability
         $data = ['available' => true];
-
-        // Load the customer
-        $customer = $this->customerHelper->getCustomer();
         
         // Payment token
         $paymentToken = $this->vaultHandler->preparePaymentToken();
 
         // Shipping address
-        $shippingAddress = $customer->getDefaultShippingAddress();
+        $shippingAddress = $this->customerHelper->getShippingAddress();
 
         // Billing address
-        $billingAddress = $customer->getDefaultBillingAddress();
+        $billingAddress = $this->customerHelper->getBillingAddress();
 
         // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod($customer);
+        $shippingMethod = $this->shippingSelector->getShippingMethod(
+            $this->customerHelper->getCustomer()
+        );
 
         // Data
         $data += [

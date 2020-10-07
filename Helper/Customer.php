@@ -69,7 +69,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getBillingAddress()
     {
         return $this->addressFactory->create()->load(
-            $this->getCustomer->getDefaultBilling()
+            $this->getCustomer()->getDefaultBilling()
         );
     }
 
@@ -79,7 +79,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getShippingAddress()
     {
         return $this->addressFactory->create()->load(
-            $this->getCustomer->getDefaultShipping()
+            $this->getCustomer()->getDefaultShipping()
         );
     }
 

@@ -69,7 +69,7 @@ class ShippingSelector
         $shippingMethod = $this->shippingMethodFactory->create()
             ->setCarrierCode($rates['carrier_code'])
             ->setMethodCode($rates['method_code'])
-            ->setMethodTitle(__('My method xxx'))
+            ->setMethodTitle(__($rates['carrier_title']))
             ->setAvailable(
                 $this->areShippingMethodsAvailable(
                     $this->customerHelper->getShippingAddress()
@@ -103,8 +103,8 @@ class ShippingSelector
                         $carrierTitle = $this->getCarrierTitle($shippingCode);
                         $methods[] = [
                             'carrier_code' => $code,
-                            'label'=> $carrierTitle,
-                            'price' => $carrierPrice,
+                            'carrier_title'=> $carrierTitle,
+                            'carrier_price' => $carrierPrice,
                             'method_code' => $methodCode
                         ];
                     }

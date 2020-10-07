@@ -19,8 +19,8 @@
     <input type="hidden" name="instant_purchase_payment_token" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
     <input type="hidden" name="instant_purchase_shipping_address" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
     <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
-    <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
-    <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+    <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier_code'] ?>" />
+    <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method_code'] ?>" />
 
     <script type="text/x-magento-init">
         {
