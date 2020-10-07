@@ -7,9 +7,9 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var AddressFactory
+     * @var Address
      */
-    public $addressFactory;
+    public $addressModel;
 
     /**
      * @var Resolver
@@ -35,13 +35,13 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
-        \Magento\Customer\Model\AddressFactory $addressFactory,
+        \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession
     ) {
-        $this->addressFactory = $addressFactory;
+        $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
@@ -53,14 +53,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCustomer()
     {
-        // Load the customer instance
-        $id = $this->customerSession->getCustomer()->getId();
-        $customer = $this->customerFactory->create()->load($id);
-        $customer->setWebsiteId(
-            $this->storeManager->getStore()->getWebsiteId()
-        );
-
-        return $customer;
+        return $this->customerSession->getCustomer();
     }
 
     /**
@@ -68,7 +61,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getBillingAddress()
     {
-        return $this->addressFactory->create()->load(
+        return $this->addressModel->load(
             $this->getCustomer()->getDefaultBilling()
         );
     }
@@ -78,7 +71,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getShippingAddress()
     {
-        return $this->addressFactory->create()->load(
+        return $this->addressModel->load(
             $this->getCustomer()->getDefaultShipping()
         );
     }
