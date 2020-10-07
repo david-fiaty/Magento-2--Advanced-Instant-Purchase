@@ -29,14 +29,14 @@ class ShippingSelector
     public $carriersConfig;
 
     /**
-     * @var AddressFactory
-     */
-    public $addressFactory;
-
-    /**
      * @var Config
      */
     public $configHelper;
+
+    /**
+     * @var Customer
+     */
+    public $customerHelper;
 
     /**
      * ShippingSelector constructor.
@@ -46,15 +46,15 @@ class ShippingSelector
         \Magento\Quote\Api\Data\ShippingMethodInterfaceFactory $shippingMethodFactory,
         \Magento\Shipping\Model\Config $shippingModel,
         \Magento\Shipping\Model\Config $carriersConfig,
-        \Magento\Customer\Model\AddressFactory $addressFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         $this->storeManager = $storeManager;
         $this->shippingMethodFactory = $shippingMethodFactory;
         $this->shippingModel = $shippingModel;
         $this->carriersConfig = $carriersConfig;
-        $this->addressFactory = $addressFactory;
         $this->configHelper = $configHelper;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -72,20 +72,11 @@ class ShippingSelector
             ->setMethodTitle(__('My method xxx'))
             ->setAvailable(
                 $this->areShippingMethodsAvailable(
-                    $this->getShippingAddress($customer)
+                    $this->customerHelper->getShippingAddress()
                 )
             );
 
         return $shippingMethod;
-    }
-
-    /**
-     * Get a shipping address.
-     */
-    public function getShippingAddress($customer)
-    {
-        $shippingAddressId = $customer->getDefaultShipping();
-        return $this->addressFactory->create()->load($shippingAddressId);
     }
 
     /**
@@ -150,9 +141,9 @@ class ShippingSelector
      * @param Address $address
      * @return bool
      */
-    public function areShippingMethodsAvailable(Address $address): bool
+    public function areShippingMethodsAvailable($address)
     {
-        $carriersForAddress = $this->carrierFinder->getCarriersForCustomerAddress($address);
+        $carriersForAddress = $this->getCarriersForCustomerAddress($address);
         return !empty($carriersForAddress);
     }
 
@@ -162,7 +153,7 @@ class ShippingSelector
      * @param Address $address
      * @return array
      */
-    public function getCarriersForCustomerAddress(Address $address): array
+    public function getCarriersForCustomerAddress($address)
     {
         $request = new DataObject([
             'dest_country_id' => $address->getCountryId()

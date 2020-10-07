@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var AddressFactory
+     */
+    public $addressFactory;
+
+    /**
      * @var Resolver
      */
     public $localeResolver;
@@ -30,11 +35,13 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession
     ) {
+        $this->addressFactory = $addressFactory;
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
@@ -54,6 +61,26 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         );
 
         return $customer;
+    }
+
+    /**
+     * Get a billing address.
+     */
+    public function getBillingAddress()
+    {
+        return $this->addressFactory->create()->load(
+            $this->getCustomer->getDefaultBilling()
+        );
+    }
+
+    /**
+     * Get a shipping address.
+     */
+    public function getShippingAddress()
+    {
+        return $this->addressFactory->create()->load(
+            $this->getCustomer->getDefaultShipping()
+        );
     }
 
     /**

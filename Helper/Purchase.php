@@ -7,11 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Session
-     */
-    public $customerSession;
-
-    /**
      * @var CustomerAddressesFormatter
      */
     public $customerAddressesFormatter;
@@ -50,7 +45,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
-        \Magento\Customer\Model\Session $customerSession,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
@@ -59,7 +53,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
-        $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->shippingSelector = $shippingSelector;
@@ -90,7 +83,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $data = ['available' => true];
 
         // Load the customer
-        $customer = $this->customerSession->getCustomer();
+        $customer = $this->customerHelper->getCustomer();
         
         // Payment token
         $paymentToken = $this->vaultHandler->preparePaymentToken();
@@ -141,10 +134,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
             // Load the customer
-            $customer = $this->customerSession->getCustomer();
+            $customer = $this->customerHelper->getCustomer();
 
             // Confirmation data
-            $confirmationData['addresses'] = $this->customerSession->getCustomer()->getAddresses();
+            $confirmationData['addresses'] = $customer->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
                 $customer
