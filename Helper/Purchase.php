@@ -22,6 +22,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $shippingMethodFormatter;
 
     /**
+     * @var ShippingMethodInterface
+     */
+    private $shippingMethodInterface;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -48,6 +53,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Session $customerSession,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
+        \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
@@ -56,6 +62,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
+        $this->shippingMethodInterface = $shippingMethodInterface;
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
@@ -89,7 +96,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $paymentToken = $this->vaultHandler->preparePaymentToken();
         $shippingAddress = $customer->getDefaultShippingAddress();
         $billingAddress = $customer->getDefaultBillingAddress();
-        //$shippingMethod = $this->shippingMethodInterface;
+        $shippingMethod = $this->shippingMethodInterface;
         $data += [
             'paymentToken' => $paymentToken,
             'shippingAddress' => [
@@ -101,18 +108,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
             'shippingMethod' => [
-                'carrier' => 'dd',
-                'method' => 'ee',
-                'summary' => 'ff'
-            ]
-
-            /*
-            'shippingMethod' => [
                 'carrier' => $shippingMethod->getCarrierCode(),
                 'method' => $shippingMethod->getMethodCode(),
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),
             ]
-            */
         ];
 
         return $data;
@@ -133,12 +132,15 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
+            // Load the customer
+            $customer = $this->customerSession->getCustomer();
+
             // Confirmation data
             $confirmationData['addresses'] = $this->customerSession->getCustomer()->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
-            /*$confirmationData['shippingRates'] = $this->customerData->shippingSelector->getShippingRates(
-                $this->customer
-            );*/
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
+                $customer
+            );
 
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();
