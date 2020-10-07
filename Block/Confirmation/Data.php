@@ -2,14 +2,14 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Confirmation;
 
 /**
- * Display Class.
+ * Data Class.
  */
-class Display extends \Magento\Framework\View\Element\Template
+class Data extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var Customer
+     * @var Purchase
      */
-    public $customerHelper;
+    public $purchaseHelper;
 
     /**
      * @var Config
@@ -17,30 +17,31 @@ class Display extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
-     * Display constructor.
+     * Data constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         array $data = []
     ) {
-        parent::__construct($context, $data);
-        $this->customerHelper = $customerHelper;
+        $this->purchaseHelper = $purchaseHelper;
         $this->configHelper = $configHelper;
+
+        parent::__construct($context, $data);
     }
 
     /**
      * Get the connfirmation popup content.
      */
     public function getConfirmContent() {
-        return $this->customerHelper->getConfirmContent();
+        return $this->purchaseHelper->getConfirmContent();
     }
 
     /**
      * Get the module config.
      */
     public function getConfig() {
-        return $this->configHelper->getValues();
+        return $this->configHelper->getFrontendValues();
     }
 }

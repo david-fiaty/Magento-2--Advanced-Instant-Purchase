@@ -13,6 +13,7 @@ define([
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'instantpurchase/button/placeOrder',
         productFormSelector: '#product_addtocart_form',
+        addressFormSelector: '.form-address-edit',
 
         /**
          * Get the modal confirmation URL.
@@ -26,7 +27,7 @@ define([
          * Get the current form.
          */
         getCurrentForm: function(isSubView) {
-            var form = isSubView ? '.form-address-edit' : this.productFormSelector;
+            var form = isSubView ? this.addressFormSelector : this.productFormSelector;
             return $(form);
         },
 

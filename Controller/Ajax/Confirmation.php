@@ -99,7 +99,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         // Confirmation content
         $html = $this->pageFactory->create()->getLayout()
-            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Display')
+            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Data')
             ->setTemplate('Naxero_AdvancedInstantPurchase::popup/confirmation-data.phtml')
             ->toHtml();
 
@@ -117,9 +117,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newAddressBlock()
     {
-        // Load the customer instance
-        $this->customerHelper->loadCustomerData();
-
         return $this->pageFactory->create()->getLayout()
             ->createBlock(
                 'Naxero\AdvancedInstantPurchase\Block\Address\Edit',

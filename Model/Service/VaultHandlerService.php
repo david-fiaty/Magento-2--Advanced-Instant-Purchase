@@ -6,7 +6,7 @@ use Magento\Vault\Api\Data\PaymentTokenInterface;
 /**
  * Class VaultHandlerService.
  */
-class  VaultHandlerService
+class VaultHandlerService
 {
     /**
      * @var StoreManagerInterface
@@ -169,6 +169,14 @@ class  VaultHandlerService
     }
 
     /**
+     * Format a payment token
+     */
+    public function formatPaymentToken(PaymentTokenInterface $paymentToken)
+    {
+        return $this->renderTokenData($paymentToken);
+    }
+
+    /**
      * Render a payment token.
      */
     public function renderTokenData(PaymentTokenInterface $paymentToken)
@@ -185,5 +193,25 @@ class  VaultHandlerService
             __('expires'),
             $details['expirationDate']
         );
+    }
+
+    public function preparePaymentToken() {
+        // Get the last saved cards
+        $card = $this->getLastSavedCard();
+
+        // Summary
+        $summary = isset($card['data'])
+        ? $this->formatPaymentToken($card['data'])
+        : '';
+
+        // Public hash
+        $publicHash = isset($card['data'])
+        ? $card['data']->getPublicHash()
+        : '';
+        
+        return [
+            'publicHash' => $publicHash,
+            'summary' => $summary,
+        ];
     }
 }

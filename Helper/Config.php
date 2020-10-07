@@ -24,16 +24,37 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
+     * @var Repository
+     */
+    public $assetRepo; 
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
-        \Magento\Framework\Module\Dir\Reader $moduleDirReader
+        \Magento\Framework\Module\Dir\Reader $moduleDirReader,
+        \Magento\Framework\View\Asset\Repository $assetRepo,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
+        $this->assetRepo = $assetRepo;
+        $this->productHelper = $productHelper;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -71,6 +92,38 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get filtered config values for the frontend.
+     */
+    public function getFrontendValues()
+    {
+        // Get the config values
+        $values = $this->getValues();
+
+        // Remove uneeded elements
+        unset($values['card_form']);
+
+        // Product info
+        $values['product'] = $this->productHelper->getData();
+        $values['isListView'] = $this->productHelper->isListView();
+
+        // Loader icon
+        $values['ui']['loader'] = $this->getLoaderIconUrl();
+        
+        return array_merge(
+            $values,
+            $this->customerHelper->getUserParams()
+        );
+    }
+
+    /**
+     * Get the loader icon URL.
+     */
+    public function getLoaderIconUrl()
+    {
+        return $this->assetRepo->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+    }
+
+    /**
      * Finds a file path from file name.
      *
      * @param string $fileName
@@ -82,20 +135,5 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
             'Naxero_AdvancedInstantPurchase'
         ) . '/' . $fileName;
-    }
-
-    /**
-     * Check if the core instant purchase feature is enabled.
-     *
-     * @param string $fileName
-     * @return string
-     */
-    public function isCoreInstantPurchaseEnabled()
-    {
-        $path = 'sales/instant_purchase/active';
-        return $this->scopeConfig->getValue(
-            $path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
     }
 }

@@ -3,13 +3,10 @@
  * See COPYING.txt for license details.
  */
 define([
-    'ko',
     'jquery',
-    'underscore',
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -21,15 +18,14 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function (ko, $, _, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
-            template: 'Magento_InstantPurchase/instant-purchase',
+            user: {},
             uuid: null,
-            buttonText: '',
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             paymentToken: null,
@@ -50,42 +46,27 @@ define([
 
         /** @inheritdoc */
         initialize: function() {
-            var instantPurchase = CustomerData.get('instant-purchase');
             this._super();
-            this.setPurchaseData(instantPurchase());
-            instantPurchase.subscribe(this.setPurchaseData, this);
-        },
-
-        /** @inheritdoc */
-        initObservable: function() {
-            this._super()
-                .observe('showButton paymentToken shippingAddress billingAddress shippingMethod');
-
-            return this;
+            this.build();
         },
 
         /**
-         * Set data from CustomerData.
+         * Prepare the purchase data.
          *
          * @param {Object} data
          */
-        setPurchaseData: function(data) {
-            // Get the button state
-            var showButton = data.available && this.canDisplayButton();
-
-            // Prepare the data
-            this.showButton(showButton);
-            this.paymentToken(data.paymentToken);
-            this.shippingAddress(data.shippingAddress);
-            this.billingAddress(data.billingAddress);
-            this.shippingMethod(data.shippingMethod);
+        build: function() {
+            var self = this;
+            $(this.buttonSelector).on('click', function(e) {
+                self.handleButtonClick(e);
+            }); 
         },
 
-       /**
-        * Log data to the browser console.
-        *
-        * @param {Object} data
-        */
+        /**
+         * Log data to the browser console.
+         *
+         * @param {Object} data
+         */
         log: function(data) {
             if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
                 console.log(data);
@@ -93,49 +74,22 @@ define([
         },
 
         /**
-         * Bypass the logged in requirement.
-         */
-        bypassLogin: function() {
-            return this.aipConfig.general.enabled
-            && this.aipConfig.guest.show_guest_button;
-        },
-
-        /**
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var data = CustomerData.get('customer');
-            if (data) {
-                var customer = data();
-                return customer.fullname && customer.firstname;
-            }
-
-            return false;
+            return this.aipConfig.user.connected;
         },
 
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function(obj, e) {
+        handleButtonClick: function(e) {
             if (this.isLoggedIn()) {
-                this.purchasePopup(obj, e);
+                this.purchasePopup(e);
             } else {
                 var val = this.aipConfig.guest.click_event;
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AipLogin[fn]();
-            }
-        },
-
-        /**
-         * Get the button state.
-         */
-        shouldDisableButton: function() {
-            // Get the cart local storage
-            $(this.buttonSelector).prop('disabled', true);
-
-            // Check the button state configs
-            if (this.aipConfig.guest.click_event !== 'disabled') {
-                $(this.buttonSelector).prop('disabled', false);
             }
         },
 
@@ -147,17 +101,9 @@ define([
         },
 
         /**
-         * Check if the button can be displayed.
-         */
-        canDisplayButton: function() {
-            return (this.aipConfig.display.product_list && this.isListView())
-            || (this.aipConfig.display.product_view && !this.isListView());
-        },
-
-        /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function(obj, e) {
+        getConfirmContent: function(e) {
             // Get the product id
             var pid = $(e.currentTarget)
             .closest('.aip-button-container')
@@ -202,17 +148,15 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function(obj, e) {
-            var form = AipUtil.getCurrentForm(self.isSubView),
-            confirmData = _.extend({}, this.confirmationData, {
-                paymentToken: this.getData('paymentToken'),
-                shippingAddress: this.getData('shippingAddress'),
-                billingAddress: this.getData('billingAddress'),
-                shippingMethod: this.getData('shippingMethod')
-            });
+        purchasePopup: function(e) {
+            // Prepare variables
+            var errors = [];
+            var form = AipUtil.getCurrentForm(this.isSubView);
 
             // Validate the product options
-            var errors = AipValidation.checkOptions(obj, e);
+            if (this.isListView() && this.aipConfig.display.product_list) {
+                errors = AipValidation.checkOptions(this, e);
+            }
             
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
@@ -222,10 +166,10 @@ define([
             }
 
             // Open the modal
-            AipModal.build(confirmData, this);
+            AipModal.build(this);
 
             // Get the AJAX content
-            this.getConfirmContent(obj, e);
+            this.getConfirmContent(e);
         },
 
         /**

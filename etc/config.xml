@@ -19,6 +19,7 @@
     <default>
         <advanced_instant_purchase>
             <general>
+                <button_text>Buy Now</button_text>
                 <enabled>1</enabled>
                 <debug_enabled>0</debug_enabled>
                 <console_logging_enabled>0</console_logging_enabled>
@@ -46,7 +47,7 @@
                 <bypass_missing_shipping>1</bypass_missing_shipping>
             </registered>
             <card_form>
-                <load><![CDATA[<h1>load</h1><script>alert("load")</script>]]></load>
+                <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
         </advanced_instant_purchase> 
     </default>

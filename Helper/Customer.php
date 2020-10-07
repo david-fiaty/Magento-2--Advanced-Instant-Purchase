@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Resolver
+     */
+    public $localeResolver;
+
+    /**
      * @var StoreManagerInterface
      */
     public $storeManager;
@@ -22,137 +27,33 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * @var ConfigHelper
-     */
-    public $configHelper;
-
-    /**
-     * @var ProductHelper
-     */
-    public $productHelper;
-
-    /**
-     * @var CustomerData
-     */
-    public $customerData;
-
-    /**
-     * @var VaultHandlerService
-     */
-    public $vaultHandler;
-
-    /**
-     * @var Object
-     */
-    public $customer;
-
-    /**
-     * @var Object
-     */
-    public $customerModel;
-
-    /**
-     * @var Array
-     */
-    public $config;
-
-    /**
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
-        \Magento\Customer\Model\Session $customerSession,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData $customerData,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
-
+        \Magento\Customer\Model\Session $customerSession
     ) {
+        $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
-        $this->configHelper = $configHelper;
-        $this->productHelper = $productHelper;
-        $this->customerData = $customerData;
-        $this->shippingSelector = $shippingSelector;
-        $this->vaultHandler = $vaultHandler;
     }
 
     /**
-     * Get the confirmation modal content.
+     * Get a customer.
      */
-    public function getConfirmContent()
-    {
-        // Prepare the output array
-        $confirmationData = [];
-        $confirmationData['popup'] = $this->getPopupData();
-        $confirmationData['product'] = $this->productHelper->getData();
-        $confirmationData['addresses'] = [];
-        $confirmationData['savedCards'] = [];
-        $confirmationData['shippingRates'] = [];
-
-        // Build the confirmation data
-        if ($this->customerSession->isLoggedIn()) {
-            // Get the config values
-            $this->loadConfigData();
-
-            // Load the customer data
-            $this->loadCustomerData();
-
-            // Confirmation data
-            $confirmationData['addresses'] = $this->getAddresses();
-            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
-                $this->customer
-            );
-
-            // Instant purchase data
-            $customerSectionData = $this->customerData->getSectionData();
-            if (!empty($customerSectionData)) {
-                $confirmationData['sectionData'] = $customerSectionData;
-            }
-        }
-
-        return $confirmationData;
-    }
-
-    /**
-     * Load the customer data.
-     */
-    public function loadCustomerData()
+    public function getCustomer()
     {
         // Load the customer instance
-        $this->customer = $this->customerFactory->create();
-        $this->customer->setWebsiteId(
+        $id = $this->customerSession->getCustomer()->getId();
+        $customer = $this->customerFactory->create()->load($id);
+        $customer->setWebsiteId(
             $this->storeManager->getStore()->getWebsiteId()
         );
 
-        // Load the customer model instance
-        $this->customerModel = $this->customer->load(
-            $this->customerSession->getCustomer()->getId()
-        );
-    }
-
-    /**
-     * Load the config data.
-     */
-    public function loadConfigData()
-    {
-        $this->config = $this->configHelper->getValues();
-    }
-
-    /**
-     * Get the popup data.
-     */
-    public function getPopupData()
-    {
-        return [
-            'title' => $this->config['display']['popup_title'],
-            'header_text' => $this->config['display']['popup_header_text'],
-            'footer_text' => $this->config['display']['popup_footer_text']
-        ];
+        return $customer;
     }
 
     /**
@@ -161,7 +62,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getAddresses()
     {
         $output = [];
-        $addresses = $this->customerModel->getAddresses();
+        $addresses = $this->getCustomer()->getAddresses();
         if (!empty($addresses)) {
             foreach ($addresses as $address) {
                 $addressArray = $address->toArray();
@@ -172,5 +73,34 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get the user locale.
+     */
+    public function getUserLanguage()
+    {
+        return $this->localeResolver->getLocale();
+    }
+
+    /**
+     * Check if the cusomer is logged in.
+     */
+    public function isLoggedIn()
+    {
+        return $this->customerSession->isLoggedIn();
+    }
+
+    /**
+     * Get the current user status.
+     */
+    public function getUserParams()
+    {
+        return [
+            'user' => [
+                'connected' => $this->isLoggedIn(),
+                'language' => $this->getUserLanguage()
+            ]
+        ];
     }
 }

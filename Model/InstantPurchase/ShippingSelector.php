@@ -5,7 +5,7 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
  * Class ShippingSelector.
  */
 class ShippingSelector
-{
+{    
     /**
      * @var Config
      */

@@ -14,9 +14,10 @@
 
  var config = {
     paths: {
-        select2: 'Naxero_AdvancedInstantPurchase/js/select2/select2.full',
-        slick: 'Naxero_AdvancedInstantPurchase/js/slick/slick',
-        popover: 'Naxero_AdvancedInstantPurchase/js/popover/popover'
+        select2: 'Naxero_AdvancedInstantPurchase/js/lib/select2/select2.full',
+        slick: 'Naxero_AdvancedInstantPurchase/js/lib/slick/slick',
+        popover: 'Naxero_AdvancedInstantPurchase/js/lib/popover/popover',
+        aip: 'Naxero_AdvancedInstantPurchase/js/view/instant-purchase'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 };

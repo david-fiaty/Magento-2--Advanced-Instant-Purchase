@@ -39,7 +39,8 @@ define(
 
                 // Fields validation
                 $(this.inputSelectors).each(function() {
-                    if ($(this).val().length == 0) {
+                    var val = $(this).val();
+                    if (val && val.length == 0) {
                         errors.push({
                             id: input.attr('id')
                         });
@@ -77,31 +78,28 @@ define(
                 // Error array
                 var errors = [];
 
-                // Check all options fields
-                if (obj.isListView()) {
-                    // Find existing options
-                    var productAttributes = $(e.currentTarget)
-                    .parents(this.productContainerSelector)
-                    .find('input[name^="super_attribute"]');
+                // Find existing options
+                var productAttributes = $(e.currentTarget)
+                .parents(this.productContainerSelector)
+                .find('input[name^="super_attribute"]');
 
-                    // If there are attributes
-                    if (productAttributes.length > 0) {
-                        productAttributes.each(function() {
-                            var val = $(this).val();
-                            if (!val || val === 'undefined' || val.length == 0) {
-                                var name = $(this).attr('name');
-                                errors.push({
-                                    id: name.match(/\d+/)[0],
-                                    name: name
-                                });
-                            }
-                        });
+                // If there are attributes
+                if (productAttributes.length > 0) {
+                    productAttributes.each(function() {
+                        var val = $(this).val();
+                        if (!val || val === 'undefined' || val.length == 0) {
+                            var name = $(this).attr('name');
+                            errors.push({
+                                id: name.match(/\d+/)[0],
+                                name: name
+                            });
+                        }
+                    });
 
-                        // Handle errors
-                        this.displayOptionsErrors(errors, e);
-                    }
+                    // Handle errors
+                    this.displayOptionsErrors(errors, e);
                 }
-
+        
                 return errors;
             },
 
@@ -122,7 +120,7 @@ define(
                     // Update the button state
                     button.popover({
                         title : '',
-                        content : __('Please select the required options'),
+                        content : __('Please select some options'),
                         autoPlace : false,
                         trigger : 'hover',
                         placement : 'right',
@@ -136,13 +134,13 @@ define(
                         var attributeContainer = productContainer
                         .find('[attribute-id="' + errors[i].id + '"]');
                         attributeContainer.css('position', 'relative');
-                        attributeContainer.append('<span class="aip-attribute-error">&#10006;</span>');
+                        attributeContainer.append('<div class="aip-attribute-error"><div>&#10006;</div></div>');
                         attributeContainer.find(this.attributeErrorSelector).popover({
                             title : '',
                             content : __('Required option'),
                             autoPlace : false,
                             trigger : 'hover',
-                            placement : 'bottom',
+                            placement : 'right',
                             delay : 10
                         });
                     }
