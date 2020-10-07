@@ -22,7 +22,7 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode($block->getUserParams()) ?>
+                "aip": <?= json_encode($this->customerHelper->getUserParams()) ?>
             }
         }
     </script>

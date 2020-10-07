@@ -95,4 +95,17 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->customerSession->isLoggedIn();
     }
+
+    /**
+     * Get the current user status.
+     */
+    public function getUserParams()
+    {
+        return [
+            'user' => [
+                'connected' => $this->isLoggedIn(),
+                'language' => $this->getUserLanguage()
+            ]
+        ];
+    }
 }

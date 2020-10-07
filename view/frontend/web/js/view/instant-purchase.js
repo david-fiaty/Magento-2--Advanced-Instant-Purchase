@@ -7,7 +7,6 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'Magento_Customer/js/customer-data',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -19,7 +18,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, CustomerData, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -78,13 +77,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            var data = CustomerData.get('customer');
-            if (data) {
-                var customer = data();
-                return customer.fullname && customer.firstname;
-            }
-
-            return false;
+            return this.aipConfig.user.connected;
         },
 
         /**

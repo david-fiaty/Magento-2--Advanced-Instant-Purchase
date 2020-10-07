@@ -58,17 +58,4 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 
         return $condition ? $config : null;
     }
-
-    /**
-     * Get the current user status.
-     */
-    public function getUserParams()
-    {
-        return [
-            'user' => [
-                'connected' => $this->customerHelper->isLoggedIn(),
-                'language' => $this->customerHelper->getUserLanguage()
-            ]
-        ];
-    }
 }
