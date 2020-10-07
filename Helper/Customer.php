@@ -27,11 +27,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * @var Object
-     */
-    public $customer;
-
-    /**
      * Class Customer constructor.
      */
     public function __construct(

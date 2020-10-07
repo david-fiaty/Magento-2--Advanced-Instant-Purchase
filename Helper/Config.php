@@ -34,6 +34,11 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * Class Config constructor.
      */
     public function __construct(
@@ -41,13 +46,15 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader,
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
         $this->assetRepo = $assetRepo;
         $this->productHelper = $productHelper;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -102,7 +109,10 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         // Loader icon
         $values['ui']['loader'] = $this->getLoaderIconUrl();
         
-        return $values;
+        return array_merge(
+            $values,
+            $this->customerHelper->getUserParams()
+        );
     }
 
     /**
