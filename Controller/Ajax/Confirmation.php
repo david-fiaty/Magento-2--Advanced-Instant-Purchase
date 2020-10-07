@@ -117,9 +117,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newAddressBlock()
     {
-        // Load the customer instance
-        $this->customerHelper->init();
-
         return $this->pageFactory->create()->getLayout()
             ->createBlock(
                 'Naxero\AdvancedInstantPurchase\Block\Address\Edit',

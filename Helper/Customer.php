@@ -32,11 +32,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customer;
 
     /**
-     * @var Object
-     */
-    public $customerModel;
-
-    /**
      * Class Customer constructor.
      */
     public function __construct(
@@ -52,25 +47,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Load the customer data.
+     * Get a customer.
      */
-    public function init()
-    {
-        // Load the customer instance
-        $this->customer = $this->loadCustomer();
-
-        // Load the customer model instance
-        $this->customerModel = $this->customer->load(
-            $this->customerSession->getCustomer()->getId()
-        );
-
-        return $this;
-    }
-
-    /**
-     * Load a customer instance.
-     */
-    public function loadCustomer()
+    public function getCustomer()
     {
         // Load the customer instance
         $id = $this->customerSession->getCustomer()->getId();
@@ -88,7 +67,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getAddresses()
     {
         $output = [];
-        $addresses = $this->init()->customerModel->getAddresses();
+        $addresses = $this->getCustomer()->getAddresses();
         if (!empty($addresses)) {
             foreach ($addresses as $address) {
                 $addressArray = $address->toArray();
