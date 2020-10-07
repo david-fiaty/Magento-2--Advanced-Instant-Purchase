@@ -94,9 +94,9 @@
         <p>
             <select id="aip-shipping-method-select" data-field="instant_purchase_shipping" class="aip-select js-states form-control">
                 <?php foreach ($content['shippingRates'] as $item): ?>
-                    <option value="<?= $item['carrier'] ?>">
-                        <?= $item['label'] ?>&nbsp;
-                        <?= $item['price'] ?>
+                    <option value="<?= $item['carrier_code'] ?>">
+                        <?= $item['carrier_title'] ?>&nbsp;
+                        <?= $item['carrier_price'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
