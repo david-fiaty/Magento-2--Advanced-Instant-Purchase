@@ -2,6 +2,9 @@
     $config = $block->getConfig();
     if ($config && $block->purchaseHelper->canDisplayButton()) {
         $purchaseData = $block->purchaseHelper->getPurchaseData();
+
+
+        var_dump($purchaseData);exit();
 ?>
     <div id="aip-<?= $block->getProduct()->getId() ?>" class="aip-button-container">
         <button 

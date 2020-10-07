@@ -75,9 +75,10 @@ class ShippingSelector
                             true
                         );
                         $methods[] = [
-                            'value' => $code,
+                            'carrier' => $code,
                             'label'=> $carrierTitle,
-                            'price' => $carrierPrice
+                            'price' => $carrierPrice,
+                            'method' => $methodCode
                         ];
                     }
                 }

@@ -22,11 +22,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $shippingMethodFormatter;
 
     /**
-     * @var ShippingMethodInterface
-     */
-    private $shippingMethodInterface;
-
-    /**
      * @var ShippingSelector
      */
     private $shippingSelector;
@@ -58,7 +53,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Session $customerSession,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Magento\Quote\Api\Data\ShippingMethodInterface $shippingMethodInterface,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
@@ -68,7 +62,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerSession = $customerSession;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
-        $this->shippingMethodInterface = $shippingMethodInterface;
         $this->shippingSelector = $shippingSelector;
         $this->productHelper = $productHelper;
         $this->configHelper = $configHelper;
@@ -103,7 +96,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $paymentToken = $this->vaultHandler->preparePaymentToken();
         $shippingAddress = $customer->getDefaultShippingAddress();
         $billingAddress = $customer->getDefaultBillingAddress();
-        $shippingMethod = $this->shippingMethodInterface;
+        $shippingMethod = $this->shippingSelector->getShippingRates($customer)[0];
         $data += [
             'paymentToken' => $paymentToken,
             'shippingAddress' => [
@@ -115,8 +108,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
             'shippingMethod' => [
-                'carrier' => $shippingMethod->getCarrierCode(),
-                'method' => $shippingMethod->getMethodCode(),
+                'carrier' => $shippingMethod['carrier'],
+                'method' => $shippingMethod['method'],
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),
             ]
         ];
