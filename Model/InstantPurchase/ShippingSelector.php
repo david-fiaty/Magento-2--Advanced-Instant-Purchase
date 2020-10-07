@@ -1,11 +1,18 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 
+use Magento\Framework\DataObject;
+
 /**
  * Class ShippingSelector.
  */
 class ShippingSelector
 {    
+    /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
+
     /**
      * @var ShippingMethodInterfaceFactory
      */
@@ -19,18 +26,34 @@ class ShippingSelector
     /**
      * @var Config
      */
+    public $carriersConfig;
+
+    /**
+     * @var AddressFactory
+     */
+    public $addressFactory;
+
+    /**
+     * @var Config
+     */
     public $configHelper;
 
     /**
      * ShippingSelector constructor.
      */
     public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Quote\Api\Data\ShippingMethodInterfaceFactory $shippingMethodFactory,
         \Magento\Shipping\Model\Config $shippingModel,
+        \Magento\Shipping\Model\Config $carriersConfig,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
+        $this->storeManager = $storeManager;
         $this->shippingMethodFactory = $shippingMethodFactory;
         $this->shippingModel = $shippingModel;
+        $this->carriersConfig = $carriersConfig;
+        $this->addressFactory = $addressFactory;
         $this->configHelper = $configHelper;
     }
 
@@ -42,18 +65,27 @@ class ShippingSelector
      */
     public function getShippingMethod($customer)
     {
-        $rates = $this->getShippingRates($customer);
+        $rates = $this->getShippingRates($customer)[0];
         $shippingMethod = $this->shippingMethodFactory->create()
             ->setCarrierCode($rates['carrier_code'])
             ->setMethodCode($rates['method_code'])
             ->setMethodTitle(__('My method xxx'))
             ->setAvailable(
                 $this->areShippingMethodsAvailable(
-                    $customer->getDefaultShippingAddress()
+                    $this->getShippingAddress($customer)
                 )
             );
-            
+
         return $shippingMethod;
+    }
+
+    /**
+     * Get a shipping address.
+     */
+    public function getShippingAddress($customer)
+    {
+        $shippingAddressId = $customer->getDefaultShipping();
+        return $this->addressFactory->create()->load($shippingAddressId);
     }
 
     /**
@@ -118,9 +150,32 @@ class ShippingSelector
      * @param Address $address
      * @return bool
      */
-    private function areShippingMethodsAvailable(Address $address): bool
+    public function areShippingMethodsAvailable(Address $address): bool
     {
         $carriersForAddress = $this->carrierFinder->getCarriersForCustomerAddress($address);
         return !empty($carriersForAddress);
+    }
+
+    /**
+     * Finds carriers delivering to customer address
+     *
+     * @param Address $address
+     * @return array
+     */
+    public function getCarriersForCustomerAddress(Address $address): array
+    {
+        $request = new DataObject([
+            'dest_country_id' => $address->getCountryId()
+        ]);
+
+        $carriers = [];
+        foreach ($this->carriersConfig->getActiveCarriers($this->storeManager->getStore()->getId()) as $carrier) {
+            $checked = $carrier->checkAvailableShipCountries($request);
+            if (false !== $checked && null === $checked->getErrorMessage() && !empty($checked->getAllowedMethods())) {
+                $carriers[] = $checked;
+            }
+        }
+
+        return $carriers;
     }
 }
