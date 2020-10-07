@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
 class ShippingSelector
 {    
     /**
+     * @var ShippingMethodInterfaceFactory
+     */
+    public $shippingMethodFactory;
+
+    /**
      * @var Config
      */
     public $shippingModel;
@@ -20,9 +25,11 @@ class ShippingSelector
      * ShippingSelector constructor.
      */
     public function __construct(
+        \Magento\Quote\Api\Data\ShippingMethodInterfaceFactory $shippingMethodFactory,
         \Magento\Shipping\Model\Config $shippingModel,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
+        $this->shippingMethodFactory = $shippingMethodFactory;
         $this->shippingModel = $shippingModel;
         $this->configHelper = $configHelper;
     }
@@ -33,17 +40,20 @@ class ShippingSelector
      * @param Address $address
      * @return Rate
      */
-    public function getShippingMethod($address)
+    public function getShippingMethod($customer)
     {
-        $address->setCollectShippingRates(true);
-        $address->collectShippingRates();
-        $shippingRates = $address->getAllShippingRates();
-        if (empty($shippingRates)) {
-            return null;
-        }
-
-        $cheapestRate = $this->selectCheapestRate($shippingRates);
-        return $cheapestRate->getCode();
+        $rates = $this->getShippingRates($customer);
+        $shippingMethod = $this->shippingMethodFactory->create()
+            ->setCarrierCode($rates['carrier_code'])
+            ->setMethodCode($rates['method_code'])
+            ->setMethodTitle(__('My method xxx'))
+            ->setAvailable(
+                $this->areShippingMethodsAvailable(
+                    $customer->getDefaultShippingAddress()
+                )
+            );
+            
+        return $shippingMethod;
     }
 
     /**
@@ -62,23 +72,17 @@ class ShippingSelector
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
                     // Get the carrier price
-                    $carrierPrice = $this->configHelper->value(
-                        'carriers/'. $shippingCode . '/price',
-                        true
-                    );
+                    $carrierPrice = $this->getCarrierPrice($shippingCode);
 
                     // If the carrier has a price
                     if ($carrierPrice) {
                         $code = $shippingCode . '_' . $methodCode;
-                        $carrierTitle = $this->configHelper->value(
-                            'carriers/'. $shippingCode . '/title',
-                            true
-                        );
+                        $carrierTitle = $this->getCarrierTitle($shippingCode);
                         $methods[] = [
-                            'carrier' => $code,
+                            'carrier_code' => $code,
                             'label'=> $carrierTitle,
                             'price' => $carrierPrice,
-                            'method' => $methodCode
+                            'method_code' => $methodCode
                         ];
                     }
                 }
@@ -89,20 +93,34 @@ class ShippingSelector
     }
 
     /**
-     * Selects shipping price with minimal price.
-     *
-     * @param Rate[] $shippingRates
-     * @return Rate
+     * Get the carrier price.
      */
-    private function selectCheapestRate(array $shippingRates)
-    {
-        $rate = array_shift($shippingRates);
-        foreach ($shippingRates as $tmpRate) {
-            if ($tmpRate->getPrice() < $rate->getPrice()) {
-                $rate = $tmpRate;
-            }
-        }
+    public function getCarrierPrice($shippingCode) {
+        return $this->configHelper->value(
+            'carriers/'. $shippingCode . '/price',
+            true
+        );
+    }
 
-        return $rate;
+    /**
+     * Get the carrier title.
+     */
+    public function getCarrierTitle($shippingCode) {
+        return $this->configHelper->value(
+            'carriers/'. $shippingCode . '/title',
+            true
+        );
+    }
+
+    /**
+     * Checks if any shipping method available.
+     *
+     * @param Address $address
+     * @return bool
+     */
+    private function areShippingMethodsAvailable(Address $address): bool
+    {
+        $carriersForAddress = $this->carrierFinder->getCarriersForCustomerAddress($address);
+        return !empty($carriersForAddress);
     }
 }

@@ -92,11 +92,19 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Load the customer
         $customer = $this->customerSession->getCustomer();
         
-        // Customer data
+        // Payment token
         $paymentToken = $this->vaultHandler->preparePaymentToken();
+
+        // Shipping address
         $shippingAddress = $customer->getDefaultShippingAddress();
+
+        // Billing address
         $billingAddress = $customer->getDefaultBillingAddress();
-        $shippingMethod = $this->shippingSelector->getShippingRates($customer)[0];
+
+        // Shipping method
+        $shippingMethod = $this->shippingSelector->getShippingMethod($customer);
+
+        // Data
         $data += [
             'paymentToken' => $paymentToken,
             'shippingAddress' => [
@@ -108,8 +116,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
             'shippingMethod' => [
-                'carrier' => $shippingMethod['carrier'],
-                'method' => $shippingMethod['method'],
+                'carrier' => $shippingMethod->getCarrierCode(),
+                'method' => $shippingMethod->getMethodCode(),
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),
             ]
         ];
