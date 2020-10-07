@@ -39,7 +39,8 @@ define(
 
                 // Fields validation
                 $(this.inputSelectors).each(function() {
-                    if ($(this).val().length == 0) {
+                    var val = $(this).val();
+                    if (val && val.length == 0) {
                         errors.push({
                             id: input.attr('id')
                         });
