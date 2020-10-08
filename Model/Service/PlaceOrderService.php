@@ -1,22 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Service;
 
-use Magento\Framework\Exception\LocalizedException;
-use Magento\InstantPurchase\Model\QuoteManagement\PaymentConfiguration;
-use Magento\InstantPurchase\Model\QuoteManagement\Purchase;
-use Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation;
-use Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling;
-use Magento\InstantPurchase\Model\QuoteManagement\ShippingConfiguration;
-use Magento\Quote\Api\CartRepositoryInterface;
-
-
-use Magento\Catalog\Model\Product;
-use Magento\Customer\Model\Customer;
-use Magento\Store\Model\Store;
-use \Throwable;
-
 /**
- * Place an order using instant purchase option.
+ * Place order service class.
  *
  * @api
  * @since 100.2.0
@@ -54,21 +40,21 @@ class PlaceOrderService
     private $purchase;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * PlaceOrder constructor.
-     * @param CartRepositoryInterface $quoteRepository
-     * @param QuoteCreation $quoteCreation
-     * @param QuoteFilling $quoteFilling
-     * @param ShippingConfiguration $shippingConfiguration
-     * @param PaymentConfiguration $paymentConfiguration
-     * @param Purchase $purchase
      */
     public function __construct(
-        CartRepositoryInterface $quoteRepository,
-        QuoteCreation $quoteCreation,
-        QuoteFilling $quoteFilling,
-        ShippingConfiguration $shippingConfiguration,
-        PaymentConfiguration $paymentConfiguration,
-        Purchase $purchase
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
+        \Magento\InstantPurchase\Model\QuoteManagement\ShippingConfiguration $shippingConfiguration,
+        \Magento\InstantPurchase\Model\QuoteManagement\PaymentConfiguration $paymentConfiguration,
+        \Magento\InstantPurchase\Model\QuoteManagement\Purchase $purchase,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->quoteCreation = $quoteCreation;
@@ -76,44 +62,34 @@ class PlaceOrderService
         $this->shippingConfiguration = $shippingConfiguration;
         $this->paymentConfiguration = $paymentConfiguration;
         $this->purchase = $purchase;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
      * Place an order.
-     *
-     * @param Store $store
-     * @param Customer $customer
-     * @param InstantPurchaseOption $instantPurchaseOption
-     * @param Product $product
-     * @param array $productRequest
-     * @return int order identifier
-     * @throws LocalizedException if order can not be placed.
-     * @throws Throwable if unpredictable error occurred.
-     * @since 100.2.0
      */
-    public function placeOrder(
-        Store $store,
-        Customer $customer,
-        InstantPurchaseOption $instantPurchaseOption,
-        Product $product,
-        array $productRequest
-    ) : int {
+    public function placeOrder($store, $customer, $product, $productRequest, $paymentData) {
+        // Create the quote
         $quote = $this->quoteCreation->createQuote(
             $store,
             $customer,
-            $instantPurchaseOption->getShippingAddress(),
-            $instantPurchaseOption->getBillingAddress()
+            $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']),
+            $this->customerHelper->getBillingAddress($paymentData['billingAddressId']),
         );
+
+        // Fill the quote
         $quote = $this->quoteFilling->fillQuote(
             $quote,
             $product,
             $productRequest
         );
 
+        // Validate the quote
         $quote->collectTotals();
         $this->quoteRepository->save($quote);
         $quote = $this->quoteRepository->get($quote->getId());
 
+        // Run the logic
         try {
             $quote = $this->shippingConfiguration->configureShippingMethod(
                 $quote,
@@ -127,7 +103,7 @@ class PlaceOrderService
                 $quote
             );
             return $orderId;
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             $quote->setIsActive(false);
             $this->quoteRepository->save($quote);
             throw $e;

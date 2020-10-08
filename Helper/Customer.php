@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var AddressRepositoryInterface
+     */
+    public $addressRepository;
+
+    /**
      * @var Address
      */
     public $addressModel;
@@ -35,12 +40,14 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
         \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession
     ) {
+        $this->addressRepository = $addressRepository;
         $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
@@ -59,8 +66,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a billing address.
      */
-    public function getBillingAddress()
+    public function getBillingAddress($id = 0)
     {
+        if ((int) $id > 0) {
+            return $this->addressRepository->getById($id);
+        }
+
         return $this->addressModel->load(
             $this->getCustomer()->getDefaultBilling()
         );
@@ -69,8 +80,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a shipping address.
      */
-    public function getShippingAddress()
+    public function getShippingAddress($id = 0)
     {
+        if ((int) $id > 0) {
+            return $this->addressRepository->getById($id);
+        }
+        
         return $this->addressModel->load(
             $this->getCustomer()->getDefaultShipping()
         );
