@@ -7,26 +7,24 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\Json as JsonResult;
-use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\InstantPurchase\Model\InstantPurchaseOptionLoadingFactory;
 use Magento\InstantPurchase\Model\PlaceOrder as PlaceOrderModel;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\RequestInterface;
+
 /**
  * Instant Purchase order placement.
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Order extends Action
+class Order extends \Magento\Framework\App\Action\Action
 {
     /**
-     * List of request params that handled by the controller.
+     * List of request params handled by the controller.
      *
      * @var array
      */
@@ -54,11 +52,6 @@ class Order extends Action
     private $formKeyValidator;
 
     /**
-     * @var InstantPurchaseOptionLoadingFactory
-     */
-    private $instantPurchaseOptionLoadingFactory;
-
-    /**
      * @var ProductRepositoryInterface
      */
     private $productRepository;
@@ -78,7 +71,6 @@ class Order extends Action
      * @param StoreManagerInterface $storeManager
      * @param Session $customerSession
      * @param FormKeyValidator $formKeyValidator
-     * @param InstantPurchaseOptionLoadingFactory $instantPurchaseOptionLoadingFactory
      * @param ProductRepositoryInterface $productRepository
      * @param PlaceOrderModel $placeOrder
      * @param OrderRepositoryInterface $orderRepository
@@ -88,7 +80,6 @@ class Order extends Action
         StoreManagerInterface $storeManager,
         Session $customerSession,
         FormKeyValidator $formKeyValidator,
-        InstantPurchaseOptionLoadingFactory $instantPurchaseOptionLoadingFactory,
         ProductRepositoryInterface $productRepository,
         PlaceOrderModel $placeOrder,
         OrderRepositoryInterface $orderRepository
@@ -98,7 +89,6 @@ class Order extends Action
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
-        $this->instantPurchaseOptionLoadingFactory = $instantPurchaseOptionLoadingFactory;
         $this->productRepository = $productRepository;
         $this->placeOrder = $placeOrder;
         $this->orderRepository = $orderRepository;
@@ -129,14 +119,6 @@ class Order extends Action
 
         try {
             $customer = $this->customerSession->getCustomer();
-            $instantPurchaseOption = $this->instantPurchaseOptionLoadingFactory->create(
-                $customer->getId(),
-                $paymentTokenPublicHash,
-                $shippingAddressId,
-                $billingAddressId,
-                $carrierCode,
-                $shippingMethodCode
-            );
             $store = $this->storeManager->getStore();
             $product = $this->productRepository->getById(
                 $productId,
