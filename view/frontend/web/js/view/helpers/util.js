@@ -11,7 +11,7 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         saveAddressUrl: 'customer/address/formPost',
-        purchaseUrl: 'instantpurchase/button/placeOrder',
+        purchaseUrl: 'naxero-aip/ajax/order',
         productFormSelector: '#product_addtocart_form',
         addressFormSelector: '.form-address-edit',
 

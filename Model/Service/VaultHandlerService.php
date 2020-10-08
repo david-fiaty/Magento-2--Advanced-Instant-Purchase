@@ -214,6 +214,7 @@ class VaultHandlerService
         return [
             'publicHash' => $publicHash,
             'summary' => $summary,
+            'method_code' => $card['data']->getPaymentMethodCode()
         ];
     }
 }
