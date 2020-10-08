@@ -127,7 +127,9 @@ class VaultHandlerService
             usort(
                 $cardList,
                 function ($a, $b) {
-                    return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());
+                    $a = is_array($a) && isset($a['data']) ? $a['data'] : $a;
+                    $b = is_array($b) && isset($b['data']) ? $b['data'] : $b;
+                    return strtotime($a['data']->getCreatedAt()) - strtotime($b['data']->getCreatedAt());
                 }
             );
 
