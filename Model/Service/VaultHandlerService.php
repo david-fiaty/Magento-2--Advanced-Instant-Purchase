@@ -210,11 +210,15 @@ class VaultHandlerService
         $publicHash = isset($card['data'])
         ? $card['data']->getPublicHash()
         : '';
+
+        $methodCode = isset($card['data'])
+        ? $card['data']->getPaymentMethodCode()
+        : '';
         
         return [
             'publicHash' => $publicHash,
             'summary' => $summary,
-            'method_code' => $card['data']->getPaymentMethodCode()
+            'method_code' => $methodCode
         ];
     }
 }
