@@ -2,6 +2,11 @@
 - improve the config fields comments
 
 FEATURES
+- add tag/widget insertion in editor toolbar
+- add button insertion in cms content
+- add popup/banner/add system with instant purchase
+
+
 - add themes system
 - login with google, facebook
 
