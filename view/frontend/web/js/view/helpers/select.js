@@ -26,16 +26,17 @@ define([
 
             // Set the lists events
             $(self.listSelector).on('change', function() {
-                console.log($(this).data('field'));
-
                 // Get the current field value
-                var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                ? AipUtil.getOptionPublicHash(fieldValue)
-                : fieldValue;
+                var thisFieldValue = $(this).val();
+
+                // Set the new field value
+                var newFieldValue = $(this).data('field') == 'instant_purchase_payment_token'
+                ? AipUtil.getOptionPublicHash(thisFieldValue)
+                : thisFieldValue;   
 
                 // Update the hidden target field value
                 var targetField = $(this).attr('data-field');
-                $('input[name="' + targetField + '"]').val(fieldValue);
+                $('input[name="' + targetField + '"]').val(newFieldValue);
             });
 
             // Set the link events
