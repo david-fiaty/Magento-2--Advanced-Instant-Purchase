@@ -69,13 +69,27 @@ class PlaceOrderService
      * Place an order.
      */
     public function placeOrder($store, $customer, $product, $productRequest, $paymentData) {
+        // Get the addressses
+        $shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
+        $billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
+        
+        // Prepare the shipping address
+        $shippingAddress->setCollectShippingRates(true);
+        $shippingAddress->setShippingMethod($paymentData['shippingMethodCode']);
+
         // Create the quote
         $quote = $this->quoteCreation->createQuote(
             $store,
             $customer,
-            $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']),
-            $this->customerHelper->getBillingAddress($paymentData['billingAddressId']),
+            $shippingAddress,
+            $billingAddress,
         );
+
+        // Set the payment method
+        $payment = $quote->getPayment();
+        $payment->setMethod($paymentData['paymentMethodCode']);
+        $payment->save();
+        $quote->save();
 
         // Fill the quote
         $quote = $this->quoteFilling->fillQuote(
@@ -91,17 +105,9 @@ class PlaceOrderService
 
         // Run the logic
         try {
-            $quote = $this->shippingConfiguration->configureShippingMethod(
-                $quote,
-                $instantPurchaseOption->getShippingMethod()
-            );
-            $quote = $this->paymentConfiguration->configurePayment(
-                $quote,
-                $instantPurchaseOption->getPaymentToken()
-            );
-            $orderId = $this->purchase->purchase(
-                $quote
-            );
+
+
+            
             return $orderId;
         } catch (\Throwable $e) {
             $quote->setIsActive(false);
