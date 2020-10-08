@@ -26,10 +26,15 @@ define([
 
             // Set the lists events
             $(self.listSelector).on('change', function() {
-                var targetField = $(this).attr('data-field');
+                console.log($(this).data('field'));
+
+                // Get the current field value
                 var fieldValue = $(this).data('field') == 'instant_purchase_payment_token'
                 ? AipUtil.getOptionPublicHash(fieldValue)
                 : fieldValue;
+
+                // Update the hidden target field value
+                var targetField = $(this).attr('data-field');
                 $('input[name="' + targetField + '"]').val(fieldValue);
             });
 
