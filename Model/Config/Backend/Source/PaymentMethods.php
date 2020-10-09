@@ -28,13 +28,16 @@ class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
     public function toOptionArray()
     {
         $options = [];
-        $methods = $this->paymentHelper->$getActivePaymentMethods();
+        $methods = $this->paymentHelper->getActivePaymentMethods();
+
         if (!empty($methods)) {
             foreach ($methods as $method) {
-                $options[] = [
-                    'value' => $method->getMethod(),
-                    'label' => __($method->getAdditionalInformation()['method_title'])
-                ];
+                if ($method->canUseCheckout()) {
+                    $options[] = [
+                        'value' => $method->getCode(),
+                        'label' => __($method->getTitle())
+                    ];
+                }
             }
         }
 
