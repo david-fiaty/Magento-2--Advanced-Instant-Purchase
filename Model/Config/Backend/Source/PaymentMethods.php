@@ -29,10 +29,9 @@ class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
     {
         $options = [];
         $methods = $this->paymentHelper->getActivePaymentMethods();
-
         if (!empty($methods)) {
             foreach ($methods as $method) {
-                if ($method->canUseCheckout()) {
+                if ($method->canUseCheckout() && $method->isActive()) {
                     $options[] = [
                         'value' => $method->getCode(),
                         'label' => __($method->getTitle())

@@ -155,9 +155,10 @@
 
             <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Payment methods</label>
-                <field id="allowed_payment_methods" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Allowed options</label>
+                <field id="allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed methods</label>
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
                 </field>
             </group>
 

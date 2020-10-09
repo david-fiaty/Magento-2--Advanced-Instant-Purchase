@@ -46,7 +46,9 @@
                 <bypass_missing_billing>1</bypass_missing_billing>
                 <bypass_missing_shipping>1</bypass_missing_shipping>
             </registered>
-            <payment_methods></payment_methods>
+            <payment_methods>
+                <allowed>free,checkmo,paypal_billing_agreement</allowed>
+            </payment_methods>
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
