@@ -9,12 +9,10 @@
     </head>
     <body>
         <referenceBlock name="product.info.addtocart">
-            <block name="naxero.aip.button" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
-            <block name="naxero.aip.fields" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/fields.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
-            <block name="naxero.aip.button" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
-            <block name="naxero.aip.fields" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/fields.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase.additional" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

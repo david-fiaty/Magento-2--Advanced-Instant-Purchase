@@ -1,6 +1,7 @@
 <?php
     $config = $block->getConfig();
     if ($config && $block->purchaseHelper->canDisplayButton()) {
+        $purchaseData = $block->purchaseHelper->getPurchaseData();
 ?>
     <div id="aip-<?= $block->getProduct()->getId() ?>" class="aip-button-container">
         <button 
@@ -11,4 +12,11 @@
             <?= __($config['general']['button_text']) ?>
         </button>
     </div>
+
+    <input type="hidden" name="instant_purchase_payment_token" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+    <input type="hidden" name="instant_purchase_method_code" value="<?= $purchaseData['paymentToken']['method_code'] ?>" />
+    <input type="hidden" name="instant_purchase_shipping_address" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
+    <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
+    <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
+    <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
 <?php } ?>
