@@ -1,4 +1,5 @@
 
+- improve the setbuttonstate js conditions => depending on config params
 - improve the config fields comments
 
 RESOURCES

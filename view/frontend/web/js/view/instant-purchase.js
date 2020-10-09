@@ -57,7 +57,7 @@ define([
          */
         build: function() {
             var self = this;
-            $(this.buttonSelector).prop('disabled', false);
+            this.setButtonState();
             $(this.buttonSelector).on('click', function(e) {
                 self.handleButtonClick(e);
             }); 
@@ -92,6 +92,16 @@ define([
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AipLogin[fn]();
             }
+        },
+
+        /**
+         * Set the purchase button state after load.
+         */
+        setButtonState: function() {
+            return $(this.buttonSelector).prop(
+                'disabled',
+                !this.aipConfig.guest.click_event
+            );
         },
 
         /**
