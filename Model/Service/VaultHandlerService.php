@@ -168,7 +168,8 @@ class VaultHandlerService
                     $output[] = [
                         'instance' => $card,
                         'icon' => $this->cardHandler->getCardIcon($details->type),
-                        'token' => $this->renderTokenData($card)
+                        'token' => $this->renderTokenData($card),
+                        'method_code' => $card->getPaymentMethodCode()
                     ];
                 }
             }

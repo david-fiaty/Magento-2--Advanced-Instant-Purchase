@@ -76,13 +76,26 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      * 
      * @return array
      */ 
-    public function getOtherPaymentMethods() 
+    public function getOtherPaymentMethods($savedCards) 
     {
+        // Get the card payment method codes from saved cards
+        $cardCodes = [];
+        if (!empty($savedCards)) {
+            foreach ($savedCards as $card) {
+                $cardCodes[] = $card->getPaymentMethodCode();
+            }
+        }
+
+        // Get the other payment methods
         $options = [];
         $methods = $this->getActivePaymentMethods();
         if (!empty($methods)) {
             foreach ($methods as $method) {
-                if ($method->canUseCheckout() && $method->isActive() && !$method->isGateway()) {
+                $canDisplay = $method->canUseCheckout()
+                && $method->isActive()
+                && !$method->isGateway()
+                && !in_array($method->getCode(), $cardCodes);
+                if ($canDisplay) {
                     $options[] = [
                         'value' => $method->getCode(),
                         'label' => __($method->getTitle())
@@ -92,5 +105,18 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $options;
+    }
+
+    /**
+     * Check if an item is a saved card.
+     */
+    public function isSavedCard($item, $savedCards) {
+        foreach($savedCards as $card) {
+            if ($card['instance']->getCode() == $item['value']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

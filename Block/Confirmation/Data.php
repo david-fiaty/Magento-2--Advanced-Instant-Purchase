@@ -44,17 +44,4 @@ class Data extends \Magento\Framework\View\Element\Template
     public function getConfig() {
         return $this->configHelper->getFrontendValues();
     }
-
-    /**
-     * Check if an item is a saved card.
-     */
-    public function isSavedCard($item, $savedCards) {
-        foreach($savedCards as $card) {
-            if ($card['instance']->getCode() == $item['value']) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
