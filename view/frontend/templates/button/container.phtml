@@ -19,4 +19,12 @@
     <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
     <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
     <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "aip": <?= json_encode($this->customerHelper->getUserParams()) ?>
+            }
+        }
+    </script>
 <?php } ?>
