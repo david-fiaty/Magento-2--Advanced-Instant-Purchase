@@ -9,7 +9,9 @@ define([
     return {
         listSelector: '.aip-select',
         linkSelector: '.aip-new, .aip-plus-icon',
-
+        otherMethodsToggleSelector: '#aip-show-other-methods',
+        otherMethodsSelector: '#aip-other-method-select',
+        
         /**
          * Create a login popup.
          */
@@ -39,8 +41,17 @@ define([
                 $('input[name="' + targetField + '"]').val(newFieldValue);
             });
 
+            // Other payment methods toggle
+            $(self.otherMethodsSelector).prop('disabled', true);   
+            $(self.otherMethodsToggleSelector).on('click touch', function() {
+                $(self.otherMethodsSelector).prop(
+                    'disabled',
+                    !$(this).is(':checked')
+                );             
+            });
+
             // Set the link events
-            $(self.linkSelector).on('click', function(e) {
+            $(self.linkSelector).on('click touch', function(e) {
                 AipSlider.toggleView(obj, e);
                 obj.getForm(e);
             });

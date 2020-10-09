@@ -85,7 +85,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
                 $cardCodes[] = $card['method_code'];
             }
         }
-
+        
         // Get the other payment methods
         $options = [];
         $methods = $this->getActivePaymentMethods();

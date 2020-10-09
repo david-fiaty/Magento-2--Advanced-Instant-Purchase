@@ -90,6 +90,7 @@
 <?php if (!empty($content['otherPaymentMethods'])): ?>
     <div class="aip-field">
         <label for="aip-other-method-select">
+            <input type="checkbox" id="aip-show-other-methods">
             <span class="aip-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
             <p>
                 <select id="aip-other-method-select" data-field="instant_purchase_method_code" class="aip-select aip-other-method-select js-states form-control">

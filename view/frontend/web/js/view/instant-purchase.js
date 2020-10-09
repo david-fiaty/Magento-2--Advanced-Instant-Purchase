@@ -58,7 +58,7 @@ define([
         build: function() {
             var self = this;
             this.setButtonState();
-            $(this.buttonSelector).on('click', function(e) {
+            $(this.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },

@@ -198,7 +198,7 @@ class VaultHandlerService
         // Filter the user cards list
         if (!empty($cardList) && !empty($allowedCards)) {
             foreach($cardList as $card) {
-                if (in_array($card['method_code'], $allowedCards)) {
+                if (in_array($card['instance']->getCode(), $allowedCards)) {
                     $output[] = $card;
                 }
             }

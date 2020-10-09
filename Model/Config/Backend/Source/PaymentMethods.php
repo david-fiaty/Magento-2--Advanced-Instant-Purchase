@@ -2,9 +2,9 @@
 namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
 
 /**
- * Class OtherPaymentMethods
+ * Class PaymentMethods
  */
-class OtherPaymentMethods implements \Magento\Framework\Option\ArrayInterface
+class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
 {
     /**
      * @var Payment
@@ -12,7 +12,7 @@ class OtherPaymentMethods implements \Magento\Framework\Option\ArrayInterface
     public $paymentHelper;
 
     /**
-     * OtherPaymentMethods methods class constructor.
+     * CardPaymentMethods methods class constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper
@@ -31,7 +31,7 @@ class OtherPaymentMethods implements \Magento\Framework\Option\ArrayInterface
         $methods = $this->paymentHelper->getActivePaymentMethods();
         if (!empty($methods)) {
             foreach ($methods as $method) {
-                if ($method->canUseCheckout() && $method->isActive() && !$method->isGaateway()) {
+                if ($method->canUseCheckout() && $method->isActive()) {
                     $options[] = [
                         'value' => $method->getCode(),
                         'label' => __($method->getTitle())
