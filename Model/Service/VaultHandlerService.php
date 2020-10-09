@@ -183,7 +183,7 @@ class VaultHandlerService
     public function getAllowedCards()
     {
         // Prepare the output
-        $ouput = [];
+        $output = [];
 
         // Get the user cards list
         $cardList = $this->getUserCards();
@@ -191,7 +191,7 @@ class VaultHandlerService
         // Get the allowed cards list
         $allowedCards = explode(
             ',',
-            $this->configHelper->value('payment_methods/allowed')
+            $this->configHelper->value('payment_methods/cards_allowed')
         );
 
         // Filter the user cards list

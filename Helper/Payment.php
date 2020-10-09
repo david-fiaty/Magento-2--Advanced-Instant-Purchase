@@ -18,7 +18,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var \Magento\Payment\Helper\Data
      */
-    protected $paymentHelper;
+    protected $paymentDataHelper;
     
     /**
      * Payment Model Config
@@ -32,11 +32,11 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Sales\Model\ResourceModel\Order\Payment\Collection $orderPayment,
-        \Magento\Payment\Helper\Data $paymentHelper,
+        \Magento\Payment\Helper\Data $paymentDataHelper,
         \Magento\Payment\Model\Config $paymentConfig
     ) {
         $this->orderPayment = $orderPayment;
-        $this->paymentHelper = $paymentHelper;
+        $this->paymentDataHelper = $paymentDataHelper;
         $this->paymentConfig = $paymentConfig;
     }
     
@@ -47,7 +47,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      */ 
     public function getAllPaymentMethods() 
     {
-        return $this->paymentHelper->getPaymentMethods();
+        return $this->paymentDataHelper->getPaymentMethods();
     }
     
     /**
@@ -58,7 +58,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      */ 
     public function getAllPaymentMethodsList() 
     {
-        return $this->paymentHelper->getPaymentMethodList();
+        return $this->paymentDataHelper->getPaymentMethodList();
     }
     
     /**
@@ -72,18 +72,25 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     }
     
     /**
-     * Get payment methods that have been used for orders
+     * Get non card payment methods available
      * 
      * @return array
      */ 
-    public function getUsedPaymentMethods() 
+    public function getOtherPaymentMethods() 
     {
-        $collection = $this->_orderPayment;
-        $collection->getSelect()->group('method');
-        $paymentMethods[] = array('value' => '', 'label' => 'Any');
-        foreach ($collection as $col) { 
-            $paymentMethods[] = array('value' => $col->getMethod(), 'label' => $col->getAdditionalInformation()['method_title']);            
-        }        
-        return $paymentMethods;
+        $options = [];
+        $methods = $this->getActivePaymentMethods();
+        if (!empty($methods)) {
+            foreach ($methods as $method) {
+                if ($method->canUseCheckout() && $method->isActive() && !$method->isGateway()) {
+                    $options[] = [
+                        'value' => $method->getCode(),
+                        'label' => __($method->getTitle())
+                    ];
+                }
+            }
+        }
+
+        return $options;
     }
 }
