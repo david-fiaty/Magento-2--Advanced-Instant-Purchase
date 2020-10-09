@@ -82,7 +82,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
         $cardCodes = [];
         if (!empty($savedCards)) {
             foreach ($savedCards as $card) {
-                $cardCodes[] = $card->getPaymentMethodCode();
+                $cardCodes[] = $card['method_code'];
             }
         }
 
@@ -112,7 +112,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isSavedCard($item, $savedCards) {
         foreach($savedCards as $card) {
-            if ($card['instance']->getCode() == $item['value']) {
+            if ($card['method_code'] == $item['value']) {
                 return true;
             }
         }
