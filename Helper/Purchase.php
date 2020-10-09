@@ -180,15 +180,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the purchase button should be disabled.
-     */
-    public function getButtonState()
-    {
-        return $this->configHelper->value('guest/click_event') == 'disabled'
-        ? 'disabled="disabled' : '';
-    }
-
-    /**
      * Get the logged in button classes.
      */
     public function getButtonCss()

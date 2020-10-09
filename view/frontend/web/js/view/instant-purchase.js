@@ -57,6 +57,7 @@ define([
          */
         build: function() {
             var self = this;
+            $(this.buttonSelector).prop('disabled', false);
             $(this.buttonSelector).on('click', function(e) {
                 self.handleButtonClick(e);
             }); 
