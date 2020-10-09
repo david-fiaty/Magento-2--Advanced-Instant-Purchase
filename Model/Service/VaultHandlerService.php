@@ -166,7 +166,7 @@ class VaultHandlerService
                 if ($this->cardHandler->isCardActive($card)) {
                     $details = json_decode($card->getTokenDetails());
                     $output[] = [
-                        'data' => $card,
+                        'instance' => $card,
                         'icon' => $this->cardHandler->getCardIcon($details->type),
                         'token' => $this->renderTokenData($card)
                     ];
