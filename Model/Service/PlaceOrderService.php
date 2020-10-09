@@ -82,7 +82,7 @@ class PlaceOrderService
             $store,
             $customer,
             $shippingAddress,
-            $billingAddress,
+            $billingAddress
         );
 
         // Set the payment method
@@ -107,7 +107,7 @@ class PlaceOrderService
         try {
 
 
-            
+
             return $orderId;
         } catch (\Throwable $e) {
             $quote->setIsActive(false);
