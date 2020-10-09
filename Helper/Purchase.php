@@ -65,7 +65,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the popup data.
      */
-    public function getPopupData()
+    public function getPopupSettings()
     {
         return [
             'title' => $this->configHelper->value('display/popup_title'),
@@ -124,7 +124,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Prepare the output array
         $confirmationData = [
-            'popup' => $this->getPopupData(),
+            'popup' => $this->getPopupSettings(),
             'product' => $this->productHelper->getData(),
             'addresses' => [],
             'savedCards' => [],
