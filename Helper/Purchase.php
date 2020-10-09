@@ -123,12 +123,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfirmContent()
     {
         // Prepare the output array
-        $confirmationData = [];
-        $confirmationData['popup'] = $this->getPopupData();
-        $confirmationData['product'] = $this->productHelper->getData();
-        $confirmationData['addresses'] = [];
-        $confirmationData['savedCards'] = [];
-        $confirmationData['shippingRates'] = [];
+        $confirmationData = [
+            'popup' => $this->getPopupData(),
+            'product' => $this->productHelper->getData(),
+            'addresses' => [],
+            'savedCards' => [],
+            'shippingRates' => []
+        ];
 
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
@@ -137,7 +138,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
             // Confirmation data
             $confirmationData['addresses'] = $customer->getAddresses();
-            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
+            $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
                 $customer
             );

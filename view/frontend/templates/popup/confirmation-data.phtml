@@ -72,7 +72,7 @@
             <?php if (!empty($content['savedCards'])): ?>
                 <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
                     <?php foreach ($content['savedCards'] as $item): ?>
-                        <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                        <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
                             &nbsp;&nbsp;<?= $item['token'] ?>
                         </option>
                     <?php endforeach; ?>
