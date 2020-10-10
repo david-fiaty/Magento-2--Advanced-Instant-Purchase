@@ -45,24 +45,19 @@ class Order extends \Magento\Framework\App\Action\Action
     private $productRepository;
 
     /**
-     * @var QuoteCreation
+     * @var QuoteFactory
      */
-    private $quoteCreation;
+    public $quoteFactory;
 
     /**
-     * @var QuoteFilling
+     * @var CustomerRepositoryInterface
      */
-    private $quoteFilling;
+    public $customerRepository;
 
     /**
      * @var QuoteManagement
      */
     public $quoteManagement;
-
-    /**
-     * @var QuoteFactory
-     */
-    public $quoteFactory;
 
     /**
      * Class Order constructor 
@@ -73,10 +68,9 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement,
-        \Magento\Quote\Model\QuoteFactory $quoteFactory
+        \Magento\Quote\Model\QuoteFactory $quoteFactory,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Quote\Model\QuoteManagement $quoteManagement
     ) {
         parent::__construct($context);
 
@@ -84,10 +78,10 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->productRepository = $productRepository;
-        $this->quoteCreation = $quoteCreation;
-        $this->quoteFilling = $quoteFilling;
         $this->quoteManagement = $quoteManagement;
         $this->quoteFactory = $quoteFactory;
+        $this->customerRepository  = $customerRepository;
+        $this->quoteManagement = $quoteManagement;
     }
 
     /**
@@ -133,11 +127,7 @@ class Order extends \Magento\Framework\App\Action\Action
             );
 
             // Prepare the quote
-            $quote = $this->createQuote(
-                $store,
-                $shippingAddress,
-                billingAddress
-            );
+            $quote = $this->createQuote();
 
             // Fill the quote
             /*
@@ -168,7 +158,7 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Order confirmation
-        $message = __('Your order number is: %1.', $order->getIncrementId());
+        $message = __('Your order number is: %1.', 'xxxx1');
 
         return $this->createResponse($message, true);
     }
@@ -198,7 +188,8 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Set the quote customer
-        $customer = $this->customerSession->getCustomer();
+        $customerId = $this->customerSession->getCustomer()->getId();
+        $customer =  $this->customerRepository->getById($customerId);
         $quote->assignCustomer($customer);
 
         return $quote;
