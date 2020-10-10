@@ -68,6 +68,9 @@ class ViewButton extends \Magento\Framework\View\Element\Template
             'user' => [
                 'connected' => $this->customerHelper->isLoggedIn(),
                 'language' => $this->customerHelper->getUserLanguage()
+            ],
+            'product' => [
+                'id' => $this->getProduct()->getId()
             ]
         ];
     }

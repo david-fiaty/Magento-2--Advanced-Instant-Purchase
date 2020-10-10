@@ -24,6 +24,7 @@ define([
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
+            user: {},
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
