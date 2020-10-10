@@ -104,14 +104,8 @@ class Order extends \Magento\Framework\App\Action\Action
             'productRequest' => $this->getRequestUnknownParams($request)
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/p.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($paymentData, 1));
-
         try {
             // Load the required elements
-            $customer = $this->customerSession->getCustomer();
             $store = $this->storeManager->getStore();
 
             // Load the product
@@ -125,11 +119,13 @@ class Order extends \Magento\Framework\App\Action\Action
             // Place the order
             $orderId = $this->placeOrderService->placeOrder(
                 $store,
-                $customer,
                 $product,
                 $productRequest,
                 $paymentData
             );
+
+            $logger->info(3);
+
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         } catch (\Exception $e) {
