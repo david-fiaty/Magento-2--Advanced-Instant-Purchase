@@ -40,6 +40,11 @@ class Order extends \Magento\Framework\App\Action\Action
     private $formKeyValidator;
 
     /**
+     * @var CartRepositoryInterface
+     */
+    private $quoteRepository;
+
+    /**
      * @var ProductRepositoryInterface
      */
     private $productRepository;
@@ -77,6 +82,7 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Quote\Model\QuoteManagement $quoteManagement,
@@ -89,6 +95,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
+        $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
         $this->quoteManagement = $quoteManagement;
         $this->customerRepository  = $customerRepository;
