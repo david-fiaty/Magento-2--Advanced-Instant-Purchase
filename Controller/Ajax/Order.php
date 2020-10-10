@@ -45,11 +45,6 @@ class Order extends \Magento\Framework\App\Action\Action
     private $productRepository;
 
     /**
-     * @var QuoteFactory
-     */
-    public $quoteFactory;
-
-    /**
      * @var CustomerRepositoryInterface
      */
     public $customerRepository;
@@ -58,6 +53,16 @@ class Order extends \Magento\Framework\App\Action\Action
      * @var QuoteManagement
      */
     public $quoteManagement;
+
+    /**
+     * @var QuoteCreation
+     */
+    private $quoteCreation;
+
+    /**
+     * @var QuoteFilling
+     */
+    private $quoteFilling;
 
     /**
      * @var Customer
@@ -73,9 +78,10 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Quote\Model\QuoteManagement $quoteManagement,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
@@ -85,9 +91,10 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->productRepository = $productRepository;
         $this->quoteManagement = $quoteManagement;
-        $this->quoteFactory = $quoteFactory;
         $this->customerRepository  = $customerRepository;
         $this->quoteManagement = $quoteManagement;
+        $this->quoteCreation = $quoteCreation;
+        $this->quoteFilling = $quoteFilling;
         $this->customerHelper = $customerHelper;
     }
 
@@ -122,20 +129,9 @@ class Order extends \Magento\Framework\App\Action\Action
         try {
             // Load the required elements
             $store = $this->storeManager->getStore();
-            $billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
-
-            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/b.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($billingAddress, 1));
-
-            $shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
-
-        
-            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/s.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($shippingAddress, 1));
+            $customer = $this->customerHelper->getCustomer();
+            $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
+            $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -146,16 +142,24 @@ $logger->info(print_r($shippingAddress, 1));
             );
 
             // Prepare the quote
-            $quote = $this->createQuote();
+            $quote = $this->quoteCreation->createQuote(
+                $store,
+                $customer,
+                $shippingAddress,
+                $billingAddress
+            );
 
             // Fill the quote
-            /*
             $quote = $this->quoteFilling->fillQuote(
                 $quote,
                 $product,
-                $productRequest
+                $paymentData['productRequest']
             );
-            */
+
+            // Save the quote
+            $quote->collectTotals();
+            $this->quoteRepository->save($quote);
+            $quote = $this->quoteRepository->get($quote->getId());
 
             // Set the payment method
             /*
@@ -168,12 +172,16 @@ $logger->info(print_r($shippingAddress, 1));
             $order = $this->createOrder($quote);
 
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
+            return $this->createResponse($e->getMessage(), false);
+            //return $this->createResponse($this->createGenericErrorMessage(), false);
         } catch (\Exception $e) {
+            return $this->createResponse($e->getMessage(), false);
+
+            /*
             return $this->createResponse(
                 $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
-            );
+            );*/
         }
 
         // Order confirmation
@@ -188,30 +196,6 @@ $logger->info(print_r($shippingAddress, 1));
     public function createOrder($quote) {
         $order = $this->quoteManagement->submit($quote);
         return $order;
-    }
-
-    /**
-     * Create a new quote
-     */
-    public function createQuote($currency = null)
-    {
-        // Create the quote instance
-        $quote = $this->quoteFactory->create();
-        $quote->setStore($this->storeManager->getStore());
-
-        // Set the currency
-        if ($currency) {
-            $quote->setCurrency($currency);
-        } else {
-            $quote->setCurrency();
-        }
-
-        // Set the quote customer
-        $customerId = $this->customerSession->getCustomer()->getId();
-        $customer =  $this->customerRepository->getById($customerId);
-        $quote->assignCustomer($customer);
-
-        return $quote;
     }
 
     /**
