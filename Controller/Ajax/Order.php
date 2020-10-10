@@ -55,6 +55,11 @@ class Order extends \Magento\Framework\App\Action\Action
     private $quoteFilling;
 
     /**
+     * @var QuoteManagement
+     */
+    public $quoteManagement;
+
+    /**
      * Class Order constructor 
      */
     public function __construct(
@@ -64,7 +69,8 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
+        \Magento\Quote\Model\QuoteManagement $quoteManagement
     ) {
         parent::__construct($context);
 
@@ -74,6 +80,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->productRepository = $productRepository;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
+        $this->quoteManagement = $quoteManagement;
     }
 
     /**
