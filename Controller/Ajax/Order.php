@@ -60,6 +60,11 @@ class Order extends \Magento\Framework\App\Action\Action
     public $quoteManagement;
 
     /**
+     * @var QuoteFactory
+     */
+    public $quoteFactory;
+
+    /**
      * Class Order constructor 
      */
     public function __construct(
@@ -70,7 +75,8 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement
+        \Magento\Quote\Model\QuoteManagement $quoteManagement,
+        \Magento\Quote\Model\QuoteFactory $quoteFactory
     ) {
         parent::__construct($context);
 
@@ -81,6 +87,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
         $this->quoteManagement = $quoteManagement;
+        $this->quoteFactory = $quoteFactory;
     }
 
     /**
@@ -114,9 +121,8 @@ class Order extends \Magento\Framework\App\Action\Action
         try {
             // Load the required elements
             $store = $this->storeManager->getStore();
-            $customer = $this->customerSession->getCustomer();
-            $shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
-            $billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
+            //$shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
+            //$billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -127,19 +133,20 @@ class Order extends \Magento\Framework\App\Action\Action
             );
 
             // Prepare the quote
-            $quote = $this->quoteCreation->createQuote(
+            $quote = $this->createQuote(
                 $store,
-                $customer,
                 $shippingAddress,
                 billingAddress
             );
 
             // Fill the quote
+            /*
             $quote = $this->quoteFilling->fillQuote(
                 $quote,
                 $product,
                 $productRequest
             );
+            */
 
             // Set the payment method
             /*
@@ -166,9 +173,35 @@ class Order extends \Magento\Framework\App\Action\Action
         return $this->createResponse($message, true);
     }
 
+    /**
+     * Create a new order
+     */
     public function createOrder($quote) {
         $order = $this->quoteManagement->submit($quote);
         return $order;
+    }
+
+    /**
+     * Create a new quote
+     */
+    public function createQuote($currency = null)
+    {
+        // Create the quote instance
+        $quote = $this->quoteFactory->create();
+        $quote->setStore($this->storeManager->getStore());
+
+        // Set the currency
+        if ($currency) {
+            $quote->setCurrency($currency);
+        } else {
+            $quote->setCurrency();
+        }
+
+        // Set the quote customer
+        $customer = $this->customerSession->getCustomer();
+        $quote->assignCustomer($customer);
+
+        return $quote;
     }
 
     /**
