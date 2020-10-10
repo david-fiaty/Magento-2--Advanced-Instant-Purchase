@@ -104,6 +104,11 @@ class Order extends \Magento\Framework\App\Action\Action
             'productRequest' => $this->getRequestUnknownParams($request)
         ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/p.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($paymentData, 1));
+
         try {
             // Load the required elements
             $customer = $this->customerSession->getCustomer();
