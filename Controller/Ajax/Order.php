@@ -99,7 +99,6 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->productRepository = $productRepository;
         $this->quoteManagement = $quoteManagement;
         $this->customerRepository  = $customerRepository;
-        $this->quoteManagement = $quoteManagement;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
         $this->customerHelper = $customerHelper;
