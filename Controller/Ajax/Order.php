@@ -45,14 +45,14 @@ class Order extends \Magento\Framework\App\Action\Action
     private $productRepository;
 
     /**
-     * @var PlaceOrderService
+     * @var QuoteCreation
      */
-    private $placeOrderService;
+    private $quoteCreation;
 
     /**
-     * @var OrderRepositoryInterface
+     * @var QuoteFilling
      */
-    private $orderRepository;
+    private $quoteFilling;
 
     /**
      * Class Order constructor 
@@ -63,8 +63,8 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Naxero\AdvancedInstantPurchase\Model\Service\PlaceOrderService $placeOrderService
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling
     ) {
         parent::__construct($context);
 
@@ -72,8 +72,8 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->productRepository = $productRepository;
-        $this->placeOrderService = $placeOrderService;
-        $this->orderRepository = $orderRepository;
+        $this->quoteCreation = $quoteCreation;
+        $this->quoteFilling = $quoteFilling;
     }
 
     /**
@@ -107,6 +107,9 @@ class Order extends \Magento\Framework\App\Action\Action
         try {
             // Load the required elements
             $store = $this->storeManager->getStore();
+            $customer = $this->customerSession->getCustomer();
+            $shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
+            $billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -116,15 +119,30 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Place the order
-            $orderId = $this->placeOrderService->placeOrder(
+            // Prepare the quote
+            $quote = $this->quoteCreation->createQuote(
                 $store,
-                $product,
-                $productRequest,
-                $paymentData
+                $customer,
+                $shippingAddress,
+                billingAddress
             );
 
-            $logger->info(3);
+            // Fill the quote
+            $quote = $this->quoteFilling->fillQuote(
+                $quote,
+                $product,
+                $productRequest
+            );
+
+            // Set the payment method
+            /*
+            $payment = $quote->getPayment();
+            $payment->setMethod($paymentData['paymentMethodCode']);
+            $payment->save();
+            $quote->save();
+            */
+
+            $order = $this->createOrder($quote);
 
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
@@ -136,10 +154,14 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Order confirmation
-        $order = $this->orderRepository->get($orderId);
         $message = __('Your order number is: %1.', $order->getIncrementId());
 
         return $this->createResponse($message, true);
+    }
+
+    public function createOrder($quote) {
+        $order = $this->quoteManagement->submit($quote);
+        return $order;
     }
 
     /**
