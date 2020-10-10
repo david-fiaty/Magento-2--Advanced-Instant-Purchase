@@ -60,6 +60,11 @@ class Order extends \Magento\Framework\App\Action\Action
     public $quoteManagement;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * Class Order constructor 
      */
     public function __construct(
@@ -70,7 +75,8 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement
+        \Magento\Quote\Model\QuoteManagement $quoteManagement,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
 
@@ -82,6 +88,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->quoteFactory = $quoteFactory;
         $this->customerRepository  = $customerRepository;
         $this->quoteManagement = $quoteManagement;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -115,8 +122,20 @@ class Order extends \Magento\Framework\App\Action\Action
         try {
             // Load the required elements
             $store = $this->storeManager->getStore();
-            //$shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
-            //$billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
+            $billingAddress = $this->customerHelper->getBillingAddress($paymentData['billingAddressId']);
+
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/b.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($billingAddress, 1));
+
+            $shippingAddress = $this->customerHelper->getShippingAddress($paymentData['shippingAddressId']);
+
+        
+            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/s.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($shippingAddress, 1));
 
             // Load the product
             $product = $this->productRepository->getById(
