@@ -26,6 +26,11 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      * @var \Magento\Payment\Model\Config
      */
     protected $paymentConfig;
+
+    /**
+     * @var Config
+     */
+    public $configHelper;
     
     /**
      * Payment Helper constructor.
@@ -33,11 +38,13 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Sales\Model\ResourceModel\Order\Payment\Collection $orderPayment,
         \Magento\Payment\Helper\Data $paymentDataHelper,
-        \Magento\Payment\Model\Config $paymentConfig
+        \Magento\Payment\Model\Config $paymentConfig,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         $this->orderPayment = $orderPayment;
         $this->paymentDataHelper = $paymentDataHelper;
         $this->paymentConfig = $paymentConfig;
+        $this->configHelper = $configHelper;
     }
     
     /**
@@ -76,25 +83,21 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      * 
      * @return array
      */ 
-    public function getOtherPaymentMethods($savedCards) 
+    public function getOtherPaymentMethods() 
     {
-        // Get the card payment method codes from saved cards
-        $cardCodes = [];
-        if (!empty($savedCards)) {
-            foreach ($savedCards as $card) {
-                $cardCodes[] = $card['method_code'];
-            }
-        }
-        
         // Get the other payment methods
         $options = [];
         $methods = $this->getActivePaymentMethods();
+        $allowed = explode(
+            ',',
+            $this->configHelper->value('payment_methods/other_allowed')
+        );
         if (!empty($methods)) {
             foreach ($methods as $method) {
+                $code = $method->getCode();
                 $canDisplay = $method->canUseCheckout()
                 && $method->isActive()
-                && !$method->isGateway()
-                && !in_array($method->getCode(), $cardCodes);
+                && in_array($code, $allowed);
                 if ($canDisplay) {
                     $options[] = [
                         'value' => $method->getCode(),
