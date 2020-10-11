@@ -84,6 +84,7 @@ define([
                 class: self.submitButtonClasses,
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
+                        AipSlider.showLoader(obj);
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
                         $.ajax({
                             cache: false,

@@ -199,16 +199,12 @@ class Order extends \Magento\Framework\App\Action\Action
             $order = $this->createOrder($quote);
 
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            return $this->createResponse($e->getMessage(), false);
-            //return $this->createResponse($this->createGenericErrorMessage(), false);
+            return $this->createResponse($this->createGenericErrorMessage(), false);
         } catch (\Exception $e) {
-            return $this->createResponse($e->getMessage(), false);
-
-            /*
             return $this->createResponse(
                 $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
-            );*/
+            );
         }
 
         // Order confirmation
