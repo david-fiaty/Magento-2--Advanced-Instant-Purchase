@@ -137,12 +137,13 @@ class Order extends \Magento\Framework\App\Action\Action
             $store = $this->storeManager->getStore();
             $customer = $this->customerHelper->getCustomer();
 
-            // Billing address
+            // Get the billing address
             $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
 
-            // Shipping address
+            // Get the shipping address
             $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
-            $shippingAddress->setShippingMethod($paymentData['shippingMethodCode']);
+            $shippingAddress->setCollectShippingRates(true);
+            $shippingAddress->setShippingMethod($paymentData['carrierCode']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -152,13 +153,16 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Prepare the quote
+            // Create the quote
             $quote = $this->quoteCreation->createQuote(
                 $store,
                 $customer,
                 $shippingAddress,
                 $billingAddress
             );
+
+            // Set the store
+            $quote->setStore($store)->save();
 
             // Fill the quote
             $quote = $this->quoteFilling->fillQuote(
@@ -167,12 +171,17 @@ class Order extends \Magento\Framework\App\Action\Action
                 $paymentData['productRequest']
             );
 
+            // Set the shipping method
+            $quote->getShippingAddress()->addData($shippingAddress->getData());
+            
             // Set the payment method
-            /*
             $payment = $quote->getPayment();
             $payment->setMethod($paymentData['paymentMethodCode']);
+            $payment->importData([
+                'method' => $paymentData['paymentMethodCode']
+            ]);
             $payment->save();
-            */
+            $quote->save();
 
             // Save the quote
             $quote->collectTotals();
