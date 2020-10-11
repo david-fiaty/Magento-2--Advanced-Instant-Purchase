@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\Magento;
 class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentMethodInterface
 {
     /**
+     * @var OrderRepositoryInterface
+     */
+    public $orderRepository;
+
+    /**
      * @var PaymentConfiguration
      */
     public $paymentConfiguration;
@@ -25,9 +30,11 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
      * Index constructor.
      */
     public function __construct(
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\PaymentConfiguration $paymentConfiguration,
         \Magento\InstantPurchase\Model\QuoteManagement\Purchase $purchase
     ) {
+        $this->orderRepository = $orderRepository;
         $this->paymentConfiguration = $paymentConfiguration;
         $this->purchase = $purchase;
     }
@@ -55,8 +62,9 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
             $instantPurchaseOption->getPaymentToken()
         );
 
-        // Place the order with payment
+        // Place the order with a core payment method
         $orderId = $this->purchase->purchase($quote);
+        $order = $this->orderRepository->get($orderId);
 
         return $order;
     }
