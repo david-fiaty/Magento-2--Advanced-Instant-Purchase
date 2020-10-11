@@ -1,7 +1,7 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration;
 
-interface PaymentMethodInterface
+interface PaymentIntegrationInterface
 {
     public function sendRequest($quote, $paymentData);
 

@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVa
 /**
  * Class Index.
  */
-class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentMethodInterface
+class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
 {
     /**
      * @var QuoteManagement

@@ -1,10 +1,10 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\BasePaymentMethod;
+namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\SamplePaymentIntegration;
 
 /**
  * Class Index.
  */
-class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentMethodInterface
+class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
 {
     /**
      * @var QuoteManagement
