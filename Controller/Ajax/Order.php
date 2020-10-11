@@ -15,7 +15,7 @@ class Order extends \Magento\Framework\App\Action\Action
      *
      * @var array
      */
-    private static $knownRequestParams = [
+    public static $knownRequestParams = [
         'form_key',
         'product',
         'instant_purchase_payment_token',
@@ -25,49 +25,14 @@ class Order extends \Magento\Framework\App\Action\Action
     ];
 
     /**
-     * @var StoreManagerInterface
-     */
-    private $storeManager;
-
-    /**
      * @var Session
      */
-    private $customerSession;
+    public $customerSession;
 
     /**
      * @var Validator
      */
-    private $formKeyValidator;
-
-    /**
-     * @var CartRepositoryInterface
-     */
-    private $quoteRepository;
-
-    /**
-     * @var ProductRepositoryInterface
-     */
-    private $productRepository;
-
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    public $customerRepository;
-
-    /**
-     * @var QuoteManagement
-     */
-    public $quoteManagement;
-
-    /**
-     * @var QuoteCreation
-     */
-    private $quoteCreation;
-
-    /**
-     * @var QuoteFilling
-     */
-    private $quoteFilling;
+    public $formKeyValidator;
 
     /**
      * @var UrlInterface
@@ -75,40 +40,26 @@ class Order extends \Magento\Framework\App\Action\Action
     public $urlBuilder;
 
     /**
-     * @var Customer
+     * @var OrderHandlerService
      */
-    public $customerHelper;
+    public $orderHandler;
 
     /**
      * Class Order constructor 
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\AdvancedInstantPurchase\Model\Service\OrderHandlerService $orderHandler
     ) {
         parent::__construct($context);
 
-        $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
-        $this->quoteRepository = $quoteRepository;
-        $this->productRepository = $productRepository;
-        $this->quoteManagement = $quoteManagement;
-        $this->customerRepository  = $customerRepository;
-        $this->quoteCreation = $quoteCreation;
-        $this->quoteFilling = $quoteFilling;
         $this->urlBuilder = $urlBuilder;
-        $this->customerHelper = $customerHelper;
+        $this->orderHandler = $orderHandler;
     }
 
     /**
@@ -140,63 +91,8 @@ class Order extends \Magento\Framework\App\Action\Action
         ];
 
         try {
-            // Load the required elements
-            $store = $this->storeManager->getStore();
-            $customer = $this->customerHelper->getCustomer();
-
-            // Get the billing address
-            $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
-
-            // Get the shipping address
-            $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
-            $shippingAddress->setCollectShippingRates(true);
-            $shippingAddress->setShippingMethod($paymentData['carrierCode']);
-
-            // Load the product
-            $product = $this->productRepository->getById(
-                $paymentData['productId'],
-                false,
-                $store->getId(),
-                false
-            );
-
-            // Create the quote
-            $quote = $this->quoteCreation->createQuote(
-                $store,
-                $customer,
-                $shippingAddress,
-                $billingAddress
-            );
-
-            // Set the store
-            $quote->setStore($store)->save();
-
-            // Fill the quote
-            $quote = $this->quoteFilling->fillQuote(
-                $quote,
-                $product,
-                $paymentData['productRequest']
-            );
-
-            // Set the shipping method
-            $quote->getShippingAddress()->addData($shippingAddress->getData());
-            
-            // Set the payment method
-            $payment = $quote->getPayment();
-            $payment->setMethod($paymentData['paymentMethodCode']);
-            $payment->importData([
-                'method' => $paymentData['paymentMethodCode']
-            ]);
-            $payment->save();
-            $quote->save();
-
-            // Save the quote
-            $quote->collectTotals();
-            $this->quoteRepository->save($quote);
-            $quote = $this->quoteRepository->get($quote->getId());
-
             // Create the order
-            $order = $this->createOrder($quote);
+            $order = $this->orderHanlder->createOrder($paymentData);
 
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
@@ -217,19 +113,11 @@ class Order extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Create a new order
-     */
-    public function createOrder($quote) {
-        $order = $this->quoteManagement->submit($quote);
-        return $order;
-    }
-
-    /**
      * Creates error message without exposing error details.
      *
      * @return string
      */
-    private function createGenericErrorMessage(): string
+    public function createGenericErrorMessage(): string
     {
         return (string)__('Something went wrong while processing your order. Please try again later.');
     }
@@ -240,7 +128,7 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return bool
      */
-    private function doesRequestContainAllKnowParams(RequestInterface $request): bool
+    public function doesRequestContainAllKnowParams(RequestInterface $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
             if ($request->getParam($knownRequestParam) === null) {
@@ -256,7 +144,7 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return array
      */
-    private function getRequestUnknownParams(RequestInterface $request): array
+    public function getRequestUnknownParams(RequestInterface $request): array
     {
         $requestParams = $request->getParams();
         $unknownParams = [];
@@ -275,7 +163,7 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param bool $successMessage
      * @return JsonResult
      */
-    private function createResponse(string $message, bool $successMessage): JsonResult
+    public function createResponse(string $message, bool $successMessage): JsonResult
     {
         /** @var JsonResult $result */
         $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
