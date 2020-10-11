@@ -5,5 +5,7 @@ interface PaymentMethodInterface
 {
     public function sendRequest($quote, $paymentData);
 
-    public function isSuccess();
+    public function createOrder($quote, $paymentResponse);
+
+    public function paymentSuccess();
 }
