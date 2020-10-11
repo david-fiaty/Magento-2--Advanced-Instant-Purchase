@@ -245,7 +245,7 @@ class Edit extends \Magento\Directory\Block\Data
     public function getSaveUrl()
     {
         return $this->_urlBuilder->getUrl(
-            'customer/address/formPost',
+            'naxero-aip/address/formPost',
             ['_secure' => true, 'id' => $this->getAddress()->getId()]
         );
     }

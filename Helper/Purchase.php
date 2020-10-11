@@ -32,6 +32,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
+     * @var Payment
+     */
+    public $paymentHelper;
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -50,6 +55,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
@@ -57,6 +63,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->shippingSelector = $shippingSelector;
         $this->productHelper = $productHelper;
+        $this->paymentHelper = $paymentHelper;
         $this->configHelper = $configHelper;
         $this->customerHelper = $customerHelper;
         $this->vaultHandler = $vaultHandler;
@@ -65,7 +72,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the popup data.
      */
-    public function getPopupData()
+    public function getPopupSettings()
     {
         return [
             'title' => $this->configHelper->value('display/popup_title'),
@@ -123,12 +130,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfirmContent()
     {
         // Prepare the output array
-        $confirmationData = [];
-        $confirmationData['popup'] = $this->getPopupData();
-        $confirmationData['product'] = $this->productHelper->getData();
-        $confirmationData['addresses'] = [];
-        $confirmationData['savedCards'] = [];
-        $confirmationData['shippingRates'] = [];
+        $confirmationData = [
+            'popup' => $this->getPopupSettings(),
+            'product' => $this->productHelper->getData(),
+            'addresses' => [],
+            'savedCards' => [],
+            'shippingRates' => []
+        ];
 
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
@@ -137,7 +145,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
             // Confirmation data
             $confirmationData['addresses'] = $customer->getAddresses();
-            $confirmationData['savedCards'] = $this->vaultHandler->getUserCards();
+            $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
+            $confirmationData['otherPaymentMethods'] = $this->paymentHelper->getOtherPaymentMethods();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
                 $customer
             );
@@ -168,15 +177,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->configHelper->value('general/enabled')
         && $this->configHelper->value('guest/show_guest_button');
-    }
-
-    /**
-     * Check if the purchase button should be disabled.
-     */
-    public function getButtonState()
-    {
-        return $this->configHelper->value('guest/click_event') == 'disabled'
-        ? 'disabled="disabled' : '';
     }
 
     /**

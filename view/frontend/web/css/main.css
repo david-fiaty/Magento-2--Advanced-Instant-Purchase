@@ -151,6 +151,11 @@
     }
 }
 
+.aip-field span[aria-disabled="true"] span {
+    background-color: #cccccc;
+    color: #666666;
+}
+
 /* Product box */
 .aip-product-box {
     width: 100%;
@@ -176,6 +181,7 @@
 .aip-product-box-price {
     font-size: 1.2em;
 }
+
 /* Loader icon */
 .aip-ajax-loader-container {
     width: 100%;

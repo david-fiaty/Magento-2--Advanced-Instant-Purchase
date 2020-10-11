@@ -39,6 +39,11 @@ class VaultHandlerService
     public $cardHandler;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * @var string
      */
     public $customerEmail;
@@ -72,7 +77,8 @@ class VaultHandlerService
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler
+        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         $this->storeManager = $storeManager;
         $this->paymentTokenRepository = $paymentTokenRepository;
@@ -80,6 +86,7 @@ class VaultHandlerService
         $this->customerSession = $customerSession;
         $this->messageManager = $messageManager;
         $this->cardHandler = $cardHandler;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -127,8 +134,8 @@ class VaultHandlerService
             usort(
                 $cardList,
                 function ($a, $b) {
-                    $a = is_array($a) && isset($a['data']) ? $a['data'] : $a;
-                    $b = is_array($b) && isset($b['data']) ? $b['data'] : $b;
+                    $a = is_array($a) && isset($a['instance']) ? $a['instance'] : $a;
+                    $b = is_array($b) && isset($b['instance']) ? $b['instance'] : $b;
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());
                 }
             );
@@ -159,10 +166,40 @@ class VaultHandlerService
                 if ($this->cardHandler->isCardActive($card)) {
                     $details = json_decode($card->getTokenDetails());
                     $output[] = [
-                        'data' => $card,
+                        'instance' => $card,
                         'icon' => $this->cardHandler->getCardIcon($details->type),
-                        'token' => $this->renderTokenData($card)
+                        'token' => $this->renderTokenData($card),
+                        'method_code' => $card->getPaymentMethodCode()
                     ];
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    /**
+     * Get allowed cards
+     */
+    public function getAllowedCards()
+    {
+        // Prepare the output
+        $output = [];
+
+        // Get the user cards list
+        $cardList = $this->getUserCards();
+
+        // Get the allowed cards list
+        $allowedCards = explode(
+            ',',
+            $this->configHelper->value('payment_methods/cards_allowed')
+        );
+
+        // Filter the user cards list
+        if (!empty($cardList) && !empty($allowedCards)) {
+            foreach($cardList as $card) {
+                if (in_array($card['instance']->getCode(), $allowedCards)) {
+                    $output[] = $card;
                 }
             }
         }
@@ -202,18 +239,23 @@ class VaultHandlerService
         $card = $this->getLastSavedCard();
 
         // Summary
-        $summary = isset($card['data'])
-        ? $this->formatPaymentToken($card['data'])
+        $summary = isset($card['instance'])
+        ? $this->formatPaymentToken($card['instance'])
         : '';
 
         // Public hash
-        $publicHash = isset($card['data'])
-        ? $card['data']->getPublicHash()
+        $publicHash = isset($card['instance'])
+        ? $card['instance']->getPublicHash()
+        : '';
+
+        $methodCode = isset($card['instance'])
+        ? $card['instance']->getPaymentMethodCode()
         : '';
         
         return [
             'publicHash' => $publicHash,
             'summary' => $summary,
+            'method_code' => $methodCode
         ];
     }
 }

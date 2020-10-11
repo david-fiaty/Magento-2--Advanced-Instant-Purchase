@@ -2,18 +2,21 @@
     $config = $block->getConfig();
     if ($config && $block->purchaseHelper->canDisplayButton()) {
         $purchaseData = $block->purchaseHelper->getPurchaseData();
+        $productId = $block->getProduct()->getId();
 ?>
-    <div id="aip-<?= $block->getProduct()->getId() ?>" class="aip-button-container">
+    <div id="aip-<?= $productId ?>" class="aip-button-container">
         <button 
+            id="aip-button-<?= $productId ?>"
             type="button"
+            disabled="disabled"
             class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
-            <?= $block->purchaseHelper->getButtonState() ?>
             title="<?= __($config['general']['button_text']) ?>">
             <?= __($config['general']['button_text']) ?>
         </button>
     </div>
 
     <input type="hidden" name="instant_purchase_payment_token" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+    <input type="hidden" name="instant_purchase_method_code" value="<?= $purchaseData['paymentToken']['method_code'] ?>" />
     <input type="hidden" name="instant_purchase_shipping_address" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
     <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
     <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
@@ -22,7 +25,7 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode($this->customerHelper->getUserParams()) ?>
+                "aip": <?= json_encode($block->getUserParams()) ?>
             }
         }
     </script>

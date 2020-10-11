@@ -67,12 +67,12 @@
 
 <div class="aip-field">
     <label for="aip-payment-method-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Payment method')) ?></span>
+        <span class="aip-label"><?= $block->escapeHtml(__('Saved cards')) ?></span>
         <p>
             <?php if (!empty($content['savedCards'])): ?>
                 <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
                     <?php foreach ($content['savedCards'] as $item): ?>
-                        <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                        <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
                             &nbsp;&nbsp;<?= $item['token'] ?>
                         </option>
                     <?php endforeach; ?>
@@ -86,6 +86,24 @@
         </p>
     </label> 
 </div>
+
+<?php if (!empty($content['otherPaymentMethods'])): ?>
+    <div class="aip-field">
+        <label for="aip-other-method-select">
+            <input type="checkbox" id="aip-show-other-methods">
+            <span class="aip-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
+            <p>
+                <select id="aip-other-method-select" data-field="instant_purchase_method_code" class="aip-select aip-other-method-select js-states form-control">
+                    <?php foreach ($content['otherPaymentMethods'] as $item): ?>
+                        <option value="<?= $item['value'] ?>">
+                            &nbsp;&nbsp;<?= $item['label'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+        </label> 
+    </div>
+<?php endif; ?>
 
 <?php if (!empty($content['addresses']) && !empty($content['savedCards'])): ?>
 <div class="aip-field">

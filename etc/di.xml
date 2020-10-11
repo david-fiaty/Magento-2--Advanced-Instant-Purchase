@@ -1,11 +1,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\Customer\Controller\Address\FormPost" type="Naxero\AdvancedInstantPurchase\Controller\Address\FormPost" />
-    <preference for="Magento\Customer\Block\Address\Edit" type="Naxero\AdvancedInstantPurchase\Block\Address\Edit" />
+    
+    <!-- Customer address form -->
     <type name="Naxero\AdvancedInstantPurchase\Block\Address\Edit">
         <arguments>
             <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
             <argument name="post_code_config" xsi:type="object">Magento\Customer\Block\DataProviders\PostCodesPatternsAttributeData</argument>
         </arguments>
     </type>
-
 </config>

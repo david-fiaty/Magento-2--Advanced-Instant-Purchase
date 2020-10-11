@@ -1,20 +1,7 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 
-
-use Exception;
-use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Customer\Model\Session;
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\Json as JsonResult;
-use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\InstantPurchase\Model\PlaceOrder as PlaceOrderModel;
-use Magento\Sales\Api\OrderRepositoryInterface;
-use Magento\Store\Model\StoreManagerInterface;
-
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
 
@@ -32,6 +19,7 @@ class Order extends \Magento\Framework\App\Action\Action
         'form_key',
         'product',
         'instant_purchase_payment_token',
+        'instant_purchase_method_code',
         'instant_purchase_shipping_address',
         'instant_purchase_billing_address',
     ];
@@ -47,9 +35,14 @@ class Order extends \Magento\Framework\App\Action\Action
     private $customerSession;
 
     /**
-     * @var FormKeyValidator
+     * @var Validator
      */
     private $formKeyValidator;
+
+    /**
+     * @var CartRepositoryInterface
+     */
+    private $quoteRepository;
 
     /**
      * @var ProductRepositoryInterface
@@ -57,41 +50,72 @@ class Order extends \Magento\Framework\App\Action\Action
     private $productRepository;
 
     /**
-     * @var PlaceOrderModel
+     * @var CustomerRepositoryInterface
      */
-    private $placeOrder;
+    public $customerRepository;
 
     /**
-     * @var OrderRepositoryInterface
+     * @var QuoteManagement
      */
-    private $orderRepository;
+    public $quoteManagement;
 
     /**
-     * @param Context $context
-     * @param StoreManagerInterface $storeManager
-     * @param Session $customerSession
-     * @param FormKeyValidator $formKeyValidator
-     * @param ProductRepositoryInterface $productRepository
-     * @param PlaceOrderModel $placeOrder
-     * @param OrderRepositoryInterface $orderRepository
+     * @var QuoteCreation
+     */
+    private $quoteCreation;
+
+    /**
+     * @var QuoteFilling
+     */
+    private $quoteFilling;
+
+    /**
+     * @var UrlInterface
+     */
+    public $urlBuilder;
+
+    /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
+     * @var PaymentHandler
+     */
+    public $paymentHandler;
+
+    /**
+     * Class Order constructor 
      */
     public function __construct(
-        Context $context,
-        StoreManagerInterface $storeManager,
-        Session $customerSession,
-        FormKeyValidator $formKeyValidator,
-        ProductRepositoryInterface $productRepository,
-        PlaceOrderModel $placeOrder,
-        OrderRepositoryInterface $orderRepository
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Quote\Model\QuoteManagement $quoteManagement,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
+        \Magento\Framework\UrlInterface $urlBuilder,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Model\Payment\PaymentHandler $paymentHandler
     ) {
         parent::__construct($context);
 
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
+        $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->placeOrder = $placeOrder;
-        $this->orderRepository = $orderRepository;
+        $this->quoteManagement = $quoteManagement;
+        $this->customerRepository  = $customerRepository;
+        $this->quoteCreation = $quoteCreation;
+        $this->quoteFilling = $quoteFilling;
+        $this->urlBuilder = $urlBuilder;
+        $this->customerHelper = $customerHelper;
+        $this->paymentHandler = $paymentHandler;
     }
 
     /**
@@ -101,6 +125,7 @@ class Order extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        // Validate the request
         $request = $this->getRequest();
         if (!$this->doesRequestContainAllKnowParams($request)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
@@ -109,44 +134,117 @@ class Order extends \Magento\Framework\App\Action\Action
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
 
-        $paymentTokenPublicHash = (string)$request->getParam('instant_purchase_payment_token');
-        $shippingAddressId = (int)$request->getParam('instant_purchase_shipping_address');
-        $billingAddressId = (int)$request->getParam('instant_purchase_billing_address');
-        $carrierCode = (string)$request->getParam('instant_purchase_carrier');
-        $shippingMethodCode = (string)$request->getParam('instant_purchase_shipping');
-        $productId = (int)$request->getParam('product');
-        $productRequest = $this->getRequestUnknownParams($request);
+        // Prepare the payment data
+        $paymentData = [
+            'paymentTokenPublicHash' => (string) $request->getParam('instant_purchase_payment_token'),
+            'paymentMethodCode' => (string) $request->getParam('instant_purchase_method_code'),
+            'shippingAddressId' => (int) $request->getParam('instant_purchase_shipping_address'),
+            'billingAddressId' => (int) $request->getParam('instant_purchase_billing_address'),
+            'carrierCode' => (string) $request->getParam('instant_purchase_carrier'),
+            'shippingMethodCode' => (string) $request->getParam('instant_purchase_shipping'),
+            'productId' => (int) $request->getParam('product'),
+            'productRequest' => $this->getRequestUnknownParams($request)
+        ];
 
         try {
-            $customer = $this->customerSession->getCustomer();
+            // Load the required elements
             $store = $this->storeManager->getStore();
+            $customer = $this->customerHelper->getCustomer();
+
+            // Get the billing address
+            $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
+
+            // Get the shipping address
+            $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
+            $shippingAddress->setCollectShippingRates(true);
+            $shippingAddress->setShippingMethod($paymentData['carrierCode']);
+
+            // Load the product
             $product = $this->productRepository->getById(
-                $productId,
+                $paymentData['productId'],
                 false,
                 $store->getId(),
                 false
             );
 
-            $orderId = $this->placeOrder->placeOrder(
+
+            // Create the quote
+            $quote = $this->quoteCreation->createQuote(
                 $store,
                 $customer,
-                $instantPurchaseOption,
-                $product,
-                $productRequest
+                $shippingAddress,
+                $billingAddress
             );
-        } catch (NoSuchEntityException $e) {
+
+            // Set the store
+            $quote->setStore($store)->save();
+
+            // Fill the quote
+            $quote = $this->quoteFilling->fillQuote(
+                $quote,
+                $product,
+                $paymentData['productRequest']
+            );
+
+            // Set the shipping method
+            $quote->getShippingAddress()->addData($shippingAddress->getData());
+            
+            // Set the payment method
+            $payment = $quote->getPayment();
+            $payment->setMethod($paymentData['paymentMethodCode']);
+            $payment->importData([
+                'method' => $paymentData['paymentMethodCode']
+            ]);
+            $payment->save();
+            $quote->save();
+
+            // Save the quote
+            $quote->collectTotals();
+            $this->quoteRepository->save($quote);
+            $quote = $this->quoteRepository->get($quote->getId());
+
+            // Send the payment request and get the response
+            $paymentResponse = $this->paymentHandler
+            ->loadMethod($paymentData['paymentMethodCode'])
+            ->sendRequest($quote, $paymentData);
+
+            // Create the order
+            if ($paymentResponse->isSuccess()) {
+                $order = $this->createOrder($quote);
+                if ($order) {
+                    $message = json_encode([
+                        'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+                        'order_increment_id' => $order->getIncrementId()
+                    ]);
+                    
+                    return $this->createResponse($message, true);
+                }
+                else {
+                    return $this->createResponse($this->createGenericErrorMessage(), false);
+                }
+            }
+        } 
+        catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            return $this->createResponse($e->getMessage(), false);
+
             return $this->createResponse($this->createGenericErrorMessage(), false);
-        } catch (Exception $e) {
+        } 
+        catch (\Exception $e) {
+            return $this->createResponse($e->getMessage(), false);
+
             return $this->createResponse(
-                $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
+                $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
             );
         }
+    }
 
-        $order = $this->orderRepository->get($orderId);
-        $message = __('Your order number is: %1.', $order->getIncrementId());
-
-        return $this->createResponse($message, true);
+    /**
+     * Create a new order
+     */
+    public function createOrder($quote) {
+        $order = $this->quoteManagement->submit($quote);
+        return $order;
     }
 
     /**
@@ -208,7 +306,11 @@ class Order extends \Magento\Framework\App\Action\Action
             'response' => $message
         ]);
         if ($successMessage) {
-            $this->messageManager->addSuccessMessage($message);
+            $this->messageManager->addComplexSuccessMessage(
+                'naxeroAipOrderSuccessMessage', 
+                ['message' => $message],
+                null
+            );
         } else {
             $this->messageManager->addErrorMessage($message);
         }
