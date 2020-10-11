@@ -40,19 +40,44 @@ class Order extends \Magento\Framework\App\Action\Action
     private $formKeyValidator;
 
     /**
+     * @var CartRepositoryInterface
+     */
+    private $quoteRepository;
+
+    /**
      * @var ProductRepositoryInterface
      */
     private $productRepository;
 
     /**
-     * @var PlaceOrderService
+     * @var CustomerRepositoryInterface
      */
-    private $placeOrderService;
+    public $customerRepository;
 
     /**
-     * @var OrderRepositoryInterface
+     * @var QuoteManagement
      */
-    private $orderRepository;
+    public $quoteManagement;
+
+    /**
+     * @var QuoteCreation
+     */
+    private $quoteCreation;
+
+    /**
+     * @var QuoteFilling
+     */
+    private $quoteFilling;
+
+    /**
+     * @var UrlInterface
+     */
+    public $urlBuilder;
+
+    /**
+     * @var Customer
+     */
+    public $customerHelper;
 
     /**
      * Class Order constructor 
@@ -62,18 +87,28 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Naxero\AdvancedInstantPurchase\Model\Service\PlaceOrderService $placeOrderService
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Quote\Model\QuoteManagement $quoteManagement,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
+        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
+        \Magento\Framework\UrlInterface $urlBuilder,
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
 
         $this->storeManager = $storeManager;
         $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
+        $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->placeOrderService = $placeOrderService;
-        $this->orderRepository = $orderRepository;
+        $this->quoteManagement = $quoteManagement;
+        $this->customerRepository  = $customerRepository;
+        $this->quoteCreation = $quoteCreation;
+        $this->quoteFilling = $quoteFilling;
+        $this->urlBuilder = $urlBuilder;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -106,8 +141,16 @@ class Order extends \Magento\Framework\App\Action\Action
 
         try {
             // Load the required elements
-            $customer = $this->customerSession->getCustomer();
             $store = $this->storeManager->getStore();
+            $customer = $this->customerHelper->getCustomer();
+
+            // Get the billing address
+            $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
+
+            // Get the shipping address
+            $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
+            $shippingAddress->setCollectShippingRates(true);
+            $shippingAddress->setShippingMethod($paymentData['carrierCode']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -117,28 +160,72 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Place the order
-            $orderId = $this->placeOrderService->placeOrder(
+            // Create the quote
+            $quote = $this->quoteCreation->createQuote(
                 $store,
                 $customer,
-                $product,
-                $productRequest,
-                $paymentData
+                $shippingAddress,
+                $billingAddress
             );
+
+            // Set the store
+            $quote->setStore($store)->save();
+
+            // Fill the quote
+            $quote = $this->quoteFilling->fillQuote(
+                $quote,
+                $product,
+                $paymentData['productRequest']
+            );
+
+            // Set the shipping method
+            $quote->getShippingAddress()->addData($shippingAddress->getData());
+            
+            // Set the payment method
+            $payment = $quote->getPayment();
+            $payment->setMethod($paymentData['paymentMethodCode']);
+            $payment->importData([
+                'method' => $paymentData['paymentMethodCode']
+            ]);
+            $payment->save();
+            $quote->save();
+
+            // Save the quote
+            $quote->collectTotals();
+            $this->quoteRepository->save($quote);
+            $quote = $this->quoteRepository->get($quote->getId());
+
+            // Create the order
+            $order = $this->createOrder($quote);
+
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
+            return $this->createResponse($e->getMessage(), false);
+            //return $this->createResponse($this->createGenericErrorMessage(), false);
         } catch (\Exception $e) {
+            return $this->createResponse($e->getMessage(), false);
+
+            /*
             return $this->createResponse(
                 $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
-            );
+            );*/
         }
 
         // Order confirmation
-        $order = $this->orderRepository->get($orderId);
-        $message = __('Your order number is: %1.', $order->getIncrementId());
-
+        $message = json_encode([
+            'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+            'order_increment_id' => $order->getIncrementId()
+        ]);
+        
         return $this->createResponse($message, true);
+    }
+
+    /**
+     * Create a new order
+     */
+    public function createOrder($quote) {
+        $order = $this->quoteManagement->submit($quote);
+        return $order;
     }
 
     /**
@@ -200,7 +287,11 @@ class Order extends \Magento\Framework\App\Action\Action
             'response' => $message
         ]);
         if ($successMessage) {
-            $this->messageManager->addSuccessMessage($message);
+            $this->messageManager->addComplexSuccessMessage(
+                'naxeroAipOrderSuccessMessage', 
+                ['message' => $message],
+                null
+            );
         } else {
             $this->messageManager->addErrorMessage($message);
         }

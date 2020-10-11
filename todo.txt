@@ -6,6 +6,9 @@ RESOURCES
 - execute php code from string
 https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
 
+- handle shipping method observer in js
+https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-on-country-and-postcode-change
+
 FEATURES
 - create list button action on click: redirect, open popup with options, force options selection
 - add tag/widget insertion in editor toolbar
