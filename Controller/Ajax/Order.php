@@ -191,12 +191,12 @@ class Order extends \Magento\Framework\App\Action\Action
             
             // Set the payment method
             $payment = $quote->getPayment();
+            $payment->setQuote($quote);
             $payment->setMethod($paymentData['paymentMethodCode']);
             $payment->importData([
                 'method' => $paymentData['paymentMethodCode']
             ]);
             $payment->save();
-            $quote->save();
 
             // Save the quote
             $quote->collectTotals();
