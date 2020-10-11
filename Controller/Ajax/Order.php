@@ -70,6 +70,11 @@ class Order extends \Magento\Framework\App\Action\Action
     private $quoteFilling;
 
     /**
+     * @var UrlInterface
+     */
+    public $urlBuilder;
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -88,6 +93,7 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Quote\Model\QuoteManagement $quoteManagement,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
+        \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
@@ -101,6 +107,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->customerRepository  = $customerRepository;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
+        $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
     }
 
@@ -205,7 +212,7 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Order confirmation
-        $message = __('Your order number is: %1.', $order->getId());
+        $message = $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId());
 
         return $this->createResponse($message, true);
     }
@@ -277,7 +284,11 @@ class Order extends \Magento\Framework\App\Action\Action
             'response' => $message
         ]);
         if ($successMessage) {
-            $this->messageManager->addSuccessMessage($message);
+            $this->messageManager->addComplexSuccessMessage(
+                'naxeroAipOrderSuccessMessage', 
+                ['url' => $message],
+                null
+            );
         } else {
             $this->messageManager->addErrorMessage($message);
         }
