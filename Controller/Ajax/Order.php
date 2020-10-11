@@ -167,52 +167,49 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Send the payment request
-            $paymentRequest = $this->paymentHandler
+
+            // Create the quote
+            $quote = $this->quoteCreation->createQuote(
+                $store,
+                $customer,
+                $shippingAddress,
+                $billingAddress
+            );
+
+            // Set the store
+            $quote->setStore($store)->save();
+
+            // Fill the quote
+            $quote = $this->quoteFilling->fillQuote(
+                $quote,
+                $product,
+                $paymentData['productRequest']
+            );
+
+            // Set the shipping method
+            $quote->getShippingAddress()->addData($shippingAddress->getData());
+            
+            // Set the payment method
+            $payment = $quote->getPayment();
+            $payment->setMethod($paymentData['paymentMethodCode']);
+            $payment->importData([
+                'method' => $paymentData['paymentMethodCode']
+            ]);
+            $payment->save();
+            $quote->save();
+
+            // Save the quote
+            $quote->collectTotals();
+            $this->quoteRepository->save($quote);
+            $quote = $this->quoteRepository->get($quote->getId());
+
+            // Send the payment request and get the response
+            $paymentResponse = $this->paymentHandler
             ->loadMethod($paymentData['paymentMethodCode'])
-            ->sendRequest();
+            ->sendRequest($quote, $paymentData);
 
-            // Get the payment response
-            $paymentResponse = $paymentRequest->getResponse();
-
-            // Handle the payment response
+            // Create the order
             if ($paymentResponse->isSuccess()) {
-                // Create the quote
-                $quote = $this->quoteCreation->createQuote(
-                    $store,
-                    $customer,
-                    $shippingAddress,
-                    $billingAddress
-                );
-
-                // Set the store
-                $quote->setStore($store)->save();
-
-                // Fill the quote
-                $quote = $this->quoteFilling->fillQuote(
-                    $quote,
-                    $product,
-                    $paymentData['productRequest']
-                );
-
-                // Set the shipping method
-                $quote->getShippingAddress()->addData($shippingAddress->getData());
-                
-                // Set the payment method
-                $payment = $quote->getPayment();
-                $payment->setMethod($paymentData['paymentMethodCode']);
-                $payment->importData([
-                    'method' => $paymentData['paymentMethodCode']
-                ]);
-                $payment->save();
-                $quote->save();
-
-                // Save the quote
-                $quote->collectTotals();
-                $this->quoteRepository->save($quote);
-                $quote = $this->quoteRepository->get($quote->getId());
-
-                // Create the order
                 $order = $this->createOrder($quote);
             }
         } 
