@@ -10,16 +10,9 @@ class PaymentHandler implements \Naxero\AdvancedInstantPurchase\Model\Payment\Pa
 
     }
 
-    public function sendRequest() {
+    public function loadMethod($code) {
 
-    }
 
-    public function getResponse() {
-        $response = '';
-        return $response;
-    }
-
-    public function isSuccess() {
-        return true;
+        return $this; 
     }
 }

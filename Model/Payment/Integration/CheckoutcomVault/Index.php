@@ -1,7 +1,7 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration;
+namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVault;
 
-class CheckoutcomVault implements \Naxero\AdvancedInstantPurchase\Model\Payment\PaymentHandlerInterface
+class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentMethodInterface
 {
 
     public function __construct(

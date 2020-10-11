@@ -80,6 +80,11 @@ class Order extends \Magento\Framework\App\Action\Action
     public $customerHelper;
 
     /**
+     * @var PaymentHandler
+     */
+    public $paymentHandler;
+
+    /**
      * Class Order constructor 
      */
     public function __construct(
@@ -94,7 +99,8 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Model\Payment\PaymentHandler $paymentHandler
     ) {
         parent::__construct($context);
 
@@ -109,6 +115,7 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->quoteFilling = $quoteFilling;
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
+        $this->paymentHandler = $paymentHandler;
     }
 
     /**
@@ -160,8 +167,12 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Process the payment request
-            $paymentRequest = $this->paymentHandler->sendRequest();
+            // Send the payment request
+            $paymentRequest = $this->paymentHandler
+            ->loadMethod($paymentData['paymentMethodCode'])
+            ->sendRequest();
+
+            // Get the payment response
             $paymentResponse = $paymentRequest->getResponse();
 
             // Handle the payment response
