@@ -212,8 +212,11 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Order confirmation
-        $message = $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId());
-
+        $message = json_encode([
+            'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+            'order_increment_id' => $order->getIncrementId()
+        ]);
+        
         return $this->createResponse($message, true);
     }
 
@@ -286,7 +289,7 @@ class Order extends \Magento\Framework\App\Action\Action
         if ($successMessage) {
             $this->messageManager->addComplexSuccessMessage(
                 'naxeroAipOrderSuccessMessage', 
-                ['url' => $message],
+                ['message' => $message],
                 null
             );
         } else {
