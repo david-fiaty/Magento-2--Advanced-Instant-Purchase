@@ -70,11 +70,6 @@ class Order extends \Magento\Framework\App\Action\Action
     private $quoteFilling;
 
     /**
-     * @var ShippingConfiguration
-     */
-    private $shippingConfiguration;
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -93,7 +88,6 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Quote\Model\QuoteManagement $quoteManagement,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
-        \Magento\InstantPurchase\Model\QuoteManagement\ShippingConfiguration $shippingConfiguration,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
     ) {
         parent::__construct($context);
@@ -107,7 +101,6 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->customerRepository  = $customerRepository;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
-        $this->shippingConfiguration = $shippingConfiguration;
         $this->customerHelper = $customerHelper;
     }
 
@@ -143,8 +136,13 @@ class Order extends \Magento\Framework\App\Action\Action
             // Load the required elements
             $store = $this->storeManager->getStore();
             $customer = $this->customerHelper->getCustomer();
+
+            // Billing address
             $billingAddress = $customer->getAddressById($paymentData['billingAddressId']);
+
+            // Shipping address
             $shippingAddress = $customer->getAddressById($paymentData['shippingAddressId']);
+            $shippingAddress->setShippingMethod($paymentData['shippingMethodCode']);
 
             // Load the product
             $product = $this->productRepository->getById(
@@ -170,9 +168,11 @@ class Order extends \Magento\Framework\App\Action\Action
             );
 
             // Set the payment method
+            /*
             $payment = $quote->getPayment();
             $payment->setMethod($paymentData['paymentMethodCode']);
             $payment->save();
+            */
 
             // Save the quote
             $quote->collectTotals();
