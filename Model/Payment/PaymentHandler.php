@@ -10,7 +10,7 @@ class PaymentHandler
 
     public function getClassPath($code) {
         $parts = explode('_', strtolower($code));
-        $path = "\\Naxero\\AdvancedInstantPurchase\\Model\\Payment\\Integration";
+        $path = "\\Naxero\\AdvancedInstantPurchase\\Model\\Payment\\Integration\\";
         foreach ($parts as $part) {
             $path .= ucfirst($part);
         }
