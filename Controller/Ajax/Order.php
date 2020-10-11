@@ -163,6 +163,8 @@ class Order extends \Magento\Framework\App\Action\Action
             // Process the payment request
             $paymentRequest = $this->paymentHandler->sendRequest();
             $paymentResponse = $paymentRequest->getResponse();
+
+            // Handle the payment response
             if ($paymentResponse->isSuccess()) {
                 // Create the quote
                 $quote = $this->quoteCreation->createQuote(
@@ -202,26 +204,33 @@ class Order extends \Magento\Framework\App\Action\Action
                 // Create the order
                 $order = $this->createOrder($quote);
             }
-        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+        } 
+        catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            return $this->createResponse($e->getMessage(), false);
+
             return $this->createResponse($this->createGenericErrorMessage(), false);
-        } catch (\Exception $e) {
+        } 
+        catch (\Exception $e) {
+            return $this->createResponse($e->getMessage(), false);
+
             return $this->createResponse(
                 $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
             );
         }
-
-        // Order confirmation
-        if ($order) {
-            $message = json_encode([
-                'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
-                'order_increment_id' => $order->getIncrementId()
-            ]);
-            
-            return $this->createResponse($message, true);
-        }
-        else {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
+        finally {
+            // Order confirmation
+            if ($order) {
+                $message = json_encode([
+                    'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+                    'order_increment_id' => $order->getIncrementId()
+                ]);
+                
+                return $this->createResponse($message, true);
+            }
+            else {
+                return $this->createResponse($this->createGenericErrorMessage(), false);
+            }
         }
     }
 
