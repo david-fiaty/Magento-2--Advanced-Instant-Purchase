@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVault;
+namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\BasePaymentMethod;
 
 /**
  * Class Index.
@@ -24,7 +24,7 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
     ) {
         $this->quoteManagement = $quoteManagement;
     }
-
+    
     /**
      * Send a payment request.
      */
@@ -59,6 +59,12 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
      * Chcek if a payment request is successful.
      */
     public function paymentSuccess() {
+        /**
+         * Retrieve the payment response payload
+         * in $this->response and check if the payment is successful
+         * according to the specific payment processor logic.
+         */
+
         return true;
     }
 }

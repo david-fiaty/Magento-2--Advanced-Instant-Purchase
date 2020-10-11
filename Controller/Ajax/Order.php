@@ -55,11 +55,6 @@ class Order extends \Magento\Framework\App\Action\Action
     public $customerRepository;
 
     /**
-     * @var QuoteManagement
-     */
-    public $quoteManagement;
-
-    /**
      * @var QuoteCreation
      */
     private $quoteCreation;
@@ -95,7 +90,6 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
@@ -109,7 +103,6 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->quoteManagement = $quoteManagement;
         $this->customerRepository  = $customerRepository;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
@@ -209,8 +202,8 @@ class Order extends \Magento\Framework\App\Action\Action
             ->sendRequest($quote, $paymentData);
 
             // Create the order
-            if ($paymentResponse->isSuccess()) {
-                $order = $this->createOrder($quote);
+            if ($paymentResponse->paymentSuccess()) {
+                $order = $this->paymentHandler->createOrder($quote, $paymentResponse);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
@@ -237,14 +230,6 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
         }
-    }
-
-    /**
-     * Create a new order
-     */
-    public function createOrder($quote) {
-        $order = $this->quoteManagement->submit($quote);
-        return $order;
     }
 
     /**
