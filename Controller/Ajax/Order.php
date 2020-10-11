@@ -211,6 +211,17 @@ class Order extends \Magento\Framework\App\Action\Action
             // Create the order
             if ($paymentResponse->isSuccess()) {
                 $order = $this->createOrder($quote);
+                if ($order) {
+                    $message = json_encode([
+                        'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+                        'order_increment_id' => $order->getIncrementId()
+                    ]);
+                    
+                    return $this->createResponse($message, true);
+                }
+                else {
+                    return $this->createResponse($this->createGenericErrorMessage(), false);
+                }
             }
         } 
         catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
@@ -225,20 +236,6 @@ class Order extends \Magento\Framework\App\Action\Action
                 $e instanceof Magento\Framework\Exception\LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                 false
             );
-        }
-        finally {
-            // Order confirmation
-            if ($order) {
-                $message = json_encode([
-                    'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
-                    'order_increment_id' => $order->getIncrementId()
-                ]);
-                
-                return $this->createResponse($message, true);
-            }
-            else {
-                return $this->createResponse($this->createGenericErrorMessage(), false);
-            }
         }
     }
 
