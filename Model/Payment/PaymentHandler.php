@@ -1,15 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Payment;
 
-class PaymentHandler implements \Naxero\AdvancedInstantPurchase\Model\Payment\PaymentHandlerInterface
+class PaymentHandler
 {
-
-    public function __construct(
-
-    ) {
-
-    }
-
     public function loadMethod($code) {
         $classPath = $this->getClassPath($code);
         return new $classPath(); 
