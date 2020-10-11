@@ -12,7 +12,7 @@ class PaymentHandler
         $parts = explode('_', strtolower($code));
         $path = "\\Naxero\\AdvancedInstantPurchase\\Model\\Payment\\Integration";
         foreach ($parts as $part) {
-            $path .= "\\" . ucfirst($part);
+            $path .= ucfirst($part);
         }
         $path .= "\\Index";
 

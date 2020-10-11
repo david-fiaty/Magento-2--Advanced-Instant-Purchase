@@ -1,8 +1,19 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVault;
 
+/**
+ * Class Index.
+ */
 class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentMethodInterface
 {
+    /**
+     * @var string|array|object
+     */
+    public $response;
+
+    /**
+     * Send a payment request.
+     */
     public function sendRequest($quote, $paymentData) {
         /**
          * Send a payment request according to 
@@ -12,11 +23,18 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
          * in the $this->isSuccess() method.
          */
         
-        $this->response = '';
+        // Get the payment response
+        $response = '';
+
+        // Assign the response to self
+        $this->response = $response;
 
         return $this;
     }
 
+    /**
+     * Chcek if a payment request is successful.
+     */
     public function isSuccess() {
         /**
          * Retrieve the payment response payload
