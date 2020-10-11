@@ -160,44 +160,48 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-            // Create the quote
-            $quote = $this->quoteCreation->createQuote(
-                $store,
-                $customer,
-                $shippingAddress,
-                $billingAddress
-            );
+            // Process the payment request
+            $paymentRequest = $this->paymentHandler->sendRequest();
+            $paymentResponse = $paymentRequest->getResponse();
+            if ($paymentResponse->isSuccess()) {
+                // Create the quote
+                $quote = $this->quoteCreation->createQuote(
+                    $store,
+                    $customer,
+                    $shippingAddress,
+                    $billingAddress
+                );
 
-            // Set the store
-            $quote->setStore($store)->save();
+                // Set the store
+                $quote->setStore($store)->save();
 
-            // Fill the quote
-            $quote = $this->quoteFilling->fillQuote(
-                $quote,
-                $product,
-                $paymentData['productRequest']
-            );
+                // Fill the quote
+                $quote = $this->quoteFilling->fillQuote(
+                    $quote,
+                    $product,
+                    $paymentData['productRequest']
+                );
 
-            // Set the shipping method
-            $quote->getShippingAddress()->addData($shippingAddress->getData());
-            
-            // Set the payment method
-            $payment = $quote->getPayment();
-            $payment->setMethod($paymentData['paymentMethodCode']);
-            $payment->importData([
-                'method' => $paymentData['paymentMethodCode']
-            ]);
-            $payment->save();
-            $quote->save();
+                // Set the shipping method
+                $quote->getShippingAddress()->addData($shippingAddress->getData());
+                
+                // Set the payment method
+                $payment = $quote->getPayment();
+                $payment->setMethod($paymentData['paymentMethodCode']);
+                $payment->importData([
+                    'method' => $paymentData['paymentMethodCode']
+                ]);
+                $payment->save();
+                $quote->save();
 
-            // Save the quote
-            $quote->collectTotals();
-            $this->quoteRepository->save($quote);
-            $quote = $this->quoteRepository->get($quote->getId());
+                // Save the quote
+                $quote->collectTotals();
+                $this->quoteRepository->save($quote);
+                $quote = $this->quoteRepository->get($quote->getId());
 
-            // Create the order
-            $order = $this->createOrder($quote);
-
+                // Create the order
+                $order = $this->createOrder($quote);
+            }
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         } catch (\Exception $e) {
@@ -208,12 +212,17 @@ class Order extends \Magento\Framework\App\Action\Action
         }
 
         // Order confirmation
-        $message = json_encode([
-            'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
-            'order_increment_id' => $order->getIncrementId()
-        ]);
-        
-        return $this->createResponse($message, true);
+        if ($order) {
+            $message = json_encode([
+                'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
+                'order_increment_id' => $order->getIncrementId()
+            ]);
+            
+            return $this->createResponse($message, true);
+        }
+        else {
+            return $this->createResponse($this->createGenericErrorMessage(), false);
+        }
     }
 
     /**
