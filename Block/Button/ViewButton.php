@@ -66,21 +66,4 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         return $this->productHelper->getProduct();
     }
-
-    /**
-     * Get the block component js config.
-     */
-    public function getJsConfig()
-    {
-        return json_encode(
-            array_merge(
-                $this->customerHelper->getUserParams(),
-                [
-                    'product' => [
-                        'id' => $this->getProduct()->getId()
-                    ]
-                ]
-            )
-        );
-    }
 }

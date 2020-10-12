@@ -120,9 +120,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             'user' => [
                 'connected' => $this->isLoggedIn(),
                 'language' => $this->getUserLanguage()
-            ],
-            'product' => [
-                'id' => $this->getProduct()->getId()
             ]
         ];
     }
