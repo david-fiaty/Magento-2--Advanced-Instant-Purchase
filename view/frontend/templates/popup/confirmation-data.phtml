@@ -1,8 +1,15 @@
 <?php 
-    // Get the confirmation screen content
+    // Get the confirmation content
     $content = $block->getConfirmContent();
+
+    // Get the module config
     $config = $block->getConfig();
+
+    // Other payment methods display
+    $showOtherPaymentMmethods = !empty($content['otherPaymentMethods'])
+    && $config['payment_methods']['show_other_allowed'];
 ?>
+
 <?php if ($config['display']['popup_product']): ?>
     <div class="aip-product-box">
         <div class="aip-product-box-image">
@@ -87,7 +94,7 @@
     </label> 
 </div>
 
-<?php if (!empty($content['otherPaymentMethods'])): ?>
+<?php if ($howOtherPaymentMethods): ?>
     <div class="aip-field">
         <label for="aip-other-method-select">
             <input type="checkbox" id="aip-show-other-methods">

@@ -48,6 +48,7 @@
             </registered>
             <payment_methods>
                 <card_allowed></card_allowed>
+                <show_other_allowed></show_other_allowed>
                 <other_allowed></other_allowed>
             </payment_methods>
             <card_form>
