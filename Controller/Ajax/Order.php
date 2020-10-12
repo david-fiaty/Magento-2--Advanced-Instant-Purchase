@@ -118,6 +118,12 @@ class Order extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/o.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($this->getRequest()->getParams(), 1));
+
         // Validate the request
         $request = $this->getRequest();
         if (!$this->doesRequestContainAllKnowParams($request)) {

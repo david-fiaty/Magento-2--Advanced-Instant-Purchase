@@ -6,7 +6,6 @@
         <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick.css" />
         <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick-theme.css" />
         <css src="Naxero_AdvancedInstantPurchase::css/lib/popover/popover.css" />
-        <script src="Naxero_AdvancedInstantPurchase::js/ui/main.js"/>
     </head>
     <body>
         <referenceBlock name="product.info.addtocart">

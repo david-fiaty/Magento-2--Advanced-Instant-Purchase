@@ -58,4 +58,24 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 
         return $condition ? $config : null;
     }
+
+    /**
+     * Get the block component js config.
+     */
+    public function getJsConfig()
+    {
+        return json_encode(
+            array_merge(
+                $this->customerHelper->getUserParams(),
+                [
+                    'product' => [
+                        'id' => $this->getProduct()->getId()
+                    ]
+                ]
+            )
+        );
+    }
 }
+
+
+

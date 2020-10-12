@@ -26,4 +26,11 @@
     <input type="hidden" name="aip[instant_purchase_carrier][<?= $productId ?>]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
     <input type="hidden" name="aip[instant_purchase_shipping][<?= $productId ?>]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
 
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "aip": <?= $block->getJsConfig() ?>
+            }
+        }
+    </script>
 <?php } ?> 

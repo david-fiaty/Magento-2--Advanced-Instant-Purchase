@@ -24,6 +24,7 @@ define([
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
+            jsConfig: {},
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
@@ -46,6 +47,8 @@ define([
         /** @inheritdoc */
         initialize: function() {
             this._super();
+
+            console.log(this.jsConfig);
         },
 
         /**
