@@ -201,7 +201,7 @@ class Order extends \Magento\Framework\App\Action\Action
 
             // Create the order
             if ($paymentResponse->paymentSuccess()) {
-                $order = $paymentMethod->createOrder($quote, $paymentResponse);
+                $order = $paymentResponse->createOrder($quote, $paymentResponse);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
