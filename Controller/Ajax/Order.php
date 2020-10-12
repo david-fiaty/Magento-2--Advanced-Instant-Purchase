@@ -182,13 +182,15 @@ class Order extends \Magento\Framework\App\Action\Action
             $quote->getShippingAddress()->addData($shippingAddress->getData());
             
             // Set the payment method
-            $payment = $quote->getPayment();
-            $payment->setQuote($quote);
-            $payment->setMethod($paymentData['paymentMethodCode']);
-            $payment->importData([
-                'method' => $paymentData['paymentMethodCode']
-            ]);
-            $payment->save();
+            if ($paymentData['paymentMethodCode'] != 'free') {
+                $payment = $quote->getPayment();
+                $payment->setQuote($quote);
+                $payment->setMethod($paymentData['paymentMethodCode']);
+                $payment->importData([
+                    'method' => $paymentData['paymentMethodCode']
+                ]);
+                $payment->save();
+            }
 
             // Save the quote
             $quote->collectTotals();
@@ -198,7 +200,7 @@ class Order extends \Magento\Framework\App\Action\Action
             // Send the payment request and get the response
             $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
             $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
-
+            
             // Create the order
             if ($paymentResponse->paymentSuccess()) {
                 $order = $paymentResponse->createOrder($quote, $paymentResponse);
