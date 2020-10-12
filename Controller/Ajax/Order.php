@@ -264,7 +264,7 @@ class Order extends \Magento\Framework\App\Action\Action
     private function doesRequestContainAllKnowParams(array $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
-            if ($request['knownRequestParam'] === null) {
+            if ($request[$knownRequestParam] === null) {
                 return false;
             }
         }
