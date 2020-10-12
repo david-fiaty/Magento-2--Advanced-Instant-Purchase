@@ -5,17 +5,19 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $product = $block->getProduct();
         $productId = $product->getId();
+        $buttonId = 'aip-button-' . $productId;
         $productIsFree = $product->getFinalPrice() == 0;
         $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
 
         // JS component config
         $jsConfig = [
-            'jsonfig' => array_merge(
+            'jsConfig' => array_merge(
                 $this->customerHelper->getUserParams(),
                 [
                     'product' => [
-                        'id' => $this->getProduct()->getId()
-                    ]
+                        'id' => $this->getProduct()->getId(),
+                    ],
+                    'buttonSelector' => '#' . $buttonId
                 ]
             )
         ];
@@ -23,7 +25,7 @@
 ?>
     <div id="aip-<?= $productId ?>" class="aip-button-container">
         <button 
-            id="aip-button-<?= $productId ?>"
+            id="<?= $buttonId ?>"
             type="button"
             disabled="disabled"
             class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"

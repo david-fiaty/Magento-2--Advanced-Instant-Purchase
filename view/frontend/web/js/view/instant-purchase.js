@@ -33,7 +33,6 @@ define([
             billingAddress: null,
             shippingMethod: null,
             popupContentSelector: '#aip-confirmation-content',
-            buttonSelector: '.aip-button',
             isSubView: false,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -47,8 +46,30 @@ define([
         /** @inheritdoc */
         initialize: function() {
             this._super();
+            this.build();
+        },
 
-            console.log(this.jsConfig);
+        /**
+         * Prepare the purchase data.
+         *
+         * @param {Object} data
+         */
+        build: function() {
+            var self = this;
+            self.setButtonState();
+            $(self.jsConfig.buttonSelector).on('click touch', function(e) {
+                self.handleButtonClick(e);
+            }); 
+        },
+
+        /**
+         * Set the purchase button state after load.
+         */
+        setButtonState: function() {
+            return $(this.jsConfig.buttonSelector).prop(
+                'disabled',
+                !this.aipConfig.guest.click_event
+            );
         },
 
         /**
