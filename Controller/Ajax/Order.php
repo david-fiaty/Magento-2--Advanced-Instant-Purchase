@@ -160,7 +160,6 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-
             // Create the quote
             $quote = $this->quoteCreation->createQuote(
                 $store,

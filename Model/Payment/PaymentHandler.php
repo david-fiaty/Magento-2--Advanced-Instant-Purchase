@@ -1,14 +1,32 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Payment;
 
+/**
+ * Class PaymentHandler.
+ */
 class PaymentHandler
 {
+    /**
+     * @var PaymentIntegrationFactory
+     */
+    public $paymentIntegrationFactory;
+
+    /**
+     * PaymentHandler constructor.
+     */
+    public function __construct(
+        \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationFactory $paymentIntegrationFactory
+    )
+    {
+        $this->paymentIntegrationFactory = $paymentIntegrationFactory;
+    }
+
     /**
      * Load a payment integration instance.
      */
     public function loadMethod($code) {
         $classPath = $this->getIntegrationPath($code);
-        return new $classPath(); 
+        return $this->paymentIntegrationFactory->create($classPath); 
     }
 
     /**
