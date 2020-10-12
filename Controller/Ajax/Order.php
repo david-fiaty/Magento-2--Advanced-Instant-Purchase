@@ -118,14 +118,8 @@ class Order extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/o.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($this->getRequest()->getParams(), 1));
-
         // Validate the request
-        $request = $this->getRequest();
+        $request = $this->getRequestData();
         if (!$this->doesRequestContainAllKnowParams($request)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
@@ -135,13 +129,13 @@ class Order extends \Magento\Framework\App\Action\Action
 
         // Prepare the payment data
         $paymentData = [
-            'paymentTokenPublicHash' => (string) $request->getParam('instant_purchase_payment_token'),
-            'paymentMethodCode' => (string) $request->getParam('instant_purchase_method_code'),
-            'shippingAddressId' => (int) $request->getParam('instant_purchase_shipping_address'),
-            'billingAddressId' => (int) $request->getParam('instant_purchase_billing_address'),
-            'carrierCode' => (string) $request->getParam('instant_purchase_carrier'),
-            'shippingMethodCode' => (string) $request->getParam('instant_purchase_shipping'),
-            'productId' => (int) $request->getParam('product'),
+            'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],
+            'paymentMethodCode' => (string) $request['instant_purchase_method_code'],
+            'shippingAddressId' => (int) $request['instant_purchase_shipping_address'],
+            'billingAddressId' => (int) $request['instant_purchase_billing_address'],
+            'carrierCode' => (string) $request['instant_purchase_carrier'],
+            'shippingMethodCode' => (string) $request['instant_purchase_shipping'],
+            'productId' => (int) $request['product'],
             'productRequest' => $this->getRequestUnknownParams($request)
         ];
 
@@ -236,6 +230,19 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
         }
+    }
+
+    /* Get the request data.
+     *
+     * @return string
+     */
+    public function getRequestData()
+    {
+        $params = $this->getRequest()->getParams();
+        $formatted = array_merge($params['aip'], array());
+        unset($params['aip']);
+
+        return array_merge($params, $formatted[0]);
     }
 
     /**
