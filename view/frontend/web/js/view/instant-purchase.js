@@ -24,7 +24,6 @@ define([
     return Component.extend({
         defaults: {
             aipConfig: window.advancedInstantPurchase,
-            user: {},
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
@@ -47,20 +46,6 @@ define([
         /** @inheritdoc */
         initialize: function() {
             this._super();
-            this.build();
-        },
-
-        /**
-         * Prepare the purchase data.
-         *
-         * @param {Object} data
-         */
-        build: function() {
-            var self = this;
-            this.setButtonState();
-            $(this.buttonSelector).on('click touch', function(e) {
-                self.handleButtonClick(e);
-            }); 
         },
 
         /**
@@ -92,16 +77,6 @@ define([
                 var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
                 AipLogin[fn]();
             }
-        },
-
-        /**
-         * Set the purchase button state after load.
-         */
-        setButtonState: function() {
-            return $(this.buttonSelector).prop(
-                'disabled',
-                !this.aipConfig.guest.click_event
-            );
         },
 
         /**

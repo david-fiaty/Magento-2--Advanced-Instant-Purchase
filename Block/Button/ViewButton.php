@@ -58,22 +58,6 @@ class ViewButton extends \Magento\Framework\View\Element\Template
 
         return $condition ? $config : null;
     }
-
-    /**
-     * Get the current user status.
-     */
-    public function getUserParams()
-    {
-        return [
-            'user' => [
-                'connected' => $this->customerHelper->isLoggedIn(),
-                'language' => $this->customerHelper->getUserLanguage()
-            ],
-            'product' => [
-                'id' => $this->getProduct()->getId()
-            ]
-        ];
-    }
     
     /**
      * Get the current product.

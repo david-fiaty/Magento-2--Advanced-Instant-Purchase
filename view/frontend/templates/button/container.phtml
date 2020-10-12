@@ -19,18 +19,11 @@
         </button>
     </div>
 
-    <input type="hidden" name="instant_purchase_payment_token" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
-    <input type="hidden" name="instant_purchase_method_code" value="<?= $methodCode ?>" />
-    <input type="hidden" name="instant_purchase_shipping_address" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
-    <input type="hidden" name="instant_purchase_billing_address" value="<?= $purchaseData['billingAddress']['id'] ?>" />
-    <input type="hidden" name="instant_purchase_carrier" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
-    <input type="hidden" name="instant_purchase_shipping" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+    <input type="hidden" name="aip[instant_purchase_payment_token][<?= $productId ?>]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+    <input type="hidden" name="aip[instant_purchase_method_code][<?= $productId ?>]" value="<?= $methodCode ?>" />
+    <input type="hidden" name="aip[instant_purchase_shipping_address][<?= $productId ?>]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
+    <input type="hidden" name="aip[instant_purchase_billing_address][<?= $productId ?>]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
+    <input type="hidden" name="aip[instant_purchase_carrier][<?= $productId ?>]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
+    <input type="hidden" name="aip[instant_purchase_shipping][<?= $productId ?>]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
 
-    <script type="text/x-magento-init">
-        {
-            "*": {
-                "aip": <?= json_encode($block->getUserParams()) ?>
-            }
-        }
-    </script>
-<?php } ?>
+<?php } ?> 
