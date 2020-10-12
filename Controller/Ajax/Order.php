@@ -261,10 +261,10 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return bool
      */
-    private function doesRequestContainAllKnowParams(RequestInterface $request): bool
+    private function doesRequestContainAllKnowParams(array $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
-            if ($request->getParam($knownRequestParam) === null) {
+            if ($request['knownRequestParam'] === null) {
                 return false;
             }
         }
@@ -277,9 +277,8 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return array
      */
-    private function getRequestUnknownParams(RequestInterface $request): array
+    private function getRequestUnknownParams(array $requestParams): array
     {
-        $requestParams = $request->getParams();
         $unknownParams = [];
         foreach ($requestParams as $param => $value) {
             if (!isset(self::$knownRequestParams[$param])) {
