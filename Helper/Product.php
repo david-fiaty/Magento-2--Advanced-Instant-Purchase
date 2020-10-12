@@ -59,6 +59,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
+                'is_free' => $product->getFinalPrice() > 0,
                 'price' => $this->getProductPrice(),
                 'url' => $this->getProductImageUrl()
             ];

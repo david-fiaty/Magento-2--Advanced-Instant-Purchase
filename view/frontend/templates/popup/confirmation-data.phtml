@@ -8,6 +8,9 @@
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
     && $config['payment_methods']['show_other_allowed'];
+
+
+    var_dump( $content['product']);
 ?>
 
 <?php if ($config['display']['popup_product']): ?>
@@ -72,29 +75,31 @@
     </label>
 </div>
 
-<div class="aip-field">
-    <label for="aip-payment-method-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Saved cards')) ?></span>
-        <p>
-            <?php if (!empty($content['savedCards'])): ?>
-                <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
-                    <?php foreach ($content['savedCards'] as $item): ?>
-                        <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
-                            &nbsp;&nbsp;<?= $item['token'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
-            <?php else: ?>
-                <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
-                    <?= __('Save a new card') ?>
-                </a>
-            <?php endif; ?>
-        </p>
-    </label> 
-</div>
+<?php if (!$content['product']['is_free']): ?>
+    <div class="aip-field">
+        <label for="aip-payment-method-select">
+            <span class="aip-label"><?= $block->escapeHtml(__('Saved cards')) ?></span>
+            <p>
+                <?php if (!empty($content['savedCards'])): ?>
+                    <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
+                        <?php foreach ($content['savedCards'] as $item): ?>
+                            <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                                &nbsp;&nbsp;<?= $item['token'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
+                <?php else: ?>
+                    <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
+                        <?= __('Save a new card') ?>
+                    </a>
+                <?php endif; ?>
+            </p>
+        </label> 
+    </div>
+<?php endif; ?>
 
-<?php if ($showOtherPaymentMethods): ?>
+<?php if ($showOtherPaymentMethods && !$content['product']['is_free']): ?>
     <div class="aip-field">
         <label for="aip-other-method-select">
             <input type="checkbox" id="aip-show-other-methods">
@@ -112,7 +117,7 @@
     </div>
 <?php endif; ?>
 
-<?php if (!empty($content['addresses']) && !empty($content['savedCards'])): ?>
+<?php if (!empty($content['addresses']) && !empty($content['savedCards']) && !$content['product']['is_free']): ?>
 <div class="aip-field">
     <label for="aip-shipping-method-select">
         <span class="aip-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
