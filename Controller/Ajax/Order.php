@@ -118,14 +118,18 @@ class Order extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        // Validate the request
-        $request = $this->getRequestData();
+        // Validate the form key
+        $params = $this->getRequest();
+        if (!$this->formKeyValidator->validate($params)) {
+            return $this->createResponse($this->createGenericErrorMessage(), false);
+        }
+
+        // Validate the request parameters
+        $request = $this->getRequestData($params);
         if (!$this->doesRequestContainAllKnowParams($request)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
-        if (!$this->formKeyValidator->validate($request)) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
-        }
+
 
         // Prepare the payment data
         $paymentData = [
@@ -236,9 +240,9 @@ class Order extends \Magento\Framework\App\Action\Action
      *
      * @return string
      */
-    public function getRequestData()
+    public function getRequestData($request)
     {
-        $params = $this->getRequest()->getParams();
+        $params = $request->getParams();
         $formatted = array_merge($params['aip'], array());
         unset($params['aip']);
 
