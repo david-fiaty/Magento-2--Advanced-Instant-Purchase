@@ -196,13 +196,12 @@ class Order extends \Magento\Framework\App\Action\Action
             $quote = $this->quoteRepository->get($quote->getId());
 
             // Send the payment request and get the response
-            $paymentResponse = $this->paymentHandler
-            ->loadMethod($paymentData['paymentMethodCode'])
-            ->sendRequest($quote, $paymentData);
+            $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
+            $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
 
             // Create the order
             if ($paymentResponse->paymentSuccess()) {
-                $order = $this->paymentHandler->createOrder($quote, $paymentResponse);
+                $order = $paymentMethod->createOrder($quote, $paymentResponse);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
