@@ -53,6 +53,13 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
     }
 
     /**
+     * Chcek if a payment request is successful.
+     */
+    public function paymentSuccess() {
+        return true;
+    }
+    
+    /**
      * Create a new order.
      */
     public function createOrder($quote, $paymentResponse) {
@@ -67,12 +74,5 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
         $order = $this->orderRepository->get($orderId);
 
         return $order;
-    }
-
-    /**
-     * Chcek if a payment request is successful.
-     */
-    public function paymentSuccess() {
-        return true;
     }
 }
