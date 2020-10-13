@@ -12,7 +12,6 @@ define(
             agreementRow: '.aip-agreement-link-row',
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
-            attributeErrorSelector: '.aip-attribute-error',
             popoverSelector: '.popover',
             buttonErrorClass: 'aip-button-error',
 
@@ -154,7 +153,7 @@ define(
                     // Prepare variables
                     var self = this;
                     var button = $(obj.jsConfig.buttonSelector);
-                    var productContainer = button.closest(AipProduct.getContainerSelector());
+                    var productContainer = button.closest(AipProduct.getProductContainer());
 
                     // Clear previous errors
                     self.clearErrors(button);
@@ -170,31 +169,6 @@ define(
                     });
                     button.addClass(this.buttonErrorClass);
                     button.trigger('mouseover');
-
-                    // Update the missing options state
-                    for (var i = 0; i < errors.length; i++) {
-                        var attributeContainer = productContainer
-                        .find('[attribute-id="' + errors[i].id + '"]');
-                        attributeContainer.css('position', 'relative');
-                        attributeContainer.append('<div class="aip-attribute-error"><div>&#10006;</div></div>');
-                        attributeContainer.find(this.attributeErrorSelector).popover({
-                            title : '',
-                            content : __('Required option'),
-                            autoPlace : false,
-                            trigger : 'hover',
-                            placement : 'right',
-                            delay : 10
-                        });
-                    }
-
-                    // Add the show/hide error events on product hover
-                    $(document).on('mouseover focusin', AipProduct.getContainerSelector(), function() {
-                        $(this).find(self.attributeErrorSelector).show();
-                    });
-
-                    $(document).on('mouseout focusout', AipProduct.getContainerSelector(), function() {
-                        $(this).find(self.attributeErrorSelector).hide();
-                    });
                 }
             },
 
@@ -203,7 +177,6 @@ define(
              */
             clearErrors: function(button) {
                 button.removeClass(this.buttonErrorClass);
-                $(this.attributeErrorSelector).remove();
                 $(this.popoverSelector).remove();
             },
 
