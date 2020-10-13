@@ -62,12 +62,13 @@ define(
              */
             initOptionsValidation: function(obj) {
                 var self = this;
+                var errors = [];
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
                 if (productAttributes.length > 0) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
-                            var errors = self.validateOptions(obj, true);
-                            var disabled = !(errors.length !=0);
+                            errors = self.validateOptions(obj, true);
+                            var disabled = !(errors.length == 0);
                             $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
                         });
                     });
