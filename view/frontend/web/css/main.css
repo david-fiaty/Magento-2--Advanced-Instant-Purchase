@@ -47,29 +47,6 @@
     font-size: 0.8em !important;
 }
 
-.aip-attribute-error {
-    background-color: red;
-    position: absolute;
-    top: calc(-10%);
-    left: calc(-4%);
-    cursor: pointer;
-    width: 1.15em;
-    height: 1.15em;
-    border-radius: 50%;
-    z-index: 999;
-}
-
-.aip-attribute-error div {
-    font-size: 0.55em;
-    color: white;
-    text-align: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
 /* Agreements */
 .aip-agreement-link-row.error a {
     color: red;
