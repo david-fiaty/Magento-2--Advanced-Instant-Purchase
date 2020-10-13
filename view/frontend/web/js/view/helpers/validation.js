@@ -2,9 +2,10 @@ define(
     [
         'jquery',
         'mage/translate',
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
         'popover'
     ],
-    function ($, __) {
+    function ($, __, AipProduct) {
         'use strict';
         return {
             aipConfig: window.advancedInstantPurchase,
@@ -12,7 +13,6 @@ define(
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
             attributeErrorSelector: '.aip-attribute-error',
-            productContainerSelector: '.product-item',
             popoverSelector: '.popover',
             buttonErrorClass: 'aip-button-error',
 
@@ -72,48 +72,71 @@ define(
             },
 
             /**
+             * Checkf if a product has options errors.
+             */
+            hasOptionError: function(buttonId) {
+
+            },
+
+            /**
              * Check the category view product options.
              */
-            checkOptions: function(obj, e) {
-                // Error array
+            validateOptions: function(obj) {
+                // Errors array
                 var errors = [];
 
                 // Find existing options
-                var productAttributes = $(e.currentTarget)
-                .parents(this.productContainerSelector)
-                .find('input[name^="super_attribute"]');
+                var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
 
-                // If there are attributes
-                if (productAttributes.length > 0) {
-                    productAttributes.each(function() {
-                        var val = $(this).val();
-                        if (!val || val === 'undefined' || val.length == 0) {
-                            var name = $(this).attr('name');
-                            errors.push({
-                                id: name.match(/\d+/)[0],
-                                name: name
-                            });
-                        }
-                    });
-
-                    // Handle errors
-                    this.displayOptionsErrors(errors, e);
-                }
+                // If there are attributes, check errors
+                var errors = this.checkOptionsErrors(productAttributes);
         
+                return errors;
+            },
+
+            /**
+             * Check the category view product options errors.
+             */
+            checkOptionsErrors: function(productAttributes) {
+                var errors = [];
+                if (productAttributes.length > 0) {
+                    var errors = this.getOptionsErrors(productAttributes);
+                    this.displayOptionsErrors(obj, errors);
+                }
+
+                return errors;
+            },
+
+            /**
+             * Get the category view product options errors.
+             */
+            getOptionsErrors: function(productAttributes) {
+                var errors = [];
+                productAttributes.each(function() {
+                    var val = $(this).val();
+                    if (!val || val === 'undefined' || val.length == 0) {
+                        var name = $(this).attr('name');
+                        errors.push({
+                            id: name.match(/\d+/)[0],
+                            name: name
+                        });
+                    }
+                });
+
                 return errors;
             },
 
             /**
              * Display the category view product options.
              */
-            displayOptionsErrors: function(errors, e) {
+            displayOptionsErrors: function(obj, errors) {
                 // Prepare variables
                 var self = this;
-                var productContainer = $(e.currentTarget).closest(this.productContainerSelector);
+                var productContainer = $(obj.jsConfig.buttonSelector).closest(AipProduct.productContainerSelector);
                 var button = productContainer.find('.aip-button');
 
                 // Clear previous errors
-                this.clearErrors(button);
+                self.clearErrors(button);
 
                 // Process existing errors
                 if (errors.length > 0) {
@@ -146,11 +169,11 @@ define(
                     }
 
                     // Add the show/hide error events on product hover
-                    $(document).on('mouseover focusin', this.productContainerSelector, function() {
+                    $(document).on('mouseover focusin', AipProduct.productContainerSelector, function() {
                         $(this).find(self.attributeErrorSelector).show();
                     });
 
-                    $(document).on('mouseout focusout', this.productContainerSelector, function() {
+                    $(document).on('mouseout focusout', AipProduct.productContainerSelector, function() {
                         $(this).find(self.attributeErrorSelector).hide();
                     });
                 }

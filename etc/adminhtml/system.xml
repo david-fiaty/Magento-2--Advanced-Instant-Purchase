@@ -73,6 +73,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
                 </field>
+                <field id="button_state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Products with options</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
+                    <comment>Purchase button initial state and validation for products with options. If "Button disabled" is selected, the purchase button will be disabled until the required product options are selected.</comment>
+                </field>
                 <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Responsive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

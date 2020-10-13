@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -18,7 +19,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipProduct, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -32,6 +33,7 @@ define([
             shippingAddress: null,
             billingAddress: null,
             shippingMethod: null,
+            buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
             confirmationData: {
@@ -66,10 +68,16 @@ define([
          * Set the purchase button state after load.
          */
         setButtonState: function() {
-            return $(this.jsConfig.buttonSelector).prop(
-                'disabled',
-                !this.aipConfig.guest.click_event
-            );
+            // Prepare the conditions
+            var condition1 = !this.aipConfig.guest.click_event;
+            var condition2 = this.aipConfig.display.button_state_disabled
+            && AipProduct.hasOptions(this.jsConfig.buttonSelector);
+            var condition3 = condition2 && AipValidation.hasOptionError(this.jsConfig.buttonSelector);
+
+            // Run the test
+            var disabled = condition1 || condition2 || condition3;
+
+            return $(this.jsConfig.buttonSelector).prop('disabled', disabled);
         },
 
         /**
@@ -113,10 +121,10 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function(e) {
+        getConfirmContent: function() {
             // Get the product id
-            var pid = $(e.currentTarget)
-            .closest('.aip-button-container')
+            var pid = $(this.jsConfig.buttonSelector)
+            .closest(this.buttonContainerSelector)
             .attr('id').split('-')[1];
 
             // Prepare the parameters
@@ -165,7 +173,7 @@ define([
 
             // Validate the product options
             if (this.isListView() && this.aipConfig.display.product_list) {
-                errors = AipValidation.checkOptions(this, e);
+                errors = AipValidation.validateOptions(this);
             }
             
             // Check the validation rules
@@ -179,7 +187,7 @@ define([
             AipModal.build(this);
 
             // Get the AJAX content
-            this.getConfirmContent(e);
+            this.getConfirmContent();
         },
 
         /**

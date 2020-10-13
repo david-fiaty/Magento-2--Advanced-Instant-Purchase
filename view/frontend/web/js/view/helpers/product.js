@@ -4,19 +4,22 @@ define([
     'use strict';
 
     return {
-        aipConfig: window.advancedInstantPurchase,
-        productBoxSelector: '.aip-product-box',
+        productContainerSelector: '.product-item',
 
         /**
-         * Create a login popup.
+         * Get a product options.
          */
-        loadBoxView: function(container) {
-            if (this.aipConfig.display.popup_product) {
-                var box = $(container).find(this.productBoxSelector);
-                box.find("img[data-role='image']").attr('src', this.aipConfig.product.url);
-                box.find("p[data-role='name']").text(this.aipConfig.product.name);
-                box.find("p[data-role='price']").text(this.aipConfig.product.price);
-            }
+        getOptions: function(buttonId) {
+            return $(buttonId)
+            .parents(this.productContainerSelector)
+            .find('input[name^="super_attribute"]');
+        },
+
+        /**
+         * Checkf if a product has options.
+         */
+        hasOptions: function(buttonId) {
+            return this.getOptions().length > 0;
         }
     };
 });
