@@ -75,7 +75,7 @@ define(
              * Checkf if a product has options errors.
              */
             hasOptionError: function(buttonId) {
-
+                return this.validateOptions
             },
 
             /**
@@ -89,7 +89,10 @@ define(
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
 
                 // If there are attributes, check errors
-                var errors = this.checkOptionsErrors(obj, productAttributes);
+                var errors = this.checkOptionsErrors(
+                    obj.jsConfig.buttonSelector,
+                    productAttributes
+                );
         
                 return errors;
             },
@@ -97,11 +100,11 @@ define(
             /**
              * Check the category view product options errors.
              */
-            checkOptionsErrors: function(obj, productAttributes) {
+            checkOptionsErrors: function(buttonId, productAttributes) {
                 var errors = [];
                 if (productAttributes.length > 0) {
                     var errors = this.getOptionsErrors(productAttributes);
-                    this.displayOptionsErrors(obj, errors);
+                    this.displayOptionsErrors(buttonId, errors);
                 }
 
                 return errors;
@@ -129,10 +132,10 @@ define(
             /**
              * Display the category view product options.
              */
-            displayOptionsErrors: function(obj, errors) {
+            displayOptionsErrors: function(buttonId, errors) {
                 // Prepare variables
                 var self = this;
-                var productContainer = $(obj.jsConfig.buttonSelector).closest(AipProduct.productContainerSelector);
+                var productContainer = $(buttonId).closest(AipProduct.productContainerSelector);
                 var button = productContainer.find('.aip-button');
 
                 // Clear previous errors

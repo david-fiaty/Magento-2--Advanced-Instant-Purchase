@@ -116,14 +116,6 @@
                     </depends>
                     <comment>Guest button state.</comment>
                 </field>
-                <field id="click_event" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Click event</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ClickEvent</source_model>
-                    <depends>
-                        <field id="guest_button_state">1</field>
-                    </depends>
-                    <comment>Guest button click event.</comment>
-                </field>
             </group>
             <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Registered user settings</label>
