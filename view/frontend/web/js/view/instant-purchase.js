@@ -77,7 +77,7 @@ define([
          */
         setButtonState: function() {
             // Prepare the conditions
-            var condition1 = this.aipConfig.display.button_state_disabled
+            var condition1 = this.aipConfig.products.button_state_disabled
             && AipProduct.hasOptions(this.jsConfig.buttonSelector);
             var condition2 = AipValidation.hasOptionError(this);
 

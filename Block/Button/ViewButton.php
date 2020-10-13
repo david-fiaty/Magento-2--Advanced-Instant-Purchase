@@ -53,7 +53,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         $config = $this->configHelper->getValues();
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']
-        && $config['display']['product_view']
+        && $config['products']['product_view']
         && !$this->productHelper->isListView();
 
         return $condition ? $config : null;

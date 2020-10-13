@@ -26,16 +26,18 @@
                 <file_logging_enabled>0</file_logging_enabled>
                 <enable_agreements>0</enable_agreements>
             </general>
-            <display>
+            <products>
                 <product_view>1</product_view>
                 <product_list>1</product_list>
                 <button_state_disabled>0</button_state_disabled>
+            </products>        
+            <popups>
                 <popup_responsive>1</popup_responsive>
                 <popup_title>Buy now</popup_title>
                 <popup_product>1</popup_product>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
-            </display>
+            </popups>
             <guest>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_state>1</guest_button_state>

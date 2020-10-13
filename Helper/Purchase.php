@@ -75,9 +75,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getPopupSettings()
     {
         return [
-            'title' => $this->configHelper->value('display/popup_title'),
-            'header_text' => $this->configHelper->value('display/popup_header_text'),
-            'footer_text' => $this->configHelper->value('display/popup_footer_text')
+            'title' => $this->configHelper->value('popups/popup_title'),
+            'header_text' => $this->configHelper->value('popups/popup_header_text'),
+            'footer_text' => $this->configHelper->value('popups/popup_footer_text')
         ];
     }
 
