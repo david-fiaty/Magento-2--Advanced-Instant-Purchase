@@ -32,20 +32,20 @@
             title="<?= __($config['general']['button_text']) ?>">
             <?= __($config['general']['button_text']) ?>
         </button>
-    </div>
 
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
-    <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
 
-    <script type="text/x-magento-init">
-        {
-            "*": {
-                "aip": <?= json_encode($jsConfig); ?>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "aip": <?= json_encode($jsConfig); ?>
+                }
             }
-        }
-    </script>
+        </script>
+    </div>
 <?php } ?> 
