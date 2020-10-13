@@ -74,8 +74,8 @@ define(
             /**
              * Checkf if a product has options errors.
              */
-            hasOptionError: function(buttonId) {
-                return this.validateOptions
+            hasOptionError: function(obj) {
+                return this.validateOptions(obj).length > 0;
             },
 
             /**
@@ -133,16 +133,15 @@ define(
              * Display the category view product options.
              */
             displayOptionsErrors: function(buttonId, errors) {
-                // Prepare variables
-                var self = this;
-                var productContainer = $(buttonId).closest(AipProduct.productContainerSelector);
-                var button = productContainer.find('.aip-button');
-
-                // Clear previous errors
-                self.clearErrors(button);
-
-                // Process existing errors
                 if (errors.length > 0) {
+                    // Prepare variables
+                    var self = this;
+                    var productContainer = $(buttonId).closest(AipProduct.productContainerSelector);
+                    var button = productContainer.find('.aip-button');
+
+                    // Clear previous errors
+                    self.clearErrors(button);
+
                     // Update the button state
                     button.popover({
                         title : '',

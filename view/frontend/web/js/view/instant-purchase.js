@@ -71,10 +71,7 @@ define([
             // Prepare the conditions
             var condition1 = this.aipConfig.display.button_state_disabled
             && AipProduct.hasOptions(this.jsConfig.buttonSelector);
-            var condition2 = condition2 && AipValidation.hasOptionError(this.jsConfig.buttonSelector);
-
-            console.log(condition1);
-            console.log(condition2);
+            var condition2 = condition2 && AipValidation.hasOptionError(this);
 
             // Run the test
             var disabled = condition1 || condition2;
