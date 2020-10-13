@@ -29,6 +29,7 @@
             <display>
                 <product_view>1</product_view>
                 <product_list>1</product_list>
+                <button_state_disabled>0</button_state_disabled>
                 <popup_responsive>1</popup_responsive>
                 <popup_title>Advanced Instant Purchase</popup_title>
                 <popup_product>1</popup_product>
@@ -48,6 +49,7 @@
             </registered>
             <payment_methods>
                 <card_allowed></card_allowed>
+                <show_other_allowed></show_other_allowed>
                 <other_allowed></other_allowed>
             </payment_methods>
             <card_form>

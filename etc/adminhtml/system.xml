@@ -73,6 +73,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
                 </field>
+                <field id="button_state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Products with options</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
+                    <comment>Purchase button initial state and validation for products with options. If "Button disabled" is selected, the purchase button will be disabled until the required product options are selected.</comment>
+                </field>
                 <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Responsive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -160,9 +165,16 @@
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
                     <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
                 </field>
+                <field id="show_other_allowed" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show other payment methods</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="other_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Other allowed payment methods</label>
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <depends>
+                        <field id="show_other_allowed">1</field>
+                    </depends>
                     <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
                 </field>
             </group>

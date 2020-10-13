@@ -97,7 +97,8 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
                 $code = $method->getCode();
                 $canDisplay = $method->canUseCheckout()
                 && $method->isActive()
-                && in_array($code, $allowed);
+                && in_array($code, $allowed)
+                && $code != 'free';
                 if ($canDisplay) {
                     $options[] = [
                         'value' => $method->getCode(),

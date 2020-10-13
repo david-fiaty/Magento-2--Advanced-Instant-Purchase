@@ -55,11 +55,6 @@ class Order extends \Magento\Framework\App\Action\Action
     public $customerRepository;
 
     /**
-     * @var QuoteManagement
-     */
-    public $quoteManagement;
-
-    /**
      * @var QuoteCreation
      */
     private $quoteCreation;
@@ -95,7 +90,6 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        \Magento\Quote\Model\QuoteManagement $quoteManagement,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
@@ -109,7 +103,6 @@ class Order extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->quoteManagement = $quoteManagement;
         $this->customerRepository  = $customerRepository;
         $this->quoteCreation = $quoteCreation;
         $this->quoteFilling = $quoteFilling;
@@ -125,24 +118,28 @@ class Order extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        // Validate the request
-        $request = $this->getRequest();
-        if (!$this->doesRequestContainAllKnowParams($request)) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
-        }
-        if (!$this->formKeyValidator->validate($request)) {
+        // Validate the form key
+        $params = $this->getRequest();
+        if (!$this->formKeyValidator->validate($params)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
 
+        // Validate the request parameters
+        $request = $this->getRequestData($params);
+        if (!$this->doesRequestContainAllKnowParams($request)) {
+            return $this->createResponse($this->createGenericErrorMessage(), false);
+        }
+
+
         // Prepare the payment data
         $paymentData = [
-            'paymentTokenPublicHash' => (string) $request->getParam('instant_purchase_payment_token'),
-            'paymentMethodCode' => (string) $request->getParam('instant_purchase_method_code'),
-            'shippingAddressId' => (int) $request->getParam('instant_purchase_shipping_address'),
-            'billingAddressId' => (int) $request->getParam('instant_purchase_billing_address'),
-            'carrierCode' => (string) $request->getParam('instant_purchase_carrier'),
-            'shippingMethodCode' => (string) $request->getParam('instant_purchase_shipping'),
-            'productId' => (int) $request->getParam('product'),
+            'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],
+            'paymentMethodCode' => (string) $request['instant_purchase_method_code'],
+            'shippingAddressId' => (int) $request['instant_purchase_shipping_address'],
+            'billingAddressId' => (int) $request['instant_purchase_billing_address'],
+            'carrierCode' => (string) $request['instant_purchase_carrier'],
+            'shippingMethodCode' => (string) $request['instant_purchase_shipping'],
+            'productId' => (int) $request['product'],
             'productRequest' => $this->getRequestUnknownParams($request)
         ];
 
@@ -167,7 +164,6 @@ class Order extends \Magento\Framework\App\Action\Action
                 false
             );
 
-
             // Create the quote
             $quote = $this->quoteCreation->createQuote(
                 $store,
@@ -190,13 +186,15 @@ class Order extends \Magento\Framework\App\Action\Action
             $quote->getShippingAddress()->addData($shippingAddress->getData());
             
             // Set the payment method
-            $payment = $quote->getPayment();
-            $payment->setMethod($paymentData['paymentMethodCode']);
-            $payment->importData([
-                'method' => $paymentData['paymentMethodCode']
-            ]);
-            $payment->save();
-            $quote->save();
+            if ($paymentData['paymentMethodCode'] != 'free') {
+                $payment = $quote->getPayment();
+                $payment->setQuote($quote);
+                $payment->setMethod($paymentData['paymentMethodCode']);
+                $payment->importData([
+                    'method' => $paymentData['paymentMethodCode']
+                ]);
+                $payment->save();
+            }
 
             // Save the quote
             $quote->collectTotals();
@@ -204,13 +202,12 @@ class Order extends \Magento\Framework\App\Action\Action
             $quote = $this->quoteRepository->get($quote->getId());
 
             // Send the payment request and get the response
-            $paymentResponse = $this->paymentHandler
-            ->loadMethod($paymentData['paymentMethodCode'])
-            ->sendRequest($quote, $paymentData);
-
+            $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
+            $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
+            
             // Create the order
-            if ($paymentResponse->isSuccess()) {
-                $order = $this->createOrder($quote);
+            if ($paymentResponse->paymentSuccess()) {
+                $order = $paymentResponse->createOrder($quote, $paymentResponse);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
@@ -239,12 +236,17 @@ class Order extends \Magento\Framework\App\Action\Action
         }
     }
 
-    /**
-     * Create a new order
+    /* Get the request data.
+     *
+     * @return string
      */
-    public function createOrder($quote) {
-        $order = $this->quoteManagement->submit($quote);
-        return $order;
+    public function getRequestData($request)
+    {
+        $params = $request->getParams();
+        $formatted = array_merge($params['aip'], array());
+        unset($params['aip']);
+
+        return array_merge($params, $formatted[0]);
     }
 
     /**
@@ -263,10 +265,10 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return bool
      */
-    private function doesRequestContainAllKnowParams(RequestInterface $request): bool
+    private function doesRequestContainAllKnowParams(array $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
-            if ($request->getParam($knownRequestParam) === null) {
+            if ($request[$knownRequestParam] === null) {
                 return false;
             }
         }
@@ -279,9 +281,8 @@ class Order extends \Magento\Framework\App\Action\Action
      * @param RequestInterface $request
      * @return array
      */
-    private function getRequestUnknownParams(RequestInterface $request): array
+    private function getRequestUnknownParams(array $requestParams): array
     {
-        $requestParams = $request->getParams();
         $unknownParams = [];
         foreach ($requestParams as $param => $value) {
             if (!isset(self::$knownRequestParams[$param])) {

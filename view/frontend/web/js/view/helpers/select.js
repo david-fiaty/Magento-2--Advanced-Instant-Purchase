@@ -21,7 +21,7 @@ define([
 
             // Initialise the select lists
             $(self.listSelector).select2({
-                language: self.getLocale(obj.user.language),
+                language: self.getLocale(obj.jsConfig.user.language),
                 theme: 'classic',
                 templateResult: AipUtil.formatIcon,
                 templateSelection: AipUtil.formatIcon

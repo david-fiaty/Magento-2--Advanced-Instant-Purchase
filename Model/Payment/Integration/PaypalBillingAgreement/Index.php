@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVault;
+namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaypalBillingAgreement;
 
 /**
  * Class Index.
