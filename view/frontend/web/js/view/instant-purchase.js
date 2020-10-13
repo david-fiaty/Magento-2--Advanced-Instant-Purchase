@@ -57,8 +57,16 @@ define([
          * @param {Object} data
          */
         build: function() {
+            // Assign this to self
             var self = this;
+
+            // Purchase button state
             self.setButtonState();
+
+            // Options validation
+            AipValidation.initOptionsValidation(this);
+
+            // Button click event
             $(self.jsConfig.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
@@ -101,6 +109,7 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
+            // Click event
             if (this.isLoggedIn()) {
                 this.purchasePopup(e);
             } else {

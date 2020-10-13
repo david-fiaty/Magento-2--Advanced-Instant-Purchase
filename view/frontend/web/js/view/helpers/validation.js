@@ -58,16 +58,17 @@ define(
             },
 
             /**
-             * Check the region state in address form.
+             * Initialize the product options validation.
              */
-            checkRegionState: function() {
-                if ($('#region_id').prop('disabled') === true) {
-                    $('#region_id').addClass('aip-region-hidden');
-                    $('#region_id').removeClass('aip-region-visible');
-                }
-                else {
-                    $('#region_id').addClass('aip-region-visible');
-                    $('#region_id').removeClass('aip-region-hidden');
+            initOptionsValidation: function(obj) {
+                var self = this;
+                var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
+                if (productAttributes.length > 0) {
+                    productAttributes.each(function() {
+                        $(this).on('change', function() {
+                            self.validateOptions(obj);
+                        });
+                    });
                 }
             },
 
@@ -79,7 +80,7 @@ define(
             },
 
             /**
-             * Check the category view product options.
+             * Validate the category view product options.
              */
             validateOptions: function(obj) {
                 // Errors array
@@ -188,6 +189,20 @@ define(
                 button.removeClass(this.buttonErrorClass);
                 $(this.attributeErrorSelector).remove();
                 $(this.popoverSelector).remove();
+            },
+
+            /**
+             * Check the region state in address form.
+             */
+            checkRegionState: function() {
+                if ($('#region_id').prop('disabled') === true) {
+                    $('#region_id').addClass('aip-region-hidden');
+                    $('#region_id').removeClass('aip-region-visible');
+                }
+                else {
+                    $('#region_id').addClass('aip-region-visible');
+                    $('#region_id').removeClass('aip-region-hidden');
+                }
             }
         }
     }
