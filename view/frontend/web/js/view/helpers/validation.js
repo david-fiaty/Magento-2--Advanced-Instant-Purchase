@@ -19,7 +19,7 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(noUiUpdate) {
+            validateForm: function(noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
@@ -58,30 +58,37 @@ define(
             },
 
             /**
-             * Check the region state in address form.
+             * Initialize the product options validation.
              */
-            checkRegionState: function() {
-                if ($('#region_id').prop('disabled') === true) {
-                    $('#region_id').addClass('aip-region-hidden');
-                    $('#region_id').removeClass('aip-region-visible');
-                }
-                else {
-                    $('#region_id').addClass('aip-region-visible');
-                    $('#region_id').removeClass('aip-region-hidden');
+            initOptionsValidation: function(obj) {
+                var self = this;
+                var errors = [];
+                var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
+                if (productAttributes.length > 0) {
+                    productAttributes.each(function() {
+                        $(this).on('change', function() {
+                            errors = self.validateOptions(obj, true);
+                            var disabled = !(errors.length == 0);
+                            $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
+                        });
+                    });
                 }
             },
 
             /**
              * Checkf if a product has options errors.
              */
-            hasOptionError: function(buttonId) {
-
+            hasOptionError: function(obj) {
+                return this.validateOptions(obj, true).length > 0;
             },
 
             /**
-             * Check the category view product options.
+             * Validate the category view product options.
              */
-            validateOptions: function(obj) {
+            validateOptions: function(obj, noUiUpdate) {
+                // UI updates
+                noUiUpdate = noUiUpdate ? noUiUpdate : false;
+
                 // Errors array
                 var errors = [];
 
@@ -90,7 +97,12 @@ define(
 
                 // If there are attributes, check errors
                 var errors = this.checkOptionsErrors(productAttributes);
-        
+
+                // Display errors if needed
+                if (!noUiUpdate) {
+                    this.displayOptionsErrors(obj, errors);
+                }
+
                 return errors;
             },
 
@@ -100,8 +112,7 @@ define(
             checkOptionsErrors: function(productAttributes) {
                 var errors = [];
                 if (productAttributes.length > 0) {
-                    var errors = this.getOptionsErrors(productAttributes);
-                    this.displayOptionsErrors(obj, errors);
+                    return this.getOptionsErrors(productAttributes);
                 }
 
                 return errors;
@@ -130,16 +141,15 @@ define(
              * Display the category view product options.
              */
             displayOptionsErrors: function(obj, errors) {
-                // Prepare variables
-                var self = this;
-                var productContainer = $(obj.jsConfig.buttonSelector).closest(AipProduct.productContainerSelector);
-                var button = productContainer.find('.aip-button');
-
-                // Clear previous errors
-                self.clearErrors(button);
-
-                // Process existing errors
                 if (errors.length > 0) {
+                    // Prepare variables
+                    var self = this;
+                    var button = $(obj.jsConfig.buttonSelector);
+                    var productContainer = button.closest(AipProduct.productContainerSelector);
+
+                    // Clear previous errors
+                    self.clearErrors(button);
+
                     // Update the button state
                     button.popover({
                         title : '',
@@ -186,6 +196,20 @@ define(
                 button.removeClass(this.buttonErrorClass);
                 $(this.attributeErrorSelector).remove();
                 $(this.popoverSelector).remove();
+            },
+
+            /**
+             * Check the region state in address form.
+             */
+            checkRegionState: function() {
+                if ($('#region_id').prop('disabled') === true) {
+                    $('#region_id').addClass('aip-region-hidden');
+                    $('#region_id').removeClass('aip-region-visible');
+                }
+                else {
+                    $('#region_id').addClass('aip-region-visible');
+                    $('#region_id').removeClass('aip-region-hidden');
+                }
             }
         }
     }

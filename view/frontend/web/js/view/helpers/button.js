@@ -34,7 +34,7 @@ define([
         update() {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate()
+                !AdditionalValidators.validateForm()
             );
         },
         
@@ -83,7 +83,7 @@ define([
                 text: __('Submit'),
                 class: self.submitButtonClasses,
                 click: function(e) {
-                    if (AdditionalValidators.validate()) {
+                    if (AdditionalValidators.validateForm()) {
                         AipSlider.showLoader(obj);
                         var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
                         $.ajax({

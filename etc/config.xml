@@ -31,7 +31,7 @@
                 <product_list>1</product_list>
                 <button_state_disabled>0</button_state_disabled>
                 <popup_responsive>1</popup_responsive>
-                <popup_title>Advanced Instant Purchase</popup_title>
+                <popup_title>Buy now</popup_title>
                 <popup_product>1</popup_product>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
@@ -39,7 +39,6 @@
             <guest>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_state>1</guest_button_state>
-                <click_event>popup</click_event>
             </guest>
             <registered>
                 <show_registered_button>1</show_registered_button>

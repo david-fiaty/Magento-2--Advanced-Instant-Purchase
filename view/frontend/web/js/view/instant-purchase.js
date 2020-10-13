@@ -57,8 +57,16 @@ define([
          * @param {Object} data
          */
         build: function() {
+            // Assign this to self
             var self = this;
+
+            // Purchase button state
             self.setButtonState();
+
+            // Options validation
+            AipValidation.initOptionsValidation(this);
+
+            // Button click event
             $(self.jsConfig.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
@@ -69,13 +77,12 @@ define([
          */
         setButtonState: function() {
             // Prepare the conditions
-            var condition1 = !this.aipConfig.guest.click_event;
-            var condition2 = this.aipConfig.display.button_state_disabled
+            var condition1 = this.aipConfig.display.button_state_disabled
             && AipProduct.hasOptions(this.jsConfig.buttonSelector);
-            var condition3 = condition2 && AipValidation.hasOptionError(this.jsConfig.buttonSelector);
+            var condition2 = condition2 && AipValidation.hasOptionError(this);
 
             // Run the test
-            var disabled = condition1 || condition2 || condition3;
+            var disabled = condition1 || condition2;
 
             return $(this.jsConfig.buttonSelector).prop('disabled', disabled);
         },
@@ -102,11 +109,12 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
+            // Click event
             if (this.isLoggedIn()) {
                 this.purchasePopup(e);
             } else {
-                var val = this.aipConfig.guest.click_event;
-                var fn = 'login' + val.charAt(0).toUpperCase() + val.slice(1);
+                var functionName = 'popup';
+                var fn = 'login' + functionName.charAt(0).toUpperCase() + functionName.slice(1);
                 AipLogin[fn]();
             }
         },
