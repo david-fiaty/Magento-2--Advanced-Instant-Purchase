@@ -19,7 +19,7 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(noUiUpdate) {
+            validateForm: function(noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
@@ -66,7 +66,9 @@ define(
                 if (productAttributes.length > 0) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
-                            self.validateOptions(obj);
+                            var errors = self.validateOptions(obj, true);
+                            var disabled = !(errors.length !=0);
+                            $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
                         });
                     });
                 }
@@ -76,13 +78,16 @@ define(
              * Checkf if a product has options errors.
              */
             hasOptionError: function(obj) {
-                return this.validateOptions(obj).length > 0;
+                return this.validateOptions(obj, true).length > 0;
             },
 
             /**
              * Validate the category view product options.
              */
-            validateOptions: function(obj) {
+            validateOptions: function(obj, noUiUpdate) {
+                // UI updates
+                noUiUpdate = noUiUpdate ? noUiUpdate : false;
+
                 // Errors array
                 var errors = [];
 
@@ -90,22 +95,23 @@ define(
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
 
                 // If there are attributes, check errors
-                var errors = this.checkOptionsErrors(
-                    obj.jsConfig.buttonSelector,
-                    productAttributes
-                );
-        
+                var errors = this.checkOptionsErrors(productAttributes);
+
+                // Display errors if needed
+                if (!noUiUpdate) {
+                    this.displayOptionsErrors(obj, errors);
+                }
+
                 return errors;
             },
 
             /**
              * Check the category view product options errors.
              */
-            checkOptionsErrors: function(buttonId, productAttributes) {
+            checkOptionsErrors: function(productAttributes) {
                 var errors = [];
                 if (productAttributes.length > 0) {
-                    var errors = this.getOptionsErrors(productAttributes);
-                    this.displayOptionsErrors(buttonId, errors);
+                    return this.getOptionsErrors(productAttributes);
                 }
 
                 return errors;
@@ -133,12 +139,12 @@ define(
             /**
              * Display the category view product options.
              */
-            displayOptionsErrors: function(buttonId, errors) {
+            displayOptionsErrors: function(obj, errors) {
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
-                    var productContainer = $(buttonId).closest(AipProduct.productContainerSelector);
-                    var button = productContainer.find('.aip-button');
+                    var button = $(obj.jsConfig.buttonSelector);
+                    var productContainer = button.closest(AipProduct.productContainerSelector);
 
                     // Clear previous errors
                     self.clearErrors(button);
