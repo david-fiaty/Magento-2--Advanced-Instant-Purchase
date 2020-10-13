@@ -19,7 +19,7 @@ define(
             /**
              * Additional form validation.
              */
-            validateForm: function(noUiUpdate) {
+            validate: function(noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
@@ -67,16 +67,23 @@ define(
                 if (productAttributes.length > 0) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
-                            errors = self.validateOptions(obj, true);
-                            var disabled = !(errors.length == 0);
-                            $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
+                            self.updateButtonState(obj);
                         });
                     });
                 }
             },
 
             /**
-             * Checkf if a product has options errors.
+             * Update the button state.
+             */
+            updateButtonState: function(obj) {
+                var errors = this.validateOptions(obj, true);
+                var disabled = !(errors.length == 0);
+                $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
+            },
+
+            /**
+             * Check if a product has options errors.
              */
             hasOptionError: function(obj) {
                 return this.validateOptions(obj, true).length > 0;

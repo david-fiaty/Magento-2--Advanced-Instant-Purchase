@@ -79,7 +79,7 @@ define([
             // Prepare the conditions
             var condition1 = this.aipConfig.display.button_state_disabled
             && AipProduct.hasOptions(this.jsConfig.buttonSelector);
-            var condition2 = condition2 && AipValidation.hasOptionError(this);
+            var condition2 = AipValidation.hasOptionError(this);
 
             // Run the test
             var disabled = condition1 || condition2;
@@ -175,14 +175,11 @@ define([
          * Purchase popup.
          */
         purchasePopup: function(e) {
-            // Prepare variables
-            var errors = [];
+            // Get the current form
             var form = AipUtil.getCurrentForm(this.isSubView);
 
             // Validate the product options
-            if (this.isListView() && this.aipConfig.display.product_list) {
-                errors = AipValidation.validateOptions(this);
-            }
+            var errors = AipValidation.validateOptions(this);
             
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
