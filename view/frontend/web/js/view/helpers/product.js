@@ -4,12 +4,25 @@ define([
     'use strict';
 
     return {
-        productContainerSelector: '.product-item',
+        aipConfig: window.advancedInstantPurchase,
+        productContainerSelector: '',
+        listProductContainerSelector: '.product-item',
+        viewProductContainerSelector: '.product-info-main',
+
+            /**
+         * Get a product options.
+         */
+        getProductContainer: function() {
+            return this.aipConfig.isListView
+            ? this.listProductContainerSelector
+            : this.viewProductContainerSelector;
+        },
 
         /**
          * Get a product options.
          */
         getOptions: function(buttonId) {
+            var productContainerSelector = this.getProductContainer();
             return $(buttonId)
             .parents(this.productContainerSelector)
             .find('input[name^="super_attribute"]');

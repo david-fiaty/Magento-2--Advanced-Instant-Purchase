@@ -15,7 +15,7 @@ FEATURES
 - add tag/widget insertion in editor toolbar
 - add button insertion in cms content
 - add popup/banner/add system with instant purchase
-
+- button display conditions engine
 
 - add themes system
 - login with google, facebook
