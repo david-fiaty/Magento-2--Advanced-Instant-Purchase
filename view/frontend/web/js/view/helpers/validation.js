@@ -19,7 +19,7 @@ define(
             /**
              * Additional form validation.
              */
-            validateForm: function(noUiUpdate) {
+            validate: function(noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
