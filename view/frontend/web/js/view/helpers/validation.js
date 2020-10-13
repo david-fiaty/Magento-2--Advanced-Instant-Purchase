@@ -101,7 +101,7 @@ define(
 
                 // Find existing options
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
-
+                
                 // If there are attributes, check errors
                 var errors = this.checkOptionsErrors(productAttributes);
 
