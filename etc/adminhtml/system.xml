@@ -88,7 +88,7 @@
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
                 </field>
                 <field id="popup_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
+                    <label>Show product summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show a product summary in the purchase confirmation window.</comment>
                 </field>

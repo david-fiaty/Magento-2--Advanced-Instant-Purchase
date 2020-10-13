@@ -89,7 +89,7 @@ define(
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
 
                 // If there are attributes, check errors
-                var errors = this.checkOptionsErrors(productAttributes);
+                var errors = this.checkOptionsErrors(obj, productAttributes);
         
                 return errors;
             },
@@ -97,7 +97,7 @@ define(
             /**
              * Check the category view product options errors.
              */
-            checkOptionsErrors: function(productAttributes) {
+            checkOptionsErrors: function(obj, productAttributes) {
                 var errors = [];
                 if (productAttributes.length > 0) {
                     var errors = this.getOptionsErrors(productAttributes);

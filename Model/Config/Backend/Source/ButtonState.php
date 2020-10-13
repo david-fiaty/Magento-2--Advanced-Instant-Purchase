@@ -16,7 +16,7 @@ class ButtonState implements \Magento\Framework\Option\ArrayInterface
         return [
             [
                 'value' => 0,
-                'label' => __('Button enabled')
+                'label' => __('Button disabled')
             ],
             [
                 'value' => 1,
