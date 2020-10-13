@@ -5,7 +5,6 @@ define([
 
     return {
         aipConfig: window.advancedInstantPurchase,
-        productContainerSelector: '',
         listProductContainerSelector: '.product-item',
         viewProductContainerSelector: '.product-info-main',
 
@@ -23,16 +22,18 @@ define([
          */
         getOptions: function(buttonId) {
             var productContainerSelector = this.getProductContainer();
-            return $(buttonId)
-            .parents(this.productContainerSelector)
+            var options = $(buttonId)
+            .parents(productContainerSelector)
             .find('input[name^="super_attribute"]');
+
+            return options;
         },
 
         /**
          * Checkf if a product has options.
          */
         hasOptions: function(buttonId) {
-            return this.getOptions().length > 0;
+            return this.getOptions(buttonId).length > 0;
         }
     };
 });
