@@ -64,7 +64,9 @@ define(
                 var self = this;
                 var errors = [];
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
-                if (productAttributes.length > 0) {
+                var condition1 = productAttributes.length > 0;
+                var condition2 = this.aipConfig.products.button_state_disabled == 1;
+                if (condition1 && condition2) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
                             self.updateButtonState(obj);
@@ -152,7 +154,7 @@ define(
                     // Prepare variables
                     var self = this;
                     var button = $(obj.jsConfig.buttonSelector);
-                    var productContainer = button.closest(AipProduct.productContainerSelector);
+                    var productContainer = button.closest(AipProduct.getContainerSelector());
 
                     // Clear previous errors
                     self.clearErrors(button);
@@ -186,11 +188,11 @@ define(
                     }
 
                     // Add the show/hide error events on product hover
-                    $(document).on('mouseover focusin', AipProduct.productContainerSelector, function() {
+                    $(document).on('mouseover focusin', AipProduct.getContainerSelector(), function() {
                         $(this).find(self.attributeErrorSelector).show();
                     });
 
-                    $(document).on('mouseout focusout', AipProduct.productContainerSelector, function() {
+                    $(document).on('mouseout focusout', AipProduct.getContainerSelector(), function() {
                         $(this).find(self.attributeErrorSelector).hide();
                     });
                 }
