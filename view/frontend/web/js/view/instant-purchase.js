@@ -174,7 +174,7 @@ define([
          */
         purchasePopup: function(e) {
             // Get the current form
-            var form = AipUtil.getCurrentForm(this.isSubView);
+            var form = AipUtil.getCurrentForm(this);
 
             // Validate the product options
             var errors = AipValidation.validateOptions(this);

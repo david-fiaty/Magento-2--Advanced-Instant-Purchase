@@ -6,15 +6,26 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         listProductContainerSelector: '.product-item',
+        listProductFormSelector: '.tocart-form',
         viewProductContainerSelector: '.product-info-main',
+        viewProductFormSelector: '#product_addtocart_form',
 
-            /**
-         * Get a product options.
+        /**
+         * Get a product container selector.
          */
         getProductContainer: function() {
             return this.aipConfig.isListView
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
+        },
+
+        /**
+         * Get a product container selector.
+         */
+        getProductForm: function(buttonId) {
+            var productFormSelector = this.aipConfig.isListView
+            ? this.listProductFormSelector
+            : this.viewProductFormSelector;
         },
 
         /**

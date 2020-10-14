@@ -4,15 +4,15 @@
  */
 define([
     'jquery',
-    'mage/url'
-], function ($, UrlBuilder) {
+    'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product'
+], function ($, UrlBuilder, AipProduct) {
     'use strict';
 
     return {
         aipConfig: window.advancedInstantPurchase,
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'naxero-aip/ajax/order',
-        productFormSelector: '#product_addtocart_form',
         addressFormSelector: '.form-address-edit',
 
         /**
@@ -26,9 +26,11 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(isSubView) {
-            var form = isSubView ? this.addressFormSelector : this.productFormSelector;
-            return $(form);
+        getCurrentForm: function(obj) {
+            var formSelector = obj.isSubView 
+            ? this.addressFormSelector 
+            : AipProduct.getProductForm(obj.jsConfig.buttonSelector);
+            return $(formSelector);
         },
 
         /**
