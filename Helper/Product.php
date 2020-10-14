@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var FormKey
+     */
+    public $formKey;
+
+    /**
      * @var Image
      */
     public $imageHelper;
@@ -35,14 +40,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer constructor.
      */
     public function __construct(
+        \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory
     ) {
-        $this->registry = $registry;
+        $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
+        $this->registry = $registry;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
@@ -59,13 +66,22 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
-                'is_free' => $product->getFinalPrice() == 0,
                 'price' => $this->getProductPrice(),
-                'url' => $this->getProductImageUrl()
+                'is_free' => $this->isFree($product),
+                'url' => $this->getProductImageUrl(),
+                'form_key' => $this->getFormKey()
             ];
         }
 
         return $output;
+    }
+
+    /**
+     * Check if a product is free.
+     */
+    public function isFree($product)
+    {
+        return $product->getFinalPrice() == 0;
     }
 
     /**
@@ -90,6 +106,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $product = $this->registry->registry('current_product');
         $productExists = $product && $product->getId() > 0;
         return !$productExists;
+    }
+
+    /**
+     * Get a product form key.
+     */
+    public function getFormKey()
+    {
+        return $this->formKey->getFormKey();
     }
 
     /**

@@ -29,7 +29,7 @@ define([
         getCurrentForm: function(obj) {
             var form = obj.isSubView 
             ? $(this.addressFormSelector)
-            : AipProduct.getProductForm(obj.jsConfig.buttonSelector);
+            : AipProduct.getProductForm(obj.jsConfig.product.buttonSelector);
 
             return form;
         },
@@ -40,7 +40,7 @@ define([
         getCurrentFormData: function(obj) {
             var form = obj.isSubView 
             ? this.getAddressFormData()
-            : AipProduct.getProductFormData(obj.jsConfig.buttonSelector);
+            : AipProduct.getProductFormData(obj.jsConfig.product.buttonSelector);
 
             return form;
         },

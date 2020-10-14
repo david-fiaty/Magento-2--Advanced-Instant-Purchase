@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
     /**
+     * @var Validator
+     */
+    public $formKeyValidator;
+
+    /**
      * @var Session
      */
     public $customerSession;
@@ -41,6 +46,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
@@ -49,9 +55,10 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         parent::__construct($context);
+        $this->formKeyValidator = $formKeyValidator;
+        $this->customerSession = $customerSession;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
-        $this->customerSession = $customerSession;
         $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
@@ -66,7 +73,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $html = '';
 
         // Process the request
-        if ($this->getRequest()->isAjax()) {
+        $request = $this->getRequest();
+        if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->loadBlock();
         }
 
