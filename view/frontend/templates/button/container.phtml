@@ -18,8 +18,9 @@
                 [
                     'product' => [
                         'id' => $this->getProduct()->getId(),
+                        'formKey' => $formKey,
+                        'buttonSelector' => '#' . $buttonId
                     ],
-                    'buttonSelector' => '#' . $buttonId
                 ]
             )
         ];

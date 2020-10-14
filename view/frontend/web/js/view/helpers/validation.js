@@ -62,7 +62,7 @@ define(
             initOptionsValidation: function(obj) {
                 var self = this;
                 var errors = [];
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
                 var condition1 = productAttributes.length > 0;
                 var condition2 = this.aipConfig.products.button_state_disabled == 1;
                 if (condition1 && condition2) {
@@ -80,7 +80,7 @@ define(
             updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
-                $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
+                $(obj.jsConfig.product.buttonSelector).prop('disabled', disabled);
             },
 
             /**
@@ -101,7 +101,7 @@ define(
                 var errors = [];
 
                 // Find existing options
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
                 
                 // If there are attributes, check errors
                 var errors = this.checkOptionsErrors(productAttributes);
@@ -152,7 +152,7 @@ define(
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
-                    var button = $(obj.jsConfig.buttonSelector);
+                    var button = $(obj.jsConfig.product.buttonSelector);
 
                     // Clear previous errors
                     self.clearErrors(button);

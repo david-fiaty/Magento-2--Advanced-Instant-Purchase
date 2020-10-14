@@ -67,7 +67,7 @@ define([
             AipValidation.initOptionsValidation(this);
 
             // Button click event
-            $(self.jsConfig.buttonSelector).on('click touch', function(e) {
+            $(self.jsConfig.product.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },
@@ -78,11 +78,11 @@ define([
         setButtonState: function() {
             // Prepare the conditions
             var disabled = this.aipConfig.products.button_state_disabled == 1
-            && AipProduct.hasOptions(this.jsConfig.buttonSelector)
+            && AipProduct.hasOptions(this.jsConfig.product.buttonSelector)
             && AipValidation.hasOptionError(this);
 
             // Return the button state
-            return $(this.jsConfig.buttonSelector).prop('disabled', disabled);
+            return $(this.jsConfig.product.buttonSelector).prop('disabled', disabled);
         },
 
         /**
@@ -128,16 +128,12 @@ define([
          * Get the confirmation page content.
          */
         getConfirmContent: function() {
-            // Get the product id
-            var pid = $(this.jsConfig.buttonSelector)
-            .closest(this.buttonContainerSelector)
-            .attr('id').split('-')[1];
-
             // Prepare the parameters
             var self = this;
             var params = {
                 action: 'Confirmation',
-                pid: pid
+                pid: this.jsConfig.product.id,
+                form_key: this.jsConfig.product.formKey
             };                       
 
             // Send the request
