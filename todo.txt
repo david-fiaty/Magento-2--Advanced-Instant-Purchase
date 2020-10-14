@@ -16,6 +16,7 @@ FEATURES
 - add button insertion in cms content
 - add popup/banner/add system with instant purchase
 - button display conditions engine
+- add advanced config for css selectors for UI items
 
 - add themes system
 - login with google, facebook

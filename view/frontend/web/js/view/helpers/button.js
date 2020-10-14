@@ -85,7 +85,7 @@ define([
                 click: function(e) {
                     if (AdditionalValidators.validate()) {
                         AipSlider.showLoader(obj);
-                        var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
+                        var requestData = AipUtil.getCurrentFormData(obj);
                         $.ajax({
                             cache: false,
                             url: AipUtil.getConfirmUrl(obj.isSubView),

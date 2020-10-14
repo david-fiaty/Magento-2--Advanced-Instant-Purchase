@@ -16,6 +16,11 @@
     border: solid 1px red !important;
 }
 
+/* Purchase button */
+.product-item .aip-button-container {
+    display: inline-block;
+}
+
 /* Popover */
 .popover {
     z-index: 999 !important;

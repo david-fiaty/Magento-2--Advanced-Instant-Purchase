@@ -153,7 +153,6 @@ define(
                     // Prepare variables
                     var self = this;
                     var button = $(obj.jsConfig.buttonSelector);
-                    var productContainer = button.closest(AipProduct.getProductContainer());
 
                     // Clear previous errors
                     self.clearErrors(button);
