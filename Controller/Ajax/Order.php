@@ -130,7 +130,6 @@ class Order extends \Magento\Framework\App\Action\Action
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
 
-
         // Prepare the payment data
         $paymentData = [
             'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],

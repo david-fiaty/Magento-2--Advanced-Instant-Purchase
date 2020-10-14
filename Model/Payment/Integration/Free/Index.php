@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\Free;
 /**
  * Class Index.
  */
-class Free implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
+class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
 {
     /**
      * @var QuoteManagement
