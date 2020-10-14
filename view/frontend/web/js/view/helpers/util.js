@@ -42,6 +42,11 @@ define([
             ? this.getAddressFormData()
             : AipProduct.getProductFormData(obj.jsConfig.buttonSelector);
 
+            console.log('util');
+            console.log(obj.jsConfig.buttonSelector);
+
+            console.log(AipProduct.getProductFormData(obj.jsConfig.buttonSelector));
+
             return form;
         },
 

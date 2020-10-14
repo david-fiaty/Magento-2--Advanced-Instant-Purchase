@@ -32,7 +32,7 @@ define([
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(buttonId).parent(productContainerSelector)
+            var form = $(buttonId).parents(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -42,6 +42,10 @@ define([
          * Get the product form data.
          */
         getProductFormData: function(buttonId) {
+            console.log('product');
+            console.log(this.getProductForm(buttonId).serialize());
+            console.log(this.getProductForm(buttonId));
+
             return this.getProductForm(buttonId).serialize();
         },
 

@@ -2,12 +2,11 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AipProduct, AipSlider, AipUtil, AipMessage, AipValidation) {
+], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -87,6 +86,8 @@ define([
                     if (AdditionalValidators.validate()) {
                         AipSlider.showLoader(obj);
                         var requestData = AipUtil.getCurrentFormData(obj);
+                        console.log('button');
+                        console.log(requestData);
                         $.ajax({
                             cache: false,
                             url: AipUtil.getConfirmUrl(obj.isSubView),
