@@ -120,7 +120,7 @@ class Order extends \Magento\Framework\App\Action\Action
     {
         // Validate the form key
         $params = $this->getRequest();
-        if (!$this->formKeyValidator->validate($params)) {
+        if (!$this->formKeyValidator->validate($params) || !$params->isAjax()) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
 
