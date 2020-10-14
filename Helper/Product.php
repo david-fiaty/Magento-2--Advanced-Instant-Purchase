@@ -66,14 +66,22 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
-                'is_free' => $product->getFinalPrice() == 0,
                 'price' => $this->getProductPrice(),
+                'is_free' => $this->isFree($product),
                 'url' => $this->getProductImageUrl(),
                 'form_key' => $this->getFormKey()
             ];
         }
 
         return $output;
+    }
+
+    /**
+     * Check if a product is free.
+     */
+    public function isFree($product)
+    {
+        return $product->getFinalPrice() == 0;
     }
 
     /**
