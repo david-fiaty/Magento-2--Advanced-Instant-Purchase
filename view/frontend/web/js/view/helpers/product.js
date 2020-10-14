@@ -6,7 +6,8 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         listProductContainerSelector: '.product-item',
-        listProductFormSelector: 'form[data-role="tocart-form"]',
+        listProductFormSelector: '.aip-list-form',
+        listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
 
@@ -42,7 +43,24 @@ define([
          * Get the product form data.
          */
         getProductFormData: function(buttonId) {
-            return this.getProductForm(buttonId).serialize();
+            // Product container selector
+            var productContainerSelector = this.getProductContainer();
+
+            // Get the buy now data
+            var buyNowData = this.getProductForm(buttonId).serialize();
+
+            // Get the cart form data if list view
+            if (this.aipConfig.isListView) {
+                var cartFormData = $(buttonId)
+                .closest(productContainerSelector)
+                .find(this.listProductCartFormSelector)
+                .serialize();
+
+                // Add the cart form data to the purchase data
+                buyNowData += '&' + cartFormData;
+            }
+
+            return buyNowData;
         },
 
         /**

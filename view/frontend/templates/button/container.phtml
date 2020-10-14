@@ -8,6 +8,7 @@
         $buttonId = 'aip-button-' . $productId;
         $productIsFree = $product->getFinalPrice() == 0;
         $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
+        $isListView = $block->productHelper->isListView();
 
         // JS component config
         $jsConfig = [
@@ -33,12 +34,18 @@
             <?= __($config['general']['button_text']) ?>
         </button>
 
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+        <?php if ($isListView): ?>
+            <form name="aip-list-form" method="post" class="aip-list-form">
+        <?php endif; ?>
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
+            <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+        <?php if ($isListView): ?>
+            </form>
+        <?php endif; ?>
 
         <script type="text/x-magento-init">
             {
