@@ -6,7 +6,7 @@ define([
     return {
         aipConfig: window.advancedInstantPurchase,
         listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.tocart-form',
+        listProductFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
 
@@ -32,7 +32,7 @@ define([
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(buttonId).parents(productContainerSelector)
+            var form = $(buttonId).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -42,10 +42,6 @@ define([
          * Get the product form data.
          */
         getProductFormData: function(buttonId) {
-            console.log('product');
-            console.log(this.getProductForm(buttonId).serialize());
-            console.log(this.getProductForm(buttonId));
-
             return this.getProductForm(buttonId).serialize();
         },
 
