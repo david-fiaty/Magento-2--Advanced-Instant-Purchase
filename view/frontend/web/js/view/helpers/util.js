@@ -26,11 +26,19 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(obj) {
-            var formSelector = obj.isSubView 
-            ? this.addressFormSelector 
-            : AipProduct.getProductForm(obj.jsConfig.buttonSelector);
-            return $(formSelector);
+        getCurrentFormData: function(obj) {
+            var form = obj.isSubView 
+            ? this.getAddressFormData()
+            : AipProduct.getProductFormData(obj.jsConfig.buttonSelector);
+
+            return form;
+        },
+
+        /**
+         * Get the address form data.
+         */
+        getAddressFormData: function(obj) {
+            return $(this.addressFormSelector).serialize();
         },
 
         /**

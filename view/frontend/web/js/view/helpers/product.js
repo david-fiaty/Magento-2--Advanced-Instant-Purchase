@@ -23,9 +23,26 @@ define([
          * Get a product container selector.
          */
         getProductForm: function(buttonId) {
+            // Product container selector
+            var productContainerSelector = this.getProductContainer();
+
+            // Get product form selector
             var productFormSelector = this.aipConfig.isListView
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
+
+            // Get the form
+            var form = $(buttonId).parent(productContainerSelector)
+            .find(productFormSelector);
+
+            return form;
+        },
+
+        /**
+         * Get the product form data.
+         */
+        getProductFormData: function(buttonId) {
+            return this.getProductForm(buttonId).serialize();
         },
 
         /**
