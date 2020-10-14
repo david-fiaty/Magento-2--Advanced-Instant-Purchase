@@ -8,7 +8,7 @@
     </head>
     <body>
         <referenceBlock name="category.product.addto">
-            <block name="naxero.aip.button" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

@@ -48,7 +48,7 @@ define([
         /**
          * Get the address form data.
          */
-        getAddressFormData: function(obj) {
+        getAddressFormData: function() {
             return $(this.addressFormSelector).serialize();
         },
 
