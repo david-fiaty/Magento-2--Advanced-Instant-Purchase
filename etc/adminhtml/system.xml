@@ -73,6 +73,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
                 </field>
+                <field id="oos_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass out of stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the button even if the product is out of stock.</comment>
+                </field>
                 <field id="button_state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Products with options</label>
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>

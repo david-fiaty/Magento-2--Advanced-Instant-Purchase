@@ -54,7 +54,8 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']
         && $config['products']['product_list']
-        && $this->productHelper->isListView();
+        && $this->productHelper->isListView()
+        && $this->configHelper->bypassOos();
 
         return $condition ? $config : null;
     }

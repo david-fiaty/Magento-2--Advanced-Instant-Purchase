@@ -1,5 +1,4 @@
 
-- improve the setbuttonstate js conditions => depending on config params
 - improve the config fields comments
 - display buy now button based on stock avail rules
 

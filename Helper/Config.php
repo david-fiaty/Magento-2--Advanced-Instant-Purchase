@@ -116,6 +116,17 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Can the button be displayed for out of stock products.
+     */
+    public function bypassOos()
+    {
+        $productId = $this->productHelper->getProduct()->getId();
+        return !$this->productHelper->isInStock($productId)
+        ? $this->value('products/oos_enabled')
+        : true;
+    }
+
+    /**
      * Get the loader icon URL.
      */
     public function getLoaderIconUrl()

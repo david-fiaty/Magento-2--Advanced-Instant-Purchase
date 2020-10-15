@@ -1,5 +1,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     
+    <!-- Purchase button block interceptor -->
+    <type name="Magento\Framework\View\Element\Template">
+        <plugin name="naxeroAipBlockFilter" type="Naxero\AdvancedInstantPurchase\Plugin\BlockFilter"/>
+    </type>
+
     <!-- Complex UI messages -->
     <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
         <arguments>

@@ -37,6 +37,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $productFactory; 
 
     /**
+     * @var StockItemRepository
+     */
+    public $stockItemRepository; 
+
+    /**
      * Class Customer constructor.
      */
     public function __construct(
@@ -45,7 +50,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Catalog\Model\ProductFactory $productFactory
+        \Magento\Catalog\Model\ProductFactory $productFactory,
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
         $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
@@ -53,6 +59,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
+        $this->stockItemRepository = $stockItemRepository;
     }
 
     /**
@@ -69,7 +76,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'price' => $this->getProductPrice(),
                 'is_free' => $this->isFree($product),
                 'url' => $this->getProductImageUrl(),
-                'form_key' => $this->getFormKey()
+                'form_key' => $this->getFormKey(),
+                'in_stock' => $this->isInStock($product->getId())
             ];
         }
 
@@ -82,6 +90,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function isFree($product)
     {
         return $product->getFinalPrice() == 0;
+    }
+
+    /**
+     * Check if a product is out of stock.
+     */
+    public function isInStock($productId)
+    {
+        return $this->stockItemRepository
+        ->get($productId)
+        ->getIsInStock();
     }
 
     /**

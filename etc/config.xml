@@ -29,6 +29,7 @@
             <products>
                 <product_view>1</product_view>
                 <product_list>1</product_list>
+                <oos_enabled>0</oos_enabled>
                 <button_state_disabled>0</button_state_disabled>
             </products>        
             <popups>
