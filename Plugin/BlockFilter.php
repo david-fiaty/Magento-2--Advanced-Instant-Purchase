@@ -33,9 +33,12 @@ class BlockFilter
 
         // Replace the tags
         foreach ($tags as $tag) {
-            $blockHtml = $this->getBlockHtml();
+            //$blockHtml = $this->getBlockHtml();
+            $blockHtml = 'osoaoaosoOOOOOO';
             $html = str_replace($tag, $blockHtml, $html);
         }
+
+        return $html;
     }
 
     public function getBlockHtml() {
