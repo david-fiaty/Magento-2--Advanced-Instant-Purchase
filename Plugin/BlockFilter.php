@@ -43,7 +43,7 @@ class BlockFilter
 
     public function getBlockHtml() {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\ViewButton')
+        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
         ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
         ->toHtml();
     }
