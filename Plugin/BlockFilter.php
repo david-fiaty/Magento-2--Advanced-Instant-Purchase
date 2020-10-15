@@ -4,47 +4,20 @@ namespace Naxero\AdvancedInstantPurchase\Plugin;
 
 class BlockFilter
 {
-    /**
-     * @var PageFactory
-     */
-    public $pageFactory;
+    public function afterGetItemHtml($subject, $result)
+    {
+        // Search tag
+        $tag = '{BuyNow}';
 
-    /**
-     * BlockFilter constructor.
-     */
-    public function __construct(
-        \Magento\Framework\View\Result\PageFactory $pageFactory
-    ) {
-        $this->pageFactory = $pageFactory;
-    }
-
-    public function afterToHtml(
-        $original,
-        $html
-    ) {
-
-        // Get all button tags in content
-        $validation = '/\{BuyNow.*\}/i';
-        preg_match_all(
-            $validation,
-            $html,
-            $tags
-        );
-
-        // Replace the tags
-        foreach ($tags as $tag) {
-            //$blockHtml = $this->getBlockHtml();
-            $blockHtml = 'osoaoaosoOOOOOO';
-            $html = str_replace($tag, $blockHtml, $html);
-        }
-
-        return $html;
-    }
-
-    public function getBlockHtml() {
-        return $this->pageFactory->create()->getLayout()
+        // Get the block HTML
+        $blockHtml = $subject->getLayout()
         ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
         ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
-        ->toHtml();
+        ->toHtml();;
+
+        // Replace the tag
+        $html = str_replace($tag, $blockHtml, $html);
+
+        return $html;
     }
 } 
