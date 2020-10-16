@@ -67,4 +67,12 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     {
         return $this->productHelper->getProduct();
     }
+
+    /**
+     * Disable the block cache.
+     */
+    public function getCacheLifetime()
+    {
+        return null;
+    }
 }

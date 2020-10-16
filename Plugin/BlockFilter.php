@@ -4,19 +4,28 @@ namespace Naxero\AdvancedInstantPurchase\Plugin;
 
 class BlockFilter
 {
-    public function afterGetItemHtml($subject, $result)
-    {
-        // Search tag
-        $tag = '{BuyNow}';
+    public function afterToHtml($subject, $html) {
+        // Get all button tags in content
+        $validation = '/\{BuyNow\}/i';
+        //$tag = '{BuyNow}';
+        preg_match_all(
+            $validation,
+            $html,
+            $tags
+        );
 
-        // Get the block HTML
-        $blockHtml = $subject->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
-        ->toHtml();;
+        // Replace the tags
+        //foreach ($tags as $tag) {
+            /*$blockHtml = $subject->getLayout()
+            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Block\BlockButton')
+            ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
+            ->toHtml();
+            */
 
-        // Replace the tag
-        $html = str_replace($tag, $blockHtml, $html);
+            $blockHtml = 'kkk';
+
+            $html = str_replace($tags[0], $blockHtml, $html);
+        //}
 
         return $html;
     }
