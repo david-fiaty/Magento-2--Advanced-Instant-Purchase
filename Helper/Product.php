@@ -105,10 +105,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product.
      */
-    public function getProduct()
+    public function getProduct($pid)
     {
-        $pid = $this->request->getParam('pid', 0);
-        if ((int) $pid > 0) {
+        $pid = (int) $pid > 0
+        ? (int) $pid 
+        : (int) $this->request->getParam('pid', 0);
+        
+        if ($pid > 0) {
             return $this->productFactory->create()->load($pid);
         }
         else {
