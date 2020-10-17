@@ -16,13 +16,15 @@ class BlockFilter
 
         // Replace the tags
         //foreach ($tags as $tag) {
-            /*$blockHtml = $subject->getLayout()
-            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Block\BlockButton')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
-            ->toHtml();
-            */
 
-            $blockHtml = 'kkk';
+            $className = get_class($subject);
+            if (strpos($className, '\\BlockButton\\') === false) {
+                $blockHtml = $subject->getLayout()
+                ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
+                ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml')
+                ->toHtml();
+            }
+        
 
             $html = str_replace($tags[0], $blockHtml, $html);
         //}

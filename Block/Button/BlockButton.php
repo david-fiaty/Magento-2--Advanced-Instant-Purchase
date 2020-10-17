@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
- * ViewButton class constructor.
+ * BlockButton class constructor.
  */
 class BlockButton extends \Magento\Framework\View\Element\Template
 {
