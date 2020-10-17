@@ -21,12 +21,13 @@ class BlockFilter
             if (strpos($className, '\\BlockButton\\') === false) {
                 $blockHtml = $subject->getLayout()
                 ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
-                ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml')
+                ->setTemplate('Naxero_AdvancedInstantPurchase::button/block.phtml')
                 ->toHtml();
+
+                $html = str_replace($tags[0], $blockHtml, $html);
             }
         
 
-            $html = str_replace($tags[0], $blockHtml, $html);
         //}
 
         return $html;

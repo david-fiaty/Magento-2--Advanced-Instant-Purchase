@@ -64,7 +64,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
      */
     public function getProduct()
     {
-        return $this->productHelper->getProduct();
+        return $this->productHelper->getProduct(3);
     }
 
     /**
