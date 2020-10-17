@@ -118,9 +118,9 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Can the button be displayed for out of stock products.
      */
-    public function bypassOos()
+    public function bypassOos($pid)
     {
-        $productId = $this->productHelper->getProduct()->getId();
+        $productId = $this->productHelper->getProduct($pid)->getId();
         return !$this->productHelper->isInStock($productId)
         ? $this->value('products/oos_enabled')
         : true;

@@ -1,10 +1,11 @@
 <?php
     $config = $block->getConfig();
-    if ($config && $block->purchaseHelper->canDisplayButton()) {
+    $product = $block->getProduct();
+    $productId = $product->getId();
+
+    if ($config && $block->purchaseHelper->canDisplayButton() && $this->configHelper->bypassOos($productId)) {
         // Display parameters
         $purchaseData = $block->purchaseHelper->getPurchaseData();
-        $product = $block->getProduct();
-        $productId = $product->getId();
         $buttonId = 'aip-button-' . $productId;
         $productIsFree = $block->productHelper->isFree($product);
         $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
