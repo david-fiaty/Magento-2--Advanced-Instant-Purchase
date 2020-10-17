@@ -15,13 +15,14 @@ class BlockFilter
             $tags
         );
 
+        // Get the target class name
+        $className = get_class($subject);
+        
         // Loop through the found tags
-        $condition = !empty($tags) && strpos($className, '\\BlockButton\\') === false;
+        $condition = !empty($tags) && !empty($tags[0])
+        && strpos($className, '\\BlockButton\\') === false;
         if ($condition) {
-            foreach ($tags as $tag) {
-                // Get the class name
-                $className = get_class($subject);
-
+            foreach ($tags[0] as $tag) {
                 // Process the blocks output
                 $blockHtml = $subject->getLayout()
                 ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
