@@ -161,9 +161,8 @@
                     <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
                 </field> 
             </group>
-
             <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Payment methods</label>
+                <label>Payment settings</label>
                 <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Allowed card payment methods</label>
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
@@ -182,7 +181,6 @@
                     <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
                 </field>
             </group>
-
             <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Card form</label>
                 <field id="load" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
