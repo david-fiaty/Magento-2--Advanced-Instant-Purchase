@@ -2,11 +2,31 @@
 
 namespace Naxero\AdvancedInstantPurchase\Plugin;
 
+/**
+ * Class BlockFilter.
+ */
 class BlockFilter
 {
+    /**
+     * Block
+     */
+    public $blockHelper;
+
+    /**
+     * Class BlockFilter constructor.
+     */
+    public function __construct(
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper
+    ) {
+        $this->blockHelper = $blockHelper;
+    }
+
+    /**
+     * After to HTML plugin event handler.
+     */
     public function afterToHtml($subject, $html) {
         // Find block tags in the content
-        $matches = $this->getBlockTags($subject, $html);
+        $matches = $this->blockHelper->getBlockTags($subject, $html);
 
         // Process tags found
         if ($matches) {
@@ -21,7 +41,7 @@ class BlockFilter
                     $valid = isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
                     if ($valid) {
                         // Build the block
-                        $blockHtml = $this->buildBlock($subject);
+                        $blockHtml = $this->blockHelper->buildButtonBlock($subject);
 
                         // Set the product id block parameter
                         $blockHtml->setData('product_id', $param[1]);
@@ -42,46 +62,10 @@ class BlockFilter
         return $html;
     }
 
-    public function getBlockTags($subject, $html) {
-        // Find all block tag matches
-        $matches = $this->findTags($html);
-
-        return $this->outputHasTags($matches, $subject)
-        ? $matches : null;
-    }
-
-    public function findTags($html) {
-        preg_match_all(
-            $this->getSearchPattern(),
-            $html,
-            $matches
-        );
-
-        return $matches;
-    }
-
-    public function getSearchPattern() {
-        return '/\{BuyNow(.*)\}/';
-    }
-
-    public function outputHasTags($matches, $subject) {
-        // Get the target class name to exclude
-        $className = get_class($subject);
-
-        // Check if the current content output has valid tags
-        return !empty($matches) && !empty($matches[0])
-        && strpos($className, '\\BlockButton\\') === false
-        && is_array($matches[0])
-        && count($matches[0]) > 0;
-    }
-
+    /**
+     * Check if a block tag has parameters.
+     */
     public function tagHasParameters($matches, $i) {
         return isset($matches[1]) && isset($matches[1][$i]) && !empty($matches[1][$i]);
-    }
-
-    public function buildBlock($subject) {
-        return $subject->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml');
     }
 } 
