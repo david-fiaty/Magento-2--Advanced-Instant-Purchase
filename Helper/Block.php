@@ -7,6 +7,20 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
+     * ViewButton class constructor.
+     */
+    public function __construct(
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+    ) {
+        $this->customerHelper = $customerHelper;
+    }
+
+    /**
      * Get block tags in content.
      */
     public function getBlockTags($subject, $html) {
@@ -58,5 +72,23 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         return $subject->getLayout()
         ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
         ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml');
+    }
+
+    /**
+     * Get a block js configuration parameters.
+     */
+    public function getJsConfig($productId, $buttonId, $formKey) {
+        return json_encode([
+            'jsConfig' => array_merge(
+                $this->customerHelper->getUserParams(),
+                [
+                    'product' => [
+                        'id' => $productId,
+                        'formKey' => $formKey,
+                        'buttonSelector' => '#' . $buttonId
+                    ],
+                ]
+            )
+        ]);
     }
 }

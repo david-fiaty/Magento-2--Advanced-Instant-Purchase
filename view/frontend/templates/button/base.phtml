@@ -15,20 +15,6 @@
         $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
         $isListView = $block->productHelper->isListView();
         $formKey = $block->productHelper->getFormKey();
-
-        // JS component config
-        $jsConfig = [
-            'jsConfig' => array_merge(
-                $this->customerHelper->getUserParams(),
-                [
-                    'product' => [
-                        'id' => $productId,
-                        'formKey' => $formKey,
-                        'buttonSelector' => '#' . $buttonId
-                    ],
-                ]
-            )
-        ];
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -56,7 +42,7 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode($jsConfig); ?>
+                "aip": <?= $block->blockHelper->getJsConfig($productId, $buttonId, $formKey) ?>
             }
         }
     </script>

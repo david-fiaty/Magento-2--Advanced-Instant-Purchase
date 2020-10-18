@@ -7,14 +7,14 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
 class BlockButton extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Config
      */
     public $configHelper;
-
-    /**
-     * @var Customer
-     */
-    public $customerHelper;
 
     /**
      * @var Purchase
@@ -31,17 +31,17 @@ class BlockButton extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
-        $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
 

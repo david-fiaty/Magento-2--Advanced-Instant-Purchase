@@ -7,14 +7,14 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
 class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Config
      */
     public $configHelper;
-
-    /**
-     * @var Customer
-     */
-    public $customerHelper;
 
     /**
      * @var Purchase
@@ -31,17 +31,17 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
-        $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
 
