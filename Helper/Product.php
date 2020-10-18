@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Product
+ * Class Product helper.
  */
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -42,7 +42,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository; 
 
     /**
-     * Class Customer constructor.
+     * Class Product helper constructor.
      */
     public function __construct(
         \Magento\Framework\Data\Form\FormKey $formKey,

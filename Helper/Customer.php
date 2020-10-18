@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Customer
+ * Class Customer helper.
  */
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -32,7 +32,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * Class Customer constructor.
+     * Class Customer helper constructor.
      */
     public function __construct(
         \Magento\Customer\Model\Address $addressModel,

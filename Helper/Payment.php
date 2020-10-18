@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Product
+ * Class Payment helper.
  */
 class Payment extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -33,7 +33,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
     
     /**
-     * Payment Helper constructor.
+     * Payment helper constructor.
      */
     public function __construct(
         \Magento\Sales\Model\ResourceModel\Order\Payment\Collection $orderPayment,

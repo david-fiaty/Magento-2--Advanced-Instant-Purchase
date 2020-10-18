@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Config.
+ * Class Config helper.
  */
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {

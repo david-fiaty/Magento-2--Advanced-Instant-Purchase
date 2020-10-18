@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Product
+ * Class Purchase Helper.
  */
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -47,7 +47,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $vaultHandler;
 
     /**
-     * Class Customer constructor.
+     * Class Purchase helper constructor.
      */
     public function __construct(
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
