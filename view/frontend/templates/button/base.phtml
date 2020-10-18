@@ -1,31 +1,34 @@
 <?php
     $config = $block->getConfig();
-    $product = $block->getProduct();
-    $productId = $product->getId();
+    if ($config && $block->purchaseHelper->canDisplayButton()) {
+        $pid = $this->getData('product_id');
+        var_dump($pid);
 
-    if ($config && $block->purchaseHelper->canDisplayButton() && $this->configHelper->bypassOos($productId)) {
-        // Display parameters
-        $purchaseData = $block->purchaseHelper->getPurchaseData();
-        $buttonId = 'aip-button-' . $productId;
-        $productIsFree = $block->productHelper->isFree($product);
-        $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
-        $isListView = $block->productHelper->isListView();
-        $formKey = $block->productHelper->getFormKey();
+        $product = $block->getProduct($pid);
+        $productId = $product->getId();
+        if ($this->configHelper->bypassOos($productId)) {
+            // Display parameters
+            $purchaseData = $block->purchaseHelper->getPurchaseData();
+            $buttonId = 'aip-button-' . $productId;
+            $productIsFree = $block->productHelper->isFree($product);
+            $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
+            $isListView = $block->productHelper->isListView();
+            $formKey = $block->productHelper->getFormKey();
 
-        // JS component config
-        $jsConfig = [
-            'jsConfig' => array_merge(
-                $this->customerHelper->getUserParams(),
-                [
-                    'product' => [
-                        'id' => $this->getProduct()->getId(),
-                        'formKey' => $formKey,
-                        'buttonSelector' => '#' . $buttonId
-                    ],
-                ]
-            )
-        ];
-
+            // JS component config
+            $jsConfig = [
+                'jsConfig' => array_merge(
+                    $this->customerHelper->getUserParams(),
+                    [
+                        'product' => [
+                            'id' => $this->getProduct()->getId(),
+                            'formKey' => $formKey,
+                            'buttonSelector' => '#' . $buttonId
+                        ],
+                    ]
+                )
+            ];
+        }
 ?>
     <div id="aip-<?= $productId ?>" class="aip-button-container">
         <button 

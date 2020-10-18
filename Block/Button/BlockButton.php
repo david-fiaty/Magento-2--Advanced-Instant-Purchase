@@ -52,9 +52,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     {
         $config = $this->configHelper->getValues();
         $condition = $config['guest']['show_guest_button']
-        && $config['general']['enabled']
-        && $config['products']['product_view']
-        && !$this->productHelper->isListView();
+        && $config['general']['enabled'];
 
         return $condition ? $config : null;
     }
@@ -62,9 +60,9 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     /**
      * Get the current product.
      */
-    public function getProduct()
+    public function getProduct($pid = 0)
     {
-        return $this->productHelper->getProduct(3);
+        return $this->productHelper->getProduct($pid);
     }
 
     /**

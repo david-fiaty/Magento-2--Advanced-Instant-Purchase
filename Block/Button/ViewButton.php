@@ -62,7 +62,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     /**
      * Get the current product.
      */
-    public function getProduct()
+    public function getProduct($pid = 0)
     {
         return $this->productHelper->getProduct();
     }

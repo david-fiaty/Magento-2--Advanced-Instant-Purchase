@@ -58,4 +58,12 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         
         return $condition ? $config : null;
     }
+
+    /**
+     * Get the current product.
+     */
+    public function getProduct($pid = 0)
+    {
+        return parent::getProduct();
+    }
 }
