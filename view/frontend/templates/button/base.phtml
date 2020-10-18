@@ -1,11 +1,12 @@
 <?php $config = $block->getConfig(); ?>
 <?php if ($config && $block->purchaseHelper->canDisplayButton()): ?>
 <?php
+    // Get the product data
     $pid = $block->getData('product_id');
-    //var_dump($pid);
-
     $product = $block->getProduct($pid);
     $productId = $product->getId();
+
+    // Process the block display logic
     if ($this->configHelper->bypassOos($productId)) {
         // Display parameters
         $purchaseData = $block->purchaseHelper->getPurchaseData();
@@ -21,7 +22,7 @@
                 $this->customerHelper->getUserParams(),
                 [
                     'product' => [
-                        'id' => $this->getProduct()->getId(),
+                        'id' => $productId,
                         'formKey' => $formKey,
                         'buttonSelector' => '#' . $buttonId
                     ],
