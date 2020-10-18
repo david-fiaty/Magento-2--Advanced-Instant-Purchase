@@ -122,7 +122,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $productId = $this->productHelper->getProduct($pid)->getId();
         return !$this->productHelper->isInStock($productId)
-        ? $this->value('products/oos_enabled')
+        ? $this->value('buttons/bypass_oos')
         : true;
     }
 

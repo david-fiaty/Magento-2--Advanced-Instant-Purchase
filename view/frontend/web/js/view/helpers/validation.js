@@ -64,7 +64,7 @@ define(
                 var errors = [];
                 var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
                 var condition1 = productAttributes.length > 0;
-                var condition2 = this.aipConfig.products.button_state_disabled == 1;
+                var condition2 = this.aipConfig.buttons.state_disabled == 1;
                 if (condition1 && condition2) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
