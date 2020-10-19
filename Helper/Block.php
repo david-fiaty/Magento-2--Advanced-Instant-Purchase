@@ -139,8 +139,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Get a block button id.
      */
     public function getButtonId($productId) {
-        return '#aip-button-' . $productId ? $productId
-        : $this->productHelper->getProduct()->getId();
+        return '#aip-button-' . $productId;
     }
 
     /**
