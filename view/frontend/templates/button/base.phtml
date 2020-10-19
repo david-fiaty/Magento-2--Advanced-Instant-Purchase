@@ -1,10 +1,10 @@
-<?php $config = $block->getConfig(); ?>
+<?php $config = $block->getConfig(); var_dump($config); exit(); ?>
 <?php if ($config): ?>
 <?php
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
         $productId = $config['product']['id'];
-        $buttonId = $config['button_id'];
+        $buttonId = $config['product']['button_id'];
         $buttonState = $block->blockHelper->getButtonState($productId);
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
