@@ -86,6 +86,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if a product has options.
+     */
+    public function hasOptions($productId)
+    {
+        return $this->getProduct($productId)->getData('has_options');
+    }
+
+    /**
      * Check if a product is out of stock.
      */
     public function isInStock($productId)

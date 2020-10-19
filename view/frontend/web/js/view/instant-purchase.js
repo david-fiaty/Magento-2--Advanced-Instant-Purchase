@@ -58,9 +58,6 @@ define([
             // Loader icon
             this.setLoaderIcon();
 
-            // Purchase button state
-            this.setButtonState();
-
             // Options validation
             AipValidation.initOptionsValidation(this);
 
@@ -81,22 +78,6 @@ define([
         },
 
         /**
-         * Set the purchase button state after load.
-         */
-        setButtonState: function() {
-            // Prepare the conditions
-            var disabled = this.jsConfig.buttons.state_disabled == 1
-            && AipProduct.hasOptions(this.jsConfig.button_selector)
-            && AipValidation.hasOptionError(this);
-
-            console.log(disabled);
-            console.log(this.jsConfig);
-
-            // Return the button state
-            return $(this.jsConfig.button_selector).prop('disabled', disabled);
-        },
-
-        /**
          * Log data to the browser console.
          *
          * @param {Object} data
@@ -111,7 +92,6 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            console.log(this.jsConfig.user.connected);
             return this.jsConfig.user.connected;
         },
 

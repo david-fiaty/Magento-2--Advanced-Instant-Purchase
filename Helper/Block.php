@@ -111,12 +111,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getConfig($productId) {
         // Get the config values
-        $values = $this->configHelper->getValues();
-        unset($values['card_form']);
-        $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
+        $config = $this->configHelper->getValues();
+        unset($config['card_form']);
+        $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         $buttonId = $this->getButtonId($productId);
 
-        return $values
+        return $config
         + $this->configHelper->getValues()
         + $this->buildProductData($productId)
         + $this->customerHelper->getUserParams()
@@ -140,6 +140,20 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getButtonId($productId) {
         return '#aip-button-' . $productId;
+    }
+
+    /**
+     * Get a block button state.
+     */
+    public function getButtonState($productId) {
+        // Get the config values
+        $config = $this->getConfig($productId);
+
+        // Set the button state
+        $state = $config['buttons']['state_disabled'] == 1
+        && $this->productHelper->hasOptions($productId);
+
+        return $state;
     }
 
     /**
