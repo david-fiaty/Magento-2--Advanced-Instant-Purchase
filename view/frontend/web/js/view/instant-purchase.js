@@ -63,7 +63,6 @@ define([
 
             // Button click event
             var self = this;
-            console.log(this.getButtonId());
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
