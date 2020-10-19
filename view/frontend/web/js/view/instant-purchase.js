@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'text!Naxero_AdvancedInstantPurchase/template/loader.html',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
@@ -19,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipProduct, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, LoaderTemplate, AipProduct, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -35,6 +36,7 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
+            loaderIcon: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -56,19 +58,29 @@ define([
          * @param {Object} data
          */
         build: function() {
-            // Assign this to self
-            var self = this;
+            // Loader icon
+            this.setLoaderIcon();
 
             // Purchase button state
-            self.setButtonState();
+            this.setButtonState();
 
             // Options validation
             AipValidation.initOptionsValidation(this);
 
             // Button click event
-            $(self.jsConfig.product.buttonSelector).on('click touch', function(e) {
+            var self = this;
+            $(this.jsConfig.product.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
+        },
+
+        /**
+         * Get the loader icon parameter.
+         */
+        setLoaderIcon: function() {
+            this.loaderIcon = MageTemplate(LoaderTemplate)({
+                iconUrl: this.jsConfig.ui.loader
+            });
         },
 
         /**
