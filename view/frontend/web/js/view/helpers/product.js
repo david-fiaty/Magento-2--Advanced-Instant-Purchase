@@ -4,7 +4,6 @@ define([
     'use strict';
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         listProductContainerSelector: '.product-item',
         listProductFormSelector: '.aip-list-form',
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
@@ -14,8 +13,8 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductContainer: function() {
-            return this.aipConfig.isListView
+        getProductContainer: function(obj) {
+            return obj.jsConfig.isListView
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -23,17 +22,17 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductForm: function(buttonId) {
+        getProductForm: function(obj) {
             // Product container selector
-            var productContainerSelector = this.getProductContainer();
+            var productContainerSelector = this.getProductContainer(obj);
 
             // Get product form selector
-            var productFormSelector = this.aipConfig.isListView
+            var productFormSelector = obj.jsConfig.isListView
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(buttonId).closest(productContainerSelector)
+            var form = $(obj.getButtonId()).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -42,15 +41,16 @@ define([
         /**
          * Get the product form data.
          */
-        getProductFormData: function(buttonId) {
+        getProductFormData: function(obj) {
             // Product container selector
-            var productContainerSelector = this.getProductContainer();
+            var buttonId = obj.getButtonId();
+            var productContainerSelector = this.getProductContainer(obj);
 
             // Get the buy now data
             var buyNowData = this.getProductForm(buttonId).serialize();
 
             // Get the cart form data if list view
-            if (this.aipConfig.isListView) {
+            if (obj.jsConfig.isListView) {
                 var cartFormData = $(buttonId)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
@@ -66,9 +66,9 @@ define([
         /**
          * Get a product options.
          */
-        getOptions: function(buttonId) {
-            var productContainerSelector = this.getProductContainer();
-            var options = $(buttonId)
+        getOptions: function(obj) {
+            var productContainerSelector = this.getProductContainer(obj);
+            var options = $(obj.getButtonId())
             .parents(productContainerSelector)
             .find('input[name^="super_attribute"]');
 
@@ -78,8 +78,8 @@ define([
         /**
          * Checkf if a product has options.
          */
-        hasOptions: function(buttonId) {
-            return this.getOptions(buttonId).length > 0;
+        hasOptions: function(obj) {
+            return this.getOptions(obj.getButtonId()).length > 0;
         }
     };
 });

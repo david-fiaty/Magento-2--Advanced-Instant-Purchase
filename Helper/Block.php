@@ -12,12 +12,63 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerHelper;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * ViewButton class constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
         $this->customerHelper = $customerHelper;
+        $this->configHelper = $configHelper;
+        $this->productHelper = $productHelper;
+    }
+
+    /**
+     * Get filtered config values for the frontend.
+     */
+    public function getFrontendValues()
+    {
+        // Get the config values
+        $values = $this->configHelper->getValues();
+
+        // Remove uneeded elements
+        unset($values['card_form']);
+
+        // Product info
+        $values['product'] = $this->productHelper->getData();
+        $values['isListView'] = $this->productHelper->isListView();
+
+        // Loader icon
+        $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
+        
+        return [
+            'params' => array_merge(
+                $values,
+                $this->customerHelper->getUserParams()
+            )
+        ];
+    }
+
+    /**
+     * Can the button be displayed for out of stock products.
+     */
+    public function bypassOos($pid)
+    {
+        $productId = $this->productHelper->getProduct($pid)->getId();
+        return !$this->productHelper->isInStock($productId)
+        ? $this->value('buttons/bypass_oos')
+        : true;
     }
 
     /**
@@ -81,14 +132,22 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         return json_encode([
             'jsConfig' => array_merge(
                 $this->customerHelper->getUserParams(),
-                [
-                    'product' => [
-                        'id' => $productId,
-                        'formKey' => $formKey,
-                        'buttonSelector' => '#' . $buttonId
-                    ],
-                ]
+                $this->buildProductarray($productId, $buttonId, $formKey),
+                $this->getFrontendValues()
             )
         ]);
+    },
+
+    /**
+     * Build a product array.
+     */
+    public function buildProductarray($productId, $buttonId, $formKey) {
+        return [
+            'product' => [
+                'id' => $productId,
+                'formKey' => $formKey,
+                'buttonSelector' => '#' . $buttonId
+            ],
+        ]
     }
 }

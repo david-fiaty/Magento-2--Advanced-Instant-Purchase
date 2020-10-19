@@ -24,7 +24,6 @@ define([
     
     return Component.extend({
         defaults: {
-            aipConfig: window.advancedInstantPurchase,
             jsConfig: {},
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
@@ -77,7 +76,7 @@ define([
          */
         setButtonState: function() {
             // Prepare the conditions
-            var disabled = this.aipConfig.buttons.state_disabled == 1
+            var disabled = this.jsConfig.buttons.state_disabled == 1
             && AipProduct.hasOptions(this.jsConfig.product.buttonSelector)
             && AipValidation.hasOptionError(this);
 
@@ -91,7 +90,7 @@ define([
          * @param {Object} data
          */
         log: function(data) {
-            if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
+            if (this.jsConfig.general.debug_enabled && this.jsConfig.general.console_logging_enabled) {
                 console.log(data);
             }
         },
@@ -100,7 +99,8 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            return this.aipConfig.user.connected;
+            console.log(this.jsConfig.user.connected);
+            return this.jsConfig.user.connected;
         },
 
         /**
@@ -121,7 +121,14 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.aipConfig.isListView;
+            return this.jsConfig.isListView;
+        },
+
+        /**
+         * Get the current purchase button id.
+         */
+        getButtonId: function() {
+            return this.jsConfig.product.buttonSelector;
         },
 
         /**

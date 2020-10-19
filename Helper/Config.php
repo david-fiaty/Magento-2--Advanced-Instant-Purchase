@@ -29,32 +29,18 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $assetRepo; 
 
     /**
-     * @var Product
-     */
-    public $productHelper;
-
-    /**
-     * @var Customer
-     */
-    public $customerHelper;
-
-    /**
      * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader,
-        \Magento\Framework\View\Asset\Repository $assetRepo,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Magento\Framework\View\Asset\Repository $assetRepo
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
         $this->assetRepo = $assetRepo;
-        $this->productHelper = $productHelper;
-        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -89,41 +75,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
-    }
-
-    /**
-     * Get filtered config values for the frontend.
-     */
-    public function getFrontendValues()
-    {
-        // Get the config values
-        $values = $this->getValues();
-
-        // Remove uneeded elements
-        unset($values['card_form']);
-
-        // Product info
-        $values['product'] = $this->productHelper->getData();
-        $values['isListView'] = $this->productHelper->isListView();
-
-        // Loader icon
-        $values['ui']['loader'] = $this->getLoaderIconUrl();
-        
-        return array_merge(
-            $values,
-            $this->customerHelper->getUserParams()
-        );
-    }
-
-    /**
-     * Can the button be displayed for out of stock products.
-     */
-    public function bypassOos($pid)
-    {
-        $productId = $this->productHelper->getProduct($pid)->getId();
-        return !$this->productHelper->isInStock($productId)
-        ? $this->value('buttons/bypass_oos')
-        : true;
     }
 
     /**

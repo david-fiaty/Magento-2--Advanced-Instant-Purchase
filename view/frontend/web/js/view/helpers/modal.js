@@ -10,7 +10,6 @@ define([
     'use strict';
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         confirmationTitle: __('Instant Purchase Confirmation'),
         modalWrapperSelector: '.modal-inner-wrap',
 

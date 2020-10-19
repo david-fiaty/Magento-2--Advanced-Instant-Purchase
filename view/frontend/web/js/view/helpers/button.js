@@ -12,7 +12,6 @@ define([
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',

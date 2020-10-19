@@ -7,7 +7,7 @@
     $productId = $product->getId();
 
     // Process the block display logic
-    if ($this->configHelper->bypassOos($productId)) {
+    if ($this->blockHelper->bypassOos($productId)) {
         // Display parameters
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $buttonId = 'aip-button-' . $productId;

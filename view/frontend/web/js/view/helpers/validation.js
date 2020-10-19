@@ -8,7 +8,6 @@ define(
     function ($, __, AipProduct) {
         'use strict';
         return {
-            aipConfig: window.advancedInstantPurchase,
             agreementRow: '.aip-agreement-link-row',
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
@@ -62,9 +61,9 @@ define(
             initOptionsValidation: function(obj) {
                 var self = this;
                 var errors = [];
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj);
                 var condition1 = productAttributes.length > 0;
-                var condition2 = this.aipConfig.buttons.state_disabled == 1;
+                var condition2 = obj.jsConfig.buttons.state_disabled == 1;
                 if (condition1 && condition2) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
@@ -101,7 +100,7 @@ define(
                 var errors = [];
 
                 // Find existing options
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj);
                 
                 // If there are attributes, check errors
                 var errors = this.checkOptionsErrors(productAttributes);
