@@ -127,12 +127,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Get a block js configuration parameters.
      */
     public function getJsConfig($buttonId) {
-        return json_encode([
+        return [
             'jsConfig' => array_merge(
                 $this->customerHelper->getUserParams(),
                 $this->getFrontendValues(),
                 ['buttonSelector' => '#' . $buttonId]
             )
-        ]);
+        ];
     }
 }

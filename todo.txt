@@ -1,6 +1,10 @@
 
 - improve the config fields comments
 - display buy now button based on stock avail rules
+- check form_key param not working in Confirmation.php controller.
+Request validation line 77 should be:
+if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
+
 
 RESOURCES
 - execute php code from string
