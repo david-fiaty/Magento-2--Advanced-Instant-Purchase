@@ -35,30 +35,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get filtered config values for the frontend.
-     */
-    public function getFrontendValues()
-    {
-        // Get the config values
-        $values = $this->configHelper->getValues();
-
-        // Remove uneeded elements
-        unset($values['card_form']);
-
-        // Product info
-        $values['isListView'] = $this->productHelper->isListView();
-
-        // Loader icon
-        $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        
-        return array_merge(
-            $values,
-            $this->customerHelper->getUserParams(),
-            $this->productHelper->getData()
-        );
-    }
-
-    /**
      * Can the button be displayed for out of stock products.
      */
     public function bypassOos($pid)
@@ -124,15 +100,28 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a block js configuration parameters.
+     * Get a block configuration parameters.
      */
-    public function getJsConfig($buttonId) {
-        return [
-            'jsConfig' => array_merge(
-                $this->customerHelper->getUserParams(),
-                $this->getFrontendValues(),
-                ['buttonSelector' => '#' . $buttonId]
-            )
-        ];
+    public function getConfig($productId = null) {
+        // Get the config values
+        $values = $this->configHelper->getValues();
+        unset($values['card_form']);
+        $values['isListView'] = $this->productHelper->isListView();
+        $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
+        $buttonId = $this->getButtonId($productId);
+
+        return $values
+        + $this->configHelper->getValues()
+        + ['product' => $this->productHelper->getData()]
+        + $this->customerHelper->getUserParams()
+        + ['buttonSelector' => $buttonId];
+    }
+
+    /**
+     * Get a block button id.
+     */
+    public function getButtonId($productId) {
+        return '#aip-button-' . $productId ? $productId
+        : $this->productHelper->getProduct()->getId();
     }
 }

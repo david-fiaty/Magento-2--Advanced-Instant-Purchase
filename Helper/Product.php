@@ -77,7 +77,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'is_free' => $this->isFree($product),
                 'url' => $this->getProductImageUrl(),
                 'form_key' => $this->getFormKey(),
-                'in_stock' => $this->isInStock($product->getId())
+                'in_stock' => $this->isInStock($product->getId()),
+                'product' => $product
             ];
         }
 
