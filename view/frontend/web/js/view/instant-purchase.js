@@ -63,7 +63,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.jsConfig.button_selector).on('click touch', function(e) {
+            $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },

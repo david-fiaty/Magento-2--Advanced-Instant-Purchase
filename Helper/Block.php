@@ -114,13 +114,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config = $this->configHelper->getValues();
         unset($config['card_form']);
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        $buttonId = $this->getButtonId($productId);
 
         return $config
         + $this->configHelper->getValues()
         + $this->buildProductData($productId)
-        + $this->customerHelper->getUserParams()
-        + ['button_selector' => $buttonId];
+        + $this->customerHelper->getUserParams();
     }
 
     /**
@@ -130,7 +128,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'product' => array_merge(
                 $this->productHelper->getData($productId),
-                ['is_list_view' => $this->isListView()]
+                [
+                    'is_list_view' => $this->isListView(),
+                    'button_id' => $this->getButtonId($productId),
+                    'button_selector' => '#' . $this->getButtonId($productId)
+                ]
             )
         ];
     }
@@ -139,7 +141,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Get a block button id.
      */
     public function getButtonId($productId) {
-        return '#aip-button-' . $productId;
+        return 'aip-button-' . $productId;
     }
 
     /**

@@ -79,7 +79,7 @@ define(
             updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
-                $(obj.jsConfig.button_selector).prop('disabled', disabled);
+                $(obj.getButtonId()).prop('disabled', disabled);
             },
 
             /**
@@ -151,7 +151,7 @@ define(
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
-                    var button = $(obj.jsConfig.button_selector);
+                    var button = $(obj.getButtonId());
 
                     // Clear previous errors
                     self.clearErrors(button);
