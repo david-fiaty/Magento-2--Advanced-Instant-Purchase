@@ -17,13 +17,13 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(noUiUpdate) {
+            validate: function(obj, noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
 
                 // Agreements validation
-                if (this.aipConfig.general.enable_agreements) {
+                if (obj.jsConfig.general.enable_agreements) {
                     $(this.agreementRow).removeClass('error');
                     $(this.agreementRow).each(function() {
                         var input = $(this).find(this.agreementBoxSelector);
@@ -79,7 +79,7 @@ define(
             updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
-                $(obj.jsConfig.product.buttonSelector).prop('disabled', disabled);
+                $(obj.jsConfig.buttonSelector).prop('disabled', disabled);
             },
 
             /**
@@ -151,7 +151,7 @@ define(
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
-                    var button = $(obj.jsConfig.product.buttonSelector);
+                    var button = $(obj.jsConfig.buttonSelector);
 
                     // Clear previous errors
                     self.clearErrors(button);

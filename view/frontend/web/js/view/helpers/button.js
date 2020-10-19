@@ -20,35 +20,35 @@ define([
         /**
          * Initialise the button states.
          */
-        init() {
+        init(obj) {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate(true)
+                !AdditionalValidators.validate(obj, true)
             );
         },
 
         /**
          * Update the button states.
          */
-        update() {
+        update(obj) {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate()
+                !AdditionalValidators.validate(obj)
             );
         },
         
         /**
          * Set the additional validator events.
          */
-        setValidationEvents() {
+        setValidationEvents(obj) {
             var self = this;
 
             // Set the button states
-            self.init();
+            self.init(obj);
 
             // Fields value change event
             $(AipValidation.inputSelectors).on('change', function() {
-                self.update();
+                self.update(obj);
             });
         },
 
@@ -82,7 +82,7 @@ define([
                 text: __('Submit'),
                 class: self.submitButtonClasses,
                 click: function(e) {
-                    if (AdditionalValidators.validate()) {
+                    if (AdditionalValidators.validate(obj)) {
                         AipSlider.showLoader(obj);
                         var requestData = AipUtil.getCurrentFormData(obj);
                         $.ajax({

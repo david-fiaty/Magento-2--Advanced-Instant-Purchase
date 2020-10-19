@@ -52,12 +52,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Loader icon
         $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         
-        return [
-            'params' => array_merge(
-                $values,
-                $this->customerHelper->getUserParams()
-            )
-        ];
+        return array_merge(
+            $values,
+            $this->customerHelper->getUserParams()
+        );
     }
 
     /**
@@ -128,26 +126,13 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a block js configuration parameters.
      */
-    public function getJsConfig($productId, $buttonId, $formKey) {
+    public function getJsConfig($buttonId) {
         return json_encode([
             'jsConfig' => array_merge(
                 $this->customerHelper->getUserParams(),
-                $this->buildProductarray($productId, $buttonId, $formKey),
-                $this->getFrontendValues()
+                $this->getFrontendValues(),
+                ['buttonSelector' => '#' . $buttonId]
             )
         ]);
-    }
-
-    /**
-     * Build a product array.
-     */
-    public function buildProductarray($productId, $buttonId, $formKey) {
-        return [
-            'product' => [
-                'id' => $productId,
-                'formKey' => $formKey,
-                'buttonSelector' => '#' . $buttonId
-            ]
-        ];
     }
 }

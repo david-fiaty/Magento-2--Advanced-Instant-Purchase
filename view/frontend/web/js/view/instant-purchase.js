@@ -70,7 +70,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.jsConfig.product.buttonSelector).on('click touch', function(e) {
+            $(this.jsConfig.buttonSelector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },
@@ -90,11 +90,14 @@ define([
         setButtonState: function() {
             // Prepare the conditions
             var disabled = this.jsConfig.buttons.state_disabled == 1
-            && AipProduct.hasOptions(this.jsConfig.product.buttonSelector)
+            && AipProduct.hasOptions(this.jsConfig.buttonSelector)
             && AipValidation.hasOptionError(this);
 
+            console.log(disabled);
+            console.log(this.jsConfig);
+
             // Return the button state
-            return $(this.jsConfig.product.buttonSelector).prop('disabled', disabled);
+            return $(this.jsConfig.buttonSelector).prop('disabled', disabled);
         },
 
         /**
@@ -141,7 +144,7 @@ define([
          * Get the current purchase button id.
          */
         getButtonId: function() {
-            return this.jsConfig.product.buttonSelector;
+            return this.jsConfig.buttonSelector;
         },
 
         /**
@@ -177,7 +180,7 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
-                    AipButton.setValidationEvents();
+                    AipButton.setValidationEvents(self);
                 },
                 error: function (request, status, error) {
                     self.log(error);
