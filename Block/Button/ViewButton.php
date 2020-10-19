@@ -59,8 +59,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getProduct()->getId(),
-            $this->_customerSession->isLoggedIn()
+            $this->getProduct()->getId()
         );
 
         // Check the display conditions

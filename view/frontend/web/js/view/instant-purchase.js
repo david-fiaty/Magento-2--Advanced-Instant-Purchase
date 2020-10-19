@@ -63,6 +63,7 @@ define([
 
             // Button click event
             var self = this;
+            console.log(this.getButtonId());
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
@@ -120,7 +121,7 @@ define([
          * Get the current purchase button id.
          */
         getButtonId: function() {
-            return this.jsConfig.button_selector;
+            return this.jsConfig.product.button_selector;
         },
 
         /**
