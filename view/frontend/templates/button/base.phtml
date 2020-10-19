@@ -1,15 +1,14 @@
 <?php $config = $block->getConfig(); ?>
 <?php if ($config): ?>
 <?php
-var_dump($config); exit();
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
         $productId = $config['product']['id'];
-        $buttonId = $config['product']['buttonSelector'];
+        $buttonId = $config['product']['button_selector'];
         $product = $config['product'];
         $purchaseData = $block->purchaseHelper->getPurchaseData();
-        $productIsFree = $block->productHelper->isFree($product);
-        $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
+        $productIsFree = $block->productHelper->isFree($productId);
+        $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
         $isListView = $block->productHelper->isListView();
         $formKey = $product['form_key'];
     }
@@ -26,12 +25,12 @@ var_dump($config); exit();
     <?php if ($isListView): ?>
         <form name="aip-list-form" method="post" class="aip-list-form">
     <?php endif; ?>
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['paymentToken']['publicHash'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shippingAddress']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billingAddress']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shippingMethod']['carrier'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shippingMethod']['method'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
+        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
         <input type="hidden" name="form_key" value="<?= $formKey ?>" />
     <?php if ($isListView): ?>
         </form>

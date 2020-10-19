@@ -51,8 +51,9 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         // Prepare the config
-        $pid = $this->getData('product_id');
-        $config = $this->blockHelper->getConfig($pid);
+        $config = $this->blockHelper->getConfig(
+            $this->getData('product_id')
+        );
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
@@ -65,9 +66,11 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     /**
      * Get the current product.
      */
-    public function getProduct($pid = 0)
+    public function getProduct()
     {
-        return $this->productHelper->getProduct($pid);
+        return $this->productHelper->getProduct(
+            $this->getData('product_id')
+        );
     }
 
     /**

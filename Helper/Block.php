@@ -102,7 +102,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a block configuration parameters.
      */
-    public function getConfig($productId = null) {
+    public function getConfig($productId) {
         // Get the config values
         $values = $this->configHelper->getValues();
         unset($values['card_form']);
@@ -112,9 +112,9 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $values
         + $this->configHelper->getValues()
-        + ['product' => $this->productHelper->getData()]
+        + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams()
-        + ['buttonSelector' => $buttonId];
+        + ['button_selector' => $buttonId];
     }
 
     /**

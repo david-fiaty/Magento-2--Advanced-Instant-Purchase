@@ -105,16 +105,16 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Data
         $data += [
-            'paymentToken' => $paymentToken,
-            'shippingAddress' => [
+            'payment_token' => $paymentToken,
+            'shipping_address' => [
                 'id' => $shippingAddress->getId(),
                 'summary' => $this->customerAddressesFormatter->format($shippingAddress),
             ],
-            'billingAddress' => [
+            'billing_address' => [
                 'id' => $billingAddress->getId(),
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
-            'shippingMethod' => [
+            'shipping_method' => [
                 'carrier' => $shippingMethod->getCarrierCode(),
                 'method' => $shippingMethod->getMethodCode(),
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),

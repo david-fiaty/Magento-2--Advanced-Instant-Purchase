@@ -51,8 +51,9 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function getConfig()
     {
         // Prepare the config
-        $pid = $this->getData('product_id');
-        $config = $this->blockHelper->getConfig($pid);
+        $config = $this->blockHelper->getConfig(
+            $this->getProduct()->getId()
+        );
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
@@ -67,7 +68,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     /**
      * Get the current product.
      */
-    public function getProduct($pid = 0)
+    public function getProduct()
     {
         return parent::getProduct();
     }

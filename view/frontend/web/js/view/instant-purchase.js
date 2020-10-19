@@ -30,10 +30,6 @@ define([
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
-            paymentToken: null,
-            shippingAddress: null,
-            billingAddress: null,
-            shippingMethod: null,
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
@@ -70,7 +66,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.jsConfig.buttonSelector).on('click touch', function(e) {
+            $(this.jsConfig.button_selector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },
@@ -90,14 +86,14 @@ define([
         setButtonState: function() {
             // Prepare the conditions
             var disabled = this.jsConfig.buttons.state_disabled == 1
-            && AipProduct.hasOptions(this.jsConfig.buttonSelector)
+            && AipProduct.hasOptions(this.jsConfig.button_selector)
             && AipValidation.hasOptionError(this);
 
             console.log(disabled);
             console.log(this.jsConfig);
 
             // Return the button state
-            return $(this.jsConfig.buttonSelector).prop('disabled', disabled);
+            return $(this.jsConfig.button_selector).prop('disabled', disabled);
         },
 
         /**
@@ -144,7 +140,7 @@ define([
          * Get the current purchase button id.
          */
         getButtonId: function() {
-            return this.jsConfig.buttonSelector;
+            return this.jsConfig.button_selector;
         },
 
         /**

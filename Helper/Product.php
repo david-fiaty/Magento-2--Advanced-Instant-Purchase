@@ -22,11 +22,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $priceHelper;
 
     /**
-     * @var Registry
-     */
-    public $registry; 
-
-    /**
      * @var RequestInterface
      */
     public $request; 
@@ -48,14 +43,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
-        \Magento\Framework\Registry $registry,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
         $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
-        $this->registry = $registry;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
@@ -65,19 +58,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Load the current product data.
      */
-    public function getData()
+    public function getData($productId)
     {
         $output = [];        
-        $product = $this->getProduct();
+        $product = $this->getProduct($productId);
         if ($product) {
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
-                'price' => $this->getProductPrice(),
-                'is_free' => $this->isFree($product),
-                'url' => $this->getProductImageUrl(),
+                'price' => $this->getProductPrice($productId),
+                'is_free' => $this->isFree($productId),
+                'url' => $this->getProductImageUrl($productId),
                 'form_key' => $this->getFormKey(),
-                'in_stock' => $this->isInStock($product->getId()),
+                'in_stock' => $this->isInStock($productId),
                 'product' => $product
             ];
         }
@@ -88,9 +81,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a product is free.
      */
-    public function isFree($product)
+    public function isFree($productId)
     {
-        return $product->getFinalPrice() == 0;
+        return $this->getProduct($productId)->getFinalPrice() == 0;
     }
 
     /**
@@ -104,20 +97,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current product.
+     * Get a product instance.
      */
-    public function getProduct($pid = 0)
+    public function getProduct($productId)
     {
-        $pid = (int) $pid > 0
-        ? (int) $pid 
-        : (int) $this->request->getParam('pid', 0);
-
-        if ($pid > 0) {
-            return $this->productFactory->create()->load($pid);
-        }
-        else {
-            return $this->registry->registry('current_product');
-        }
+        return $this->productFactory->create()->load($productId);
     }
 
     /**
@@ -141,10 +125,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product price.
      */
-    public function getProductPrice()
+    public function getProductPrice($productId)
     {
         return $this->priceHelper->currency(
-            $this->getProduct()->getFinalPrice(),
+            $this->getProduct($productId)->getFinalPrice(),
             true,
             false
         );
@@ -153,10 +137,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product image url.
      */
-    public function getProductImageUrl()
+    public function getProductImageUrl($productId)
     {
         return $this->imageHelper->init(
-            $this->getProduct(),
+            $this->getProduct($productId),
             'product_base_image'
         )->constrainOnly(FALSE)
         ->keepAspectRatio(TRUE)

@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
 class ViewButton extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var Registry
+     */
+    public $registry; 
+
+    /**
      * @var Block
      */
     public $blockHelper;
@@ -31,6 +36,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Registry $registry,
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
@@ -39,6 +45,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     ) {
         parent::__construct($context, $data);
         
+        $this->registry = $registry;
         $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
@@ -51,8 +58,9 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function getConfig()
     {
         // Prepare the config
-        $pid = $this->getData('product_id');
-        $config = $this->blockHelper->getConfig($pid);
+        $config = $this->blockHelper->getConfig(
+            $this->getProduct()->getId()
+        );
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
@@ -67,8 +75,8 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     /**
      * Get the current product.
      */
-    public function getProduct($pid = 0)
+    public function getProduct()
     {
-        return $this->productHelper->getProduct();
+        return $this->registry->registry('current_product');
     }
 }
