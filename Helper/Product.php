@@ -105,16 +105,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the user is in a list view.
-     */
-    public function isListView()
-    {
-        $product = $this->registry->registry('current_product');
-        $productExists = $product && $product->getId() > 0;
-        return !$productExists;
-    }
-
-    /**
      * Get a product form key.
      */
     public function getFormKey()
@@ -146,5 +136,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->keepAspectRatio(TRUE)
         ->keepFrame(FALSE)
         ->getUrl();
+    }
+
+    /**
+     * Check if a product exists.
+     */
+    public function isProduct($product)
+    {
+        return $product && (int) $product->getId() > 0;
     }
 }

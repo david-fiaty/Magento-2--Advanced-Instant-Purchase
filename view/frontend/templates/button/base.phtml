@@ -1,4 +1,5 @@
 <?php $config = $block->getConfig(); ?>
+<?php var_dump($config); ?>
 <?php if ($config): ?>
 <?php
     // Process the block display logic
@@ -9,7 +10,7 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isListView = $block->productHelper->isListView();
+        $isListView = $block->blockHelper->isListView();
         $formKey = $product['form_key'];
     }
 ?>

@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Registry
+     */
+    public $registry; 
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -22,13 +27,15 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * Block helper class constructor.
      */
     public function __construct(
+        \Magento\Framework\Registry $registry,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
+        $this->registry = $registry;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
@@ -106,15 +113,26 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the config values
         $values = $this->configHelper->getValues();
         unset($values['card_form']);
-        $values['isListView'] = $this->productHelper->isListView();
         $values['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         $buttonId = $this->getButtonId($productId);
 
         return $values
         + $this->configHelper->getValues()
-        + ['product' => $this->productHelper->getData($productId)]
+        + $this->buildProductData($productId)
         + $this->customerHelper->getUserParams()
         + ['button_selector' => $buttonId];
+    }
+
+    /**
+     * Build the product data array.
+     */
+    public function buildProductData($productId) {
+        return [
+            'product' => array_merge(
+                $this->productHelper->getData($productId),
+                ['is_list_view' => $this->isListView()]
+            )
+        ];
     }
 
     /**
@@ -123,5 +141,15 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public function getButtonId($productId) {
         return '#aip-button-' . $productId ? $productId
         : $this->productHelper->getProduct()->getId();
+    }
+
+    /**
+     * Check if the product is in a list view.
+     */
+    public function isListView()
+    {
+        return !$this->productHelper->isProduct(
+            $this->registry->registry('current_product')
+        );
     }
 }

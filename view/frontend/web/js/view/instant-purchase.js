@@ -133,7 +133,7 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.jsConfig.isListView;
+            return this.jsConfig.is_list_view;
         },
 
         /**
