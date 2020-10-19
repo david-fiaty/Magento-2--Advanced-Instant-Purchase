@@ -46,7 +46,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         unset($values['card_form']);
 
         // Product info
-        $values['product'] = $this->productHelper->getData();
         $values['isListView'] = $this->productHelper->isListView();
 
         // Loader icon
@@ -54,7 +53,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         
         return array_merge(
             $values,
-            $this->customerHelper->getUserParams()
+            $this->customerHelper->getUserParams(),
+            $this->productHelper->getData()
         );
     }
 

@@ -1,6 +1,9 @@
 <?php $config = $block->getConfig(); ?>
-<?php if ($config && $block->purchaseHelper->canDisplayButton()): ?>
+<?php if ($config): ?>
 <?php
+
+
+var_dump($config); exit();
     // Get the product data
     $pid = $block->getData('product_id');
     $product = $block->getProduct($pid);
@@ -11,11 +14,10 @@
         // Display parameters
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $buttonId = 'aip-button-' . $productId;
-        $blockConfig = $block->blockHelper->getJsConfig($buttonId);
         $productIsFree = $block->productHelper->isFree($product);
         $methodCode = $productIsFree ? 'free' : $purchaseData['paymentToken']['method_code'];
         $isListView = $block->productHelper->isListView();
-        $formKey = $blockConfig['jsConfig']['product']['form_key'];
+        $formKey = $config['product']['form_key'];
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -43,7 +45,7 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode($blockConfig) ?>
+                "aip": <?= json_encode(['jsConfig' => $config]) ?>
             }
         }
     </script>

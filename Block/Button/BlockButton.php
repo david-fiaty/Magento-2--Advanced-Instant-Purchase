@@ -50,9 +50,16 @@ class BlockButton extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        $config = $this->configHelper->getValues();
+        // Prepare the config
+        $config = array_merge(
+            $this->configHelper->getValues(),
+            ['product' => $this->productHelper->getData()]
+        );
+
+        // Check the display conditions
         $condition = $config['guest']['show_guest_button']
-        && $config['general']['enabled'];
+        && $config['general']['enabled']
+        && $this->purchaseHelper->canDisplayButton();
 
         return $condition ? $config : null;
     }
