@@ -4,7 +4,6 @@
 var_dump($config); exit();
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
-        // Display parameters
         $productId = $config['product']['id'];
         $buttonId = $config['product']['buttonSelector'];
         $product = $config['product'];
