@@ -164,7 +164,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();
             if (!empty($purchaseData)) {
-                $confirmationData['sectionData'] = $purchaseData;
+                $confirmationData['purchase_data'] = $purchaseData;
             }
         
         }
