@@ -136,7 +136,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 $this->getFrontendValues()
             )
         ]);
-    },
+    }
 
     /**
      * Build a product array.
@@ -147,7 +147,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 'id' => $productId,
                 'formKey' => $formKey,
                 'buttonSelector' => '#' . $buttonId
-            ],
-        ]
+            ]
+        ];
     }
 }
