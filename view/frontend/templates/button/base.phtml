@@ -5,7 +5,7 @@
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
         $productId = $config['product']['id'];
-        $buttonId = $config['product']['button_selector'];
+        $buttonId = $config['button_selector'];
         $product = $config['product'];
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
