@@ -52,7 +52,8 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
+            $this->getData('product_id'),
+            $this->_customerSession->isLoggedIn()
         );
 
         // Check the display conditions

@@ -52,7 +52,8 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getProduct()->getId()
+            $this->getProduct()->getId(),
+            $this->_customerSession->isLoggedIn()
         );
 
         // Check the display conditions

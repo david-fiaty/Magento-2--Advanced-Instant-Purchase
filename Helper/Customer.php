@@ -114,8 +114,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current user status.
      */
-    public function getUserParams()
+    public function getUserParams($isLoggedIn)
     {
+        $connected = $isLoggedIn ? $isLoggedIn : $this->isLoggedIn();
         return [
             'user' => [
                 'connected' => $this->isLoggedIn(),
