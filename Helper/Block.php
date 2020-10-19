@@ -150,10 +150,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config = $this->getConfig($productId);
 
         // Set the button state
-        $state = $config['buttons']['state_disabled'] == 1
+        $disabled = (int) $config['buttons']['state_disabled'] == 1
         && $this->productHelper->hasOptions($productId);
 
-        return $state;
+        return $disabled ? 'disabled="disabled"' : '';
     }
 
     /**

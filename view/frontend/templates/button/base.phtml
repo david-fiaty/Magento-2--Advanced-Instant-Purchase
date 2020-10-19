@@ -1,5 +1,4 @@
 <?php $config = $block->getConfig(); ?>
-<?php var_dump($config); ?>
 <?php if ($config): ?>
 <?php
     // Process the block display logic
@@ -18,7 +17,7 @@
     <button 
         id="<?= $buttonId ?>"
         type="button"
-        disabled="<?= $buttonState ?>"
+        <?= $buttonState ?>
         class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
         title="<?= __($config['buttons']['button_text']) ?>">
         <?= __($config['buttons']['button_text']) ?>
