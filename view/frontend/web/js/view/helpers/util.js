@@ -10,7 +10,6 @@ define([
     'use strict';
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'naxero-aip/ajax/order',
         addressFormSelector: '.form-address-edit',
@@ -29,7 +28,7 @@ define([
         getCurrentForm: function(obj) {
             var form = obj.isSubView 
             ? $(this.addressFormSelector)
-            : AipProduct.getProductForm(obj.jsConfig.product.buttonSelector);
+            : AipProduct.getProductForm(obj);
 
             return form;
         },
@@ -40,7 +39,7 @@ define([
         getCurrentFormData: function(obj) {
             var form = obj.isSubView 
             ? this.getAddressFormData()
-            : AipProduct.getProductFormData(obj.jsConfig.product.buttonSelector);
+            : AipProduct.getProductFormData(obj);
 
             return form;
         },

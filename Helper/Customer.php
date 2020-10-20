@@ -2,10 +2,15 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Customer
+ * Class Customer helper.
  */
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+     * @var AuthorizationLink
+     */
+    public $authLink;
+
     /**
      * @var Address
      */
@@ -32,15 +37,17 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerSession;
 
     /**
-     * Class Customer constructor.
+     * Class Customer helper constructor.
      */
     public function __construct(
+        \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession
     ) {
+        $this->authLink = $authLink;
         $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
@@ -108,7 +115,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isLoggedIn()
     {
-        return $this->customerSession->isLoggedIn();
+        return $this->authLink->isLoggedIn();
     }
 
     /**

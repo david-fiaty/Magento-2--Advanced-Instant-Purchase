@@ -1,10 +1,8 @@
 define([
     'jquery',
     'mage/translate',
-    'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/loader.html',
     'slick',
-], function ($, __, MageTemplate, LoaderTemplate, slick) {
+], function ($, __, slick) {
     'use strict';
 
     return {
@@ -36,9 +34,7 @@ define([
          * Show the AJAX loader.
          */
         showLoader: function(obj) {
-            this.getCurrentSlide(obj).html(
-                MageTemplate(LoaderTemplate)({})
-            );
+            this.getCurrentSlide(obj).html(obj.loader);
         },
 
         /**

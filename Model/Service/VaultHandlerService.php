@@ -253,7 +253,7 @@ class VaultHandlerService
         : '';
         
         return [
-            'publicHash' => $publicHash,
+            'public_hash' => $publicHash,
             'summary' => $summary,
             'method_code' => $methodCode
         ];

@@ -17,9 +17,8 @@ define([
          * Create a login popup.
          */
         build: function(obj) {
-            var self = this;
-
             // Initialise the select lists
+            var self = this;
             $(self.listSelector).select2({
                 language: self.getLocale(obj.jsConfig.user.language),
                 theme: 'classic',
