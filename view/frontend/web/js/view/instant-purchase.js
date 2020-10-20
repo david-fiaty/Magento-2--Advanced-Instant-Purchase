@@ -53,6 +53,9 @@ define([
          * @param {Object} data
          */
         build: function() {
+            // Load CSS
+            this.setHeader();
+
             // Loader icon
             this.setLoaderIcon();
 
@@ -67,12 +70,16 @@ define([
         },
 
         /**
-         * Load the CSS.
+         * Load the page HTML header.
          */
-        loadCss: function() {
-            if (!window.naxero.aip.loaded) {
-                window.naxero.aip.loaded = true;
-            }
+        setHeader: function() {
+            $('head').append(AipTemplate.getHeader(
+                {
+                    data: {
+                        url: this.jsConfig.ui.css
+                    }
+                }
+            ));
         },
 
         /**
