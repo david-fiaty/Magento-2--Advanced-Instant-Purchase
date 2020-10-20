@@ -54,11 +54,11 @@ define([
          * @param {Object} data
          */
         build: function() {
-            // Purchase button state
-            AipButton.setPurchaseButtonState(this);
-
             // Load CSS
             AipHeader.setHeader(this);
+            
+            // Purchase button state
+            AipButton.setPurchaseButtonState(this);
 
             // Loader icon
             this.setLoaderIcon();
