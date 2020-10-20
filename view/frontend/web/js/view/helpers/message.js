@@ -42,7 +42,7 @@ define([
         show: function(type, str, obj) {
             var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
-            slide.prepend(AipTemplate.getLoader({}));
+            slide.prepend(obj.loader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();
