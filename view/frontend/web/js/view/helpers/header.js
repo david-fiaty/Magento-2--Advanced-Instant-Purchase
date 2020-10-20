@@ -12,32 +12,30 @@ define(
              * Set the page HTML header.
              */
             setHeader: function(obj) {
-                if (!this.isHeaderLoaded()) {
-                    // Append the CSS
-                    this.loadHeader(obj);
+                // Append the CSS
+                this.loadHeader(obj);
 
-                    // Set the CSS loaded flag
-                    window.naxero = {
-                        aip: {
-                            css: true
-                        }
-                    };
-
-                    console.log('css loader');
-                }
+                // Set the CSS loaded flag
+                window.naxero = {
+                    aip: {
+                        css: true
+                    }
+                };
             },
         
             /**
              * Load the page HTML header.
              */
             loadHeader: function(obj) {
-                $('head').append(AipTemplate.getHeader(
-                    {
-                        data: {
-                            css_path: obj.jsConfig.ui.css
+                if (!this.isHeaderLoaded()) {
+                    $('head').append(AipTemplate.getHeader(
+                        {
+                            data: {
+                                css_path: obj.jsConfig.ui.css
+                            }
                         }
-                    }
-                ));
+                    ));
+                }
             },
 
             /**
