@@ -54,6 +54,9 @@ define([
          * @param {Object} data
          */
         build: function() {
+            // Purchase button state
+            AipButton.setPurchaseButtonState(this);
+
             // Load CSS
             AipHeader.setHeader(this);
 

@@ -2,11 +2,12 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation) {
+], function ($, __, AdditionalValidators, AipProduct, AipSlider, AipUtil, AipMessage, AipValidation) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -35,6 +36,18 @@ define([
                 'disabled',
                 !AdditionalValidators.validate(obj)
             );
+        },
+
+        /**
+         * Set the purchase button state.
+         */
+        setPurchaseButtonState(obj) {
+            // Get the button state
+            var state = obj.jsConfig.buttons.state_disabled == 1
+            && AipProduct.hasOptions();
+
+            // Apply the state to the button
+            $(obj.getButtonId()).prop('disabled', state);
         },
         
         /**

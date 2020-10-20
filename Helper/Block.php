@@ -146,20 +146,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a block button state.
-     */
-    public function getButtonState($productId) {
-        // Get the config values
-        $config = $this->getConfig($productId);
-
-        // Set the button state
-        $disabled = (int) $config['buttons']['state_disabled'] == 1
-        && $this->productHelper->hasOptions($productId);
-
-        return $disabled ? 'disabled="disabled"' : '';
-    }
-
-    /**
      * Check if the product is in a list view.
      */
     public function isListView()
