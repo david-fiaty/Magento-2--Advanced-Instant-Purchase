@@ -76,13 +76,6 @@ define([
         },
 
         /**
-         * Check if the HTML page header is loaded.
-         */
-        isHeaderLoaded: function() {
-            return this.has(window, 'naxero.aip.css', true);
-        },
-
-        /**
          * Check if an object has a property.
          */
         has: function(target, path, value) {

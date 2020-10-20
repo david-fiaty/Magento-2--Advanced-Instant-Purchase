@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
@@ -19,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipHeader, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -54,7 +55,7 @@ define([
          */
         build: function() {
             // Load CSS
-            this.setHeader();
+            AipHeader.setHeader(this);
 
             // Loader icon
             this.setLoaderIcon();
@@ -67,26 +68,6 @@ define([
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
-        },
-
-        /**
-         * Load the page HTML header.
-         */
-        setHeader: function() {
-            if (!AipUtil.isHeaderLoaded()) {
-                // Append the CSS
-                $('head').append(AipTemplate.getHeader(
-                    {
-                        data: {
-                            css_path: this.jsConfig.ui.css
-                        }
-                    }
-                ));
-
-                // Set the CSS loaded flag
-                window.naxero.aip.css = true;
-                console.log('css loader');
-            }
         },
 
         /**
