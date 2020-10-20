@@ -8,7 +8,6 @@ define(
     function ($, __, AipProduct) {
         'use strict';
         return {
-            aipConfig: window.advancedInstantPurchase,
             agreementRow: '.aip-agreement-link-row',
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
@@ -18,13 +17,13 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(noUiUpdate) {
+            validate: function(obj, noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
 
                 // Agreements validation
-                if (this.aipConfig.general.enable_agreements) {
+                if (obj.jsConfig.general.enable_agreements) {
                     $(this.agreementRow).removeClass('error');
                     $(this.agreementRow).each(function() {
                         var input = $(this).find(this.agreementBoxSelector);
@@ -62,9 +61,9 @@ define(
             initOptionsValidation: function(obj) {
                 var self = this;
                 var errors = [];
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj);
                 var condition1 = productAttributes.length > 0;
-                var condition2 = this.aipConfig.products.button_state_disabled == 1;
+                var condition2 = obj.jsConfig.buttons.state_disabled == 1;
                 if (condition1 && condition2) {
                     productAttributes.each(function() {
                         $(this).on('change', function() {
@@ -80,7 +79,7 @@ define(
             updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
-                $(obj.jsConfig.product.buttonSelector).prop('disabled', disabled);
+                $(obj.getButtonId()).prop('disabled', disabled);
             },
 
             /**
@@ -101,7 +100,7 @@ define(
                 var errors = [];
 
                 // Find existing options
-                var productAttributes = AipProduct.getOptions(obj.jsConfig.product.buttonSelector);
+                var productAttributes = AipProduct.getOptions(obj);
                 
                 // If there are attributes, check errors
                 var errors = this.checkOptionsErrors(productAttributes);
@@ -152,7 +151,7 @@ define(
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
-                    var button = $(obj.jsConfig.product.buttonSelector);
+                    var button = $(obj.getButtonId());
 
                     // Clear previous errors
                     self.clearErrors(button);

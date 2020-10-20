@@ -1,9 +1,8 @@
 define([
     'jquery',
-    'mage/template',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'text!Naxero_AdvancedInstantPurchase/template/message.html'
-], function ($, MageTemplate, AipSlider, MessageTemplate) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
+], function ($, AipTemplate, AipSlider) {
     'use strict';
 
     return {
@@ -17,9 +16,8 @@ define([
         checkResponse: function(data, e, obj) {
             var cssClass;
             if (data.success === false) {
-                cssClass = 'mage-error';
-
                 // Add the main message
+                cssClass = 'mage-error';
                 this.show('error', data.messages.main, obj);
 
                 // Add the field messages
@@ -44,9 +42,7 @@ define([
         show: function(type, str, obj) {
             var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
-            slide.prepend(
-                MageTemplate(MessageTemplate)({})
-            );
+            slide.prepend(obj.loader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();

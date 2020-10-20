@@ -16,11 +16,11 @@ class ButtonState implements \Magento\Framework\Option\ArrayInterface
         return [
             [
                 'value' => 1,
-                'label' => __('Button disabled by default')
+                'label' => __('Disabled')
             ],
             [
                 'value' => 0,
-                'label' => __('Button enabled by default')
+                'label' => __('Enabled')
             ]
         ];
     }

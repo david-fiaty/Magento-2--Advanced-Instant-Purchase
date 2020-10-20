@@ -26,9 +26,6 @@
             <resource>Naxero_AdvancedInstantPurchase::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
-                <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Button text</label>
-                </field>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Module enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -61,6 +58,23 @@
                     <comment>Enable the PHP file logging (backend).</comment>
                 </field>  
             </group>
+            <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Purchase button settings</label>
+                <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button text</label>
+                    <comment>Text to display on the purchase button.</comment>
+                </field>
+                <field id="state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button default state</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
+                    <comment>Purchase button initial state and validation for products with options. If "Button disabled" is selected, the purchase button will be disabled until the required product options are selected.</comment>
+                </field>
+                <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass out of stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the button even if the product is out of stock.</comment>
+                </field>
+            </group>
             <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Products settings</label>
                 <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -72,11 +86,6 @@
                     <label>Product list button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
-                </field>
-                <field id="button_state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Products with options</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
-                    <comment>Purchase button initial state and validation for products with options. If "Button disabled" is selected, the purchase button will be disabled until the required product options are selected.</comment>
                 </field>
             </group>
             <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -152,9 +161,8 @@
                     <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
                 </field> 
             </group>
-
             <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Payment methods</label>
+                <label>Payment settings</label>
                 <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Allowed card payment methods</label>
                     <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
@@ -173,7 +181,6 @@
                     <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
                 </field>
             </group>
-
             <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Card form</label>
                 <field id="load" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">

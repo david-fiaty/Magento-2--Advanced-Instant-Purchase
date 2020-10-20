@@ -2,15 +2,10 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
- * ViewButton class constructor.
+ * BlockButton class constructor.
  */
-class ViewButton extends \Magento\Framework\View\Element\Template
+class BlockButton extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * @var Registry
-     */
-    public $registry; 
-
     /**
      * @var Block
      */
@@ -36,7 +31,6 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Framework\Registry $registry,
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
@@ -45,7 +39,6 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     ) {
         parent::__construct($context, $data);
         
-        $this->registry = $registry;
         $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
@@ -59,13 +52,12 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getProduct()->getId()
+            $this->getData('product_id')
         );
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']
-        && $config['products']['product_view']
         && $this->purchaseHelper->canDisplayButton();
 
         return $condition ? $config : null;
@@ -76,6 +68,16 @@ class ViewButton extends \Magento\Framework\View\Element\Template
      */
     public function getProduct()
     {
-        return $this->registry->registry('current_product');
+        return $this->productHelper->getProduct(
+            $this->getData('product_id')
+        );
+    }
+
+    /**
+     * Disable the block cache.
+     */
+    public function getCacheLifetime()
+    {
+        return null;
     }
 }

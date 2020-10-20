@@ -2,10 +2,15 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Product
+ * Class Purchase Helper.
  */
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+     * @var RequestInterface
+     */
+    public $request;
+
     /**
      * @var CustomerAddressesFormatter
      */
@@ -47,9 +52,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $vaultHandler;
 
     /**
-     * Class Customer constructor.
+     * Class Purchase helper constructor.
      */
     public function __construct(
+        \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
@@ -59,6 +65,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
+        $this->request = $request;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
         $this->shippingSelector = $shippingSelector;
@@ -105,16 +112,16 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Data
         $data += [
-            'paymentToken' => $paymentToken,
-            'shippingAddress' => [
+            'payment_token' => $paymentToken,
+            'shipping_address' => [
                 'id' => $shippingAddress->getId(),
                 'summary' => $this->customerAddressesFormatter->format($shippingAddress),
             ],
-            'billingAddress' => [
+            'billing_address' => [
                 'id' => $billingAddress->getId(),
                 'summary' => $this->customerAddressesFormatter->format($billingAddress),
             ],
-            'shippingMethod' => [
+            'shipping_method' => [
                 'carrier' => $shippingMethod->getCarrierCode(),
                 'method' => $shippingMethod->getMethodCode(),
                 'summary' => $this->shippingMethodFormatter->format($shippingMethod),
@@ -129,10 +136,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getConfirmContent()
     {
+        // Get the product id from request
+        $productId = $this->request->getParam('pid');
+
         // Prepare the output array
         $confirmationData = [
             'popup' => $this->getPopupSettings(),
-            'product' => $this->productHelper->getData(),
+            'product' => $this->productHelper->getData($productId),
             'addresses' => [],
             'savedCards' => [],
             'shippingRates' => []
@@ -154,7 +164,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();
             if (!empty($purchaseData)) {
-                $confirmationData['sectionData'] = $purchaseData;
+                $confirmationData['purchase_data'] = $purchaseData;
             }
         
         }

@@ -7,14 +7,14 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
 class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Config
      */
     public $configHelper;
-
-    /**
-     * @var Customer
-     */
-    public $customerHelper;
 
     /**
      * @var Purchase
@@ -31,17 +31,17 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
-        $this->customerHelper = $customerHelper;
         $this->productHelper = $productHelper;
     }
 
@@ -50,15 +50,25 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function getConfig()
     {
-        $config = $this->configHelper->getValues();
+        // Prepare the config
+        $config = $this->blockHelper->getConfig(
+            $this->getProduct()->getId()
+        );
+
+        // Check the display conditions
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']
         && $config['products']['product_list']
-        && $this->productHelper->isListView();
-
+        && $this->purchaseHelper->canDisplayButton();
+       
         return $condition ? $config : null;
     }
+
+    /**
+     * Get the current product.
+     */
+    public function getProduct()
+    {
+        return parent::getProduct();
+    }
 }
-
-
-

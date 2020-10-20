@@ -7,7 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -19,23 +19,19 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipProduct, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
         defaults: {
-            aipConfig: window.advancedInstantPurchase,
             jsConfig: {},
             uuid: null,
             confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
-            paymentToken: null,
-            shippingAddress: null,
-            billingAddress: null,
-            shippingMethod: null,
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
+            loader: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -57,32 +53,51 @@ define([
          * @param {Object} data
          */
         build: function() {
-            // Assign this to self
-            var self = this;
+            // Load CSS
+            this.setHeader();
 
-            // Purchase button state
-            self.setButtonState();
+            // Loader icon
+            this.setLoaderIcon();
 
             // Options validation
             AipValidation.initOptionsValidation(this);
 
             // Button click event
-            $(self.jsConfig.product.buttonSelector).on('click touch', function(e) {
+            var self = this;
+            $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
         },
 
         /**
-         * Set the purchase button state after load.
+         * Load the page HTML header.
          */
-        setButtonState: function() {
-            // Prepare the conditions
-            var disabled = this.aipConfig.products.button_state_disabled == 1
-            && AipProduct.hasOptions(this.jsConfig.product.buttonSelector)
-            && AipValidation.hasOptionError(this);
+        setHeader: function() {
+            if (!window.naxero.aip.css) {
+                // Append the CSS
+                $('head').append(AipTemplate.getHeader(
+                    {
+                        data: {
+                            css_path: this.jsConfig.ui.css
+                        }
+                    }
+                ));
 
-            // Return the button state
-            return $(this.jsConfig.product.buttonSelector).prop('disabled', disabled);
+                // Set the CSS loaded flag
+                window.naxero.aip.css = true;
+                console.log('css loader');
+            }
+        },
+
+        /**
+         * Get the loader icon parameter.
+         */
+        setLoaderIcon: function() {
+            this.loader = AipTemplate.getLoader({
+                data: {
+                    url: this.jsConfig.ui.loader
+                }
+            });
         },
 
         /**
@@ -91,7 +106,7 @@ define([
          * @param {Object} data
          */
         log: function(data) {
-            if (this.aipConfig.general.debug_enabled && this.aipConfig.general.console_logging_enabled) {
+            if (this.jsConfig.general.debug_enabled && this.jsConfig.general.console_logging_enabled) {
                 console.log(data);
             }
         },
@@ -100,7 +115,7 @@ define([
          * Check if customer is logged in.
          */
         isLoggedIn: function() {
-            return this.aipConfig.user.connected;
+            return this.jsConfig.user.connected;
         },
 
         /**
@@ -121,7 +136,14 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.aipConfig.isListView;
+            return this.jsConfig.is_list_view;
+        },
+
+        /**
+         * Get the current purchase button id.
+         */
+        getButtonId: function() {
+            return this.jsConfig.product.button_selector;
         },
 
         /**
@@ -157,7 +179,7 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
-                    AipButton.setValidationEvents();
+                    AipButton.setValidationEvents(self);
                 },
                 error: function (request, status, error) {
                     self.log(error);

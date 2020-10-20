@@ -34,14 +34,7 @@ class Data extends \Magento\Framework\View\Element\Template
     /**
      * Get the connfirmation popup content.
      */
-    public function getConfirmContent() {
+    public function getContent() {
         return $this->purchaseHelper->getConfirmContent();
-    }
-
-    /**
-     * Get the module config.
-     */
-    public function getConfig() {
-        return $this->configHelper->getFrontendValues();
     }
 }
