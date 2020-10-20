@@ -7,8 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'mage/template',
-    'text!Naxero_AdvancedInstantPurchase/template/loader.html',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -20,7 +19,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, MageTemplate, LoaderTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -80,9 +79,12 @@ define([
          * Get the loader icon parameter.
          */
         setLoaderIcon: function() {
-            this.loader = MageTemplate(LoaderTemplate)({
-                iconUrl: this.jsConfig.ui.loader
-            });
+            this.loader = AipTemplate.get(
+                'loader',
+                {
+                    iconUrl: this.jsConfig.ui.loader
+                }
+            );
         },
 
         /**
