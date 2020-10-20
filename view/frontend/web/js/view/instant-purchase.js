@@ -9,7 +9,6 @@ define([
     'mage/url',
     'mage/template',
     'text!Naxero_AdvancedInstantPurchase/template/loader.html',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -21,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, MageTemplate, LoaderTemplate, AipProduct, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, MageTemplate, LoaderTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -33,7 +32,7 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
-            loaderIcon: '',
+            loader: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -69,10 +68,19 @@ define([
         },
 
         /**
+         * Load the CSS.
+         */
+        loadCss: function() {
+            if (!window.naxero.aip.loaded) {
+                window.naxero.aip.loaded = true;
+            }
+        },
+
+        /**
          * Get the loader icon parameter.
          */
         setLoaderIcon: function() {
-            this.loaderIcon = MageTemplate(LoaderTemplate)({
+            this.loader = MageTemplate(LoaderTemplate)({
                 iconUrl: this.jsConfig.ui.loader
             });
         },

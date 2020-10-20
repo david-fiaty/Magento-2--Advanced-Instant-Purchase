@@ -26,7 +26,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var Repository
      */
-    public $assetRepo; 
+    public $assetRepository; 
 
     /**
      * Class Config constructor.
@@ -35,12 +35,12 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader,
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        \Magento\Framework\View\Asset\Repository $assetRepository
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
-        $this->assetRepo = $assetRepo;
+        $this->assetRepository = $assetRepository;
     }
 
     /**
@@ -82,7 +82,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLoaderIconUrl()
     {
-        return $this->assetRepo->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
     }
 
     /**
@@ -97,5 +97,15 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
             'Naxero_AdvancedInstantPurchase'
         ) . '/' . $fileName;
+    }
+
+    /**
+     * Gets the module CSS path.
+     *
+     * @return array
+     */
+    public function getCssPath()
+    {
+        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::css');
     }
 }
