@@ -1,9 +1,10 @@
 define(
     [
+        'jquery',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
     ],
-    function (AipTemplate, AipUtil) {
+    function ($, AipTemplate, AipUtil) {
         'use strict';
 
         return {
