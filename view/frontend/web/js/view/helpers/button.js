@@ -47,19 +47,19 @@ define([
             && AipProduct.hasOptions();
 
             // Apply the state to the button
-            $(obj.getButtonId()).prop('disabled', state);
+            $(obj.getButtonId())
+            .prop('disabled', state);
         },
         
         /**
          * Set the additional validator events.
          */
         setValidationEvents(obj) {
-            var self = this;
-
             // Set the button states
-            self.init(obj);
+            this.init(obj);
 
             // Fields value change event
+            var self = this;
             $(AipValidation.inputSelectors).on('change', function() {
                 self.update(obj);
             });
