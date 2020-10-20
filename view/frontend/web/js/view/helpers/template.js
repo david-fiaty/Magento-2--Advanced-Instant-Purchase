@@ -12,7 +12,7 @@ define(
             /**
              * Render the loader icon template.
              */
-            getLoader: function(obj, params) {
+            getLoader: function(params) {
                 return MageTemplate(Loader)(params);
             },
 
