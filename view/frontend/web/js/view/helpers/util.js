@@ -73,6 +73,35 @@ define([
             );
 
             return iconHtml;
+        },
+
+        /**
+         * Check if the HTML page header is loaded.
+         */
+        isHeaderLoaded: function() {
+            return this.has(window, 'naxero.aip.css', true);
+        },
+
+        /**
+         * Check if an object has a property.
+         */
+        has: function(target, path, value) {
+            if (typeof target !== 'object' || target === null) { return false; }
+                var parts = path.split('.');
+                while(parts.length) {
+                    var property = parts.shift();
+                    if (!(target.hasOwnProperty(property))) {
+                        return false;
+                    }
+                    target = target[property];
+                }
+                if (value) {
+                    return target === value;
+                }
+                else {
+                    return true;
+                }
+            }
         }
-    };
-});
+    }
+);

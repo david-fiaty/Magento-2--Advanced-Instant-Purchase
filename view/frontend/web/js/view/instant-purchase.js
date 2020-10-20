@@ -73,7 +73,7 @@ define([
          * Load the page HTML header.
          */
         setHeader: function() {
-            if (!window.naxero.aip.css) {
+            if (!AipUtil.isHeaderLoaded()) {
                 // Append the CSS
                 $('head').append(AipTemplate.getHeader(
                     {
