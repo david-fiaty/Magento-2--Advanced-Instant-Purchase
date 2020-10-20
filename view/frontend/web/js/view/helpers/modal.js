@@ -29,7 +29,7 @@ define([
                 title: obj.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                content: AipTemplate.get('confirmation', {}),
+                content: AipTemplate.getConfirmation({}),
                 buttons: [
                     AipButton.getCancel(obj),
                     AipButton.getSubmit(obj)
