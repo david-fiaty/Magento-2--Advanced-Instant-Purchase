@@ -80,7 +80,7 @@ define([
          */
         setLoaderIcon: function() {
             this.loader = AipTemplate.getLoader({
-                loader: {
+                data: {
                     url: this.jsConfig.ui.loader
                 }
             });
