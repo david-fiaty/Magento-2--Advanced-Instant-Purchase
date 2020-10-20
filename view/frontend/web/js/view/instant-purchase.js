@@ -73,13 +73,20 @@ define([
          * Load the page HTML header.
          */
         setHeader: function() {
-            $('head').append(AipTemplate.getHeader(
-                {
-                    data: {
-                        url: this.jsConfig.ui.css
+            if (!window.naxero.aip.css) {
+                // Append the CSS
+                $('head').append(AipTemplate.getHeader(
+                    {
+                        data: {
+                            css_path: this.jsConfig.ui.css
+                        }
                     }
-                }
-            ));
+                ));
+
+                // Set the CSS loaded flag
+                window.naxero.aip.css = true;
+                console.log('css loader');
+            }
         },
 
         /**
