@@ -56,7 +56,7 @@ define([
         build: function() {
             // Load CSS
             AipHeader.setHeader(this);
-            
+
             // Purchase button state
             AipButton.setPurchaseButtonState(this);
 
@@ -120,7 +120,7 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.jsConfig.is_list_view;
+            return this.jsConfig.product.is_list;
         },
 
         /**

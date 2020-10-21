@@ -130,7 +130,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
             'product' => array_merge(
                 $this->productHelper->getData($productId),
                 [
-                    'is_list_view' => $this->isListView(),
+                    'is_list' => $this->isListView(),
                     'button_id' => $this->getButtonId($productId),
                     'button_selector' => '#' . $this->getButtonId($productId)
                 ]
