@@ -27,7 +27,7 @@ define([
             var productContainerSelector = this.getProductContainer(obj);
 
             // Get product form selector
-            var productFormSelector = obj.jsConfig.produc.is_list
+            var productFormSelector = obj.jsConfig.product.is_list
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
