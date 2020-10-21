@@ -14,6 +14,9 @@ define([
          * Get a product container selector.
          */
         getProductContainer: function(obj) {
+            console.log('getProductContainer');
+            console.log(obj);
+
             return obj.jsConfig.product.is_list
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
@@ -43,15 +46,14 @@ define([
          */
         getProductFormData: function(obj) {
             // Product container selector
-            var buttonId = obj.getButtonId();
             var productContainerSelector = this.getProductContainer(obj);
 
             // Get the buy now data
-            var buyNowData = this.getProductForm(buttonId).serialize();
+            var buyNowData = this.getProductForm(obj).serialize();
 
             // Get the cart form data if list view
             if (obj.jsConfig.product.is_list) {
-                var cartFormData = $(buttonId)
+                var cartFormData = $(obj.getButtonId())
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
