@@ -14,9 +14,6 @@ define([
          * Get a product container selector.
          */
         getProductContainer: function(obj) {
-            console.log('getProductContainer');
-            console.log(obj);
-
             return obj.jsConfig.product.is_list
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
