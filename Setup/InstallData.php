@@ -2,13 +2,10 @@
 
 namespace Naxero\AdvancedInstantPurchase\Setup;
 
-use Magento\Cms\Model\BlockFactory;
-use Magento\Cms\Model\BlockRepository;
-use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
-class InstallData implements InstallDataInterface
+class InstallData implements \Magento\Framework\Setup\InstallDataInterface
 {
     /**
      * @var BlockFactory
@@ -20,7 +17,10 @@ class InstallData implements InstallDataInterface
      */
     private $blockRepository;
 
-    public function __construct(BlockFactory $blockFactory, BlockRepository $blockRepository)
+    public function __construct(
+        \Magento\Cms\Model\BlockFactory $blockFactory,
+        \Magento\Cms\Model\BlockRepository $blockRepository
+    )
     {
         $this->blockFactory = $blockFactory;
         $this->blockRepository = $blockRepository;
@@ -30,7 +30,7 @@ class InstallData implements InstallDataInterface
     {
         $setup->startSetup();
         $cmsBlockData = [
-            'title' => 'Buy Now Button',
+            'title' => 'Naxero Buy Now Button',
             'identifier' => 'naxero_buy_now_button_1',
             'content' => '{BuyNow product_id="1"}',
             'is_active' => 1,
@@ -40,7 +40,7 @@ class InstallData implements InstallDataInterface
 
         try {
             $this->blockRepository->getById($cmsBlockData['identifier']);
-        } catch (NoSuchEntityException $e) {
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             $this->blockFactory->create()->setData($cmsBlockData)->save();
         }
 
