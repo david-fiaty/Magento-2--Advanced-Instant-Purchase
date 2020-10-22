@@ -30,9 +30,9 @@ class InstallData implements InstallDataInterface
     {
         $setup->startSetup();
         $cmsBlockData = [
-            'title' => 'Custom CMS Block',
-            'identifier' => 'custom_cms_block',
-            'content' => "<h1>Write your custom cms block content.......</h1>",
+            'title' => 'Buy Now Button',
+            'identifier' => 'naxero_buy_now_button_1',
+            'content' => '{BuyNow product_id="1"}',
             'is_active' => 1,
             'stores' => [0],
             'sort_order' => 0
