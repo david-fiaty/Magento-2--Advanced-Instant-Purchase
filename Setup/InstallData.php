@@ -3,18 +3,27 @@
 namespace Naxero\AdvancedInstantPurchase\Setup;
 
 use Magento\Cms\Model\BlockFactory;
+use Magento\Cms\Model\BlockRepository;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
-
 class InstallData implements InstallDataInterface
 {
+    /**
+     * @var BlockFactory
+     */
     private $blockFactory;
 
-    public function __construct(BlockFactory $blockFactory)
+    /**
+     * @var BlockRepository
+     */
+    private $blockRepository;
+
+    public function __construct(BlockFactory $blockFactory, BlockRepository $blockRepository)
     {
         $this->blockFactory = $blockFactory;
+        $this->blockRepository = $blockRepository;
     }
 
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
@@ -29,7 +38,12 @@ class InstallData implements InstallDataInterface
             'sort_order' => 0
         ];
 
-        $this->blockFactory->create()->setData($cmsBlockData)->save();
+        try {
+            $this->blockRepository->getById($cmsBlockData['identifier']);
+        } catch (NoSuchEntityException $e) {
+            $this->blockFactory->create()->setData($cmsBlockData)->save();
+        }
+
         $setup->endSetup();
     }
 } 
