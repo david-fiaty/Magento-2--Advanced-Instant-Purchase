@@ -1,10 +1,20 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <!-- Instant Purchase config -->
-    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+    
+    <!-- Purchase button block interceptor -->
+    <type name="Magento\Framework\View\Element\Template">
+        <plugin name="naxeroAipBlockFilter" type="Naxero\AdvancedInstantPurchase\Plugin\BlockFilter"/>
+    </type>
+
+    <!-- Complex UI messages -->
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
         <arguments>
-            <argument name="sectionSourceMap" xsi:type="array">
-                <item name="cart" xsi:type="string">Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ConfigProvider</item>
-                <item name="instant-purchase" xsi:type="string">Naxero\AdvancedInstantPurchase\Model\InstantPurchase\CustomerData</item>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="naxeroAipOrderSuccessMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase::messages/order-success.phtml</item>
+                    </item>
+                </item>
             </argument>
         </arguments>
     </type>

@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
 /**
- * Class Config.
+ * Class Config helper.
  */
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -24,16 +24,23 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
+     * @var Repository
+     */
+    public $assetRepository; 
+
+    /**
      * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
-        \Magento\Framework\Module\Dir\Reader $moduleDirReader
+        \Magento\Framework\Module\Dir\Reader $moduleDirReader,
+        \Magento\Framework\View\Asset\Repository $assetRepository
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
+        $this->assetRepository = $assetRepository;
     }
 
     /**
@@ -71,6 +78,14 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get the loader icon URL.
+     */
+    public function getLoaderIconUrl()
+    {
+        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+    }
+
+    /**
      * Finds a file path from file name.
      *
      * @param string $fileName
@@ -85,17 +100,12 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the core instant purchase feature is enabled.
+     * Gets the module CSS path.
      *
-     * @param string $fileName
-     * @return string
+     * @return array
      */
-    public function isCoreInstantPurchaseEnabled()
+    public function getCssPath()
     {
-        $path = 'sales/instant_purchase/active';
-        return $this->scopeConfig->getValue(
-            $path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::css');
     }
 }

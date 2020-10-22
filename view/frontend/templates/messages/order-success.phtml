@@ -1,0 +1,7 @@
+<?php $data = json_decode($block->getData('message')) ?>
+<p>
+    <?= __('Your order heas been created successfully. Order reference:'); ?>
+    <a href="<?= $data->order_url ?>">
+        <?= $data->order_increment_id ?>
+    </a>
+</p>

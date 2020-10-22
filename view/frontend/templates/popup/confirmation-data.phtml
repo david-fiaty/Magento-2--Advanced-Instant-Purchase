@@ -1,9 +1,16 @@
 <?php 
-    // Get the confirmation screen content
-    $content = $block->getConfirmContent();
+    // Get the confirmation content
+    $content = $block->getContent();
+
+    // Get the module config
     $config = $block->getConfig();
+
+    // Other payment methods display
+    $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
+    && $config['payment_methods']['show_other_allowed'];
 ?>
-<?php if ($config['display']['popup_product']): ?>
+
+<?php if ($config['popups']['popup_product']): ?>
     <div class="aip-product-box">
         <div class="aip-product-box-image">
             <img src="<?= $content['product']['url'] ?>"> 
@@ -23,7 +30,7 @@
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['billingAddress']['id'] ? 'selected' : '' ?>>
+                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
                             <?= $item['street'] ?>&nbsp;
                             <?= $item['postcode'] ?>&nbsp;
                             <?= $item['city'] ?>&nbsp;
@@ -47,7 +54,7 @@
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['sectionData']['shippingAddress']['id'] ? 'selected' : '' ?>>
+                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
                             <?= $item['street'] ?>&nbsp;
                             <?= $item['postcode'] ?>&nbsp;
                             <?= $item['city'] ?>&nbsp;
@@ -65,38 +72,58 @@
     </label>
 </div>
 
-<div class="aip-field">
-    <label for="aip-payment-method-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Payment method')) ?></span>
-        <p>
-            <?php if (!empty($content['savedCards'])): ?>
-                <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
-                    <?php foreach ($content['savedCards'] as $item): ?>
-                        <option value="<?= $item['data']->getPublicHash() . '*~*' . $item['icon'] ?>">
-                            &nbsp;&nbsp;<?= $item['token'] ?>
+<?php if (!$content['product']['is_free']): ?>
+    <div class="aip-field">
+        <label for="aip-payment-method-select">
+            <span class="aip-label"><?= $block->escapeHtml(__('Saved cards')) ?></span>
+            <p>
+                <?php if (!empty($content['savedCards'])): ?>
+                    <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
+                        <?php foreach ($content['savedCards'] as $item): ?>
+                            <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                                &nbsp;&nbsp;<?= $item['token'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
+                <?php else: ?>
+                    <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
+                        <?= __('Save a new card') ?>
+                    </a>
+                <?php endif; ?>
+            </p>
+        </label> 
+    </div>
+<?php endif; ?>
+
+<?php if ($showOtherPaymentMethods && !$content['product']['is_free']): ?>
+    <div class="aip-field">
+        <label for="aip-other-method-select">
+            <input type="checkbox" id="aip-show-other-methods">
+            <span class="aip-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
+            <p>
+                <select id="aip-other-method-select" data-field="instant_purchase_method_code" class="aip-select aip-other-method-select js-states form-control">
+                    <?php foreach ($content['otherPaymentMethods'] as $item): ?>
+                        <option value="<?= $item['value'] ?>">
+                            &nbsp;&nbsp;<?= $item['label'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
-            <?php else: ?>
-                <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
-                    <?= __('Save a new card') ?>
-                </a>
-            <?php endif; ?>
-        </p>
-    </label> 
-</div>
+            </p>
+        </label> 
+    </div>
+<?php endif; ?>
 
-<?php if (!empty($content['addresses']) && !empty($content['savedCards'])): ?>
+<?php if (!empty($content['addresses']) && !empty($content['savedCards']) && !$content['product']['is_free']): ?>
 <div class="aip-field">
     <label for="aip-shipping-method-select">
         <span class="aip-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
         <p>
             <select id="aip-shipping-method-select" data-field="instant_purchase_shipping" class="aip-select js-states form-control">
                 <?php foreach ($content['shippingRates'] as $item): ?>
-                    <option value="<?= $item['value'] ?>">
-                        <?= $item['label'] ?>&nbsp;
-                        <?= $item['price'] ?>
+                    <option value="<?= $item['carrier_code'] ?>">
+                        <?= $item['carrier_title'] ?>&nbsp;
+                        <?= $item['carrier_price'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>

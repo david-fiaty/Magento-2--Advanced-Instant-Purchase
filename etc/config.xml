@@ -25,19 +25,25 @@
                 <file_logging_enabled>0</file_logging_enabled>
                 <enable_agreements>0</enable_agreements>
             </general>
-            <display>
+            <buttons>
+                <button_text>Buy Now</button_text>
+                <state_disabled>0</state_disabled>
+                <bypass_oos>0</bypass_oos>
+            </buttons>
+            <products>
                 <product_view>1</product_view>
                 <product_list>1</product_list>
+            </products>        
+            <popups>
                 <popup_responsive>1</popup_responsive>
-                <popup_title>Advanced Instant Purchase</popup_title>
+                <popup_title>Buy now</popup_title>
                 <popup_product>1</popup_product>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
-            </display>
+            </popups>
             <guest>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_state>1</guest_button_state>
-                <click_event>popup</click_event>
             </guest>
             <registered>
                 <show_registered_button>1</show_registered_button>
@@ -45,8 +51,13 @@
                 <bypass_missing_billing>1</bypass_missing_billing>
                 <bypass_missing_shipping>1</bypass_missing_shipping>
             </registered>
+            <payment_methods>
+                <card_allowed></card_allowed>
+                <show_other_allowed></show_other_allowed>
+                <other_allowed></other_allowed>
+            </payment_methods>
             <card_form>
-                <load><![CDATA[<h1>load</h1><script>alert("load")</script>]]></load>
+                <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
         </advanced_instant_purchase> 
     </default>

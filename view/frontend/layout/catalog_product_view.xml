@@ -1,43 +1,11 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <css src="Naxero_AdvancedInstantPurchase::css/main.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/select2/select2.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/slick/slick.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/slick/slick-theme.css" />
-    </head>
     <body>
         <referenceBlock name="product.info.addtocart">
-            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-">
-                <arguments>
-                    <argument name="jsLayout" xsi:type="array">
-                        <item name="components" xsi:type="array">
-                            <item name="instant-purchase" xsi:type="array">
-                                <item name="component" xsi:type="string">Naxero_AdvancedInstantPurchase/js/view/instant-purchase</item>
-                                <item name="config" xsi:type="array">
-                                    <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase/instant-purchase</item>
-                                </item>
-                            </item>
-                        </item>
-                    </argument>
-                </arguments>
-            </block>
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/base.phtml" before="-" />
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
-            <block name="product.info.addtocart.instantPurchase.additional" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/container.phtml" before="-">
-                <arguments>
-                    <argument name="jsLayout" xsi:type="array">
-                        <item name="components" xsi:type="array">
-                            <item name="instant-purchase" xsi:type="array">
-                                <item name="component" xsi:type="string">Naxero_AdvancedInstantPurchase/js/view/instant-purchase</item>
-                                <item name="config" xsi:type="array">
-                                    <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase/instant-purchase</item>
-                                </item>
-                            </item>
-                        </item>
-                    </argument>
-                </arguments>
-            </block>
+            <block name="product.info.addtocart.instantPurchase.additional" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ViewButton" template="Naxero_AdvancedInstantPurchase::button/base.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

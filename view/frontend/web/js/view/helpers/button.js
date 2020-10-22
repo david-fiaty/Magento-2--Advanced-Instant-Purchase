@@ -2,17 +2,17 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation) {
+], function ($, __, AdditionalValidators, AipProduct, AipSlider, AipUtil, AipMessage, AipValidation) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
@@ -21,35 +21,47 @@ define([
         /**
          * Initialise the button states.
          */
-        init() {
+        init(obj) {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate(true)
+                !AdditionalValidators.validate(obj, true)
             );
         },
 
         /**
          * Update the button states.
          */
-        update() {
+        update(obj) {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate()
+                !AdditionalValidators.validate(obj)
             );
+        },
+
+        /**
+         * Set the purchase button state.
+         */
+        setPurchaseButtonState(obj) {
+            // Get the button state
+            var state = obj.jsConfig.buttons.state_disabled == 1
+            && AipProduct.hasOptions();
+
+            // Apply the state to the button
+            $(obj.getButtonId())
+            .prop('disabled', state);
         },
         
         /**
          * Set the additional validator events.
          */
-        setValidationEvents() {
-            var self = this;
-
+        setValidationEvents(obj) {
             // Set the button states
-            self.init();
+            this.init(obj);
 
             // Fields value change event
+            var self = this;
             $(AipValidation.inputSelectors).on('change', function() {
-                self.update();
+                self.update(obj);
             });
         },
 
@@ -83,8 +95,9 @@ define([
                 text: __('Submit'),
                 class: self.submitButtonClasses,
                 click: function(e) {
-                    if (AdditionalValidators.validate()) {
-                        var requestData = AipUtil.getCurrentForm(obj.isSubView).serialize();
+                    if (AdditionalValidators.validate(obj)) {
+                        AipSlider.showLoader(obj);
+                        var requestData = AipUtil.getCurrentFormData(obj);
                         $.ajax({
                             cache: false,
                             url: AipUtil.getConfirmUrl(obj.isSubView),

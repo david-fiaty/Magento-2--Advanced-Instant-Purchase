@@ -4,15 +4,15 @@
  */
 define([
     'jquery',
-    'mage/url'
-], function ($, UrlBuilder) {
+    'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product'
+], function ($, UrlBuilder, AipProduct) {
     'use strict';
 
     return {
-        aipConfig: window.advancedInstantPurchase,
         saveAddressUrl: 'customer/address/formPost',
-        purchaseUrl: 'instantpurchase/button/placeOrder',
-        productFormSelector: '#product_addtocart_form',
+        purchaseUrl: 'naxero-aip/ajax/order',
+        addressFormSelector: '.form-address-edit',
 
         /**
          * Get the modal confirmation URL.
@@ -25,9 +25,30 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(isSubView) {
-            var form = isSubView ? '.form-address-edit' : this.productFormSelector;
-            return $(form);
+        getCurrentForm: function(obj) {
+            var form = obj.isSubView 
+            ? $(this.addressFormSelector)
+            : AipProduct.getProductForm(obj);
+
+            return form;
+        },
+
+        /**
+         * Get the current form.
+         */
+        getCurrentFormData: function(obj) {
+            var form = obj.isSubView 
+            ? this.getAddressFormData()
+            : AipProduct.getProductFormData(obj);
+
+            return form;
+        },
+
+        /**
+         * Get the address form data.
+         */
+        getAddressFormData: function() {
+            return $(this.addressFormSelector).serialize();
         },
 
         /**
@@ -52,6 +73,28 @@ define([
             );
 
             return iconHtml;
+        },
+
+        /**
+         * Check if an object has a property.
+         */
+        has: function(target, path, value) {
+            if (typeof target !== 'object' || target === null) { return false; }
+                var parts = path.split('.');
+                while(parts.length) {
+                    var property = parts.shift();
+                    if (!(target.hasOwnProperty(property))) {
+                        return false;
+                    }
+                    target = target[property];
+                }
+                if (value) {
+                    return target === value;
+                }
+                else {
+                    return true;
+                }
+            }
         }
-    };
-});
+    }
+);

@@ -1,7 +1,27 @@
 
+- filter display by customer groups/profiles
 - improve the config fields comments
+- display buy now button based on stock avail rules
+- check form_key param not working in Confirmation.php controller.
+Request validation line 77 should be:
+if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
+
+
+RESOURCES
+- execute php code from string
+https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
+
+- handle shipping method observer in js
+https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-on-country-and-postcode-change
 
 FEATURES
+- create list button action on click: redirect, open popup with options, force options selection
+- add tag/widget insertion in editor toolbar
+- add button insertion in cms content
+- add popup/banner/add system with instant purchase
+- button display conditions engine
+- add advanced config for css selectors for UI items
+
 - add themes system
 - login with google, facebook
 
@@ -13,18 +33,3 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
-
-Check payment submit form with data:
-product: 1402
-selected_configurable_option: 
-related_product: 
-item: 1402
-form_key: M88GuGnVM1IaYmcC
-super_attribute[152]: 5593
-super_attribute[93]: 5476
-qty: 1
-instant_purchase_payment_token: 16babc465bd8c9e087a67714e20f6159df30e56e22b88a3e7fef14eb75d4f3c1
-instant_purchase_shipping_address: 1
-instant_purchase_billing_address: 1
-instant_purchase_carrier: instant-purchase
-instant_purchase_shipping: cheapest

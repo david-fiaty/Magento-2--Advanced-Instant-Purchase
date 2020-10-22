@@ -2,14 +2,19 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
- * Configuration for JavaScript instant purchase button component.
+ * ViewButton class constructor.
  */
 class ViewButton extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var Config
+     * @var Registry
      */
-    public $instantPurchaseConfig;
+    public $registry; 
+
+    /**
+     * @var Block
+     */
+    public $blockHelper;
 
     /**
      * @var Config
@@ -17,77 +22,60 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public $configHelper;
 
     /**
+     * @var Purchase
+     */
+    public $purchaseHelper;
+
+    /**
      * @var Product
      */
     public $productHelper;
 
     /**
-     * Button class constructor.
+     * ViewButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\InstantPurchase\Model\Config $instantPurchaseConfig,
+        \Magento\Framework\Registry $registry,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->instantPurchaseConfig = $instantPurchaseConfig;
+        
+        $this->registry = $registry;
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
+        $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
     }
 
     /**
-     * Get the module config values.
+     * Get the block config.
      */
     public function getConfig()
     {
-        return $this->configHelper->getValues();
-    }
+        // Prepare the config
+        $config = $this->blockHelper->getConfig(
+            $this->getProduct()->getId()
+        );
 
+        // Check the display conditions
+        $condition = $config['guest']['show_guest_button']
+        && $config['general']['enabled']
+        && $config['products']['product_view']
+        && $this->purchaseHelper->canDisplayButton();
+
+        return $condition ? $config : null;
+    }
+    
     /**
      * Get the current product.
      */
     public function getProduct()
     {
-        return $this->productHelper->getProduct();
-    }
-
-    /**
-     * Checks if button enabled.
-     *
-     * @return bool
-     * @since 100.2.0
-     */
-    public function isEnabled(): bool
-    {
-        // todo - check validation rules
-        return $this->instantPurchaseConfig->isModuleEnabled($this->getCurrentStoreId())
-        || $this->getConfig()['guest']['show_guest_button'] == 1;
-    }
-
-    /**
-     * @inheritdoc
-     * @since 100.2.0
-     */
-    public function getJsLayout(): string
-    {
-        $buttonText = $this->instantPurchaseConfig->getButtonText($this->getCurrentStoreId());
-        $purchaseUrl = $this->getUrl('instantpurchase/button/placeOrder', ['_secure' => true]);
-
-        // String data does not require escaping here and handled on transport level and on client side
-        $this->jsLayout['components']['instant-purchase']['config']['buttonText'] = $buttonText;
-        $this->jsLayout['components']['instant-purchase']['config']['purchaseUrl'] = $purchaseUrl;
-        return parent::getJsLayout();
-    }
-
-    /**
-     * Returns active store view identifier.
-     *
-     * @return int
-     */
-    public function getCurrentStoreId(): int
-    {
-        return $this->_storeManager->getStore()->getId();
+        return $this->registry->registry('current_product');
     }
 }

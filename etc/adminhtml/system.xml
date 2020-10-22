@@ -58,8 +58,25 @@
                     <comment>Enable the PHP file logging (backend).</comment>
                 </field>  
             </group>
-            <group id="display" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Display settings</label>
+            <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Purchase button settings</label>
+                <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button text</label>
+                    <comment>Text to display on the purchase button.</comment>
+                </field>
+                <field id="state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button default state</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
+                    <comment>Purchase button initial state and validation for products with options. If "Button disabled" is selected, the purchase button will be disabled until the required product options are selected.</comment>
+                </field>
+                <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bypass out of stock</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the button even if the product is out of stock.</comment>
+                </field>
+            </group>
+            <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Products settings</label>
                 <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Product view button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -70,6 +87,9 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
                 </field>
+            </group>
+            <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Popup settings</label>
                 <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Responsive</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -80,7 +100,7 @@
                     <comment>Title for the Advanced Instant Purchase popup.</comment>
                 </field>
                 <field id="popup_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
+                    <label>Show product summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show a product summary in the purchase confirmation window.</comment>
                 </field>
@@ -107,14 +127,6 @@
                         <field id="show_guest_button">1</field>
                     </depends>
                     <comment>Guest button state.</comment>
-                </field>
-                <field id="click_event" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Click event</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ClickEvent</source_model>
-                    <depends>
-                        <field id="guest_button_state">1</field>
-                    </depends>
-                    <comment>Guest button click event.</comment>
                 </field>
             </group>
             <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -148,6 +160,26 @@
                     </depends>
                     <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
                 </field> 
+            </group>
+            <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Payment settings</label>
+                <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed card payment methods</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
+                </field>
+                <field id="show_other_allowed" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show other payment methods</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="other_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Other allowed payment methods</label>
+                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <depends>
+                        <field id="show_other_allowed">1</field>
+                    </depends>
+                    <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
+                </field>
             </group>
             <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Card form</label>
