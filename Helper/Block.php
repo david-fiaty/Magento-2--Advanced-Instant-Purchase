@@ -37,9 +37,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Can the button be displayed for out of stock products.
      */
-    public function bypassOos($pid)
+    public function bypassOos($productId)
     {
-        $productId = $this->productHelper->getProduct($pid)->getId();
         return !$this->productHelper->isInStock($productId)
         ? $this->value('buttons/bypass_oos')
         : true;
@@ -111,7 +110,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $config
         + $this->configHelper->getValues()
-        + $this->productHelper->getData($productId)
+        + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams();
     }
 }
