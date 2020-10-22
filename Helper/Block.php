@@ -111,7 +111,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $config
         + $this->configHelper->getValues()
-        + $this->productHelper->getData()
+        + $this->productHelper->getData($productId)
         + $this->customerHelper->getUserParams();
     }
 }
