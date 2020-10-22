@@ -72,13 +72,6 @@ define([
             .find('input[name^="super_attribute"]');
 
             return options;
-        },
-
-        /**
-         * Checkf if a product has options.
-         */
-        hasOptions: function(obj) {
-            return this.getOptions(obj.getButtonId()).length > 0;
         }
     };
 });

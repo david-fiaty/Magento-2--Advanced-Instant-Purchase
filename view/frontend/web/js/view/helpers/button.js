@@ -44,7 +44,7 @@ define([
         setPurchaseButtonState(obj) {
             // Get the button state
             var state = obj.jsConfig.buttons.state_disabled == 1
-            && AipProduct.hasOptions();
+            && obj.jsConfig.product.has_options;
 
             // Apply the state to the button
             $(obj.getButtonId())
