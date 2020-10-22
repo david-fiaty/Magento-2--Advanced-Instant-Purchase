@@ -106,8 +106,12 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
+            console.log(this.jsConfig.product);
             // Click event
-            if (this.isLoggedIn()) {
+            if (this.jsConfig.product.has_options) {
+                //window.location.href = this.jsConfig.product.page_url;
+            }
+            else if (this.isLoggedIn()) {
                 this.purchasePopup(e);
             } else {
                 var functionName = 'popup';

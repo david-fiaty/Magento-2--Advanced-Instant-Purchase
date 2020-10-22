@@ -78,10 +78,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'url' => $this->getProductImageUrl($productId),
                 'form_key' => $this->getFormKey(),
                 'in_stock' => $this->isInStock($productId),
-                'has_options' => $this->hasOptions($productId),
+                'has_options' => (bool) $this->hasOptions($productId),
                 'is_list' => $this->isListView(),
                 'button_id' => $this->getButtonId($productId),
-                'button_selector' => '#' . $this->getButtonId($productId)
+                'button_selector' => '#' . $this->getButtonId($productId),
+                'page_url' => $product->getProductUrl()
             ];
         }
 
