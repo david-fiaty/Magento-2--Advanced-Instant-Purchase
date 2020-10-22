@@ -7,11 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Registry
-     */
-    public $registry; 
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -30,12 +25,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Block helper class constructor.
      */
     public function __construct(
-        \Magento\Framework\Registry $registry,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
-        $this->registry = $registry;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
@@ -118,40 +111,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $config
         + $this->configHelper->getValues()
-        + $this->buildProductData($productId)
+        + $this->productHelper->getData()
         + $this->customerHelper->getUserParams();
-    }
-
-    /**
-     * Build the product data array.
-     */
-    public function buildProductData($productId) {
-        return [
-            'product' => array_merge(
-                $this->productHelper->getData($productId),
-                [
-                    'is_list' => $this->isListView(),
-                    'button_id' => $this->getButtonId($productId),
-                    'button_selector' => '#' . $this->getButtonId($productId)
-                ]
-            )
-        ];
-    }
-
-    /**
-     * Get a block button id.
-     */
-    public function getButtonId($productId) {
-        return 'aip-button-' . $productId;
-    }
-
-    /**
-     * Check if the product is in a list view.
-     */
-    public function isListView()
-    {
-        return !$this->productHelper->isProduct(
-            $this->registry->registry('current_product')
-        );
     }
 }

@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Registry
+     */
+    public $registry; 
+
+    /**
      * @var FormKey
      */
     public $formKey;
@@ -40,6 +45,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Product helper constructor.
      */
     public function __construct(
+        \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
@@ -47,6 +53,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
+        $this->registry = $registry;
         $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
@@ -71,11 +78,31 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'url' => $this->getProductImageUrl($productId),
                 'form_key' => $this->getFormKey(),
                 'in_stock' => $this->isInStock($productId),
-                'has_options' => $this->hasOptions($productId)
+                'has_options' => $this->hasOptions($productId),
+                'is_list' => $this->isListView(),
+                'button_id' => $this->getButtonId($productId),
+                'button_selector' => '#' . $this->getButtonId($productId)
             ];
         }
 
         return $output;
+    }
+
+    /**
+     * Get a block button id.
+     */
+    public function getButtonId($productId) {
+        return 'aip-button-' . $productId;
+    }
+
+    /**
+     * Check if the product is in a list view.
+     */
+    public function isListView()
+    {
+        return !$this->isProduct(
+            $this->registry->registry('current_product')
+        );
     }
 
     /**
