@@ -47,8 +47,7 @@ define([
             && obj.jsConfig.product.has_options;
 
             // Apply the state to the button
-            $(obj.getButtonId())
-            .prop('disabled', state);
+            $(obj.getButtonId()).prop('disabled', state);
         },
         
         /**
