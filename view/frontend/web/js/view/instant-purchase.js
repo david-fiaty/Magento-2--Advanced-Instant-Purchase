@@ -89,10 +89,11 @@ define([
          *
          * @param {Object} data
          */
-        log: function(data) {
+        log: function(title, data) {
             var condition = this.jsConfig.general.debug_enabled
             && this.jsConfig.general.console_logging_enabled;
             if (condition) {
+                console.log(title);
                 console.log(data);
             }
         },
@@ -153,6 +154,12 @@ define([
                 pid: this.jsConfig.product.id,
                 form_key: this.jsConfig.product.formKey
             };                       
+
+            // Log the confirmr parameters
+            this.log(
+                __('Confirmation request parameters'),
+                params
+            );
 
             // Send the request
             AipSlider.showLoader(self);
