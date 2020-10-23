@@ -10,9 +10,9 @@ class BlockFilter
     /**
      * Array
      */
-    public static $blockParams = array(
+    public static $blockParams = [
         'product_id'
-    );
+    ];
 
     /**
      * Block
@@ -48,12 +48,12 @@ class BlockFilter
                     $block = $this->blockHelper->buildButtonBlock($subject);
 
                     // Process the block tab parameters
-                    foreach (static::$blockParams as $key) {
+                    foreach (self::$blockParams as $key) {
                         // Process the parameter
                         $block = $this->processParam($key, $i, $matches, $block);
 
                         // Handle the parameter errors
-                        if ($block['errors'] == 0) {
+                        if ($block['errors'] > 0) {
                             $errors[] = $block['errors'];
                         }
                     }
