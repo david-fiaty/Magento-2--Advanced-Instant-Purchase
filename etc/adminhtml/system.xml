@@ -59,7 +59,7 @@
                 </field>  
             </group>
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Purchase button settings</label>
+                <label>Button settings</label>
                 <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button text</label>
                     <comment>Text to display on the purchase button.</comment>
