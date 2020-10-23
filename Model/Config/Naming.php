@@ -6,7 +6,6 @@ namespace Naxero\AdvancedInstantPurchase\Model\Config;
  */
 class Naming
 {
-
     public static function getModulename() {
         return 'Naxero_AdvancedInstantPurchase';
     }
