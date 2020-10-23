@@ -109,7 +109,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         // Confirmation content
         $html = $this->pageFactory->create()->getLayout()
-            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Data')
+            ->createBlock(Naming::getModulePath() . '\Block\Confirmation\Data')
             ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
             ->toHtml();
 

@@ -96,7 +96,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildButtonBlock($subject) {
         return $subject->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
+        ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
         ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
     }
 
