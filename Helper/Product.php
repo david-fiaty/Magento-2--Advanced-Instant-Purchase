@@ -100,7 +100,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isPageView()
     {
-        return !$this->isProduct(
+        return $this->isProduct(
             $this->registry->registry('current_product')
         );
     }
