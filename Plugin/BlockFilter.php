@@ -19,12 +19,19 @@ class BlockFilter
     public $blockHelper;
 
     /**
+     * Logger
+     */
+    public $loggerHelper;
+
+    /**
      * Class BlockFilter constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
+        $this->loggerHelper = $loggerHelper;
     }
 
     /**
