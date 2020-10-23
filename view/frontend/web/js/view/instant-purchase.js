@@ -93,7 +93,7 @@ define([
             var condition = this.jsConfig.general.debug_enabled
             && this.jsConfig.general.console_logging_enabled;
             if (condition) {
-                console.log(title);
+                console.log(this.jsConfig.module.title + ' - ' + title);
                 console.log(data);
             }
         },

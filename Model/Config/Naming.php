@@ -13,4 +13,8 @@ class Naming
     public static function getModulePath() {
         return 'Naxero\AdvancedInstantPurchase';
     }
+
+    public static function getModuleTitle() {
+        return __('Naxero Advanced Instant Purchase');
+    }
 } 

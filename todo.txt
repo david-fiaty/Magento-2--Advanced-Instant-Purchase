@@ -9,10 +9,6 @@
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
-- check form_key param not working in Confirmation.php controller.
-Request validation line 77 should be:
-if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
 
 - custom widget:
