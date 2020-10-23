@@ -125,7 +125,7 @@ define([
          * Check the current product view.
          */
         isListView: function() {
-            return this.jsConfig.product.is_list;
+            return obj.jsConfig.product.display == 'list';
         },
 
         /**
