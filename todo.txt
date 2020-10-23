@@ -1,7 +1,14 @@
 
+- fix blcook purchase request not working cause add to card fields missing
+- check product summary not showing in popup. Is this issue linked to no cars saved in account?
+
+- how to add product options in popup view?
+
+
 - filter display by customer groups/profiles
 - improve the config fields comments
 - display buy now button based on stock avail rules
+
 - check form_key param not working in Confirmation.php controller.
 Request validation line 77 should be:
 if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
