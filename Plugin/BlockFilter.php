@@ -1,5 +1,4 @@
 <?php
-
 namespace Naxero\AdvancedInstantPurchase\Plugin;
 
 /**

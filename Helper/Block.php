@@ -1,6 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Block helper.
  */
@@ -94,8 +96,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildButtonBlock($subject) {
         return $subject->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml');
+        ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
+        ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Config helper.
  */
@@ -82,7 +84,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLoaderIconUrl()
     {
-        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+        return $this->assetRepository->getUrl(Naming::getModuleName() . '::images/ajax-loader.gif');
     }
 
     /**
@@ -95,7 +97,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->moduleDirReader->getModuleDir(
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
-            'Naxero_AdvancedInstantPurchase'
+            Naming::getModuleName()
         ) . '/' . $fileName;
     }
 
@@ -106,6 +108,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCssPath()
     {
-        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::css');
+        return $this->assetRepository->getUrl(Naming::getModuleName() . '::css');
     }
 }

@@ -2,6 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 
 /**
  * Class CardHandlerService.
@@ -72,6 +73,7 @@ class CardHandlerService
             return self::$cardMapper[$code];
         }
     }
+    
     /**
      * Get a card icon.
      *
@@ -80,7 +82,7 @@ class CardHandlerService
     public function getCardIcon($code)
     {
         return $this->assetRepository ->getUrl(
-            'Naxero_AdvancedInstantPurchase::images/cards/' . strtolower($code) . '.svg'
+            Naming::getModuleName() . '::images/cards/' . strtolower($code) . '.svg'
         );
     }
 

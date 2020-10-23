@@ -1,6 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Confirmation Class.
  */
@@ -107,8 +109,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         // Confirmation content
         $html = $this->pageFactory->create()->getLayout()
-            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Data')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::popup/confirmation-data.phtml')
+            ->createBlock(Naming::getModulePath() . '\Block\Confirmation\Data')
+            ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
             ->toHtml();
 
         // Agreements
@@ -134,7 +136,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
                     'currentCustomer' => $this->currentCustomer
                 ]
             )
-            ->setTemplate('Naxero_AdvancedInstantPurchase::address/edit.phtml')
+            ->setTemplate(Naming::getModuleName() . '::address/edit.phtml')
             ->toHtml();
     }
 
@@ -145,7 +147,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::popup/card.phtml')
+        ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
         ->setData('load', $this->configHelper->value('card_form/load'))
         ->toHtml();
     }
@@ -156,7 +158,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function getAgreementsLinks() {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements/agreements-link.phtml')
+        ->setTemplate(Naming::getModuleName() . '::agreements/agreements-link.phtml')
         ->toHtml();
     }
 
@@ -168,7 +170,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::/agreements/agreements-detail.phtml')
+            ->setTemplate(Naming::getModuleName() . '::/agreements/agreements-detail.phtml')
             ->toHtml();
         }
 
