@@ -71,6 +71,15 @@ define([
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
+    
+            // Log the step
+            this.log(
+                __('Loaded the button for product id %1').replace(
+                    '%1',
+                    this.jsConfig.product.id
+                ),
+                this.jsConfig.product
+            );
         },
 
         /**

@@ -59,17 +59,24 @@ define(
              * Initialize the product options validation.
              */
             initOptionsValidation: function(obj) {
-                var self = this;
-                var errors = [];
+                // Handle the validation logic
                 var productAttributes = AipProduct.getOptions(obj);
                 var condition1 = productAttributes.length > 0;
                 var condition2 = obj.jsConfig.buttons.state_disabled == 1;
                 if (condition1 && condition2) {
+                    // Set the events
+                    var self = this;
                     productAttributes.each(function() {
                         $(this).on('change', function() {
                             self.updateButtonState(obj);
                         });
                     });
+
+                    // Log the step
+                    this.log(
+                        __('Registered product options validaton events'),
+                        productAttributes
+                    );
                 }
             },
 
