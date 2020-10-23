@@ -165,7 +165,7 @@ define([
 
             // Log the confirmr parameters
             this.log(
-                __('Confirmation request parameters'),
+                __('Confirmation window request parameters'),
                 params
             );
 
