@@ -10,6 +10,7 @@
 - display buy now button based on stock avail rules
 
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
+- move log method from ip to utils
 
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
