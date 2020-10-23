@@ -98,7 +98,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if the product is in a list view.
      */
-    public function isListView()
+    public function isPageView()
     {
         return !$this->isProduct(
             $this->registry->registry('current_product')
