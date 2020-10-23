@@ -77,11 +77,21 @@ define([
          * Get the loader icon parameter.
          */
         setLoaderIcon: function() {
-            this.loader = AipTemplate.getLoader({
+            // Pre pare the loader template parameters
+            var params = {
                 data: {
                     url: this.jsConfig.ui.loader
                 }
-            });
+            };
+
+            // Load the rendered HTML
+            this.loader = AipTemplate.getLoader(params);
+
+            // Log the event
+            this.log(
+                __('Loaded the spinner icon HTML'),
+                params
+            );
         },
 
         /**
