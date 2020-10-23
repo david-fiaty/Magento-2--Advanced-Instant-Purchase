@@ -68,6 +68,8 @@ class BlockFilter
                     if (empty($errors)) {
                         $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
                     }
+
+                    $html .= $this->loggerHelper->renderUiMessage('yoooooooooooo');
                 }
             }
         }
