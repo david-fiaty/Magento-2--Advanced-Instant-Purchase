@@ -109,7 +109,7 @@ define([
          */
         handleButtonClick: function(e) {
             // Click event
-            if (this.jsConfig.product.has_options) {
+            if (this.hasOptions()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
             else if (this.isLoggedIn()) {
@@ -122,10 +122,17 @@ define([
         },
 
         /**
-         * Check the current product view.
+         * Check if the current product is in list view.
          */
         isListView: function() {
             return obj.jsConfig.product.display == 'list';
+        },
+
+        /**
+         * Check if the current product has options.
+         */
+        hasOptions: function() {
+            return obj.jsConfig.product.has_options;
         },
 
         /**
