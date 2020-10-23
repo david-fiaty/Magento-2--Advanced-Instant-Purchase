@@ -10,7 +10,7 @@ class Autocomplete extends \Magento\Config\Block\System\Config\Form\Field
      * Autocomplete constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Backend\Block\Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);

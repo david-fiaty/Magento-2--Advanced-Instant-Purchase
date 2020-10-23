@@ -27,7 +27,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * BlockButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
