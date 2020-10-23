@@ -57,7 +57,10 @@ class BlockFilter
      * Process a block parameter.
      */
     public function processParam($field, $i, $matches, $blockHtml) {
+        // Pprepare the errors count
         $errors = 0;
+
+        // Process the parameter field
         preg_match('/' . $field . '="(\d*)"/', $matches[1][$i], $param);
         if ($this->isParameterValid($param)) {
             $blockHtml->setData($field, $param[1]);
