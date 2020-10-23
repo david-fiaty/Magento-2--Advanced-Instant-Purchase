@@ -160,7 +160,7 @@ define([
             var params = {
                 action: 'Confirmation',
                 product_id: this.jsConfig.product.id,
-                form_key: this.jsConfig.product.formKey
+                form_key: this.jsConfig.product.form_key
             };                       
 
             // Log the confirmr parameters
