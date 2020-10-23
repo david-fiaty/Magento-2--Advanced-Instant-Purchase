@@ -90,7 +90,9 @@ define([
          * @param {Object} data
          */
         log: function(data) {
-            if (this.jsConfig.general.debug_enabled && this.jsConfig.general.console_logging_enabled) {
+            var condition = this.jsConfig.general.debug_enabled
+            && this.jsConfig.general.console_logging_enabled;
+            if (condition) {
                 console.log(data);
             }
         },
