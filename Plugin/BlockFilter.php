@@ -8,6 +8,14 @@ namespace Naxero\AdvancedInstantPurchase\Plugin;
 class BlockFilter
 {
     /**
+     * Array
+     */
+    public static $blockParams = array(
+        'product_id',
+        'category_id'
+    );
+
+    /**
      * Block
      */
     public $blockHelper;
@@ -31,19 +39,28 @@ class BlockFilter
         // Process tags found
         if ($matches) {
             for ($i = 0; $i < count($matches[0]); $i++) {
-                // Prepare the loop variables
-                $tag = $matches[0][$i];
-
                 // Loop through the tag parameters
                 if ($this->tagHasParameters($matches, $i)) {
+                    // Prepare the loop variables
+                    $errors = [];
+                    $tag = $matches[0][$i];
+
                     // Build the block
                     $block = $this->blockHelper->buildButtonBlock($subject);
 
-                    // Product id
-                    $block = $this->processParam('product_id', $i, $matches, $block);
+                    // Process the block tab parameters
+                    foreach (static::$blockParams as $key) {
+                        // Process the parameter
+                        $block = $this->processParam($key, $i, $matches, $block);
+
+                        // Handle the parameter errors
+                        if ($block['errors'] == 0) {
+                            $errors[] = $block['errors'];
+                        }
+                    }
 
                     // Replace the tag with the generated HTML
-                    if ($block['errors'] == 0) {
+                    if (empty($errors)) {
                         $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
                     }
                 }
