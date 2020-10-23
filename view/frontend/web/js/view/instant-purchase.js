@@ -33,6 +33,7 @@ define([
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
             loader: '',
+            logCount: 1,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -74,7 +75,7 @@ define([
     
             // Log the step
             this.log(
-                __('Loaded the button for product id %1').replace(
+                __('Button ready for product id %1').replace(
                     '%1',
                     this.jsConfig.product.id
                 ),
@@ -108,7 +109,7 @@ define([
          *
          * @param {Object} data
          */
-        log: function(title, data) {
+        log: function(msg, data) {
             // Default data value
             data = data || null;
 
@@ -118,10 +119,22 @@ define([
 
             // Handle the logging display
             if (condition) {
-                console.log(this.jsConfig.module.title + ' - ' + title);
+                // Module name
+                console.log(
+                    '%c[' + this.logCount + '][' + this.jsConfig.module.title + ']',
+                    'font-weight: bold; color: blue;'
+                );
+
+                // Log event title
+                console.log(msg)
+
+                // Log event data
                 if (data) { 
                     console.log(data);
                 }
+
+                // Log count
+                this.logCount++;
             }
         },
 
