@@ -35,16 +35,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function write($msg)
     {
         // Get the debug config value
-        $debug = $this->scopeConfig->getValue(
-            'settings/checkoutcom_configuration/debug',
-            ScopeInterface::SCOPE_STORE
-        );
+        $debug = $this->configHelper->value('general/debug_enabled');
 
         // Get the file logging config value
-        $fileLogging = $this->scopeConfig->getValue(
-            'settings/checkoutcom_configuration/file_logging',
-            ScopeInterface::SCOPE_STORE
-        );
+        $fileLogging = $this->configHelper->value('general/file_logging_enabled');
 
         // Handle the file logging
         if ($debug && $fileLogging) {
@@ -60,26 +54,15 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @param mixed $response The response
      */
-    public function display($response)
+    public function display($msg)
     {
         // Get the debug config value
-        $debug = $this->scopeConfig->getValue(
-            'settings/checkoutcom_configuration/debug',
-            ScopeInterface::SCOPE_STORE
-        );
+        $debug = $this->configHelper->value('general/debug_enabled');
 
-        // Get the gateway response config value
-        $gatewayResponses = $this->scopeConfig->getValue(
-            'settings/checkoutcom_configuration/gateway_responses',
-            ScopeInterface::SCOPE_STORE
-        );
-
-        if ($debug && $gatewayResponses) {
-            $output = json_encode($response);
-            $this->messageManager->addComplexSuccessMessage(
-                'ckoMessages',
-                ['output' => $output]
-            );
+        // Get the UI logging
+        $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
+        if ($debug && $uiLogging) {
+            $this->messageManager->addNotice($msg);
         }
     }
 }
