@@ -1,6 +1,6 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
-
+v
 /**
  * Class Config helper.
  */
