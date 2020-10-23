@@ -77,7 +77,7 @@ define([
          * Get the loader icon parameter.
          */
         setLoaderIcon: function() {
-            // Pre pare the loader template parameters
+            // Prepare the loader template parameters
             var params = {
                 data: {
                     url: this.jsConfig.ui.loader
