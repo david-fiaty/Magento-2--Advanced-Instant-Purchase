@@ -7,9 +7,6 @@
             <parameter name="widgettitle" sort_order="0" visible="true" xsi:type="text">
                 <label>Title</label>
             </parameter>
-            <parameter name="widgetcontent" sort_order="10" visible="true" xsi:type="textarea">
-                <label>Content</label>
-            </parameter>
         </parameters>
     </widget>
 </widgets>
