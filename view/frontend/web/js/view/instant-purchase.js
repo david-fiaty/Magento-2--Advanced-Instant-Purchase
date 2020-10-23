@@ -163,7 +163,7 @@ define([
                 form_key: this.jsConfig.product.form_key
             };                       
 
-            // Log the confirmr parameters
+            // Log the parameters
             this.log(
                 __('Confirmation window request parameters'),
                 params

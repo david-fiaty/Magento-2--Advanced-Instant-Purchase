@@ -1,10 +1,11 @@
 define(
     [
         'jquery',
+        'mage/translate',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
     ],
-    function ($, AipTemplate, AipUtil) {
+    function ($, __, AipTemplate, AipUtil) {
         'use strict';
 
         return {
@@ -28,6 +29,7 @@ define(
              */
             loadHeader: function(obj) {
                 if (!this.isHeaderLoaded()) {
+                    // Load the headers
                     $('head').append(AipTemplate.getHeader(
                         {
                             data: {
@@ -35,6 +37,12 @@ define(
                             }
                         }
                     ));
+
+                    // Log the event
+                    obj.log(
+                        __('Loaded the HTML page header declarations'),
+                        params
+                    );
                 }
             },
 
