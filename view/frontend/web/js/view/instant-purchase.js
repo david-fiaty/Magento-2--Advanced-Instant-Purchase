@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
@@ -20,7 +21,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -91,7 +92,7 @@ define([
             if (this.hasOptions() && this.isblockView()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
-            else if (AipLogin.isLoggedIn(obj)) {
+            else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
             } else {
                 var functionName = 'popup';
