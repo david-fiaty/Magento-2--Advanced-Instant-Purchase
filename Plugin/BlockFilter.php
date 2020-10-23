@@ -66,10 +66,16 @@ class BlockFilter
 
                     // Replace the tag with the generated HTML
                     if (empty($errors)) {
+                        // Success
                         $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
+                    } else {
+                        // Errors
+                        $errorsHtml = '';
+                        foreach ($errors as $msg) {
+                            $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
+                        }
+                        $html = str_replace($tag, $errorsHtml, $html);
                     }
-
-                    $html .= $this->loggerHelper->renderUiMessage('yoooooooooooo');
                 }
             }
         }
@@ -81,8 +87,8 @@ class BlockFilter
      * Process a block parameter.
      */
     public function processParam($field, $i, $matches, $blockHtml) {
-        // Pprepare the errors count
-        $errors = 0;
+        // Prepare the errors count
+        $errors = [];
 
         // Process the parameter field
         preg_match('/' . $field . '="(\d*)"/', $matches[1][$i], $param);
@@ -90,7 +96,7 @@ class BlockFilter
             $blockHtml->setData($field, $param[1]);
         } 
         else {
-            $errors++;
+            $errors[] = __('Invalid parameter %s', $field);
         }
 
         return [
