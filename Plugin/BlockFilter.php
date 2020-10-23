@@ -32,44 +32,33 @@ class BlockFilter
         if ($matches) {
             for ($i = 0; $i < count($matches[0]); $i++) {
                 // Prepare the loop variables
+                $errors = 0;
                 $tag = $matches[0][$i];
 
                 // Loop through the tag parameters
                 if ($this->tagHasParameters($matches, $i)) {
-                    // Build the block
-                    $blockHtml = $this->blockHelper->buildButtonBlock($subject);
-
                     // Product id
-                    $block = $this->processsParam($i, 'product_id', $matches, $blockHtml);
+                    preg_match('/product_id="(\d*)"/', $matches[1][$i], $param);
+                    if ($this->isParameterValid($param)) {
+                        // Build the block
+                        $blockHtml = $this->blockHelper->buildButtonBlock($subject);
+
+                        // Set the product id block parameter
+                        $blockHtml->setData('product_id', $param[1]);
+                    } 
+                    else {
+                        $errors++;
+                    }
 
                     // Replace the tag with the generated HTML
-                    if ($block['errors'] == 0) {
-                        $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
+                    if ($errors == 0) {
+                        $html = str_replace($tag, $blockHtml->toHtml(), $html);
                     }
                 }
             }
         }
 
         return $html;
-    }
-
-    /**
-     * Process a block filter parameter.
-     */
-    public function processsParam($i, $field, $matches, $blockHtml) {
-        $errors = 0;
-        preg_match('/' . $field . '=(\d*)/', $matches[1][$i], $param);
-        if ($this->isParameterValid($param)) {
-            $blockHtml->setData($field, $param[1]);
-        } 
-        else {
-            $errors++;
-        }
-
-        return [
-            'blockHtml' => $blockHtml,
-            'errors' => $errors
-        ];
     }
 
     /**
