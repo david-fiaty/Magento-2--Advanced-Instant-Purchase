@@ -3,9 +3,10 @@ define(
         'jquery',
         'mage/translate',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
     ],
-    function ($, __, AipTemplate, AipUtil) {
+    function ($, __, AipTemplate, AipUtil, AipLogger) {
         'use strict';
 
         return {
@@ -40,7 +41,8 @@ define(
                     $('head').append(AipTemplate.getHeader(params));
 
                     // Log the event
-                    obj.log(
+                    AipLogger.log(
+                        obj,
                         __('Loaded the HTML page header declarations'),
                         params
                     );

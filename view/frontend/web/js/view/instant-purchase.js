@@ -7,8 +7,8 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -20,7 +20,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipHeader, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -33,7 +33,6 @@ define([
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
             loader: '',
-            logCount: 1,
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -62,7 +61,7 @@ define([
             AipButton.setPurchaseButtonState(this);
 
             // Loader icon
-            this.setLoaderIcon();
+            AipSpinner.loadIcon(this);
 
             // Options validation
             AipValidation.initOptionsValidation(this);
@@ -74,75 +73,14 @@ define([
             }); 
     
             // Log the step
-            this.log(
+            AipLogger.log(
+                this,
                 __('Button ready for product id %1').replace(
                     '%1',
                     this.jsConfig.product.id
                 ),
                 this.jsConfig.product
             );
-        },
-
-        /**
-         * Get the loader icon parameter.
-         */
-        setLoaderIcon: function() {
-            // Prepare the loader template parameters
-            var params = {
-                data: {
-                    url: this.jsConfig.ui.loader
-                }
-            };
-
-            // Load the rendered HTML
-            this.loader = AipTemplate.getLoader(params);
-
-            // Log the event
-            this.log(
-                __('Loaded the spinner icon HTML'),
-                params
-            );
-        },
-
-        /**
-         * Log data to the browser console.
-         *
-         * @param {Object} data
-         */
-        log: function(msg, data) {
-            // Default data value
-            data = data || null;
-
-            // Check the logging settings
-            var condition = this.jsConfig.general.debug_enabled
-            && this.jsConfig.general.console_logging_enabled;
-
-            // Handle the logging display
-            if (condition) {
-                // Module name
-                console.log(
-                    '%c[' + this.logCount + '][' + this.jsConfig.module.title + ']',
-                    'font-weight: bold; color: blue;'
-                );
-
-                // Log event title
-                console.log(msg)
-
-                // Log event data
-                if (data) { 
-                    console.log(data);
-                }
-
-                // Log count
-                this.logCount++;
-            }
-        },
-
-        /**
-         * Check if customer is logged in.
-         */
-        isLoggedIn: function() {
-            return this.jsConfig.user.connected;
         },
 
         /**
@@ -153,7 +91,7 @@ define([
             if (this.hasOptions() && this.isblockView()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
-            else if (this.isLoggedIn()) {
+            else if (AipLogin.isLoggedIn(obj)) {
                 this.purchasePopup(e);
             } else {
                 var functionName = 'popup';
@@ -204,7 +142,8 @@ define([
             };                       
 
             // Log the parameters
-            this.log(
+            AipLogger.log(
+                this,
                 __('Confirmation window request parameters'),
                 params
             );
@@ -233,7 +172,11 @@ define([
                     AipButton.setValidationEvents(self);
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AipLogger.log(
+                        self,
+                        __('Error retrieving the confimation window content'),
+                        error
+                    );
                 }
             });
         },
@@ -308,7 +251,11 @@ define([
                     );
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AipLogger.log(
+                        self,
+                        __('Error retrieving the form data'),
+                        error
+                    );
                 }
             });
         }

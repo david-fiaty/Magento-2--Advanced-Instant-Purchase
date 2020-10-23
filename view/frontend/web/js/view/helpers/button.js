@@ -7,7 +7,8 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AipProduct, AipSlider, AipUtil, AipMessage, AipValidation) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
+], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -107,7 +108,11 @@ define([
                                 AipMessage.checkResponse(data, e, obj);
                             },
                             error: function(request, status, error) {
-                                obj.log(error);
+                                AipLogger.log(
+                                    obj,
+                                    __('Error submitting the form data'),
+                                    error
+                                );
                             }
                         });
                     }

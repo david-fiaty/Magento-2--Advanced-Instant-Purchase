@@ -74,6 +74,7 @@ define(
 
                     // Log the step
                     this.log(
+                        obj,
                         __('Registered product options validaton events'),
                         productAttributes
                     );

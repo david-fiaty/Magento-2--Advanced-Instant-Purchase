@@ -2,8 +2,9 @@ define([
     'jquery',
     'mage/url',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal'
-], function ($, UrlBuilder, AipSlider, AipModal) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
+], function ($, UrlBuilder, AipSlider, AipModal, AipLogger) {
     'use strict';
 
     return {
@@ -26,6 +27,7 @@ define([
          */
         getAgreement: function(e, obj) {
             // Prepare the request parameters
+            var self = this;
             var params = {
                 action: $(e.currentTarget).data('role'),
                 id: $(e.currentTarget).data('id')
@@ -44,7 +46,11 @@ define([
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
-                    obj.log(error);
+                    AipLogger.log(
+                        obj,
+                        __('Error retrieving the terms and conditions data'),
+                        error
+                    );
                 }
             });
         }

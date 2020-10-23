@@ -11,9 +11,9 @@ define(
 
         return {
             /**
-             * Render the loader icon template.
+             * Render the spinner icon template.
              */
-            getLoader: function(params) {
+            getSpinner: function(params) {
                 return MageTemplate(Loader)(params);
             },
 
