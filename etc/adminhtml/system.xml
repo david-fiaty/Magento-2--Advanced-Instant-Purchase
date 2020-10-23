@@ -41,6 +41,14 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable the debug mode.</comment>
                 </field>  
+                <field id="ui_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>UI logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the user interface logging (frontend).</comment>
+                </field>  
                 <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Console logging enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
