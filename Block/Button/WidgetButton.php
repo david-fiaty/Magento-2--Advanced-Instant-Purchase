@@ -2,10 +2,16 @@
 namespace Naxero\AdvancedInstantPurchase\Block\Button;
 
 /**
- * BlockButton class constructor.
+ * WidgetButton class constructor.
  */
-class BlockButton extends \Magento\Framework\View\Element\Template
+use Magento\Framework\View\Element\Template;
+use Magento\Widget\Block\BlockInterface;
+
+class WidgetButton extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
+
+    public $_template = "button/base.phtml";
+
     /**
      * @var Block
      */
