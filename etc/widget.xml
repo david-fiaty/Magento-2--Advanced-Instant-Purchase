@@ -8,5 +8,8 @@
                 <label>Title</label>
             </parameter>
         </parameters>
+        <parameter name="product_id" xsi:type="select" visible="true" source_model="Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ProductList">
+            <label translate="true">Sort Collection By</label>
+        </parameter>
     </widget>
 </widgets>
