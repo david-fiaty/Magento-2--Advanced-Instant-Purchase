@@ -110,7 +110,7 @@ define([
          */
         handleButtonClick: function(e) {
             // Click event
-            if (this.hasOptions()) {
+            if (this.hasOptions() && this.isblockView()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
             else if (this.isLoggedIn()) {
@@ -127,6 +127,14 @@ define([
          */
         isListView: function() {
             return this.jsConfig.product.display == 'list';
+        },
+
+        /**
+         * Check if the current product is in block view.
+         */
+        isblockView: function() {
+            return this.jsConfig.product.display == 'block'
+            || this.jsConfig.product.display == 'widget';
         },
 
         /**
