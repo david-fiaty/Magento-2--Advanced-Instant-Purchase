@@ -3,7 +3,7 @@
 - check product summary not showing in popup. Is this issue linked to no cars saved in account?
 
 - how to add product options in popup view?
-
+- move agreements settings to a better section than general
 
 - filter display by customer groups/profiles
 - improve the config fields comments
