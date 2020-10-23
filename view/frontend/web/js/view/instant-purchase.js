@@ -90,11 +90,19 @@ define([
          * @param {Object} data
          */
         log: function(title, data) {
+            // Default data value
+            data = data || null;
+
+            // Check the logging settings
             var condition = this.jsConfig.general.debug_enabled
             && this.jsConfig.general.console_logging_enabled;
+
+            // Handle the logging display
             if (condition) {
                 console.log(this.jsConfig.module.title + ' - ' + title);
-                console.log(data);
+                if (data) { 
+                    console.log(data);
+                }
             }
         },
 

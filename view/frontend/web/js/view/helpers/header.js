@@ -29,14 +29,15 @@ define(
              */
             loadHeader: function(obj) {
                 if (!this.isHeaderLoaded()) {
-                    // Load the headers
-                    $('head').append(AipTemplate.getHeader(
-                        {
-                            data: {
-                                css_path: obj.jsConfig.ui.css
-                            }
+                    // Build the headers= data
+                    var params = {
+                        data: {
+                            css_path: obj.jsConfig.ui.css
                         }
-                    ));
+                    };
+
+                    // Add the header declarations
+                    $('head').append(AipTemplate.getHeader(params));
 
                     // Log the event
                     obj.log(
