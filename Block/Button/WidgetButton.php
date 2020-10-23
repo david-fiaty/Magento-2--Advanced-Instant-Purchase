@@ -9,6 +9,9 @@ use Magento\Widget\Block\BlockInterface;
 
 class WidgetButton extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
+
+    public $_template = "button/base.phtml";
+
     /**
      * @var Block
      */
