@@ -40,7 +40,7 @@ class BlockFilter
                     $blockHtml = $this->blockHelper->buildButtonBlock($subject);
 
                     // Product id
-                    $block = $this->processsParam('product_id', $matches, $blockHtml);
+                    $block = $this->processsParam($i, 'product_id', $matches, $blockHtml);
 
                     // Replace the tag with the generated HTML
                     if ($block['errors'] == 0) {
@@ -56,7 +56,7 @@ class BlockFilter
     /**
      * Process a block filter parameter.
      */
-    public function processsParam($field, $matches, $blockHtml) {
+    public function processsParam($i, $field, $matches, $blockHtml) {
         $errors = 0;
         preg_match('/' . $field . '=(\d*)/', $matches[1][$i], $param);
         if ($this->isParameterValid($param)) {
