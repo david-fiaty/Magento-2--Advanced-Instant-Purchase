@@ -137,7 +137,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getConfirmContent()
     {
         // Get the product id from request
-        $productId = $this->request->getParam('pid');
+        $productId = $this->request->getParam('product_id');
 
         // Prepare the output array
         $confirmationData = [
