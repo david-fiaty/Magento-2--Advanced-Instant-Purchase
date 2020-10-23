@@ -125,14 +125,14 @@ define([
          * Check if the current product is in list view.
          */
         isListView: function() {
-            return obj.jsConfig.product.display == 'list';
+            return this.jsConfig.product.display == 'list';
         },
 
         /**
          * Check if the current product has options.
          */
         hasOptions: function() {
-            return obj.jsConfig.product.has_options;
+            return this.jsConfig.product.has_options;
         },
 
         /**
