@@ -159,7 +159,7 @@ define([
             var self = this;
             var params = {
                 action: 'Confirmation',
-                pid: this.jsConfig.product.id,
+                product_id: this.jsConfig.product.id,
                 form_key: this.jsConfig.product.formKey
             };                       
 
