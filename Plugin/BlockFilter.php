@@ -11,8 +11,7 @@ class BlockFilter
      * Array
      */
     public static $blockParams = array(
-        'product_id',
-        'category_id'
+        'product_id'
     );
 
     /**
