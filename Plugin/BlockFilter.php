@@ -27,7 +27,7 @@ class BlockFilter
      * Class BlockFilter constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
