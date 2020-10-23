@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
 
 /**
- * Class PaymentMethods
+ * Class ProductList
  */
 class ProductList implements \Magento\Framework\Option\ArrayInterface
 {
@@ -10,7 +10,10 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      * CollectionFactory
      */
     public $productCollectionFactory;
-        
+ 
+    /**
+     * ProductList constructor.
+     */
     public function __construct(
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory       
     ) {    
