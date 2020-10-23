@@ -5,9 +5,12 @@
 "Some required fields are invalid","Some required fields are invalid"
 "Invalid field","Invalid field"
 "The address could not be saved.","The address could not be saved."
-"Open a popup","Open a popup"
+"Something went wrong while processing your order. Please try again later.","Something went wrong while processing your order. Please try again later."
+Disabled,Disabled
+Enabled,Enabled
+"Open the login popup","Open the login popup"
 "Redirect to the login page","Redirect to the login page"
-"Cheapest price","Cheapest price"
+carrier_title,carrier_title
 ending,ending
 expires,expires
 "* Required Fields","* Required Fields"
@@ -27,10 +30,14 @@ Country,Country
 "Use as my default shipping address","Use as my default shipping address"
 "Save Address","Save Address"
 "Go back","Go back"
+"buttons' 'button_text","buttons' 'button_text"
+"Your order heas been created successfully. Order reference:","Your order heas been created successfully. Order reference:"
 "Billing address","Billing address"
 "Create a billing address","Create a billing address"
 "Shipping address","Shipping address"
 "Create a shipping address","Create a shipping address"
-"Payment method","Payment method"
+"Saved cards","Saved cards"
 "Save a new card","Save a new card"
+"Other payment options","Other payment options"
 "Shipping method","Shipping method"
+Product,Product
