@@ -3,9 +3,10 @@ define(
         'jquery',
         'mage/translate',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
         'popover'
     ],
-    function ($, __, AipProduct) {
+    function ($, __, AipProduct, AipLogger) {
         'use strict';
         return {
             agreementRow: '.aip-agreement-link-row',
@@ -73,7 +74,7 @@ define(
                     });
 
                     // Log the step
-                    this.log(
+                    AipLogger.log(
                         obj,
                         __('Registered product options validaton events'),
                         productAttributes
