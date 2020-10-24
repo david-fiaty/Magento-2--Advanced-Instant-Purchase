@@ -100,12 +100,19 @@ class BlockFilter
         $errors = [];
 
         // Process the parameter field
-        preg_match('/' . $field . '="(\d*)"/', $matches[1][$i], $param);
-        if ($this->isParameterValid($field, $param)) {
-            $blockHtml->setData($field, $param[1]);
-        } 
-        else {
-            $errors[] = __('Invalid parameter %s', $field);
+        $search = '/' . $field . '="(.*?)"/';
+        preg_match($search, $matches[1][$i], $param);        
+        if (isset($param[1]) && !empty($param[1])) {
+            if ($this->isParameterValid($field, $param)) {
+                $blockHtml->setData($field, $param[1]);
+            } 
+            else {
+                $errors[] = __(
+                    'Invalid value %s for parameter %s',
+                    $param[1],
+                    $field
+                );
+            }
         }
 
         return [
@@ -130,10 +137,9 @@ class BlockFilter
         $condition3 = true;
 
         // Validation for product_id
-        if ($field == 'product_id') {
+        if ($field == 'product_id' && $condition1 && $condition2) {
             $condition3 = $this->productHelper->isProduct($param[1]);
         }
-
 
         return $condition1 && $condition2 && $condition3;
     }
