@@ -155,9 +155,8 @@ class BlockFilter
 
         return [
             'is_valid' => $condition1 && $condition2 && $condition3,
-            'error'
+            'error' => $error
         ];
-        
     }
 
     /**
