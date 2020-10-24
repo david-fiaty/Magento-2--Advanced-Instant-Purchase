@@ -32,14 +32,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $request; 
 
     /**
-     * @var ProductRepository
+     * @var ProductFactory
      */
-    public $productRepository; 
+    public $productFactory; 
 
     /**
      * @var StockItemRepository
      */
     public $stockItemRepository; 
+
+    /**
+     * @var ProductHandlerService
+     */
+    public $productHandler; 
 
     /**
      * Class Product helper constructor.
@@ -50,16 +55,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Catalog\Model\ProductRepository $productRepository,
-        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
+        \Magento\Catalog\Model\ProductFactory $productFactory,
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
+        \Naxero\AdvancedInstantPurchase\Model\Service\ProductHandlerService $productHandler
     ) {
         $this->registry = $registry;
         $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
-        $this->productRepository = $productRepository;
+        $this->productFactory = $productFactory;
         $this->stockItemRepository = $stockItemRepository;
+        $this->productHandler = $productHandler;
     }
 
     /**
@@ -136,7 +143,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProduct($productId)
     {
-        return $this->productRepository->getById($productId);
+        return $this->productFactory->create()->load($productId);
     }
 
     /**
@@ -187,7 +194,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isProductFound($productId)
     {
-        return $this->getProduct($productId);
+        return $this->productHandler->isProductFound($productId);
     }
 
     /**
