@@ -1,0 +1,11 @@
+<?php $data = $block->getData('data') ?>
+<div class="messages">
+    <div class="message success">
+        <?= $data['title'] ?> | <?= __('UI Logger') ?>
+        <div class="message-text">
+            <pre>
+                <?= print_r($data['data'], 1) ?>
+            </pre>
+        </div>
+    </div>
+</div>

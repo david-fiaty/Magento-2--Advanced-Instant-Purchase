@@ -43,16 +43,8 @@
         }
     </script>
     <?php if ($uiLogging): ?>
-        <div class="messages">
-            <div class="message success">
-                <?= __($config['module']['name']) ?> | <?= __('UI Logger') ?>
-                <div class="message-text">
-                    <pre>
-                        <?= print_r($purchaseData, 1) ?>
-                    </pre>
-                </div>
-            </div>
-        </div>
+        <?= $block->blockHelper->showUiLogger($purchaseData) ?>;
     <?php endif; ?> 
 </div>
 <?php endif; ?> 
+
