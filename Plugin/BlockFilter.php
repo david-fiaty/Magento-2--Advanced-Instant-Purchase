@@ -83,7 +83,7 @@ class BlockFilter
                                 $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
                             }
                         }
-                        $html = str_replace($tag, $errorsHtml, $html);
+                        $html = str_replace($tag, $tag . $errorsHtml, $html);
                     }
                 }
             }
