@@ -19,6 +19,11 @@ class BlockFilter
     public $blockHelper;
 
     /**
+     * Product
+     */
+    public $productHelper;
+
+    /**
      * Logger
      */
     public $loggerHelper;
@@ -28,9 +33,11 @@ class BlockFilter
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
         $this->loggerHelper = $loggerHelper;
     }
 
@@ -118,10 +125,17 @@ class BlockFilter
      * Check if a tag parameter is valid.
      */
     public function isParameterValid(string $field, array $param) {
-        $condition1 = isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
+        $condition1 = isset($param[1]) && (int) $param[1] > 0;
         $condition2 = $this->isParameterRegistered($field);
+        $condition3 = true;
 
-        return $condition1 && $condition2;
+        // Validation for product_id
+        if ($field == 'product_id') {
+            $condition3 = $this->productHelper->isProduct($param[1]);
+        }
+
+
+        return $condition1 && $condition2 && $condition3;
     }
 
     /**

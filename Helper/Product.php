@@ -101,7 +101,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function isPageView()
     {
         return $this->isProduct(
-            $this->registry->registry('current_product')
+            $this->registry->registry('current_product')->getId()
         );
     }
 
@@ -176,8 +176,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a product exists.
      */
-    public function isProduct($product)
+    public function isProduct($productId)
     {
+        $product = $this->getProduct($productId);
+        
         return $product && (int) $product->getId() > 0;
     }
 }
