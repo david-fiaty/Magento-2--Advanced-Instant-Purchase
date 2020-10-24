@@ -145,15 +145,9 @@ class BlockFilter
         // Validation for product_id
         if ($field == 'product_id' && $condition1 && $condition2) {
             // Valid id
-            if (!$this->productHelper->isProductIdValid($param[1])) {
+            if (!$this->productHelper->isProduct($param[1])) {
                 $condition3 = false;
                 $error = __('Invalid value "%1" for parameter %2', $param[1], $field);
-            }
-
-            // Product found
-            if (!$this->productHelper->isProductFound($param[1])) {
-                $condition3 = false;
-                $error = __('Product id %1 not found', $param[1]);
             }
         }
 

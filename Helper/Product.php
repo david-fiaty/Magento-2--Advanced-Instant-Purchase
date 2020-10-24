@@ -42,11 +42,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository; 
 
     /**
-     * @var ProductHandlerService
-     */
-    public $productHandler; 
-
-    /**
      * Class Product helper constructor.
      */
     public function __construct(
@@ -56,8 +51,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Naxero\AdvancedInstantPurchase\Model\Service\ProductHandlerService $productHandler
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
         $this->registry = $registry;
         $this->formKey = $formKey;
@@ -66,7 +60,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->request = $request;
         $this->productFactory = $productFactory;
         $this->stockItemRepository = $stockItemRepository;
-        $this->productHandler = $productHandler;
     }
 
     /**
@@ -185,23 +178,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isProduct($productId)
     {
-        return (int) $this->isProductFound($productId)
-        && $this->isProductIdValid($productId);
-    }
+        $product = $this->getProduct($productId);
 
-    /**
-     * Check if a product is found.
-     */
-    public function isProductFound($productId)
-    {
-        return $this->productHandler->isProductFound($productId);
-    }
-
-    /**
-     * Check if a product id is valid.
-     */
-    public function isProductIdValid($productId)
-    {
-        return (int) $productId > 0;
+        return $product && (int) $product->getId() > 0;
     }
 }
