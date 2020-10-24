@@ -108,7 +108,7 @@ class BlockFilter
             } 
             else {
                 $errors[] = __(
-                    'Invalid value %s for parameter %s',
+                    'Invalid value "%1" for parameter %2',
                     $param[1],
                     $field
                 );
