@@ -5,13 +5,15 @@ define([
     'use strict';
 
     return {
+        treeContainerSelector: '.aip-ui-logger-tree',
+
         /**
          * Build a jQtree instance.
          */
         build: function(obj) {
             if (this.needsUiLogging(obj)) {
-                $('.aip-ui-logger-tree').tree({
-                    data: [obj.jsCOnfig],
+                $(this.treeContainerSelector).tree({
+                    data:  JSON.parse(obj.jsConfig),
                     autoOpen: true
                 });
             }
