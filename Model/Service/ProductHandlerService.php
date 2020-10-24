@@ -17,7 +17,7 @@ class ProductHandlerService
     public $productRepository;
 
     /**
-     * CardHandlerService constructor.
+     * ProductHandlerService constructor.
      */
     public function __construct(
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -27,6 +27,9 @@ class ProductHandlerService
         $this->productRepository = $productRepository;
     }
 
+    /**
+     * Check if a product is found.
+     */
     public function isProductFound($productId) {
         // Search criteria
         $this->searchCriteriaBuilder->addFilter(
@@ -42,7 +45,6 @@ class ProductHandlerService
             ->getList($search)
             ->setPageSize(1)
             ->getLastItem();
-
 
         return count($productList) > 0;
     }
