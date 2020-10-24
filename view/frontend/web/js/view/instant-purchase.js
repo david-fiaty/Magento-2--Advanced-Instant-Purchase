@@ -185,13 +185,13 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
-                    AipButton.setValidationEvents(self);
+                    //AipButton.setValidationEvents(self);
 
                     // Log the purchase data
                     AipLogger.log(
-                        this,
-                        __('Purchase data'),
-                        AipProduct.getProductForm(this).serialize()
+                        self,
+                        __('Purchase data on page load'),
+                        AipProduct.getProductForm(self).serializeArray()
                     );
                 },
                 error: function (request, status, error) {

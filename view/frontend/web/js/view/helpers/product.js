@@ -1,6 +1,7 @@
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
+], function ($, AipLogger) {
     'use strict';
 
     return {
@@ -47,6 +48,13 @@ define([
 
             // Get the buy now data
             var buyNowData = this.getProductForm(obj).serialize();
+
+            // Log the purchase data
+            AipLogger.log(
+                obj,
+                __('Place order pruchase data'),
+                this.getProductForm(obj).serializeArray()
+            );
 
             // Get the cart form data if list view
             if (obj.isListView()) {
