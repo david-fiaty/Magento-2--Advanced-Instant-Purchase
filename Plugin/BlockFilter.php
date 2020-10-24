@@ -94,7 +94,7 @@ class BlockFilter
 
         // Process the parameter field
         preg_match('/' . $field . '="(\d*)"/', $matches[1][$i], $param);
-        if ($this->isParameterValid($param)) {
+        if ($this->isParameterValid($field, $param)) {
             $blockHtml->setData($field, $param[1]);
         } 
         else {
@@ -117,7 +117,9 @@ class BlockFilter
     /**
      * Check if a tag parameter is valid.
      */
-    public function isParameterValid(array $param) {
-        return isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
+    public function isParameterValid(string $field, array $param) {
+        $condition1 = isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
+        $condition2 = in_array($field, self::$blockParams)
+        return $condition1 && $condition2;
     }
 } 
