@@ -108,11 +108,7 @@ class BlockFilter
                 $blockHtml->setData($field, $param[1]);
             } 
             else {
-                $errors[] = __(
-                    $result['error'],
-                    $param[1],
-                    $field
-                );
+                $errors[] = $result['error'];
             }
         }
 
