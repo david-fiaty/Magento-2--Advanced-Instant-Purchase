@@ -99,18 +99,26 @@ class BlockFilter
         // Prepare the errors count
         $errors = [];
 
-        // Process the parameter field
+        // Field search pattern
         $search = '/' . $field . '="(.*?)"/';
-        preg_match($search, $matches[1][$i], $param);        
+
+        // Look for the field
+        preg_match($search, $matches[1][$i], $param);      
+        
+        // If the field was found
         if (isset($param[1]) && !empty($param[1])) {
+            // Checkf if the parameter is valid
             $result = $this->isParameterValid($field, $param);
             if ($result['is_valid']) {
+                // Set the parameter argument
                 $blockHtml->setData($field, $param[1]);
             } 
             else {
+                // Handle the parameter error
                 $errors[] = $result['error'];
             }
         }
+
 
         return [
             'blockHtml' => $blockHtml,
@@ -129,7 +137,7 @@ class BlockFilter
      * Check if a tag parameter is valid.
      */
     public function isParameterValid(string $field, array $param) {
-        $condition1 = isset($param[1]) && (int) $param[1] > 0;
+        $condition1 = isset($param[1]);
         $condition2 = $this->isParameterRegistered($field);
         $condition3 = true;
         $error = '';
