@@ -171,13 +171,6 @@ define([
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
                 success: function (data) {
-                    // Log the data
-                    AipLogger.log(
-                        self,
-                        __('Confimation window data'),
-                        data
-                    );
-
                     // Get the HTML content
                     AipModal.addHtml(self.popupContentSelector, data.html);
 
