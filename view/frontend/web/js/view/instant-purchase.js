@@ -185,6 +185,7 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
+                    // Todo - fix the validation event
                     //AipButton.setValidationEvents(self);
 
                     // Log the purchase data
