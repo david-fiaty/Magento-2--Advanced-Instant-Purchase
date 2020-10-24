@@ -9,11 +9,6 @@ use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var PageFactory
-     */
-    public $pageFactory;
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -29,18 +24,23 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
+     * Logger
+     */
+    public $loggerHelper;
+
+    /**
      * Block helper class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
-        $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
+        $this->loggerHelper = $loggerHelper;
     }
 
     /**
@@ -111,12 +111,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Show the UI Logger blcok.
      */
     public function showUiLogger($data) {
-        return $this->pageFactory->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
-        ->setData('data', json_encode($data))
-        ->setData('title', Naming::getModuleTitle())
-        ->toHtml();
+        return $this->loggerHelper->renderDataTree($data);
     }
     
     /**
