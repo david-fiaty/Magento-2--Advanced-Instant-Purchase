@@ -62,6 +62,6 @@ class ProductHandlerService
         // Get the product list
         $productList = $this->productRepository->getList($searchCriteria)->getItems();  
     
-        return count($productList) > 0
+        return count($productList) > 0;
     }
 }
