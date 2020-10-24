@@ -110,8 +110,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $productData = $this->getData($productId);
 
-        return $productData['product']['display'] == 'block'
-        || $productData['product']['display'] == 'widget';
+        return $productData['display'] == 'block'
+        || $productData['display'] == 'widget';
     }
 
     /**
@@ -121,7 +121,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $productData = $this->getData($productId);
 
-        return $productData['product']['display'] == 'list';
+        return $productData['display'] == 'list';
     }
 
     /**
