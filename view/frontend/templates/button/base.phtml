@@ -8,7 +8,7 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isPageView = $block->productHelper->isPageView();
+        $isPageView = $block->productHelper->isPageView($productId);
         $formKey = $config['product']['form_key'];
     }
 ?>

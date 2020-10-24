@@ -7,11 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Registry
-     */
-    public $registry; 
-
-    /**
      * @var FormKey
      */
     public $formKey;
@@ -42,24 +37,29 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository; 
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
-        \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
-        $this->registry = $registry;
         $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
         $this->stockItemRepository = $stockItemRepository;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -96,13 +96,32 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if the product is in a page view.
+     */
+    public function isPageView($productId)
+    {
+        return !$this->isBlockView($productId) && !$this->isListView($productId);
+    }
+
+    /**
+     * Check if the product is in a block view.
+     */
+    public function isBlockView($productId)
+    {
+        $productData = $this->getData($productId);
+
+        return $productData['product']['display'] == 'block'
+        || $productData['product']['display'] == 'widget';
+    }
+
+    /**
      * Check if the product is in a list view.
      */
-    public function isPageView()
+    public function isListView($productId)
     {
-        return $this->isProduct(
-            $this->registry->registry('current_product')->getId()
-        );
+        $productData = $this->getData($productId);
+
+        return $productData['product']['display'] == 'list';
     }
 
     /**
