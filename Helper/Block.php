@@ -110,11 +110,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         $config['ui']['css'] = $this->configHelper->getCssPath();
         $config['module']['title'] = Naming::getModuleTitle();
-        $config['product']['display'] = $display;
 
         return $config
         + $this->configHelper->getValues()
-        + ['product' => $this->productHelper->getData($productId)]
+        + ['product' => $this->productHelper->getData($productId, $display)]
         + $this->customerHelper->getUserParams();
     }
 }
