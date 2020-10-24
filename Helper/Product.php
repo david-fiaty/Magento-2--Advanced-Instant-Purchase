@@ -65,11 +65,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Load the current product data.
      */
-    public function getData($productId, $display)
+    public function getData($productId, $display = null)
     {
         $output = [];        
         $product = $this->getProduct($productId);
         if ($product) {
+            // Prepare the base data
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
@@ -82,8 +83,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_id' => $this->getButtonId($productId),
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'page_url' => $product->getProductUrl(),
-                'display' => $display,
             ];
+
+            // Display parameter
+            if ($display) {
+                $output['display'] = $display;
+            }
         }
 
         return $output;
