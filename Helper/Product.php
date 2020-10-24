@@ -32,9 +32,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $request; 
 
     /**
-     * @var ProductFactory
+     * @var ProductRepository
      */
-    public $productFactory; 
+    public $productRepository; 
 
     /**
      * @var StockItemRepository
@@ -50,7 +50,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Catalog\Model\ProductFactory $productFactory,
+        \Magento\Catalog\Model\ProductRepository $productRepository,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
         $this->registry = $registry;
@@ -58,7 +58,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
-        $this->productFactory = $productFactory;
+        $this->productRepository = $productRepository;
         $this->stockItemRepository = $stockItemRepository;
     }
 
@@ -136,7 +136,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProduct($productId)
     {
-        return $this->productFactory->create()->load($productId);
+        return $this->productRepository->getById($productId);
     }
 
     /**

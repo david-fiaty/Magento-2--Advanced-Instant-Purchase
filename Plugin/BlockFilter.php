@@ -119,7 +119,6 @@ class BlockFilter
             }
         }
 
-
         return [
             'blockHtml' => $blockHtml,
             'errors' => $errors
@@ -137,6 +136,7 @@ class BlockFilter
      * Check if a tag parameter is valid.
      */
     public function isParameterValid(string $field, array $param) {
+        // Prepare the conditions
         $condition1 = isset($param[1]);
         $condition2 = $this->isParameterRegistered($field);
         $condition3 = true;
