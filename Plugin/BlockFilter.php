@@ -119,7 +119,15 @@ class BlockFilter
      */
     public function isParameterValid(string $field, array $param) {
         $condition1 = isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
-        $condition2 = in_array($field, self::$blockParams)
+        $condition2 = $this->isParameterRegistered($field);
+
         return $condition1 && $condition2;
+    }
+
+    /**
+     * Check if a tag parameter is registered.
+     */
+    public function isParameterRegistered(string $field) {
+        return in_array($field, self::$blockParams);
     }
 } 
