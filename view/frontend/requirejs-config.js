@@ -17,8 +17,7 @@
         select2: 'Naxero_AdvancedInstantPurchase/js/lib/select2/select2.full',
         slick: 'Naxero_AdvancedInstantPurchase/js/lib/slick/slick',
         popover: 'Naxero_AdvancedInstantPurchase/js/lib/popover/popover',
-        aip: 'Naxero_AdvancedInstantPurchase/js/view/instant-purchase',
-        aipLogger: 'Naxero_AdvancedInstantPurchase/js/view/helper/logger'
+        aip: 'Naxero_AdvancedInstantPurchase/js/view/instant-purchase'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 };
