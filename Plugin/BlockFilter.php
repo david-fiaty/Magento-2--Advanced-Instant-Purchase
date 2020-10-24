@@ -56,23 +56,25 @@ class BlockFilter
                     // Process the block tab parameters
                     foreach (self::$blockParams as $key) {
                         // Process the parameter
-                        $block = $this->processParam($key, $i, $matches, $block);
+                        $result = $this->processParam($key, $i, $matches, $block);
 
                         // Handle the parameter errors
-                        if ($block['errors'] > 0) {
-                            $errors[] = $block['errors'];
+                        if ($result['errors'] > 0) {
+                            $errors[] = $result['errors'];
                         }
                     }
 
                     // Replace the tag with the generated HTML
                     if (empty($errors)) {
                         // Success
-                        $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
+                        $html = str_replace($tag, $result['blockHtml']->toHtml(), $html);
                     } else {
                         // Errors
                         $errorsHtml = '';
-                        foreach ($errors as $msg) {
-                            $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
+                        foreach ($errors as $error) {
+                            foreach ($error as $msg) {
+                                $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
+                            }
                         }
                         $html = str_replace($tag, $errorsHtml, $html);
                     }
