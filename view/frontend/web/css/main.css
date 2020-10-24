@@ -21,6 +21,11 @@
     display: inline-block;
 }
 
+/* UI Logger */
+.aip-ui-logger {
+    overflow: auto;
+}
+
 /* Popover */
 .popover {
     z-index: 999 !important;

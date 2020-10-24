@@ -35,6 +35,11 @@
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
+
+    <?php if ($uiLogging): ?>
+        <?= $block->blockHelper->showUiLogger($purchaseData) ?>;
+    <?php endif; ?> 
+    
     <script type="text/x-magento-init">
         {
             "*": {
@@ -42,9 +47,6 @@
             }
         }
     </script>
-    <?php if ($uiLogging): ?>
-        <?= $block->blockHelper->showUiLogger($purchaseData) ?>;
-    <?php endif; ?> 
 </div>
 <?php endif; ?> 
 

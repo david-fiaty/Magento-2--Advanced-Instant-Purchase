@@ -1,11 +1,9 @@
 <?php $data = $block->getData('data') ?>
-<div class="messages">
+<div class="messages aip-ui-logger">
     <div class="message success">
         <?= $data['title'] ?> | <?= __('UI Logger') ?>
         <div class="message-text">
-            <pre>
-                <?= print_r($data['data'], 1) ?>
-            </pre>
+            <div class="aip-ui-logger-tree"></div>
         </div>
     </div>
 </div>
