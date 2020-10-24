@@ -102,35 +102,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the product is in a page view.
-     */
-    public function isPageView($productId)
-    {
-        return !$this->isBlockView($productId) && !$this->isListView($productId);
-    }
-
-    /**
-     * Check if the product is in a block view.
-     */
-    public function isBlockView($productId)
-    {
-        $productData = $this->getData($productId);
-
-        return $productData['display'] == 'block'
-        || $productData['display'] == 'widget';
-    }
-
-    /**
-     * Check if the product is in a list view.
-     */
-    public function isListView($productId)
-    {
-        $productData = $this->getData($productId);
-
-        return $productData['display'] == 'list';
-    }
-
-    /**
      * Check if a product is free.
      */
     public function isFree($productId)

@@ -53,8 +53,10 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         // Prepare the config
         $config = $this->blockHelper->getConfig(
             $this->getProduct()->getId(),
-            'list'
         );
+
+        // Set the display mode
+        $config['product']['display'] = 'list';
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
