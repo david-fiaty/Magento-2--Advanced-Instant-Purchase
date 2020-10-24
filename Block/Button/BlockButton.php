@@ -52,8 +52,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getData('product_id'),
-            'block'
+            $this->getData('product_id')
         );
 
         // Set the display mode

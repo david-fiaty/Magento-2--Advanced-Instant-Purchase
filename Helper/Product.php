@@ -65,7 +65,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Load the current product data.
      */
-    public function getData($productId, $display = null)
+    public function getData($productId)
     {
         $output = [];        
         $product = $this->getProduct($productId);
@@ -84,11 +84,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'page_url' => $product->getProductUrl(),
             ];
-
-            // Display parameter
-            if ($display) {
-                $output['display'] = $display;
-            }
         }
 
         return $output;
