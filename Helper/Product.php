@@ -178,8 +178,23 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isProduct($productId)
     {
-        $product = $this->getProduct($productId);
-        
-        return $product && (int) $product->getId() > 0;
+        return (int) $this->isProductFound($productId)
+        && $this->isProductIdValid($productId);
+    }
+
+    /**
+     * Check if a product is found.
+     */
+    public function isProductFound($productId)
+    {
+        return $this->getProduct($productId);
+    }
+
+    /**
+     * Check if a product id is valid.
+     */
+    public function isProductIdValid($productId)
+    {
+        return (int) $productId > 0;
     }
 }

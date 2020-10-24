@@ -103,12 +103,13 @@ class BlockFilter
         $search = '/' . $field . '="(.*?)"/';
         preg_match($search, $matches[1][$i], $param);        
         if (isset($param[1]) && !empty($param[1])) {
-            if ($this->isParameterValid($field, $param)) {
+            $result = $this->isParameterValid($field, $param);
+            if ($result['is_valid']) {
                 $blockHtml->setData($field, $param[1]);
             } 
             else {
                 $errors[] = __(
-                    'Invalid value "%1" for parameter %2',
+                    $result['error'],
                     $param[1],
                     $field
                 );
@@ -135,13 +136,28 @@ class BlockFilter
         $condition1 = isset($param[1]) && (int) $param[1] > 0;
         $condition2 = $this->isParameterRegistered($field);
         $condition3 = true;
+        $error = '';
 
         // Validation for product_id
         if ($field == 'product_id' && $condition1 && $condition2) {
-            $condition3 = $this->productHelper->isProduct($param[1]);
+            // Valid id
+            if (!$this->productHelper->isProductIdValid($param[1])) {
+                $condition3 = false;
+                $error = __('Invalid value "%1" for parameter %2', $param[1], $field);
+            }
+
+            // Product found
+            if (!$this->productHelper->isProductFound($param[1])) {
+                $condition3 = false;
+                $error = __('Product id %1 not found', $param[1]);
+            }
         }
 
-        return $condition1 && $condition2 && $condition3;
+        return [
+            'is_valid' => $condition1 && $condition2 && $condition3,
+            'error'
+        ];
+        
     }
 
     /**
