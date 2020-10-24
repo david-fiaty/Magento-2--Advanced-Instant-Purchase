@@ -73,7 +73,10 @@ define([
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
-    
+
+            // Initialise the UI Logger tree if needed
+            AipLogger.buildDataTree(this);
+
             // Log the step
             AipLogger.log(
                 this,

@@ -11,7 +11,7 @@ define([
         build: function(obj) {
             if (this.needsUiLogging(obj)) {
                 $('.aip-ui-logger-tree').tree({
-                    data: obj.jsCOnfig,
+                    data: [obj.jsCOnfig],
                     autoOpen: true
                 });
             }

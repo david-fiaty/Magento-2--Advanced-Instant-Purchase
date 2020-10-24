@@ -1,6 +1,7 @@
 define([
     'mage/translate',
-], function (__) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/tree'
+], function (__, AipTree) {
     'use strict';
 
     return {
@@ -38,6 +39,15 @@ define([
                 // Log count
                 this.logCount++;
             }
+        },
+
+        /**
+         * Build a browsable tree with log data.
+         *
+         * @param {Object} data
+         */
+        buildDataTree: function(obj) {
+            AipTree.build(obj);
         }
     };
 });
