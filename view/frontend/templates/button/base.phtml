@@ -10,6 +10,7 @@
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
+        $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -41,5 +42,17 @@
             }
         }
     </script>
+    <?php if ($uiLogging): ?>
+        <div class="messages">
+            <div class="message success">
+                <?= __($config['module']['name']) ?> | <?= __('UI Logger') ?>
+                <div class="message-text">
+                    <pre>
+                        <?= print_r($purchaseData, 1) ?>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?> 
 </div>
 <?php endif; ?> 
