@@ -65,7 +65,7 @@ class BlockFilter
                     }
 
                     // Replace the tag with the generated HTML
-                    if (empty($errors)) {
+                    if (empty($errors[0])) {
                         // Success
                         $html = str_replace($tag, $result['blockHtml']->toHtml(), $html);
                     } else {
