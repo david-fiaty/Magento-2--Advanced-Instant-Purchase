@@ -1,11 +1,22 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Model\Service;
 
+
 /**
  * Class ProductHandlerService.
  */
 class ProductHandlerService
 {
+    /**
+     * @var FilterBuilder
+     */
+    public $filterBuilder;
+
+    /**
+     * @var FilterGroupBuilder
+     */
+    public $filterGroupBuilder;
+
     /**
      * @var SearchCriteriaBuilder
      */
@@ -17,35 +28,40 @@ class ProductHandlerService
     public $productRepository;
 
     /**
-     * ProductHandlerService constructor.
+     * CardHandlerService constructor.
      */
     public function __construct(
+        \Magento\Framework\Api\FilterBuilder $filterBuilder,
+        \Magento\Framework\Api\Search\FilterGroupBuilder $filterGroupBuilder,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Catalog\Model\ProductRepository $productRepository
     ) {
+        $this->filterBuilder = $filterBuilder;
+        $this->filterGroupBuilder = $filterGroupBuilder;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->productRepository = $productRepository;
     }
 
-    /**
-     * Check if a product is found.
-     */
     public function isProductFound($productId) {
+        // Filter
+        $filter = $this->filterBuilder->setField('id')
+        ->setConditionType('eq')
+        ->setValue($productId)    
+        ->create();
+
+        // Filter goup
+        $filterGroup = $this->filterGroupBuilder
+        ->addFilter($filter)
+        ->create();
+
         // Search criteria
-        $this->searchCriteriaBuilder->addFilter(
-            'id',
-            $productId
-        );
-
-        // Create the search instance
-        $search = $this->searchCriteriaBuilder->create();
+        $searchCriteria = $this->searchCriteriaBuilder
+        ->setFilterGroups([$filterGroup])
+        ->create();
     
-        // Get the search result
-        $productList = $this->productRepository
-            ->getList($search)
-            ->setPageSize(1)
-            ->getLastItem();
-
+        // Get the product list
+        $productList = $this->productRepository->getList($searchCriteria)->getItems();  
+    
         return count($productList) > 0;
     }
 }
