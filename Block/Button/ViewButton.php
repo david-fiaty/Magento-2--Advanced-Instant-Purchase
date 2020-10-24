@@ -59,11 +59,9 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getProduct()->getId()
+            $this->getProduct()->getId(),
+            'view'
         );
-
-        // Set the display mode
-        $config['product']['display'] = 'view';
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']

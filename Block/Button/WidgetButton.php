@@ -58,11 +58,9 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
+            $this->getData('product_id'),
+            'widget'
         );
-
-        // Set the display mode
-        $config['product']['display'] = 'widget';
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
