@@ -12,7 +12,7 @@ define([
          */
         build: function(obj) {
             if (this.needsUiLogging(obj)) {
-                $(this.treeContainerSelector).jsonViewer(obj.jsConfig);
+                //$(this.treeContainerSelector).jsonViewer(obj.jsConfig);
             }
         },
 

@@ -22,8 +22,13 @@
 }
 
 /* UI Logger */
-.aip-ui-logger-tree{
+.aip-ui-logger-tree {
     overflow: auto !important;
+}
+
+.aip-ui-logger-tree .spinner {
+    display: block;
+    margin: 0 auto;
 }
 
 /* Popover */
