@@ -26,6 +26,13 @@
     margin-top: 1em;
 }
 
+.aip-ui-logger-icon {
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    cursor: pointer;
+}
+
 .aip-ui-logger-tree {
     overflow: auto !important;
 }
