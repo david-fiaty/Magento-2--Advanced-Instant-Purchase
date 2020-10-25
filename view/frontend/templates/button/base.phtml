@@ -11,6 +11,7 @@
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+        $blockLayout = $block->getLayout();
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -37,7 +38,7 @@
     <?php endif; ?>
 
     <?php if ($uiLogging): ?>
-        <?= $block->blockHelper->showUiLogger($purchaseData, $config) ?>
+        <?= $block->blockHelper->showUiLogger($purchaseData, $config, $blockLayout) ?>
     <?php endif; ?> 
 
     <script type="text/x-magento-init">

@@ -124,8 +124,8 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Renders a browsable data tree.
      */
-    public function renderDataTree($data, $config) {
-        return $this->getPageLayout()
+    public function renderDataTree($data, $config, $blockLayout) {
+        return $blockLayout
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
         ->setData('data', $data)
