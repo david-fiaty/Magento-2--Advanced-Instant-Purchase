@@ -29,6 +29,11 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var Objec
+     */
+    public $pageFactoryInstance = null;
+
+    /**
      * Class Purchase helper constructor.
      */
     public function __construct(
@@ -106,7 +111,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the UI logging
         $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
         if ($debug && $uiLogging) {
-            return $this->pageFactory->create()->getLayout()
+            return $this->getPageFactory()->getLayout()
             ->createBlock('Magento\Framework\View\Element\Template')
             ->setTemplate(Naming::getModuleName() . '::messages/error.phtml')
             ->setData('msg', $data)
@@ -120,7 +125,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      * Renders a browsable data tree.
      */
     public function renderDataTree($data, $config) {
-        return $this->pageFactory->create()->getLayout()
+        return $this->getPageFactory()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
         ->setData('data', $data)
@@ -169,5 +174,15 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return is_array($data) || is_object($data) 
         ? json_encode($data) : $data;
+    }
+
+    /**
+     * Get a page factory instance.
+     */
+    public function getPageFactory()
+    {
+        return ($this->pageFactoryInstance)
+        ? $this->pageFactoryInstance
+        : $this->pageFactory->create();
     }
 }
