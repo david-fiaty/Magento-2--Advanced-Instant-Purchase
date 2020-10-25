@@ -131,9 +131,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams();
 
-        // Log the data
-        $this->loggerHelper->log($output);
-
         return $output;
     }
 }
