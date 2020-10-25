@@ -22,8 +22,8 @@
 }
 
 /* UI Logger */
-.aip-ui-logger {
-    overflow: auto;
+.aip-ui-logger-tree{
+    overflow: auto !important;
 }
 
 /* Popover */
