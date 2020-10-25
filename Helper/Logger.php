@@ -9,6 +9,11 @@ use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -27,10 +32,12 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Purchase helper constructor.
      */
     public function __construct(
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
+        $this->customerSession = $customerSession;
         $this->pageFactory = $pageFactory;
         $this->messageManager = $messageManager;
         $this->configHelper = $configHelper;
@@ -48,6 +55,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         $this->write($data);
         
         // UI logging
+        // Todo - Check if other non button UI logging cases are needed
         //$this->display($data);
     }
 
@@ -122,7 +130,36 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Prepare data data for logging.
+     * Add log data to user session.
+     */
+    public function addSessionData($data)
+    {
+        // Prepare parameters
+        $moduleAlias = Naming::getModuleAlias();
+        $currentData = $this->customerSession->getData($moduleAlias);
+
+        // Handle the data storage
+        if ($currentData && is_array($data) && !empty($currentData)) {
+            $currentData[] = $data;
+        }
+        else {
+            $currentData = [$data];
+        }
+
+        // Store the data in session
+        $this->customerSession->setData($moduleAlias, $currentData);
+    }
+
+    /**
+     * Get the user session logging data.
+     */
+    public function getSessionData()
+    {
+        return $this->customerSession->getData(Naming::getModuleAlias());
+    }
+
+    /**
+     * Prepare data for logging.
      */
     public function prepareData($data)
     {
