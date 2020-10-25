@@ -26,7 +26,7 @@
     overflow: auto !important;
 }
 
-.aip-ui-logger-tree .spinner {
+.aip-ui-logger-tree .aip-spinner {
     display: block;
     margin: 0 auto;
 }
