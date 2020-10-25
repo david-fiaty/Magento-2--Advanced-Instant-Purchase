@@ -1,8 +1,9 @@
 define([
+    'jquery',
     'mage/translate',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/tree'
-], function (__, AipModal, AipTree) {
+], function ($, __, AipModal, AipTree) {
     'use strict';
 
     return {
