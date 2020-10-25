@@ -66,7 +66,8 @@ define([
             AipSpinner.loadIcon(this);
 
             // Options validation
-            AipValidation.initOptionsValidation(this);
+            // Todo - Fix the options validation logic - Should run only in list mode
+            // AipValidation.initOptionsValidation(this);
 
             // Button click event
             var self = this;

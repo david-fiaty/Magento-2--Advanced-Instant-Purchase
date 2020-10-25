@@ -31,6 +31,8 @@
     width: 0.5em;
     height: 0.5em;
     cursor: pointer;
+    background-image: url(../images/info-icon.png);
+    background-repeat: no-repeat;
 }
 
 .aip-ui-logger-tree {
