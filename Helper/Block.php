@@ -110,8 +110,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Show the UI Logger blcok.
      */
-    public function showUiLogger($data) {
-        return $this->loggerHelper->renderDataTree($data);
+    public function showUiLogger($data, $config) {
+        return $this->loggerHelper->renderDataTree($data, $config);
     }
     
     /**

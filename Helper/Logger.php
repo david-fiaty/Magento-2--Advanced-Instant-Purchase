@@ -96,11 +96,12 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         return '';
     }
 
-    public function renderDataTree($data) {
+    public function renderDataTree($data, $config) {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
         ->setData('data', $data)
+        ->setData('config', $config)
         ->setData('title', Naming::getModuleTitle())
         ->toHtml();  
     }
