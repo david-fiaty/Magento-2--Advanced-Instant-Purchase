@@ -37,6 +37,20 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Handle data logging.
+     *
+     * @param mixed $msg The message
+     */
+    public function log($msg)
+    {
+        // File logging
+        $this->write($msg);
+        
+        // UI logging
+        $this->display($msg);
+    }
+
+    /**
      * Write to log file.
      *
      * @param mixed $msg The message

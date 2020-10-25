@@ -28,12 +28,8 @@ define([
          * Build the spinner icon.
          */
         buildIcon: function(obj) {
-            // Prepare the loader template parameters
-            var params = {
-                data: {
-                    url: obj.jsConfig.ui.loader
-                }
-            };
+            // Get the spinner loaded flag
+            var params = this.getLoadedFlag(obj);
 
             // Load the rendered HTML
             obj.loader = AipTemplate.getSpinner(params);
@@ -51,6 +47,17 @@ define([
          */
         isSpinnerLoaded: function() {
             return AipUtil.has(window, 'naxero.aip.spinner', true);
+        },
+
+        /**
+         * Get the spinner loaded flag.
+         */
+        getLoadedFlag: function(obj) {
+            return {
+                data: {
+                    url: obj.jsConfig.ui.loader
+                }
+            };
         }
     };
 });

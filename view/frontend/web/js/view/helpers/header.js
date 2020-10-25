@@ -30,12 +30,8 @@ define(
              */
             loadHeader: function(obj) {
                 if (!this.isHeaderLoaded()) {
-                    // Build the headers= data
-                    var params = {
-                        data: {
-                            css_path: obj.jsConfig.ui.css
-                        }
-                    };
+                    // Get the spinner loaded flag
+                    var params = this.getLoadedFlag(obj);
 
                     // Add the header declarations
                     $('head').append(AipTemplate.getHeader(params));
@@ -54,6 +50,17 @@ define(
              */
             isHeaderLoaded: function() {
                 return AipUtil.has(window, 'naxero.aip.css', true);
+            },
+
+            /**
+             * Get the spinner loaded flag.
+             */
+            getLoadedFlag: function(obj) {
+                return {
+                    data: {
+                        css_path: obj.jsConfig.ui.css
+                    }
+                };
             }
         };
     }

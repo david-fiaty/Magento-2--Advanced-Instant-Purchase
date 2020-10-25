@@ -125,9 +125,15 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config['ui']['css'] = $this->configHelper->getCssPath();
         $config['module']['title'] = Naming::getModuleTitle();
 
-        return $config
+        // Prepare the block config data
+        $output = $config
         + $this->configHelper->getValues()
         + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams();
+
+        // Log the data
+        $this->loggerHelper->log($output);
+
+        return $output;
     }
 }
