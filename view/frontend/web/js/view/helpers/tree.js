@@ -12,12 +12,16 @@ define([
          */
         build: function(obj) {
             if (this.needsUiLogging(obj)) {
+                // Initialize the data tree viewer
                 $(this.treeContainerSelector).jsonViewer(
                     obj.jsConfig,
                     {
                         collapsed: true
                     }
                 );
+
+                // Tree viewer event
+
             }
         },
 

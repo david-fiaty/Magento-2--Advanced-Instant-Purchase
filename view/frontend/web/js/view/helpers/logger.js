@@ -8,6 +8,8 @@ define([
     return {
         logCount: 1,
         logTitleCss: 'font-weight: bold; color: blue;',
+        logViewerButtonSelector: '.aip-ui-logger-button',
+        logViewerBoxSelector: '.aip-ui-logger',
 
         /**
          * Log data to the browser console.
@@ -58,17 +60,16 @@ define([
         },
 
         /**
-         * Show the UI logger in a modal.
-         */
-        showUiLogger: function(obj) {
-            AipTree.build(obj);
-        },
-
-        /**
          * Build a browsable tree with log data.
          */
         buildDataTree: function(obj) {
+            // Build the data tree
             AipTree.build(obj);
+
+            // Set the log viewwe button event
+            $(this.logViewerButtonSelector).on('click touch', function () {
+                $(this.logViewerBoxSelector).toggle();
+            });
         }
     };
 });

@@ -28,9 +28,10 @@
 /* UI Logger */
 .aip-ui-logger {
     margin-top: 1em;
+    display: none;
 }
 
-.aip-ui-logger-icon {
+.aip-ui-logger-button {
     position: relative;
     top: 0em;
     right: 0em;
@@ -42,7 +43,7 @@
     background-size: contain;
 }
 
-.aip-ui-logger-icon a {
+.aip-ui-logger-button a {
     display: block;
     width: inherit;
     height: inherit;
