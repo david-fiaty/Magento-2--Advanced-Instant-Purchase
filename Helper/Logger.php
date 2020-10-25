@@ -134,28 +134,32 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function addSessionData($data)
     {
-        // Prepare parameters
-        $moduleAlias = Naming::getModuleAlias();
-        $currentData = $this->customerSession->getData($moduleAlias);
+        // Get teh session log data
+        $currentData = $this->getSessionLogData();
 
-        // Handle the data storage
-        if ($currentData && is_array($data) && !empty($currentData)) {
-            $currentData[] = $data;
-        }
-        else {
-            $currentData = [$data];
-        }
-
-        // Store the data in session
-        $this->customerSession->setData($moduleAlias, $currentData);
+        // Store the data
+        $currentData['logs'][] = $data;
+        $this->customerSession->setData(
+            Naming::getModuleAlias(),
+            $currentData
+        );
     }
 
     /**
-     * Get the user session logging data.
+     * Get the user session log data.
      */
-    public function getSessionData()
+    public function getSessionLogData()
     {
-        return $this->customerSession->getData(Naming::getModuleAlias());
+        // Get the current session data
+        $currentData = $this->customerSession->getData(
+            Naming::getModuleAlias()
+        );
+
+        // Check for existing data
+        $hasData = is_array($currentData) && !empty($currentData)
+        && isset($currentData['logs']) && !empty($currentData['logs']);
+
+        return $hasData ? $currentData : ['logs' => []];
     }
 
     /**
