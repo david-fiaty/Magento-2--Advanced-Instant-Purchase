@@ -62,7 +62,7 @@ define([
             // Purchase button state
             AipButton.setPurchaseButtonState(this);
 
-            // Loader icon
+            // Spinner icon
             AipSpinner.loadIcon(this);
 
             // Options validation
