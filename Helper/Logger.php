@@ -58,10 +58,6 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 
         // File logging
         $this->write($data);
-        
-        // UI logging
-        // Todo - Check if other non button UI logging cases are needed
-        //$this->display($data);
     }
 
     /**
