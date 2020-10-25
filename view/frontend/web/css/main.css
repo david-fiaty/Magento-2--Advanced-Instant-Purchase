@@ -22,11 +22,15 @@
 }
 
 /* UI Logger */
-.aip-logger-tree {
+.aip-ui-logger {
+    margin-top: 1.5em;
+}
+
+.aip-ui-logger-tree {
     overflow: auto !important;
 }
 
-.aip-logger-tree .aip-spinner {
+.aip-ui-logger-tree .aip-spinner {
     display: block;
     margin: 0 auto;
 }
