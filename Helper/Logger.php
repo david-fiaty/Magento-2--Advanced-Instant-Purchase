@@ -100,7 +100,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
-        ->setData('data', json_encode($data))
+        ->setData('data', $data)
         ->setData('title', Naming::getModuleTitle())
         ->toHtml();  
     }

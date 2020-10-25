@@ -11,28 +11,8 @@ define([
          * Build a jQtree instance.
          */
         build: function(obj) {
-            var test = [
-                {
-                    name: 'node1',
-                    children: [
-                        { name: 'child1' },
-                        { name: 'child2' }
-                    ]
-                },
-                {
-                    name: 'node2',
-                    children: [
-                        { name: 'child3' }
-                    ]
-                }
-            ];
-
-            var data = [obj.jsConfig];
-
             if (this.needsUiLogging(obj)) {
-                $(this.treeContainerSelector).jsonViewer(
-                    JSON.stringify(obj.jsConfig)
-                );
+                $(this.treeContainerSelector).jsonViewer(obj.jsConfig);
             }
         },
 

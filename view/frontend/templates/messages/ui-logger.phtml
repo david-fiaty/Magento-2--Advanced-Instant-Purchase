@@ -1,4 +1,4 @@
-<?php $data = $block->getData('data') ?>
+<?php $config = $block->getData('data') ?>
 <?php $title = $block->getData('title') ?>
 
 <div class="messages aip-ui-logger">
@@ -9,4 +9,6 @@
     </div>
 </div>
 
-<pre class="aip-ui-logger-tree"></pre>
+<pre class="aip-ui-logger-tree">
+    <img src="<?= $data['ui']['loader'] ?>">
+</pre>
