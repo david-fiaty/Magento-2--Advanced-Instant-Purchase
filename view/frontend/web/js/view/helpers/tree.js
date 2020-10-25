@@ -1,7 +1,7 @@
 define([
     'jquery',
-    'jqtree'
-], function ($, jqtree) {
+    'jsonViewer'
+], function ($, jsonViewer) {
     'use strict';
 
     return {
@@ -11,11 +11,28 @@ define([
          * Build a jQtree instance.
          */
         build: function(obj) {
+            var test = [
+                {
+                    name: 'node1',
+                    children: [
+                        { name: 'child1' },
+                        { name: 'child2' }
+                    ]
+                },
+                {
+                    name: 'node2',
+                    children: [
+                        { name: 'child3' }
+                    ]
+                }
+            ];
+
+            var data = [obj.jsConfig];
+
             if (this.needsUiLogging(obj)) {
-                $(this.treeContainerSelector).tree({
-                    data:  JSON.parse(obj.jsConfig),
-                    autoOpen: true
-                });
+                $(this.treeContainerSelector).jsonViewer(
+                    JSON.stringify(obj.jsConfig)
+                );
             }
         },
 
