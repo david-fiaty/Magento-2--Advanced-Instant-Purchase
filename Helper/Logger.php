@@ -68,7 +68,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
             $writer = new \Zend\Log\Writer\Stream($filePath);
             $logger = new \Zend\Log\Logger();
             $logger->addWriter($writer);
-            $logger->info($data);
+            $logger->debug($data);
         }
     }
 
