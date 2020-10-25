@@ -80,11 +80,11 @@ define([
             // Log the step
             AipLogger.log(
                 this,
-                __('Button ready for product id %1').replace(
+                __('Configuration loaded for product id %1').replace(
                     '%1',
                     this.jsConfig.product.id
                 ),
-                this.jsConfig.product
+                this.jsConfig
             );
         },
 
