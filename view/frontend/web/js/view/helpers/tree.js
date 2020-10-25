@@ -5,7 +5,7 @@ define([
     'use strict';
 
     return {
-        treeContainerSelector: '.aip-ui-logger-tree',
+        treeContainerSelector: '.aip-logger-tree',
 
         /**
          * Build a jQtree instance.
