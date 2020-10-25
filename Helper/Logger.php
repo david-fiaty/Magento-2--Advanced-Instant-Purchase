@@ -38,24 +38,23 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Handle data logging.
-     *
-     * @param mixed $msg The message
      */
-    public function log($msg)
+    public function log($data)
     {
+        // Prepare the data
+        $data = $this->prepareData($data); 
+
         // File logging
-        $this->write($msg);
+        $this->write($data);
         
         // UI logging
-        $this->display($msg);
+        //$this->display($data);
     }
 
     /**
      * Write to log file.
-     *
-     * @param mixed $msg The message
      */
-    public function write($msg)
+    public function write($data)
     {
         // Get the debug config value
         $debug = $this->configHelper->value('general/debug_enabled');
@@ -69,14 +68,14 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
             $writer = new \Zend\Log\Writer\Stream($filePath);
             $logger = new \Zend\Log\Logger();
             $logger->addWriter($writer);
-            $logger->info($msg);
+            $logger->info($data);
         }
     }
 
     /**
      * Display the debug information on the front end.
      */
-    public function display($msg)
+    public function display($data)
     {
         // Get the debug config value
         $debug = $this->configHelper->value('general/debug_enabled');
@@ -84,14 +83,14 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the UI logging
         $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
         if ($debug && $uiLogging) {
-            $this->messageManager->addNotice($msg);
+            $this->messageManager->addNotice($data);
         }
     }
 
     /**
      * Renders a UI message.
      */
-    public function renderUiMessage($msg)
+    public function renderUiMessage($data)
     {
         // Get the debug config value
         $debug = $this->configHelper->value('general/debug_enabled');
@@ -102,7 +101,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
             return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Framework\View\Element\Template')
             ->setTemplate(Naming::getModuleName() . '::messages/error.phtml')
-            ->setData('msg', $msg)
+            ->setData('msg', $data)
             ->toHtml();
         }
 
@@ -120,5 +119,14 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('config', $config)
         ->setData('title', Naming::getModuleTitle())
         ->toHtml();  
+    }
+
+    /**
+     * Prepare data data for logging.
+     */
+    public function prepareData($data)
+    {
+        return is_array($data) || is_object($data) 
+        ? json_encode($data) : $data;
     }
 }
