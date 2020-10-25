@@ -49,9 +49,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the file logging config value
         $fileLogging = $this->configHelper->value('general/file_logging_enabled');
 
-        // Handle the file logging
+        // Write the data to the log file
         if ($debug && $fileLogging) {
-            $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/naxero_buynow.log');
+            $filePath = BP . '/var/log/'. Naming::getModuleAlias() . '.log';
+            $writer = new \Zend\Log\Writer\Stream($filePath);
             $logger = new \Zend\Log\Logger();
             $logger->addWriter($writer);
             $logger->info($msg);
@@ -60,8 +61,6 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * Display the debug information on the front end.
-     *
-     * @param mixed $response The response
      */
     public function display($msg)
     {
@@ -96,6 +95,9 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         return '';
     }
 
+    /**
+     * Renders a browsable data tree.
+     */
     public function renderDataTree($data, $config) {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
