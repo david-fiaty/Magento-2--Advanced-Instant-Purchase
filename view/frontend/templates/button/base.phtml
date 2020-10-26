@@ -10,6 +10,8 @@
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
+        $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+        $blockLayout = $block->getLayout();
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -21,7 +23,7 @@
         title="<?= __($config['buttons']['button_text']) ?>">
         <?= __($config['buttons']['button_text']) ?>
     </button>
-
+    
     <?php if (!$isPageView): ?>
         <form name="aip-list-form" method="post" class="aip-list-form">
     <?php endif; ?>
@@ -35,6 +37,12 @@
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
+
+    <?php if ($uiLogging): ?>
+        <div id="aip-ui-logger-button-<?= $productId ?>" class="aip-ui-logger-button">
+            <a href="javascript:void(0)" title="<?= __('View logs') ?>"></a>
+        </div>
+    <?php endif; ?> 
 
     <script type="text/x-magento-init">
         {
