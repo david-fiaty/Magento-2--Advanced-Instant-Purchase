@@ -74,7 +74,7 @@ define([
                 text: __('Cancel'),
                 class: self.cancelButtonClasses,
                 click: function(e) {
-                    if (obj.isSubView()) {
+                    if (obj.isSubView) {
                         // Toggle the view
                         AipSlider.toggleView(obj, e); 
                         obj.getConfirmContent(obj, e);
@@ -102,7 +102,7 @@ define([
                             var requestData = AipUtil.getCurrentFormData(obj);
                             $.ajax({
                                 cache: false,
-                                url: AipUtil.getConfirmUrl(obj.isSubView()),
+                                url: AipUtil.getConfirmUrl(obj.isSubView),
                                 data: requestData,
                                 type: 'post',
                                 dataType: 'json',

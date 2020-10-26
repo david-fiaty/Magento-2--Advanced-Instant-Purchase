@@ -26,7 +26,7 @@ define([
          * Get the current slide.
          */
         getCurrentSlide: function(obj) {
-            var slide = (obj.isSubView())
+            var slide = (obj.isSubView)
             ? this.nextSlideSelector
             : obj.popupContentSelector;
 
@@ -50,7 +50,7 @@ define([
 
             // Handle the toggle logic
             this.showLoader(obj);
-            if (obj.isSubView()) {
+            if (obj.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
