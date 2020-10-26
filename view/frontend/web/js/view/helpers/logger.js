@@ -74,7 +74,7 @@ define([
             };
 
             // Set the data viewer button event
-            $(this.getButtonSelector(obj)).on('click touch', function() {
+            $(this.getButtonSelector(obj)).on('click touch', function(e) {
                 // Send the request
                 AipSlider.showLoader(self);
                 $.ajax({
