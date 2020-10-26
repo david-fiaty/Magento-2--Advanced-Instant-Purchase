@@ -18,10 +18,7 @@ define([
                     {
                         collapsed: true
                     }
-                );
-
-                // Tree viewer event
-
+                );                
             }
         },
 

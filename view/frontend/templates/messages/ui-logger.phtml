@@ -1,11 +1,19 @@
-<?php $data = $block->getData('data') ?>
-<?php $title = $block->getData('title') ?>
-<?php $config = $block->getData('config') ?>
+<?php
+    // Prepare the parameters
+    $data = $block->getData('data');
+    $title = $block->getData('title');
+    $config = $block->getData('config');
 
-<div class="aip-ui-logger-button">
+    // Get the product id
+    $productId = $config['product']['id'];
+?>
+<!-- UI logs viewer button -->
+<div class="aip-ui-logger-button-<?= $productId ?>">
     <a href="javascript:void(0)" title="<?= __('View logs') ?>"></a>
 </div>
-<div class="messages aip-ui-logger">
+
+<!-- UI logs viewer container -->
+<div id="aip-ui-logger-<?= $productId ?>" class="messages aip-ui-logger">
     <div class="message success">
         <p><?= $title ?> <?= __('UI Logger') ?></p>
         <div class="message-text">

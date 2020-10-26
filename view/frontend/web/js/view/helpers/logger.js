@@ -9,8 +9,8 @@ define([
     return {
         logCount: 1,
         logTitleCss: 'font-weight: bold; color: blue;',
-        logViewerButtonSelector: '.aip-ui-logger-button',
-        logViewerBoxSelector: '.aip-ui-logger',
+        logViewerButtonClass: 'aip-ui-logger-button',
+        logViewerBoxClass: 'aip-ui-logger',
 
         /**
          * Log data to the browser console.
@@ -67,10 +67,24 @@ define([
             // Build the data tree
             AipTree.build(obj);
 
-            // Set the log viewwe button event
-            $(this.logViewerButtonSelector).on('click touch', function () {
-                $(this.logViewerBoxSelector).toggle();
+            // Set the data viewer button event
+            $(this.getButtonSelector(obj)).on('click touch', function () {
+                $(this.getBoxSelector(obj)).toggle(300);
             });
+        },
+
+        /**
+         * Get the target button for UI logging.
+         */
+        getButtonSelector: function(obj) {
+            return  '.' + this.logViewerButtonClass + '-' + obj.jsConfig.product.id;
+        },
+
+        /**
+         * Get the target box for UI logging.
+         */
+        getBoxSelector: function(obj) {
+            return  '.' + this.logViewerBoxClass + '-' + obj.jsConfig.product.id;
         }
     };
 });
