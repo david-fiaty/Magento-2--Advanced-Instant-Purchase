@@ -24,23 +24,16 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
-     * Logger
-     */
-    public $loggerHelper;
-
-    /**
      * Block helper class constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
-        $this->loggerHelper = $loggerHelper;
     }
 
     /**
@@ -107,13 +100,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
     }
 
-    /**
-     * Show the UI Logger blcok.
-     */
-    public function showUiLogger($data, $config, $blockLayout) {
-        return $this->loggerHelper->renderDataTree($data, $config, $blockLayout);
-    }
-    
     /**
      * Get a block configuration parameters.
      */

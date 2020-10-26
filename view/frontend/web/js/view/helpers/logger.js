@@ -1,16 +1,18 @@
 define([
     'jquery',
     'mage/translate',
+    'mage/url',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/tree'
-], function ($, __, AipModal, AipTree) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/tree',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
+], function ($, __, UrlBuilder, AipModal, AipTree, AipSlider) {
     'use strict';
 
     return {
         logCount: 1,
         logTitleCss: 'font-weight: bold; color: blue;',
         logViewerButtonClass: 'aip-ui-logger-button',
-        logViewerBoxClass: 'aip-ui-logger',
+        logsUrl: 'naxero-aip/ajax/logs',
 
         /**
          * Log data to the browser console.
@@ -64,12 +66,37 @@ define([
          * Build a browsable tree with log data.
          */
         buildDataTree: function(obj) {
-            // Build the data tree
-            AipTree.build(obj);
-
             // Set the data viewer button event
-            $(this.getButtonSelector(obj)).on('click touch', function () {
-                $(this.getBoxSelector(obj)).toggle(300);
+            var self = this;
+            var params = {
+                form_key: obj.jsConfig.product.form_key
+            };
+            $(this.getButtonSelector(obj)).on('click touch', function() {
+                // Send the request
+                AipSlider.showLoader(self);
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: UrlBuilder.build(self.logsUrl),
+                    data: params,
+                    success: function (data) {
+                        // Get the HTML content
+                        AipModal.addHtml(
+                            AipSlider.nextSlideSelector,
+                            data
+                        );
+
+                        // Build the data tree
+                        AipTree.build(obj);
+                    },
+                    error: function (request, status, error) {
+                        this.log(
+                            self,
+                            __('Error retrieving the UI logging data'),
+                            error
+                        );
+                    }
+                });
             });
         },
 
@@ -77,14 +104,7 @@ define([
          * Get the target button for UI logging.
          */
         getButtonSelector: function(obj) {
-            return  '.' + this.logViewerButtonClass + '-' + obj.jsConfig.product.id;
-        },
-
-        /**
-         * Get the target box for UI logging.
-         */
-        getBoxSelector: function(obj) {
-            return  '.' + this.logViewerBoxClass + '-' + obj.jsConfig.product.id;
+            return '#' + this.logViewerButtonClass + '-' + obj.jsConfig.product.id;
         }
     };
 });

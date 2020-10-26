@@ -6,7 +6,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
 
 /**
- * Instant Purchase order placement.
+ * Order class.
  */
 class Order extends \Magento\Framework\App\Action\Action
 {
@@ -80,7 +80,7 @@ class Order extends \Magento\Framework\App\Action\Action
     public $paymentHandler;
 
     /**
-     * Class Order constructor 
+     * Order class constructor 
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,

@@ -7,11 +7,6 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var FormKey
-     */
-    public $formKey;
-
-    /**
      * @var Image
      */
     public $imageHelper;
@@ -42,24 +37,29 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var Tools
+     */
+    public $toolsHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
-        \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Tools $toolsHelper
     ) {
-        $this->formKey = $formKey;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
         $this->stockItemRepository = $stockItemRepository;
         $this->configHelper = $configHelper;
+        $this->toolsHelper = $toolsHelper;
     }
 
     /**
@@ -77,7 +77,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'price' => $this->getProductPrice($productId),
                 'is_free' => $this->isFree($productId),
                 'url' => $this->getProductImageUrl($productId),
-                'form_key' => $this->getFormKey(),
+                'form_key' => $this->toolsHelper->getFormKey(),
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
@@ -128,14 +128,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function getProduct($productId)
     {
         return $this->productFactory->create()->load($productId);
-    }
-
-    /**
-     * Get a product form key.
-     */
-    public function getFormKey()
-    {
-        return $this->formKey->getFormKey();
     }
 
     /**
