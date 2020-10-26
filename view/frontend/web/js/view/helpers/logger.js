@@ -83,6 +83,12 @@ define([
                     url: UrlBuilder.build(self.logsUrl),
                     data: params,
                     success: function (data) {
+                        // Slider view
+                        AipSlider.toggleView(obj, e);   
+                        
+                        // Modal window
+                        AipModal.build(obj);   
+
                         // Get the HTML content
                         AipModal.addHtml(
                             AipSlider.nextSlideSelector,
