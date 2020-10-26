@@ -77,6 +77,9 @@ define([
 
             // Set the data viewer button event
             $(this.getButtonSelector(obj)).on('click touch', function (e) {
+                // Prevent propagation
+                e.stopPropagation();
+
                 // Slider view
                 AipSlider.toggleView(obj, e);
                 

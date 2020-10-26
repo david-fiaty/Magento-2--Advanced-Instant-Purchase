@@ -94,6 +94,9 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function (e) {
+            // Stop propagation
+            e.stopPropagation();
+
             // Click event
             if (this.hasOptions() && this.isBlockView()) {
                 window.location.href = this.jsConfig.product.page_url;
