@@ -5,7 +5,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/tree',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
-], function ($, __, UrlBuilder, AipModal, AipTree, AipSlider) {
+], function($, __, UrlBuilder, AipModal, AipTree, AipSlider) {
     'use strict';
 
     return {
@@ -17,7 +17,7 @@ define([
         /**
          * Log data to the browser console.
          */
-        log: function (obj, msg, data) {
+        log: function(obj, msg, data) {
             // Default data value
             data = data || null;
 
@@ -30,7 +30,7 @@ define([
         /**
          * Handle the data console logging logic.
          */
-        logToConsole: function (obj, msg, data) {
+        logToConsole: function(obj, msg, data) {
             // Log title
             console.log(
                 this.getLogTitle(obj),
@@ -52,7 +52,7 @@ define([
         /**
          * Check if console logging is enabled.
          */
-        isConsoleLoggingEnabled: function (obj) {
+        isConsoleLoggingEnabled: function(obj) {
             return obj.jsConfig.general.debug_enabled
             && obj.jsConfig.general.console_logging_enabled;
         },
@@ -60,14 +60,14 @@ define([
         /**
          * Get a log title.
          */
-        getLogTitle: function (obj) {
+        getLogTitle: function(obj) {
             return '%c[' + this.logCount + '][' + obj.jsConfig.module.title + ']';
         },
 
         /**
          * Build a browsable tree with log data.
          */
-        buildDataTree: function (obj) {
+        buildDataTree: function(obj) {
             // Prepare variables
             var self = this;
             var params = {
@@ -76,7 +76,7 @@ define([
             };
 
             // Set the data viewer button event
-            $(this.getButtonSelector(obj)).on('click touch', function (e) {
+            $(this.getButtonSelector(obj)).on('click touch', function(e) {
                 // Prevent propagation
                 e.stopPropagation();
 
@@ -95,7 +95,7 @@ define([
                     cache: false,
                     url: UrlBuilder.build(self.logsUrl),
                     data: params,
-                    success: function (data) {
+                    success: function(data) {
                         // Get the HTML content
                         AipModal.addHtml(
                             AipSlider.nextSlideSelector,
@@ -105,7 +105,7 @@ define([
                         // Build the data tree
                         AipTree.build(obj);
                     },
-                    error: function (request, status, error) {
+                    error: function(request, status, error) {
                         self.log(
                             obj,
                             __('Error retrieving the UI logging data'),
@@ -119,7 +119,7 @@ define([
         /**
          * Get the target button for UI logging.
          */
-        getButtonSelector: function (obj) {
+        getButtonSelector: function(obj) {
             return '#' + this.logViewerButtonClass + '-' + obj.jsConfig.product.id;
         }
     };

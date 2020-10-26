@@ -1,18 +1,18 @@
 define([
     'jquery',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
-], function ($, AipSlider) {
+], function($, AipSlider) {
     'use strict';
 
     return {
         cancelButtonSelector: '.action-close',
-        clearErrors: function (slide) {
+        clearErrors: function(slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function (data, e, obj) {
+        checkResponse: function(data, e, obj) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
@@ -36,7 +36,7 @@ define([
             }
         },
 
-        show: function (type, str, obj) {
+        show: function(type, str, obj) {
             var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
             slide.prepend(obj.loader);

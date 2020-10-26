@@ -4,7 +4,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
-], function ($, ConfirmModal, AipTemplate, AipButton) {
+], function($, ConfirmModal, AipTemplate, AipButton) {
     'use strict';
 
     return {
@@ -13,7 +13,7 @@ define([
         /**
          * Add HTML to a container.
          */
-        addHtml: function (target, html) {
+        addHtml: function(target, html) {
             $(target).html(html);
             $(this.modalWrapperSelector).animate(
                 {minHeight: $(target).height()  + 'px'}
@@ -25,7 +25,7 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        build: function (obj) {
+        build: function(obj) {
             ConfirmModal({
                 title: this.getTitle(obj),
                 innerScroll: true,
@@ -38,7 +38,7 @@ define([
         /**
          * Get the modal window buttons.
          */
-        getButtons: function (obj) {
+        getButtons: function(obj) {
             return [
                 AipButton.getCancel(obj),
                 AipButton.getSubmit(obj)
@@ -48,7 +48,7 @@ define([
         /**
          * Get the modal window title.
          */
-        getTitle: function (obj) {
+        getTitle: function(obj) {
             return obj.jsConfig.popups.popup_title;
         }
     };

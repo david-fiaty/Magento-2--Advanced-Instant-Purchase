@@ -1,7 +1,7 @@
 define([
     'mage/url',
     'Naxero_AdvancedInstantPurchase/js/model/authentication-popup'
-], function (UrlBuilder, AuthPopup) {
+], function(UrlBuilder, AuthPopup) {
     'use strict';
 
     return {
@@ -11,7 +11,7 @@ define([
         /**
          * Create a login popup.
          */
-        loginPopup: function () {
+        loginPopup: function() {
             AuthPopup.createPopUp(this.loginBlockSelector);
             AuthPopup.showModal();
         },
@@ -19,14 +19,14 @@ define([
         /**
          * Create a login redirection.
          */
-        loginRedirect: function () {
+        loginRedirect: function() {
             window.location.href = UrlBuilder.build(this.loginUrl);
         },
 
         /**
          * Check if customer is logged in.
          */
-        isLoggedIn: function (obj) {
+        isLoggedIn: function(obj) {
             return obj.jsConfig.user.connected;
         }
     };

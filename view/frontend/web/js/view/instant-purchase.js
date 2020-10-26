@@ -22,7 +22,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function($, __, Component, UrlBuilder, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -46,7 +46,7 @@ define([
         },
 
         /** @inheritdoc */
-        initialize: function () {
+        initialize: function() {
             this._super();
             this.build();
         },
@@ -56,7 +56,7 @@ define([
          *
          * @param {Object} data
          */
-        build: function () {
+        build: function() {
             // Load CSS
             AipHeader.setHeader(this);
 
@@ -75,7 +75,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.getButtonId()).on('click touch', function (e) {
+            $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             });
             
@@ -93,7 +93,7 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function (e) {
+        handleButtonClick: function(e) {
             // Stop propagation
             e.stopPropagation();
 
@@ -112,14 +112,14 @@ define([
         /**
          * Check if the current product is in list view.
          */
-        isListView: function () {
+        isListView: function() {
             return this.jsConfig.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
-        isBlockView: function () {
+        isBlockView: function() {
             return this.jsConfig.product.display == 'block'
             || this.jsConfig.product.display == 'widget';
         },
@@ -127,28 +127,28 @@ define([
         /**
          * Check if the current product is in page view.
          */
-        isPageView: function () {
+        isPageView: function() {
             return !this.isBlockView() && !this.isListView();
         },
 
         /**
          * Check if the current product has options.
          */
-        hasOptions: function () {
+        hasOptions: function() {
             return this.jsConfig.product.has_options;
         },
 
         /**
          * Get the current purchase button id.
          */
-        getButtonId: function () {
+        getButtonId: function() {
             return this.jsConfig.product.button_selector;
         },
 
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function () {
+        getConfirmContent: function() {
             // Prepare the parameters
             var self = this;
             var params = {
@@ -171,7 +171,7 @@ define([
                 cache: false,
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
-                success: function (data) {
+                success: function(data) {
                     // Get the HTML content
                     AipModal.addHtml(self.popupContentSelector, data.html);
 
@@ -195,7 +195,7 @@ define([
                         AipProduct.getProductForm(self).serializeArray()
                     );
                 },
-                error: function (request, status, error) {
+                error: function(request, status, error) {
                     AipLogger.log(
                         self,
                         __('Error retrieving the confimation window data'),
@@ -208,7 +208,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function (e) {
+        purchasePopup: function(e) {
             // Get the current form
             var form = AipUtil.getCurrentForm(this);
 
@@ -232,7 +232,7 @@ define([
         /**
          * Get instant purchase data.
          */
-        getData: function (fn) {
+        getData: function(fn) {
             var data = this[fn]();
             var ok = data
             && data.hasOwnProperty('summary')
@@ -245,7 +245,7 @@ define([
         /**
          * Get a form.
          */
-        getForm: function (e) {
+        getForm: function(e) {
             var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
@@ -255,7 +255,7 @@ define([
                 cache: false,
                 url: UrlBuilder.build(self.confirmUrl),
                 data: params,
-                success: function (data) {
+                success: function(data) {
                     if (params.action == 'Card') {
                         /*
                         window.aipData = {
@@ -274,7 +274,7 @@ define([
                         false
                     );
                 },
-                error: function (request, status, error) {
+                error: function(request, status, error) {
                     AipLogger.log(
                         self,
                         __('Error retrieving the form data'),

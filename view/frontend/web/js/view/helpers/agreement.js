@@ -4,7 +4,7 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
-], function ($, UrlBuilder, AipSlider, AipModal, AipLogger) {
+], function($, UrlBuilder, AipSlider, AipModal, AipLogger) {
     'use strict';
 
     return {
@@ -13,10 +13,10 @@ define([
         /**
          * Set the agrements events
          */
-        build: function (obj) {
+        build: function(obj) {
             if (obj.jsConfig.general.enable_agreements) {
                 var self = this;
-                $(self.agreementLinkSelector).on('click', function (e) {
+                $(self.agreementLinkSelector).on('click', function(e) {
                     self.getAgreement(e, obj);
                 });
             }
@@ -25,7 +25,7 @@ define([
          /**
          * Get an agreement.
          */
-        getAgreement: function (e, obj) {
+        getAgreement: function(e, obj) {
             // Prepare the request parameters
             var self = this;
             var params = {
@@ -42,10 +42,10 @@ define([
                 cache: false,
                 url: UrlBuilder.build(obj.confirmUrl),
                 data: params,
-                success: function (data) {
+                success: function(data) {
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
                 },
-                error: function (request, status, error) {
+                error: function(request, status, error) {
                     AipLogger.log(
                         obj,
                         __('Error retrieving the terms and conditions data'),

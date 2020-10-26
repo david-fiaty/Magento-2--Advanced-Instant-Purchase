@@ -1,7 +1,7 @@
 define([
     'jquery',
     'jsonViewer'
-], function ($, jsonViewer) {
+], function($, jsonViewer) {
     'use strict';
 
     return {
@@ -10,7 +10,7 @@ define([
         /**
          * Build a jQtree instance.
          */
-        build: function (obj) {
+        build: function(obj) {
             if (this.needsUiLogging(obj)) {
                 // Initialize the data tree viewer
                 $(this.treeContainerSelector).jsonViewer(
@@ -25,7 +25,7 @@ define([
         /**
          * Check if UI logging i enabled.
          */
-        needsUiLogging: function (obj) {
+        needsUiLogging: function(obj) {
             return obj.jsConfig.general.debug_enabled
              && obj.jsConfig.general.ui_logging_enabled;
         }

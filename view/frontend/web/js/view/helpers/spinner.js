@@ -3,14 +3,14 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
-], function (__, AipTemplate, AipLogger, AipUtil) {
+], function(__, AipTemplate, AipLogger, AipUtil) {
     'use strict';
 
     return {
         /**
          * Load the spinner icon.
          */
-        loadIcon: function (obj) {
+        loadIcon: function(obj) {
             if (!this.isSpinnerLoaded()) {
                 // Build the spiner icon
                 this.buildIcon(obj);
@@ -27,7 +27,7 @@ define([
         /**
          * Build the spinner icon.
          */
-        buildIcon: function (obj) {
+        buildIcon: function(obj) {
             // Get the spinner loaded flag
             var params = this.getLoadedFlag(obj);
 
@@ -45,14 +45,14 @@ define([
         /**
          * Check if the HTML spinner is loaded.
          */
-        isSpinnerLoaded: function () {
+        isSpinnerLoaded: function() {
             return AipUtil.has(window, 'naxero.aip.spinner', true);
         },
 
         /**
          * Get the spinner loaded flag.
          */
-        getLoadedFlag: function (obj) {
+        getLoadedFlag: function(obj) {
             return {
                 data: {
                     url: obj.jsConfig.ui.loader

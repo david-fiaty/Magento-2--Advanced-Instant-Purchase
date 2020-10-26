@@ -6,7 +6,7 @@ define(
         'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
         'popover'
     ],
-    function ($, __, AipProduct, AipLogger) {
+    function($, __, AipProduct, AipLogger) {
         'use strict';
         return {
             agreementRow: '.aip-agreement-link-row',
@@ -18,7 +18,7 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function (obj, noUiUpdate) {
+            validate: function(obj, noUiUpdate) {
                 // Prepare the parameters
                 var errors = [];
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
@@ -26,7 +26,7 @@ define(
                 // Agreements validation
                 if (obj.jsConfig.general.enable_agreements) {
                     $(this.agreementRow).removeClass('error');
-                    $(this.agreementRow).each(function () {
+                    $(this.agreementRow).each(function() {
                         var input = $(this).find(this.agreementBoxSelector);
                         if (!input.is(':checked')) {
                             errors.push({
@@ -37,7 +37,7 @@ define(
                 }
 
                 // Fields validation
-                $(this.inputSelectors).each(function () {
+                $(this.inputSelectors).each(function() {
                     var val = $(this).val();
                     if (val && val.length == 0) {
                         errors.push({
@@ -48,7 +48,7 @@ define(
 
                 // UI update
                 if (!noUiUpdate) {
-                    $(errors).each(function (i, error) {
+                    $(errors).each(function(i, error) {
                         $('#' + error.id).addClass('error');
                     });
                 }
@@ -59,7 +59,7 @@ define(
             /**
              * Initialize the product options validation.
              */
-            initOptionsValidation: function (obj) {
+            initOptionsValidation: function(obj) {
                 // Handle the validation logic
                 var productAttributes = AipProduct.getOptions(obj);
                 var condition1 = productAttributes.length > 0;
@@ -67,8 +67,8 @@ define(
                 if (condition1 && condition2) {
                     // Set the events
                     var self = this;
-                    productAttributes.each(function () {
-                        $(this).on('change', function () {
+                    productAttributes.each(function() {
+                        $(this).on('change', function() {
                             self.updateButtonState(obj);
                         });
                     });
@@ -85,7 +85,7 @@ define(
             /**
              * Update the button state.
              */
-            updateButtonState: function (obj) {
+            updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
                 $(obj.getButtonId()).prop('disabled', disabled);
@@ -94,14 +94,14 @@ define(
             /**
              * Check if a product has options errors.
              */
-            hasOptionError: function (obj) {
+            hasOptionError: function(obj) {
                 return this.validateOptions(obj, true).length > 0;
             },
 
             /**
              * Validate the category view product options.
              */
-            validateOptions: function (obj, noUiUpdate) {
+            validateOptions: function(obj, noUiUpdate) {
                 // UI updates
                 noUiUpdate = noUiUpdate ? noUiUpdate : false;
 
@@ -125,7 +125,7 @@ define(
             /**
              * Check the category view product options errors.
              */
-            checkOptionsErrors: function (productAttributes) {
+            checkOptionsErrors: function(productAttributes) {
                 var errors = [];
                 if (productAttributes.length > 0) {
                     return this.getOptionsErrors(productAttributes);
@@ -137,9 +137,9 @@ define(
             /**
              * Get the category view product options errors.
              */
-            getOptionsErrors: function (productAttributes) {
+            getOptionsErrors: function(productAttributes) {
                 var errors = [];
-                productAttributes.each(function () {
+                productAttributes.each(function() {
                     var val = $(this).val();
                     if (!val || val === 'undefined' || val.length == 0) {
                         var name = $(this).attr('name');
@@ -156,7 +156,7 @@ define(
             /**
              * Display the category view product options.
              */
-            displayOptionsErrors: function (obj, errors) {
+            displayOptionsErrors: function(obj, errors) {
                 if (errors.length > 0) {
                     // Prepare variables
                     var self = this;
@@ -182,7 +182,7 @@ define(
             /**
              * Clear UI error messages.
              */
-            clearErrors: function (button) {
+            clearErrors: function(button) {
                 button.removeClass(this.buttonErrorClass);
                 $(this.popoverSelector).remove();
             },
@@ -190,7 +190,7 @@ define(
             /**
              * Check the region state in address form.
              */
-            checkRegionState: function () {
+            checkRegionState: function() {
                 if ($('#region_id').prop('disabled') === true) {
                     $('#region_id').addClass('aip-region-hidden');
                     $('#region_id').removeClass('aip-region-visible');
