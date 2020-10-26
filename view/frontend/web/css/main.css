@@ -39,6 +39,7 @@
     display: block;
     width: inherit;
     height: inherit;
+    text-decoration: none;
 }
 
 .aip-ui-logger-tree {
