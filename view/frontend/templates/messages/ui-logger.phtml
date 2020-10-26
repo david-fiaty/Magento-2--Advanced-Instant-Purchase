@@ -7,13 +7,8 @@
 ?>
 
 <!-- UI logs viewer container -->
-<div id="aip-ui-logger-<?= $productId ?>" class="messages aip-ui-logger">
-    <div class="message success">
-        <p><?= $title ?> <?= __('UI Logger') ?></p>
-        <div class="message-text">
-            <pre class="aip-logger-tree">
-                <img class="aip-spinner" src="<?= $config['ui']['loader'] ?>">
-            </pre>
-        </div>
-    </div>
+<div id="aip-ui-logger-<?= $productId ?>" class="aip-ui-logger">
+    <pre class="aip-logger-tree">
+        <img class="aip-spinner" src="<?= $config['ui']['loader'] ?>">
+    </pre>
 </div>

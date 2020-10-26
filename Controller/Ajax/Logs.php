@@ -65,7 +65,7 @@ class Logs extends \Magento\Framework\App\Action\Action
 
         // Process the request
         $request = $this->getRequest();
-        if ($request->isAjax()) {
+        if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->renderDataTree();
         }
 
@@ -87,7 +87,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
         ->setData('config', $this->blockHelper->getConfig($productId))
         ->setData('title', Naming::getModuleTitle())
-        ->toHtml();  
+        ->toHtml(); 
 
         return $blockHtml;
     }
