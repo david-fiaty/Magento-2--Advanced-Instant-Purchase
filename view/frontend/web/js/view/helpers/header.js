@@ -1,10 +1,12 @@
 define(
     [
         'jquery',
+        'mage/translate',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
     ],
-    function ($, AipTemplate, AipUtil) {
+    function ($, __, AipTemplate, AipUtil, AipLogger) {
         'use strict';
 
         return {
@@ -28,13 +30,18 @@ define(
              */
             loadHeader: function(obj) {
                 if (!this.isHeaderLoaded()) {
-                    $('head').append(AipTemplate.getHeader(
-                        {
-                            data: {
-                                css_path: obj.jsConfig.ui.css
-                            }
-                        }
-                    ));
+                    // Get the spinner loaded flag
+                    var params = this.getLoadedFlag(obj);
+
+                    // Add the header declarations
+                    $('head').append(AipTemplate.getHeader(params));
+
+                    // Log the event
+                    AipLogger.log(
+                        obj,
+                        __('Loaded the HTML page header declarations'),
+                        params
+                    );
                 }
             },
 
@@ -43,6 +50,17 @@ define(
              */
             isHeaderLoaded: function() {
                 return AipUtil.has(window, 'naxero.aip.css', true);
+            },
+
+            /**
+             * Get the spinner loaded flag.
+             */
+            getLoadedFlag: function(obj) {
+                return {
+                    data: {
+                        css_path: obj.jsConfig.ui.css
+                    }
+                };
             }
         };
     }

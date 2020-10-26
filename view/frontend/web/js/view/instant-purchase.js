@@ -7,8 +7,10 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
@@ -20,7 +22,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, AipHeader, AipTemplate, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function ($, __, Component, UrlBuilder, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -32,6 +34,7 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
+            showSubmitButton: true,
             loader: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -60,46 +63,31 @@ define([
             // Purchase button state
             AipButton.setPurchaseButtonState(this);
 
-            // Loader icon
-            this.setLoaderIcon();
+            // Spinner icon
+            AipSpinner.loadIcon(this);
 
             // Options validation
-            AipValidation.initOptionsValidation(this);
+            // Todo - Fix the options validation logic - Should run only in list mode
+            // AipValidation.initOptionsValidation(this);
 
             // Button click event
             var self = this;
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
-        },
 
-        /**
-         * Get the loader icon parameter.
-         */
-        setLoaderIcon: function() {
-            this.loader = AipTemplate.getLoader({
-                data: {
-                    url: this.jsConfig.ui.loader
-                }
-            });
-        },
+            // Initialise the UI Logger tree if needed
+            AipLogger.buildDataTree(this);
 
-        /**
-         * Log data to the browser console.
-         *
-         * @param {Object} data
-         */
-        log: function(data) {
-            if (this.jsConfig.general.debug_enabled && this.jsConfig.general.console_logging_enabled) {
-                console.log(data);
-            }
-        },
-
-        /**
-         * Check if customer is logged in.
-         */
-        isLoggedIn: function() {
-            return this.jsConfig.user.connected;
+            // Log the step
+            AipLogger.log(
+                this,
+                __('Configuration loaded for product id %1').replace(
+                    '%1',
+                    this.jsConfig.product.id
+                ),
+                this.jsConfig
+            );
         },
 
         /**
@@ -107,10 +95,10 @@ define([
          */
         handleButtonClick: function(e) {
             // Click event
-            if (this.jsConfig.product.has_options) {
+            if (this.hasOptions() && this.isBlockView()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
-            else if (this.isLoggedIn()) {
+            else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
             } else {
                 var functionName = 'popup';
@@ -120,10 +108,32 @@ define([
         },
 
         /**
-         * Check the current product view.
+         * Check if the current product is in list view.
          */
         isListView: function() {
-            return this.jsConfig.product.is_list;
+            return this.jsConfig.product.display == 'list';
+        },
+
+        /**
+         * Check if the current product is in block view.
+         */
+        isBlockView: function() {
+            return this.jsConfig.product.display == 'block'
+            || this.jsConfig.product.display == 'widget';
+        },
+
+        /**
+         * Check if the current product is in page view.
+         */
+        isPageView: function() {
+            return !this.isBlockView() && !this.isListView();
+        },
+
+        /**
+         * Check if the current product has options.
+         */
+        hasOptions: function() {
+            return this.jsConfig.product.has_options;
         },
 
         /**
@@ -141,9 +151,16 @@ define([
             var self = this;
             var params = {
                 action: 'Confirmation',
-                pid: this.jsConfig.product.id,
-                form_key: this.jsConfig.product.formKey
+                product_id: this.jsConfig.product.id,
+                form_key: this.jsConfig.product.form_key
             };                       
+
+            // Log the parameters
+            AipLogger.log(
+                this,
+                __('Confirmation window request parameters'),
+                params
+            );
 
             // Send the request
             AipSlider.showLoader(self);
@@ -166,10 +183,22 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
-                    AipButton.setValidationEvents(self);
+                    // Todo - fix the validation event
+                    //AipButton.setValidationEvents(self);
+
+                    // Log the purchase data
+                    AipLogger.log(
+                        self,
+                        __('Purchase data on page load'),
+                        AipProduct.getProductForm(self).serializeArray()
+                    );
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AipLogger.log(
+                        self,
+                        __('Error retrieving the confimation window data'),
+                        error
+                    );
                 }
             });
         },
@@ -244,7 +273,11 @@ define([
                     );
                 },
                 error: function (request, status, error) {
-                    self.log(error);
+                    AipLogger.log(
+                        self,
+                        __('Error retrieving the form data'),
+                        error
+                    );
                 }
             });
         }

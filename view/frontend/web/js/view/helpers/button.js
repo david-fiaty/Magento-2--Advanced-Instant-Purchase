@@ -7,7 +7,8 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, AipProduct, AipSlider, AipUtil, AipMessage, AipValidation) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
+], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -44,7 +45,7 @@ define([
         setPurchaseButtonState(obj) {
             // Get the button state
             var state = obj.jsConfig.buttons.state_disabled == 1
-            && obj.jsConfig.product.has_options;
+            && obj.hasOptions();
 
             // Apply the state to the button
             $(obj.getButtonId()).prop('disabled', state);
@@ -90,36 +91,45 @@ define([
          */
         getSubmit: function(obj) {
             var self = this;
-            return {
-                text: __('Submit'),
-                class: self.submitButtonClasses,
-                click: function(e) {
-                    if (AdditionalValidators.validate(obj)) {
-                        AipSlider.showLoader(obj);
-                        var requestData = AipUtil.getCurrentFormData(obj);
-                        $.ajax({
-                            cache: false,
-                            url: AipUtil.getConfirmUrl(obj.isSubView),
-                            data: requestData,
-                            type: 'post',
-                            dataType: 'json',
-                            success: function(data) {
-                                AipMessage.checkResponse(data, e, obj);
-                            },
-                            error: function(request, status, error) {
-                                obj.log(error);
-                            }
-                        });
+            var submitButton = null;
+            if (obj.showSubmitButton) {
+                submitButton = {
+                    text: __('Submit'),
+                    class: self.submitButtonClasses,
+                    click: function(e) {
+                        if (AdditionalValidators.validate(obj)) {
+                            AipSlider.showLoader(obj);
+                            var requestData = AipUtil.getCurrentFormData(obj);
+                            $.ajax({
+                                cache: false,
+                                url: AipUtil.getConfirmUrl(obj.isSubView),
+                                data: requestData,
+                                type: 'post',
+                                dataType: 'json',
+                                success: function(data) {
+                                    AipMessage.checkResponse(data, e, obj);
+                                },
+                                error: function(request, status, error) {
+                                    AipLogger.log(
+                                        obj,
+                                        __('Error submitting the form data'),
+                                        error
+                                    );
+                                }
+                            });
+                        }
+                        else {
+                            AipMessage.show(
+                                'error',
+                                __('Please approve the terms and conditions.'),
+                                obj
+                            );
+                        }
                     }
-                    else {
-                        AipMessage.show(
-                            'error',
-                            __('Please approve the terms and conditions.'),
-                            obj
-                        );
-                    }
-                }
-            };
+                };
+            }
+
+            return submitButton;
         }
     };
 });

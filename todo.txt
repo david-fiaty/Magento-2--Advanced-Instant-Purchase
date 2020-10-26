@@ -1,19 +1,20 @@
 
 - fix blcook purchase request not working cause add to card fields missing
 - check product summary not showing in popup. Is this issue linked to no cars saved in account?
+- check options validation not working in list view
+- fix form key validation in logs controller
+- make sure obj instant-purchase .showSubmitButton is false when closing ui logging window
 
 - how to add product options in popup view?
-
+- move agreements settings to a better section than general
+- update the ui logger modal title retrieval
 
 - filter display by customer groups/profiles
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
-- check form_key param not working in Confirmation.php controller.
-Request validation line 77 should be:
-if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
+- move log method from ip to utils
 
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
@@ -27,8 +28,6 @@ https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-
 
 FEATURES
 - create list button action on click: redirect, open popup with options, force options selection
-- add tag/widget insertion in editor toolbar
-- add button insertion in cms content
 - add popup/banner/add system with instant purchase
 - button display conditions engine
 - add advanced config for css selectors for UI items

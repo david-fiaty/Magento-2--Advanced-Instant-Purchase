@@ -55,6 +55,9 @@ class BlockButton extends \Magento\Framework\View\Element\Template
             $this->getData('product_id')
         );
 
+        // Set the display mode
+        $config['product']['display'] = 'block';
+
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']

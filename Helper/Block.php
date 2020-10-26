@@ -109,10 +109,14 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         unset($config['card_form']);
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         $config['ui']['css'] = $this->configHelper->getCssPath();
+        $config['module']['title'] = Naming::getModuleTitle();
 
-        return $config
+        // Prepare the block config data
+        $output = $config
         + $this->configHelper->getValues()
         + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams();
+
+        return $output;
     }
 }

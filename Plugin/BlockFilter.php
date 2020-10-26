@@ -19,12 +19,26 @@ class BlockFilter
     public $blockHelper;
 
     /**
+     * Product
+     */
+    public $productHelper;
+
+    /**
+     * Logger
+     */
+    public $loggerHelper;
+
+    /**
      * Class BlockFilter constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
+        $this->loggerHelper = $loggerHelper;
     }
 
     /**
@@ -49,17 +63,27 @@ class BlockFilter
                     // Process the block tab parameters
                     foreach (self::$blockParams as $key) {
                         // Process the parameter
-                        $block = $this->processParam($key, $i, $matches, $block);
+                        $result = $this->processParam($key, $i, $matches, $block);
 
                         // Handle the parameter errors
-                        if ($block['errors'] > 0) {
-                            $errors[] = $block['errors'];
+                        if ($result['errors'] > 0) {
+                            $errors[] = $result['errors'];
                         }
                     }
 
                     // Replace the tag with the generated HTML
-                    if (empty($errors)) {
-                        $html = str_replace($tag, $block['blockHtml']->toHtml(), $html);
+                    if (empty($errors[0])) {
+                        // Success
+                        $html = str_replace($tag, $result['blockHtml']->toHtml(), $html);
+                    } else {
+                        // Errors
+                        $errorsHtml = '';
+                        foreach ($errors as $error) {
+                            foreach ($error as $msg) {
+                                $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
+                            }
+                        }
+                        $html = str_replace($tag, $tag . $errorsHtml, $html);
                     }
                 }
             }
@@ -72,16 +96,27 @@ class BlockFilter
      * Process a block parameter.
      */
     public function processParam($field, $i, $matches, $blockHtml) {
-        // Pprepare the errors count
-        $errors = 0;
+        // Prepare the errors count
+        $errors = [];
 
-        // Process the parameter field
-        preg_match('/' . $field . '="(\d*)"/', $matches[1][$i], $param);
-        if ($this->isParameterValid($param)) {
-            $blockHtml->setData($field, $param[1]);
-        } 
-        else {
-            $errors++;
+        // Field search pattern
+        $search = '/' . $field . '="(.*?)"/';
+
+        // Look for the field
+        preg_match($search, $matches[1][$i], $param);      
+        
+        // If the field was found
+        if (isset($param[1]) && !empty($param[1])) {
+            // Checkf if the parameter is valid
+            $result = $this->isParameterValid($field, $param);
+            if ($result['is_valid']) {
+                // Set the parameter argument
+                $blockHtml->setData($field, $param[1]);
+            } 
+            else {
+                // Handle the parameter error
+                $errors[] = $result['error'];
+            }
         }
 
         return [
@@ -100,7 +135,32 @@ class BlockFilter
     /**
      * Check if a tag parameter is valid.
      */
-    public function isParameterValid(array $param) {
-        return isset($param[1]) && !empty($param[1]) && (int) $param[1] > 0;
+    public function isParameterValid(string $field, array $param) {
+        // Prepare the conditions
+        $condition1 = isset($param[1]);
+        $condition2 = $this->isParameterRegistered($field);
+        $condition3 = true;
+        $error = '';
+
+        // Validation for product_id
+        if ($field == 'product_id' && $condition1 && $condition2) {
+            // Valid id
+            if (!$this->productHelper->isProduct($param[1])) {
+                $condition3 = false;
+                $error = __('Invalid value "%1" for parameter %2', $param[1], $field);
+            }
+        }
+
+        return [
+            'is_valid' => $condition1 && $condition2 && $condition3,
+            'error' => $error
+        ];
+    }
+
+    /**
+     * Check if a tag parameter is registered.
+     */
+    public function isParameterRegistered(string $field) {
+        return in_array($field, self::$blockParams);
     }
 } 

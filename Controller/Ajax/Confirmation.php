@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 
 /**
- * Confirmation Class.
+ * Confirmation class.
  */
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
@@ -44,7 +44,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public $configHelper;
     
     /**
-     * BillingAddress constructor.
+     * Confirmation class constructor.
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -57,6 +57,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         parent::__construct($context);
+        
         $this->formKeyValidator = $formKeyValidator;
         $this->customerSession = $customerSession;
         $this->customerHelper = $customerHelper;
@@ -76,7 +77,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
 
         // Process the request
         $request = $this->getRequest();
-        if ($request->isAjax()) {
+        if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->loadBlock();
         }
 

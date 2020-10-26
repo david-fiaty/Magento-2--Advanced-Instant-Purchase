@@ -8,8 +8,9 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isListView = $block->productHelper->isListView();
+        $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
+        $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
     }
 ?>
 <div id="aip-<?= $productId ?>" class="aip-button-container">
@@ -21,7 +22,8 @@
         title="<?= __($config['buttons']['button_text']) ?>">
         <?= __($config['buttons']['button_text']) ?>
     </button>
-    <?php if ($isListView): ?>
+    
+    <?php if (!$isPageView): ?>
         <form name="aip-list-form" method="post" class="aip-list-form">
     <?php endif; ?>
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
@@ -31,15 +33,23 @@
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
         <input type="hidden" name="form_key" value="<?= $formKey ?>" />
-    <?php if ($isListView): ?>
+    <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
+
+    <?php if ($uiLogging): ?>
+        <div id="aip-ui-logger-button-<?= $productId ?>" class="aip-ui-logger-button">
+            <a href="javascript:void(0)" title="<?= __('View logs') ?>"></a>
+        </div>
+    <?php endif; ?> 
+
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode(['jsConfig' => $config]) ?>
+                "aip": <?= json_encode(['jsConfig' => $config], true) ?>
             }
         }
     </script>
 </div>
 <?php endif; ?> 
+

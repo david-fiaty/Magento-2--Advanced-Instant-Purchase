@@ -17,8 +17,40 @@
 }
 
 /* Purchase button */
+.aip-button-container {
+    position: relative;
+}
+
 .product-item .aip-button-container {
     display: inline-block;
+}
+
+/* UI Logger */
+.aip-ui-logger-button {
+    position: relative;
+    top: 0em;
+    right: 0em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-image: url(../images/info-icon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.aip-ui-logger-button a {
+    display: block;
+    width: inherit;
+    height: inherit;
+}
+
+.aip-ui-logger-tree {
+    overflow: auto !important;
+}
+
+.aip-ui-logger-tree .aip-spinner {
+    display: block;
+    margin: 0 auto;
 }
 
 /* Popover */
@@ -164,7 +196,7 @@
     font-size: 1.2em;
 }
 
-/* Loader icon */
+/* spinner icon */
 .aip-ajax-loader-container {
     width: 100%;
     height: 100%;

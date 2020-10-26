@@ -26,15 +26,29 @@ define([
          */
         build: function(obj) {
             ConfirmModal({
-                title: obj.jsConfig.popups.popup_title,
+                title: this.getTitle(obj),
                 innerScroll: true,
                 modalClass: 'aip-modal',
                 content: AipTemplate.getConfirmation({}),
-                buttons: [
-                    AipButton.getCancel(obj),
-                    AipButton.getSubmit(obj)
-                ]
+                buttons: this.getButtons(obj)
             });
+        },
+
+        /**
+         * Get the modal window buttons.
+         */
+        getButtons: function(obj) {
+            return [
+                AipButton.getCancel(obj),
+                AipButton.getSubmit(obj)
+            ];
+        },
+
+        /**
+         * Get the modal window title.
+         */
+        getTitle: function(obj) {
+            return obj.jsConfig.popups.popup_title;
         }
     };
 });

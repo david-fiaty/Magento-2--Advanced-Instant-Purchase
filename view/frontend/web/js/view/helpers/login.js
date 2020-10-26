@@ -21,6 +21,13 @@ define([
          */
         loginRedirect: function() {
             window.location.href = UrlBuilder.build(this.loginUrl);
+        },
+
+        /**
+         * Check if customer is logged in.
+         */
+        isLoggedIn: function(obj) {
+            return obj.jsConfig.user.connected;
         }
     };
 });
