@@ -33,9 +33,6 @@
     display: inline-block;
     width: 1em;
     height: 1em;
-    background-image: url(../images/info-icon.png);
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 .aip-ui-logger-button a {
