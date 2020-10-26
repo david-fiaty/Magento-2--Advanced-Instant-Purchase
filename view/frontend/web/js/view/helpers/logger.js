@@ -75,6 +75,14 @@ define([
 
             // Set the data viewer button event
             $(this.getButtonSelector(obj)).on('click touch', function(e) {
+                // Slider view
+                AipSlider.toggleView(obj, e);   
+                
+                // Modal window
+                // Todo - fix submit button state
+                //obj.showSubmitButton = false;
+                AipModal.build(obj);  
+                
                 // Send the request
                 AipSlider.showLoader(obj);
                 $.ajax({
@@ -83,14 +91,6 @@ define([
                     url: UrlBuilder.build(self.logsUrl),
                     data: params,
                     success: function (data) {                        
-                        // Slider view
-                        AipSlider.toggleView(obj, e);   
-                        
-                        // Modal window
-                        // Todo - fix submit button state
-                        //obj.showSubmitButton = false;
-                        AipModal.build(obj);   
-
                         // Get the HTML content
                         AipModal.addHtml(
                             AipSlider.nextSlideSelector,
