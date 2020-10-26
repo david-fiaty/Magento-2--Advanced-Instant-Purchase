@@ -70,15 +70,15 @@ define([
             // Todo - Fix the options validation logic - Should run only in list mode
             // AipValidation.initOptionsValidation(this);
 
+            // Initialise the UI Logger tree if needed
+            AipLogger.buildDataTree(this);
+
             // Button click event
             var self = this;
             $(this.getButtonId()).on('click touch', function(e) {
                 self.handleButtonClick(e);
             }); 
-
-            // Initialise the UI Logger tree if needed
-            AipLogger.buildDataTree(this);
-
+            
             // Log the step
             AipLogger.log(
                 this,
