@@ -57,6 +57,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
     ) {
         parent::__construct($context);
+        
         $this->formKeyValidator = $formKeyValidator;
         $this->customerSession = $customerSession;
         $this->customerHelper = $customerHelper;

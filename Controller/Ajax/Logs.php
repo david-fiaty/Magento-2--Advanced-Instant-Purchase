@@ -37,6 +37,7 @@ class Logs extends \Magento\Framework\App\Action\Action
      * Class Logs constructor 
      */
     public function __construct(
+        \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
