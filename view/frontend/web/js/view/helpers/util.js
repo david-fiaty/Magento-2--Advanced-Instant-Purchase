@@ -26,7 +26,7 @@ define([
          * Get the current form.
          */
         getCurrentForm: function(obj) {
-            var form = obj.isSubView 
+            var form = obj.isSubView()
             ? $(this.addressFormSelector)
             : AipProduct.getProductForm(obj);
 
@@ -37,7 +37,7 @@ define([
          * Get the current form.
          */
         getCurrentFormData: function(obj) {
-            var form = obj.isSubView 
+            var form = obj.isSubView()
             ? this.getAddressFormData()
             : AipProduct.getProductFormData(obj);
 

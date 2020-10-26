@@ -129,6 +129,13 @@ define([
         },
 
         /**
+         * Check if the current product is in sub view.
+         */
+        isSubView: function() {
+            return this.isSubView;
+        },
+
+        /**
          * Check if the current product has options.
          */
         hasOptions: function() {
