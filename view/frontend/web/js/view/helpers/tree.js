@@ -16,7 +16,7 @@ define([
                 $(this.treeContainerSelector).jsonViewer(
                     obj.jsConfig,
                     {
-                        collapsed: true
+                        collapsed: false
                     }
                 );                
             }

@@ -94,7 +94,7 @@ define([
          */
         handleButtonClick: function(e) {
             // Click event
-            if (this.hasOptions() && this.isblockView()) {
+            if (this.hasOptions() && this.isBlockView()) {
                 window.location.href = this.jsConfig.product.page_url;
             }
             else if (AipLogin.isLoggedIn(this)) {
@@ -116,7 +116,7 @@ define([
         /**
          * Check if the current product is in block view.
          */
-        isblockView: function() {
+        isBlockView: function() {
             return this.jsConfig.product.display == 'block'
             || this.jsConfig.product.display == 'widget';
         },
@@ -132,7 +132,7 @@ define([
          * Check if the current product is in page view.
          */
         isPageView: function() {
-            return !this.isblockView() && !this.isListView();
+            return !this.isBlockView() && !this.isListView();
         },
 
         /**

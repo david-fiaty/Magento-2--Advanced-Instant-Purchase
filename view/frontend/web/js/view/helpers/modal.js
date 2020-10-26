@@ -30,11 +30,18 @@ define([
                 innerScroll: true,
                 modalClass: 'aip-modal',
                 content: AipTemplate.getConfirmation({}),
-                buttons: [
-                    AipButton.getCancel(obj),
-                    AipButton.getSubmit(obj)
-                ]
+                buttons: this.getButtons(obj)
             });
+        },
+
+        /**
+         * Get the modal window buttons.
+         */
+        getButtons: function(obj) {
+            return [
+                AipButton.getCancel(obj),
+                AipButton.getSubmit(obj)
+            ];
         }
     };
 });
