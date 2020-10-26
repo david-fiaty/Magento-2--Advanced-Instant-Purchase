@@ -82,7 +82,7 @@ define([
                     cache: false,
                     url: UrlBuilder.build(self.logsUrl),
                     data: params,
-                    success: function (data) {
+                    success: function (data) {                        
                         // Slider view
                         AipSlider.toggleView(obj, e);   
                         

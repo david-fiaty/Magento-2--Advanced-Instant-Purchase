@@ -26,11 +26,6 @@
 }
 
 /* UI Logger */
-.aip-ui-logger {
-    margin-top: 1em;
-    display: none;
-}
-
 .aip-ui-logger-button {
     position: relative;
     top: 0em;

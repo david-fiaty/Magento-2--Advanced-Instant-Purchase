@@ -65,7 +65,7 @@ class Logs extends \Magento\Framework\App\Action\Action
 
         // Process the request
         $request = $this->getRequest();
-        if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
+        if ($request->isAjax()) {
             $html .= $this->renderDataTree();
         }
 
