@@ -91,40 +91,45 @@ define([
          */
         getSubmit: function(obj) {
             var self = this;
-            return {
-                text: __('Submit'),
-                class: self.submitButtonClasses,
-                click: function(e) {
-                    if (AdditionalValidators.validate(obj)) {
-                        AipSlider.showLoader(obj);
-                        var requestData = AipUtil.getCurrentFormData(obj);
-                        $.ajax({
-                            cache: false,
-                            url: AipUtil.getConfirmUrl(obj.isSubView()),
-                            data: requestData,
-                            type: 'post',
-                            dataType: 'json',
-                            success: function(data) {
-                                AipMessage.checkResponse(data, e, obj);
-                            },
-                            error: function(request, status, error) {
-                                AipLogger.log(
-                                    obj,
-                                    __('Error submitting the form data'),
-                                    error
-                                );
-                            }
-                        });
+            var submitButton = null;
+            if (obj.showSubmitButton) {
+                submitButton = {
+                    text: __('Submit'),
+                    class: self.submitButtonClasses,
+                    click: function(e) {
+                        if (AdditionalValidators.validate(obj)) {
+                            AipSlider.showLoader(obj);
+                            var requestData = AipUtil.getCurrentFormData(obj);
+                            $.ajax({
+                                cache: false,
+                                url: AipUtil.getConfirmUrl(obj.isSubView()),
+                                data: requestData,
+                                type: 'post',
+                                dataType: 'json',
+                                success: function(data) {
+                                    AipMessage.checkResponse(data, e, obj);
+                                },
+                                error: function(request, status, error) {
+                                    AipLogger.log(
+                                        obj,
+                                        __('Error submitting the form data'),
+                                        error
+                                    );
+                                }
+                            });
+                        }
+                        else {
+                            AipMessage.show(
+                                'error',
+                                __('Please approve the terms and conditions.'),
+                                obj
+                            );
+                        }
                     }
-                    else {
-                        AipMessage.show(
-                            'error',
-                            __('Please approve the terms and conditions.'),
-                            obj
-                        );
-                    }
-                }
-            };
+                };
+            }
+
+            return submitButton;
         }
     };
 });

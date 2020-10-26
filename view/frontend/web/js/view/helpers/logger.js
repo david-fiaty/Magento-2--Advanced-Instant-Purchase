@@ -87,6 +87,7 @@ define([
                         AipSlider.toggleView(obj, e);   
                         
                         // Modal window
+                        obj.showSubmitButton = false;
                         AipModal.build(obj);   
 
                         // Get the HTML content

@@ -34,6 +34,7 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
+            showSubmitButton: true,
             loader: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
