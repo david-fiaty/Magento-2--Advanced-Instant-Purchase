@@ -86,7 +86,7 @@ define([
                         // Get the HTML content
                         AipModal.addHtml(
                             AipSlider.nextSlideSelector,
-                            data
+                            data.html
                         );
 
                         // Build the data tree
