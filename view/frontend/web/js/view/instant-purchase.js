@@ -122,13 +122,6 @@ define([
         },
 
         /**
-         * Check if the current product is in list view.
-         */
-        isListView: function() {
-            return this.jsConfig.product.display == 'list';
-        },
-
-        /**
          * Check if the current product is in page view.
          */
         isPageView: function() {
