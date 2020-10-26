@@ -24,6 +24,11 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $jsonFactory;
 
     /**
+     * Block
+     */
+    public $blockHelper;
+
+    /**
      * Logger
      */
     public $loggerHelper;
@@ -35,6 +40,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         parent::__construct($context);
@@ -42,6 +48,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->blockHelper = $blockHelper;
         $this->loggerHelper = $loggerHelper;
     }
 
@@ -58,7 +65,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         // Process the request
         $request = $this->getRequest();
         if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $html .= $this->renderDataTree($data, $config);
+            $html .= $this->renderDataTree();
         }
 
         return $this->jsonFactory->create()->setData(
@@ -69,13 +76,18 @@ class Logs extends \Magento\Framework\App\Action\Action
     /**
      * Renders a browsable data tree.
      */
-    public function renderDataTree($data, $config) {
-        return $this->pageFactory->create()->getLayout()
+    public function renderDataTree() {
+        // Get the product id
+        $productId = $this->getRequest->getData('product_id');
+
+        // Render the block
+        $blockHtml = $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
-        ->setData('data', $data)
-        ->setData('config', $config)
+        ->setData('config', $this->blockHelper->getConfig($productId))
         ->setData('title', Naming::getModuleTitle())
         ->toHtml();  
+
+        return $blockHtml;
     }
 }

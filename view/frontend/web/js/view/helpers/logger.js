@@ -66,11 +66,14 @@ define([
          * Build a browsable tree with log data.
          */
         buildDataTree: function(obj) {
-            // Set the data viewer button event
+            // Prepare variables
             var self = this;
             var params = {
+                product_id: obj.jsConfig.product.id,
                 form_key: obj.jsConfig.product.form_key
             };
+
+            // Set the data viewer button event
             $(this.getButtonSelector(obj)).on('click touch', function() {
                 // Send the request
                 AipSlider.showLoader(self);
