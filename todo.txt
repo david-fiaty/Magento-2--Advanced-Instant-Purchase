@@ -3,6 +3,7 @@
 - check product summary not showing in popup. Is this issue linked to no cars saved in account?
 - check options validation not working in list view
 - fix form key validation in logs controller
+- make sure obj instant-purchase .showSubmitButton is false when closing ui logging window
 
 - how to add product options in popup view?
 - move agreements settings to a better section than general
