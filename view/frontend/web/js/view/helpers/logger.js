@@ -93,8 +93,8 @@ define([
                         AipTree.build(obj);
                     },
                     error: function (request, status, error) {
-                        obj.log(
-                            self,
+                        self.log(
+                            obj,
                             __('Error retrieving the UI logging data'),
                             error
                         );
