@@ -9,7 +9,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     /**
      * @var Registry
      */
-    public $registry; 
+    public $registry;
 
     /**
      * @var Block

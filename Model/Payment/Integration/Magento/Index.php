@@ -42,7 +42,8 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
     /**
      * Send a payment request.
      */
-    public function sendRequest($quote, $paymentData) {
+    public function sendRequest($quote, $paymentData)
+    {
         // Get the payment response
         $response = '';
 
@@ -55,14 +56,16 @@ class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration
     /**
      * Chcek if a payment request is successful.
      */
-    public function paymentSuccess() {
+    public function paymentSuccess()
+    {
         return true;
     }
     
     /**
      * Create a new order.
      */
-    public function createOrder($quote, $paymentResponse) {
+    public function createOrder($quote, $paymentResponse)
+    {
         // Configure the payment
         $quote = $this->paymentConfiguration->configurePayment(
             $quote,

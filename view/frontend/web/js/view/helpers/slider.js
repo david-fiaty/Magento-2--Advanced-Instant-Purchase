@@ -12,7 +12,7 @@ define([
         /**
          * Create a login popup.
          */
-        build: function() {
+        build: function () {
             $(this.sliderSelector).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -25,7 +25,7 @@ define([
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function(obj) {
+        getCurrentSlide: function (obj) {
             var slide = (obj.isSubView)
             ? this.nextSlideSelector
             : obj.popupContentSelector;
@@ -36,17 +36,19 @@ define([
         /**
          * Show the AJAX loader.
          */
-        showLoader: function(obj) {
+        showLoader: function (obj) {
             this.getCurrentSlide(obj).html(obj.loader);
         },
 
         /**
          * Handles the view switch.
          */
-        toggleView: function(obj, e) {
+        toggleView: function (obj, e) {
             // Handle the event
             e = e || null;
-            if (e) e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
 
             // Handle the toggle logic
             this.showLoader(obj);
@@ -55,8 +57,7 @@ define([
                 obj.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
-            }
-            else {
+            } else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
                 obj.isSubView = true;

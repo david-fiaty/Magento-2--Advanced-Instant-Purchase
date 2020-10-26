@@ -197,7 +197,7 @@ class VaultHandlerService
 
         // Filter the user cards list
         if (!empty($cardList) && !empty($allowedCards)) {
-            foreach($cardList as $card) {
+            foreach ($cardList as $card) {
                 if (in_array($card['instance']->getCode(), $allowedCards)) {
                     $output[] = $card;
                 }
@@ -234,7 +234,8 @@ class VaultHandlerService
         );
     }
 
-    public function preparePaymentToken() {
+    public function preparePaymentToken()
+    {
         // Get the last saved cards
         $card = $this->getLastSavedCard();
 

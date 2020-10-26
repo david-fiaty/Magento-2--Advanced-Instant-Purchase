@@ -147,32 +147,34 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function newCardBlock()
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
-        ->setData('load', $this->configHelper->value('card_form/load'))
-        ->toHtml();
+            ->createBlock('Magento\Framework\View\Element\Template')
+            ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
+            ->setData('load', $this->configHelper->value('card_form/load'))
+            ->toHtml();
     }
 
     /**
      * Get the agreements links.
      */
-    public function getAgreementsLinks() {
+    public function getAgreementsLinks()
+    {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-        ->setTemplate(Naming::getModuleName() . '::agreements/agreements-link.phtml')
-        ->toHtml();
+            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+            ->setTemplate(Naming::getModuleName() . '::agreements/agreements-link.phtml')
+            ->toHtml();
     }
 
     /**
      * Get the terms and conditions.
      */
-    public function newAgreementBlock() {
+    public function newAgreementBlock()
+    {
         $enableAgreements = $this->configHelper->value('general/enable_agreements');
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-            ->setTemplate(Naming::getModuleName() . '::/agreements/agreements-detail.phtml')
-            ->toHtml();
+                ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+                ->setTemplate(Naming::getModuleName() . '::/agreements/agreements-detail.phtml')
+                ->toHtml();
         }
 
         return '';

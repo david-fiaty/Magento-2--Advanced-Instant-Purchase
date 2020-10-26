@@ -15,9 +15,9 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      * ProductList constructor.
      */
     public function __construct(
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory       
-    ) {    
-        $this->productCollectionFactory = $productCollectionFactory;    
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+    ) {
+        $this->productCollectionFactory = $productCollectionFactory;
     }
     
     public function getProducts()
@@ -41,7 +41,7 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      * @return array
      */
     public function toOptionArray()
-    { 
+    {
         return $this->getProducts();
     }
 }

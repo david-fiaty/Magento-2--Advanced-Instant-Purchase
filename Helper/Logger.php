@@ -54,7 +54,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function log($data)
     {
         // Prepare the data
-        $data = $this->prepareData($data); 
+        $data = $this->prepareData($data);
 
         // File logging
         $this->write($data);
@@ -155,7 +155,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function prepareData($data)
     {
-        return is_array($data) || is_object($data) 
+        return is_array($data) || is_object($data)
         ? json_encode($data) : $data;
     }
 

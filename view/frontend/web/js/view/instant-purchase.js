@@ -46,7 +46,7 @@ define([
         },
 
         /** @inheritdoc */
-        initialize: function() {
+        initialize: function () {
             this._super();
             this.build();
         },
@@ -56,7 +56,7 @@ define([
          *
          * @param {Object} data
          */
-        build: function() {
+        build: function () {
             // Load CSS
             AipHeader.setHeader(this);
 
@@ -75,9 +75,9 @@ define([
 
             // Button click event
             var self = this;
-            $(this.getButtonId()).on('click touch', function(e) {
+            $(this.getButtonId()).on('click touch', function (e) {
                 self.handleButtonClick(e);
-            }); 
+            });
             
             // Log the step
             AipLogger.log(
@@ -93,12 +93,11 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function(e) {
+        handleButtonClick: function (e) {
             // Click event
             if (this.hasOptions() && this.isBlockView()) {
                 window.location.href = this.jsConfig.product.page_url;
-            }
-            else if (AipLogin.isLoggedIn(this)) {
+            } else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
             } else {
                 var functionName = 'popup';
@@ -110,14 +109,14 @@ define([
         /**
          * Check if the current product is in list view.
          */
-        isListView: function() {
+        isListView: function () {
             return this.jsConfig.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
-        isBlockView: function() {
+        isBlockView: function () {
             return this.jsConfig.product.display == 'block'
             || this.jsConfig.product.display == 'widget';
         },
@@ -125,35 +124,35 @@ define([
         /**
          * Check if the current product is in page view.
          */
-        isPageView: function() {
+        isPageView: function () {
             return !this.isBlockView() && !this.isListView();
         },
 
         /**
          * Check if the current product has options.
          */
-        hasOptions: function() {
+        hasOptions: function () {
             return this.jsConfig.product.has_options;
         },
 
         /**
          * Get the current purchase button id.
          */
-        getButtonId: function() {
+        getButtonId: function () {
             return this.jsConfig.product.button_selector;
         },
 
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function() {
+        getConfirmContent: function () {
             // Prepare the parameters
             var self = this;
             var params = {
                 action: 'Confirmation',
                 product_id: this.jsConfig.product.id,
                 form_key: this.jsConfig.product.form_key
-            };                       
+            };
 
             // Log the parameters
             AipLogger.log(
@@ -206,7 +205,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function(e) {
+        purchasePopup: function (e) {
             // Get the current form
             var form = AipUtil.getCurrentForm(this);
 
@@ -230,7 +229,7 @@ define([
         /**
          * Get instant purchase data.
          */
-        getData: function(fn) {
+        getData: function (fn) {
             var data = this[fn]();
             var ok = data
             && data.hasOwnProperty('summary')
@@ -243,7 +242,7 @@ define([
         /**
          * Get a form.
          */
-        getForm: function(e) {
+        getForm: function (e) {
             var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
@@ -260,10 +259,10 @@ define([
                             currency: ,
                             amount: ,
                             productId: ,
-                            customerId: 
+                            customerId:
                             customerEmail: ,
                         }
-                        */         
+                        */
                     }
 
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);

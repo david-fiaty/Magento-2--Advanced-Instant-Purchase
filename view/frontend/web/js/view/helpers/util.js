@@ -17,7 +17,7 @@ define([
         /**
          * Get the modal confirmation URL.
          */
-        getConfirmUrl: function(isSubView) {
+        getConfirmUrl: function (isSubView) {
             var url = isSubView ? this.saveAddressUrl : this.purchaseUrl;
             return UrlBuilder.build(url);
         },
@@ -25,7 +25,7 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(obj) {
+        getCurrentForm: function (obj) {
             var form = obj.isSubView
             ? $(this.addressFormSelector)
             : AipProduct.getProductForm(obj);
@@ -36,7 +36,7 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentFormData: function(obj) {
+        getCurrentFormData: function (obj) {
             var form = obj.isSubView
             ? this.getAddressFormData()
             : AipProduct.getProductFormData(obj);
@@ -47,21 +47,21 @@ define([
         /**
          * Get the address form data.
          */
-        getAddressFormData: function() {
+        getAddressFormData: function () {
             return $(this.addressFormSelector).serialize();
         },
 
         /**
          * Get a card option public hash.
          */
-        getOptionPublicHash: function(val) {
+        getOptionPublicHash: function (val) {
             return val.split('*~*')[0];
         },
 
         /**
          * Format a card icon.
          */
-        formatIcon: function(state) {
+        formatIcon: function (state) {
             if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
                 return state.text;
             }
@@ -78,23 +78,22 @@ define([
         /**
          * Check if an object has a property.
          */
-        has: function(target, path, value) {
-            if (typeof target !== 'object' || target === null) { return false; }
+        has: function (target, path, value) {
+            if (typeof target !== 'object' || target === null) {
+                return false; }
                 var parts = path.split('.');
-                while(parts.length) {
-                    var property = parts.shift();
-                    if (!(target.hasOwnProperty(property))) {
-                        return false;
-                    }
-                    target = target[property];
+            while (parts.length) {
+                var property = parts.shift();
+                if (!(target.hasOwnProperty(property))) {
+                    return false;
                 }
-                if (value) {
-                    return target === value;
-                }
-                else {
-                    return true;
-                }
+                target = target[property];
+            }
+            if (value) {
+                return target === value;
+            } else {
+                return true;
             }
         }
     }
-);
+});

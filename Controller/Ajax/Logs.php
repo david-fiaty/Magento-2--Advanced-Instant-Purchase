@@ -34,7 +34,7 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $loggerHelper;
 
     /**
-     * Class Logs constructor 
+     * Class Logs constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -77,17 +77,18 @@ class Logs extends \Magento\Framework\App\Action\Action
     /**
      * Renders a browsable data tree.
      */
-    public function renderDataTree() {
+    public function renderDataTree()
+    {
         // Get the product id
         $productId = $this->getRequest()->getParam('product_id');
 
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
-        ->setData('config', $this->blockHelper->getConfig($productId))
-        ->setData('title', Naming::getModuleTitle())
-        ->toHtml(); 
+            ->createBlock('Magento\Framework\View\Element\Template')
+            ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
+            ->setData('config', $this->blockHelper->getConfig($productId))
+            ->setData('title', Naming::getModuleTitle())
+            ->toHtml();
 
         return $blockHtml;
     }

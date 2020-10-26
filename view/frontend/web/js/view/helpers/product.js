@@ -14,7 +14,7 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductContainer: function(obj) {
+        getProductContainer: function (obj) {
             return obj.isListView()
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
@@ -23,7 +23,7 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductForm: function(obj) {
+        getProductForm: function (obj) {
             // Product container selector
             var productContainerSelector = this.getProductContainer(obj);
 
@@ -42,7 +42,7 @@ define([
         /**
          * Get the product form data.
          */
-        getProductFormData: function(obj) {
+        getProductFormData: function (obj) {
             // Product container selector
             var productContainerSelector = this.getProductContainer(obj);
 
@@ -73,7 +73,7 @@ define([
         /**
          * Get a product options.
          */
-        getOptions: function(obj) {
+        getOptions: function (obj) {
             var productContainerSelector = this.getProductContainer(obj);
             var options = $(obj.getButtonId())
             .parents(productContainerSelector)

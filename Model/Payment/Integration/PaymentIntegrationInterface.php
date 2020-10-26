@@ -22,7 +22,7 @@ interface PaymentIntegrationInterface
     /**
      * Create an order.
      *
-     * @param Quote $quote
+     * @param Quote               $quote
      * @param string|array|object $paymentResponse
      */
     public function createOrder($quote, $paymentResponse);

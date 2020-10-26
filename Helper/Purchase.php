@@ -166,7 +166,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             if (!empty($purchaseData)) {
                 $confirmationData['purchase_data'] = $purchaseData;
             }
-        
         }
 
         return $confirmationData;

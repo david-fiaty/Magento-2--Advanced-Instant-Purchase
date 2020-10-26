@@ -49,7 +49,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get block tags in content.
      */
-    public function getBlockTags($subject, $html) {
+    public function getBlockTags($subject, $html)
+    {
         // Find all block tag matches
         $matches = $this->findBlockTags($html);
 
@@ -60,7 +61,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a content has block tags.
      */
-    public function outputHasTags($matches, $subject) {
+    public function outputHasTags($matches, $subject)
+    {
         // Get the target class name to exclude
         $className = get_class($subject);
 
@@ -74,7 +76,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Find block tags in content.
      */
-    public function findBlockTags($html) {
+    public function findBlockTags($html)
+    {
         preg_match_all(
             $this->getSearchPattern(),
             $html,
@@ -87,14 +90,16 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the block tag search patern.
      */
-    public function getSearchPattern() {
+    public function getSearchPattern()
+    {
         return '/\{BuyNow(.*)\}/';
     }
 
     /**
      * Build a base purchase block button.
      */
-    public function buildButtonBlock($subject) {
+    public function buildButtonBlock($subject)
+    {
         return $subject->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
         ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
@@ -103,7 +108,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a block configuration parameters.
      */
-    public function getConfig($productId) {
+    public function getConfig($productId)
+    {
         // Get the config values
         $config = $this->configHelper->getValues();
         unset($config['card_form']);

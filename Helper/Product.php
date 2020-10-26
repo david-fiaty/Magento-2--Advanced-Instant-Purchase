@@ -19,17 +19,17 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var RequestInterface
      */
-    public $request; 
+    public $request;
 
     /**
      * @var ProductFactory
      */
-    public $productFactory; 
+    public $productFactory;
 
     /**
      * @var StockItemRepository
      */
-    public $stockItemRepository; 
+    public $stockItemRepository;
 
     /**
      * @var Config
@@ -67,7 +67,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getData($productId)
     {
-        $output = [];        
+        $output = [];
         $product = $this->getProduct($productId);
         if ($product) {
             // Prepare the base data
@@ -92,7 +92,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a block button id.
      */
-    public function getButtonId($productId) {
+    public function getButtonId($productId)
+    {
         return 'aip-button-' . $productId;
     }
 
@@ -150,9 +151,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->imageHelper->init(
             $this->getProduct($productId),
             'product_base_image'
-        )->constrainOnly(FALSE)
-        ->keepAspectRatio(TRUE)
-        ->keepFrame(FALSE)
+        )->constrainOnly(false)
+        ->keepAspectRatio(true)
+        ->keepFrame(false)
         ->getUrl();
     }
 

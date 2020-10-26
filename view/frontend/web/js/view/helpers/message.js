@@ -6,13 +6,13 @@ define([
 
     return {
         cancelButtonSelector: '.action-close',
-        clearErrors: function(slide) {
+        clearErrors: function (slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function(data, e, obj) {
+        checkResponse: function (data, e, obj) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
@@ -29,16 +29,14 @@ define([
                         $(item).addClass(cssClass);
                     }
                 }
-            }
-            else if (data.hasOwnProperty('response')) {
+            } else if (data.hasOwnProperty('response')) {
                 $(this.cancelButtonSelector).trigger('click');
-            }
-            else {
+            } else {
                 this.show('success', data.messages.main, obj);
             }
         },
 
-        show: function(type, str, obj) {
+        show: function (type, str, obj) {
             var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);
             slide.prepend(obj.loader);

@@ -28,7 +28,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var Repository
      */
-    public $assetRepository; 
+    public $assetRepository;
 
     /**
      * Class Config constructor.
@@ -61,7 +61,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      * Get all module configuration values.
      */
     public function getValues()
-    {   
+    {
         // Load the config data
         $output = [];
         $configData = $this->xmlParser

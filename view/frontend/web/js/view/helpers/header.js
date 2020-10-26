@@ -13,7 +13,7 @@ define(
             /**
              * Set the page HTML header.
              */
-            setHeader: function(obj) {
+            setHeader: function (obj) {
                 // Append the CSS
                 this.loadHeader(obj);
 
@@ -28,7 +28,7 @@ define(
             /**
              * Load the page HTML header.
              */
-            loadHeader: function(obj) {
+            loadHeader: function (obj) {
                 if (!this.isHeaderLoaded()) {
                     // Get the spinner loaded flag
                     var params = this.getLoadedFlag(obj);
@@ -48,14 +48,14 @@ define(
             /**
              * Check if the HTML page header is loaded.
              */
-            isHeaderLoaded: function() {
+            isHeaderLoaded: function () {
                 return AipUtil.has(window, 'naxero.aip.css', true);
             },
 
             /**
              * Get the spinner loaded flag.
              */
-            getLoadedFlag: function(obj) {
+            getLoadedFlag: function (obj) {
                 return {
                     data: {
                         css_path: obj.jsConfig.ui.css

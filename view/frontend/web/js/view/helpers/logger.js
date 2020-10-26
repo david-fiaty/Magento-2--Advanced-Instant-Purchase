@@ -17,7 +17,7 @@ define([
         /**
          * Log data to the browser console.
          */
-        log: function(obj, msg, data) {
+        log: function (obj, msg, data) {
             // Default data value
             data = data || null;
 
@@ -30,7 +30,7 @@ define([
         /**
          * Handle the data console logging logic.
          */
-        logToConsole: function(obj, msg, data) {
+        logToConsole: function (obj, msg, data) {
             // Log title
             console.log(
                 this.getLogTitle(obj),
@@ -41,7 +41,9 @@ define([
             console.log(msg)
 
             // Log event data
-            if (data) console.log(data);
+            if (data) {
+                console.log(data);
+            }
 
             // Log count
             this.logCount++;
@@ -50,7 +52,7 @@ define([
         /**
          * Check if console logging is enabled.
          */
-        isConsoleLoggingEnabled: function(obj) {
+        isConsoleLoggingEnabled: function (obj) {
             return obj.jsConfig.general.debug_enabled
             && obj.jsConfig.general.console_logging_enabled;
         },
@@ -58,14 +60,14 @@ define([
         /**
          * Get a log title.
          */
-        getLogTitle: function(obj) {
+        getLogTitle: function (obj) {
             return '%c[' + this.logCount + '][' + obj.jsConfig.module.title + ']';
         },
 
         /**
          * Build a browsable tree with log data.
          */
-        buildDataTree: function(obj) {
+        buildDataTree: function (obj) {
             // Prepare variables
             var self = this;
             var params = {
@@ -74,14 +76,14 @@ define([
             };
 
             // Set the data viewer button event
-            $(this.getButtonSelector(obj)).on('click touch', function(e) {
+            $(this.getButtonSelector(obj)).on('click touch', function (e) {
                 // Slider view
-                AipSlider.toggleView(obj, e);   
+                AipSlider.toggleView(obj, e);
                 
                 // Modal window
                 // Todo - fix submit button state
                 //obj.showSubmitButton = false;
-                AipModal.build(obj);  
+                AipModal.build(obj);
                 
                 // Send the request
                 AipSlider.showLoader(obj);
@@ -90,7 +92,7 @@ define([
                     cache: false,
                     url: UrlBuilder.build(self.logsUrl),
                     data: params,
-                    success: function (data) {                        
+                    success: function (data) {
                         // Get the HTML content
                         AipModal.addHtml(
                             AipSlider.nextSlideSelector,
@@ -114,7 +116,7 @@ define([
         /**
          * Get the target button for UI logging.
          */
-        getButtonSelector: function(obj) {
+        getButtonSelector: function (obj) {
             return '#' + this.logViewerButtonClass + '-' + obj.jsConfig.product.id;
         }
     };

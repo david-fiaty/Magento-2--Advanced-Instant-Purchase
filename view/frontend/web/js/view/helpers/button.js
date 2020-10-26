@@ -60,7 +60,7 @@ define([
 
             // Fields value change event
             var self = this;
-            $(AipValidation.inputSelectors).on('change', function() {
+            $(AipValidation.inputSelectors).on('change', function () {
                 self.update(obj);
             });
         },
@@ -68,18 +68,17 @@ define([
         /**
          * Get the modal cancel button.
          */
-        getCancel: function(obj) {
+        getCancel: function (obj) {
             var self = this;
             return {
                 text: __('Cancel'),
                 class: self.cancelButtonClasses,
-                click: function(e) {
+                click: function (e) {
                     if (obj.isSubView) {
                         // Toggle the view
-                        AipSlider.toggleView(obj, e); 
+                        AipSlider.toggleView(obj, e);
                         obj.getConfirmContent(obj, e);
-                    }
-                    else {
+                    } else {
                         $(self.cancelButtonSelector).trigger('click');
                     }
                 }
@@ -89,14 +88,14 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmit: function(obj) {
+        getSubmit: function (obj) {
             var self = this;
             var submitButton = null;
             if (obj.showSubmitButton) {
                 submitButton = {
                     text: __('Submit'),
                     class: self.submitButtonClasses,
-                    click: function(e) {
+                    click: function (e) {
                         if (AdditionalValidators.validate(obj)) {
                             AipSlider.showLoader(obj);
                             var requestData = AipUtil.getCurrentFormData(obj);
@@ -106,10 +105,10 @@ define([
                                 data: requestData,
                                 type: 'post',
                                 dataType: 'json',
-                                success: function(data) {
+                                success: function (data) {
                                     AipMessage.checkResponse(data, e, obj);
                                 },
-                                error: function(request, status, error) {
+                                error: function (request, status, error) {
                                     AipLogger.log(
                                         obj,
                                         __('Error submitting the form data'),
@@ -117,8 +116,7 @@ define([
                                     );
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             AipMessage.show(
                                 'error',
                                 __('Please approve the terms and conditions.'),

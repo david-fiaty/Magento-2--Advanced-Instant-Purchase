@@ -32,8 +32,8 @@
         this.posMap = ['topLeft','top','topRight','rightTop','right','rightBottom','bottomLeft','bottom','bottomRight','leftTop','left','leftBottom'];
         this.posId = 1;//默认偏好放置索引
         this.opts = $.extend({}, defaults, options);
-        for (var i = this.posMap.length-1; i >=0;i--){
-            if (this.opts.placement === this.posMap[i]){
+        for (var i = this.posMap.length-1; i >=0; i--) {
+            if (this.opts.placement === this.posMap[i]) {
                 this.posId = i;
                 break;
             }
@@ -45,7 +45,7 @@
         this.bind();
     };
     //渲染
-    Popover.prototype.render = function(){
+    Popover.prototype.render = function () {
         var _this = this,
             _html,
             _pid  = this.pid,
@@ -53,9 +53,9 @@
             _container = $(document.body);
         if (typeof _this.opts.content == 'function') {
             _content = _this.opts.content.call(this);
-        }else if (typeof _this.opts.content == 'object') {
+        } else if (typeof _this.opts.content == 'object') {
             _content = $(_this.opts.content).html();
-        }else{
+        } else {
             _content = _this.opts.content;
         }
         _html = '<div>'+
@@ -75,7 +75,7 @@
         this.place();
     };
     //放置
-    Popover.prototype.place = function(){
+    Popover.prototype.place = function () {
         var _this = this,
             _result,//最终输出的放置方案
             _plan = [],//自动优化放置后的可选方案
@@ -141,97 +141,97 @@
                 height : _H_.h1,
                 top    : _T_.t1,
                 left   : _L_.l1
-            },{
-                name   : 'top',
-                width  : _W_.w5,
-                height : _H_.h1,
-                top    : _T_.t1,
-                left   : _L_.l5
-            },{
-                name   : 'topRight',
-                width  : _W_.w3,
-                height : _H_.h1,
-                top    : _T_.t1,
-                left   : _L_.l3
-            },{
-                name   : 'rightTop',
-                width  : _W_.w2,
-                height : _H_.h2,
-                top    : _T_.t2,
-                left   : _L_.l2
+        },{
+            name   : 'top',
+            width  : _W_.w5,
+            height : _H_.h1,
+            top    : _T_.t1,
+            left   : _L_.l5
+        },{
+            name   : 'topRight',
+            width  : _W_.w3,
+            height : _H_.h1,
+            top    : _T_.t1,
+            left   : _L_.l3
+        },{
+            name   : 'rightTop',
+            width  : _W_.w2,
+            height : _H_.h2,
+            top    : _T_.t2,
+            left   : _L_.l2
 
-            },{
-                name   : 'right',
-                width  : _W_.w2,
-                height : _H_.h5,
-                top    : _T_.t5,
-                left   : _L_.l2
+        },{
+            name   : 'right',
+            width  : _W_.w2,
+            height : _H_.h5,
+            top    : _T_.t5,
+            left   : _L_.l2
 
-            },{
-                name   : 'rightBottom',
-                width  : _W_.w2,
-                height : _H_.h4,
-                top    : _T_.t4,
-                left   : _L_.l2
-            },{
-                name   : 'bottomLeft',
-                width  : _W_.w1,
-                height : _H_.h3,
-                top    : _T_.t3,
-                left   : _L_.l1
-            },{
-                name   : 'bottom',
-                width  : _W_.w5,
-                height : _H_.h3,
-                top    : _T_.t3,
-                left   : _L_.l5
-            },{
-                name   : 'bottomRight',
-                width  : _W_.w3,
-                height : _H_.h3,
-                top    : _T_.t3,
-                left   : _L_.l3
-            },{
-                name   : 'leftTop',
-                width  : _W_.w4,
-                height : _H_.h2,
-                top    : _T_.t2,
-                left   : _L_.l4
-            },{
-                name   : 'left',
-                width  : _W_.w4,
-                height : _H_.h5,
-                top    : _T_.t5,
-                left   : _L_.l4
-            },{
-                name   : 'leftBottom',
-                width  : _W_.w4,
-                height : _H_.h4,
-                top    : _T_.t4,
-                left   : _L_.l4
-            }
+        },{
+            name   : 'rightBottom',
+            width  : _W_.w2,
+            height : _H_.h4,
+            top    : _T_.t4,
+            left   : _L_.l2
+        },{
+            name   : 'bottomLeft',
+            width  : _W_.w1,
+            height : _H_.h3,
+            top    : _T_.t3,
+            left   : _L_.l1
+        },{
+            name   : 'bottom',
+            width  : _W_.w5,
+            height : _H_.h3,
+            top    : _T_.t3,
+            left   : _L_.l5
+        },{
+            name   : 'bottomRight',
+            width  : _W_.w3,
+            height : _H_.h3,
+            top    : _T_.t3,
+            left   : _L_.l3
+        },{
+            name   : 'leftTop',
+            width  : _W_.w4,
+            height : _H_.h2,
+            top    : _T_.t2,
+            left   : _L_.l4
+        },{
+            name   : 'left',
+            width  : _W_.w4,
+            height : _H_.h5,
+            top    : _T_.t5,
+            left   : _L_.l4
+        },{
+            name   : 'leftBottom',
+            width  : _W_.w4,
+            height : _H_.h4,
+            top    : _T_.t4,
+            left   : _L_.l4
+        }
         ];
         $.each(_area,function (i,res) {
             //筛选所有符合放置的方案
-            if (res.width >= _p.w && res.height >= _p.h){
+            if (res.width >= _p.w && res.height >= _p.h) {
                 _plan.push(res);
             }
         });
         if (_this.opts.autoPlace) {
-            if (_plan.length){
+            if (_plan.length) {
                 //启用自动优化放置方案
                 _result = _plan[0];
-                for (var i = _plan.length-1; i>=0;i--) {
-                    if (_plan[i].name === _this.opts.placement){
+                for (var i = _plan.length-1; i>=0; i--) {
+                    if (_plan[i].name === _this.opts.placement) {
                         _result = _plan[i];//找到一条既符合优化放置，又符合用户规定的方案
                         break;
                     }
                 }
-            } else{
+            } else {
                 //没有找到符合优化放置方案，选择默认偏好放置
                 _result = _area[_this.posId];
             }
-        }else{
+        } else {
             //不启用自动优化放置方案，选择默认偏好放置
             _result = _area[_this.posId];
         }
@@ -245,14 +245,14 @@
         _targets.mouseenter(function () {
             _this.show()
         });
-        if (_this.opts.trigger !== 'click' && _this.opts.trigger !== 'focus'){
+        if (_this.opts.trigger !== 'click' && _this.opts.trigger !== 'focus') {
             _targets.mouseleave(function () {
                 _this.destroy()
             });
         }
     };
     //绑定事件
-    Popover.prototype.bind = function(){
+    Popover.prototype.bind = function () {
         var _this = this,
             _trigger = this.opts.trigger,
             _element = $(this.ele);
@@ -261,16 +261,16 @@
                 _element.on('click',function (e) {
                     e.stopPropagation();
                     _this.product = $('#'+_this.pid);
-                    if (!_this.product.length){
+                    if (!_this.product.length) {
                         _this.mouse = false;
                         _this.show();
-                    }else{
+                    } else {
                         _this.destroy();
                     }
                 });
                 $(document).on('click',function (e) {
                     var _trigger = $(e.target);
-                    if (!_trigger.closest('.popover').length){
+                    if (!_trigger.closest('.popover').length) {
                         $('.popover').parent('div').remove();
                     }
                 });
@@ -279,14 +279,14 @@
                 _element.on({
                     'focus' : function () {
                         _this.product = $('#'+_this.pid);
-                        if (!_this.product.length){
+                        if (!_this.product.length) {
                             _this.mouse = false;
                             _this.show()
                         }
                     },
                     'blur' : function () {
                         _this.product = $('#'+_this.pid);
-                        if (_this.product.length){
+                        if (_this.product.length) {
                             _this.destroy();
                         }
                     }
@@ -301,10 +301,10 @@
         }
     };
     //显示
-    Popover.prototype.show = function(){
+    Popover.prototype.show = function () {
         var _this = this;
         window.clearTimeout(_this.timer_out);
-        if (!_this.mouse){
+        if (!_this.mouse) {
             _this.timer_in = window.setTimeout(function () {
                 _this.mouse = true;
                 _this.render();
@@ -312,7 +312,7 @@
         }
     };
     //销毁
-    Popover.prototype.destroy = function(){
+    Popover.prototype.destroy = function () {
         var _this = this;
         window.clearTimeout(_this.timer_in);
         _this.timer_out = window.setTimeout(function () {
@@ -321,7 +321,7 @@
             _this.product = null;
         },_this.opts.delay);
     };
-    $.fn.popover = function(options) {
+    $.fn.popover = function (options) {
         var _this = this;
         return _this.each(function () {
             return new Popover(this, options);

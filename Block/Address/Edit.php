@@ -8,7 +8,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
  *
  * @api
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @since 100.0.2
+ * @since                                          100.0.2
  */
 class Edit extends \Magento\Directory\Block\Data
 {
@@ -60,19 +60,19 @@ class Edit extends \Magento\Directory\Block\Data
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Directory\Helper\Data $directoryHelper
-     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
-     * @param \Magento\Framework\App\Cache\Type\Config $configCacheType
-     * @param \Magento\Directory\Model\ResourceModel\Region\CollectionFactory $regionCollectionFactory
+     * @param \Magento\Framework\View\Element\Template\Context                 $context
+     * @param \Magento\Directory\Helper\Data                                   $directoryHelper
+     * @param \Magento\Framework\Json\EncoderInterface                         $jsonEncoder
+     * @param \Magento\Framework\App\Cache\Type\Config                         $configCacheType
+     * @param \Magento\Directory\Model\ResourceModel\Region\CollectionFactory  $regionCollectionFactory
      * @param \Magento\Directory\Model\ResourceModel\Country\CollectionFactory $countryCollectionFactory
-     * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Customer\Api\AddressRepositoryInterface $addressRepository
-     * @param \Magento\Customer\Api\Data\AddressInterfaceFactory $addressDataFactory
-     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
-     * @param \Magento\Framework\Api\DataObjectHelper $dataObjectHelper
-     * @param array $data
-     * @param \Magento\Customer\Api\AddressMetadataInterface|null $addressMetadata
+     * @param \Magento\Customer\Model\Session                                  $customerSession
+     * @param \Magento\Customer\Api\AddressRepositoryInterface                 $addressRepository
+     * @param \Magento\Customer\Api\Data\AddressInterfaceFactory               $addressDataFactory
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer                 $currentCustomer
+     * @param \Magento\Framework\Api\DataObjectHelper                          $dataObjectHelper
+     * @param array                                                            $data
+     * @param \Magento\Customer\Api\AddressMetadataInterface|null              $addressMetadata
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -263,7 +263,7 @@ class Edit extends \Magento\Directory\Block\Data
     /**
      * Return the specified numbered street line.
      *
-     * @param int $lineNumber
+     * @param  int $lineNumber
      * @return string
      */
     public function getStreetLine($lineNumber)
@@ -390,7 +390,7 @@ class Edit extends \Magento\Directory\Block\Data
     /**
      * Get config value.
      *
-     * @param string $path
+     * @param  string $path
      * @return string|null
      */
     public function getConfig($path)

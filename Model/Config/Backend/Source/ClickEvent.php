@@ -12,7 +12,7 @@ class ClickEvent implements \Magento\Framework\Option\ArrayInterface
      * @return array
      */
     public function toOptionArray()
-    { 
+    {
         return [
             [
                 'value' => 'popup',

@@ -23,8 +23,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
     public function __construct(
         \Magento\Cms\Model\BlockFactory $blockFactory,
         \Magento\Cms\Model\BlockRepository $blockRepository
-    )
-    {
+    ) {
         $this->blockFactory = $blockFactory;
         $this->blockRepository = $blockRepository;
     }
@@ -57,4 +56,4 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         // End the setup
         $setup->endSetup();
     }
-} 
+}

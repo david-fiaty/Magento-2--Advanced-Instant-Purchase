@@ -13,10 +13,10 @@ define([
         /**
          * Set the agrements events
          */
-        build: function(obj) {
+        build: function (obj) {
             if (obj.jsConfig.general.enable_agreements) {
                 var self = this;
-                $(self.agreementLinkSelector).on('click', function(e) {
+                $(self.agreementLinkSelector).on('click', function (e) {
                     self.getAgreement(e, obj);
                 });
             }
@@ -25,7 +25,7 @@ define([
          /**
          * Get an agreement.
          */
-        getAgreement: function(e, obj) {
+        getAgreement: function (e, obj) {
             // Prepare the request parameters
             var self = this;
             var params = {
@@ -34,7 +34,7 @@ define([
             };
 
             // Toggle the view
-            AipSlider.toggleView(obj, e);       
+            AipSlider.toggleView(obj, e);
             
             // Send the request
             $.ajax({

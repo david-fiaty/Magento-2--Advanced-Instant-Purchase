@@ -44,7 +44,8 @@ class BlockFilter
     /**
      * After to HTML plugin event handler.
      */
-    public function afterToHtml($subject, $html) {
+    public function afterToHtml($subject, $html)
+    {
         // Find block tags in the content
         $matches = $this->blockHelper->getBlockTags($subject, $html);
 
@@ -95,7 +96,8 @@ class BlockFilter
     /**
      * Process a block parameter.
      */
-    public function processParam($field, $i, $matches, $blockHtml) {
+    public function processParam($field, $i, $matches, $blockHtml)
+    {
         // Prepare the errors count
         $errors = [];
 
@@ -103,7 +105,7 @@ class BlockFilter
         $search = '/' . $field . '="(.*?)"/';
 
         // Look for the field
-        preg_match($search, $matches[1][$i], $param);      
+        preg_match($search, $matches[1][$i], $param);
         
         // If the field was found
         if (isset($param[1]) && !empty($param[1])) {
@@ -112,8 +114,7 @@ class BlockFilter
             if ($result['is_valid']) {
                 // Set the parameter argument
                 $blockHtml->setData($field, $param[1]);
-            } 
-            else {
+            } else {
                 // Handle the parameter error
                 $errors[] = $result['error'];
             }
@@ -128,14 +129,16 @@ class BlockFilter
     /**
      * Check if a block tag has parameters.
      */
-    public function tagHasParameters(array $matches, int $i) {
+    public function tagHasParameters(array $matches, int $i)
+    {
         return isset($matches[1]) && isset($matches[1][$i]) && !empty($matches[1][$i]);
     }
 
     /**
      * Check if a tag parameter is valid.
      */
-    public function isParameterValid(string $field, array $param) {
+    public function isParameterValid(string $field, array $param)
+    {
         // Prepare the conditions
         $condition1 = isset($param[1]);
         $condition2 = $this->isParameterRegistered($field);
@@ -160,7 +163,8 @@ class BlockFilter
     /**
      * Check if a tag parameter is registered.
      */
-    public function isParameterRegistered(string $field) {
+    public function isParameterRegistered(string $field)
+    {
         return in_array($field, self::$blockParams);
     }
-} 
+}
