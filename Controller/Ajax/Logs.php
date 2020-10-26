@@ -79,7 +79,7 @@ class Logs extends \Magento\Framework\App\Action\Action
      */
     public function renderDataTree() {
         // Get the product id
-        $productId = $this->getRequest->getData('product_id');
+        $productId = $this->getRequest()->getData('product_id');
 
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
