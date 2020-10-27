@@ -179,7 +179,7 @@ define([
             var form = AipProduct.getProductForm(this);
 
             // Validate the product options
-            //var errors = AipValidation.validateOptions(this);
+            var errors = AipValidation.validateOptions(this);
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
