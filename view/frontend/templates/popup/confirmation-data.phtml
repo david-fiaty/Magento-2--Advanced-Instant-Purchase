@@ -1,20 +1,19 @@
 <?php 
     // Get the confirmation content
     $content = $this->getData('content');
-    $config = $this->getData('config');
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
-    && $config['payment_methods']['show_other_allowed'];
+    && $content['config']['payment_methods']['show_other_allowed'];
 
 
 ?>
 <pre>
-<?php var_dump($content) ?>
+<?php var_dump($content['config']) ?>
 </pre>
 
 <!-- Product box -->
-<?php if ((int) $config['popups']['popup_product'] == 1): ?>
+<?php if ((int) $content['config']['popups']['popup_product'] == 1): ?>
     <div class="aip-product-box">
         <div class="aip-product-box-image">
             <img src="<?= $content['product']['image_url'] ?>"> 
@@ -28,8 +27,8 @@
 <?php endif; ?>
 
 <!-- Product options -->
-<?php if (!empty($config['product']['options'])): ?>
-    <?php foreach ($config['product']['options'] as $key => $option): ?>
+<?php if (!empty($content['product']['options'])): ?>
+    <?php foreach ($content['product']['options'] as $key => $option): ?>
     <?php endforeach; ?>
 <?php endif; ?>
 

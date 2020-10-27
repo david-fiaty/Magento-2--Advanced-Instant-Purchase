@@ -32,6 +32,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -61,6 +66,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
@@ -72,6 +78,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->productHelper = $productHelper;
         $this->paymentHelper = $paymentHelper;
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->customerHelper = $customerHelper;
         $this->vaultHandler = $vaultHandler;
     }
@@ -143,7 +150,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             'product' => $this->productHelper->getData($productId),
             'addresses' => [],
             'savedCards' => [],
-            'shippingRates' => []
+            'shippingRates' => [],
+            'config' => $this->blockHelper->getConfig($productId)
         ];
 
         // Build the confirmation data
