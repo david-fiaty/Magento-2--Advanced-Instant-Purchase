@@ -1,7 +1,7 @@
 
 !!!PRIORITY!!!
 - finish product options rendering and validation
-
+- make window place order button text customisable
 
 - move all methods possible to helpers/view.js
 => isListVew() and others
