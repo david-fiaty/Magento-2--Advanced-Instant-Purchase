@@ -99,7 +99,7 @@ define([
             e.stopPropagation();
 
             // Click event
-            if (AipView.hasOptions(obj) && AipView.isBlockView(obj) {
+            if (AipView.hasOptions(obj) && AipView.isBlockView(obj)) {
                 window.location.href = this.jsConfig.product.page_url;
             } else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
