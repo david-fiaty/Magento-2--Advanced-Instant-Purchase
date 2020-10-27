@@ -6,7 +6,6 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
 ], function($, __, AdditionalValidators, AipView, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';

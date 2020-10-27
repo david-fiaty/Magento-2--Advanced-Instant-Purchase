@@ -178,7 +178,7 @@ define([
          */
         purchasePopup: function(e) {
             // Get the current form
-            var form = AipUtil.getCurrentForm(this);
+            var form = AipProduct.getProductForm(this);
 
             // Validate the product options
             // Todo - fix the options validation
