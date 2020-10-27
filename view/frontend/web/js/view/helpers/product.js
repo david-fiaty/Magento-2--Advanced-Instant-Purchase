@@ -81,6 +81,20 @@ define([
             .find('input[name^="super_attribute"]');
 
             return options;
+        },
+
+        /**
+         * Render a product box.
+         */
+        renderBox: function(obj) {
+            // AJAX request
+        },
+
+        /**
+         * Render a product options.
+         */
+        renderOptions: function(obj) {
+            // AJAX request
         }
     };
 });
