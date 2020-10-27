@@ -68,7 +68,8 @@ define([
             AipSpinner.loadIcon(this);
 
             // Options validation
-            AipValidation.initOptionsValidation(this);
+            // Todo - fix this
+            //AipValidation.initOptionsValidation(this);
 
             // Initialise the UI Logger tree if needed
             AipLogger.buildDataTree(this);
@@ -179,7 +180,8 @@ define([
             var form = AipProduct.getProductForm(this);
 
             // Validate the product options
-            var errors = AipValidation.validateOptions(this);
+            // Todo - fix this
+            //var errors = AipValidation.validateOptions(this);
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
