@@ -1,3 +1,8 @@
+
+!!!PRIORITY!!!
+- finish product options rendering and validation
+
+
 - move all methods possible to helpers/view.js
 => isListVew() and others
 
