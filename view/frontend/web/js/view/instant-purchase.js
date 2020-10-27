@@ -95,10 +95,6 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
-            // Stop propagation
-            e.stopPropagation();
-
-            // Click event
             if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
                 window.location.href = this.jsConfig.product.page_url;
             } else if (AipLogin.isLoggedIn(this)) {
