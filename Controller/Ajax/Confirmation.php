@@ -44,11 +44,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public $configHelper;
 
     /**
-     * @var Block
-     */
-    public $blockHelper;
-
-    /**
      * @var Purchase
      */
     public $purchaseHelper;
@@ -65,7 +60,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper       
     ) {
         parent::__construct($context);
@@ -77,7 +71,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
-        $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
     }
 
@@ -131,8 +124,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             $html = $this->pageFactory->create()->getLayout()
                 ->createBlock('Magento\Framework\View\Element\Template')
                 ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
-                ->setData('config', $this->blockHelper->getConfig($productId))
-                ->setData('content', $this->purchaseHelper->getConfirmContent())
+                ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
                 ->toHtml();
 
             // Agreements

@@ -132,10 +132,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the confirmation modal content.
      */
-    public function getConfirmContent()
+    public function getConfirmContent($productId = 0)
     {
-        // Get the product id from request
-        $productId = $this->request->getParam('product_id');
+        // Get the product id
+        $productId = $productId > 0 ? $productId : $this->request->getParam('product_id');
 
         // Prepare the output array
         $confirmationData = [

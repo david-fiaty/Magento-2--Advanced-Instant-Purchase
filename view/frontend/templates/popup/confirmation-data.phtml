@@ -6,10 +6,15 @@
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
     && $config['payment_methods']['show_other_allowed'];
+
+
 ?>
+<pre>
+<?php var_dump($content) ?>
+</pre>
 
-<?php var_dump($config) ?>
-
+<!-- Product box -->
+<?php if ((int) $config['popups']['popup_product'] == 1): ?>
     <div class="aip-product-box">
         <div class="aip-product-box-image">
             <img src="<?= $content['product']['image_url'] ?>"> 
@@ -20,8 +25,18 @@
         </div>
         <div class="aip-clr"></div>   
     </div>
+<?php endif; ?>
 
+<!-- Product options -->
+<?php if (!empty($config['product']['options'])): ?>
+    <?php foreach ($config['product']['options'] as $key => $option): ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<!-- Header text -->
 <p><?= $content['popup']['header_text'] ?></p>
+
+<!-- Billing address -->
 <div class="aip-field">
     <label for="aip-billing-address-select">
         <span class="aip-label"><?= $block->escapeHtml(__('Billing address')) ?></span>
@@ -46,6 +61,8 @@
         </p>
     </label>
 </div>
+
+<!-- Shipping address -->
 <div class="aip-field">
     <label for="aip-shipping-address-select">
         <span class="aip-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
@@ -71,6 +88,7 @@
     </label>
 </div>
 
+<!-- Saved cards -->
 <?php if (!$content['product']['is_free']): ?>
     <div class="aip-field">
         <label for="aip-payment-method-select">
@@ -95,6 +113,7 @@
     </div>
 <?php endif; ?>
 
+<!-- Other payment methods -->
 <?php if ($showOtherPaymentMethods && !$content['product']['is_free']): ?>
     <div class="aip-field">
         <label for="aip-other-method-select">
@@ -113,6 +132,7 @@
     </div>
 <?php endif; ?>
 
+<!-- Shipping method -->
 <?php if (!empty($content['addresses']) && !empty($content['savedCards']) && !$content['product']['is_free']): ?>
 <div class="aip-field">
     <label for="aip-shipping-method-select">
@@ -131,5 +151,6 @@
 </div>
 <?php endif; ?>
 
+<!-- Footer text -->
 <p><?= $content['popup']['footer_text'] ?></p>
 
