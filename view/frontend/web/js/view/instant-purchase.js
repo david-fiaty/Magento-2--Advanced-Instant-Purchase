@@ -213,6 +213,7 @@ define([
             var form = AipUtil.getCurrentForm(this);
 
             // Validate the product options
+            // Todo - fix the options validation
             var errors = AipValidation.validateOptions(this);
             
             // Check the validation rules
