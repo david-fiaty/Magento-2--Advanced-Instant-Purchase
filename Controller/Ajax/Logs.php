@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 
 /**
- * Logs class.
+ * Logs controller class
  */
 class Logs extends \Magento\Framework\App\Action\Action
 {
@@ -34,7 +34,7 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $loggerHelper;
 
     /**
-     * Class Logs constructor
+     * Logs controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,

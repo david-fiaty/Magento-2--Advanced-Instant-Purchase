@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 
 /**
- * Confirmation class.
+ * Confirmation controller class
  */
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
@@ -44,7 +44,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public $configHelper;
     
     /**
-     * Confirmation class constructor.
+     * Confirmation controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
