@@ -3,7 +3,6 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
 ], function($, ConfirmModal, AipTemplate, AipButton) {
     'use strict';
 
