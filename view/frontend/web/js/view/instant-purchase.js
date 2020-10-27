@@ -182,7 +182,8 @@ define([
 
             // Validate the product options
             // Todo - fix the options validation
-            var errors = AipValidation.validateOptions(this);
+            var errors = [];
+            //var errors = AipValidation.validateOptions(this);
             
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
