@@ -90,7 +90,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_id' => $this->getButtonId($productId),
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'page_url' => $product->getProductUrl(),
-                'options' => $this->buildOptionsArray($productId)
+                'options' => $this->getOptions($productId)
             ];
         }
 
@@ -129,19 +129,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
-    }
-
-    /**
-     * Format a product options.
-     */
-    public function buidlOptionsArray($productId)
-    {
-        // Get the product options
-        if ($this->hasOptions($productId)) {
-            return $this->getOptions($productId);
-        }
-
-        return [];
     }
 
     /**
