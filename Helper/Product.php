@@ -131,6 +131,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Format a product options.
+     */
+    public function buidlOptionsArray($productId)
+    {
+        // Get the product options
+        if ($this->hasOptions($productId)) {
+            return $this->getOptions($productId);
+        }
+
+        return [];
+    }
+
+    /**
      * Check if a product is out of stock.
      */
     public function isInStock($productId)
