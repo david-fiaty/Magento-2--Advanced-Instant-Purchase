@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
@@ -22,7 +23,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function($, __, Component, UrlBuilder, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function($, __, Component, UrlBuilder, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -98,7 +99,7 @@ define([
             e.stopPropagation();
 
             // Click event
-            if (this.hasOptions() && this.isBlockView()) {
+            if (AipView.hasOptions(obj) && AipView.isBlockView(obj) {
                 window.location.href = this.jsConfig.product.page_url;
             } else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
@@ -107,35 +108,6 @@ define([
                 var fn = 'login' + functionName.charAt(0).toUpperCase() + functionName.slice(1);
                 AipLogin[fn]();
             }
-        },
-
-        /**
-         * Check if the current product is in list view.
-         */
-        isListView: function() {
-            return this.jsConfig.product.display == 'list';
-        },
-
-        /**
-         * Check if the current product is in block view.
-         */
-        isBlockView: function() {
-            return this.jsConfig.product.display == 'block'
-            || this.jsConfig.product.display == 'widget';
-        },
-
-        /**
-         * Check if the current product is in page view.
-         */
-        isPageView: function() {
-            return !this.isBlockView() && !this.isListView();
-        },
-
-        /**
-         * Check if the current product has options.
-         */
-        hasOptions: function() {
-            return this.jsConfig.product.has_options;
         },
 
         /**

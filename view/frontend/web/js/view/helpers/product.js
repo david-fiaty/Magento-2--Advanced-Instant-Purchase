@@ -1,7 +1,8 @@
 define([
     'jquery',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
-], function($, AipLogger) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
+], function($, AipLogger, AipView) {
     'use strict';
 
     return {
@@ -15,7 +16,7 @@ define([
          * Get a product container selector.
          */
         getProductContainer: function(obj) {
-            return obj.isListView()
+            return AipView.isListView(obj)
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -28,7 +29,7 @@ define([
             var productContainerSelector = this.getProductContainer(obj);
 
             // Get product form selector
-            var productFormSelector = obj.isListView()
+            var productFormSelector = AipView.isListView(obj)
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
@@ -57,7 +58,7 @@ define([
             );
 
             // Get the cart form data if list view
-            if (obj.isListView()) {
+            if (AipView.isListView(obj)) {
                 var cartFormData = $(obj.getButtonId())
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
