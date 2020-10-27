@@ -1,16 +1,15 @@
 <?php 
     // Get the confirmation content
-    $content = $block->getContent();
-
-    // Get the module config
-    $config = $block->getConfig();
+    $content = $this->getData('content');
+    $config = $this->getData('config');
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
     && $config['payment_methods']['show_other_allowed'];
 ?>
 
-<?php if ($config['popups']['popup_product'] == 1): ?>
+<?php var_dump($config) ?>
+
     <div class="aip-product-box">
         <div class="aip-product-box-image">
             <img src="<?= $content['product']['image_url'] ?>"> 
@@ -21,7 +20,7 @@
         </div>
         <div class="aip-clr"></div>   
     </div>
-<?php endif; ?>
+
 <p><?= $content['popup']['header_text'] ?></p>
 <div class="aip-field">
     <label for="aip-billing-address-select">
