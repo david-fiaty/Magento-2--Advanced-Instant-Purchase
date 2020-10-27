@@ -145,8 +145,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             foreach ($data as $key => $row) {
                 //$output[$key] = $row;
                 //var_dump($row);
-                //var_dump($row['values']);
+                var_dump('<h1>Options</h1>');
                 var_dump($row['options']);
+
+                var_dump('<h1>Values</h1>');
+                var_dump($row['values']);
 
 
                 if (isset($row['options']) && is_array($row['options']) && !empty($row['options'])) {
