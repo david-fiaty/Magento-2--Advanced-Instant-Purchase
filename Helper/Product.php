@@ -90,6 +90,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_id' => $this->getButtonId($productId),
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'page_url' => $product->getProductUrl(),
+                'options' => $this->buildOptionsArray($productId)
             ];
         }
 
