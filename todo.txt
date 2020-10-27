@@ -3,13 +3,8 @@
 - finish product options rendering and validation
 - make window place order button text customisable
 
-- move all methods possible to helpers/view.js
-=> isListVew() and others
-
 - fix block purchase request not working cause add to card fields missing
-- check product summary not showing in popup. Is this issue linked to no cars saved in account?
 - check options validation not working in list view
-- fix html header loaded multiple times in list view
 
 
 - when product display attributes implemented, check what rpoduct options display should look like
