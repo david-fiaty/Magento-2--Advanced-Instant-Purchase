@@ -68,8 +68,7 @@ define([
             AipSpinner.loadIcon(this);
 
             // Options validation
-            // Todo - Fix the options validation logic - Should run only in list mode
-            // AipValidation.initOptionsValidation(this);
+            AipValidation.initOptionsValidation(this);
 
             // Initialise the UI Logger tree if needed
             AipLogger.buildDataTree(this);
@@ -153,8 +152,7 @@ define([
                     AipSlider.build();
 
                     // Set the additional validation event
-                    // Todo - fix the validation event
-                    //AipButton.setValidationEvents(self);
+                    AipButton.setValidationEvents(self);
 
                     // Log the purchase data
                     AipLogger.log(
@@ -181,10 +179,8 @@ define([
             var form = AipProduct.getProductForm(this);
 
             // Validate the product options
-            // Todo - fix the options validation
-            var errors = [];
             //var errors = AipValidation.validateOptions(this);
-            
+
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
             var condition2 = errors.length == 0;
