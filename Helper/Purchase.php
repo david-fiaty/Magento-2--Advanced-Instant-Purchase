@@ -106,9 +106,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $billingAddress = $this->customerHelper->getBillingAddress();
 
         // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod(
-            $this->customerHelper->getCustomer()
-        );
+        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
 
         // Data
         $data += [
@@ -157,9 +155,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             $confirmationData['addresses'] = $customer->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['otherPaymentMethods'] = $this->paymentHelper->getOtherPaymentMethods();
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
-                $customer
-            );
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();

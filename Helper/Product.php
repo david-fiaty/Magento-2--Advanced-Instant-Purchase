@@ -83,12 +83,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'name' => $product->getName(),
                 'price' => $this->getProductPrice($productId),
                 'is_free' => $this->isFree($productId),
-                'url' => $this->getProductImageUrl($productId),
                 'form_key' => $this->toolsHelper->getFormKey(),
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_selector' => '#' . $this->getButtonId($productId),
+                'image_url' => $this->getProductImageUrl($productId),
                 'page_url' => $product->getProductUrl(),
                 'options' => $this->buildOptionsArray($productId)
             ];
