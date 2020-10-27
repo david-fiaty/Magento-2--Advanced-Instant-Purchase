@@ -181,6 +181,7 @@ define([
 
             // Validate the product options
             // Todo - fix this
+            var errors = [];
             //var errors = AipValidation.validateOptions(this);
 
             // Check the validation rules

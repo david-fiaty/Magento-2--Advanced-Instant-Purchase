@@ -6,6 +6,10 @@
 - check options validation not working in list view
 - fix html header loaded multiple times in list view
 
+
+- when product display attributes implemented, check what rpoduct options display should look like
+- when select list option attributes implemented, check other filed types
+
 UI LOGGER WINDOW BUGS
 - Loader sometimes not hiding on window open
 - prevent parent click creating errors on UI logger button click
