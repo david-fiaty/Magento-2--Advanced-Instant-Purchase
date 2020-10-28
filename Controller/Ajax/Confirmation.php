@@ -4,7 +4,7 @@ namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 
 /**
- * Confirmation class.
+ * Confirmation controller class
  */
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
@@ -42,9 +42,14 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var Config
      */
     public $configHelper;
+
+    /**
+     * @var Purchase
+     */
+    public $purchaseHelper;
     
     /**
-     * Confirmation class constructor.
+     * Confirmation controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -54,17 +59,19 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper       
     ) {
         parent::__construct($context);
         
         $this->formKeyValidator = $formKeyValidator;
         $this->customerSession = $customerSession;
-        $this->customerHelper = $customerHelper;
-        $this->configHelper = $configHelper;
         $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->customerHelper = $customerHelper;
+        $this->configHelper = $configHelper;
+        $this->purchaseHelper = $purchaseHelper;
     }
 
     /**
@@ -108,16 +115,23 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newConfirmationBlock()
     {
-        // Confirmation content
-        $html = $this->pageFactory->create()->getLayout()
-            ->createBlock(Naming::getModulePath() . '\Block\Confirmation\Data')
-            ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
-            ->toHtml();
+        // Get the product id from request
+        $productId = (int) $this->getRequest()->getParam('product_id');
 
-        // Agreements
-        $enableAgreements = $this->configHelper->value('general/enable_agreements');
-        if ($enableAgreements) {
-            $html .= $this->getAgreementsLinks();
+        // Confirmation content
+        $html = '';
+        if ($productId > 0) {
+            $html = $this->pageFactory->create()->getLayout()
+                ->createBlock('Magento\Framework\View\Element\Template')
+                ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
+                ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
+                ->toHtml();
+
+            // Agreements
+            $enableAgreements = $this->configHelper->value('general/enable_agreements');
+            if ($enableAgreements) {
+                $html .= $this->getAgreementsLinks();
+            }
         }
 
         return $html;

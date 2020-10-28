@@ -6,7 +6,7 @@ define(
         'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
         'popover'
     ],
-    function($, __, AipProduct, AipLogger) {
+    function($, __, AipProduct, AipLogger, popover) {
         'use strict';
         return {
             agreementRow: '.aip-agreement-link-row',

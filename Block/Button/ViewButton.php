@@ -70,7 +70,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         && $config['general']['enabled']
         && $config['products']['product_view']
         && $this->purchaseHelper->canDisplayButton();
-
+        
         return $condition ? $config : null;
     }
     

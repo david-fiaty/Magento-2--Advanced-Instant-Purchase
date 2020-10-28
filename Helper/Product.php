@@ -7,6 +7,11 @@ namespace Naxero\AdvancedInstantPurchase\Helper;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Configurable
+     */
+    public $productTypeConfigurable;
+
+    /**
      * @var Image
      */
     public $imageHelper;
@@ -45,6 +50,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Product helper constructor.
      */
     public function __construct(
+        \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeConfigurable,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
@@ -53,6 +59,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Tools $toolsHelper
     ) {
+        $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
@@ -76,13 +83,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'name' => $product->getName(),
                 'price' => $this->getProductPrice($productId),
                 'is_free' => $this->isFree($productId),
-                'url' => $this->getProductImageUrl($productId),
                 'form_key' => $this->toolsHelper->getFormKey(),
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_selector' => '#' . $this->getButtonId($productId),
+                'image_url' => $this->getProductImageUrl($productId),
                 'page_url' => $product->getProductUrl(),
+                'options' => $this->getOptions($productId)
             ];
         }
 
@@ -111,6 +119,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function hasOptions($productId)
     {
         return $this->getProduct($productId)->getData('has_options');
+    }
+
+    /**
+     * Get a product options.
+     */
+    public function getOptions($productId)
+    {
+        return $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+            $this->getProduct($productId)
+        );
     }
 
     /**

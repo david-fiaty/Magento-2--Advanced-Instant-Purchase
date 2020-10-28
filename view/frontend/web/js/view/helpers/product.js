@@ -1,8 +1,10 @@
 define([
     'jquery',
+    'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
-], function($, AipLogger, AipView) {
+], function($, UrlBuilder, AipModal, AipLogger, AipView) {
     'use strict';
 
     return {
@@ -11,6 +13,7 @@ define([
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
+        productDataUrl: 'naxero-aip/ajax/product',
 
         /**
          * Get a product container selector.
@@ -81,6 +84,37 @@ define([
             .find('input[name^="super_attribute"]');
 
             return options;
+        },
+
+        /**
+         * Render a product box.
+         */
+        renderBox: function(obj) {
+            var self = this;
+            var params = {};
+            $.ajax({
+                type: 'POST',
+                url: UrlBuilder.build(self.productDataUrl),
+                data: params,
+                success: function(data) {
+                    // Get the HTML content
+                    AipModal.addHtml(obj.popupContentSelector, data.html);
+                },
+                error: function(request, status, error) {
+                    AipLogger.log(
+                        self,
+                        __('Error retrieving the confimation window product box'),
+                        error
+                    );
+                }
+            });
+        },
+
+        /**
+         * Render a product options.
+         */
+        renderOptions: function(obj) {
+            // AJAX request
         }
     };
 });

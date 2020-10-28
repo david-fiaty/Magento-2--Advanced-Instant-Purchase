@@ -32,6 +32,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -61,6 +66,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
@@ -72,6 +78,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->productHelper = $productHelper;
         $this->paymentHelper = $paymentHelper;
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->customerHelper = $customerHelper;
         $this->vaultHandler = $vaultHandler;
     }
@@ -106,9 +113,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $billingAddress = $this->customerHelper->getBillingAddress();
 
         // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod(
-            $this->customerHelper->getCustomer()
-        );
+        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
 
         // Data
         $data += [
@@ -134,10 +139,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the confirmation modal content.
      */
-    public function getConfirmContent()
+    public function getConfirmContent($productId = 0)
     {
-        // Get the product id from request
-        $productId = $this->request->getParam('product_id');
+        // Get the product id
+        $productId = $productId > 0 ? $productId : $this->request->getParam('product_id');
 
         // Prepare the output array
         $confirmationData = [
@@ -145,7 +150,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             'product' => $this->productHelper->getData($productId),
             'addresses' => [],
             'savedCards' => [],
-            'shippingRates' => []
+            'shippingRates' => [],
+            'config' => $this->blockHelper->getConfig($productId)
         ];
 
         // Build the confirmation data
@@ -157,9 +163,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             $confirmationData['addresses'] = $customer->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['otherPaymentMethods'] = $this->paymentHelper->getOtherPaymentMethods();
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
-                $customer
-            );
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();

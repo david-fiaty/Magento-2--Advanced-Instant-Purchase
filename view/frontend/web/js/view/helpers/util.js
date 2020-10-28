@@ -25,17 +25,6 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(obj) {
-            var form = obj.isSubView
-            ? $(this.addressFormSelector)
-            : AipProduct.getProductForm(obj);
-
-            return form;
-        },
-
-        /**
-         * Get the current form.
-         */
         getCurrentFormData: function(obj) {
             var form = obj.isSubView
             ? this.getAddressFormData()
