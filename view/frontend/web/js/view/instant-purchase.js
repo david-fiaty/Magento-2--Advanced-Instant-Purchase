@@ -109,15 +109,15 @@ define([
                 e.stopPropagation();
 
                 // Slider view
-                AipSlider.toggleView(this, e);
+                AipSlider.toggleView(self, e);
                 
                 // Modal window
                 // Todo - fix submit button state
                 //obj.showSubmitButton = false;
-                AipModal.build(this);
+                AipModal.build(self);
                 
                 // Send the request
-                AipSlider.showLoader(this);
+                AipSlider.showLoader(self);
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -131,7 +131,7 @@ define([
                         );
 
                         // Build the data tree
-                        AipTree.build(this);
+                        AipTree.build(self);
                     },
                     error: function(request, status, error) {
                         AipLogger.log(
