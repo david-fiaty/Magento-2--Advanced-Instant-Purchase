@@ -20,11 +20,11 @@
             <!-- Product options -->
             <?php if (!empty($content['product']['options'])): ?>
                 <?php foreach ($content['product']['options'] as $row): ?>                
-                    <div class="aip-field aip-option">
-                        <label for="aip-option-select-<?= $row['attribute_id'] ?>">
+                    <div class="aip-field">
+                        <label for="aip-option-<?= $row['attribute_id'] ?>">
                             <span class="aip-label"><?= $block->escapeHtml($row['label']) ?></span>
                             <p>
-                                <select id="aip-option-select-<?= $row['attribute_id'] ?>" class="aip-option-select js-states form-control">
+                                <select id="aip-option-<?= $row['attribute_id'] ?>" class="aip-option js-states form-control">
                                     <?php foreach ($row['values'] as $item): ?>
                                         <option value="<?= $item['value_index'] ?>">
                                             <?= $item['label'] ?>
