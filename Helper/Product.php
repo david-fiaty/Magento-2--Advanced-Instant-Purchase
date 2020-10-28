@@ -98,6 +98,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Render a product box.
+     */
+    public function renderProductBox($blockInstance)
+    {
+        return $blockInstance->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
+        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setData('content', $blockInstance->getData('content'))
+        ->toHtml();
+    }
+
+    /**
      * Get a block button id.
      */
     public function getButtonId($productId)
