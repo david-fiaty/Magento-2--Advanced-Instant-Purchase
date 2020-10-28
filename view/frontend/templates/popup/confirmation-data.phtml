@@ -24,7 +24,7 @@
                         <label for="aip-option-<?= $row['attribute_id'] ?>">
                             <span class="aip-label"><?= $block->escapeHtml($row['label']) ?></span>
                             <p>
-                                <select id="aip-option-<?= $row['attribute_id'] ?>" class="aip-option js-states form-control">
+                                <select id="aip-option-<?= $row['attribute_id'] ?>" class="aip-option aip-select js-states form-control" data-minimum-results-for-search="Infinity">
                                     <?php foreach ($row['values'] as $item): ?>
                                         <option value="<?= $item['value_index'] ?>">
                                             <?= $item['label'] ?>
