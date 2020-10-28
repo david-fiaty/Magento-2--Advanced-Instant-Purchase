@@ -90,7 +90,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'image_url' => $this->getProductImageUrl($productId),
                 'page_url' => $product->getProductUrl(),
-                'options' => $this->buildOptionsArray($productId)
+                'options' => $this->getOptions($productId)
             ];
         }
 
@@ -129,42 +129,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
-    }
-
-    /**
-     * Format a product options.
-     */
-    public function buildOptionsArray($productId)
-    {
-        // Prepare the output
-        $output = [];
-
-        // Get the product options
-        if ($this->hasOptions($productId)) {
-            $data = $this->getOptions($productId);
-            foreach ($data as $key => $row) {
-                //$output[$key] = $row;
-                //var_dump($row);
-
-                /*
-                var_dump('<h1>Options</h1>');
-                var_dump($row['options']);
-
-                var_dump('<h1>Values</h1>');
-                var_dump($row['values']);
-
-                */
-
-
-                if (isset($row['options']) && is_array($row['options']) && !empty($row['options'])) {
-                    foreach ($row['options'] as $option) {
-
-                    }
-                } 
-            }
-        }
-
-        return $output;
     }
 
     /**
