@@ -8,6 +8,7 @@ define([
 
     return {
         listSelector: '.aip-select',
+        productOptionSelector: '.aip-option',
         linkSelector: '.aip-new, .aip-plus-icon',
         paymentMethodSelector: '#aip-payment-method-select',
         otherMethodsToggleSelector: '#aip-show-other-methods',
@@ -24,6 +25,12 @@ define([
                 theme: 'classic',
                 templateResult: AipUtil.formatIcon,
                 templateSelection: AipUtil.formatIcon
+            });
+
+            // Initialise the product options lists
+            $(self.productOptionSelector).select2({
+                language: self.getLocale(obj.jsConfig.user.language),
+                theme: 'classic'
             });
 
             // Set the lists events
