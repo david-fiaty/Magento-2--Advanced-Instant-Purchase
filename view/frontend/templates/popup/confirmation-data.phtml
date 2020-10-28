@@ -44,32 +44,6 @@
 <!-- Header text -->
 <p><?= $content['popup']['header_text'] ?></p>
 
-<!-- Shipping address -->
-<div class="aip-field">
-    <label for="aip-shipping-address-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
-        <p>
-            <?php if (!empty($content['addresses'])): ?>
-                <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
-                    <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
-                            <?= $item['street'] ?>&nbsp;
-                            <?= $item['postcode'] ?>&nbsp;
-                            <?= $item['city'] ?>&nbsp;
-                            <?= $item['country_id'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <span class="aip-plus-icon" data-form="Address"><i class="gg-add"></i></span>
-            <?php else: ?>
-                <a id="new-shipping-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-                    <?= __('Create a shipping address') ?>
-                </a>
-            <?php endif; ?>
-        </p>
-    </label>
-</div>
-
 <!-- Billing address -->
 <div class="aip-field">
     <label for="aip-billing-address-select">
