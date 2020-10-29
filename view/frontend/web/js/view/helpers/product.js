@@ -1,10 +1,11 @@
 define([
     'jquery',
+    'mage/translate',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
-], function($, UrlBuilder, AipModal, AipLogger, AipView) {
+], function($, __, UrlBuilder, AipValidation, AipLogger, AipView) {
     'use strict';
 
     return {
@@ -76,15 +77,63 @@ define([
         },
 
         /**
-         * Get a product options.
+         * Product options validation.
          */
-        getOptions: function(obj) {
-            var productContainerSelector = this.getProductContainer(obj);
-            var options = $(obj.getButtonId())
-            .parents(productContainerSelector)
-            .find('input[name^="super_attribute"]');
+        validateOptions: function(obj) {
+            if (this.hasOptions(obj)) {
+                return this.getOptionsErrors(obj).length == 0;
+            }
 
-            return options;
+            return true;
+        },
+
+        /**
+         * Check if a product has options.
+         */
+        hasOptions: function(obj) {
+            return obj.jsConfig.product.options.length
+            && obj.jsConfig.product.options.length > 0;
+        },
+
+        /**
+         * Check if a product options are valid.
+         */
+        getOptionsErrors: function(obj) {
+            // Prepare variables
+            var options = obj.jsConfig.product.options;
+            var errors = [];
+
+            // Check each option
+            for (var i = 0; i < options.length; i++) {
+                if (this.isOptionInvalid(obj, options[i])) {
+                    errors.push(options[i]);
+                }
+            }
+
+            // Display the errors
+            AipValidation.clearErrors(obj);
+            if (errors.length > 0) AipValidation.displayOptionsError(obj);
+
+            return errors;
+        },
+
+        /**
+         * Check if a product option is valid.
+         */
+        isOptionInvalid: function(obj, option) {
+            // Find the product container
+            var productContainerSelector = this.getProductContainer(obj);
+
+            // Find the target field
+            var targetField = $(obj.getButtonId())
+            .parents(productContainerSelector)
+            .find('input[name="super_attribute[' + option['attribute_id']+ ']"]');
+
+            // Check the value
+            var val = targetField.val();
+            var isValid = val && val.length > 0 && parseInt(val) > 0;
+
+            return !isValid
         },
 
         /**
@@ -94,7 +143,8 @@ define([
             // Prepare the parameters
             var self = this;
             var params = {
-                product_id: obj.jsConfig.product.id
+                product_id: obj.jsConfig.product.id,
+                form_key: obj.jsConfig.product.form_key
             };
 
             // Send the AJAX request
@@ -104,7 +154,7 @@ define([
                 data: params,
                 success: function(data) {
                     // Get the HTML content
-                    $(this.productBoxContainerSelector).html(data.html);
+                    $(self.productBoxContainerSelector).html(data.html);
                 },
                 error: function(request, status, error) {
                     AipLogger.log(
@@ -114,13 +164,6 @@ define([
                     );
                 }
             });
-        },
-
-        /**
-         * Render a product options.
-         */
-        renderOptions: function(obj) {
-            // AJAX request
         }
     };
 });

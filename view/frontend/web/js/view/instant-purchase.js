@@ -148,15 +148,21 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
-            if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
-                window.location.href = this.jsConfig.product.page_url;
-            } else if (AipLogin.isLoggedIn(this)) {
-                this.purchasePopup(e);
-            } else {
-                var functionName = 'popup';
-                var fn = 'login' + functionName.charAt(0).toUpperCase() + functionName.slice(1);
-                AipLogin[fn]();
+            // Force Login 
+            if (!AipLogin.isLoggedIn(this)) {
+                AipLogin.loginPopup(); 
+                return;              
             }
+
+            // Block and list views
+            if (AipView.isBlockView(this) || AipView.isListView(this)) {
+                // Validate the product options if needed
+                var optionsValid = AipProduct.validateOptions(this)
+                if (!optionsValid) return;
+            }        
+            
+            // Page view or all conditions met
+            this.purchasePopup(e);
         },
 
         /**
@@ -195,6 +201,9 @@ define([
                 success: function(data) {
                     // Get the HTML content
                     AipModal.addHtml(self.popupContentSelector, data.html);
+
+                    // Render the product box
+                    AipProduct.renderBox(self);
 
                     // Initialise the select lists
                     AipSelect.build(self);
