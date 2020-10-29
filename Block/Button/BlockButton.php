@@ -86,7 +86,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
             $this->getData('product_id')
         );
         
-        return $config['block']['show_product'];
+        return $config['blocks']['show_product'];
     }
 
     /**

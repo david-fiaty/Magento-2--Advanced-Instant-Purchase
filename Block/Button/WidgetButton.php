@@ -92,7 +92,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $this->getData('product_id')
         );
         
-        return $config['block']['show_product'];
+        return $config['blocks']['show_product'];
     }
 
     /**
