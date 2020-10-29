@@ -148,6 +148,11 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
+            if (!AipLogin.isLoggedIn(this)) {
+                AipLogin.loginPopup();               
+            }
+
+
             if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
                 // Todo - finish this
                 if (this.jsConfig.buttons.products_with_options == 'redirect') {
@@ -162,9 +167,7 @@ define([
             } else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
             } else {
-                var functionName = 'popup';
-                var fn = 'login' + functionName.charAt(0).toUpperCase() + functionName.slice(1);
-                AipLogin[fn]();
+
             }
         },
 
