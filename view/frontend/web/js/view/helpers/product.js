@@ -1,10 +1,10 @@
 define([
     'jquery',
+    'mage/translate',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
-], function($, UrlBuilder, AipModal, AipLogger, AipView) {
+], function($, __, UrlBuilder, AipLogger, AipView) {
     'use strict';
 
     return {
@@ -94,7 +94,8 @@ define([
             // Prepare the parameters
             var self = this;
             var params = {
-                product_id: obj.jsConfig.product.id
+                product_id: obj.jsConfig.product.id,
+                form_key: obj.jsConfig.product.form_key
             };
 
             // Send the AJAX request
@@ -104,7 +105,7 @@ define([
                 data: params,
                 success: function(data) {
                     // Get the HTML content
-                    $(this.productBoxContainerSelector).html(data.html);
+                    $(self.productBoxContainerSelector).html(data.html);
                 },
                 error: function(request, status, error) {
                     AipLogger.log(
@@ -114,13 +115,6 @@ define([
                     );
                 }
             });
-        },
-
-        /**
-         * Render a product options.
-         */
-        renderOptions: function(obj) {
-            // AJAX request
         }
     };
 });

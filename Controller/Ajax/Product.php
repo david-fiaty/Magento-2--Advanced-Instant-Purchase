@@ -24,12 +24,17 @@ class Product extends \Magento\Framework\App\Action\Action
     public $jsonFactory;
 
     /**
-     * Block
+     * @var Block
      */
     public $blockHelper;
 
     /**
-     * Logger
+     * @var Purchase
+     */
+    public $purchaseHelper;
+
+    /**
+     * @var Logger
      */
     public $loggerHelper;
 
@@ -42,6 +47,7 @@ class Product extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         parent::__construct($context);
@@ -50,6 +56,7 @@ class Product extends \Magento\Framework\App\Action\Action
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
         $this->blockHelper = $blockHelper;
+        $this->purchaseHelper = $purchaseHelper;
         $this->loggerHelper = $loggerHelper;
     }
 
