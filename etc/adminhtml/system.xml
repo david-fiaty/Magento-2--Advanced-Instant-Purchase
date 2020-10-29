@@ -109,11 +109,51 @@
                 </field>
                 <field id="popup_header_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup header text</label>
-                    <comment>Text for the Advanced Instant Purchase popup header.</comment>
+                    <comment>Text for the purchase popup window header.</comment>
                 </field>
                 <field id="popup_footer_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
-                    <comment>Text for the Advanced Instant Purchase popup footer.</comment>
+                    <comment>Text for the purchase popup window footer.</comment>
+                </field>
+                <field id="show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the product in the purchase popup windwow.</comment>
+                </field>
+                <field id="show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_product">1</field>
+                    </depends>
+                </field>
+                <field id="show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_product">1</field>
+                    </depends>
+                </field>
+                <field id="show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product quantity</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_product">1</field>
+                    </depends>
+                </field>
+                <field id="show_product_desc" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product desc</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_product">1</field>
+                    </depends>
+                </field>
+                <field id="show_product_options" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product options</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_product">1</field>
+                    </depends>
                 </field>
             </group>
             <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">

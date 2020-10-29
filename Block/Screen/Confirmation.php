@@ -12,31 +12,16 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * @var Config
-     */
-    public $configHelper;
-
-    /**
-     * @var Purchase
-     */
-    public $purchaseHelper;
-
-    /**
-     * @var Product
-     */
-    public $productHelper;
-
-    /**
      * ViewButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         
-        $this->productHelper = $productHelper;
+        $this->blockHelper = $blockHelper;
     }
     
     /**
@@ -44,6 +29,8 @@ class Confirmation extends \Magento\Framework\View\Element\Template
      */
     public function getProductBox()
     {
-        return $this->productHelper->renderProductBox($this);
+        return $this->blockHelper->renderProductBox(
+            $this->getData('content')
+        );
     }
 }
