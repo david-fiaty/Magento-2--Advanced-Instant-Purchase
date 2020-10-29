@@ -156,10 +156,10 @@ define([
                     window.location.href = this.jsConfig.product.page_url;
                 }
                 else if (this.jsConfig.buttons.products_with_options == 'open') {
-
+                    this.purchasePopup(e);
                 }
                 else if (this.jsConfig.buttons.products_with_options == 'validate') {
-                
+                    // Todo - Implement options validation
                 }
             }
             else {
