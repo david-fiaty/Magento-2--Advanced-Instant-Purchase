@@ -14,6 +14,7 @@ define([
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
         productDataUrl: 'naxero-aip/ajax/product',
+        productBoxContainerSelector: '.aip-product-box-container',
 
         /**
          * Get a product container selector.
@@ -90,15 +91,20 @@ define([
          * Render a product box.
          */
         renderBox: function(obj) {
+            // Prepare the parameters
             var self = this;
-            var params = {};
+            var params = {
+                product_id: obj.jsConfig.product.id
+            };
+
+            // Send the AJAX request
             $.ajax({
                 type: 'POST',
                 url: UrlBuilder.build(self.productDataUrl),
                 data: params,
                 success: function(data) {
                     // Get the HTML content
-                    AipModal.addHtml(obj.popupContentSelector, data.html);
+                    $(this.productBoxContainerSelector).html(data.html);
                 },
                 error: function(request, status, error) {
                     AipLogger.log(

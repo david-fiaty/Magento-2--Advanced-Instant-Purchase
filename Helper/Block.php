@@ -115,12 +115,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a product box.
      */
-    public function renderProductBox($content)
+    public function renderProductBox($productId)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
-        ->setData('content', $content)
+        ->setData('content', $this->getConfig($productId))
         ->toHtml();
     }
 

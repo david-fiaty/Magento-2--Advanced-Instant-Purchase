@@ -3,10 +3,9 @@
     $content = $this->getData('content'); 
 
     // Display settings
-    $showProduct = (int) $content['config']['popups']['show_product'] == 1;
-    $showProductImage = $showProduct && $content['config']['popups']['show_product_image'] == 1;
-    $showProductName = $showProduct && $content['config']['popups']['show_product_name'] == 1;
-    $showProductPrice = $showProduct && $content['config']['popups']['show_product_price'] == 1;
+    $showProductImage = $content['config']['popups']['show_product_image'] == 1;
+    $showProductName = $content['config']['popups']['show_product_name'] == 1;
+    $showProductPrice = $content['config']['popups']['show_product_price'] == 1;
 ?>
 
 <div class="aip-product-box">

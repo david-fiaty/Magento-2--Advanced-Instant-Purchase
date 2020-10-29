@@ -81,4 +81,12 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         return $this->registry->registry('current_product');
     }
+
+    /**
+     * Check if a product box should be displayed.
+     */
+    public function showProductBox()
+    {
+        return false;
+    }
 }

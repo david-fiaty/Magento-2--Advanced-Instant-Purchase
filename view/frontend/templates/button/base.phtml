@@ -13,6 +13,14 @@
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
     }
 ?>
+
+<!-- Product box -->
+<?php if ($block->showProductBox()): ?>
+    <div class="aip-product-box-container">
+        <?php $this->blockHelper->renderProductBox($productId) ?>
+    </div>
+<?php endif; ?>
+
 <div id="aip-<?= $productId ?>" class="aip-button-container">
     <button 
         id="<?= $buttonId ?>"

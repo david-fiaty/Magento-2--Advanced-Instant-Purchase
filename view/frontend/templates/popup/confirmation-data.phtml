@@ -2,17 +2,19 @@
     // Get the confirmation content
     $content = $this->getData('content');
 
-    // Other payment methods display
+    // Display settings
+    $showProductBox = (int) $content['config']['popups']['show_product'] == 1;
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
     && $content['config']['payment_methods']['show_other_allowed'];
-
-    // Product box
-    $productBox = $this->getProductBox();
 ?>
 
 <!-- Product box -->
-<?= $productBox ?>
- 
+<?php if ($showProductBox): ?>
+    <div class="aip-product-box-container">
+        <img class="aip-spinner" src="<?= $content['config']['ui']['loader'] ?>">
+    </div>
+<?php endif; ?>
+
 <!-- Header text -->
 <p><?= $content['popup']['header_text'] ?></p>
 

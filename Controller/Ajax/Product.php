@@ -80,8 +80,8 @@ class Product extends \Magento\Framework\App\Action\Action
     public function renderProductBox()
     {
         // Todo - See how to compose the content for the ajax request
-        $content = $this->getRequest()->getParam('content');
+        $productId = $this->getRequest()->getParam('product_id');
 
-        return $this->blockHelper->renderProductBox();
+        return $this->blockHelper->renderProductBox($productId);
     }
 }
