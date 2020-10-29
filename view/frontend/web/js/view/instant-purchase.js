@@ -13,10 +13,8 @@ define([
     'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
@@ -24,7 +22,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function($, __, Component, UrlBuilder, AipTree, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function($, __, Component, UrlBuilder, AipTree, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipButton, AipModal, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({

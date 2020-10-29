@@ -66,7 +66,7 @@ define(
                 var button = $(obj.getButtonId());
 
                 // Clear previous errors
-                self.clearErrors(button);
+                self.clearErrors(obj);
 
                 // Update the button state
                 button.popover({
