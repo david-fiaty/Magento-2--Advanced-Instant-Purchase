@@ -2,9 +2,10 @@ define([
     'jquery',
     'mage/translate',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
-], function($, __, UrlBuilder, AipLogger, AipView) {
+], function($, __, UrlBuilder, AipValidation, AipLogger, AipView) {
     'use strict';
 
     return {
@@ -76,11 +77,11 @@ define([
         },
 
         /**
-         * Validate options logic.
+         * Product options validation.
          */
         validateOptions: function(obj) {
             if (this.hasOptions(obj)) {
-
+                return this.getOptionsErrors(obj).length == 0;
             }
 
             return true;
@@ -94,17 +95,45 @@ define([
             && obj.jsConfig.product.options.length > 0;
         },
 
-
         /**
          * Check if a product options are valid.
          */
-        checkOptions: function(obj) {
+        getOptionsErrors: function(obj) {
+            // Prepare variables
             var options = obj.jsConfig.product.options;
-            for (var i = 0; i < options.length; i++) {
-                console.log('zulu');
-                console.log(options[i]);
+            var errors = [];
 
+            // Check each option
+            for (var i = 0; i < options.length; i++) {
+                if (this.isOptionInvalid(obj, options[i])) {
+                    errors.push(options[i]);
+                }
             }
+
+            // Display the errors
+            if (errors.length > 0)
+            AipValidation.displayOptionsError(obj);
+
+            return errors;
+        },
+
+        /**
+         * Check if a product option is valid.
+         */
+        isOptionInvalid: function(obj, option) {
+            // Find the product container
+            var productContainerSelector = this.getProductContainer(obj);
+
+            // Find the target field
+            var targetField = $(obj.getButtonId())
+            .parents(productContainerSelector)
+            .find('input[name="super_attribute[' + option['attribute_id']+ ']"]');
+
+            // Check the value
+            var val = targetField.val();
+            var isValid = val && val.length > 0 && parseInt(val) > 0;
+
+            return !isValid
         },
 
         /**

@@ -2,11 +2,9 @@ define(
     [
         'jquery',
         'mage/translate',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
         'popover'
     ],
-    function($, __, AipProduct, AipLogger, popover) {
+    function($, __, popover) {
         'use strict';
         return {
             agreementRow: '.aip-agreement-link-row',
@@ -18,10 +16,9 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(obj, noUiUpdate) {
+            validate: function(obj) {
                 // Prepare the parameters
                 var errors = [];
-                noUiUpdate = noUiUpdate ? noUiUpdate : false;
 
                 // Agreements validation
                 if (obj.jsConfig.general.enable_agreements) {
@@ -46,137 +43,42 @@ define(
                     }
                 });
 
-                // UI update
-                if (!noUiUpdate) {
-                    $(errors).each(function(i, error) {
-                        $('#' + error.id).addClass('error');
-                    });
-                }
-
                 return errors.length == 0;
-            },
-
-            /**
-             * Initialize the product options validation.
-             */
-            initOptionsValidation: function(obj) {
-                // Handle the validation logic
-                var productAttributes = AipProduct.getOptions(obj);
-                var condition1 = productAttributes.length > 0;
-                var condition2 = obj.jsConfig.buttons.state_disabled == 1;
-                if (condition1 && condition2) {
-                    // Set the events
-                    var self = this;
-                    productAttributes.each(function() {
-                        $(this).on('change', function() {
-                            self.updateButtonState(obj);
-                        });
-                    });
-
-                    // Log the step
-                    AipLogger.log(
-                        obj,
-                        __('Registered product options validaton events'),
-                        productAttributes
-                    );
-                }
             },
 
             /**
              * Update the button state.
              */
+            /*
             updateButtonState: function(obj) {
                 var errors = this.validateOptions(obj, true);
                 var disabled = !(errors.length == 0);
                 $(obj.getButtonId()).prop('disabled', disabled);
             },
+            */
 
             /**
-             * Check if a product has options errors.
+             * Display the category view product options errors.
              */
-            hasOptionError: function(obj) {
-                return this.validateOptions(obj, true).length > 0;
-            },
+            displayOptionsError: function(obj) {
+                // Prepare variables
+                var self = this;
+                var button = $(obj.getButtonId());
 
-            /**
-             * Validate the category view product options.
-             */
-            validateOptions: function(obj, noUiUpdate) {
-                // UI updates
-                noUiUpdate = noUiUpdate ? noUiUpdate : false;
+                // Clear previous errors
+                self.clearErrors(button);
 
-                // Errors array
-                var errors = [];
-
-                // Find existing options
-                var productAttributes = AipProduct.getOptions(obj);
-                
-                // If there are attributes, check errors
-                var errors = this.checkOptionsErrors(productAttributes);
-
-                // Display errors if needed
-                if (!noUiUpdate) {
-                    this.displayOptionsErrors(obj, errors);
-                }
-
-                return errors;
-            },
-
-            /**
-             * Check the category view product options errors.
-             */
-            checkOptionsErrors: function(productAttributes) {
-                var errors = [];
-                if (productAttributes.length > 0) {
-                    return this.getOptionsErrors(productAttributes);
-                }
-
-                return errors;
-            },
-
-            /**
-             * Get the category view product options errors.
-             */
-            getOptionsErrors: function(productAttributes) {
-                var errors = [];
-                productAttributes.each(function() {
-                    var val = $(this).val();
-                    if (!val || val === 'undefined' || val.length == 0) {
-                        var name = $(this).attr('name');
-                        errors.push({
-                            id: name.match(/\d+/)[0],
-                            name: name
-                        });
-                    }
+                // Update the button state
+                button.popover({
+                    title : '',
+                    content : __('Please select some options'),
+                    autoPlace : false,
+                    trigger : 'hover',
+                    placement : 'right',
+                    delay : 10
                 });
-
-                return errors;
-            },
-
-            /**
-             * Display the category view product options.
-             */
-            displayOptionsErrors: function(obj, errors) {
-                if (errors.length > 0) {
-                    // Prepare variables
-                    var self = this;
-                    var button = $(obj.getButtonId());
-
-                    // Clear previous errors
-                    self.clearErrors(button);
-
-                    // Update the button state
-                    button.popover({
-                        title : '',
-                        content : __('Please select some options'),
-                        autoPlace : false,
-                        trigger : 'hover',
-                        placement : 'right',
-                        delay : 10
-                    });
-                    button.addClass(this.buttonErrorClass);
-                    button.trigger('mouseover');
-                }
+                button.addClass(this.buttonErrorClass);
+                button.trigger('mouseover');
             },
 
             /**
