@@ -149,7 +149,16 @@ define([
          */
         handleButtonClick: function(e) {
             if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
-                window.location.href = this.jsConfig.product.page_url;
+                // Todo - finish this
+                if (this.jsConfig.buttons.products_with_options == 'redirect') {
+                    window.location.href = this.jsConfig.product.page_url;
+                }
+                else if (this.jsConfig.buttons.products_with_options == 'open') {
+
+                }
+                else if (this.jsConfig.buttons.products_with_options == 'validate') {
+                
+                }
             } else if (AipLogin.isLoggedIn(this)) {
                 this.purchasePopup(e);
             } else {

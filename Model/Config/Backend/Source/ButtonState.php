@@ -2,7 +2,7 @@
 namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
 
 /**
- * Class PaymentMethods
+ * Class ButtonState
  */
 class ButtonState implements \Magento\Framework\Option\ArrayInterface
 {

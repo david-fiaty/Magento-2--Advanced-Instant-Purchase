@@ -29,6 +29,7 @@
             <buttons>
                 <button_text>Buy Now</button_text>
                 <state_disabled>0</state_disabled>
+                <products_with_options>open</products_with_options>
                 <bypass_oos>0</bypass_oos>
             </buttons>
             <products>
