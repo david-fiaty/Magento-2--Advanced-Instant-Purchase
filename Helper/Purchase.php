@@ -1,11 +1,18 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Purchase Helper.
  */
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+     * @var PageFactory
+     */
+    public $pageFactory;
+
     /**
      * @var RequestInterface
      */
@@ -60,6 +67,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Purchase helper constructor.
      */
     public function __construct(
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
@@ -71,6 +79,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
+        $this->pageFactory = $pageFactory;
         $this->request = $request;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
@@ -134,6 +143,18 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         ];
 
         return $data;
+    }
+
+    /**
+     * Render a product box.
+     */
+    public function renderProductBox($productId)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setData('content', $this->blockHelper->getConfig($productId))
+        ->toHtml();
     }
 
     /**

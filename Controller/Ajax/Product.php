@@ -66,22 +66,12 @@ class Product extends \Magento\Framework\App\Action\Action
         // Process the request
         $request = $this->getRequest();
         if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $html .= $this->renderProductBox();
+            $productId = $this->getRequest()->getParam('product_id');
+            $html .= $this->purchaseHelper->renderProductBox($productId);
         }
 
         return $this->jsonFactory->create()->setData(
             ['html' => $html]
         );
-    }
-
-    /**
-     * Renders a browsable data tree.
-     */
-    public function renderProductBox()
-    {
-        // Todo - See how to compose the content for the ajax request
-        $productId = $this->getRequest()->getParam('product_id');
-
-        return $this->blockHelper->renderProductBox($productId);
     }
 }
