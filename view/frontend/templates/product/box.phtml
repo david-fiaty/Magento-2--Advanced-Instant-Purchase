@@ -1,18 +1,37 @@
-<?php $content = $this->getData('content') ?>
+<?php 
+    // Get the data
+    $content = $this->getData('content'); 
+
+    // Display settings
+    $showProduct = (int) $content['config']['popups']['show_product'] == 1;
+    $showProductImage = $showProduct && $content['config']['popups']['show_product_image'] == 1;
+    $showProductName = $showProduct && $content['config']['popups']['show_product_name'] == 1;
+    $showProductPrice = $showProduct && $content['config']['popups']['show_product_price'] == 1;
+?>
 
 <div class="aip-product-box">
-    <!-- Product image -->
-    <div class="aip-product-box-image">
-        <img src="<?= $content['product']['image_url'] ?>"> 
-    </div>
+    <?php if ($showProductImage): ?>
+        <!-- Product image -->
+        <div class="aip-product-box-image">
+            <img src="<?= $content['product']['image_url'] ?>"> 
+        </div>
+    <?php endif; ?>
 
     <!-- Product info -->
     <div class="aip-product-box-info">
         <!-- Product name -->
-        <p class="aip-product-box-name"><?= $content['product']['name'] ?></p>
+        <?php if ($showProductName): ?>
+            <p class="aip-product-box-name">
+                <?= $content['product']['name'] ?>
+            </p>
+        <?php endif; ?>
 
         <!-- Product price -->
-        <p class="aip-product-box-price"><?= $content['product']['price'] ?></p>
+        <?php if ($showProductPrice): ?>
+            <p class="aip-product-box-price">
+                <?= $content['product']['price'] ?>
+            </p>
+        <?php endif; ?>
 
         <!-- Product options -->
         <?php if (!empty($content['product']['options'])): ?>
