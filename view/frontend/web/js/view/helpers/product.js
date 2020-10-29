@@ -111,8 +111,8 @@ define([
             }
 
             // Display the errors
-            if (errors.length > 0)
-            AipValidation.displayOptionsError(obj);
+            AipValidation.clearErrors(obj);
+            if (errors.length > 0) AipValidation.displayOptionsError(obj);
 
             return errors;
         },

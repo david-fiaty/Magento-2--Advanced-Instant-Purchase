@@ -84,8 +84,8 @@ define(
             /**
              * Clear UI error messages.
              */
-            clearErrors: function(button) {
-                button.removeClass(this.buttonErrorClass);
+            clearErrors: function(obj) {
+                $(obj.getButtonId()).removeClass(this.buttonErrorClass);
                 $(this.popoverSelector).remove();
             },
 
