@@ -148,23 +148,21 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function(e) {
+            // Force Login 
             if (!AipLogin.isLoggedIn(this)) {
-                AipLogin.loginPopup();               
+                AipLogin.loginPopup(); 
+                return;              
             }
-            else if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
-                if (this.jsConfig.buttons.products_with_options == 'redirect') {
-                    window.location.href = this.jsConfig.product.page_url;
-                }
-                else if (this.jsConfig.buttons.products_with_options == 'open') {
-                    this.purchasePopup(e);
-                }
-                else if (this.jsConfig.buttons.products_with_options == 'validate') {
-                    // Todo - Implement options validation
-                }
-            }
-            else {
-                this.purchasePopup(e);
-            } 
+
+            // Block and list views
+            if (AipView.isBlockView(this) || AipView.isListView(this)) {
+                // Validate the product options if needed
+                var optionsValid = AipProduct.validateOptions(this)
+                if (!optionsValid) return;
+            }        
+            
+            // Page view or all conditions met
+            this.purchasePopup(e);
         },
 
         /**

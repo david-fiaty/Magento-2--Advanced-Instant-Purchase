@@ -126,9 +126,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getOptions($productId)
     {
-        return $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+        // Get the options array
+        $optionsArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
+
+        // Reset the array keys
+        return array_merge([], $optionsArray);
     }
 
     /**

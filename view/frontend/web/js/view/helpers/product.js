@@ -76,15 +76,35 @@ define([
         },
 
         /**
-         * Get a product options.
+         * Validate options logic.
          */
-        getOptions: function(obj) {
-            var productContainerSelector = this.getProductContainer(obj);
-            var options = $(obj.getButtonId())
-            .parents(productContainerSelector)
-            .find('input[name^="super_attribute"]');
+        validateOptions: function(obj) {
+            if (this.hasOptions(obj)) {
 
-            return options;
+            }
+
+            return true;
+        },
+
+        /**
+         * Check if a product has options.
+         */
+        hasOptions: function(obj) {
+            return obj.jsConfig.product.options.length
+            && obj.jsConfig.product.options.length > 0;
+        },
+
+
+        /**
+         * Check if a product options are valid.
+         */
+        checkOptions: function(obj) {
+            var options = obj.jsConfig.product.options;
+            for (var i = 0; i < options.length; i++) {
+                console.log('zulu');
+                console.log(options[i]);
+
+            }
         },
 
         /**
