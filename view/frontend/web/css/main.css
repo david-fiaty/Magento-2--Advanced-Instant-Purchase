@@ -175,8 +175,15 @@
     margin-bottom: 1.8em;
 }
 
+.aip-product-box-image {
+    float: left;
+    width: 25%;
+}
+
 .aip-product-box-info {
-    width: 100%;
+    float: left;
+    width: 70%;
+    padding-left: 1em;
 }
 
 .aip-product-box-name {
