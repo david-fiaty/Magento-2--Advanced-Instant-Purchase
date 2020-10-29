@@ -122,7 +122,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $html = '';
         if ($productId > 0) {
             $html = $this->pageFactory->create()->getLayout()
-                ->createBlock('Magento\Framework\View\Element\Template')
+                ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
                 ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
                 ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
                 ->toHtml();

@@ -118,7 +118,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public function renderProductBox($content)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
+        ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
         ->setData('content', $content)
         ->toHtml();

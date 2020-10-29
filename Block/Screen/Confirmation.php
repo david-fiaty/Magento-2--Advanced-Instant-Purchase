@@ -25,7 +25,7 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     }
     
     /**
-     * Get the current product.
+     * Get the product box.
      */
     public function getProductBox()
     {
