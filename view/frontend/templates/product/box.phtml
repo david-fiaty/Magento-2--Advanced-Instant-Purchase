@@ -1,11 +1,17 @@
 <?php $content = $this->getData('content') ?>
 
 <div class="aip-product-box">
+    <!-- Product image -->
+    <div class="aip-product-box-image">
+        <img src="<?= $content['product']['image_url'] ?>"> 
+    </div>
+
+    <!-- Product info -->
     <div class="aip-product-box-info">
-        <div class="aip-product-box-image">
-            <img src="<?= $content['product']['image_url'] ?>"> 
-        </div>
+        <!-- Product name -->
         <p class="aip-product-box-name"><?= $content['product']['name'] ?></p>
+
+        <!-- Product price -->
         <p class="aip-product-box-price"><?= $content['product']['price'] ?></p>
 
         <!-- Product options -->
