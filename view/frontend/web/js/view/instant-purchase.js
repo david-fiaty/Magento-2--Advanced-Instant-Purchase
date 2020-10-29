@@ -67,8 +67,7 @@ define([
             AipSpinner.loadIcon(this);
 
             // Options validation
-            // Todo - fix this
-            //AipValidation.initOptionsValidation(this);
+            AipProduct.initOptionsEvents(this);
 
             // Initialise the UI Logger tree if needed
             this.buildDataTree();

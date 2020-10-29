@@ -77,6 +77,28 @@ define([
         },
 
         /**
+         * Set product options events.
+         */
+        initOptionsEvents: function(obj) {
+            if (this.hasOptions(obj)) {
+                var options = obj.jsConfig.product.options;
+                for (var i = 0; i < options.length; i++) {
+                    // Prepare the fields
+                    var sourceField = this.getOptionField(obj, option);
+                    var targetField = this.getOptionHiddenField(obj, option);
+
+                    // Set the current value
+                    targetField.val(sourceField.val());
+
+                    // Set the value change event
+                    sourceField.on('change', function() {
+                        targetField.val(sourceField.val());
+                    });
+                }
+            }
+        },
+
+        /**
          * Product options validation.
          */
         validateOptions: function(obj) {
@@ -121,19 +143,29 @@ define([
          * Check if a product option is valid.
          */
         isOptionInvalid: function(obj, option) {
-            // Find the product container
-            var productContainerSelector = this.getProductContainer(obj);
-
             // Find the target field
-            var targetField = $(obj.getButtonId())
-            .parents(productContainerSelector)
-            .find('input[name="super_attribute[' + option['attribute_id']+ ']"]');
+            var targetField = this.getOptionHiddenField(obj, option);
 
             // Check the value
             var val = targetField.val();
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
-            return !isValid
+            return !isValid;
+        },
+
+        /**
+         * Get an option hidden field instance.
+         */
+        getOptionHiddenField: function(obj, option) {
+            // Find the product container
+            var productContainerSelector = this.getProductContainer(obj);
+
+            // Input field
+            var inputField = 'input[name="super_attribute['
+            + option['attribute_id']
+            + ']"]';
+
+            return $(inputField);
         },
 
         /**
