@@ -151,10 +151,7 @@ define([
             if (!AipLogin.isLoggedIn(this)) {
                 AipLogin.loginPopup();               
             }
-
-
-            if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
-                // Todo - finish this
+            else if (AipView.hasOptions(this) && AipView.isBlockView(this)) {
                 if (this.jsConfig.buttons.products_with_options == 'redirect') {
                     window.location.href = this.jsConfig.product.page_url;
                 }
@@ -164,11 +161,10 @@ define([
                 else if (this.jsConfig.buttons.products_with_options == 'validate') {
                 
                 }
-            } else if (AipLogin.isLoggedIn(this)) {
-                this.purchasePopup(e);
-            } else {
-
             }
+            else {
+                this.purchasePopup(e);
+            } 
         },
 
         /**
