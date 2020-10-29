@@ -6,12 +6,19 @@ define([
 
     return {
         cancelButtonSelector: '.action-close',
+
+        /**
+         * Clear all visible errors.
+         */        
         clearErrors: function(slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
+        /**
+         * Check the AJAX response.
+         */
         checkResponse: function(data, e, obj) {
             var cssClass;
             if (data.success === false) {
@@ -36,6 +43,9 @@ define([
             }
         },
 
+        /**
+         * Show the error messages.
+         */
         show: function(type, str, obj) {
             var slide = AipSlider.getCurrentSlide(obj);
             this.clearErrors(slide);

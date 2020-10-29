@@ -10,6 +10,12 @@
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types
 
+
+
+FLOWS
+options > confirmation > validation > success/error
+
+
 UI LOGGER WINDOW BUGS
 - Loader sometimes not hiding on window open
 - prevent parent click creating errors on UI logger button click

@@ -7,6 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/tree',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
@@ -23,7 +24,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function($, __, Component, UrlBuilder, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function($, __, Component, UrlBuilder, AipTree, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipValidation, AipButton, AipModal, AipUtil, AipLogin, AipSelect, AipSlider, AipAgreement) {
     'use strict';
     
     return Component.extend({
@@ -72,7 +73,7 @@ define([
             //AipValidation.initOptionsValidation(this);
 
             // Initialise the UI Logger tree if needed
-            AipLogger.buildDataTree(this);
+            this.buildDataTree();
 
             // Button click event
             var self = this;
@@ -89,6 +90,58 @@ define([
                 ),
                 this.jsConfig
             );
+        },
+
+        /**
+         * Build a browsable tree with log data.
+         */
+        buildDataTree: function() {
+            // Prepare variables
+            var self = this;
+            var params = {
+                product_id: this.jsConfig.product.id,
+                form_key: this.jsConfig.product.form_key
+            };
+
+            // Set the data viewer button event
+            $(AipLogger.getButtonSelector(this)).on('click touch', function(e) {
+                // Prevent propagation
+                e.stopPropagation();
+
+                // Slider view
+                AipSlider.toggleView(self, e);
+                
+                // Modal window
+                // Todo - fix submit button state
+                //obj.showSubmitButton = false;
+                AipModal.build(self);
+                
+                // Send the request
+                AipSlider.showLoader(self);
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: UrlBuilder.build(AipLogger.logsUrl),
+                    data: params,
+                    success: function(data) {
+                        // Get the HTML content
+                        AipModal.addHtml(
+                            AipSlider.nextSlideSelector,
+                            data.html
+                        );
+
+                        // Build the data tree
+                        AipTree.build(self);
+                    },
+                    error: function(request, status, error) {
+                        AipLogger.log(
+                            self,
+                            __('Error retrieving the UI logging data'),
+                            error
+                        );
+                    }
+                });
+            });
         },
 
         /**

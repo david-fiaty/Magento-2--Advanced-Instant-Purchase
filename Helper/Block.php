@@ -9,6 +9,11 @@ use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var PageFactory
+     */
+    public $pageFactory;
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -27,10 +32,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Block helper class constructor.
      */
     public function __construct(
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
     ) {
+        $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;

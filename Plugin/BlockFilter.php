@@ -19,6 +19,11 @@ class BlockFilter
     public $blockHelper;
 
     /**
+     * Purchase
+     */
+    public $purchaseHelper;
+
+    /**
      * Product
      */
     public $productHelper;
@@ -33,10 +38,12 @@ class BlockFilter
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
+        $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
         $this->loggerHelper = $loggerHelper;
     }
@@ -74,8 +81,16 @@ class BlockFilter
 
                     // Replace the tag with the generated HTML
                     if (empty($errors[0])) {
-                        // Success
-                        $html = str_replace($tag, $result['blockHtml']->toHtml(), $html);
+                        // Get the blcok HTMl
+                        $blockHtml = str_replace($tag, $result['blockHtml']->toHtml(), $html);
+
+                        // Get the product HTML
+                        $productHtml = $this->purchaseHelper->renderProductBox(
+                            $result['field']['value']
+                        );
+
+                        // Finalise the output
+                        $html = $productHtml . $blockHtml;
                     } else {
                         // Errors
                         $errorsHtml = '';
@@ -121,6 +136,10 @@ class BlockFilter
         }
 
         return [
+            'field' => [
+                'name' => $field,
+                'value' => $param[1]
+            ],
             'blockHtml' => $blockHtml,
             'errors' => $errors
         ];

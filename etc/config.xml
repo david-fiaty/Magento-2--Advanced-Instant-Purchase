@@ -38,10 +38,25 @@
             <popups>
                 <popup_responsive>1</popup_responsive>
                 <popup_title>Buy now</popup_title>
-                <popup_product>1</popup_product>
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
+                <show_product>1</show_product>
+                <show_product_image>1</show_product_image>
+                <show_product_name>1</show_product_name>
+                <show_product_price>1</show_product_price>
+                <show_product_quantity>1</show_product_quantity>
+                <show_product_desc>1</show_product_desc>
+                <show_product_options>1</show_product_options>
             </popups>
+            <blocks>
+                <show_product>1</show_product>
+                <show_product_image>1</show_product_image>
+                <show_product_name>1</show_product_name>
+                <show_product_price>1</show_product_price>
+                <show_product_quantity>1</show_product_quantity>
+                <show_product_desc>1</show_product_desc>
+                <show_product_options>1</show_product_options>
+            </blocks>
             <guest>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_state>1</guest_button_state>
