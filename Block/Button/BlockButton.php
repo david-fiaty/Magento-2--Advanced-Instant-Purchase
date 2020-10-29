@@ -6,6 +6,8 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
  */
 class BlockButton extends \Magento\Framework\View\Element\Template
 {
+    const MODE = 'block';
+    
     /**
      * @var Block
      */
@@ -56,7 +58,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
         );
 
         // Set the display mode
-        $config['product']['display'] = 'block';
+        $config['product']['display'] = self::MODE;
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']

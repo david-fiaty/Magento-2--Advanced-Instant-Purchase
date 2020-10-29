@@ -16,6 +16,7 @@ define([
         viewProductFormSelector: '#product_addtocart_form',
         productDataUrl: 'naxero-aip/ajax/product',
         productBoxContainerSelector: '.aip-product-box-container',
+        optionFieldSelector: '#aip-option',
 
         /**
          * Get a product container selector.
@@ -84,8 +85,8 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
-                    var sourceField = this.getOptionField(obj, option);
-                    var targetField = this.getOptionHiddenField(obj, option);
+                    var sourceField = $(this.optionFieldSelector + '-' + options[i]['attribute_id']);
+                    var targetField = this.getOptionHiddenField(obj, options[i]);
 
                     // Set the current value
                     targetField.val(sourceField.val());
@@ -127,7 +128,7 @@ define([
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(obj, options[i])) {
+                if (this.isOptionInvalid(options[i])) {
                     errors.push(options[i]);
                 }
             }
@@ -142,9 +143,9 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function(obj, option) {
+        isOptionInvalid: function(option) {
             // Find the target field
-            var targetField = this.getOptionHiddenField(obj, option);
+            var targetField = this.getOptionHiddenField(option);
 
             // Check the value
             var val = targetField.val();
@@ -156,10 +157,7 @@ define([
         /**
          * Get an option hidden field instance.
          */
-        getOptionHiddenField: function(obj, option) {
-            // Find the product container
-            var productContainerSelector = this.getProductContainer(obj);
-
+        getOptionHiddenField: function(option) {
             // Input field
             var inputField = 'input[name="super_attribute['
             + option['attribute_id']
