@@ -107,9 +107,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildButtonBlock($subject)
     {
-        return $subject->getLayout()
+        // Build the button block
+        $buttonBlock = $subject->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
         ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
+        return 
     }
 
     /**

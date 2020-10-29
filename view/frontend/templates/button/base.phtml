@@ -14,13 +14,6 @@
     }
 ?>
 
-<!-- Product box -->
-<?php if ($block->showProductBox()): ?>
-    <div class="aip-product-box-container">
-        <?php $this->purchaseHelper->renderProductBox($productId) ?>
-    </div>
-<?php endif; ?>
-
 <div id="aip-<?= $productId ?>" class="aip-button-container">
     <button 
         id="<?= $buttonId ?>"

@@ -74,12 +74,4 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     {
         return parent::getProduct();
     }
-
-    /**
-     * Check if a product box should be displayed.
-     */
-    public function showProductBox()
-    {
-        return false;
-    }
 }

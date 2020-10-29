@@ -83,19 +83,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     }
 
     /**
-     * Check if a product box should be displayed.
-     */
-    public function showProductBox()
-    {
-        // Prepare the config
-        $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
-        );
-        
-        return $config['blocks']['show_product'];
-    }
-
-    /**
      * Disable the block cache.
      */
     public function getCacheLifetime()
