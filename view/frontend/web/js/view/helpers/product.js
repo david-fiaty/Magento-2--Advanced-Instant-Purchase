@@ -87,7 +87,7 @@ define([
                     // Prepare the fields
                     var sourceField = this.optionFieldSelector + '-' + options[i]['attribute_id'];
                     var targetField = this.getOptionHiddenField(obj, options[i]);
-                    var buttonContainer = this.getButtonCondainer(obj);
+                    var buttonContainer = this.getButtonContainer(obj);
 
                     // Set the current value
                     $(buttonContainer).find(targetField).val($(sourceField).val());
@@ -104,7 +104,7 @@ define([
         /**
          * Get the product button container.
          */
-        getButtonCondainer: function(obj) {
+        getButtonContainer: function(obj) {
             return obj.jsConfig.product.button_container_selector;
         },
 
@@ -157,7 +157,7 @@ define([
             console.log(option);
 
             // Find the target field
-            var targetField = this.getOptionHiddenField(option);
+            var targetField = this.getOptionHiddenField(obj, option);
 
             // Check the value
             var val = $(targetField).val();
@@ -169,14 +169,17 @@ define([
         /**
          * Get an option hidden field instance.
          */
-        getOptionHiddenField: function(option) {
+        getOptionHiddenField: function(obj, option) {
             console.log('option 2 ');
             console.log(option);
 
             // Input field
-            var inputField = 'input[id="super_attribute_' + option['attribute_id'] + '"]';
+            var inputFieldSelector = 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
+            var inputField = $(this.getButtonContainer(obj)).find(inputFieldSelector);
 
-            return inputField;
+            console.log(inputField.attr('id'));
+
+            return inputField.attr('id');
         },
 
         /**
