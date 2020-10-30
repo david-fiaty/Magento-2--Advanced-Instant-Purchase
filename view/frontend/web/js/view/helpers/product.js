@@ -85,7 +85,7 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
-                    var sourceField = this.getOptionField(obj, options[i]);
+                    var sourceField = this.getOptionField(options[i]);
                     var targetField = this.getOptionHiddenField(obj, options[i]);
 
 console.log(sourceField);
@@ -158,14 +158,8 @@ console.log(obj.jsConfig.product.button_container_selector);
         /**
          * Get an option field selector.
          */
-        getOptionField: function(obj, option) {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer(obj);
-
-            // Option selector
-            var optionSelector = '#aip-option-' + option['attribute_id'];
-            
-            return $(productContainerSelector).find(optionSelector).attr('id');
+        getOptionField: function(option) {            
+            return '#aip-option-' + option['attribute_id'];
         },
 
         /**
