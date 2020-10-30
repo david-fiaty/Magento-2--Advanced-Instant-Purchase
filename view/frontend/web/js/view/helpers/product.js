@@ -95,6 +95,8 @@ define([
                     // Set the value change event
                     $(sourceField).on('change', function() {
                         console.log(targetField);
+                        console.log($(this).val());
+
                         $(buttonContainer).find(targetField).val($(this).val());
                     });
                 }
@@ -171,7 +173,7 @@ define([
             var inputFieldSelector = 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
             var inputField = $(this.getButtonContainer(obj)).find(inputFieldSelector);
 
-            return inputField.attr('id');
+            return '#' + inputField.attr('id');
         },
 
         /**
