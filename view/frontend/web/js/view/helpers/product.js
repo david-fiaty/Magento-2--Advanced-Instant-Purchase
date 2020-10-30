@@ -137,7 +137,7 @@ define([
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(options[i])) {
+                if (this.isOptionInvalid(obj, options[i])) {
                     errors.push(options[i]);
                 }
             }
@@ -152,10 +152,7 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function(option) {
-            console.log('option 1 ');
-            console.log(option);
-
+        isOptionInvalid: function(obj, option) {
             // Find the target field
             var targetField = this.getOptionHiddenField(obj, option);
 
@@ -170,14 +167,9 @@ define([
          * Get an option hidden field instance.
          */
         getOptionHiddenField: function(obj, option) {
-            console.log('option 2 ');
-            console.log(option);
-
             // Input field
             var inputFieldSelector = 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
             var inputField = $(this.getButtonContainer(obj)).find(inputFieldSelector);
-
-            console.log(inputField.attr('id'));
 
             return inputField.attr('id');
         },
