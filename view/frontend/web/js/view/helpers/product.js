@@ -88,13 +88,10 @@ define([
                     var sourceField = this.getOptionField(options[i]);
                     var targetField = this.getOptionHiddenField(obj, options[i]);
 
-console.log(sourceField);
-console.log(targetField);
-console.log(obj.jsConfig.product.button_container_selector);
-
                     // Set the value change event
                     $(sourceField).on('change', function() {
-                        $(obj.jsConfig.product.button_container_selector).find(targetField).val($(sourceField).val());
+                        console.log($(this).val());
+                        $(targetField).val($(this).val());
                     });
                 }
             }
@@ -166,11 +163,7 @@ console.log(obj.jsConfig.product.button_container_selector);
          * Get an option hidden field selector.
          */
         getOptionHiddenField: function(obj, option) {
-            // Input field
-            var inputFieldSelector = 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
-            var inputField = $(obj.jsConfig.product.button_container_selector).find(inputFieldSelector);
-
-            return '#' + inputField.attr('id');
+            return 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
         },
 
         /**
