@@ -94,8 +94,12 @@ define([
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
-                        var targetField = self.getOptionHiddenField(option);
-                        $(targetField).val($(this).val());
+                        var sourceId = '#' + $(this).attr('id');
+                        var targetId = self.getOptionHiddenField($(this).attr('id'));
+                        console.log(sourceId);
+                        console.log(targetId);
+
+                        $(targetId).val($(sourceId).val());
                     });
                 }
             }
@@ -147,7 +151,7 @@ define([
          */
         isOptionInvalid: function(option) {
             // Find the target field
-            var targetField = this.getOptionHiddenField(option);
+            var targetField = this.getOptionHiddenField(option)['attribute_id'];
 
             // Check the value
             var val = $(targetField).val();
@@ -166,8 +170,8 @@ define([
         /**
          * Get an option hidden field selector.
          */
-        getOptionHiddenField: function(option) {
-            return 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
+        getOptionHiddenField: function(attributeId) {
+            return 'input[type="hidden"][id="super_attribute_' + attributeId + '"]';
         },
 
         /**
