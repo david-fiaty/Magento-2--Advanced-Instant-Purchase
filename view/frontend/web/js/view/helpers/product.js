@@ -85,9 +85,13 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
-                    var sourceField = this.getOptionField(options[i]);
+                    var sourceField = this.getOptionField(obj, options[i]);
                     var targetField = this.getOptionHiddenField(obj, options[i]);
                     var buttonContainer = this.getButtonContainer(obj);
+
+console.log(sourceField);
+console.log(targetField);
+console.log(buttonContainer);
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
@@ -162,8 +166,14 @@ define([
         /**
          * Get an option field selector.
          */
-        getOptionField: function(option) {
-            return '#aip-option-' + option['attribute_id'];
+        getOptionField: function(obj, option) {
+            // Product container selector
+            var productContainerSelector = this.getProductContainer(obj);
+
+            // Option selector
+            var optionSelector = '#aip-option-' + option['attribute_id'];
+            
+            return $(productContainerSelector).find(optionSelector).attr('id');
         },
 
         /**
