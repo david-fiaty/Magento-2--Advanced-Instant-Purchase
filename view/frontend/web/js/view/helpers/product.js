@@ -94,6 +94,7 @@ define([
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
+                        console.log(targetField);
                         $(buttonContainer).find(targetField).val($(this).val());
                     });
                 }
@@ -166,10 +167,10 @@ define([
          * Get an option hidden field instance.
          */
         getOptionHiddenField: function(option) {
+            console.log(option);
             // Input field
-            var inputField = 'input[name="super_attribute['
-            + option['attribute_id']
-            + ']"]';
+            var inputField = 'input[id="super_attribute_'
+            + option['attribute_id'] + '"]';
 
             return inputField;
         },
