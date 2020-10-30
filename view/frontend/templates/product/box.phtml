@@ -38,7 +38,7 @@
                 <div class="aip-field">
                     <label for="aip-option-<?= $row['attribute_id'] ?>">
                         <p>
-                            <select id="aip-option-<?= $row['attribute_id'] ?>" class="aip-option js-states form-control" data-minimum-results-for-search="Infinity">
+                            <select id="aip-option-<?= $row['attribute_id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="aip-option js-states form-control" data-minimum-results-for-search="Infinity">
                                 <option value=""><?= $block->escapeHtml($row['label']) ?></option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $item['value_index'] ?>">

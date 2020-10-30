@@ -95,7 +95,7 @@ define([
                     // Set the value change event
                     $(sourceField).on('change', function() {
                         var sourceId = '#' + $(this).attr('id');
-                        var targetId = '#super_attribute_' + $(this).attr('id');
+                        var targetId = '#super_attribute_' + $(this).data('attribute-id');
                         console.log(sourceId);
                         console.log(targetId);
 
