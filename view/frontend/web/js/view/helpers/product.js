@@ -153,6 +153,9 @@ define([
          * Check if a product option is valid.
          */
         isOptionInvalid: function(option) {
+            console.log('option 1 ');
+            console.log(option);
+
             // Find the target field
             var targetField = this.getOptionHiddenField(option);
 
@@ -167,10 +170,11 @@ define([
          * Get an option hidden field instance.
          */
         getOptionHiddenField: function(option) {
+            console.log('option 2 ');
             console.log(option);
+
             // Input field
-            var inputField = 'input[id="super_attribute_'
-            + option['attribute_id'] + '"]';
+            var inputField = 'input[id="super_attribute_' + option['attribute_id'] + '"]';
 
             return inputField;
         },
