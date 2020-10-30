@@ -167,10 +167,6 @@ define([
          * Get an option hidden field selector.
          */
         getOptionHiddenField: function(option) {
-            console.log(option);
-            console.log(option['attribute_id']);
-            console.log(option.attribute_id);
-
             return 'input[type="hidden"][id="super_attribute_' + option['attribute_id'] + '"]';
         },
 
