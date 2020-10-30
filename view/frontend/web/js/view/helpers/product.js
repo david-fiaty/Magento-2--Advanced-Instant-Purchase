@@ -86,7 +86,7 @@ define([
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
                     var sourceField = this.optionFieldSelector + '-' + options[i]['attribute_id'];
-                    var targetField = this.getOptionHiddenField(obj, options[i]);
+                    var targetField = this.getOptionField(obj, options[i]);
                     var buttonContainer = this.getButtonContainer(obj);
 
                     // Set the current value
@@ -94,9 +94,6 @@ define([
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
-                        console.log(targetField);
-                        console.log($(this).val());
-
                         $(buttonContainer).find(targetField).val($(this).val());
                     });
                 }
@@ -166,7 +163,18 @@ define([
         },
 
         /**
-         * Get an option hidden field instance.
+         * Get an option field selector.
+         */
+        getOptionField: function(obj, option) {
+            // Input field
+            var inputFieldSelector = 'select[id="aip-option-' + option['attribute_id'] + '"]';
+            var inputField = $(this.getButtonContainer(obj)).find(inputFieldSelector);
+
+            return '#' + inputField.attr('id');
+        },
+
+        /**
+         * Get an option hidden field selector.
          */
         getOptionHiddenField: function(obj, option) {
             // Input field
