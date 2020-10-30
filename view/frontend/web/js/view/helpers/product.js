@@ -82,15 +82,18 @@ define([
          */
         initOptionsEvents: function(obj) {
             if (this.hasOptions(obj)) {
+                // Prepare the variables
+                var self = this;
                 var options = obj.jsConfig.product.options;
+
+                // Set the options events
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
                     var sourceField = this.getOptionField(options[i]);
-                    var targetField = this.getOptionHiddenField(obj, options[i]);
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
-                        console.log($(this).val());
+                        var targetField = self.getOptionHiddenField(obj, options[i]);
                         $(targetField).val($(this).val());
                     });
                 }
