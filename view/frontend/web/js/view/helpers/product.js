@@ -171,7 +171,7 @@ define([
          * Get an option hidden field selector.
          */
         getOptionHiddenField: function(attributeId) {
-            return 'input[type="hidden"][id="super_attribute_' + attributeId + '"]';
+            return '#super_attribute_' + attributeId;
         },
 
         /**
