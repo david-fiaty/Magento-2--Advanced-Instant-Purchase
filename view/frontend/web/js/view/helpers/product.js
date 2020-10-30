@@ -95,7 +95,7 @@ define([
                     // Set the value change event
                     $(sourceField).on('change', function() {
                         var sourceId = '#' + $(this).attr('id');
-                        var targetId = self.getOptionHiddenField($(this).attr('id'));
+                        var targetId = '#super_attribute_' + option['attribute_id'];
                         console.log(sourceId);
                         console.log(targetId);
 
@@ -151,7 +151,7 @@ define([
          */
         isOptionInvalid: function(option) {
             // Find the target field
-            var targetField = this.getOptionHiddenField(option)['attribute_id'];
+            var targetField = '#super_attribute_' + option['attribute_id'];
 
             // Check the value
             var val = $(targetField).val();
@@ -165,13 +165,6 @@ define([
          */
         getOptionField: function(option) {            
             return '#aip-option-' + option['attribute_id'];
-        },
-
-        /**
-         * Get an option hidden field selector.
-         */
-        getOptionHiddenField: function(attributeId) {
-            return '#super_attribute_' + attributeId;
         },
 
         /**
