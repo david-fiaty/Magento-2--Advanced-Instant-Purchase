@@ -87,6 +87,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
+                'button_container_selector' => '#aip-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'image_url' => $this->getProductImageUrl($productId),
                 'page_url' => $product->getProductUrl(),

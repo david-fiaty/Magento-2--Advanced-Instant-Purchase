@@ -8,7 +8,7 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
+        $isBlockView = $config['product']['display'] == 'block';
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
@@ -16,6 +16,7 @@
 ?>
 
 <div id="aip-<?= $productId ?>" class="aip-button-container">
+    <!-- Button -->
     <button 
         id="<?= $buttonId ?>"
         type="button"
@@ -25,6 +26,7 @@
         <?= __($config['buttons']['button_text']) ?>
     </button>
     
+    <!-- Form -->
     <?php if (!$isPageView): ?>
         <form name="aip-list-form" method="post" class="aip-list-form">
     <?php endif; ?>
@@ -35,9 +37,9 @@
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
         <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
-        <?php if ($isBlockView && !empty($content['product']['options'])): ?>
-            <?php foreach ($content['product']['options'] as $option): ?>
-                <input type="hidden" name="super_attribute[<?= $option['attribute_id'] ?>]" value="" />
+        <?php if ($isBlockView && !empty($config['product']['options'])): ?>
+            <?php foreach ($config['product']['options'] as $option): ?>
+                <input type="hidden" id="super_attribute_<?= $option['attribute_id'] ?>" name="super_attribute[<?= $option['attribute_id'] ?>]" value="" />
             <?php endforeach; ?>
         <?php endif; ?>
 

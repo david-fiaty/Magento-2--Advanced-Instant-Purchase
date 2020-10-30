@@ -85,18 +85,26 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
-                    var sourceField = $(this.optionFieldSelector + '-' + options[i]['attribute_id']);
+                    var sourceField = this.optionFieldSelector + '-' + options[i]['attribute_id'];
                     var targetField = this.getOptionHiddenField(obj, options[i]);
+                    var buttonContainer = this.getButtonCondainer(obj);
 
                     // Set the current value
-                    targetField.val(sourceField.val());
+                    $(buttonContainer).find(targetField).val($(sourceField).val());
 
                     // Set the value change event
-                    sourceField.on('change', function() {
-                        targetField.val(sourceField.val());
+                    $(sourceField).on('change', function() {
+                        $(buttonContainer).find(targetField).val($(this).val());
                     });
                 }
             }
+        },
+
+        /**
+         * Get the product button container.
+         */
+        getButtonCondainer: function(obj) {
+            return obj.jsConfig.product.button_container_selector;
         },
 
         /**
@@ -148,7 +156,7 @@ define([
             var targetField = this.getOptionHiddenField(option);
 
             // Check the value
-            var val = targetField.val();
+            var val = $(targetField).val();
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
             return !isValid;
@@ -163,7 +171,7 @@ define([
             + option['attribute_id']
             + ']"]';
 
-            return $(inputField);
+            return inputField;
         },
 
         /**
