@@ -16,6 +16,7 @@ define([
         viewProductFormSelector: '#product_addtocart_form',
         productDataUrl: 'naxero-aip/ajax/product',
         productBoxContainerSelector: '.aip-product-box-container',
+        optionFieldSelector: '#aip-option',
 
         /**
          * Get a product container selector.
@@ -77,6 +78,34 @@ define([
         },
 
         /**
+         * Set product options events.
+         */
+        initOptionsEvents: function(obj) {
+            if (this.hasOptions(obj)) {
+                // Prepare the variables
+                var self = this;
+                var options = obj.jsConfig.product.options;
+
+                // Set the options events
+                for (var i = 0; i < options.length; i++) {
+                    // Prepare the fields
+                    var option = options[i];
+                    var sourceField = this.getOptionField(option);
+
+                    // Set the value change event
+                    $(sourceField).on('change', function() {
+                        var sourceId = '#' + $(this).attr('id');
+                        var targetId = '#super_attribute_' + $(this).data('attribute-id');
+                        console.log(sourceId);
+                        console.log(targetId);
+
+                        $(targetId).val($(sourceId).val());
+                    });
+                }
+            }
+        },
+
+        /**
          * Product options validation.
          */
         validateOptions: function(obj) {
@@ -105,7 +134,7 @@ define([
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(obj, options[i])) {
+                if (this.isOptionInvalid(options[i])) {
                     errors.push(options[i]);
                 }
             }
@@ -120,20 +149,22 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function(obj, option) {
-            // Find the product container
-            var productContainerSelector = this.getProductContainer(obj);
-
+        isOptionInvalid: function(option) {
             // Find the target field
-            var targetField = $(obj.getButtonId())
-            .parents(productContainerSelector)
-            .find('input[name="super_attribute[' + option['attribute_id']+ ']"]');
+            var targetField = '#super_attribute_' + option['attribute_id'];
 
             // Check the value
-            var val = targetField.val();
+            var val = $(targetField).val();
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
-            return !isValid
+            return !isValid;
+        },
+
+        /**
+         * Get an option field selector.
+         */
+        getOptionField: function(option) {            
+            return '#aip-option-' + option['attribute_id'];
         },
 
         /**

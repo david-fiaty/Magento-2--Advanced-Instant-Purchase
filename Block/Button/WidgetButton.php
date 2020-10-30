@@ -9,6 +9,7 @@ use Magento\Widget\Block\BlockInterface;
 
 class WidgetButton extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
+    const MODE = 'widget';
 
     public $_template = "button/base.phtml";
 
@@ -62,7 +63,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         );
 
         // Set the display mode
-        $config['product']['display'] = 'widget';
+        $config['product']['display'] = self::MODE;
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
