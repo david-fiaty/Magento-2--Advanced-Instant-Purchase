@@ -89,7 +89,7 @@ define([
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
                     var option = options[i];
-                    var sourceField = this.getOptionField(option);
+                    var sourceField = this.getOptionField(obj, option);
 
                     // Set the value change event
                     $(sourceField).on('change', function() {
