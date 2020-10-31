@@ -223,11 +223,6 @@ define([
                         $(boxSelector).find(targetField).val(sourceFieldValue).change();  
                     }
                 }
-                /* if (sourceField && sourceFieldValue != 'undefined' && sourceFieldValue.length > 0 && parseInt(sourceFieldValue) > 0) {
-                    $(sourceField).val(
-                        $('input[name="super_attribute[' + $(sourceField).data('attribute-id') + ']"]')
-                    );
-                } */
             }
         }
     };
