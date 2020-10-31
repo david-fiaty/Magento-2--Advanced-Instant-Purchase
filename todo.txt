@@ -1,6 +1,5 @@
 
 !!!PRIORITY!!!
-- finish product options rendering and validation
 - make window place order button text customisable
 
 - fix block purchase request not working cause add to card fields missing
