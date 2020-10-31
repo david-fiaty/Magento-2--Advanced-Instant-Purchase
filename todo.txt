@@ -2,6 +2,13 @@
 !!!PRIORITY!!!
 - make window place order button text customisable
 
+- check conditions for:
+    => product display in window 
+    => conditions for options display in window
+    => product options selected state in window
+
+
+
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types
 
