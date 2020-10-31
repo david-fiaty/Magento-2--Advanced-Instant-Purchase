@@ -93,7 +93,7 @@ define([
             var submitButton = null;
             if (obj.showSubmitButton) {
                 submitButton = {
-                    text: __('Submit'),
+                    text: obj.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function(e) {
                         if (AdditionalValidators.validate(obj)) {

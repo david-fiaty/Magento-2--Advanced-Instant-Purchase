@@ -36,6 +36,7 @@
     width: 1em;
     height: 1em;
     margin-left: 0.5em;
+    color: inherit;
 }
 
 .aip-ui-logger-button a {
@@ -43,7 +44,7 @@
     width: inherit;
     height: inherit;
     text-decoration: none;
-    color: white;
+    color: inherit;
 }
 
 .aip-ui-logger-tree {

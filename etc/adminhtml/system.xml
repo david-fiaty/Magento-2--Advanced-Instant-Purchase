@@ -123,6 +123,9 @@
                     <label>Popup title</label>
                     <comment>Text for the purchase popup window footer.</comment>
                 </field>
+                <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Place order button text</label>
+                </field>
                 <field id="show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
