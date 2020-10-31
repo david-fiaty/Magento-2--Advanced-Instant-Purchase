@@ -158,7 +158,7 @@ define([
                 if (!optionsValid) return;
             }        
             
-            // Page view and/or all conditions met
+            // Page view and/or all conditions valid
             this.purchasePopup(e);
         },
 
