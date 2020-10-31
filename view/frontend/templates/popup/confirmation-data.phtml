@@ -21,7 +21,13 @@
 <!-- Billing address -->
 <div class="aip-field">
     <label for="aip-billing-address-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Billing address')) ?></span>
+        <span class="aip-label">
+            <?= $block->escapeHtml(__('Billing address')) ?>
+            &nbsp;|&nbsp;
+            <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
+                <?= __('New') ?>
+            </a>
+        </span>
         <p>
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
@@ -47,7 +53,13 @@
 <!-- Shipping address -->
 <div class="aip-field">
     <label for="aip-shipping-address-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Shipping address')) ?></span>
+        <span class="aip-label">
+            <?= $block->escapeHtml(__('Shipping address')) ?>
+        </span>
+        &nbsp;|&nbsp;
+        <a id="new-shipping-address" class="aip-new" data-form="Address" href="javascript:void(0)">
+            <?= __('New') ?>
+        </a>
         <p>
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
@@ -74,7 +86,12 @@
 <?php if (!$content['product']['is_free']): ?>
     <div class="aip-field">
         <label for="aip-payment-method-select">
-            <span class="aip-label"><?= $block->escapeHtml(__('Saved cards')) ?></span>
+            <span class="aip-label">
+                <?= $block->escapeHtml(__('Saved cards')) ?>
+            </span>
+            <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
+                <?= __('New') ?>
+            </a>
             <p>
                 <?php if (!empty($content['savedCards'])): ?>
                     <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
