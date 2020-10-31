@@ -85,13 +85,13 @@ define([
                 // Prepare the variables
                 var options = obj.jsConfig.product.options;
 
-                // Set the options events
+                // Set the options events and default values
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
                     var option = options[i];
                     var sourceField = this.getOptionField(obj, option);
 
-                    // Set the value change event
+                    // Set the value change events
                     $(sourceField).on('change', function() {
                         var sourceId = '#' + $(this).attr('id');
                         var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
@@ -182,6 +182,9 @@ define([
                 success: function(data) {
                     // Get the HTML content
                     $(self.productBoxContainerSelector).html(data.html);
+
+                    // Update the selected product options values
+                    self.updateSelectedOptionsValues(obj);
                 },
                 error: function(request, status, error) {
                     AipLogger.log(
@@ -191,6 +194,25 @@ define([
                     );
                 }
             });
+        },
+
+        /**
+         * Update the selected product options values.
+         */
+        updateSelectedOptionsValues: function(obj) {
+            if (this.hasOptions(obj)) {
+                var options = obj.jsConfig.product.options;
+                for (var i = 0; i < options.length; i++) {
+                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute-id'] + ']"]';
+                    var targetField = this.getOptionField(obj, option);  
+                    $(targetField).val(sourceField.val());  
+                }
+                /* if (sourceField && sourceFieldValue != 'undefined' && sourceFieldValue.length > 0 && parseInt(sourceFieldValue) > 0) {
+                    $(sourceField).val(
+                        $('input[name="super_attribute[' + $(sourceField).data('attribute-id') + ']"]')
+                    );
+                } */
+            }
         }
     };
 });

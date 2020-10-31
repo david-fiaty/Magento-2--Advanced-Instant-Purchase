@@ -211,7 +211,7 @@ define([
                     // Set the slider events
                     AipSlider.build();
 
-                    // Set the additional validation event
+                    // Set the additional validation events
                     AipButton.setValidationEvents(self);
 
                     // Log the purchase data
