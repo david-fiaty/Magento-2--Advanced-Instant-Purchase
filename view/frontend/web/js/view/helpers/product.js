@@ -95,7 +95,6 @@ define([
                     $(sourceField).on('change', function() {
                         var sourceId = '#' + $(this).attr('id');
                         var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
-
                         $(targetId).val($(sourceId).val());
                     });
                 }
