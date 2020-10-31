@@ -1,6 +1,6 @@
 
 !!!PRIORITY!!!
-- make window place order button text customisable
+- fix options validation issue in list view
 - check agreements validation again
 
 - check conditions for:
