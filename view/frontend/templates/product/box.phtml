@@ -8,7 +8,7 @@
     $showProductPrice = $content['popups']['show_product_price'] == 1;
 ?>
 
-<div class="aip-product-box">
+<div id="aip-product-box-<?= $content['product']['id'] ?>" class="aip-product-box">
     <?php if ($showProductImage): ?>
         <!-- Product image -->
         <div class="aip-product-box-image">

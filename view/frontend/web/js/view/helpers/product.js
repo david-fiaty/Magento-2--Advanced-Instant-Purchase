@@ -17,6 +17,8 @@ define([
         productDataUrl: 'naxero-aip/ajax/product',
         productBoxContainerSelector: '.aip-product-box-container',
         optionFieldSelector: '#aip-option',
+        optionSelectorPrefix: '#aip-option-',
+        boxSelectorPrefix: '#aip-product-box-',
 
         /**
          * Get a product container selector.
@@ -160,7 +162,9 @@ define([
          * Get an option field selector.
          */
         getOptionField: function(obj, option) {            
-            return '#aip-option-' + obj.jsConfig.product.id + '-' + option['attribute_id'];
+            return this.optionSelectorPrefix
+            + obj.jsConfig.product.id
+            + '-' + option['attribute_id'];
         },
 
         /**
@@ -203,13 +207,21 @@ define([
             if (this.hasOptions(obj)) {
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
+                    // Prepare the parameters
                     var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
                     var targetField = this.getOptionField(obj, options[i]);  
-                    $(targetField).val($(sourceField).val()).change();  
-                    console.log(options[i]);
-                    console.log($(sourceField).val());
-                    console.log($(targetField).val());
+                    var sourceFieldValue = $(sourceField).val();
 
+                    // Prepare the condition
+                    var condition = sourceFieldValue
+                    && sourceFieldValue != 'undefined'
+                    && sourceFieldValue.length > 0;
+
+                    // Update the options selected value
+                    if (condition) {
+                        var boxSelector = this.boxSelectorPrefix + obj.jsConfig.product.id;
+                        $(boxSelector).find(targetField).val(sourceFieldValue).change();  
+                    }
                 }
                 /* if (sourceField && sourceFieldValue != 'undefined' && sourceFieldValue.length > 0 && parseInt(sourceFieldValue) > 0) {
                     $(sourceField).val(
