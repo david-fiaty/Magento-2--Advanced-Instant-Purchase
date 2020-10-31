@@ -1,17 +1,14 @@
 define(
     [
         'jquery',
-        'mage/translate',
-        'popover'
+        'mage/translate'
     ],
-    function($, __, popover) {
+    function($, __) {
         'use strict';
         return {
             agreementRow: '.aip-agreement-link-row',
             agreementBoxSelector: '.aip-agreement-box',
             inputSelectors: '.aip-select, .aip-box',
-            popoverSelector: '.popover',
-            buttonErrorClass: 'aip-button-error',
 
             /**
              * Additional form validation.
@@ -56,38 +53,6 @@ define(
                 $(obj.getButtonId()).prop('disabled', disabled);
             },
             */
-
-            /**
-             * Display the category view product options errors.
-             */
-            displayOptionsError: function(obj) {
-                // Prepare variables
-                var self = this;
-                var button = $(obj.getButtonId());
-
-                // Clear previous errors
-                self.clearErrors(obj);
-
-                // Update the button state
-                button.popover({
-                    title : '',
-                    content : __('Please select some options'),
-                    autoPlace : false,
-                    trigger : 'hover',
-                    placement : 'right',
-                    delay : 10
-                });
-                button.addClass(this.buttonErrorClass);
-                button.trigger('mouseover');
-            },
-
-            /**
-             * Clear UI error messages.
-             */
-            clearErrors: function(obj) {
-                $(obj.getButtonId()).removeClass(this.buttonErrorClass);
-                $(this.popoverSelector).remove();
-            },
 
             /**
              * Check the region state in address form.

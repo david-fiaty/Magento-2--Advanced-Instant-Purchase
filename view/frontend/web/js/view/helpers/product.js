@@ -2,10 +2,10 @@ define([
     'jquery',
     'mage/translate',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/view'
-], function($, __, UrlBuilder, AipValidation, AipLogger, AipView) {
+    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
+    'popover',
+], function($, __, UrlBuilder, AipLogger, AipView, popover) {
     'use strict';
 
     return {
@@ -19,6 +19,8 @@ define([
         optionFieldSelector: '#aip-option',
         optionSelectorPrefix: '#aip-option-',
         boxSelectorPrefix: '#aip-product-box-',
+        popoverSelector: '.popover',
+        buttonErrorClass: 'aip-button-error',
 
         /**
          * Get a product container selector.
@@ -137,10 +139,6 @@ define([
                 }
             }
 
-            // Display the errors
-            AipValidation.clearErrors(obj);
-            if (errors.length > 0) AipValidation.displayOptionsError(obj);
-
             return errors;
         },
 
@@ -212,7 +210,7 @@ define([
                     var targetField = this.getOptionField(obj, options[i]);  
                     var sourceFieldValue = $(sourceField).val();
 
-                    // Prepare the condition
+                    // Prepare the conditions
                     var condition = sourceFieldValue
                     && sourceFieldValue != 'undefined'
                     && sourceFieldValue.length > 0;
@@ -224,6 +222,38 @@ define([
                     }
                 }
             }
+        },
+
+        /**
+         * Display the category view product options errors.
+         */
+        displayOptionsError: function(obj) {
+            // Prepare variables
+            var self = this;
+            var button = $(obj.getButtonId());
+
+            // Clear previous errors
+            self.clearErrors(obj);
+
+            // Update the button state
+            button.popover({
+                title : '',
+                content : __('Please select some options'),
+                autoPlace : false,
+                trigger : 'hover',
+                placement : 'right',
+                delay : 10
+            });
+            button.addClass(this.buttonErrorClass);
+            button.trigger('mouseover');
+        },
+
+        /**
+         * Clear UI error messages.
+         */
+        clearOptionsErrors: function(obj) {
+            $(obj.getButtonId()).removeClass(this.buttonErrorClass);
+            $(this.popoverSelector).remove();
         }
     };
 });

@@ -154,8 +154,13 @@ define([
             // Block and list views
             if (AipView.isBlockView(this) || AipView.isListView(this)) {
                 // Validate the product options if needed
-                var optionsValid = AipProduct.validateOptions(this)
-                if (!optionsValid) return;
+                var errors = AipProduct.validateOptions(this);
+                if (errors.length > 0) {
+                    // Display the errors
+                    AipProduct.clearOptionsErrors(obj);
+                    AipProduct.displayOptionsError(obj); 
+                    return;
+                }
             }        
             
             // Page view and/or all conditions valid
