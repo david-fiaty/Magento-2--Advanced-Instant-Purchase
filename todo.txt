@@ -2,17 +2,8 @@
 !!!PRIORITY!!!
 - make window place order button text customisable
 
-- fix block purchase request not working cause add to card fields missing
-- check options validation not working in list view
-
-
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types
-
-
-
-FLOWS
-options > confirmation > validation > success/error
 
 
 UI LOGGER WINDOW BUGS
