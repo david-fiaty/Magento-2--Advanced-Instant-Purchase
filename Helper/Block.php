@@ -119,10 +119,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Get the config values
         $config = $this->configHelper->getValues();
-        unset($config['card_form']);
-        $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        $config['ui']['css'] = $this->configHelper->getCssPath();
-        $config['module']['title'] = Naming::getModuleTitle();
 
         // Prepare the block config data
         $output = $config
@@ -130,6 +126,33 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         + ['product' => $this->productHelper->getData($productId)]
         + $this->customerHelper->getUserParams();
 
+        // Prepare the block parameters
+        $output = $this->prepareBlockConfig($output);
+
         return $output;
+    }
+
+    /**
+     * Prepare the block config parameters.
+     */
+    public function prepareBlockConfig($config)
+    {
+        // Remove the card form
+        unset($config['card_form']);
+
+        // Prepare the UI loader
+        $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
+        $config['ui']['css'] = $this->configHelper->getCssPath();
+
+        // Module title
+        $config['module']['title'] = Naming::getModuleTitle();
+
+        // Prepare the popup wimdow title
+        $title = Naming::getModuleTitle();
+        $search = ['{product_name}', '{product_price}'];
+        $replace = [$config['product']['name'], $config['product']['price']];
+        $config['popups']['popup_title'] = str_replace($search, $replace, $config['popups']['popup_title']);
+
+        return $config;
     }
 }

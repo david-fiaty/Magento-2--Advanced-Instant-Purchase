@@ -26,7 +26,7 @@ define([
          */
         build: function(obj) {
             ConfirmModal({
-                title: this.getTitle(obj),
+                title: obj.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
                 content: AipTemplate.getConfirmation({}),
@@ -42,13 +42,6 @@ define([
                 AipButton.getCancel(obj),
                 AipButton.getSubmit(obj)
             ];
-        },
-
-        /**
-         * Get the modal window title.
-         */
-        getTitle: function(obj) {
-            return obj.jsConfig.popups.popup_title;
         }
     };
 });
