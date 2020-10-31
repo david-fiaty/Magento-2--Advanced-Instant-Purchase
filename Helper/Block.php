@@ -156,8 +156,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler
-        ->filterContent($config['popups']['popup_title'],
-        $config);
+        ->filterContent($config['popups']['popup_title'], $config);
 
         return $config;
     }
