@@ -24,8 +24,14 @@
         class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
         title="<?= __($config['buttons']['button_text']) ?>">
         <?= __($config['buttons']['button_text']) ?>
-    </button>
     
+        <?php if ($uiLogging): ?>
+            <div id="aip-ui-logger-button-<?= $productId ?>" class="aip-ui-logger-button">
+                <a href="javascript:void(0)" title="<?= __('View logs') ?>">&#9432;</a>
+            </div>
+        <?php endif; ?> 
+    </button>
+
     <!-- Form -->
     <?php if (!$isPageView): ?>
         <form name="aip-list-form" method="post" class="aip-list-form">
@@ -47,12 +53,6 @@
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
-
-    <?php if ($uiLogging): ?>
-        <div id="aip-ui-logger-button-<?= $productId ?>" class="aip-ui-logger-button">
-            <a href="javascript:void(0)" title="<?= __('View logs') ?>">&#9432;</a>
-        </div>
-    <?php endif; ?> 
 
     <script type="text/x-magento-init">
         {

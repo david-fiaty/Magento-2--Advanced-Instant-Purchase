@@ -17,7 +17,12 @@
 }
 
 /* Purchase button */
+.aip-button {
+    margin-top: 0px !important;
+}
+
 .aip-button-container {
+    margin-top: 1.1em;
     position: relative;
 }
 
@@ -27,12 +32,10 @@
 
 /* UI Logger */
 .aip-ui-logger-button {
-    position: relative;
-    top: 0em;
-    right: 0em;
     display: inline-block;
     width: 1em;
     height: 1em;
+    margin-left: 0.5em;
 }
 
 .aip-ui-logger-button a {
@@ -40,6 +43,7 @@
     width: inherit;
     height: inherit;
     text-decoration: none;
+    color: white;
 }
 
 .aip-ui-logger-tree {
