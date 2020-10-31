@@ -203,9 +203,13 @@ define([
             if (this.hasOptions(obj)) {
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
-                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute-id'] + ']"]';
-                    var targetField = this.getOptionField(obj, option);  
-                    $(targetField).val(sourceField.val());  
+                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
+                    var targetField = this.getOptionField(obj, options[i]);  
+                    $(targetField).val($(sourceField).val());  
+                    console.log(options[i]);
+                    console.log(sourceField);
+                    console.log(targetField);
+
                 }
                 /* if (sourceField && sourceFieldValue != 'undefined' && sourceFieldValue.length > 0 && parseInt(sourceFieldValue) > 0) {
                     $(sourceField).val(
