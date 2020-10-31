@@ -160,8 +160,8 @@ define([
         /**
          * Get an option field selector.
          */
-        getOptionField: function(option) {            
-            return '#aip-option-' + option['attribute_id'];
+        getOptionField: function(obj, option) {            
+            return '#aip-option-' + obj.jsConfig.product.id + '-' + option['attribute_id'];
         },
 
         /**
