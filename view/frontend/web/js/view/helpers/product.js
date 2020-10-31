@@ -83,7 +83,6 @@ define([
         initOptionsEvents: function(obj) {
             if (this.hasOptions(obj)) {
                 // Prepare the variables
-                var self = this;
                 var options = obj.jsConfig.product.options;
 
                 // Set the options events
@@ -95,9 +94,7 @@ define([
                     // Set the value change event
                     $(sourceField).on('change', function() {
                         var sourceId = '#' + $(this).attr('id');
-                        var targetId = '#super_attribute_' + $(this).data('attribute-id');
-                        console.log(sourceId);
-                        console.log(targetId);
+                        var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
 
                         $(targetId).val($(sourceId).val());
                     });
@@ -151,7 +148,7 @@ define([
          */
         isOptionInvalid: function(option) {
             // Find the target field
-            var targetField = '#super_attribute_' + option['attribute_id'];
+            var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
 
             // Check the value
             var val = $(targetField).val();
