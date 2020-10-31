@@ -205,10 +205,10 @@ define([
                 for (var i = 0; i < options.length; i++) {
                     var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
                     var targetField = this.getOptionField(obj, options[i]);  
-                    $(targetField).val($(sourceField).val());  
+                    $(targetField).val($(sourceField).val()).change();  
                     console.log(options[i]);
-                    console.log(sourceField);
-                    console.log(targetField);
+                    console.log($(sourceField).val());
+                    console.log($(targetField).val());
 
                 }
                 /* if (sourceField && sourceFieldValue != 'undefined' && sourceFieldValue.length > 0 && parseInt(sourceFieldValue) > 0) {
