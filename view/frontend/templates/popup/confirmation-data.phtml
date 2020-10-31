@@ -23,11 +23,11 @@
     <label for="aip-billing-address-select">
         <span class="aip-label">
             <?= $block->escapeHtml(__('Billing address')) ?>
-            &nbsp;|&nbsp;
-            <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-                <?= __('New') ?>
-            </a>
         </span>
+        &nbsp;|&nbsp;
+        <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
+            <?= __('New') ?>
+        </a>
         <p>
             <?php if (!empty($content['addresses'])): ?>
                 <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
@@ -40,11 +40,8 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aip-plus-icon" data-form="Address"><i class="gg-add"></i></span>
             <?php else: ?>
-                <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-                    <?= __('Create a billing address') ?>
-                </a>
+                <p><?= __('No records available.') ?></p>
             <?php endif; ?>
         </p>
     </label>
@@ -72,11 +69,8 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <span class="aip-plus-icon" data-form="Address"><i class="gg-add"></i></span>
             <?php else: ?>
-                <a id="new-shipping-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-                    <?= __('Create a shipping address') ?>
-                </a>
+                <p><?= __('No records available.') ?></p>
             <?php endif; ?>
         </p>
     </label>
@@ -89,6 +83,7 @@
             <span class="aip-label">
                 <?= $block->escapeHtml(__('Saved cards')) ?>
             </span>
+            &nbsp;|&nbsp;
             <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
                 <?= __('New') ?>
             </a>
@@ -101,11 +96,8 @@
                             </option>
                         <?php endforeach; ?>
                     </select>
-                    <span class="aip-plus-icon" data-form="Card"><i class="gg-add"></i></span>
                 <?php else: ?>
-                    <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
-                        <?= __('Save a new card') ?>
-                    </a>
+                    <p><?= __('No records available.') ?></p>
                 <?php endif; ?>
             </p>
         </label> 

@@ -29,18 +29,25 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
+     * @var FilterHandlerService
+     */
+    public $filterHandler;
+
+    /**
      * Block helper class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
+        $this->filterHandler = $filterHandler;
     }
 
     /**
@@ -147,11 +154,9 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
 
-        // Prepare the popup wimdow title
-        $title = Naming::getModuleTitle();
-        $search = ['{product_name}', '{product_price}'];
-        $replace = [$config['product']['name'], $config['product']['price']];
-        $config['popups']['popup_title'] = str_replace($search, $replace, $config['popups']['popup_title']);
+        // Prepare the popup window title
+        $config['popups']['popup_title'] = $this->filterHandler
+        ->filterContent($config['popups']['popup_title']);
 
         return $config;
     }
