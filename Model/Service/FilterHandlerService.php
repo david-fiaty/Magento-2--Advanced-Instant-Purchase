@@ -18,7 +18,7 @@ class FilterHandlerService
     /**
      * Filter content placeholders.
      */
-    public function filterContent($content)
+    public function filterContent($content, $config)
     {
         // Product name
         $content = str_replace('{product_name}', $config['product']['name'], $content);
