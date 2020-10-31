@@ -1,6 +1,7 @@
 
 !!!PRIORITY!!!
 - make window place order button text customisable
+- check conditions for product display in window
 
 - fix block purchase request not working cause add to card fields missing
 - check options validation not working in list view
