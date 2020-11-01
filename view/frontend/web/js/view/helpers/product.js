@@ -50,7 +50,7 @@ define([
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.o.getButtonId()).closest(productContainerSelector)
+            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -74,7 +74,7 @@ define([
 
             // Get the cart form data if list view
             if (AipView.isListView()) {
-                var cartFormData = $(this.o.getButtonId())
+                var cartFormData = $(this.o.jsConfig.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
@@ -240,7 +240,9 @@ define([
         displayErrors: function() {
             // Prepare variables
             var self = this;
-            var button = $(this.o.getButtonId());
+            var button = $(this.o.jsConfig.product.button_selector);
+
+            console.log(this.o.jsConfig.product.button_selector);
 
             // Clear previous errors
             self.clearErrors();
@@ -262,7 +264,7 @@ define([
          * Clear UI error messages.
          */
         clearErrors: function() {
-            $(this.o.getButtonId()).removeClass(this.buttonErrorClass);
+            $(this.o.jsConfig.product.button_selector).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

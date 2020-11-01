@@ -57,7 +57,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.getButtonId()).on('click touch', function(e) {
+            $(this.jsConfig.product.button_selector).on('click touch', function(e) {
                 self.handleButtonClick(e);
             });
             
@@ -145,13 +145,6 @@ define([
             
             // Page view and/or all conditions valid
             this.purchasePopup(e);
-        },
-
-        /**
-         * Get the current purchase button id.
-         */
-        getButtonId: function() {
-            return this.jsConfig.product.button_selector;
         },
 
         /**
