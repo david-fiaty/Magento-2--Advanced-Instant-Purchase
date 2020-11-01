@@ -44,17 +44,6 @@ define(
             },
 
             /**
-             * Update the button state.
-             */
-            /*
-            updateButtonState: function(obj) {
-                var errors = this.validateOptions(obj, true);
-                var disabled = !(errors.length == 0);
-                $(obj.getButtonId()).prop('disabled', disabled);
-            },
-            */
-
-            /**
              * Check the region state in address form.
              */
             checkRegionState: function() {

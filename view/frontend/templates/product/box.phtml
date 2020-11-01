@@ -3,9 +3,9 @@
     $content = $this->getData('content'); 
 
     // Display settings
-    $showProductImage = $content['popups']['show_product_image'] == 1;
-    $showProductName = $content['popups']['show_product_name'] == 1;
-    $showProductPrice = $content['popups']['show_product_price'] == 1;
+    $showProductImage = $content['popups']['show_product_image'];
+    $showProductName = $content['popups']['show_product_name'];
+    $showProductPrice = $content['popups']['show_product_price'];
 ?>
 
 <div id="aip-product-box-<?= $content['product']['id'] ?>" class="aip-product-box">

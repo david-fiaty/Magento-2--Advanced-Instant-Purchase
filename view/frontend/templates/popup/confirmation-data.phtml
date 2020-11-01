@@ -3,7 +3,7 @@
     $content = $this->getData('content');
 
     // Product box display
-    $showProductBox = (int) $content['config']['popups']['show_product'] == 1
+    $showProductBox = $content['config']['popups']['show_product']
     || !empty($content['config']['product']['options']);
 
     // Other payment methods display

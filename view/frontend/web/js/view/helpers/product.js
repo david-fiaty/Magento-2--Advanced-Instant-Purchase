@@ -169,7 +169,7 @@ define([
          * Check if a product box should be rendered.
          */
         needsProductBox: function(obj) {    
-            return obj.jsConfig.popups.show_product == 1
+            return obj.jsConfig.popups.show_product
             && this.hasOptions(obj) 
             && !this.validateOptions(obj);
         },
