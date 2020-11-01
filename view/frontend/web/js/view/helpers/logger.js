@@ -31,11 +31,11 @@ define([], function() {
             );
                 
             // Log the event message
-            console.log('---' + msg)
+            console.log('|--' + msg)
 
             // Log event data
             if (data) {
-                console.log('---' + data);
+                console.log('|---' + data);
             }
 
             // Log count
