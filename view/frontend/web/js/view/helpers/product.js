@@ -166,6 +166,15 @@ define([
         },
 
         /**
+         * Check if a product box should be rendered.
+         */
+        needsProductBox: function(obj) {    
+            return obj.jsConfig.popups.show_product == 1
+            && this.hasOptions(obj) 
+            && !this.validateOptions(obj);
+        },
+
+        /**
          * Render a product box.
          */
         renderBox: function(obj) {
@@ -214,10 +223,6 @@ define([
                     var condition = sourceFieldValue
                     && sourceFieldValue != 'undefined'
                     && sourceFieldValue.length > 0;
-
-                    console.log(condition);
-                    console.log($(sourceField).val());
-                    console.log($(targetField).val());
 
                     // Update the options selected value
                     if (condition) {
