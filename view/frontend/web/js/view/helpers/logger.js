@@ -35,7 +35,7 @@ define([], function() {
 
             // Log event data
             if (data) {
-                console.log(output);
+                console.log(data);
             }
 
             // Log count
