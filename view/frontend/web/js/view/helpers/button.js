@@ -54,7 +54,7 @@ define([
         /**
          * Get the modal cancel button.
          */
-        getCancel: function(obj) {
+        getCancelButton: function(obj) {
             var self = this;
             return {
                 text: __('Cancel'),
@@ -74,7 +74,7 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmit: function(obj) {
+        getSubmitButton: function(obj) {
             var self = this;
             var submitButton = null;
             if (obj.showSubmitButton) {
