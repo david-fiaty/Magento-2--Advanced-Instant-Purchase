@@ -8,6 +8,14 @@ define([
         cancelButtonSelector: '.action-close',
 
         /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
          * Clear all visible errors.
          */        
         clearErrors: function(slide) {
@@ -19,12 +27,12 @@ define([
         /**
          * Check the AJAX response.
          */
-        checkResponse: function(data, e, obj) {
+        checkResponse: function(data, e) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
                 cssClass = 'mage-error';
-                this.show('error', data.messages.main, obj);
+                this.show('error', data.messages.main);
 
                 // Add the field messages
                 if (data.messages.fields.length > 0) {
@@ -39,17 +47,17 @@ define([
             } else if (data.hasOwnProperty('response')) {
                 $(this.cancelButtonSelector).trigger('click');
             } else {
-                this.show('success', data.messages.main, obj);
+                this.show('success', data.messages.main);
             }
         },
 
         /**
          * Show the error messages.
          */
-        show: function(type, str, obj) {
-            var slide = AipSlider.getCurrentSlide(obj);
+        show: function(type, str) {
+            var slide = AipSlider.getCurrentSlide();
             this.clearErrors(slide);
-            slide.prepend(obj.loader);
+            slide.prepend(this.o.loader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();

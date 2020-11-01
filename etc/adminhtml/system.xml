@@ -72,18 +72,6 @@
                     <label>Button text</label>
                     <comment>Text to display on the purchase button.</comment>
                 </field>
-                <field id="state_disabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Button default state</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ButtonState</source_model>
-                </field>
-
-                <field id="products_with_options" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Products with options</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\ProductsWithOptions</source_model>
-                    <depends>
-                        <field id="state_disabled">0</field>
-                    </depends>
-                </field>
 
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Bypass out of stock</label>

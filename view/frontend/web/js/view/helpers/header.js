@@ -11,11 +11,19 @@ define(
 
         return {
             /**
+             * Initialise the object.
+             */
+            init: function(obj) {
+                this.o = obj;
+                return this;
+            },
+
+            /**
              * Set the page HTML header.
              */
-            setHeader: function(obj) {
+            setHeader: function() {
                 // Append the CSS
-                this.loadHeader(obj);
+                this.loadHeader();
 
                 // Set the CSS loaded flag
                 window.naxero = {
@@ -28,17 +36,16 @@ define(
             /**
              * Load the page HTML header.
              */
-            loadHeader: function(obj) {
+            loadHeader: function() {
                 if (!this.isHeaderLoaded()) {
                     // Get the spinner loaded flag
-                    var params = this.getLoadedFlag(obj);
+                    var params = this.getLoadedFlag();
 
                     // Add the header declarations
                     $('head').append(AipTemplate.getHeader(params));
 
                     // Log the event
                     AipLogger.log(
-                        obj,
                         __('Loaded the HTML page header declarations'),
                         params
                     );
@@ -55,10 +62,12 @@ define(
             /**
              * Get the spinner loaded flag.
              */
-            getLoadedFlag: function(obj) {
+            getLoadedFlag: function() {
+                var self = this;
+                console.log(this);
                 return {
                     data: {
-                        css_path: obj.jsConfig.ui.css
+                        css_path: self.o.jsConfig.ui.css
                     }
                 };
             }

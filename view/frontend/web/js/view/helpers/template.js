@@ -11,6 +11,14 @@ define(
 
         return {
             /**
+             * Initialise the object.
+             */
+            init: function(obj) {
+                this.o = obj;
+                return this;
+            },
+
+            /**
              * Render the spinner icon template.
              */
             getSpinner: function(params) {

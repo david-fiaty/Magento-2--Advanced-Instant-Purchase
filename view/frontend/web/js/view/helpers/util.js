@@ -15,6 +15,14 @@ define([
         addressFormSelector: '.form-address-edit',
 
         /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function(isSubView) {
@@ -25,10 +33,10 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentFormData: function(obj) {
-            var form = obj.isSubView
+        getCurrentFormData: function() {
+            var form = this.o.isSubView
             ? this.getAddressFormData()
-            : AipProduct.getProductFormData(obj);
+            : AipProduct.getProductFormData();
 
             return form;
         },

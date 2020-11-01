@@ -10,6 +10,14 @@ define([
         modalWrapperSelector: '.modal-inner-wrap',
 
         /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
          * Add HTML to a container.
          */
         addHtml: function(target, html) {
@@ -24,23 +32,23 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        build: function(obj) {
+        build: function() {
             ConfirmModal({
-                title: obj.jsConfig.popups.popup_title,
+                title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
                 content: AipTemplate.getConfirmation({}),
-                buttons: this.getButtons(obj)
+                buttons: this.getButtons()
             });
         },
 
         /**
          * Get the modal window buttons.
          */
-        getButtons: function(obj) {
+        getButtons: function() {
             return [
-                AipButton.getCancel(obj),
-                AipButton.getSubmit(obj)
+                AipButton.getCancelButton(this.o),
+                AipButton.getSubmitButton(this.o)
             ];
         }
     };

@@ -10,6 +10,14 @@ define([
         nextSlideSelector: '#aip-next-slide-container',
 
         /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
          * Create a login popup.
          */
         build: function() {
@@ -25,10 +33,10 @@ define([
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function(obj) {
-            var slide = (obj.isSubView)
+        getCurrentSlide: function() {
+            var slide = (this.o.isSubView)
             ? this.nextSlideSelector
-            : obj.popupContentSelector;
+            : this.o.popupContentSelector;
 
             return $(slide);
         },
@@ -36,14 +44,14 @@ define([
         /**
          * Show the AJAX loader.
          */
-        showLoader: function(obj) {
-            this.getCurrentSlide(obj).html(obj.loader);
+        showLoader: function() {
+            this.getCurrentSlide().html(this.o.loader);
         },
 
         /**
          * Handles the view switch.
          */
-        toggleView: function(obj, e) {
+        toggleView: function(e) {
             // Handle the event
             e = e || null;
             if (e) {
@@ -51,16 +59,16 @@ define([
             }
 
             // Handle the toggle logic
-            this.showLoader(obj);
-            if (obj.isSubView) {
+            this.showLoader();
+            if (this.o.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                obj.isSubView = false;
+                this.o.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
-                obj.isSubView = true;
+                this.o.isSubView = true;
             }
         }
     };

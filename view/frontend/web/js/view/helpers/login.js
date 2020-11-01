@@ -9,6 +9,14 @@ define([
         loginBlockSelector: '.block-authentication',
 
         /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
          * Create a login popup.
          */
         loginPopup: function() {
@@ -26,8 +34,8 @@ define([
         /**
          * Check if customer is logged in.
          */
-        isLoggedIn: function(obj) {
-            return obj.jsConfig.user.connected;
+        isLoggedIn: function() {
+            return this.o.jsConfig.user.connected;
         }
     };
 });
