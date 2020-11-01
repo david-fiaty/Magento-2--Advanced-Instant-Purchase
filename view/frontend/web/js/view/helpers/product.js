@@ -71,7 +71,7 @@ define([
             // Log the purchase data
             AipLogger.log(
                 __('Place order purchase data'),
-                this.getProductForm(obj).serializeArray()
+                this.getProductForm().serializeArray()
             );
 
             // Get the cart form data if list view
