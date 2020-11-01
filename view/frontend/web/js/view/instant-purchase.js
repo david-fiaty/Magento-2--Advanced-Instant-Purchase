@@ -48,13 +48,13 @@ define([
          */
         build: function() {
             // Load CSS
-            AipHeader.setHeader(this);
+            this.o.header.setHeader();
 
             // Spinner icon
-            AipSpinner.loadIcon(this);
+            this.o.spinner.loadIcon();
 
             // Options validation
-            AipProduct.initOptionsEvents(this);
+            this.o.product.initOptionsEvents();
 
             // Initialise the UI Logger tree if needed
             this.buildDataTree();
@@ -66,13 +66,11 @@ define([
             });
             
             // Log the step
-            AipLogger.log(
-                this,
+            this.o.logger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
                     this.jsConfig.product.id
-                ),
-                this.jsConfig
+                )
             );
         },
 
@@ -88,36 +86,36 @@ define([
             };
 
             // Set the data viewer button event
-            $(AipLogger.getButtonSelector(this)).on('click touch', function(e) {
+            $(this.o.logger.getButtonSelector()).on('click touch', function(e) {
                 // Prevent propagation
                 e.stopPropagation();
 
                 // Slider view
-                AipSlider.toggleView(self, e);
+                this.o.slider.toggleView(self, e);
                 
                 // Modal window
                 self.showSubmitButton = false;
-                AipModal.build(self);
+                this.o.modal.build(self);
                 
                 // Send the request
-                AipSlider.showLoader(self);
+                this.o.slider.showLoader(self);
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: UrlBuilder.build(AipLogger.logsUrl),
+                    url: UrlBuilder.build(this.o.logger.logsUrl),
                     data: params,
                     success: function(data) {
                         // Get the HTML content
-                        AipModal.addHtml(
-                            AipSlider.nextSlideSelector,
+                        this.o.modal.addHtml(
+                            this.o.slider.nextSlideSelector,
                             data.html
                         );
 
                         // Build the data tree
-                        AipTree.build(self);
+                        this.o.tree.build(self);
                     },
                     error: function(request, status, error) {
-                        AipLogger.log(
+                        this.o.logger.log(
                             self,
                             __('Error retrieving the UI logging data'),
                             error
@@ -132,19 +130,19 @@ define([
          */
         handleButtonClick: function(e) {
             // Force Login 
-            if (!AipLogin.isLoggedIn(this)) {
-                AipLogin.loginPopup(); 
+            if (!this.o.login.isLoggedIn(this)) {
+                this.o.login.loginPopup(); 
                 return;              
             }
 
             // Block and list views
-            if (AipView.isBlockView(this) || AipView.isListView(this)) {
+            if (this.o.view.isBlockView(this) || this.o.view.isListView(this)) {
                 // Validate the product options if needed
-                var optionsValid = AipProduct.validateOptions(this);
+                var optionsValid = this.o.product.validateOptions(this);
                 if (!optionsValid) {
                     // Display the errors
-                    AipProduct.clearErrors(this);
-                    AipProduct.displayErrors(this); 
+                    this.o.product.clearErrors(this);
+                    this.o.product.displayErrors(this); 
                     return;
                 }
             }        
@@ -173,14 +171,14 @@ define([
             };
 
             // Log the parameters
-            AipLogger.log(
+            this.o.logger.log(
                 this,
                 __('Confirmation window request parameters'),
                 params
             );
 
             // Send the request
-            AipSlider.showLoader(self);
+            this.o.slider.showLoader(self);
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -188,33 +186,32 @@ define([
                 data: params,
                 success: function(data) {
                     // Get the HTML content
-                    AipModal.addHtml(self.popupContentSelector, data.html);
+                    this.o.modal.addHtml(self.popupContentSelector, data.html);
 
                     // Render the product box
-                    AipProduct.renderBox(self);
+                    this.o.product.renderBox(self);
 
                     // Initialise the select lists
-                    AipSelect.build(self);
+                    this.o.select.build(self);
 
                     // Agreements events
-                    AipAgreement.build(self);
+                    this.o.agreement.build(self);
                     
                     // Set the slider events
-                    AipSlider.build();
+                    this.o.slider.build();
 
                     // Set the additional validation events
-                    AipButton.setValidationEvents(self);
+                    this.o.button.setValidationEvents(self);
 
                     // Log the purchase data
-                    AipLogger.log(
+                    this.o.logger.log(
                         self,
                         __('Purchase data on page load'),
-                        AipProduct.getProductForm(self).serializeArray()
+                        this.o.product.getProductForm(self).serializeArray()
                     );
                 },
                 error: function(request, status, error) {
-                    AipLogger.log(
-                        self,
+                    this.o.logger.log(
                         __('Error retrieving the confimation window data'),
                         error
                     );
@@ -227,7 +224,7 @@ define([
          */
         purchasePopup: function(e) {
             // Get the current form
-            var form = AipProduct.getProductForm(this);
+            var form = this.o.product.getProductForm(this);
 
             // Validate the product options
             // Todo - fix this
@@ -242,7 +239,7 @@ define([
             }
 
             // Open the modal
-            AipModal.build(this);
+            this.o.modal.build(this);
 
             // Get the AJAX content
             this.getConfirmContent();
@@ -287,15 +284,14 @@ define([
                         */
                     }
 
-                    AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
-                    $(AipButton.submitButtonSelector).prop(
+                    this.o.modal.addHtml(this.o.slider.nextSlideSelector, data.html);
+                    $(this.o.button.submitButtonSelector).prop(
                         'disabled',
                         false
                     );
                 },
                 error: function(request, status, error) {
-                    AipLogger.log(
-                        self,
+                    this.o.logger.log(
                         __('Error retrieving the form data'),
                         error
                     );

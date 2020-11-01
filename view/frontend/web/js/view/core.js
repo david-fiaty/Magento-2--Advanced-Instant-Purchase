@@ -32,10 +32,12 @@ define(getHelpers(), function(agreement, button, header, logger, login, message,
 
     return {
         init: function(obj) {
-            this.obj = obj;
+            this.o = obj;
             for (let i = 0; i < helpers.length; i++) {
                 this[helpers[i]] = eval(helpers[i]);
             }
+
+            return this;
         }
     };
 });
