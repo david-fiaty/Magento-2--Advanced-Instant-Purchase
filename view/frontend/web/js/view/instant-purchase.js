@@ -7,22 +7,11 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/tree',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/spinner',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/header',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/login',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/select',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/agreement',
+    'Naxero_AdvancedInstantPurchase/js/view/core',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function($, __, Component, UrlBuilder, AipTree, AipView, AipProduct, AipSpinner, AipLogger, AipHeader, AipButton, AipModal, AipLogin, AipSelect, AipSlider, AipAgreement) {
+], function($, __, Component, UrlBuilder, Core) {
     'use strict';
     
     return Component.extend({
@@ -48,6 +37,7 @@ define([
         /** @inheritdoc */
         initialize: function() {
             this._super();
+            this.o = Core.init(this);
             this.build();
         },
 
