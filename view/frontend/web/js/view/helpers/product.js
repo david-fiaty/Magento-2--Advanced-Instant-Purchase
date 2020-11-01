@@ -1,11 +1,10 @@
 define([
     'jquery',
     'mage/translate',
-    'mage/url',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
     'popover',
-], function($, __, UrlBuilder, AipLogger, AipView, popover) {
+], function($, __, AipLogger, AipView, popover) {
     'use strict';
 
     return {
@@ -14,7 +13,6 @@ define([
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
-        productDataUrl: 'naxero-aip/ajax/product',
         productBoxContainerSelector: '.aip-product-box-container',
         confirmationContainerSelector: '#aip-confirmation-content',
         optionFieldSelector: '#aip-option',
@@ -193,7 +191,7 @@ define([
             // Send the AJAX request
             $.ajax({
                 type: 'POST',
-                url: UrlBuilder.build(self.productDataUrl),
+                url: this.o.url.getProductDataUrl(),
                 data: params,
                 success: function(data) {
                     // Get the HTML content

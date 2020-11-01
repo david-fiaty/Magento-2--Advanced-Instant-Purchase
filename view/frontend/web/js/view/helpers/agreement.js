@@ -48,7 +48,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: UrlBuilder.build(this.o.confirmUrl),
+                url: self.o.url.getConfirmationUrl(),
                 data: params,
                 success: function(data) {
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);

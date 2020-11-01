@@ -4,14 +4,11 @@
  */
 define([
     'jquery',
-    'mage/url',
     'Naxero_BuyNow/js/view/helpers/product'
-], function($, UrlBuilder, AipProduct) {
+], function($, AipProduct) {
     'use strict';
 
     return {
-        saveAddressUrl: 'customer/address/formPost',
-        purchaseUrl: 'naxero-aip/ajax/order',
         addressFormSelector: '.form-address-edit',
 
         /**
@@ -26,8 +23,9 @@ define([
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function(isSubView) {
-            var url = isSubView ? this.saveAddressUrl : this.purchaseUrl;
-            return UrlBuilder.build(url);
+            return isSubView 
+            ? this.o.url.getSaveAddressUrl() 
+            : this.o.url.getPurchaseUrl();
         },
 
         /**

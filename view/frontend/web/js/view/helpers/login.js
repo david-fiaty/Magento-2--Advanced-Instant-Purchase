@@ -1,11 +1,9 @@
 define([
-    'mage/url',
     'Naxero_BuyNow/js/model/authentication-popup'
-], function(UrlBuilder, AuthPopup) {
+], function(AuthPopup) {
     'use strict';
 
     return {
-        loginUrl: 'customer/account/login',
         loginBlockSelector: '.block-authentication',
 
         /**
@@ -28,7 +26,8 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            window.location.href = UrlBuilder.build(this.loginUrl);
+            window.location.href = this.o.url.getLoginUrl();
+
         },
 
         /**

@@ -18,7 +18,6 @@ define([
         defaults: {
             jsConfig: {},
             uuid: null,
-            confirmUrl: 'naxero-aip/ajax/confirmation',
             showButton: false,
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
@@ -100,7 +99,7 @@ define([
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: UrlBuilder.build(self.o.logger.logsUrl),
+                    url: self.o.url.getLoggerUrl(),
                     data: params,
                     success: function(data) {
                         // Get the HTML content
@@ -178,7 +177,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: UrlBuilder.build(self.confirmUrl),
+                url: self.o.url.getConfirmationUrl(),
                 data: params,
                 success: function(data) {
                     // Get the HTML content
@@ -264,7 +263,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: UrlBuilder.build(self.confirmUrl),
+                url: self.o.url.getConfirmationUrl(),
                 data: params,
                 success: function(data) {
                     if (params.action == 'Card') {

@@ -2,6 +2,7 @@
  * Helpers array.
  */
 var helpers = [
+    'url',
     'agreement',
     'button',
     'logger',
@@ -35,7 +36,7 @@ function getHelperFiles() {
 /**
  * Core component.
  */
-define(getHelperFiles(), function(agreement, button, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
+define(getHelperFiles(), function(url, agreement, button, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
     'use strict';
 
     return {

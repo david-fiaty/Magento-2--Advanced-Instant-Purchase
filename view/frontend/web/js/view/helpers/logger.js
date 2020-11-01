@@ -5,7 +5,6 @@ define([], function() {
         logCount: 1,
         logTitleCss: 'font-weight: bold; color: blue;',
         logViewerButtonClass: 'aip-ui-logger-button',
-        logsUrl: 'naxero-aip/ajax/logs',
 
         /**
          * Initialise the object.
