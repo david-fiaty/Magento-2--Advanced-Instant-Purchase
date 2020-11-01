@@ -91,7 +91,8 @@ define([
                 self.o.slider.toggleView(e);
                 
                 // Modal window
-                self.showSubmitButton = false;
+                // Todo - fix button state
+                //self.showSubmitButton = false;
                 self.o.modal.build();
                 
                 // Send the request
