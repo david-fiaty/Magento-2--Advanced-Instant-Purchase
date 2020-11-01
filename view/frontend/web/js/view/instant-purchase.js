@@ -47,9 +47,6 @@ define([
          * @param {Object} data
          */
         build: function() {
-            // Load CSS
-            this.o.header.setHeader();
-
             // Spinner icon
             this.o.spinner.loadIcon();
 

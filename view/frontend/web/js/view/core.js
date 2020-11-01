@@ -4,7 +4,6 @@
 var helpers = [
     'agreement',
     'button',
-    'header',
     'logger',
     'login',
     'message',
@@ -36,7 +35,7 @@ function getHelpers() {
 /**
  * Core component.
  */
-define(getHelpers(), function(agreement, button, header, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
+define(getHelpers(), function(agreement, button, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
     'use strict';
 
     return {
