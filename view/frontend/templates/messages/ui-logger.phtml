@@ -1,0 +1,14 @@
+<?php
+    // Prepare the parameters
+    $data = $block->getData('data');
+    $title = $block->getData('title');
+    $config = $block->getData('config');
+    $productId = $config['product']['id'];
+?>
+
+<!-- UI logs viewer container -->
+<div id="aip-ui-logger-<?= $productId ?>" class="aip-ui-logger">
+    <pre class="aip-logger-tree">
+        <img class="aip-spinner" src="<?= $config['ui']['loader'] ?>">
+    </pre>
+</div>

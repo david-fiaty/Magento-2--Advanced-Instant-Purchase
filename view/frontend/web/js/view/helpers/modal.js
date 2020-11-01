@@ -3,12 +3,19 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
-], function ($, ConfirmModal, AipTemplate, AipButton) {
+], function($, ConfirmModal, AipTemplate, AipButton) {
     'use strict';
 
     return {
         modalWrapperSelector: '.modal-inner-wrap',
+
+        /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
 
         /**
          * Add HTML to a container.
@@ -17,24 +24,32 @@ define([
             $(target).html(html);
             $(this.modalWrapperSelector).animate(
                 {minHeight: $(target).height()  + 'px'}
-                , 300
+                ,
+                300
             );
         },
 
         /**
          * Get the confirmation page modal popup.
          */
-        build: function(obj) {
+        build: function() {
             ConfirmModal({
-                title: obj.jsConfig.popups.popup_title,
+                title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
                 content: AipTemplate.getConfirmation({}),
-                buttons: [
-                    AipButton.getCancel(obj),
-                    AipButton.getSubmit(obj)
-                ]
+                buttons: this.getButtons()
             });
+        },
+
+        /**
+         * Get the modal window buttons.
+         */
+        getButtons: function() {
+            return [
+                AipButton.getCancelButton(this.o),
+                AipButton.getSubmitButton(this.o)
+            ];
         }
     };
 });

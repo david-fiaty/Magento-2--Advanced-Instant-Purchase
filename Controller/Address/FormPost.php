@@ -49,19 +49,19 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
     public $customerAddressMapper;
 
     /**
-     * @param Context $context
-     * @param Session $customerSession
-     * @param FormKeyValidator $formKeyValidator
-     * @param FormFactory $formFactory
-     * @param AddressRepositoryInterface $addressRepository
-     * @param AddressInterfaceFactory $addressDataFactory
-     * @param RegionInterfaceFactory $regionDataFactory
-     * @param DataObjectProcessor $dataProcessor
-     * @param DataObjectHelper $dataObjectHelper
-     * @param ForwardFactory $resultForwardFactory
-     * @param PageFactory $resultPageFactory
-     * @param RegionFactory $regionFactory
-     * @param HelperData $helperData
+     * @param                                          Context                    $context
+     * @param                                          Session                    $customerSession
+     * @param                                          FormKeyValidator           $formKeyValidator
+     * @param                                          FormFactory                $formFactory
+     * @param                                          AddressRepositoryInterface $addressRepository
+     * @param                                          AddressInterfaceFactory    $addressDataFactory
+     * @param                                          RegionInterfaceFactory     $regionDataFactory
+     * @param                                          DataObjectProcessor        $dataProcessor
+     * @param                                          DataObjectHelper           $dataObjectHelper
+     * @param                                          ForwardFactory             $resultForwardFactory
+     * @param                                          PageFactory                $resultPageFactory
+     * @param                                          RegionFactory              $regionFactory
+     * @param                                          HelperData                 $helperData
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -107,7 +107,9 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
     {
         $existingAddressData = $this->getExistingAddressData();
 
-        /** @var \Magento\Customer\Model\Metadata\Form $addressForm */
+        /**
+ * @var \Magento\Customer\Model\Metadata\Form $addressForm
+*/
         $addressForm = $this->_formFactory->create(
             'customer_address',
             'customer_address_edit',
@@ -163,8 +165,8 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
     /**
      * Update region data
      *
-     * @param array $attributeValues
-     * @return void
+     * @param                                   array $attributeValues
+     * @return                                  void
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function updateRegionData(&$attributeValues)
@@ -227,10 +229,12 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
             $messages['main'] = __('The address could not be saved.');
         }
 
-        return $this->jsonFactory->create()->setData([
+        return $this->jsonFactory->create()->setData(
+            [
             'success' => $success,
             'messages' => $messages
-        ]);
+            ]
+        );
     }
 
     /**

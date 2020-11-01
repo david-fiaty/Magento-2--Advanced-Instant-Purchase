@@ -49,10 +49,10 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     
     /**
      * Get all payment methods
-     * 
+     *
      * @return array
-     */ 
-    public function getAllPaymentMethods() 
+     */
+    public function getAllPaymentMethods()
     {
         return $this->paymentDataHelper->getPaymentMethods();
     }
@@ -60,30 +60,30 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get key-value pair of all payment methods
      * key = method code & value = method name
-     * 
+     *
      * @return array
-     */ 
-    public function getAllPaymentMethodsList() 
+     */
+    public function getAllPaymentMethodsList()
     {
         return $this->paymentDataHelper->getPaymentMethodList();
     }
     
     /**
      * Get active/enabled payment methods
-     * 
+     *
      * @return array
-     */ 
-    public function getActivePaymentMethods() 
+     */
+    public function getActivePaymentMethods()
     {
         return $this->paymentConfig->getActiveMethods();
     }
     
     /**
      * Get non card payment methods available
-     * 
+     *
      * @return array
-     */ 
-    public function getOtherPaymentMethods() 
+     */
+    public function getOtherPaymentMethods()
     {
         // Get the other payment methods
         $options = [];
@@ -114,8 +114,9 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if an item is a saved card.
      */
-    public function isSavedCard($item, $savedCards) {
-        foreach($savedCards as $card) {
+    public function isSavedCard($item, $savedCards)
+    {
+        foreach ($savedCards as $card) {
             if ($card['method_code'] == $item['value']) {
                 return true;
             }

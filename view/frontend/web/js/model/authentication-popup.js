@@ -6,7 +6,7 @@
 define([
     'jquery',
     'Magento_Ui/js/modal/modal'
-], function ($, modal) {
+], function($, modal) {
     'use strict';
 
     return {
@@ -17,7 +17,7 @@ define([
          *
          * @param {HTMLElement} element
          */
-        createPopUp: function(element) {
+        createPopUp: function (element) {
             var options = {
                 'type': 'popup',
                 'modalClass': 'popup-authentication',
@@ -33,7 +33,7 @@ define([
         },
 
         /** Show login popup window */
-        showModal: function() {
+        showModal: function () {
             $(this.modalWindow).modal('openModal').trigger('contentUpdated');
         }
     };

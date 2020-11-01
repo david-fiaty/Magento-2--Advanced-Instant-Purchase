@@ -6,7 +6,7 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
 
 /**
- * Instant Purchase order placement.
+ * Order controller class
  */
 class Order extends \Magento\Framework\App\Action\Action
 {
@@ -80,7 +80,7 @@ class Order extends \Magento\Framework\App\Action\Action
     public $paymentHandler;
 
     /**
-     * Class Order constructor 
+     * Order controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -189,9 +189,11 @@ class Order extends \Magento\Framework\App\Action\Action
                 $payment = $quote->getPayment();
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
-                $payment->importData([
+                $payment->importData(
+                    [
                     'method' => $paymentData['paymentMethodCode']
-                ]);
+                    ]
+                );
                 $payment->save();
             }
 
@@ -208,24 +210,23 @@ class Order extends \Magento\Framework\App\Action\Action
             if ($paymentResponse->paymentSuccess()) {
                 $order = $paymentResponse->createOrder($quote, $paymentResponse);
                 if ($order) {
-                    $message = json_encode([
+                    $message = json_encode(
+                        [
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
                         'order_increment_id' => $order->getIncrementId()
-                    ]);
+                        ]
+                    );
                     
                     return $this->createResponse($message, true);
-                }
-                else {
+                } else {
                     return $this->createResponse($this->createGenericErrorMessage(), false);
                 }
             }
-        } 
-        catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return $this->createResponse($e->getMessage(), false);
 
             return $this->createResponse($this->createGenericErrorMessage(), false);
-        } 
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->createResponse($e->getMessage(), false);
 
             return $this->createResponse(
@@ -261,7 +262,7 @@ class Order extends \Magento\Framework\App\Action\Action
     /**
      * Checks if all parameters that should be handled are passed.
      *
-     * @param RequestInterface $request
+     * @param  RequestInterface $request
      * @return bool
      */
     private function doesRequestContainAllKnowParams(array $request): bool
@@ -277,7 +278,7 @@ class Order extends \Magento\Framework\App\Action\Action
     /**
      * Filters out parameters that handled by controller.
      *
-     * @param RequestInterface $request
+     * @param  RequestInterface $request
      * @return array
      */
     private function getRequestUnknownParams(array $requestParams): array
@@ -294,20 +295,24 @@ class Order extends \Magento\Framework\App\Action\Action
     /**
      * Creates response with a operation status message.
      *
-     * @param string $message
-     * @param bool $successMessage
+     * @param  string $message
+     * @param  bool   $successMessage
      * @return JsonResult
      */
     private function createResponse(string $message, bool $successMessage): JsonResult
     {
-        /** @var JsonResult $result */
+        /**
+ * @var JsonResult $result
+*/
         $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $result->setData([
+        $result->setData(
+            [
             'response' => $message
-        ]);
+            ]
+        );
         if ($successMessage) {
             $this->messageManager->addComplexSuccessMessage(
-                'naxeroAipOrderSuccessMessage', 
+                'naxeroAipOrderSuccessMessage',
                 ['message' => $message],
                 null
             );

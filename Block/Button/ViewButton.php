@@ -6,10 +6,12 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
  */
 class ViewButton extends \Magento\Framework\View\Element\Template
 {
+    const MODE = 'page';
+
     /**
      * @var Registry
      */
-    public $registry; 
+    public $registry;
 
     /**
      * @var Block
@@ -62,12 +64,15 @@ class ViewButton extends \Magento\Framework\View\Element\Template
             $this->getProduct()->getId()
         );
 
+        // Set the display mode
+        $config['product']['display'] = self::MODE;
+
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']
         && $config['general']['enabled']
         && $config['products']['product_view']
         && $this->purchaseHelper->canDisplayButton();
-
+        
         return $condition ? $config : null;
     }
     

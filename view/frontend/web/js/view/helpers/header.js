@@ -1,19 +1,29 @@
 define(
     [
         'jquery',
+        'mage/translate',
         'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
-        'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
+        'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
     ],
-    function ($, AipTemplate, AipUtil) {
+    function($, __, AipTemplate, AipUtil, AipLogger) {
         'use strict';
 
         return {
             /**
+             * Initialise the object.
+             */
+            init: function(obj) {
+                this.o = obj;
+                return this;
+            },
+
+            /**
              * Set the page HTML header.
              */
-            setHeader: function(obj) {
+            setHeader: function() {
                 // Append the CSS
-                this.loadHeader(obj);
+                this.loadHeader();
 
                 // Set the CSS loaded flag
                 window.naxero = {
@@ -26,15 +36,19 @@ define(
             /**
              * Load the page HTML header.
              */
-            loadHeader: function(obj) {
+            loadHeader: function() {
                 if (!this.isHeaderLoaded()) {
-                    $('head').append(AipTemplate.getHeader(
-                        {
-                            data: {
-                                css_path: obj.jsConfig.ui.css
-                            }
-                        }
-                    ));
+                    // Get the spinner loaded flag
+                    var params = this.getLoadedFlag();
+
+                    // Add the header declarations
+                    $('head').append(AipTemplate.getHeader(params));
+
+                    // Log the event
+                    AipLogger.log(
+                        __('Loaded the HTML page header declarations'),
+                        params
+                    );
                 }
             },
 
@@ -43,6 +57,19 @@ define(
              */
             isHeaderLoaded: function() {
                 return AipUtil.has(window, 'naxero.aip.css', true);
+            },
+
+            /**
+             * Get the spinner loaded flag.
+             */
+            getLoadedFlag: function() {
+                var self = this;
+                console.log(this);
+                return {
+                    data: {
+                        css_path: self.o.jsConfig.ui.css
+                    }
+                };
             }
         };
     }

@@ -1,23 +1,38 @@
 define([
     'jquery',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
-], function ($, AipSlider) {
+], function($, AipSlider) {
     'use strict';
 
     return {
         cancelButtonSelector: '.action-close',
+
+        /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
+
+        /**
+         * Clear all visible errors.
+         */        
         clearErrors: function(slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
         },
 
-        checkResponse: function(data, e, obj) {
+        /**
+         * Check the AJAX response.
+         */
+        checkResponse: function(data, e) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
                 cssClass = 'mage-error';
-                this.show('error', data.messages.main, obj);
+                this.show('error', data.messages.main);
 
                 // Add the field messages
                 if (data.messages.fields.length > 0) {
@@ -29,19 +44,20 @@ define([
                         $(item).addClass(cssClass);
                     }
                 }
-            }
-            else if (data.hasOwnProperty('response')) {
+            } else if (data.hasOwnProperty('response')) {
                 $(this.cancelButtonSelector).trigger('click');
-            }
-            else {
-                this.show('success', data.messages.main, obj);
+            } else {
+                this.show('success', data.messages.main);
             }
         },
 
-        show: function(type, str, obj) {
-            var slide = AipSlider.getCurrentSlide(obj);
+        /**
+         * Show the error messages.
+         */
+        show: function(type, str) {
+            var slide = AipSlider.getCurrentSlide();
             this.clearErrors(slide);
-            slide.prepend(obj.loader);
+            slide.prepend(this.o.loader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();

@@ -16,23 +16,24 @@ class PaymentHandler
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationFactory $paymentIntegrationFactory
-    )
-    {
+    ) {
         $this->paymentIntegrationFactory = $paymentIntegrationFactory;
     }
 
     /**
      * Load a payment integration instance.
      */
-    public function loadMethod($code) {
+    public function loadMethod($code)
+    {
         $classPath = $this->getIntegrationPath($code);
-        return $this->paymentIntegrationFactory->create($classPath); 
+        return $this->paymentIntegrationFactory->create($classPath);
     }
 
     /**
      * Get the payment integration path.
      */
-    public function getIntegrationPath($code) {
+    public function getIntegrationPath($code)
+    {
         $parts = explode('_', strtolower($code));
         $path = "\\Naxero\\AdvancedInstantPurchase\\Model\\Payment\\Integration\\";
         $path .= $this->getIntegrationName($parts);
@@ -44,7 +45,8 @@ class PaymentHandler
     /**
      * Get the payment integration name.
      */
-    public function getIntegrationName($parts) {
+    public function getIntegrationName($parts)
+    {
         $name = '';
         foreach ($parts as $part) {
             $name .= ucfirst($part);

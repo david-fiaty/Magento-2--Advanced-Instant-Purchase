@@ -2,12 +2,20 @@ define([
     'jquery',
     'mage/translate',
     'slick',
-], function ($, __, slick) {
+], function($, __, slick) {
     'use strict';
 
     return {
         sliderSelector: '#aip-slider',
         nextSlideSelector: '#aip-next-slide-container',
+
+        /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
 
         /**
          * Create a login popup.
@@ -25,38 +33,42 @@ define([
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function(obj) {
-            var slide = (obj.isSubView) ? this.nextSlideSelector : obj.popupContentSelector;
+        getCurrentSlide: function() {
+            var slide = (this.o.isSubView)
+            ? this.nextSlideSelector
+            : this.o.popupContentSelector;
+
             return $(slide);
         },
 
         /**
          * Show the AJAX loader.
          */
-        showLoader: function(obj) {
-            this.getCurrentSlide(obj).html(obj.loader);
+        showLoader: function() {
+            this.getCurrentSlide().html(this.o.loader);
         },
 
         /**
          * Handles the view switch.
          */
-        toggleView: function(obj, e) {
+        toggleView: function(e) {
             // Handle the event
             e = e || null;
-            if (e) e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
 
             // Handle the toggle logic
-            this.showLoader(obj);
-            if (obj.isSubView) {
+            this.showLoader();
+            if (this.o.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                obj.isSubView = false;
+                this.o.isSubView = false;
                 $('.action-dismiss span').text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
-            }
-            else {
+            } else {
                 $(this.sliderSelector).slick('slickNext');
                 $('.action-dismiss span').text(__('Back'));
-                obj.isSubView = true;
+                this.o.isSubView = true;
             }
         }
     };

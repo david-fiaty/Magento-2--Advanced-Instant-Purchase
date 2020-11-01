@@ -1,15 +1,17 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Block helper.
  */
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Registry
+     * @var PageFactory
      */
-    public $registry; 
+    public $pageFactory;
 
     /**
      * @var Customer
@@ -27,26 +29,32 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $productHelper;
 
     /**
+     * @var FilterHandlerService
+     */
+    public $filterHandler;
+
+    /**
      * Block helper class constructor.
      */
     public function __construct(
-        \Magento\Framework\Registry $registry,
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Model\Service\FilterHandlerService $filterHandler
     ) {
-        $this->registry = $registry;
+        $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
+        $this->filterHandler = $filterHandler;
     }
 
     /**
      * Can the button be displayed for out of stock products.
      */
-    public function bypassOos($pid)
+    public function bypassOos($productId)
     {
-        $productId = $this->productHelper->getProduct($pid)->getId();
         return !$this->productHelper->isInStock($productId)
         ? $this->value('buttons/bypass_oos')
         : true;
@@ -55,7 +63,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get block tags in content.
      */
-    public function getBlockTags($subject, $html) {
+    public function getBlockTags($subject, $html)
+    {
         // Find all block tag matches
         $matches = $this->findBlockTags($html);
 
@@ -66,7 +75,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a content has block tags.
      */
-    public function outputHasTags($matches, $subject) {
+    public function outputHasTags($matches, $subject)
+    {
         // Get the target class name to exclude
         $className = get_class($subject);
 
@@ -80,7 +90,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Find block tags in content.
      */
-    public function findBlockTags($html) {
+    public function findBlockTags($html)
+    {
         preg_match_all(
             $this->getSearchPattern(),
             $html,
@@ -93,65 +104,60 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the block tag search patern.
      */
-    public function getSearchPattern() {
+    public function getSearchPattern()
+    {
         return '/\{BuyNow(.*)\}/';
     }
 
     /**
      * Build a base purchase block button.
      */
-    public function buildButtonBlock($subject) {
+    public function buildButtonBlock($subject)
+    {
         return $subject->getLayout()
-        ->createBlock('Naxero\AdvancedInstantPurchase\Block\Button\BlockButton')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::button/base.phtml');
+        ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
+        ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
     }
 
     /**
      * Get a block configuration parameters.
      */
-    public function getConfig($productId) {
+    public function getConfig($productId)
+    {
         // Get the config values
         $config = $this->configHelper->getValues();
+
+        // Prepare the block config data
+        $output = $config
+        + $this->configHelper->getValues()
+        + ['product' => $this->productHelper->getData($productId)]
+        + $this->customerHelper->getUserParams();
+
+        // Prepare the block parameters
+        $output = $this->prepareBlockConfig($output);
+
+        return $output;
+    }
+
+    /**
+     * Prepare the block config parameters.
+     */
+    public function prepareBlockConfig($config)
+    {
+        // Remove the card form
         unset($config['card_form']);
+
+        // Prepare the UI loader
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
         $config['ui']['css'] = $this->configHelper->getCssPath();
 
-        return $config
-        + $this->configHelper->getValues()
-        + $this->buildProductData($productId)
-        + $this->customerHelper->getUserParams();
-    }
+        // Module title
+        $config['module']['title'] = Naming::getModuleTitle();
 
-    /**
-     * Build the product data array.
-     */
-    public function buildProductData($productId) {
-        return [
-            'product' => array_merge(
-                $this->productHelper->getData($productId),
-                [
-                    'is_list' => $this->isListView(),
-                    'button_id' => $this->getButtonId($productId),
-                    'button_selector' => '#' . $this->getButtonId($productId)
-                ]
-            )
-        ];
-    }
+        // Prepare the popup window title
+        $config['popups']['popup_title'] = $this->filterHandler
+        ->filterContent($config['popups']['popup_title'], $config);
 
-    /**
-     * Get a block button id.
-     */
-    public function getButtonId($productId) {
-        return 'aip-button-' . $productId;
-    }
-
-    /**
-     * Check if the product is in a list view.
-     */
-    public function isListView()
-    {
-        return !$this->productHelper->isProduct(
-            $this->registry->registry('current_product')
-        );
+        return $config;
     }
 }

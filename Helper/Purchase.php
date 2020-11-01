@@ -1,11 +1,18 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Purchase Helper.
  */
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
+    /**
+     * @var PageFactory
+     */
+    public $pageFactory;
+
     /**
      * @var RequestInterface
      */
@@ -32,6 +39,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public $configHelper;
 
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -55,16 +67,19 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Purchase helper constructor.
      */
     public function __construct(
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
         \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
         \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
         \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
     ) {
+        $this->pageFactory = $pageFactory;
         $this->request = $request;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
@@ -72,6 +87,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $this->productHelper = $productHelper;
         $this->paymentHelper = $paymentHelper;
         $this->configHelper = $configHelper;
+        $this->blockHelper = $blockHelper;
         $this->customerHelper = $customerHelper;
         $this->vaultHandler = $vaultHandler;
     }
@@ -106,9 +122,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $billingAddress = $this->customerHelper->getBillingAddress();
 
         // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod(
-            $this->customerHelper->getCustomer()
-        );
+        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
 
         // Data
         $data += [
@@ -132,12 +146,24 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Render a product box.
+     */
+    public function renderProductBox($productId)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setData('content', $this->blockHelper->getConfig($productId))
+        ->toHtml();
+    }
+
+    /**
      * Get the confirmation modal content.
      */
-    public function getConfirmContent()
+    public function getConfirmContent($productId = 0)
     {
-        // Get the product id from request
-        $productId = $this->request->getParam('pid');
+        // Get the product id
+        $productId = $productId > 0 ? $productId : $this->request->getParam('product_id');
 
         // Prepare the output array
         $confirmationData = [
@@ -145,7 +171,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             'product' => $this->productHelper->getData($productId),
             'addresses' => [],
             'savedCards' => [],
-            'shippingRates' => []
+            'shippingRates' => [],
+            'config' => $this->blockHelper->getConfig($productId)
         ];
 
         // Build the confirmation data
@@ -157,16 +184,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             $confirmationData['addresses'] = $customer->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['otherPaymentMethods'] = $this->paymentHelper->getOtherPaymentMethods();
-            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates(
-                $customer
-            );
+            $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
             // Instant purchase data
             $purchaseData = $this->getPurchaseData();
             if (!empty($purchaseData)) {
                 $confirmationData['purchase_data'] = $purchaseData;
             }
-        
         }
 
         return $confirmationData;

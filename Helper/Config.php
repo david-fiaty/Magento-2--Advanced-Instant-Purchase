@@ -1,6 +1,8 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Helper;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
  * Class Config helper.
  */
@@ -26,7 +28,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var Repository
      */
-    public $assetRepository; 
+    public $assetRepository;
 
     /**
      * Class Config constructor.
@@ -59,7 +61,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      * Get all module configuration values.
      */
     public function getValues()
-    {   
+    {
         // Load the config data
         $output = [];
         $configData = $this->xmlParser
@@ -70,7 +72,8 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         foreach ($configData as $group => $fields) {
             $output[$group] = [];
             foreach ($fields as $key => $value) {
-                $output[$group][$key] = $this->value($group . '/' . $key);
+                $v = $this->value($group . '/' . $key);
+                $output[$group][$key] = $this->toBooleanFilter($v);
             }
         }
 
@@ -78,11 +81,21 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Convert a value to boolean.
+     */
+    public function toBooleanFilter($value)
+    {
+        return $value == '1' || $value == '0'
+        ? filter_var($value, FILTER_VALIDATE_BOOLEAN)
+        : $value;
+    }
+
+    /**
      * Get the loader icon URL.
      */
     public function getLoaderIconUrl()
     {
-        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::images/ajax-loader.gif');
+        return $this->assetRepository->getUrl(Naming::getModuleName() . '::images/ajax-loader.gif');
     }
 
     /**
@@ -95,7 +108,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->moduleDirReader->getModuleDir(
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
-            'Naxero_AdvancedInstantPurchase'
+            Naming::getModuleName()
         ) . '/' . $fileName;
     }
 
@@ -106,6 +119,6 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCssPath()
     {
-        return $this->assetRepository->getUrl('Naxero_AdvancedInstantPurchase::css');
+        return $this->assetRepository->getUrl(Naming::getModuleName() . '::css');
     }
 }

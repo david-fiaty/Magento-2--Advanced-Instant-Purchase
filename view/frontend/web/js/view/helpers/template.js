@@ -6,14 +6,22 @@ define(
         'text!Naxero_AdvancedInstantPurchase/template/header.html',
         'text!Naxero_AdvancedInstantPurchase/template/confirmation.html'
     ],
-    function (MageTemplate, Loader, Message, Header, Confirmation) {
+    function(MageTemplate, Loader, Message, Header, Confirmation) {
         'use strict';
 
         return {
             /**
-             * Render the loader icon template.
+             * Initialise the object.
              */
-            getLoader: function(params) {
+            init: function(obj) {
+                this.o = obj;
+                return this;
+            },
+
+            /**
+             * Render the spinner icon template.
+             */
+            getSpinner: function(params) {
                 return MageTemplate(Loader)(params);
             },
 

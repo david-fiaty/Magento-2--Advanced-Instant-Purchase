@@ -6,6 +6,8 @@ namespace Naxero\AdvancedInstantPurchase\Block\Button;
  */
 class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
+    const MODE = 'list';
+
     /**
      * @var Block
      */
@@ -54,6 +56,9 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $config = $this->blockHelper->getConfig(
             $this->getProduct()->getId()
         );
+
+        // Set the display mode
+        $config['product']['display'] = self::MODE;
 
         // Check the display conditions
         $condition = $config['guest']['show_guest_button']

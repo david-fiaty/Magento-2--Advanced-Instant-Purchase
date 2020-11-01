@@ -15,6 +15,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Naxero_AdvancedInstantPurchase',
+    \Naxero\AdvancedInstantPurchase\Model\Config\Naming::getModuleName(),
     __DIR__
 );

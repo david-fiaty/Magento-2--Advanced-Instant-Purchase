@@ -1,8 +1,10 @@
 <?php
 namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
 
+use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+
 /**
- * Confirmation Class.
+ * Confirmation controller class
  */
 class Confirmation extends \Magento\Framework\App\Action\Action
 {
@@ -40,9 +42,14 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var Config
      */
     public $configHelper;
+
+    /**
+     * @var Purchase
+     */
+    public $purchaseHelper;
     
     /**
-     * BillingAddress constructor.
+     * Confirmation controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -52,16 +59,19 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
+        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper       
     ) {
         parent::__construct($context);
+        
         $this->formKeyValidator = $formKeyValidator;
         $this->customerSession = $customerSession;
-        $this->customerHelper = $customerHelper;
-        $this->configHelper = $configHelper;
         $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->customerHelper = $customerHelper;
+        $this->configHelper = $configHelper;
+        $this->purchaseHelper = $purchaseHelper;
     }
 
     /**
@@ -75,6 +85,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         // Process the request
         $request = $this->getRequest();
         if ($request->isAjax()) {
+        // Todo - fix form key validator for block request
+        //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->loadBlock();
         }
 
@@ -105,16 +117,23 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newConfirmationBlock()
     {
-        // Confirmation content
-        $html = $this->pageFactory->create()->getLayout()
-            ->createBlock('Naxero\AdvancedInstantPurchase\Block\Confirmation\Data')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::popup/confirmation-data.phtml')
-            ->toHtml();
+        // Get the product id from request
+        $productId = (int) $this->getRequest()->getParam('product_id');
 
-        // Agreements
-        $enableAgreements = $this->configHelper->value('general/enable_agreements');
-        if ($enableAgreements) {
-            $html .= $this->getAgreementsLinks();
+        // Confirmation content
+        $html = '';
+        if ($productId > 0) {
+            $html = $this->pageFactory->create()->getLayout()
+                ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
+                ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
+                ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
+                ->toHtml();
+
+            // Agreements
+            $enableAgreements = $this->configHelper->value('general/enable_agreements');
+            if ($enableAgreements) {
+                $html .= $this->getAgreementsLinks();
+            }
         }
 
         return $html;
@@ -134,7 +153,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
                     'currentCustomer' => $this->currentCustomer
                 ]
             )
-            ->setTemplate('Naxero_AdvancedInstantPurchase::address/edit.phtml')
+            ->setTemplate(Naming::getModuleName() . '::address/edit.phtml')
             ->toHtml();
     }
 
@@ -144,32 +163,34 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function newCardBlock()
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::popup/card.phtml')
-        ->setData('load', $this->configHelper->value('card_form/load'))
-        ->toHtml();
+            ->createBlock('Magento\Framework\View\Element\Template')
+            ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
+            ->setData('load', $this->configHelper->value('card_form/load'))
+            ->toHtml();
     }
 
     /**
      * Get the agreements links.
      */
-    public function getAgreementsLinks() {
+    public function getAgreementsLinks()
+    {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-        ->setTemplate('Naxero_AdvancedInstantPurchase::agreements/agreements-link.phtml')
-        ->toHtml();
+            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+            ->setTemplate(Naming::getModuleName() . '::agreements/agreements-link.phtml')
+            ->toHtml();
     }
 
     /**
      * Get the terms and conditions.
      */
-    public function newAgreementBlock() {
+    public function newAgreementBlock()
+    {
         $enableAgreements = $this->configHelper->value('general/enable_agreements');
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-            ->setTemplate('Naxero_AdvancedInstantPurchase::/agreements/agreements-detail.phtml')
-            ->toHtml();
+                ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
+                ->setTemplate(Naming::getModuleName() . '::/agreements/agreements-detail.phtml')
+                ->toHtml();
         }
 
         return '';

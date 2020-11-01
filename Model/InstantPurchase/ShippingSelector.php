@@ -7,7 +7,8 @@ use Magento\Framework\DataObject;
  * Class ShippingSelector.
  */
 class ShippingSelector
-{    
+{
+    
     /**
      * @var StoreManagerInterface
      */
@@ -60,7 +61,7 @@ class ShippingSelector
     /**
      * Selects a shipping method.
      *
-     * @param Address $address
+     * @param  Address $address
      * @return Rate
      */
     public function getShippingMethod($customer)
@@ -82,15 +83,14 @@ class ShippingSelector
     /**
      * Gets all shipping methods avaiable.
      *
-     * @param Customer $customer
+     * @param  Customer $customer
      * @return Array
      */
     public function getShippingRates($customer)
     {
         $carriers = $this->shippingModel->getActiveCarriers();
         $methods = [];
-        foreach ($carriers as $shippingCode => $shippingModel)
-        {
+        foreach ($carriers as $shippingCode => $shippingModel) {
             $carrierMethods = $shippingModel->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
@@ -110,15 +110,16 @@ class ShippingSelector
                     }
                 }
             }
-       }
+        }
 
-       return $methods;
+        return $methods;
     }
 
     /**
      * Get the carrier price.
      */
-    public function getCarrierPrice($shippingCode) {
+    public function getCarrierPrice($shippingCode)
+    {
         return $this->configHelper->value(
             'carriers/'. $shippingCode . '/price',
             true
@@ -128,7 +129,8 @@ class ShippingSelector
     /**
      * Get the carrier title.
      */
-    public function getCarrierTitle($shippingCode) {
+    public function getCarrierTitle($shippingCode)
+    {
         return $this->configHelper->value(
             'carriers/'. $shippingCode . '/title',
             true
@@ -138,7 +140,7 @@ class ShippingSelector
     /**
      * Checks if any shipping method available.
      *
-     * @param Address $address
+     * @param  Address $address
      * @return bool
      */
     public function areShippingMethodsAvailable($address)
@@ -150,14 +152,16 @@ class ShippingSelector
     /**
      * Finds carriers delivering to customer address
      *
-     * @param Address $address
+     * @param  Address $address
      * @return array
      */
     public function getCarriersForCustomerAddress($address)
     {
-        $request = new DataObject([
+        $request = new DataObject(
+            [
             'dest_country_id' => $address->getCountryId()
-        ]);
+            ]
+        );
 
         $carriers = [];
         foreach ($this->carriersConfig->getActiveCarriers($this->storeManager->getStore()->getId()) as $carrier) {

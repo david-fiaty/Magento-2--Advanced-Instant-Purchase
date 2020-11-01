@@ -6,13 +6,21 @@ define([
     'jquery',
     'mage/url',
     'Naxero_AdvancedInstantPurchase/js/view/helpers/product'
-], function ($, UrlBuilder, AipProduct) {
+], function($, UrlBuilder, AipProduct) {
     'use strict';
 
     return {
         saveAddressUrl: 'customer/address/formPost',
         purchaseUrl: 'naxero-aip/ajax/order',
         addressFormSelector: '.form-address-edit',
+
+        /**
+         * Initialise the object.
+         */
+        init: function(obj) {
+            this.o = obj;
+            return this;
+        },
 
         /**
          * Get the modal confirmation URL.
@@ -25,21 +33,10 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentForm: function(obj) {
-            var form = obj.isSubView 
-            ? $(this.addressFormSelector)
-            : AipProduct.getProductForm(obj);
-
-            return form;
-        },
-
-        /**
-         * Get the current form.
-         */
-        getCurrentFormData: function(obj) {
-            var form = obj.isSubView 
+        getCurrentFormData: function() {
+            var form = this.o.isSubView
             ? this.getAddressFormData()
-            : AipProduct.getProductFormData(obj);
+            : AipProduct.getProductFormData();
 
             return form;
         },
@@ -62,10 +59,15 @@ define([
          * Format a card icon.
          */
         formatIcon: function(state) {
+            // Check the element state
             if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
                 return state.text;
             }
+
+            // Get the icon URL
             var iconUrl = state.element.value.split('*~*')[1];
+
+            // Build the icon HTML
             var iconHtml = $(
                 '<span class="aip-card-icon">'
                 + '<img src="' + iconUrl + '">'
@@ -79,22 +81,21 @@ define([
          * Check if an object has a property.
          */
         has: function(target, path, value) {
-            if (typeof target !== 'object' || target === null) { return false; }
+            if (typeof target !== 'object' || target === null) {
+                return false; }
                 var parts = path.split('.');
-                while(parts.length) {
-                    var property = parts.shift();
-                    if (!(target.hasOwnProperty(property))) {
-                        return false;
-                    }
-                    target = target[property];
+            while (parts.length) {
+                var property = parts.shift();
+                if (!(target.hasOwnProperty(property))) {
+                    return false;
                 }
-                if (value) {
-                    return target === value;
-                }
-                else {
-                    return true;
-                }
+                target = target[property];
+            }
+            if (value) {
+                return target === value;
+            } else {
+                return true;
             }
         }
     }
-);
+});

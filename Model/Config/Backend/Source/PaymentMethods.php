@@ -12,7 +12,7 @@ class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
     public $paymentHelper;
 
     /**
-     * CardPaymentMethods methods class constructor.
+     * PaymentMethods class constructor.
      */
     public function __construct(
         \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper
