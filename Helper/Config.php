@@ -72,11 +72,22 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         foreach ($configData as $group => $fields) {
             $output[$group] = [];
             foreach ($fields as $key => $value) {
-                $output[$group][$key] = $this->value($group . '/' . $key);
+                $v = $this->value($group . '/' . $key);
+                $output[$group][$key] = $this->toBooleanFilter($v);
             }
         }
 
         return $output;
+    }
+
+    /**
+     * Convert a value to boolean.
+     */
+    public function toBooleanFilter($value)
+    {
+        return $value == '1' || $value == '0'
+        ? filter_var($value, FILTER_VALIDATE_BOOLEAN)
+        : $value;
     }
 
     /**
