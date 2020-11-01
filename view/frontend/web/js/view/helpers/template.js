@@ -3,10 +3,9 @@ define(
         'mage/template',
         'text!Naxero_BuyNow/template/loader.html',
         'text!Naxero_BuyNow/template/message.html',
-        'text!Naxero_BuyNow/template/header.html',
         'text!Naxero_BuyNow/template/confirmation.html'
     ],
-    function(MageTemplate, Loader, Message, Header, Confirmation) {
+    function(MageTemplate, Loader, Message, Confirmation) {
         'use strict';
 
         return {
@@ -37,13 +36,6 @@ define(
              */
             getConfirmation: function(params) {
                 return MageTemplate(Confirmation)(params);
-            },
-
-            /**
-             * Render the HTML page header template.
-             */
-            getHeader: function(params) {
-                return MageTemplate(Header)(params);
             }
         };
     }
