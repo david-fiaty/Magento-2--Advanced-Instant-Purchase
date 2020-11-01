@@ -54,16 +54,16 @@ define([
         /**
          * Get the modal cancel button.
          */
-        getCancel: function() {
+        getCancel: function(obj) {
             var self = this;
             return {
                 text: __('Cancel'),
                 class: self.cancelButtonClasses,
                 click: function(e) {
-                    if (self.o.isSubView) {
+                    if (obj.isSubView) {
                         // Toggle the view
                         AipSlider.toggleView(e);
-                        self.o.getConfirmContent(e);
+                        obj.getConfirmContent(e);
                     } else {
                         $(self.cancelButtonSelector).trigger('click');
                     }
@@ -74,13 +74,13 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmit: function() {
+        getSubmit: function(obj) {
             var self = this;
             var submitButton = null;
-            if (this.o.showSubmitButton) {
+            if (obj.showSubmitButton) {
                 submitButton = {
-                    text: self.o.jsConfig.popups.popup_confirm_button_text,
-                    class: self.submitButtonClasses,
+                    text: obj.jsConfig.popups.popup_confirm_button_text,
+                    class: this.submitButtonClasses,
                     click: function(e) {
                         if (AdditionalValidators.validate()) {
                             AipSlider.showLoader();

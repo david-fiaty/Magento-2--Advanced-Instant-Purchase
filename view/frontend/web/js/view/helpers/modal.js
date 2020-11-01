@@ -47,8 +47,8 @@ define([
          */
         getButtons: function() {
             return [
-                AipButton.getCancel(),
-                AipButton.getSubmit()
+                AipButton.getCancelButton(this.o),
+                AipButton.getSubmitButton(this.o)
             ];
         }
     };
