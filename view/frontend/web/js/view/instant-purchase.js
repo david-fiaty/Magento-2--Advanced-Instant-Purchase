@@ -60,9 +60,6 @@ define([
             // Load CSS
             AipHeader.setHeader(this);
 
-            // Purchase button state
-            AipButton.setPurchaseButtonState(this);
-
             // Spinner icon
             AipSpinner.loadIcon(this);
 
@@ -109,8 +106,7 @@ define([
                 AipSlider.toggleView(self, e);
                 
                 // Modal window
-                // Todo - fix submit button state
-                //obj.showSubmitButton = false;
+                self.showSubmitButton = false;
                 AipModal.build(self);
                 
                 // Send the request

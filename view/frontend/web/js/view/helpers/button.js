@@ -38,18 +38,6 @@ define([
                 !AdditionalValidators.validate(obj)
             );
         },
-
-        /**
-         * Set the purchase button state.
-         */
-        setPurchaseButtonState(obj) {
-            // Get the button state
-            var state = obj.jsConfig.buttons.state_disabled
-            && AipView.hasOptions(obj);
-
-            // Apply the state to the button
-            $(obj.getButtonId()).prop('disabled', state);
-        },
         
         /**
          * Set the additional validator events.
