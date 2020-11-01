@@ -237,12 +237,10 @@ define([
         /**
          * Display the product options errors.
          */
-        displayErrors: function() {
+        displayErrors: function(e) {
             // Prepare variables
             var self = this;
-            var button = $(this.o.jsConfig.product.button_selector);
-
-            console.log(this.o.jsConfig.product.button_selector);
+            var button = $(e.currentTarget);
 
             // Clear previous errors
             self.clearErrors();
@@ -263,8 +261,8 @@ define([
         /**
          * Clear UI error messages.
          */
-        clearErrors: function() {
-            $(this.o.jsConfig.product.button_selector).removeClass(this.buttonErrorClass);
+        clearErrors: function(e) {
+            $(e.currentTarget).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

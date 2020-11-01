@@ -137,8 +137,8 @@ define([
                 var optionsValid = this.o.product.validateOptions();
                 if (!optionsValid) {
                     // Display the errors
-                    this.o.product.clearErrors();
-                    this.o.product.displayErrors(); 
+                    this.o.product.clearErrors(e);
+                    this.o.product.displayErrors(e); 
                     return;
                 }
             }        
