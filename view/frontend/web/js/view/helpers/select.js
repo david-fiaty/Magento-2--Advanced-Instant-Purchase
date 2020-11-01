@@ -14,6 +14,13 @@ define([
         otherMethodsSelector: '#aip-other-method-select',
         
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Create a login popup.
          */
         build: function () {

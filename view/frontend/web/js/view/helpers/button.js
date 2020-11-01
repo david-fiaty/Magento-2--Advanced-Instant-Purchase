@@ -20,13 +20,10 @@ define([
         cancelButtonClasses: 'action-secondary action-dismiss',
 
         /**
-         * Initialise the button states.
+         * Initialise the object.
          */
-        init() {
-            $(this.submitButtonSelector).prop(
-                'disabled',
-                !AdditionalValidators.validate(true)
-            );
+        init: function() {
+            return this;
         },
 
         /**

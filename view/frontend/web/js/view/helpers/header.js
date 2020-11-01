@@ -11,6 +11,13 @@ define(
 
         return {
             /**
+             * Initialise the object.
+             */
+            init: function() {
+                return this;
+            },
+
+            /**
              * Set the page HTML header.
              */
             setHeader: function() {

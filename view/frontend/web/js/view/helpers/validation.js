@@ -11,6 +11,13 @@ define(
             inputSelectors: '.aip-select, .aip-box',
 
             /**
+             * Initialise the object.
+             */
+            init: function() {
+                return this;
+            },
+
+            /**
              * Additional form validation.
              */
             validate: function() {

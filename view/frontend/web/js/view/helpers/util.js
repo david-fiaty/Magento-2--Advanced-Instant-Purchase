@@ -15,6 +15,13 @@ define([
         addressFormSelector: '.form-address-edit',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Get the modal confirmation URL.
          */
         getConfirmUrl: function(isSubView) {

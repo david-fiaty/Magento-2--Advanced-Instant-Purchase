@@ -8,6 +8,13 @@ define([
         treeContainerSelector: '.aip-logger-tree',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Build a jQtree instance.
          */
         build: function() {

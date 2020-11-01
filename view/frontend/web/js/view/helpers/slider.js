@@ -10,6 +10,13 @@ define([
         nextSlideSelector: '#aip-next-slide-container',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Create a login popup.
          */
         build: function() {

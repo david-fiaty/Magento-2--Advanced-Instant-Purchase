@@ -9,6 +9,13 @@ define([
         loginBlockSelector: '.block-authentication',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Create a login popup.
          */
         loginPopup: function() {

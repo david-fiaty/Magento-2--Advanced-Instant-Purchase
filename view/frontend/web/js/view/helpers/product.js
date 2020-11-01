@@ -23,6 +23,13 @@ define([
         buttonErrorClass: 'aip-button-error',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Get a product container selector.
          */
         getProductContainer: function() {

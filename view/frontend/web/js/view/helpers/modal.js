@@ -10,6 +10,13 @@ define([
         modalWrapperSelector: '.modal-inner-wrap',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Add HTML to a container.
          */
         addHtml: function(target, html) {

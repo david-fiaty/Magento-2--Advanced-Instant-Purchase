@@ -4,6 +4,14 @@ define([
     'use strict';
 
     return {
+
+        /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
         /**
          * Check if the current product is in list view.
          */

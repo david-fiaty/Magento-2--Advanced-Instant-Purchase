@@ -11,13 +11,20 @@ define([
         agreementLinkSelector: '.aip-agreement-link',
 
         /**
-         * Set the agrements events
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+
+        /**
+         * Set the agrements events.
          */
         build: function() {
             if (this.o.jsConfig.general.enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click', function(e) {
-                    self.getAgreement(e, obj);
+                    self.getAgreement(e);
                 });
             }
         },

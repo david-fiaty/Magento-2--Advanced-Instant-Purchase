@@ -8,6 +8,13 @@ define([
 
     return {
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+
+        /**
          * Load the spinner icon.
          */
         loadIcon: function() {

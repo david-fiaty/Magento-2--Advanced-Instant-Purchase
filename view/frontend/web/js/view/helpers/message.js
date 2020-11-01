@@ -8,6 +8,13 @@ define([
         cancelButtonSelector: '.action-close',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Clear all visible errors.
          */        
         clearErrors: function(slide) {

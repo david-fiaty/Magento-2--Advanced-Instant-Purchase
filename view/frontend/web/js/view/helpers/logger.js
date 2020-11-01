@@ -8,6 +8,13 @@ define([], function() {
         logsUrl: 'naxero-aip/ajax/logs',
 
         /**
+         * Initialise the object.
+         */
+        init: function() {
+            return this;
+        },
+        
+        /**
          * Log data to the browser console.
          */
         log: function(msg, data) {
