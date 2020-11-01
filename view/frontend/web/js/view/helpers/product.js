@@ -225,9 +225,9 @@ define([
         },
 
         /**
-         * Display the category view product options errors.
+         * Display the product options errors.
          */
-        displayOptionsError: function(obj) {
+        displayErrors: function(obj) {
             // Prepare variables
             var self = this;
             var button = $(obj.getButtonId());
@@ -251,7 +251,7 @@ define([
         /**
          * Clear UI error messages.
          */
-        clearOptionsErrors: function(obj) {
+        clearErrors: function(obj) {
             $(obj.getButtonId()).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
