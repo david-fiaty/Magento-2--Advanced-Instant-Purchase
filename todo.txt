@@ -14,7 +14,6 @@
 
 UI LOGGER WINDOW BUGS
 - Loader sometimes not hiding on window open
-- prevent parent click creating errors on UI logger button click
 - make sure obj instant-purchase .showSubmitButton is false when closing ui logging window
 - disable submit button on logger window opened
 
