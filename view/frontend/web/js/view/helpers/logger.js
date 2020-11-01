@@ -35,10 +35,7 @@ define([], function() {
 
             // Log event data
             if (data) {
-                var output = typeof data == 'object' || Array.isArray(data) == 'array'
-                ? JSON.stringify(data) : data;
-                
-                console.log('|---' + output);
+                console.log(output);
             }
 
             // Log count
