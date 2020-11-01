@@ -16,9 +16,9 @@ define([
         viewProductFormSelector: '#product_addtocart_form',
         productDataUrl: 'naxero-aip/ajax/product',
         productBoxContainerSelector: '.aip-product-box-container',
+        confirmationContainerSelector: '#aip-confirmation-content',
         optionFieldSelector: '#aip-option',
         optionSelectorPrefix: '#aip-option-',
-        boxSelectorPrefix: '#aip-product-box-',
         popoverSelector: '.popover',
         buttonErrorClass: 'aip-button-error',
 
@@ -215,10 +215,13 @@ define([
                     && sourceFieldValue != 'undefined'
                     && sourceFieldValue.length > 0;
 
+                    console.log(condition);
+                    console.log($(sourceField).val());
+                    console.log($(targetField).val());
+
                     // Update the options selected value
                     if (condition) {
-                        var boxSelector = this.boxSelectorPrefix + obj.jsConfig.product.id;
-                        $(boxSelector).find(targetField).val(sourceFieldValue).change();  
+                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();  
                     }
                 }
             }
