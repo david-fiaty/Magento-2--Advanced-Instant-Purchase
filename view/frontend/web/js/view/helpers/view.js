@@ -7,30 +7,30 @@ define([
         /**
          * Check if the current product is in list view.
          */
-        isListView: function(obj) {
-            return obj.jsConfig.product.display == 'list';
+        isListView: function() {
+            return this.o.jsConfig.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
-        isBlockView: function(obj) {
-            return obj.jsConfig.product.display == 'block'
-            || obj.jsConfig.product.display == 'widget';
+        isBlockView: function() {
+            return this.o.jsConfig.product.display == 'block'
+            || this.o.jsConfig.product.display == 'widget';
         },
 
         /**
          * Check if the current product is in page view.
          */
-        isPageView: function(obj) {
-            return !this.isBlockView(obj) && !this.isListView(obj);
+        isPageView: function() {
+            return !this.isBlockView() && !this.isListView();
         },
 
         /**
          * Check if the current product has options.
          */
-        hasOptions: function(obj) {
-            return obj.jsConfig.product.has_options;
+        hasOptions: function() {
+            return this.o.jsConfig.product.has_options;
         }
     };
 

@@ -10,11 +10,11 @@ define([
         /**
          * Build a jQtree instance.
          */
-        build: function(obj) {
-            if (this.needsUiLogging(obj)) {
+        build: function() {
+            if (this.needsUiLogging()) {
                 // Initialize the data tree viewer
                 $(this.treeContainerSelector).jsonViewer(
-                    obj.jsConfig,
+                    this.o.jsConfig,
                     {
                         collapsed: false
                     }
@@ -25,9 +25,9 @@ define([
         /**
          * Check if UI logging i enabled.
          */
-        needsUiLogging: function(obj) {
-            return obj.jsConfig.general.debug_enabled
-             && obj.jsConfig.general.ui_logging_enabled;
+        needsUiLogging: function() {
+            return this.o.jsConfig.general.debug_enabled
+             && this.o.jsConfig.general.ui_logging_enabled;
         }
     };
 });

@@ -16,11 +16,11 @@ define([
         /**
          * Create a login popup.
          */
-        build: function (obj) {
+        build: function () {
             // Initialise the select lists
             var self = this;
             $(self.listSelector).select2({
-                language: self.getLocale(obj.jsConfig.user.language),
+                language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
                 templateResult: AipUtil.formatIcon,
                 templateSelection: AipUtil.formatIcon
@@ -59,8 +59,8 @@ define([
 
             // Set the link events
             $(self.linkSelector).on('click touch', function (e) {
-                AipSlider.toggleView(obj, e);
-                obj.getForm(e);
+                AipSlider.toggleView(e);
+                self.o.getForm(e);
             });
         },
 

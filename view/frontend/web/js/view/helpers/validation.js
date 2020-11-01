@@ -13,12 +13,12 @@ define(
             /**
              * Additional form validation.
              */
-            validate: function(obj) {
+            validate: function() {
                 // Prepare the parameters
                 var errors = [];
 
                 // Agreements validation
-                if (obj.jsConfig.general.enable_agreements) {
+                if (this.o.jsConfig.general.enable_agreements) {
                     $(this.agreementRow).removeClass('error');
                     $(this.agreementRow).each(function() {
                         var input = $(this).find(this.agreementBoxSelector);

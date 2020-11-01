@@ -25,8 +25,8 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductContainer: function(obj) {
-            return AipView.isListView(obj)
+        getProductContainer: function() {
+            return AipView.isListView()
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -34,17 +34,17 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductForm: function(obj) {
+        getProductForm: function() {
             // Product container selector
-            var productContainerSelector = this.getProductContainer(obj);
+            var productContainerSelector = this.getProductContainer();
 
             // Get product form selector
-            var productFormSelector = AipView.isListView(obj)
+            var productFormSelector = AipView.isListView()
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(obj.getButtonId()).closest(productContainerSelector)
+            var form = $(this.o.getButtonId()).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -53,23 +53,22 @@ define([
         /**
          * Get the product form data.
          */
-        getProductFormData: function(obj) {
+        getProductFormData: function() {
             // Product container selector
-            var productContainerSelector = this.getProductContainer(obj);
+            var productContainerSelector = this.getProductContainer();
 
             // Get the buy now data
-            var buyNowData = this.getProductForm(obj).serialize();
+            var buyNowData = this.getProductForm().serialize();
 
             // Log the purchase data
             AipLogger.log(
-                obj,
                 __('Place order purchase data'),
                 this.getProductForm(obj).serializeArray()
             );
 
             // Get the cart form data if list view
-            if (AipView.isListView(obj)) {
-                var cartFormData = $(obj.getButtonId())
+            if (AipView.isListView()) {
+                var cartFormData = $(this.o.getButtonId())
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
@@ -84,16 +83,16 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function(obj) {
-            if (this.hasOptions(obj)) {
+        initOptionsEvents: function() {
+            if (this.hasOptions()) {
                 // Prepare the variables
-                var options = obj.jsConfig.product.options;
+                var options = this.o.jsConfig.product.options;
 
                 // Set the options events and default values
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the fields
                     var option = options[i];
-                    var sourceField = this.getOptionField(obj, option);
+                    var sourceField = this.getOptionField(option);
 
                     // Set the value change events
                     $(sourceField).on('change', function() {
@@ -108,9 +107,9 @@ define([
         /**
          * Product options validation.
          */
-        validateOptions: function(obj) {
-            if (this.hasOptions(obj)) {
-                return this.getOptionsErrors(obj).length == 0;
+        validateOptions: function() {
+            if (this.hasOptions()) {
+                return this.getOptionsErrors().length == 0;
             }
 
             return true;
@@ -119,17 +118,17 @@ define([
         /**
          * Check if a product has options.
          */
-        hasOptions: function(obj) {
-            return obj.jsConfig.product.options.length
-            && obj.jsConfig.product.options.length > 0;
+        hasOptions: function() {
+            return this.o.jsConfig.product.options.length
+            && this.o.jsConfig.product.options.length > 0;
         },
 
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function(obj) {
+        getOptionsErrors: function() {
             // Prepare variables
-            var options = obj.jsConfig.product.options;
+            var options = this.o.jsConfig.product.options;
             var errors = [];
 
             // Check each option
@@ -159,30 +158,30 @@ define([
         /**
          * Get an option field selector.
          */
-        getOptionField: function(obj, option) {            
+        getOptionField: function(option) {            
             return this.optionSelectorPrefix
-            + obj.jsConfig.product.id
+            + this.o.jsConfig.product.id
             + '-' + option['attribute_id'];
         },
 
         /**
          * Check if a product box should be rendered.
          */
-        needsProductBox: function(obj) {    
-            return obj.jsConfig.popups.show_product
-            && this.hasOptions(obj) 
-            && !this.validateOptions(obj);
+        needsProductBox: function() {    
+            return this.o.jsConfig.popups.show_product
+            && this.hasOptions() 
+            && !this.validateOptions();
         },
 
         /**
          * Render a product box.
          */
-        renderBox: function(obj) {
+        renderBox: function() {
             // Prepare the parameters
             var self = this;
             var params = {
-                product_id: obj.jsConfig.product.id,
-                form_key: obj.jsConfig.product.form_key
+                product_id: this.o.jsConfig.product.id,
+                form_key: this.o.jsConfig.product.form_key
             };
 
             // Send the AJAX request
@@ -195,11 +194,10 @@ define([
                     $(self.productBoxContainerSelector).html(data.html);
 
                     // Update the selected product options values
-                    self.updateSelectedOptionsValues(obj);
+                    self.updateSelectedOptionsValues();
                 },
                 error: function(request, status, error) {
                     AipLogger.log(
-                        self,
                         __('Error retrieving the confimation window product box'),
                         error
                     );
@@ -210,13 +208,13 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function(obj) {
-            if (this.hasOptions(obj)) {
-                var options = obj.jsConfig.product.options;
+        updateSelectedOptionsValues: function() {
+            if (this.hasOptions()) {
+                var options = this.o.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
                     var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
-                    var targetField = this.getOptionField(obj, options[i]);  
+                    var targetField = this.getOptionField(options[i]);  
                     var sourceFieldValue = $(sourceField).val();
 
                     // Prepare the conditions
@@ -235,13 +233,13 @@ define([
         /**
          * Display the product options errors.
          */
-        displayErrors: function(obj) {
+        displayErrors: function() {
             // Prepare variables
             var self = this;
-            var button = $(obj.getButtonId());
+            var button = $(this.o.getButtonId());
 
             // Clear previous errors
-            self.clearErrors(obj);
+            self.clearErrors();
 
             // Update the button state
             button.popover({
@@ -259,8 +257,8 @@ define([
         /**
          * Clear UI error messages.
          */
-        clearErrors: function(obj) {
-            $(obj.getButtonId()).removeClass(this.buttonErrorClass);
+        clearErrors: function() {
+            $(this.o.getButtonId()).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

@@ -13,8 +13,8 @@ define([
         /**
          * Set the agrements events
          */
-        build: function(obj) {
-            if (obj.jsConfig.general.enable_agreements) {
+        build: function() {
+            if (this.o.jsConfig.general.enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click', function(e) {
                     self.getAgreement(e, obj);
@@ -25,7 +25,7 @@ define([
          /**
          * Get an agreement.
          */
-        getAgreement: function(e, obj) {
+        getAgreement: function(e) {
             // Prepare the request parameters
             var self = this;
             var params = {
@@ -34,20 +34,19 @@ define([
             };
 
             // Toggle the view
-            AipSlider.toggleView(obj, e);
+            AipSlider.toggleView(e);
             
             // Send the request
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: UrlBuilder.build(obj.confirmUrl),
+                url: UrlBuilder.build(this.o.confirmUrl),
                 data: params,
                 success: function(data) {
                     AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
                 },
                 error: function(request, status, error) {
                     AipLogger.log(
-                        obj,
                         __('Error retrieving the terms and conditions data'),
                         error
                     );

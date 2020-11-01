@@ -10,10 +10,10 @@ define([
         /**
          * Load the spinner icon.
          */
-        loadIcon: function(obj) {
+        loadIcon: function() {
             if (!this.isSpinnerLoaded()) {
                 // Build the spiner icon
-                this.buildIcon(obj);
+                this.buildIcon();
 
                 // Set the spinner loaded flag
                 window.naxero = {
@@ -27,16 +27,15 @@ define([
         /**
          * Build the spinner icon.
          */
-        buildIcon: function(obj) {
+        buildIcon: function() {
             // Get the spinner loaded flag
-            var params = this.getLoadedFlag(obj);
+            var params = this.getLoadedFlag();
 
             // Load the rendered HTML
-            obj.loader = AipTemplate.getSpinner(params);
+            this.o.loader = AipTemplate.getSpinner(params);
 
             // Log the event
             AipLogger.log(
-                obj,
                 __('Loaded the spinner icon HTML'),
                 params
             );
@@ -52,10 +51,10 @@ define([
         /**
          * Get the spinner loaded flag.
          */
-        getLoadedFlag: function(obj) {
+        getLoadedFlag: function() {
             return {
                 data: {
-                    url: obj.jsConfig.ui.loader
+                    url: this.o.jsConfig.ui.loader
                 }
             };
         }

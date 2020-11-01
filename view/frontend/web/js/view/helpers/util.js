@@ -25,10 +25,10 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentFormData: function(obj) {
-            var form = obj.isSubView
+        getCurrentFormData: function() {
+            var form = this.o.isSubView
             ? this.getAddressFormData()
-            : AipProduct.getProductFormData(obj);
+            : AipProduct.getProductFormData();
 
             return form;
         },

@@ -22,50 +22,50 @@ define([
         /**
          * Initialise the button states.
          */
-        init(obj) {
+        init() {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate(obj, true)
+                !AdditionalValidators.validate(true)
             );
         },
 
         /**
          * Update the button states.
          */
-        update(obj) {
+        update() {
             $(this.submitButtonSelector).prop(
                 'disabled',
-                !AdditionalValidators.validate(obj)
+                !AdditionalValidators.validate()
             );
         },
         
         /**
          * Set the additional validator events.
          */
-        setValidationEvents(obj) {
+        setValidationEvents() {
             // Set the button states
-            this.init(obj);
+            this.init();
 
             // Fields value change event
             var self = this;
             $(AipValidation.inputSelectors).on('change', function() {
-                self.update(obj);
+                self.update();
             });
         },
 
         /**
          * Get the modal cancel button.
          */
-        getCancel: function(obj) {
+        getCancel: function() {
             var self = this;
             return {
                 text: __('Cancel'),
                 class: self.cancelButtonClasses,
                 click: function(e) {
-                    if (obj.isSubView) {
+                    if (self.o.isSubView) {
                         // Toggle the view
-                        AipSlider.toggleView(obj, e);
-                        obj.getConfirmContent(obj, e);
+                        AipSlider.toggleView(e);
+                        self.o.getConfirmContent(e);
                     } else {
                         $(self.cancelButtonSelector).trigger('click');
                     }
@@ -76,29 +76,28 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmit: function(obj) {
+        getSubmit: function() {
             var self = this;
             var submitButton = null;
-            if (obj.showSubmitButton) {
+            if (this.o.showSubmitButton) {
                 submitButton = {
-                    text: obj.jsConfig.popups.popup_confirm_button_text,
+                    text: self.o.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function(e) {
-                        if (AdditionalValidators.validate(obj)) {
-                            AipSlider.showLoader(obj);
-                            var requestData = AipUtil.getCurrentFormData(obj);
+                        if (AdditionalValidators.validate()) {
+                            AipSlider.showLoader();
+                            var requestData = AipUtil.getCurrentFormData();
                             $.ajax({
                                 cache: false,
-                                url: AipUtil.getConfirmUrl(obj.isSubView),
+                                url: AipUtil.getConfirmUrl(),
                                 data: requestData,
                                 type: 'post',
                                 dataType: 'json',
                                 success: function(data) {
-                                    AipMessage.checkResponse(data, e, obj);
+                                    AipMessage.checkResponse(data, e);
                                 },
                                 error: function(request, status, error) {
                                     AipLogger.log(
-                                        obj,
                                         __('Error submitting the form data'),
                                         error
                                     );
@@ -107,8 +106,7 @@ define([
                         } else {
                             AipMessage.show(
                                 'error',
-                                __('Please approve the terms and conditions.'),
-                                obj
+                                __('Please approve the terms and conditions.')
                             );
                         }
                     }

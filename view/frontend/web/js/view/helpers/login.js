@@ -26,8 +26,8 @@ define([
         /**
          * Check if customer is logged in.
          */
-        isLoggedIn: function(obj) {
-            return obj.jsConfig.user.connected;
+        isLoggedIn: function() {
+            return this.o.jsConfig.user.connected;
         }
     };
 });
