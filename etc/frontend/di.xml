@@ -2,7 +2,7 @@
     
     <!-- Purchase button block interceptor -->
     <type name="Magento\Framework\View\Element\Template">
-        <plugin name="naxeroAipBlockFilter" type="Naxero\AdvancedInstantPurchase\Plugin\BlockFilter"/>
+        <plugin name="naxeroAipBlockFilter" type="Naxero\BuyNow\Plugin\BlockFilter"/>
     </type>
 
     <!-- Complex UI messages -->
@@ -12,7 +12,7 @@
                 <item name="naxeroAipOrderSuccessMessage" xsi:type="array">
                     <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
                     <item name="data" xsi:type="array">
-                        <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase::messages/order-success.phtml</item>
+                        <item name="template" xsi:type="string">Naxero_BuyNow::messages/order-success.phtml</item>
                     </item>
                 </item>
             </argument>

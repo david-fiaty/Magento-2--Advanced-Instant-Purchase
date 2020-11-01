@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+namespace Naxero\BuyNow\Helper;
 
 /**
  * Class Payment helper.
@@ -39,7 +39,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Sales\Model\ResourceModel\Order\Payment\Collection $orderPayment,
         \Magento\Payment\Helper\Data $paymentDataHelper,
         \Magento\Payment\Model\Config $paymentConfig,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->orderPayment = $orderPayment;
         $this->paymentDataHelper = $paymentDataHelper;

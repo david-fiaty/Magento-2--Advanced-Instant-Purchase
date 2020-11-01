@@ -1,7 +1,7 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
+namespace Naxero\BuyNow\Controller\Ajax;
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Confirmation controller class
@@ -58,9 +58,9 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper       
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper       
     ) {
         parent::__construct($context);
         
@@ -146,7 +146,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock(
-                'Naxero\AdvancedInstantPurchase\Block\Address\Edit',
+                'Naxero\BuyNow\Block\Address\Edit',
                 'customer_address_edit',
                 [
                     'customerSession' => $this->customerSession,

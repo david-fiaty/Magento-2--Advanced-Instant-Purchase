@@ -1,10 +1,10 @@
 define(
     [
         'mage/template',
-        'text!Naxero_AdvancedInstantPurchase/template/loader.html',
-        'text!Naxero_AdvancedInstantPurchase/template/message.html',
-        'text!Naxero_AdvancedInstantPurchase/template/header.html',
-        'text!Naxero_AdvancedInstantPurchase/template/confirmation.html'
+        'text!Naxero_BuyNow/template/loader.html',
+        'text!Naxero_BuyNow/template/message.html',
+        'text!Naxero_BuyNow/template/header.html',
+        'text!Naxero_BuyNow/template/confirmation.html'
     ],
     function(MageTemplate, Loader, Message, Header, Confirmation) {
         'use strict';

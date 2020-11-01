@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block\Screen;
+namespace Naxero\BuyNow\Block\Screen;
 
 /**
  * Confirmation class constructor.

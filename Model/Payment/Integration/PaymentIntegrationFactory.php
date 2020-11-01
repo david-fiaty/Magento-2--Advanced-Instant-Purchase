@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration;
+namespace Naxero\BuyNow\Model\Payment\Integration;
 
 class PaymentIntegrationFactory
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+namespace Naxero\BuyNow\Helper;
 
 /**
  * Class Tools helper.

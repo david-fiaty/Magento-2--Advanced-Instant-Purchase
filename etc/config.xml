@@ -17,7 +17,7 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <advanced_instant_purchase>
+        <buy_now>
             <general>
                 <enabled>1</enabled>
                 <debug_enabled>0</debug_enabled>
@@ -76,6 +76,6 @@
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
-        </advanced_instant_purchase> 
+        </buy_now> 
     </default>
 </config>

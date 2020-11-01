@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block\Address;
+namespace Naxero\BuyNow\Block\Address;
 
 use Magento\Framework\Exception\NoSuchEntityException;
 

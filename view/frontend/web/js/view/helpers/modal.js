@@ -1,8 +1,8 @@
 define([
     'jquery',
     'Magento_Ui/js/modal/confirm',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/button',
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/button',
 ], function($, ConfirmModal, AipTemplate, AipButton) {
     'use strict';
 

@@ -1,7 +1,7 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+namespace Naxero\BuyNow\Helper;
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Logger Helper.
@@ -40,7 +40,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->customerSession = $customerSession;
         $this->pageFactory = $pageFactory;

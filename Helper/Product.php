@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+namespace Naxero\BuyNow\Helper;
 
 /**
  * Class Product helper.
@@ -56,8 +56,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper
     ) {
         $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;

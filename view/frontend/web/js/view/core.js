@@ -24,7 +24,7 @@ var helpers = [
  */
 function getHelperFiles() {
     var paths = [];
-    var prefix = 'Naxero_AdvancedInstantPurchase/js/view/helpers/';
+    var prefix = 'Naxero_BuyNow/js/view/helpers/';
     for (let i = 0; i < helpers.length; i++) {
         paths.push(prefix + helpers[i]);
     }

@@ -1,7 +1,7 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+namespace Naxero\BuyNow\Helper;
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Purchase Helper.
@@ -71,13 +71,13 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\BuyNow\Model\InstantPurchase\ShippingSelector $shippingSelector,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Payment $paymentHelper,
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->pageFactory = $pageFactory;
         $this->request = $request;

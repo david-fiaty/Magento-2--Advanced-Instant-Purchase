@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block\Button;
+namespace Naxero\BuyNow\Block\Button;
 
 /**
  * WidgetButton class constructor.
@@ -38,10 +38,10 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);

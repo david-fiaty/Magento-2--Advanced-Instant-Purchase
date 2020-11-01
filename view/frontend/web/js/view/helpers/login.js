@@ -1,6 +1,6 @@
 define([
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/model/authentication-popup'
+    'Naxero_BuyNow/js/model/authentication-popup'
 ], function(UrlBuilder, AuthPopup) {
     'use strict';
 

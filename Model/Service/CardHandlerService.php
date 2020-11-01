@@ -1,8 +1,8 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Service;
+namespace Naxero\BuyNow\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class CardHandlerService.

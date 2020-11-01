@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Plugin;
+namespace Naxero\BuyNow\Plugin;
 
 /**
  * Class BlockFilter.
@@ -37,10 +37,10 @@ class BlockFilter
      * Class BlockFilter constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;

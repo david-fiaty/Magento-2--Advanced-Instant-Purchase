@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
+namespace Naxero\BuyNow\Model\Config\Backend\Source;
 
 /**
  * Class PaymentMethods
@@ -15,7 +15,7 @@ class PaymentMethods implements \Magento\Framework\Option\ArrayInterface
      * PaymentMethods class constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper
+        \Naxero\BuyNow\Helper\Payment $paymentHelper
     ) {
         $this->paymentHelper = $paymentHelper;
     }

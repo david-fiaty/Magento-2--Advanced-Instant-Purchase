@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Config;
+namespace Naxero\BuyNow\Model\Config;
 
 /**
  * Class Naming.
@@ -11,7 +11,7 @@ class Naming
      */
     public static function getModuleName()
     {
-        return 'Naxero_AdvancedInstantPurchase';
+        return 'Naxero_BuyNow';
     }
 
     /**
@@ -27,7 +27,7 @@ class Naming
      */
     public static function getModulePath()
     {
-        return 'Naxero\AdvancedInstantPurchase';
+        return 'Naxero\BuyNow';
     }
 
     /**
@@ -35,6 +35,6 @@ class Naming
      */
     public static function getModuleTitle()
     {
-        return __('Naxero Advanced Instant Purchase');
+        return __('Naxero Buy Now');
     }
 }

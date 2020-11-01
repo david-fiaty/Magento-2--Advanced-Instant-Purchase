@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Service;
+namespace Naxero\BuyNow\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 
@@ -77,8 +77,8 @@ class VaultHandlerService
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Model\Service\CardHandlerService $cardHandler,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->storeManager = $storeManager;
         $this->paymentTokenRepository = $paymentTokenRepository;

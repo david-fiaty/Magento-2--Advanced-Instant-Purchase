@@ -1,10 +1,10 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\Magento;
+namespace Naxero\BuyNow\Model\Payment\Integration\Magento;
 
 /**
  * Class Index.
  */
-class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
+class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrationInterface
 {
     /**
      * @var OrderRepositoryInterface

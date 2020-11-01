@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source;
+namespace Naxero\BuyNow\Model\Config\Backend\Source;
 
 /**
  * Class ClickEvent

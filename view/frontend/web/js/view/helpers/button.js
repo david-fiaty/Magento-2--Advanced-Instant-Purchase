@@ -2,12 +2,12 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/message',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/util',
+    'Naxero_BuyNow/js/view/helpers/message',
+    'Naxero_BuyNow/js/view/helpers/validation',
+    'Naxero_BuyNow/js/view/helpers/logger'
 ], function($, __, AdditionalValidators, AipView, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';
 

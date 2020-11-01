@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
+namespace Naxero\BuyNow\Model\InstantPurchase;
 
 use Magento\Framework\DataObject;
 
@@ -47,8 +47,8 @@ class ShippingSelector
         \Magento\Quote\Api\Data\ShippingMethodInterfaceFactory $shippingMethodFactory,
         \Magento\Shipping\Model\Config $shippingModel,
         \Magento\Shipping\Model\Config $carriersConfig,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Customer $customerHelper
     ) {
         $this->storeManager = $storeManager;
         $this->shippingMethodFactory = $shippingMethodFactory;

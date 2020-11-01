@@ -5,7 +5,7 @@
 define([
     'jquery',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product'
+    'Naxero_BuyNow/js/view/helpers/product'
 ], function($, UrlBuilder, AipProduct) {
     'use strict';
 

@@ -2,8 +2,8 @@ define([
     'jquery',
     'mage/translate',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/view',
     'popover',
 ], function($, __, UrlBuilder, AipLogger, AipView, popover) {
     'use strict';

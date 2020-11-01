@@ -16,7 +16,7 @@
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Naxero_AdvancedInstantPurchase" setup_version="1.0.0">
+    <module name="Naxero_BuyNow" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Customer" />
             <module name="Magento_InstantPurchase" />

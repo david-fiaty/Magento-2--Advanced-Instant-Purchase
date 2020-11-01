@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Service;
+namespace Naxero\BuyNow\Model\Service;
 
 /**
  * Class FilterHandlerService.

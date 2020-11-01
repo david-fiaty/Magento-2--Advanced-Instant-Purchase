@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
+    'Naxero_BuyNow/js/view/helpers/slider'
 ], function($, AipSlider) {
     'use strict';
 

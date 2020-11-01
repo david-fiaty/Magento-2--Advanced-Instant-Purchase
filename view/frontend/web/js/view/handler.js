@@ -7,7 +7,7 @@ define([
     'mage/translate',
     'uiComponent',
     'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/core',
+    'Naxero_BuyNow/js/view/core',
     'mage/validation',
     'mage/cookies',
     'domReady!'

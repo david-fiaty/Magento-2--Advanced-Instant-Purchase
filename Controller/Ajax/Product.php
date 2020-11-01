@@ -1,7 +1,7 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
+namespace Naxero\BuyNow\Controller\Ajax;
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Product controller class
@@ -46,9 +46,9 @@ class Product extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         parent::__construct($context);
 

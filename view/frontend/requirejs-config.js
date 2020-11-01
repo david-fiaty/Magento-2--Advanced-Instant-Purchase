@@ -14,11 +14,11 @@
 
  var config = {
         paths: {
-            select2: 'Naxero_AdvancedInstantPurchase/js/lib/select2/select2.full',
-            slick: 'Naxero_AdvancedInstantPurchase/js/lib/slick/slick',
-            popover: 'Naxero_AdvancedInstantPurchase/js/lib/popover/popover',
-            jsonViewer: 'Naxero_AdvancedInstantPurchase/js/lib/json/jquery.json-viewer',
-            aip: 'Naxero_AdvancedInstantPurchase/js/view/instant-purchase'
+            select2: 'Naxero_BuyNow/js/lib/select2/select2.full',
+            slick: 'Naxero_BuyNow/js/lib/slick/slick',
+            popover: 'Naxero_BuyNow/js/lib/popover/popover',
+            jsonViewer: 'Naxero_BuyNow/js/lib/json/jquery.json-viewer',
+            aip: 'Naxero_BuyNow/js/view/handler'
         },
         urlArgs: "bust=" + (new Date()).getTime()
     };

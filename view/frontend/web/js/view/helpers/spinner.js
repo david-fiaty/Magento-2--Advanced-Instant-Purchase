@@ -1,8 +1,8 @@
 define([
     'mage/translate',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/template',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util'
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/util'
 ], function(__, AipTemplate, AipLogger, AipUtil) {
     'use strict';
 

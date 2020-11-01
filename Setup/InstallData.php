@@ -1,6 +1,6 @@
 <?php
 
-namespace Naxero\AdvancedInstantPurchase\Setup;
+namespace Naxero\BuyNow\Setup;
 
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;

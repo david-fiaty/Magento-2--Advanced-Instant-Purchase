@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment;
+namespace Naxero\BuyNow\Model\Payment;
 
 /**
  * Class PaymentHandler.
@@ -15,7 +15,7 @@ class PaymentHandler
      * PaymentHandler constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationFactory $paymentIntegrationFactory
+        \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrationFactory $paymentIntegrationFactory
     ) {
         $this->paymentIntegrationFactory = $paymentIntegrationFactory;
     }
@@ -35,7 +35,7 @@ class PaymentHandler
     public function getIntegrationPath($code)
     {
         $parts = explode('_', strtolower($code));
-        $path = "\\Naxero\\AdvancedInstantPurchase\\Model\\Payment\\Integration\\";
+        $path = "\\Naxero\\BuyNow\\Model\\Payment\\Integration\\";
         $path .= $this->getIntegrationName($parts);
         $path .= "\\Index";
 
