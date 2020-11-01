@@ -22,7 +22,7 @@ var helpers = [
 /**
  * Helper file loader.
  */
-function getHelpers() {
+function getHelperFiles() {
     var paths = [];
     var prefix = 'Naxero_AdvancedInstantPurchase/js/view/helpers/';
     for (let i = 0; i < helpers.length; i++) {
@@ -35,7 +35,7 @@ function getHelpers() {
 /**
  * Core component.
  */
-define(getHelpers(), function(agreement, button, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
+define(getHelperFiles(), function(agreement, button, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view) {
     'use strict';
 
     return {

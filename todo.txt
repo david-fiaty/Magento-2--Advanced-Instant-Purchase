@@ -1,7 +1,7 @@
 
 !!!PRIORITY!!!
-- fix options validation issue in list view
 - check agreements validation again
+- change popup window title for ui logger
 
 - check conditions for:
     => product display in window 

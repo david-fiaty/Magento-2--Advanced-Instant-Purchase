@@ -39,7 +39,7 @@ define([], function() {
             );
                 
             // Log the event message
-            console.log('|--' + msg)
+            console.log('|-- ' + msg)
 
             // Log event data
             if (data) {
