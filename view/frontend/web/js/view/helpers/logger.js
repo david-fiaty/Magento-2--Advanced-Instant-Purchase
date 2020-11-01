@@ -10,10 +10,11 @@ define([], function() {
         /**
          * Initialise the object.
          */
-        init: function() {
+        init: function(obj) {
+            this.o = obj;
             return this;
         },
-        
+
         /**
          * Log data to the browser console.
          */

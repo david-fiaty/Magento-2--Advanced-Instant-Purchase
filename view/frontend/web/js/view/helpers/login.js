@@ -11,10 +11,11 @@ define([
         /**
          * Initialise the object.
          */
-        init: function() {
+        init: function(obj) {
+            this.o = obj;
             return this;
         },
-        
+
         /**
          * Create a login popup.
          */

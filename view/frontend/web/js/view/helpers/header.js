@@ -13,7 +13,8 @@ define(
             /**
              * Initialise the object.
              */
-            init: function() {
+            init: function(obj) {
+                this.o = obj;
                 return this;
             },
 
@@ -62,9 +63,11 @@ define(
              * Get the spinner loaded flag.
              */
             getLoadedFlag: function() {
+                var self = this;
+                console.log(this);
                 return {
                     data: {
-                        css_path: this.o.jsConfig.ui.css
+                        css_path: self.o.jsConfig.ui.css
                     }
                 };
             }

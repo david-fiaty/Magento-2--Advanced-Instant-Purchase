@@ -8,10 +8,11 @@ define([
         /**
          * Initialise the object.
          */
-        init: function() {
+        init: function(obj) {
+            this.o = obj;
             return this;
         },
-        
+
         /**
          * Check if the current product is in list view.
          */
