@@ -41,9 +41,7 @@ define([], function() {
             console.log('|-- ' + msg)
 
             // Log event data
-            if (data) {
-                console.log(data);
-            }
+            console.log(data);
 
             // Log count
             this.logCount++;

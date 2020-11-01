@@ -243,7 +243,7 @@ define([
             var button = $(e.currentTarget);
 
             // Clear previous errors
-            self.clearErrors();
+            self.clearErrors(e);
 
             // Update the button state
             button.popover({
