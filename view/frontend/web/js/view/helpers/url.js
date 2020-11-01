@@ -9,11 +9,11 @@ define([
 
     return {
         loggerUrl: 'ajax/logs',
+        purchaseUrl: 'ajax/order',
         confirmationUrl: 'ajax/confirmation',
+        productDataUrl: 'ajax/product',
         loginUrl: 'customer/account/login',
-        productDataUrl: 'naxero-aip/ajax/product',
         saveAddressUrl: 'customer/address/formPost',
-        purchaseUrl: 'naxero-aip/ajax/order',
 
         /**
          * Initialise the object.
