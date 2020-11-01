@@ -154,6 +154,9 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
 
+        // Module route
+        $config['module']['route'] = Naming::getModuleRoute();
+
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler
         ->filterContent($config['popups']['popup_title'], $config);

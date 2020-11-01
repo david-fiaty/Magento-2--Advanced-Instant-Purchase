@@ -2,6 +2,7 @@
 namespace Naxero\BuyNow\Block\Address;
 
 use Magento\Framework\Exception\NoSuchEntityException;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Customer address edit block
@@ -245,7 +246,7 @@ class Edit extends \Magento\Directory\Block\Data
     public function getSaveUrl()
     {
         return $this->_urlBuilder->getUrl(
-            'naxero-aip/address/formPost',
+            Naming::getModuleRoute() . '/address/formPost',
             ['_secure' => true, 'id' => $this->getAddress()->getId()]
         );
     }

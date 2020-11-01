@@ -19,7 +19,7 @@ class Naming
      */
     public static function getModuleAlias()
     {
-        return 'naxero_aip';
+        return 'naxero_buy_now';
     }
 
     /**
@@ -28,6 +28,14 @@ class Naming
     public static function getModulePath()
     {
         return 'Naxero\BuyNow';
+    }
+
+    /**
+     * Get the module route.
+     */
+    public static function getModuleRoute()
+    {
+        return 'naxero-buy-now';
     }
 
     /**
