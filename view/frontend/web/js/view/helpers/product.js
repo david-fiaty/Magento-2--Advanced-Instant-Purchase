@@ -238,7 +238,7 @@ define([
             // Update the button state
             button.popover({
                 title : '',
-                content : __('Please select some options'),
+                content : __('Please select options for this product'),
                 autoPlace : false,
                 trigger : 'hover',
                 placement : 'right',
