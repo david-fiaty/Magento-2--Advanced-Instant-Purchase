@@ -210,7 +210,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function bypassLogin()
     {
         return $this->configHelper->value('general/enabled')
-        && $this->configHelper->value('guest/show_guest_button');
+        && $this->configHelper->value('buttons/show_guest_button');
     }
 
     /**

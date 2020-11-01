@@ -73,6 +73,12 @@
                     <comment>Text to display on the purchase button.</comment>
                 </field>
 
+                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show guest button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the Instant Purchase button to guest users.</comment>
+                </field>
+
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Bypass out of stock</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -212,54 +218,7 @@
                     </depends>
                 </field>
             </group>
-            <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Guest user settings</label>
-                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show guest button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the Instant Purchase button to guest users.</comment>
-                </field>
-                <field id="guest_button_state" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Guest button enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_guest_button">1</field>
-                    </depends>
-                    <comment>Guest button state.</comment>
-                </field>
-            </group>
-            <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Registered user settings</label>
-                <field id="show_registered_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show registered button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the Instant Purchase button to registered users.</comment>
-                </field> 
-                <field id="bypass_missing_payment" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing payment</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no stored payment method available.</comment>
-                </field> 
-                <field id="bypass_missing_billing" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing billing</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no saved billing address available.</comment>
-                </field> 
-                <field id="bypass_missing_shipping" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing shipping</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
-                </field> 
-            </group>
+
             <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Payment settings</label>
                 <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
