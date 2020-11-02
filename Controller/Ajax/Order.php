@@ -243,7 +243,7 @@ class Order extends \Magento\Framework\App\Action\Action
     public function getRequestData($request)
     {
         $params = $request->getParams();
-        $formatted = array_merge($params['aip'], array());
+        $formatted = array_merge($params['aip'], []);
         unset($params['aip']);
 
         return array_merge($params, $formatted[0]);

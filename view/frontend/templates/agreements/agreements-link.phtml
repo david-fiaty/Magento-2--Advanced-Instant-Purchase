@@ -1,4 +1,4 @@
-<?php 
+<?php
 $agreements = $block->getAgreements();
 if (!$agreements) {
     return;
@@ -9,7 +9,7 @@ if (!$agreements) {
     <?php foreach ($agreements as $agreement): ?>
         <li class="item">
             <form id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
-                <?php if($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_MANUAL): ?>
+                <?php if ($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_MANUAL): ?>
                     <div class="aip-agreement-link-row">
                         <input type="checkbox"
                             id="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>"
@@ -26,7 +26,7 @@ if (!$agreements) {
                             </a>
                         </label>
                     </div>
-                <?php elseif($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_AUTO): ?>
+                <?php elseif ($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_AUTO): ?>
                 <div id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree">
                     <span><?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?></span>
                 </div>

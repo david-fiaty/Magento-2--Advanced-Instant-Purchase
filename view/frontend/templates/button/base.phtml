@@ -1,6 +1,6 @@
 <?php $config = $block->getConfig() ?>
 <?php if ($config): ?>
-<?php
+    <?php
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
         $productId = $config['product']['id'];
@@ -14,10 +14,10 @@
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
         $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     }
-?>
+    ?>
 
 <!-- Product box -->
-<?php if ($showProductBox): ?>
+    <?php if ($showProductBox): ?>
     <div class="aip-product-box-container">
         <?= $this->blockHelper->renderProductBox($productId) ?>
     </div>
