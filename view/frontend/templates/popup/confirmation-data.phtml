@@ -3,8 +3,7 @@
     $content = $this->getData('content');
 
     // Product box display
-    $showProductBox = $content['config']['popups']['show_product']
-    || !empty($content['config']['product']['options']);
+    $showProductBox = $content['config']['popups']['show_product'];
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
