@@ -3,11 +3,7 @@
 - check agreements validation again
 - change popup window title for ui logger
 
-- check conditions for:
-    => product display in window 
-    => conditions for options display in window
-    => product options selected state in window
-
+REVIEW
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types
 
