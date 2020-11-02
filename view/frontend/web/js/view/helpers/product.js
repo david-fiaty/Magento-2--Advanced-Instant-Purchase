@@ -171,45 +171,6 @@ define([
         },
 
         /**
-         * Check if a product box should be rendered.
-         */
-        needsProductBox: function() {    
-            return this.o.jsConfig.popups.show_product;
-        },
-
-        /**
-         * Render a product box.
-         */
-        renderBox: function() {
-            // Prepare the parameters
-            var self = this;
-            var params = {
-                product_id: this.o.jsConfig.product.id,
-                form_key: this.o.jsConfig.product.form_key
-            };
-
-            // Send the AJAX request
-            $.ajax({
-                type: 'POST',
-                url: this.o.url.getProductDataUrl(),
-                data: params,
-                success: function(data) {
-                    // Get the HTML content
-                    $(self.productBoxContainerSelector).html(data.html);
-
-                    // Update the selected product options values
-                    self.updateSelectedOptionsValues();
-                },
-                error: function(request, status, error) {
-                    AipLogger.log(
-                        __('Error retrieving the confimation window product box'),
-                        error
-                    );
-                }
-            });
-        },
-
-        /**
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function() {

@@ -11,7 +11,6 @@ define([
         loggerUrl: 'ajax/logs',
         purchaseUrl: 'ajax/order',
         confirmationUrl: 'ajax/confirmation',
-        productDataUrl: 'ajax/product',
         loginUrl: 'customer/account/login',
         saveAddressUrl: 'customer/address/formPost',
 
@@ -38,10 +37,6 @@ define([
 
         getConfirmationUrl: function() {
             return this.getUrl(this.confirmationUrl);
-        },
-
-        getProductDataUrl: function() {
-            return this.getUrl(this.productDataUrl);
         },
 
         getSaveAddressUrl: function() {
