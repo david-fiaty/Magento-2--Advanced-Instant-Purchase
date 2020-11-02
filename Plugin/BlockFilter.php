@@ -74,7 +74,7 @@ class BlockFilter
 
                     // Replace the tag with the generated HTML
                     if (empty($errors[0])) {
-                        // Get the blcok HTMl
+                        // Get the block HTMl
                         $blockHtml = str_replace($tag, $result['blockHtml']->toHtml(), $html);
 
                         // Get the product HTML
