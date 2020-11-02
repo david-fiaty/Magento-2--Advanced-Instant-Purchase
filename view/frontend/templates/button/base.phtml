@@ -12,8 +12,17 @@
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+        $showProductBox = $config['popups']['show_product'];
+
     }
 ?>
+
+<!-- Product box -->
+<?php if ($showProductBox): ?>
+    <div class="aip-product-box-container">
+        <?= $this->blockHelper->renderProductBox($productId) ?>
+    </div>
+<?php endif; ?>
 
 <div id="aip-<?= $productId ?>" class="aip-button-container">
     <!-- Button -->
