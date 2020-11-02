@@ -169,7 +169,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function renderProductBox($productId, $subject = null)
     {
-        $layout = $subject 
+        // Get the layout
+        $layout = $subject
         ? $subject->getLayout()
         : $this->pageFactory->create()->getLayout();
 
