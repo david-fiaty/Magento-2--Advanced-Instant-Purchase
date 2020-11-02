@@ -79,7 +79,8 @@ class BlockFilter
 
                         // Get the product HTML
                         $productHtml = $this->blockHelper->renderProductBox(
-                            $result['field']['value']
+                            $result['field']['value'],
+                            $subject
                         );
 
                         // Finalise the output
