@@ -10,8 +10,6 @@ define([
 
     return {
         addressFormSelector: '.form-address-edit',
-        purchaseUrl: 'ajax/order',
-        saveAddressUrl: 'customer/address/formPost',
 
         /**
          * Initialise the object.
@@ -19,15 +17,6 @@ define([
         init: function(obj) {
             this.o = obj;
             return this;
-        },
-
-        /**
-         * Get the modal confirmation URL.
-         */
-        getConfirmUrl: function(isSubView) {
-            return isSubView 
-            ? this.o.url.get(this.saveAddressUrl) 
-            : this.o.url.get(this.purchcaseUrl);
         },
 
         /**

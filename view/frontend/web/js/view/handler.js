@@ -21,6 +21,8 @@ define([
             showButton: false,
             loggerUrl: 'ajax/logs',
             confirmationUrl: 'ajax/confirmation',
+            purchaseUrl: 'ajax/order',
+            saveAddressUrl: 'customer/address/formPost',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
@@ -102,7 +104,7 @@ define([
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: self.o.url.get(this.loggerUrl),
+                    url: self.o.paths.get(this.loggerUrl),
                     data: params,
                     success: function(data) {
                         // Get the HTML content
@@ -173,7 +175,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: this.o.url.get(this.confirmationUrl),
+                url: this.o.paths.get(this.confirmationUrl),
                 data: params,
                 success: function(data) {
                     // Get the HTML content
@@ -259,7 +261,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: this.o.url.get(this.confirmationUrl),
+                url: this.o.paths.get(this.confirmationUrl),
                 data: params,
                 success: function(data) {
                     if (params.action == 'Card') {

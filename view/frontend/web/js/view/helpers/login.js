@@ -27,7 +27,7 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            window.location.href = this.o.url.get(this.loginUrl);
+            window.location.href = this.o.paths.get(this.loginUrl);
         },
 
         /**

@@ -2,13 +2,12 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
-    'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/util',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/validation',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function($, __, AdditionalValidators, AipView, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
+], function($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -38,12 +37,18 @@ define([
         },
         
         /**
+         * Get the modal confirmation URL.
+         */
+        getConfirmUrl: function(obj) {            
+            return obj.isSubView 
+            ? obj.o.paths.get(obj.saveAddressUrl) 
+            : obj.o.paths.get(obj.purchcaseUrl);
+        },
+
+        /**
          * Set the additional validator events.
          */
         setValidationEvents() {
-            // Set the button states
-            this.init();
-
             // Fields value change event
             var self = this;
             $(AipValidation.inputSelectors).on('change', function() {
@@ -87,7 +92,7 @@ define([
                             var requestData = AipUtil.getCurrentFormData();
                             $.ajax({
                                 cache: false,
-                                url: AipUtil.getConfirmUrl(),
+                                url: self.getConfirmUrl(obj),
                                 data: requestData,
                                 type: 'post',
                                 dataType: 'json',
