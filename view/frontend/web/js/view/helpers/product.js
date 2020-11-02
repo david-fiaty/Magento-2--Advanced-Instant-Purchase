@@ -174,7 +174,7 @@ define([
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function() {
-            if (this.hasOptions()) {
+            if (this.hasOptions() && this.o.jsConfig.blocks.show_product) {
                 var options = this.o.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
