@@ -164,7 +164,8 @@ define([
         /**
          * Get an option field selector.
          */
-        getOptionField: function(option) {            
+        getOptionField: function(option) {   
+            // Todo - Handle list view case with swatch options or not         
             return this.optionSelectorPrefix
             + this.o.jsConfig.product.id
             + '-' + option['attribute_id'];

@@ -12,7 +12,7 @@
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
-        $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list';
+        $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     }
 ?>
 

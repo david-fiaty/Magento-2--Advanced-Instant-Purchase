@@ -5,6 +5,7 @@ define([
 
     return {
         loginBlockSelector: '.block-authentication',
+        loginUrl: 'customer/account/login',
 
         /**
          * Initialise the object.
@@ -26,8 +27,7 @@ define([
          * Create a login redirection.
          */
         loginRedirect: function() {
-            window.location.href = this.o.url.getLoginUrl();
-
+            window.location.href = this.o.url.get(this.loginUrl);
         },
 
         /**

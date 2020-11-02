@@ -19,6 +19,8 @@ define([
             jsConfig: {},
             uuid: null,
             showButton: false,
+            loggerUrl: 'ajax/logs',
+            confirmationUrl: 'ajax/confirmation',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
@@ -100,7 +102,7 @@ define([
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: self.o.url.getLoggerUrl(),
+                    url: self.o.url.get(this.loggerUrl),
                     data: params,
                     success: function(data) {
                         // Get the HTML content
@@ -171,7 +173,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: self.o.url.getConfirmationUrl(),
+                url: this.o.url.get(this.confirmationUrl),
                 data: params,
                 success: function(data) {
                     // Get the HTML content
@@ -257,7 +259,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: self.o.url.getConfirmationUrl(),
+                url: this.o.url.get(this.confirmationUrl),
                 data: params,
                 success: function(data) {
                     if (params.action == 'Card') {

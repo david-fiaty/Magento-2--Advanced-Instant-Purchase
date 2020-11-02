@@ -10,6 +10,8 @@ define([
 
     return {
         addressFormSelector: '.form-address-edit',
+        purchaseUrl: 'ajax/order',
+        saveAddressUrl: 'customer/address/formPost',
 
         /**
          * Initialise the object.
@@ -24,8 +26,8 @@ define([
          */
         getConfirmUrl: function(isSubView) {
             return isSubView 
-            ? this.o.url.getSaveAddressUrl() 
-            : this.o.url.getPurchaseUrl();
+            ? this.o.url.get(this.saveAddressUrl) 
+            : this.o.url.get(this.purchcaseUrl);
         },
 
         /**

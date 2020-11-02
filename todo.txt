@@ -3,6 +3,9 @@
 - check agreements validation again
 - change popup window title for ui logger
 
+- fix getOptionField method in list view, procut.js line 167
+=> needs improvements to find options in lists
+
 REVIEW
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types
