@@ -19,11 +19,6 @@ class BlockFilter
     public $blockHelper;
 
     /**
-     * Purchase
-     */
-    public $purchaseHelper;
-
-    /**
      * Product
      */
     public $productHelper;
@@ -38,12 +33,10 @@ class BlockFilter
      */
     public function __construct(
         \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
-        $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
         $this->loggerHelper = $loggerHelper;
     }
@@ -85,7 +78,7 @@ class BlockFilter
                         $blockHtml = str_replace($tag, $result['blockHtml']->toHtml(), $html);
 
                         // Get the product HTML
-                        $productHtml = $this->purchaseHelper->renderProductBox(
+                        $productHtml = $this->blockHelper->renderProductBox(
                             $result['field']['value']
                         );
 

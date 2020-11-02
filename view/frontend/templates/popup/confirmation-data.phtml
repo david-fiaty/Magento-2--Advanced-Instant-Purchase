@@ -14,7 +14,7 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="aip-product-box-container">
-        <img class="aip-spinner" src="<?= $content['config']['ui']['loader'] ?>">
+        <?= $this->blockHelper->renderProductBox($content['config']['product']['id']) ?>
     </div>
 <?php endif; ?>
 

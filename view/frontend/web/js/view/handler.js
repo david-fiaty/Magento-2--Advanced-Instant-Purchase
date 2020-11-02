@@ -177,9 +177,6 @@ define([
                     // Get the HTML content
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
-                    // Render the product box
-                    self.o.product.renderBox();
-
                     // Initialise the select lists
                     self.o.select.build();
 
