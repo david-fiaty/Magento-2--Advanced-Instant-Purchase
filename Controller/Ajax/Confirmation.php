@@ -60,7 +60,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
-        \Naxero\BuyNow\Helper\Purchase $purchaseHelper       
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper
     ) {
         parent::__construct($context);
         
@@ -85,8 +85,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         // Process the request
         $request = $this->getRequest();
         if ($request->isAjax()) {
-        // Todo - fix form key validator for block request
-        //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
+            // Todo - fix form key validator for block request
+            //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->loadBlock();
         }
 

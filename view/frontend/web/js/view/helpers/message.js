@@ -1,7 +1,7 @@
 define([
     'jquery',
     'Naxero_BuyNow/js/view/helpers/slider'
-], function($, AipSlider) {
+], function ($, AipSlider) {
     'use strict';
 
     return {
@@ -10,15 +10,15 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
 
         /**
          * Clear all visible errors.
-         */        
-        clearErrors: function(slide) {
+         */
+        clearErrors: function (slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
@@ -27,7 +27,7 @@ define([
         /**
          * Check the AJAX response.
          */
-        checkResponse: function(data, e) {
+        checkResponse: function (data, e) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
@@ -54,7 +54,7 @@ define([
         /**
          * Show the error messages.
          */
-        show: function(type, str) {
+        show: function (type, str) {
             var slide = AipSlider.getCurrentSlide();
             this.clearErrors(slide);
             slide.prepend(this.o.loader);

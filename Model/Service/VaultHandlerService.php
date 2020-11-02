@@ -133,7 +133,7 @@ class VaultHandlerService
             // Sort the array by date
             usort(
                 $cardList,
-                function($a, $b) {
+                function ($a, $b) {
                     $a = is_array($a) && isset($a['instance']) ? $a['instance'] : $a;
                     $b = is_array($b) && isset($b['instance']) ? $b['instance'] : $b;
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());

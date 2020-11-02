@@ -3,14 +3,14 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/util'
-], function(__, AipTemplate, AipLogger, AipUtil) {
+], function (__, AipTemplate, AipLogger, AipUtil) {
     'use strict';
 
     return {
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -18,7 +18,7 @@ define([
         /**
          * Load the spinner icon.
          */
-        loadIcon: function() {
+        loadIcon: function () {
             if (!this.isSpinnerLoaded()) {
                 // Build the spiner icon
                 this.buildIcon();
@@ -35,7 +35,7 @@ define([
         /**
          * Build the spinner icon.
          */
-        buildIcon: function() {
+        buildIcon: function () {
             // Get the spinner loaded flag
             var params = this.getLoadedFlag();
 
@@ -52,14 +52,14 @@ define([
         /**
          * Check if the HTML spinner is loaded.
          */
-        isSpinnerLoaded: function() {
+        isSpinnerLoaded: function () {
             return AipUtil.has(window, 'naxero.aip.spinner', true);
         },
 
         /**
          * Get the spinner loaded flag.
          */
-        getLoadedFlag: function() {
+        getLoadedFlag: function () {
             return {
                 data: {
                     url: this.o.jsConfig.ui.loader

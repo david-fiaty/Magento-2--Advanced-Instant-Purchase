@@ -2,7 +2,7 @@ define([
     'jquery',
     'mage/translate',
     'slick',
-], function($, __, slick) {
+], function ($, __, slick) {
     'use strict';
 
     return {
@@ -12,7 +12,7 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -20,7 +20,7 @@ define([
         /**
          * Create a login popup.
          */
-        build: function() {
+        build: function () {
             $(this.sliderSelector).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -33,7 +33,7 @@ define([
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function() {
+        getCurrentSlide: function () {
             var slide = (this.o.isSubView)
             ? this.nextSlideSelector
             : this.o.popupContentSelector;
@@ -44,14 +44,14 @@ define([
         /**
          * Show the AJAX loader.
          */
-        showLoader: function() {
+        showLoader: function () {
             this.getCurrentSlide().html(this.o.loader);
         },
 
         /**
          * Handles the view switch.
          */
-        toggleView: function(e) {
+        toggleView: function (e) {
             // Handle the event
             e = e || null;
             if (e) {

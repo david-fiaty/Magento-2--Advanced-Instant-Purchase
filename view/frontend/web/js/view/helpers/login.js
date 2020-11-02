@@ -1,6 +1,6 @@
 define([
     'Naxero_BuyNow/js/model/authentication-popup'
-], function(AuthPopup) {
+], function (AuthPopup) {
     'use strict';
 
     return {
@@ -10,7 +10,7 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -18,7 +18,7 @@ define([
         /**
          * Create a login popup.
          */
-        loginPopup: function() {
+        loginPopup: function () {
             AuthPopup.createPopUp(this.loginBlockSelector);
             AuthPopup.showModal();
         },
@@ -26,14 +26,14 @@ define([
         /**
          * Create a login redirection.
          */
-        loginRedirect: function() {
+        loginRedirect: function () {
             window.location.href = this.o.paths.get(this.loginUrl);
         },
 
         /**
          * Check if customer is logged in.
          */
-        isLoggedIn: function() {
+        isLoggedIn: function () {
             return this.o.jsConfig.user.connected;
         }
     };

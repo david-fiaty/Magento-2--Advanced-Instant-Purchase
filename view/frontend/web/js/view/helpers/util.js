@@ -5,7 +5,7 @@
 define([
     'jquery',
     'Naxero_BuyNow/js/view/helpers/product'
-], function($, AipProduct) {
+], function ($, AipProduct) {
     'use strict';
 
     return {
@@ -14,7 +14,7 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -22,7 +22,7 @@ define([
         /**
          * Get the current form.
          */
-        getCurrentFormData: function() {
+        getCurrentFormData: function () {
             var form = this.o.isSubView
             ? this.getAddressFormData()
             : AipProduct.getProductFormData();
@@ -33,21 +33,21 @@ define([
         /**
          * Get the address form data.
          */
-        getAddressFormData: function() {
+        getAddressFormData: function () {
             return $(this.addressFormSelector).serialize();
         },
 
         /**
          * Get a card option public hash.
          */
-        getOptionPublicHash: function(val) {
+        getOptionPublicHash: function (val) {
             return val.split('*~*')[0];
         },
 
         /**
          * Format a card icon.
          */
-        formatIcon: function(state) {
+        formatIcon: function (state) {
             // Check the element state
             if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
                 return state.text;
@@ -69,7 +69,7 @@ define([
         /**
          * Check if an object has a property.
          */
-        has: function(target, path, value) {
+        has: function (target, path, value) {
             if (typeof target !== 'object' || target === null) {
                 return false; }
                 var parts = path.split('.');

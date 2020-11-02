@@ -1,4 +1,4 @@
-define([], function() {
+define([], function () {
     'use strict';
 
     return {
@@ -9,7 +9,7 @@ define([], function() {
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -17,7 +17,7 @@ define([], function() {
         /**
          * Log data to the browser console.
          */
-        log: function(msg, data) {
+        log: function (msg, data) {
             // Default data value
             data = data || null;
 
@@ -30,7 +30,7 @@ define([], function() {
         /**
          * Handle the data console logging logic.
          */
-        logToConsole: function(msg, data) {
+        logToConsole: function (msg, data) {
             // Log title
             console.log(
                 this.getLogTitle(),
@@ -50,7 +50,7 @@ define([], function() {
         /**
          * Check if console logging is enabled.
          */
-        isConsoleLoggingEnabled: function() {
+        isConsoleLoggingEnabled: function () {
             return this.o.jsConfig.general.debug_enabled
             && this.o.jsConfig.general.console_logging_enabled;
         },
@@ -58,14 +58,14 @@ define([], function() {
         /**
          * Get a log title.
          */
-        getLogTitle: function() {
+        getLogTitle: function () {
             return '%c[' + this.logCount + '][' + this.o.jsConfig.module.title + ']';
         },
 
         /**
          * Get the target button for UI logging.
          */
-        getButtonSelector: function() {
+        getButtonSelector: function () {
             return '#' + this.logViewerButtonClass + '-' + this.o.jsConfig.product.id;
         }
     };

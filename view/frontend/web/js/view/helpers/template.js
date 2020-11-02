@@ -5,14 +5,14 @@ define(
         'text!Naxero_BuyNow/template/message.html',
         'text!Naxero_BuyNow/template/confirmation.html'
     ],
-    function(MageTemplate, Loader, Message, Confirmation) {
+    function (MageTemplate, Loader, Message, Confirmation) {
         'use strict';
 
         return {
             /**
              * Initialise the object.
              */
-            init: function(obj) {
+            init: function (obj) {
                 this.o = obj;
                 return this;
             },
@@ -20,21 +20,21 @@ define(
             /**
              * Render the spinner icon template.
              */
-            getSpinner: function(params) {
+            getSpinner: function (params) {
                 return MageTemplate(Loader)(params);
             },
 
             /**
              * Render the UI messages template.
              */
-            getMessage: function(params) {
+            getMessage: function (params) {
                 return MageTemplate(Message)(params);
             },
 
             /**
              * Render the confirmation modal template.
              */
-            getConfirmation: function(params) {
+            getConfirmation: function (params) {
                 return MageTemplate(Confirmation)(params);
             }
         };

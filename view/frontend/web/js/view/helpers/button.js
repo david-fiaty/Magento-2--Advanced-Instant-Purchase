@@ -7,7 +7,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/validation',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
+], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
@@ -17,7 +17,7 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -35,9 +35,9 @@ define([
         /**
          * Get the modal confirmation URL.
          */
-        getConfirmUrl: function(obj) {            
-            return obj.isSubView 
-            ? obj.o.paths.get(obj.saveAddressUrl) 
+        getConfirmUrl: function (obj) {
+            return obj.isSubView
+            ? obj.o.paths.get(obj.saveAddressUrl)
             : obj.o.paths.get(obj.purchcaseUrl);
         },
 
@@ -47,7 +47,7 @@ define([
         setValidationEvents() {
             // Fields value change event
             var self = this;
-            $(AipValidation.inputSelectors).on('change', function() {
+            $(AipValidation.inputSelectors).on('change', function () {
                 self.update();
             });
         },
@@ -55,12 +55,12 @@ define([
         /**
          * Get the modal cancel button.
          */
-        getCancelButton: function(obj) {
+        getCancelButton: function (obj) {
             var self = this;
             return {
                 text: __('Cancel'),
                 class: self.cancelButtonClasses,
-                click: function(e) {
+                click: function (e) {
                     if (obj.isSubView) {
                         // Toggle the view
                         AipSlider.toggleView(e);
@@ -75,14 +75,14 @@ define([
         /**
          * Get the modal submit button.
          */
-        getSubmitButton: function(obj) {
+        getSubmitButton: function (obj) {
             var self = this;
             var submitButton = null;
             if (obj.showSubmitButton) {
                 submitButton = {
                     text: obj.jsConfig.popups.popup_confirm_button_text,
                     class: this.submitButtonClasses,
-                    click: function(e) {
+                    click: function (e) {
                         if (AdditionalValidators.validate()) {
                             AipSlider.showLoader();
                             var requestData = AipUtil.getCurrentFormData();
@@ -92,10 +92,10 @@ define([
                                 data: requestData,
                                 type: 'post',
                                 dataType: 'json',
-                                success: function(data) {
+                                success: function (data) {
                                     AipMessage.checkResponse(data, e);
                                 },
-                                error: function(request, status, error) {
+                                error: function (request, status, error) {
                                     AipLogger.log(
                                         __('Error submitting the form data'),
                                         error

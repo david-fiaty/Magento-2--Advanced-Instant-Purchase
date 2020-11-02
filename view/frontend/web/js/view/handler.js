@@ -11,7 +11,7 @@ define([
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function($, __, Component, UrlBuilder, Core) {
+], function ($, __, Component, UrlBuilder, Core) {
     'use strict';
     
     return Component.extend({
@@ -38,7 +38,7 @@ define([
         },
 
         /** @inheritdoc */
-        initialize: function() {
+        initialize: function () {
             this._super();
             this.o = Core.init(this);
             this.build();
@@ -49,7 +49,7 @@ define([
          *
          * @param {Object} data
          */
-        build: function() {
+        build: function () {
             // Spinner icon
             this.o.spinner.loadIcon();
 
@@ -61,7 +61,7 @@ define([
 
             // Button click event
             var self = this;
-            $(this.jsConfig.product.button_selector).on('click touch', function(e) {
+            $(this.jsConfig.product.button_selector).on('click touch', function (e) {
                 self.handleButtonClick(e);
             });
             
@@ -78,7 +78,7 @@ define([
         /**
          * Build a browsable tree with log data.
          */
-        buildDataTree: function() {
+        buildDataTree: function () {
             // Prepare variables
             var self = this;
             var params = {
@@ -87,7 +87,7 @@ define([
             };
 
             // Set the data viewer button event
-            $(this.o.logger.getButtonSelector()).on('click touch', function(e) {
+            $(this.o.logger.getButtonSelector()).on('click touch', function (e) {
                 // Prevent propagation
                 e.stopPropagation();
 
@@ -106,7 +106,7 @@ define([
                     cache: false,
                     url: self.o.paths.get(this.loggerUrl),
                     data: params,
-                    success: function(data) {
+                    success: function (data) {
                         // Get the HTML content
                         self.o.modal.addHtml(
                             self.o.slider.nextSlideSelector,
@@ -116,7 +116,7 @@ define([
                         // Build the data tree
                         self.o.tree.build();
                     },
-                    error: function(request, status, error) {
+                    error: function (request, status, error) {
                         self.o.logger.log(
                             __('Error retrieving the UI logging data'),
                             error
@@ -129,11 +129,11 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function(e) {
-            // Force Login 
+        handleButtonClick: function (e) {
+            // Force Login
             if (!this.o.login.isLoggedIn()) {
-                this.o.login.loginPopup(); 
-                return;              
+                this.o.login.loginPopup();
+                return;
             }
 
             // Block and list views
@@ -143,10 +143,10 @@ define([
                 if (!optionsValid) {
                     // Display the errors
                     this.o.product.clearErrors(e);
-                    this.o.product.displayErrors(e); 
+                    this.o.product.displayErrors(e);
                     return;
                 }
-            }        
+            }
             
             // Page view and/or all conditions valid
             this.purchasePopup(e);
@@ -155,7 +155,7 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function() {
+        getConfirmContent: function () {
             // Prepare the parameters
             var self = this;
             var params = {
@@ -177,7 +177,7 @@ define([
                 cache: false,
                 url: this.o.paths.get(this.confirmationUrl),
                 data: params,
-                success: function(data) {
+                success: function (data) {
                     // Get the HTML content
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
@@ -202,7 +202,7 @@ define([
                         self.o.product.getProductForm().serializeArray()
                     );
                 },
-                error: function(request, status, error) {
+                error: function (request, status, error) {
                     self.o.logger.log(
                         __('Error retrieving the confimation window data'),
                         error
@@ -214,7 +214,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function(e) {
+        purchasePopup: function (e) {
             // Get the current form
             var form = this.o.product.getProductForm();
 
@@ -240,7 +240,7 @@ define([
         /**
          * Get instant purchase data.
          */
-        getData: function(fn) {
+        getData: function (fn) {
             var data = this[fn]();
             var ok = data
             && data.hasOwnProperty('summary')
@@ -253,7 +253,7 @@ define([
         /**
          * Get a form.
          */
-        getForm: function(e) {
+        getForm: function (e) {
             var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
@@ -263,7 +263,7 @@ define([
                 cache: false,
                 url: this.o.paths.get(this.confirmationUrl),
                 data: params,
-                success: function(data) {
+                success: function (data) {
                     if (params.action == 'Card') {
                         /*
                         window.aipData = {
@@ -282,7 +282,7 @@ define([
                         false
                     );
                 },
-                error: function(request, status, error) {
+                error: function (request, status, error) {
                     self.o.logger.log(
                         __('Error retrieving the form data'),
                         error
