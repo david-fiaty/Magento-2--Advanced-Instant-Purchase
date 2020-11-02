@@ -68,7 +68,7 @@ define([
 
             // Log the purchase data
             AipLogger.log(
-                __('Place order purchase data'),
+                __('Place order form data'),
                 this.getProductForm().serializeArray()
             );
 
