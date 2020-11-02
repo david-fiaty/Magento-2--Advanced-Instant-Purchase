@@ -13,10 +13,6 @@ define([
     AdditionalValidators.registerValidator(AipValidation);
 
     return {
-        submitButtonSelector: '.aip-submit',
-        submitButtonClasses: 'action-primary action-accept aip-submit',
-        cancelButtonSelector: '.action-close',
-        cancelButtonClasses: 'action-secondary action-dismiss',
 
         /**
          * Initialise the object.

@@ -231,7 +231,7 @@ define([
             }
 
             // Open the modal
-            this.o.modal.build();
+            this.o.modal.getOrderModal(this);
 
             // Get the AJAX content
             this.getConfirmContent();
