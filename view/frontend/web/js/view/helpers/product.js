@@ -101,8 +101,8 @@ define([
                     var sourceField = this.getOptionField(option);
 
                     // Set the value change events
-                    $(sourceField).on('change', function() {
-                        var sourceId = '#' + $(this).attr('id');
+                    $(sourceField).on('change', function(e) {
+                        var sourceId = e.currentTarget;
                         var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
                         $(targetId).val($(sourceId).val());
                     });
