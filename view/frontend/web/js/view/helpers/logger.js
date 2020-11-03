@@ -58,14 +58,14 @@ define([], function () {
         /**
          * Get a log title.
          */
-        getLogTitle: function () {
+        getLogTitle: function() {
             return '%c[' + this.logCount + '][' + this.o.jsConfig.module.title + ']';
         },
 
         /**
          * Get the target button for UI logging.
          */
-        getButtonSelector: function () {
+        getButtonSelector: function() {
             return '#' + this.logViewerButtonClass + '-' + this.o.jsConfig.product.id;
         }
     };

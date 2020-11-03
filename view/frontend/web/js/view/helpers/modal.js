@@ -89,6 +89,11 @@ define([
         getLoggerModal: function () {
             var self = this;
             var title = this.o.jsConfig.module.title + ' ' + __('UI Logger');
+            var params = {
+                data: {
+                    output: self.o.jsConfig.ui.loader
+                }
+            };
             ConfirmModal({
                 title: title,
                 innerScroll: true,
