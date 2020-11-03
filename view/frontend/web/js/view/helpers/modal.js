@@ -93,7 +93,7 @@ define([
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                content: AipTemplate.getConfirmation({}),
+                content: AipTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

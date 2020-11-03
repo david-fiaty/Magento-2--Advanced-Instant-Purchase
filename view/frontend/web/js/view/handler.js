@@ -93,7 +93,7 @@ define([
                 self.o.slider.toggleView(e);
                 
                 // Modal window
-                self.o.modal.getLogger();
+                self.o.modal.getLoggerModal();
                 
                 // Send the request
                 self.o.slider.showLoader();
