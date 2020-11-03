@@ -21,7 +21,6 @@ define([
             showButton: false,
             loggerUrl: 'ajax/logs',
             confirmationUrl: 'ajax/confirmation',
-            purchaseUrl: 'ajax/order',
             saveAddressUrl: 'customer/address/formPost',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
@@ -231,7 +230,7 @@ define([
             }
 
             // Open the modal
-            this.o.modal.getOrderModal(this);
+            this.o.modal.getOrderModal();
 
             // Get the AJAX content
             this.getConfirmContent();

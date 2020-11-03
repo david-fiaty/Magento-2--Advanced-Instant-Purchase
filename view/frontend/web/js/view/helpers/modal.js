@@ -5,9 +5,10 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/util',
+    'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
-    'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipUtil, AipMessage, AipLogger) {
+    'Naxero_BuyNow/js/view/helpers/paths'
+], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipUtil, AipLogger, AipMessage, AipPaths) {
     'use strict';
 
     return {
@@ -16,6 +17,7 @@ define([
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
         cancelButtonClasses: 'action-secondary action-dismiss',
+        orderUrl: 'ajax/order',
 
         /**
          * Initialise the object.
@@ -40,8 +42,9 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function (obj) {
+        getOrderModal: function () {
             var self = this;
+
             ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
@@ -55,15 +58,14 @@ define([
                     }
                 },
                 {
-                    text: obj.jsConfig.popups.popup_confirm_button_text,
-                    class: this.submitButtonClasses,
+                    text: self.o.jsConfig.popups.popup_confirm_button_text,
+                    class: self.submitButtonClasses,
                     click: function (e) {
                         AipSlider.showLoader();
-                        var requestData = AipUtil.getCurrentFormData();
                         $.ajax({
                             cache: false,
-                            url: self.getConfirmUrl(obj),
-                            data: requestData,
+                            url: AipPaths.get(self.orderUrl),
+                            data: AipUtil.getCurrentFormData(),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
@@ -72,7 +74,7 @@ define([
                             error: function (request, status, error) {
                                 AipLogger.log(
                                     __('Error submitting the form data'),
-                                    error
+                                    JSON.stringify(error)
                                 );
                             }
                         });

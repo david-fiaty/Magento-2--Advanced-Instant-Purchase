@@ -31,15 +31,6 @@ define([
                 !AdditionalValidators.validate()
             );
         },
-        
-        /**
-         * Get the modal confirmation URL.
-         */
-        getConfirmUrl: function (obj) {
-            return obj.isSubView
-            ? obj.o.paths.get(obj.saveAddressUrl)
-            : obj.o.paths.get(obj.purchcaseUrl);
-        },
 
         /**
          * Set the additional validator events.
