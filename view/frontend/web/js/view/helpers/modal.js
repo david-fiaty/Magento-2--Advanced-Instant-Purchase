@@ -83,5 +83,26 @@ define([
             });
         },
 
+        /**
+         * Get the logger modal popup.
+         */
+        getLoggerModal: function () {
+            var self = this;
+            var title = this.o.jsConfig.module.title + ' ' + __('UI Logger');
+            ConfirmModal({
+                title: title,
+                innerScroll: true,
+                modalClass: 'aip-modal',
+                content: AipTemplate.getConfirmation({}),
+                buttons: [{
+                    text: __('Close'),
+                    class: self.cancelButtonClasses,
+                    click: function (e) {
+                        $(self.cancelButtonSelector).trigger('click');
+                    }
+                },
+                null]
+            });
+        }
     };
 });

@@ -25,7 +25,6 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             isSubView: false,
-            showSubmitButton: true,
             loader: '',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
@@ -94,9 +93,7 @@ define([
                 self.o.slider.toggleView(e);
                 
                 // Modal window
-                // Todo - fix button state
-                //self.showSubmitButton = false;
-                self.o.modal.build();
+                self.o.modal.getLogger();
                 
                 // Send the request
                 self.o.slider.showLoader();

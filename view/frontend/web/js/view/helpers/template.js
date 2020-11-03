@@ -1,11 +1,12 @@
 define(
     [
         'mage/template',
+        'text!Naxero_BuyNow/template/logger.html',
         'text!Naxero_BuyNow/template/loader.html',
         'text!Naxero_BuyNow/template/message.html',
         'text!Naxero_BuyNow/template/confirmation.html'
     ],
-    function (MageTemplate, Loader, Message, Confirmation) {
+    function (MageTemplate, Logger, Loader, Message, Confirmation) {
         'use strict';
 
         return {
@@ -36,6 +37,13 @@ define(
              */
             getConfirmation: function (params) {
                 return MageTemplate(Confirmation)(params);
+            },
+
+            /**
+             * Render the confirmation modal logger.
+             */
+            getLogger: function (params) {
+                return MageTemplate(Logger)(params);
             }
         };
     }
