@@ -86,15 +86,9 @@ define([
 
             // Set the data viewer button event
             $(this.o.logger.getButtonSelector()).on('click touch', function (e) {
-                // Prevent propagation
-                e.stopPropagation();
-
                 // Slider view
                 self.o.slider.toggleView(e);
-                
-                // Modal window
-                self.o.modal.getLoggerModal();
-                
+                                
                 // Send the request
                 self.o.slider.showLoader();
                 $.ajax({
@@ -104,13 +98,10 @@ define([
                     data: params,
                     success: function (data) {
                         // Get the HTML content
-                        self.o.modal.addHtml(
-                            self.o.slider.nextSlideSelector,
-                            data.html
-                        );
+                        self.o.modal.addHtml(self.popupContentSelector, data.html);
 
                         // Build the data tree
-                        self.o.tree.build();
+                        //self.o.tree.build();
                     },
                     error: function (request, status, error) {
                         self.o.logger.log(
