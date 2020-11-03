@@ -58,15 +58,7 @@ define([
             this.o.product.initOptionsEvents();
 
             // Button click event
-            $(this.jsConfig.product.button_selector).on('click touch', function (e) {
-                self.handleButtonClick(e);
-            });     
-
-            // Logger click event
-            var loggerButon = this.logViewerButtonSelector + '-' + this.jsConfig.product.id;
-            $(loggerButon).on('click touch', function (e) {
-                self.getLoggerData();
-            });
+            self.handleButtonClick();
 
             // Log the step
             this.o.logger.log(
@@ -115,27 +107,35 @@ define([
         /**
          * Handle the button click event.
          */
-        handleButtonClick: function (e) {
-            // Force Login
-            if (!this.o.login.isLoggedIn()) {
-                this.o.login.loginPopup();
-                return;
-            }
+        handleButtonClick: function () {
+            var self = this;
+            $(this.jsConfig.product.button_selector).on('click touch', function (e) {
+                if (e.target.nodeName == 'BUTTON') {
+                    // Force Login
+                    if (!self.o.login.isLoggedIn()) {
+                        self.o.login.loginPopup();
+                        return;
+                    }
 
-            // Block and list views
-            if (this.o.view.isBlockView() || this.o.view.isListView()) {
-                // Validate the product options if needed
-                var optionsValid = this.o.product.validateOptions();
-                if (!optionsValid) {
-                    // Display the errors
-                    this.o.product.clearErrors(e);
-                    this.o.product.displayErrors(e);
-                    return;
+                    // Block and list views
+                    if (self.o.view.isBlockView() || self.o.view.isListView()) {
+                        // Validate the product options if needed
+                        var optionsValid = self.o.product.validateOptions();
+                        if (!optionsValid) {
+                            // Display the errors
+                            self.o.product.clearErrors(e);
+                            self.o.product.displayErrors(e);
+                            return;
+                        }
+                    }
+                    
+                    // Page view and/or all conditions valid
+                    self.purchasePopup(e);
                 }
-            }
-            
-            // Page view and/or all conditions valid
-            this.purchasePopup(e);
+                else if (e.target.nodeName == 'A') {
+                    self.getLoggerData();
+                }
+            });
         },
 
         /**
