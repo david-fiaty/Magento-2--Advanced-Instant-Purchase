@@ -24,6 +24,7 @@ define([
             saveAddressUrl: 'customer/address/formPost',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
+            logViewerButtonClass: 'aip-ui-logger-button',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -48,21 +49,25 @@ define([
          * @param {Object} data
          */
         build: function () {
+            var self = this;
+
             // Spinner icon
             this.o.spinner.loadIcon();
 
             // Options validation
             this.o.product.initOptionsEvents();
 
-            // Initialise the UI Logger tree if needed
-            this.buildDataTree();
-
             // Button click event
-            var self = this;
             $(this.jsConfig.product.button_selector).on('click touch', function (e) {
                 self.handleButtonClick(e);
+            });     
+
+            // Logger click event
+            $(this.logViewerButtonClass).on('click touch', function (e) {
+                e.stopPropagation();
+                self.getLoggerData();
             });
-            
+
             // Log the step
             this.o.logger.log(
                 __('Configuration loaded for product id %1').replace(
@@ -76,7 +81,7 @@ define([
         /**
          * Build a browsable tree with log data.
          */
-        buildDataTree: function () {
+        getLoggerData: function () {
             // Prepare variables
             var self = this;
             var params = {
@@ -85,31 +90,25 @@ define([
             };
 
             // Set the data viewer button event
-            $(this.o.logger.getButtonSelector()).on('click touch', function (e) {
-                // Slider view
-                self.o.slider.toggleView(e);
-                                
-                // Send the request
-                self.o.slider.showLoader();
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: self.o.paths.get(self.loggerUrl),
-                    data: params,
-                    success: function (data) {
-                        // Get the HTML content
-                        self.o.modal.addHtml(self.popupContentSelector, data.html);
+            self.o.slider.showLoader();
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: self.o.paths.get(self.loggerUrl),
+                data: params,
+                success: function (data) {
+                    // Get the HTML content
+                    self.o.modal.addHtml(self.popupContentSelector, data.html);
 
-                        // Build the data tree
-                        //self.o.tree.build();
-                    },
-                    error: function (request, status, error) {
-                        self.o.logger.log(
-                            __('Error retrieving the UI logging data'),
-                            error
-                        );
-                    }
-                });
+                    // Build the data tree
+                    //self.o.tree.build();
+                },
+                error: function (request, status, error) {
+                    self.o.logger.log(
+                        __('Error retrieving the UI logging data'),
+                        error
+                    );
+                }
             });
         },
 

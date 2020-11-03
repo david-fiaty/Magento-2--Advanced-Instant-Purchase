@@ -4,7 +4,6 @@ define([], function () {
     return {
         logCount: 1,
         logTitleCss: 'font-weight: bold; color: blue;',
-        logViewerButtonClass: 'aip-ui-logger-button',
 
         /**
          * Initialise the object.
