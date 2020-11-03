@@ -24,7 +24,7 @@ define([
             saveAddressUrl: 'customer/address/formPost',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
-            logViewerButtonClass: 'aip-ui-logger-button',
+            logViewerButtonSelector: '#aip-ui-logger-button',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -63,8 +63,8 @@ define([
             });     
 
             // Logger click event
-            $(this.logViewerButtonClass).on('click touch', function (e) {
-                e.stopPropagation();
+            var loggerButon = this.logViewerButtonSelector + '-' + this.jsConfig.product.id;
+            $(loggerButon).on('click touch', function (e) {
                 self.getLoggerData();
             });
 
