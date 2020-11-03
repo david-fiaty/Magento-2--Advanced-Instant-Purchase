@@ -100,7 +100,7 @@ define([
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: self.o.paths.get(this.loggerUrl),
+                    url: self.o.paths.get(self.loggerUrl),
                     data: params,
                     success: function (data) {
                         // Get the HTML content
