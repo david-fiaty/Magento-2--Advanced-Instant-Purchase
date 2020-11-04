@@ -20,11 +20,10 @@ define([
          */
         build: function () {
             if (this.needsUiLogging()) {
-                // Initialize the data tree viewer
                 $(this.treeContainerSelector).jsonViewer(
                     this.o.jsConfig,
                     {
-                        collapsed: false
+                        collapsed: true
                     }
                 );
             }
