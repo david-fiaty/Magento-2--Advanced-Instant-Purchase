@@ -88,18 +88,13 @@ define([
          */
         getLoggerModal: function () {
             var self = this;
-            var title = this.o.jsConfig.module.title + ' ' + __('UI Logger');
-            var params = {
-                data: {
-                    output: 'test'
-                }
-            };
+            var title = this.o.jsConfig.module.title + ' ' + __('Logger');
 
             ConfirmModal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                content: AipTemplate.getLogger(params),
+                content: AipTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
