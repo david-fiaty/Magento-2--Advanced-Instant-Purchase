@@ -6,9 +6,8 @@ define([
     'jquery',
     'mage/translate',
     'mage/url',
-    'Naxero_BuyNow/js/view/helpers/paths',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, __, Url, AipPaths, AipLogger) {
+], function ($, __, Url, AipLogger) {
     'use strict';
 
     return {
