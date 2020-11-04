@@ -27,6 +27,7 @@
     <!-- Button -->
     <button 
         id="<?= $buttonId ?>"
+        data-product-id="<?= $productId ?>"
         type="button"
         class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
         title="<?= __($config['buttons']['button_text']) ?>">
@@ -56,7 +57,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <input type="hidden" name="form_key" value="<?= $formKey ?>" />
+        <input type="hidden" name="form_key" value="<?= $formKey ?>">
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>

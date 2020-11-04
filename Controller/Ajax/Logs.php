@@ -34,11 +34,6 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $loggerHelper;
 
     /**
-     * Tools
-     */
-    public $toolsHelper;
-
-    /**
      * Logs controller class constructor
      */
     public function __construct(
@@ -47,8 +42,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Logger $loggerHelper,
-        \Naxero\BuyNow\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         parent::__construct($context);
 
@@ -57,7 +51,6 @@ class Logs extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->blockHelper = $blockHelper;
         $this->loggerHelper = $loggerHelper;
-        $this->toolsHelper = $toolsHelper;
     }
 
     /**
@@ -95,7 +88,6 @@ class Logs extends \Magento\Framework\App\Action\Action
             ->setTemplate(Naming::getModuleName() . '::messages/logger.phtml')
             ->setData('config', $this->blockHelper->getConfig($productId))
             ->setData('title', Naming::getModuleTitle())
-            ->setData('form_key', $this->toolsHelper->getFormKey())
             ->toHtml();
 
         return $blockHtml;

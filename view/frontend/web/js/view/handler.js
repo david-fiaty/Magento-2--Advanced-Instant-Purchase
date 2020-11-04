@@ -73,12 +73,13 @@ define([
         /**
          * Build a browsable tree with log data.
          */
-        getLoggerData: function () {
+        getLoggerData: function (e) {
+
             // Prepare variables
             var self = this;
             var params = {
-                product_id: this.jsConfig.product.id,
-                form_key: this.jsConfig.product.form_key
+                product_id: $(e.currentTarget).data('product-id'),
+                form_key: $(e.currentTarget).closest('input[name="form_key"]').val()
             };
 
             // Set the data viewer button event
@@ -137,7 +138,7 @@ define([
                     self.o.modal.getLoggerModal();
 
                     // Get the log data
-                    self.getLoggerData();
+                    self.getLoggerData(e);
                 }
             });
         },
