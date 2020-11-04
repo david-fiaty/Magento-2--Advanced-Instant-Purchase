@@ -10,14 +10,9 @@
 <div id="aip-ui-logger-<?= $productId ?>" class="aip-ui-logger">
     <h3><?= __('Product data') ?></h3>
     <pre class="aip-logger-tree">
-        <?= json_encode($config['product']) ?>
     </pre>
 
     <h3><?= __('Module parameters') ?></h3>
     <pre class="aip-logger-tree">
-        <?php 
-            unset($config['product']);
-            json_encode($config);
-        ?>
     </pre>
 </div>

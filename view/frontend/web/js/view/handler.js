@@ -6,12 +6,11 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
-    'mage/url',
     'Naxero_BuyNow/js/view/core',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, UrlBuilder, Core) {
+], function ($, __, Component, Core) {
     'use strict';
     
     return Component.extend({
@@ -25,6 +24,7 @@ define([
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             logViewerButtonSelector: '#aip-ui-logger-button',
+            formKeySelectorPrefix: '#aip-form-key-',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -74,12 +74,12 @@ define([
          * Build a browsable tree with log data.
          */
         getLoggerData: function (e) {
-
             // Prepare variables
             var self = this;
+            var productId = $(e.currentTarget).data('product-id');
             var params = {
-                product_id: $(e.currentTarget).data('product-id'),
-                form_key: $(e.currentTarget).closest('input[name="form_key"]').val()
+                product_id: productId,
+                form_key: $(this.formKeySelectorPrefix + productId).val()
             };
 
             // Set the data viewer button event
@@ -151,8 +151,8 @@ define([
             var self = this;
             var params = {
                 action: 'Confirmation',
-                product_id: this.jsConfig.product.id,
-                form_key: this.jsConfig.product.form_key
+                product_id: $(e.currentTarget).data('product-id'),
+                form_key: $(e.currentTarget).closest('input[name="form_key"]').val()
             };
 
             // Log the parameters

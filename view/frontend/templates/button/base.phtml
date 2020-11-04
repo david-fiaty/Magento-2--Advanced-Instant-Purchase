@@ -57,7 +57,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <input type="hidden" name="form_key" value="<?= $formKey ?>">
+        <input id="aip-form-key-<?= $productId ?>" type="hidden" name="form_key" value="<?= $formKey ?>">
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>

@@ -84,9 +84,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
 
         // Process the request
         $request = $this->getRequest();
-        if ($request->isAjax()) {
-            // Todo - fix form key validator for block request
-            //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
+        if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $html .= $this->loadBlock();
         }
 
