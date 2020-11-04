@@ -20,17 +20,6 @@ define([
         },
 
         /**
-         * Get the current form.
-         */
-        getCurrentFormData: function () {
-            var form = this.o.isSubView
-            ? this.getAddressFormData()
-            : AipProduct.getProductFormData();
-
-            return form;
-        },
-
-        /**
          * Get the address form data.
          */
         getAddressFormData: function () {

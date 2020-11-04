@@ -4,11 +4,11 @@ define([
     'Magento_Ui/js/modal/confirm',
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/util',
+    'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipUtil, AipLogger, AipMessage, AipPaths) {
+], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
     'use strict';
 
     return {
@@ -65,7 +65,7 @@ define([
                         $.ajax({
                             cache: false,
                             url: AipPaths.get(self.orderUrl),
-                            data: AipUtil.getCurrentFormData(),
+                            data: AipProduct.getProductFormData(),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
