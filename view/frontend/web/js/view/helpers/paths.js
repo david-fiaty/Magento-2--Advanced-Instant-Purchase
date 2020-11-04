@@ -4,7 +4,7 @@
  */
 define([
     'mage/url'
-], function (UrlBuilder) {
+], function (Url) {
     'use strict';
 
     return {
@@ -21,7 +21,7 @@ define([
          */
         get: function (path) {
             var url = this.o.jsConfig.module.route + '/' + path;
-            return UrlBuilder.build(url);
+            return Url.build(url);
         }
     }
 });

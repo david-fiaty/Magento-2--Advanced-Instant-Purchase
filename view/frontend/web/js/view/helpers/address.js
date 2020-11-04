@@ -5,9 +5,10 @@
 define([
     'jquery',
     'mage/translate',
+    'mage/url',
     'Naxero_BuyNow/js/view/helpers/paths',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, __, AipPaths, AipLogger) {
+], function ($, __, Url, AipPaths, AipLogger) {
     'use strict';
 
     return {
@@ -40,7 +41,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: AipPaths.get(this.saveAddressUrl),
+                url: Url.build(this.saveAddressUrl),
                 data: params,
                 success: function (data) {
                     self.o.modal.addHtml(self.o.slider.nextSlideSelector, data.html);

@@ -4,7 +4,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, UrlBuilder, AipSlider, AipModal, AipLogger) {
+], function ($, Url, AipSlider, AipModal, AipLogger) {
     'use strict';
 
     return {
