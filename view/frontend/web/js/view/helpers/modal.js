@@ -91,9 +91,10 @@ define([
             var title = this.o.jsConfig.module.title + ' ' + __('UI Logger');
             var params = {
                 data: {
-                    output: self.o.jsConfig.ui.loader
+                    output: 'test'
                 }
             };
+
             ConfirmModal({
                 title: title,
                 innerScroll: true,
@@ -105,8 +106,7 @@ define([
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                     }
-                },
-                null]
+                }]
             });
         }
     };

@@ -1,12 +1,11 @@
 define(
     [
         'mage/template',
-        'text!Naxero_BuyNow/template/logger.html',
         'text!Naxero_BuyNow/template/loader.html',
         'text!Naxero_BuyNow/template/message.html',
-        'text!Naxero_BuyNow/template/confirmation.html'
+        'text!Naxero_BuyNow/template/slider.html'
     ],
-    function (MageTemplate, Logger, Loader, Message, Confirmation) {
+    function (MageTemplate, Loader, Message, Slider) {
         'use strict';
 
         return {
@@ -36,14 +35,14 @@ define(
              * Render the confirmation modal template.
              */
             getConfirmation: function (params) {
-                return MageTemplate(Confirmation)(params);
+                return MageTemplate(Slider)(params);
             },
 
             /**
              * Render the confirmation modal logger.
              */
             getLogger: function (params) {
-                return MageTemplate(Logger)(params);
+                return MageTemplate(Slider)(params);
             }
         };
     }

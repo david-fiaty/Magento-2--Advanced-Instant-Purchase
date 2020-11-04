@@ -81,7 +81,6 @@ define([
                 form_key: this.jsConfig.product.form_key
             };
 
-
             // Set the data viewer button event
             self.o.slider.showLoader();
             $.ajax({
@@ -90,10 +89,6 @@ define([
                 url: self.o.paths.get(self.loggerUrl),
                 data: params,
                 success: function (data) {
-
-            // Open the modal
-            self.o.modal.getLoggerModal();
-
                     // Get the HTML content
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
@@ -138,6 +133,10 @@ define([
                     self.purchasePopup(e);
                 }
                 else if (e.target.nodeName == 'A') {
+                    // Open the modal
+                    self.o.modal.getLoggerModal();
+
+                    // Get the log data
                     self.getLoggerData();
                 }
             });
