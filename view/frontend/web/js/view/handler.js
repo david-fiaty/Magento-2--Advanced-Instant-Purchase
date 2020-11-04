@@ -149,10 +149,11 @@ define([
         getConfirmContent: function (e) {
             // Prepare the parameters
             var self = this;
+            var productId = $(e.currentTarget).data('product-id');
             var params = {
                 action: 'Confirmation',
-                product_id: $(e.currentTarget).data('product-id'),
-                form_key: $(e.currentTarget).closest('input[name="form_key"]').val()
+                product_id: productId,
+                form_key: $(this.formKeySelectorPrefix + productId).val()
             };
 
             // Log the parameters
