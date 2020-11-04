@@ -93,7 +93,7 @@ define([
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
-                    //self.o.tree.build();
+                    self.o.tree.build();
                 },
                 error: function (request, status, error) {
                     self.o.logger.log(
