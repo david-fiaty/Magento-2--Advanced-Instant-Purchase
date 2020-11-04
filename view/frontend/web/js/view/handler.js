@@ -20,7 +20,6 @@ define([
             showButton: false,
             loggerUrl: 'ajax/logs',
             confirmationUrl: 'ajax/confirmation',
-            saveAddressUrl: 'customer/address/formPost',
             buttonContainerSelector: '.aip-button-container',
             popupContentSelector: '#aip-confirmation-content',
             logViewerButtonSelector: '#aip-ui-logger-button',

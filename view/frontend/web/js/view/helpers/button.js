@@ -2,12 +2,8 @@ define([
     'jquery',
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
-    'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/util',
-    'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/validation',
-    'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, __, AdditionalValidators, AipSlider, AipUtil, AipMessage, AipValidation, AipLogger) {
+], function ($, __, AdditionalValidators, AipValidation) {
     'use strict';
 
     AdditionalValidators.registerValidator(AipValidation);
