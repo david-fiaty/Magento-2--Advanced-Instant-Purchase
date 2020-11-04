@@ -146,7 +146,7 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function () {
+        getConfirmContent: function (e) {
             // Prepare the parameters
             var self = this;
             var params = {
@@ -225,7 +225,7 @@ define([
             this.o.modal.getOrderModal();
 
             // Get the AJAX content
-            this.getConfirmContent();
+            this.getConfirmContent(e);
         },
 
         /**
