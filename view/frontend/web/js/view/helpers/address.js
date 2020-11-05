@@ -13,6 +13,7 @@ define([
         addressFormSelector: '.form-address-edit',
         addressFormUrl: 'address/formAdd',
         saveAddressUrl: 'address/formPost',
+        submitButtonSelector: '.nbn-submit',
 
         /**
          * Initialise the object.
@@ -39,8 +40,7 @@ define([
             };
 
             // Update the modal button title
-            $('.nbn-submit').text(__('Save'));
-
+            $(this.submitButtonSelector).text(__('Save'));
 
             $.ajax({
                 type: 'POST',
