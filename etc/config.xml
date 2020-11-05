@@ -31,6 +31,7 @@
                 <show_guest_button>1</show_guest_button>
                 <products_with_options>open</products_with_options>
                 <bypass_oos>0</bypass_oos>
+                <button_classes>primary button</button_classes>
             </buttons>
             <products>
                 <product_view>1</product_view>
