@@ -49,7 +49,7 @@ define([
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                content: AipTemplate.getConfirmation({}),
+                modalContent: AipTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
                     class: self.cancelButtonClasses,
