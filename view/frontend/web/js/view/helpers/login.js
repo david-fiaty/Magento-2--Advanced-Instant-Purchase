@@ -20,7 +20,6 @@ define([
          */
         loginPopup: function () {
             AuthPopup.createPopUp(this.loginBlockSelector);
-            AuthPopup.showModal();
         },
 
         /**

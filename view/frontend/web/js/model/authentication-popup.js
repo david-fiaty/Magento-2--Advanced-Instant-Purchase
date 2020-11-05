@@ -10,14 +10,13 @@ define([
     'use strict';
 
     return {
-        modalWindow: null,
-
+        
         /**
          * Create popUp window for provided element
          *
          * @param {HTMLElement} element
          */
-        createPopUp: function (element) {
+        createPopUp: function (elementSelector) {
             var options = {
                 'type': 'popup',
                 'modalClass': 'popup-authentication',
@@ -28,12 +27,8 @@ define([
                 'buttons': []
             };
 
-            this.modalWindow = element;
+            this.modalWindow = elementSelector;
             modal(options, $(this.modalWindow));
-        },
-
-        /** Show login popup window */
-        showModal: function () {
             $(this.modalWindow).modal('openModal').trigger('contentUpdated');
         }
     };

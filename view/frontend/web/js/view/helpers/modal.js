@@ -1,14 +1,14 @@
 define([
     'jquery',
     'mage/translate',
-    'Magento_Ui/js/modal/confirm',
+    'Magento_Ui/js/modal/modal',
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
+], function ($, __, Modal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
     'use strict';
 
     return {
@@ -45,7 +45,7 @@ define([
         getOrderModal: function () {
             var self = this;
 
-            ConfirmModal({
+            Modal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
@@ -90,7 +90,7 @@ define([
             var self = this;
             var title = this.o.jsConfig.module.title + ' ' + __('Logger');
 
-            ConfirmModal({
+            Modal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
