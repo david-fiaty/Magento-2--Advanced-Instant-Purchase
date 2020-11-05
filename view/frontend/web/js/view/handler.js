@@ -211,7 +211,7 @@ define([
             // Validate the product options
             // Todo - fix this
             var errors = [];
-            //var errors = BnValidation.validateOptions(this);
+            //var errors = NbnValidation.validateOptions(this);
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');

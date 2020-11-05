@@ -3,10 +3,10 @@ define([
     'mage/translate',
     'Magento_Checkout/js/model/payment/additional-validators',
     'Naxero_BuyNow/js/view/helpers/validation',
-], function ($, __, AdditionalValidators, BnValidation) {
+], function ($, __, AdditionalValidators, NbnValidation) {
     'use strict';
 
-    AdditionalValidators.registerValidator(BnValidation);
+    AdditionalValidators.registerValidator(NbnValidation);
 
     return {
 
@@ -34,7 +34,7 @@ define([
         setValidationEvents() {
             // Fields value change event
             var self = this;
-            $(BnValidation.inputSelectors).on('change', function () {
+            $(NbnValidation.inputSelectors).on('change', function () {
                 self.update();
             });
         }

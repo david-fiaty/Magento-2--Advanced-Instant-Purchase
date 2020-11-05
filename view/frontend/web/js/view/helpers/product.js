@@ -4,7 +4,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
     'popover',
-], function ($, __, BnLogger, BnView, popover) {
+], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
 
     return {
@@ -32,7 +32,7 @@ define([
          * Get a product container selector.
          */
         getProductContainer: function () {
-            return BnView.isListView()
+            return NbnView.isListView()
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -45,7 +45,7 @@ define([
             var productContainerSelector = this.getProductContainer();
 
             // Get product form selector
-            var productFormSelector = BnView.isListView()
+            var productFormSelector = NbnView.isListView()
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
@@ -67,13 +67,13 @@ define([
             var buyNowData = this.getProductForm().serialize();
 
             // Log the purchase data
-            BnLogger.log(
+            NbnLogger.log(
                 __('Place order form data'),
                 this.getProductForm().serializeArray()
             );
 
             // Get the cart form data if list view
-            if (BnView.isListView()) {
+            if (NbnView.isListView()) {
                 var cartFormData = $(this.o.jsConfig.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)

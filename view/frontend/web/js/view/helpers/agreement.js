@@ -3,7 +3,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, BnSlider, BnModal, BnLogger) {
+], function ($, NbnSlider, NbnModal, NbnLogger) {
     'use strict';
 
     return {
@@ -41,7 +41,7 @@ define([
             };
 
             // Toggle the view
-            BnSlider.toggleView(e);
+            NbnSlider.toggleView(e);
             
             // Send the request
             $.ajax({
@@ -50,10 +50,10 @@ define([
                 url: this.o.paths.get(this.o.confirmationUrl),
                 data: params,
                 success: function (data) {
-                    BnModal.addHtml(BnSlider.nextSlideSelector, data.html);
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
-                    BnLogger.log(
+                    NbnLogger.log(
                         __('Error retrieving the terms and conditions data'),
                         error
                     );

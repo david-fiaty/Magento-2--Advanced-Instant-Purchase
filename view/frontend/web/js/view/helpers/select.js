@@ -5,7 +5,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/address',
     'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, BnUtil, BnSlider, BnAddress, BnPayment, select2) {
+], function ($, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
     'use strict';
 
     return {
@@ -34,8 +34,8 @@ define([
             $(this.listSelector).select2({
                 language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
-                templateResult: BnUtil.formatIcon,
-                templateSelection: BnUtil.formatIcon
+                templateResult: NbnUtil.formatIcon,
+                templateSelection: NbnUtil.formatIcon
             });
 
             // Set the lists events
@@ -45,7 +45,7 @@ define([
 
                 // Set the new field value
                 var newFieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                ? BnUtil.getOptionPublicHash(thisFieldValue)
+                ? NbnUtil.getOptionPublicHash(thisFieldValue)
                 : thisFieldValue;
 
                 // Update the hidden target field value
@@ -71,14 +71,14 @@ define([
 
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
-                BnSlider.toggleView(e);
-                BnAddress.getAddressForm(self.o, e);
+                NbnSlider.toggleView(e);
+                NbnAddress.getAddressForm(self.o, e);
             });
 
             // Set the new card link event
             $(this.cardLinkSelector).on('click touch', function (e) {
-                BnSlider.toggleView(e);
-                BnPayment.getCardForm(self.o, e);
+                NbnSlider.toggleView(e);
+                NbnPayment.getCardForm(self.o, e);
             });
         },
 

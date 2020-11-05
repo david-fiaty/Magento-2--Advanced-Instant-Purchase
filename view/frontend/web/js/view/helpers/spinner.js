@@ -3,7 +3,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/util'
-], function (__, BnTemplate, BnLogger, BnUtil) {
+], function (__, NbnTemplate, NbnLogger, NbnUtil) {
     'use strict';
 
     return {
@@ -44,10 +44,10 @@ define([
             };
 
             // Load the rendered HTML
-            this.o.loader = BnTemplate.getSpinner(params);
+            this.o.loader = NbnTemplate.getSpinner(params);
 
             // Log the event
-            BnLogger.log(
+            NbnLogger.log(
                 __('Loaded the spinner icon HTML'),
                 params
             );
@@ -57,7 +57,7 @@ define([
          * Check if the HTML spinner is loaded.
          */
         isSpinnerLoaded: function () {
-            return BnUtil.has(window, 'naxero.nbn.spinner', true);
+            return NbnUtil.has(window, 'naxero.nbn.spinner', true);
         }
     };
 });

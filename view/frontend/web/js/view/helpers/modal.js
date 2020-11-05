@@ -8,7 +8,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, BnTemplate, BnSlider, BnProduct, BnLogger, BnMessage, BnPaths) {
+], function ($, __, ConfirmModal, NbnTemplate, NbnSlider, NbnProduct, NbnLogger, NbnMessage, NbnPaths) {
     'use strict';
 
     return {
@@ -48,14 +48,14 @@ define([
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: BnTemplate.getConfirmation({}),
+                content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
                     class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (self.o.isSubView) {
-                            BnSlider.toggleView(e);
+                            NbnSlider.toggleView(e);
                             var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
                             $(buttonId).trigger('click');
                         }
@@ -65,18 +65,18 @@ define([
                     text: self.o.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        BnSlider.showLoader();
+                        NbnSlider.showLoader();
                         $.ajax({
                             cache: false,
-                            url: BnPaths.get(self.orderUrl),
-                            data: BnProduct.getProductFormData(),
+                            url: NbnPaths.get(self.orderUrl),
+                            data: NbnProduct.getProductFormData(),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
-                                BnMessage.checkResponse(data, e);
+                                NbnMessage.checkResponse(data, e);
                             },
                             error: function (request, status, error) {
-                                BnLogger.log(
+                                NbnLogger.log(
                                     __('Error submitting the form data'),
                                     JSON.stringify(error)
                                 );
@@ -97,7 +97,7 @@ define([
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: BnTemplate.getLogger({}),
+                content: NbnTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
