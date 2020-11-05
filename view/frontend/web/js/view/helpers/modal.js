@@ -17,7 +17,7 @@ define([
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
         cancelButtonClasses: 'action-secondary action-dismiss',
-        orderUrl: 'ajax/order',
+        orderUrl: 'order/request',
 
         /**
          * Initialise the object.

@@ -1,12 +1,12 @@
 <?php
-namespace Naxero\BuyNow\Controller\Ajax;
+namespace Naxero\BuyNow\Controller\Logs;
 
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Logs controller class
+ * Index controller class
  */
-class Logs extends \Magento\Framework\App\Action\Action
+class Index extends \Magento\Framework\App\Action\Action
 {
     /**
      * @var Validator
@@ -34,7 +34,7 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $loggerHelper;
 
     /**
-     * Logs controller class constructor
+     * Index controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,

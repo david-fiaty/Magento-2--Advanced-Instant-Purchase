@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\BuyNow\Controller\Ajax;
+namespace Naxero\BuyNow\Controller\Order;
 
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
@@ -8,7 +8,7 @@ use Magento\Framework\App\RequestInterface;
 /**
  * Order controller class
  */
-class Order extends \Magento\Framework\App\Action\Action
+class Request extends \Magento\Framework\App\Action\Action
 {
     /**
      * List of request params handled by the controller.

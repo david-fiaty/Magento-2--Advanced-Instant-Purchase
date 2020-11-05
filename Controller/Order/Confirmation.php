@@ -1,5 +1,5 @@
 <?php
-namespace Naxero\BuyNow\Controller\Ajax;
+namespace Naxero\BuyNow\Controller\Order;
 
 use Naxero\BuyNow\Model\Config\Naming;
 

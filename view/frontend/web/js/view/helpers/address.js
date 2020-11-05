@@ -5,13 +5,15 @@
 define([
     'jquery',
     'mage/translate',
-    'mage/url'
-], function ($, __, Url) {
+    'mage/url',
+    'Naxero_BuyNow/js/view/helpers/paths'
+], function ($, __, Url, AipPaths) {
     'use strict';
 
     return {
         addressFormSelector: '.form-address-edit',
-        saveAddressUrl: 'customer/address/formPost',
+        addressFormUrl: 'address/formAdd',
+        saveAddressUrl: 'address/formPost',
 
         /**
          * Initialise the object.
@@ -32,14 +34,13 @@ define([
          * Get the address form.
          */
         getAddressForm: function (obj, e) {
-            var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
             };
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: Url.build(this.saveAddressUrl),
+                url: AipPaths.get(this.addressFormUrl),
                 data: params,
                 success: function (data) {
                     obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);
