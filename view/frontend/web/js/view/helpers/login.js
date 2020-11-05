@@ -1,7 +1,10 @@
-define([], function () {
+define([
+    'Naxero_BuyNow/js/model/authentication-popup'
+], function (AuthPopup) {
     'use strict';
 
     return {
+        loginBlockSelector: '.block-authentication',
         loginUrl: 'customer/account/login',
 
         /**
@@ -10,6 +13,13 @@ define([], function () {
         init: function (obj) {
             this.o = obj;
             return this;
+        },
+
+        /**
+         * Create a login popup.
+         */
+        loginPopup: function () {
+            AuthPopup.createPopUp(this.loginBlockSelector);
         },
 
         /**

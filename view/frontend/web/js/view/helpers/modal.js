@@ -8,7 +8,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, Modal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
+], function ($, __, modal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
     'use strict';
 
     return {
@@ -46,7 +46,7 @@ define([
         getOrderModal: function () {
             var self = this;
 
-            Modal({
+            modal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
@@ -98,18 +98,18 @@ define([
                 'buttons': []
             };
 
-            Modal(options, $(this.loginBlockSelector));
+            modal(options, $(this.loginBlockSelector));
             $(this.modalWindow).Modal('openModal').trigger('contentUpdated');
         },
 
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function () {
+        getLoggerModal: function (e) {
             var self = this;
             var title = this.o.jsConfig.module.title + ' ' + __('Logger');
 
-            Modal({
+            $(e.currentTarget).modal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
