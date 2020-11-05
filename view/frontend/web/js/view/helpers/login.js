@@ -1,6 +1,7 @@
 define([
-    'Naxero_BuyNow/js/model/authentication-popup'
-], function (AuthPopup) {
+    'jquery',
+    'Magento_Ui/js/modal/modal'
+], function ($, Modal) {
     'use strict';
 
     return {
@@ -16,13 +17,6 @@ define([
         },
 
         /**
-         * Create a login popup.
-         */
-        loginPopup: function () {
-            AuthPopup.createPopUp(this.loginBlockSelector);
-        },
-
-        /**
          * Create a login redirection.
          */
         loginRedirect: function () {
@@ -34,6 +28,24 @@ define([
          */
         isLoggedIn: function () {
             return this.o.jsConfig.user.connected;
+        },
+
+        /**
+         * Create popUp window for provided element
+         */
+        createPopUp: function () {
+            var options = {
+                'type': 'popup',
+                'modalClass': 'popup-authentication',
+                'focus': '[name=username]',
+                'responsive': true,
+                'innerScroll': true,
+                'trigger': '.proceed-to-checkout, .aip-login-popup',
+                'buttons': []
+            };
+
+            modal(options, $(this.loginBlockSelector));
+            $(this.modalWindow).modal('openModal').trigger('contentUpdated');
         }
     };
 });
