@@ -44,7 +44,6 @@ define([
          */
         getOrderModal: function () {
             var self = this;
-
             ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
@@ -55,6 +54,10 @@ define([
                     class: self.cancelButtonClasses,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
+                        if (self.o.isSubView) {
+                            AipSlider.toggleView(e);
+                            $('#aip-button-420').trigger('click');
+                        }
                     }
                 },
                 {
@@ -89,7 +92,6 @@ define([
         getLoggerModal: function () {
             var self = this;
             var title = this.o.jsConfig.module.title + ' ' + __('Logger');
-
             ConfirmModal({
                 title: title,
                 innerScroll: true,
