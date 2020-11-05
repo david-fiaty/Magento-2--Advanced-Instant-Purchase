@@ -9,16 +9,16 @@ define([
 
     return {
         listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.aip-list-form',
+        listProductFormSelector: '.nbn-list-form',
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
-        productBoxContainerSelector: '.aip-product-box-container',
-        confirmationContainerSelector: '#aip-confirmation-content',
-        optionFieldSelector: '#aip-option',
-        optionSelectorPrefix: '#aip-option-',
+        productBoxContainerSelector: '.nbn-product-box-container',
+        confirmationContainerSelector: '#nbn-confirmation-content',
+        optionFieldSelector: '#nbn-option',
+        optionSelectorPrefix: '#nbn-option-',
         popoverSelector: '.popover',
-        buttonErrorClass: 'aip-button-error',
+        buttonErrorClass: 'nbn-button-error',
 
         /**
          * Initialise the object.

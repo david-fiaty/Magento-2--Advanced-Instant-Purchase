@@ -18,7 +18,7 @@
             slick: 'Naxero_BuyNow/js/lib/slick/slick',
             popover: 'Naxero_BuyNow/js/lib/popover/popover',
             jsonViewer: 'Naxero_BuyNow/js/lib/json/jquery.json-viewer',
-            aip: 'Naxero_BuyNow/js/view/handler'
+            nbn: 'Naxero_BuyNow/js/view/handler'
         },
         urlArgs: "bust=" + (new Date()).getTime()
     };

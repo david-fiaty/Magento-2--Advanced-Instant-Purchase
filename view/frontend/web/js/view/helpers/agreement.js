@@ -7,7 +7,7 @@ define([
     'use strict';
 
     return {
-        agreementLinkSelector: '.aip-agreement-link',
+        agreementLinkSelector: '.nbn-agreement-link',
 
         /**
          * Initialise the object.

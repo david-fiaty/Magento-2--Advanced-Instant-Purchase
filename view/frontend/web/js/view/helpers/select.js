@@ -9,13 +9,13 @@ define([
     'use strict';
 
     return {
-        listSelector: '.aip-select',
-        linkSelector: '.aip-new, .aip-plus-icon',
-        paymentMethodSelector: '#aip-payment-method-select',
-        otherMethodsToggleSelector: '#aip-show-other-methods',
-        otherMethodsSelector: '#aip-other-method-select',
-        addressLinkSelector: '.aip-address-link',
-        cardLinkSelector: '.aip-card-link',
+        listSelector: '.nbn-select',
+        linkSelector: '.nbn-new, .nbn-plus-icon',
+        paymentMethodSelector: '#nbn-payment-method-select',
+        otherMethodsToggleSelector: '#nbn-show-other-methods',
+        otherMethodsSelector: '#nbn-other-method-select',
+        addressLinkSelector: '.nbn-address-link',
+        cardLinkSelector: '.nbn-card-link',
         
         /**
          * Initialise the object.

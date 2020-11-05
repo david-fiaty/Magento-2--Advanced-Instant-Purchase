@@ -25,7 +25,7 @@ define([
 
                 // Set the spinner loaded flag
                 window.naxero = {
-                    aip: {
+                    nbn: {
                         spinner: true
                     }
                 };
@@ -57,7 +57,7 @@ define([
          * Check if the HTML spinner is loaded.
          */
         isSpinnerLoaded: function () {
-            return AipUtil.has(window, 'naxero.aip.spinner', true);
+            return AipUtil.has(window, 'naxero.nbn.spinner', true);
         }
     };
 });

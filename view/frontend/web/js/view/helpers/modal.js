@@ -13,10 +13,10 @@ define([
 
     return {
         modalWrapperSelector: '.modal-inner-wrap',
-        submitButtonSelector: '.aip-submit',
-        submitButtonClasses: 'action-primary action-accept aip-submit',
+        submitButtonSelector: '.nbn-submit',
+        submitButtonClasses: 'action-primary action-accept nbn-submit',
         cancelButtonSelector: '.action-close',
-        cancelButtonSelectorPrefix: '.aip-button-',
+        cancelButtonSelectorPrefix: '.nbn-button-',
         orderUrl: 'order/request',
 
         /**
@@ -47,7 +47,7 @@ define([
             ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
-                modalClass: 'aip-modal',
+                modalClass: 'nbn-modal',
                 content: AipTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
@@ -96,7 +96,7 @@ define([
             ConfirmModal({
                 title: title,
                 innerScroll: true,
-                modalClass: 'aip-modal',
+                modalClass: 'nbn-modal',
                 content: AipTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),

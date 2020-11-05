@@ -200,6 +200,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function getButtonCss()
     {
         return $this->customerHelper->isLoggedIn()
-        ? 'aip-login-popup' : '';
+        ? 'nbn-login-popup' : '';
     }
 }

@@ -5,7 +5,7 @@ define([
     'use strict';
 
     return {
-        treeContainerSelector: '.aip-logger-tree',
+        treeContainerSelector: '.nbn-logger-tree',
 
         /**
          * Initialise the object.
