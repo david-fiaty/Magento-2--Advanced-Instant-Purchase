@@ -24,9 +24,15 @@ define([
          * Get the address form.
          */
         getCardForm: function (obj, e) {
+            // Prepare the parameters
             var params = {
                 action: $(e.currentTarget).data('form')
             };
+
+            // Update the modal button title
+            $(obj.o.submitButtonSelector).text(__('Save card'));
+
+            // Get the card form
             $.ajax({
                 type: 'POST',
                 cache: false,
