@@ -24,7 +24,7 @@ class FormAdd extends \Magento\Framework\App\Action\Action
     public $configHelper;
 
     /**
-     * BillingAddress constructor.
+     * FormAdd constructor.
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
