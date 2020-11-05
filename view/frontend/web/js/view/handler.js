@@ -113,7 +113,7 @@ define([
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!self.o.login.isLoggedIn()) {
-                        self.o.modal.getLoginModal(e);
+                        self.o.login.loginPopup();
                         return;
                     }
 
@@ -134,7 +134,7 @@ define([
                 }
                 else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    self.o.modal.getLoggerModal(e);
+                    self.o.modal.getLoggerModal();
 
                     // Get the log data
                     self.getLoggerData(e);
