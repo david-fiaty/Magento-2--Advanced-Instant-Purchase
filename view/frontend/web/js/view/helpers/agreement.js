@@ -1,10 +1,9 @@
 define([
     'jquery',
-    'mage/url',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, Url, AipSlider, AipModal, AipLogger) {
+], function ($, AipSlider, AipModal, AipLogger) {
     'use strict';
 
     return {

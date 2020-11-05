@@ -29,7 +29,7 @@ define([
         build: function () {
             // Initialise the select lists
             var self = this;
-            $(self.listSelector).select2({
+            $(this.listSelector).select2({
                 language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
                 templateResult: AipUtil.formatIcon,
@@ -37,7 +37,7 @@ define([
             });
 
             // Set the lists events
-            $(self.listSelector).on('change', function () {
+            $(this.listSelector).on('change', function () {
                 // Get the current field value
                 var thisFieldValue = $(this).val();
 
@@ -52,8 +52,8 @@ define([
             });
 
             // Other payment methods toggle
-            $(self.otherMethodsSelector).prop('disabled', true);
-            $(self.otherMethodsToggleSelector).on('click touch', function () {
+            $(this.otherMethodsSelector).prop('disabled', true);
+            $(this.otherMethodsToggleSelector).on('click touch', function () {
                 // Other methods select state
                 $(self.otherMethodsSelector).prop(
                     'disabled',
@@ -68,9 +68,9 @@ define([
             });
 
             // Set the address link events
-            $(self.addressLinkSelector).on('click touch', function (e) {
+            $(this.addressLinkSelector).on('click touch', function (e) {
                 AipSlider.toggleView(e);
-                AipAddress.getAddressForm(e);
+                AipAddress.getAddressForm(self.o, e);
             });
         },
 

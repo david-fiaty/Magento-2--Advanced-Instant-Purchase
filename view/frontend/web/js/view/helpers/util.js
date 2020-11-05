@@ -20,13 +20,6 @@ define([
         },
 
         /**
-         * Get the address form data.
-         */
-        getAddressFormData: function () {
-            return $(this.addressFormSelector).serialize();
-        },
-
-        /**
          * Get a card option public hash.
          */
         getOptionPublicHash: function (val) {

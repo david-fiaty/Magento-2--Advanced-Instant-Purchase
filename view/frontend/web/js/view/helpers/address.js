@@ -5,9 +5,8 @@
 define([
     'jquery',
     'mage/translate',
-    'mage/url',
-    'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, __, Url, AipLogger) {
+    'mage/url'
+], function ($, __, Url) {
     'use strict';
 
     return {
@@ -32,7 +31,7 @@ define([
         /**
          * Get the address form.
          */
-        getAddressForm: function (e) {
+        getAddressForm: function (obj, e) {
             var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
@@ -43,14 +42,14 @@ define([
                 url: Url.build(this.saveAddressUrl),
                 data: params,
                 success: function (data) {
-                    self.o.modal.addHtml(self.o.slider.nextSlideSelector, data.html);
-                    $(self.o.button.submitButtonSelector).prop(
+                    obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);
+                    $(obj.o.button.submitButtonSelector).prop(
                         'disabled',
                         false
                     );
                 },
                 error: function (request, status, error) {
-                    AipLogger.log(
+                    obj.o.logger.log(
                         __('Error retrieving the form data'),
                         error
                     );
