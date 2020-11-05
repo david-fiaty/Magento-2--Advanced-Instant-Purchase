@@ -42,7 +42,7 @@ define([
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function () {
+        getOrderModal: function (obj) {
             var self = this;
             ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
