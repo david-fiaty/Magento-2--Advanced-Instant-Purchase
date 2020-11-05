@@ -19,16 +19,23 @@ class FormAdd extends \Magento\Framework\App\Action\Action
     public $jsonFactory;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * BillingAddress constructor.
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         parent::__construct($context);
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->configHelper = $configHelper;
     }
 
     /**
