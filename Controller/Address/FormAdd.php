@@ -29,11 +29,6 @@ class FormAdd extends \Magento\Framework\App\Action\Action
     public $jsonFactory;
 
     /**
-     * @var Customer
-     */
-    public $customerHelper;
-    
-    /**
      * BillingAddress constructor.
      */
     public function __construct(
@@ -41,11 +36,9 @@ class FormAdd extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\BuyNow\Helper\Customer $customerHelper
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
     ) {
         parent::__construct($context);
-        $this->customerHelper = $customerHelper;
         $this->customerSession = $customerSession;
         $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
@@ -75,9 +68,6 @@ class FormAdd extends \Magento\Framework\App\Action\Action
      */
     public function newAddressBlock()
     {
-        // Load the customer instance
-        $this->customerHelper->loadCustomerData();
-
         // Prepare the block arguments
         $params = [
             'customerSession' => $this->customerSession,
