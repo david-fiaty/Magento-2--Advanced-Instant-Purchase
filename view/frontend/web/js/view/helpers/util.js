@@ -3,13 +3,11 @@
  * See COPYING.txt for license details.
  */
 define([
-    'jquery',
-    'Naxero_BuyNow/js/view/helpers/product'
-], function ($, AipProduct) {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {
-        addressFormSelector: '.form-address-edit',
 
         /**
          * Initialise the object.
