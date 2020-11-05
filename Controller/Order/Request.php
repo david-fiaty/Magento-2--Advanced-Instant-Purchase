@@ -30,11 +30,6 @@ class Request extends \Magento\Framework\App\Action\Action
     private $storeManager;
 
     /**
-     * @var Session
-     */
-    private $customerSession;
-
-    /**
      * @var Validator
      */
     private $formKeyValidator;
@@ -85,7 +80,6 @@ class Request extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
@@ -99,7 +93,6 @@ class Request extends \Magento\Framework\App\Action\Action
         parent::__construct($context);
 
         $this->storeManager = $storeManager;
-        $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;

@@ -14,16 +14,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public $formKeyValidator;
 
     /**
-     * @var Session
-     */
-    public $customerSession;
-
-    /**
-     * @var CurrentCustomer
-     */
-    public $currentCustomer;
-
-    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -32,11 +22,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var JsonFactory
      */
     public $jsonFactory;
-
-    /**
-     * @var Customer
-     */
-    public $customerHelper;
 
     /**
      * @var Config
@@ -58,18 +43,14 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper
     ) {
         parent::__construct($context);
         
         $this->formKeyValidator = $formKeyValidator;
-        $this->customerSession = $customerSession;
-        $this->currentCustomer = $currentCustomer;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
-        $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
     }
@@ -85,29 +66,12 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         // Process the request
         $request = $this->getRequest();
         if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $html .= $this->loadBlock();
+            $html .= $this->newConfirmationBlock();
         }
 
         return $this->jsonFactory->create()->setData(
             ['html' => $html]
         );
-    }
-
-    /**
-     * Generates a block.
-     */
-    public function loadBlock()
-    {
-        $html = '';
-        $action = $this->getRequest()->getParam('action');
-        if ($action && !empty($action)) {
-            $fn =  'new' . $action . 'Block';
-            if (method_exists($this, $fn)) {
-                $html .= $this->$fn();
-            }
-        }
-
-        return $html;
     }
 
     /**
@@ -135,36 +99,6 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         }
 
         return $html;
-    }
-
-    /**
-     * Generates the new address block.
-     */
-    public function newAddressBlock()
-    {
-        return $this->pageFactory->create()->getLayout()
-            ->createBlock(
-                'Naxero\BuyNow\Block\Address\Edit',
-                'customer_address_edit',
-                [
-                    'customerSession' => $this->customerSession,
-                    'currentCustomer' => $this->currentCustomer
-                ]
-            )
-            ->setTemplate(Naming::getModuleName() . '::address/edit.phtml')
-            ->toHtml();
-    }
-
-    /**
-     * Generates the new card block.
-     */
-    public function newCardBlock()
-    {
-        return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\Framework\View\Element\Template')
-            ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
-            ->setData('load', $this->configHelper->value('card_form/load'))
-            ->toHtml();
     }
 
     /**
