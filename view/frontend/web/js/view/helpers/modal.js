@@ -1,14 +1,14 @@
 define([
     'jquery',
     'mage/translate',
-    'Magento_Ui/js/modal/modal',
+    'Magento_Ui/js/modal/confirm',
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, modal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
+], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
     'use strict';
 
     return {
@@ -16,7 +16,6 @@ define([
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
-        loginBlockSelector: '.block-authentication',
         cancelButtonClasses: 'action-secondary action-dismiss',
         orderUrl: 'order/request',
 
@@ -46,11 +45,11 @@ define([
         getOrderModal: function () {
             var self = this;
 
-            modal({
+            ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                modalContent: AipTemplate.getConfirmation({}),
+                content: AipTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
                     class: self.cancelButtonClasses,
@@ -85,35 +84,17 @@ define([
         },
 
         /**
-         * Get the login modal popup.
-         */
-        getLoginModal: function () {
-            var options = {
-                'type': 'popup',
-                'modalClass': 'popup-authentication',
-                'focus': '[name=username]',
-                'responsive': true,
-                'innerScroll': true,
-                'trigger': '.proceed-to-checkout, .aip-login-popup',
-                'buttons': []
-            };
-
-            modal(options, $(this.loginBlockSelector));
-            $(this.modalWindow).Modal('openModal').trigger('contentUpdated');
-        },
-
-        /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function (e) {
+        getLoggerModal: function () {
             var self = this;
             var title = this.o.jsConfig.module.title + ' ' + __('Logger');
 
-            $(e.currentTarget).modal({
+            ConfirmModal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                modalContent: AipTemplate.getLogger({}),
+                content: AipTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
