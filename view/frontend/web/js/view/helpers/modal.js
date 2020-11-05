@@ -16,7 +16,7 @@ define([
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
-        cancelButtonClasses: 'action-secondary action-dismiss',
+        cancelButtonSelectorPrefix: '.aip-button-',
         orderUrl: 'order/request',
 
         /**
@@ -51,12 +51,13 @@ define([
                 content: AipTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonClasses,
+                    class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (self.o.isSubView) {
                             AipSlider.toggleView(e);
-                            $('#aip-button-420').trigger('click');
+                            var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
+                            $(buttonId).trigger('click');
                         }
                     }
                 },
