@@ -11,6 +11,7 @@ define([
 
     return {
         addCardFormUrl: 'card/formAdd',
+        submitButtonSelector: '.nbn-submit',
 
         /**
          * Initialise the object.
@@ -30,7 +31,7 @@ define([
             };
 
             // Update the modal button title
-            $(obj.o.submitButtonSelector).text(__('Save card'));
+            $(this.submitButtonSelector).text(__('Save card'));
 
             // Get the card form
             $.ajax({
