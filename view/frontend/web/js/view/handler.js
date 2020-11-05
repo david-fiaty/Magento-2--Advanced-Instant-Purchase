@@ -150,7 +150,6 @@ define([
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
             var params = {
-                action: 'Confirmation',
                 product_id: productId,
                 form_key: $(this.formKeySelectorPrefix + productId).val()
             };
@@ -226,60 +225,6 @@ define([
 
             // Get the AJAX content
             this.getConfirmContent(e);
-        },
-
-        /**
-         * Get instant purchase data.
-         */
-        getData: function (fn) {
-            var data = this[fn]();
-            var ok = data
-            && data.hasOwnProperty('summary')
-            && typeof data.summary !== 'undefined'
-            && data.summary.length > 0;
-
-            return ok ? data.summary : ' ';
-        },
-
-        /**
-         * Get a form.
-         */
-        getForm: function (e) {
-            var self = this;
-            var params = {
-                action: $(e.currentTarget).data('form')
-            };
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: this.o.paths.get(this.confirmationUrl),
-                data: params,
-                success: function (data) {
-                    if (params.action == 'Card') {
-                        /*
-                        window.aipData = {
-                            currency: ,
-                            amount: ,
-                            productId: ,
-                            customerId:
-                            customerEmail: ,
-                        }
-                        */
-                    }
-
-                    self.o.modal.addHtml(self.o.slider.nextSlideSelector, data.html);
-                    $(self.o.button.submitButtonSelector).prop(
-                        'disabled',
-                        false
-                    );
-                },
-                error: function (request, status, error) {
-                    self.o.logger.log(
-                        __('Error retrieving the form data'),
-                        error
-                    );
-                }
-            });
         }
     });
 });
