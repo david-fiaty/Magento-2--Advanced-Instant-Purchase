@@ -5,15 +5,12 @@
 define([
     'jquery',
     'mage/translate',
-    'mage/url',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, Url, AipPaths) {
+], function ($, __, AipPaths) {
     'use strict';
 
     return {
-        addressFormSelector: '.form-address-edit',
-        addressFormUrl: 'address/formAdd',
-        saveAddressUrl: 'address/formPost',
+        addCardFormUrl: 'card/formAdd',
 
         /**
          * Initialise the object.
@@ -24,23 +21,16 @@ define([
         },
 
         /**
-         * Get the address form data.
-         */
-        getAddressFormData: function () {
-            return $(this.addressFormSelector).serialize();
-        },
-
-        /**
          * Get the address form.
          */
-        getAddressForm: function (obj, e) {
+        getCardForm: function (obj, e) {
             var params = {
                 action: $(e.currentTarget).data('form')
             };
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: AipPaths.get(this.addressFormUrl),
+                url: AipPaths.get(this.addCardFormUrl),
                 data: params,
                 success: function (data) {
                     obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);
@@ -51,7 +41,7 @@ define([
                 },
                 error: function (request, status, error) {
                     obj.o.logger.log(
-                        __('Error retrieving the address form data'),
+                        __('Error retrieving the card form data'),
                         error
                     );
                 }

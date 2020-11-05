@@ -3,8 +3,9 @@ define([
     'Naxero_BuyNow/js/view/helpers/util',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/address',
+    'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, AipUtil, AipSlider, AipAddress, select2) {
+], function ($, AipUtil, AipSlider, AipAddress, AipPayment, select2) {
     'use strict';
 
     return {
@@ -14,6 +15,7 @@ define([
         otherMethodsToggleSelector: '#aip-show-other-methods',
         otherMethodsSelector: '#aip-other-method-select',
         addressLinkSelector: '.aip-address-link',
+        cardLinkSelector: '.aip-card-link',
         
         /**
          * Initialise the object.
@@ -67,10 +69,16 @@ define([
                 );
             });
 
-            // Set the address link events
+            // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
                 AipSlider.toggleView(e);
                 AipAddress.getAddressForm(self.o, e);
+            });
+
+            // Set the new card link event
+            $(this.cardLinkSelector).on('click touch', function (e) {
+                AipSlider.toggleView(e);
+                AipPayment.getCardForm(self.o, e);
             });
         },
 
