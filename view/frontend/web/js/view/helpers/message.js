@@ -1,7 +1,7 @@
 define([
     'jquery',
     'Naxero_BuyNow/js/view/helpers/slider'
-], function ($, AipSlider) {
+], function ($, BnSlider) {
     'use strict';
 
     return {
@@ -55,7 +55,7 @@ define([
          * Show the error messages.
          */
         show: function (type, str) {
-            var slide = AipSlider.getCurrentSlide();
+            var slide = BnSlider.getCurrentSlide();
             this.clearErrors(slide);
             slide.prepend(this.o.loader);
             slide.find('.message').addClass(type);

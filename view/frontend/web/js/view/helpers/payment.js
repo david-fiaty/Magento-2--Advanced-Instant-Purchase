@@ -6,7 +6,7 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, AipPaths) {
+], function ($, __, BnPaths) {
     'use strict';
 
     return {
@@ -30,7 +30,7 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: AipPaths.get(this.addCardFormUrl),
+                url: BnPaths.get(this.addCardFormUrl),
                 data: params,
                 success: function (data) {
                     obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);

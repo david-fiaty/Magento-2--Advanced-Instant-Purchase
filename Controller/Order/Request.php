@@ -305,7 +305,7 @@ class Request extends \Magento\Framework\App\Action\Action
         );
         if ($successMessage) {
             $this->messageManager->addComplexSuccessMessage(
-                'naxeroAipOrderSuccessMessage',
+                'naxeroBnOrderSuccessMessage',
                 ['message' => $message],
                 null
             );

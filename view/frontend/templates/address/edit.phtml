@@ -192,7 +192,7 @@
     'Magento_Customer/js/addressValidation',
     'Naxero_BuyNow/js/view/helpers/validation',
     'mage/adminhtml/form'
-], function($, AddressValidation, AipValidation) {
+], function($, AddressValidation, BnValidation) {
     'use strict';
 
     var updater = new RegionUpdater(
@@ -211,9 +211,9 @@
     window.updater = updater;
 
     // Country select on change event
-    AipValidation.checkRegionState();
+    BnValidation.checkRegionState();
     $('#country').change(function() {
-        AipValidation.checkRegionState();
+        BnValidation.checkRegionState();
     });
 });
     

@@ -8,7 +8,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
+], function ($, __, ConfirmModal, BnTemplate, BnSlider, BnProduct, BnLogger, BnMessage, BnPaths) {
     'use strict';
 
     return {
@@ -48,14 +48,14 @@ define([
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: AipTemplate.getConfirmation({}),
+                content: BnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
                     class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (self.o.isSubView) {
-                            AipSlider.toggleView(e);
+                            BnSlider.toggleView(e);
                             var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
                             $(buttonId).trigger('click');
                         }
@@ -65,18 +65,18 @@ define([
                     text: self.o.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        AipSlider.showLoader();
+                        BnSlider.showLoader();
                         $.ajax({
                             cache: false,
-                            url: AipPaths.get(self.orderUrl),
-                            data: AipProduct.getProductFormData(),
+                            url: BnPaths.get(self.orderUrl),
+                            data: BnProduct.getProductFormData(),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
-                                AipMessage.checkResponse(data, e);
+                                BnMessage.checkResponse(data, e);
                             },
                             error: function (request, status, error) {
-                                AipLogger.log(
+                                BnLogger.log(
                                     __('Error submitting the form data'),
                                     JSON.stringify(error)
                                 );
@@ -97,7 +97,7 @@ define([
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: AipTemplate.getLogger({}),
+                content: BnTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
