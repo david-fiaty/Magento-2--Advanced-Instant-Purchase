@@ -236,8 +236,8 @@ class Request extends \Magento\Framework\App\Action\Action
     public function getRequestData($request)
     {
         $params = $request->getParams();
-        $formatted = array_merge($params['aip'], []);
-        unset($params['aip']);
+        $formatted = array_merge($params['nbn'], []);
+        unset($params['nbn']);
 
         return array_merge($params, $formatted[0]);
     }
@@ -305,7 +305,7 @@ class Request extends \Magento\Framework\App\Action\Action
         );
         if ($successMessage) {
             $this->messageManager->addComplexSuccessMessage(
-                'naxeroAipOrderSuccessMessage',
+                'nbnOrderSuccessMessage',
                 ['message' => $message],
                 null
             );

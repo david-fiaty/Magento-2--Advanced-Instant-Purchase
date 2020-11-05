@@ -5,17 +5,17 @@ define([
     'Naxero_BuyNow/js/view/helpers/address',
     'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, AipUtil, AipSlider, AipAddress, AipPayment, select2) {
+], function ($, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
     'use strict';
 
     return {
-        listSelector: '.aip-select',
-        linkSelector: '.aip-new, .aip-plus-icon',
-        paymentMethodSelector: '#aip-payment-method-select',
-        otherMethodsToggleSelector: '#aip-show-other-methods',
-        otherMethodsSelector: '#aip-other-method-select',
-        addressLinkSelector: '.aip-address-link',
-        cardLinkSelector: '.aip-card-link',
+        listSelector: '.nbn-select',
+        linkSelector: '.nbn-new, .nbn-plus-icon',
+        paymentMethodSelector: '#nbn-payment-method-select',
+        otherMethodsToggleSelector: '#nbn-show-other-methods',
+        otherMethodsSelector: '#nbn-other-method-select',
+        addressLinkSelector: '.nbn-address-link',
+        cardLinkSelector: '.nbn-card-link',
         
         /**
          * Initialise the object.
@@ -34,8 +34,8 @@ define([
             $(this.listSelector).select2({
                 language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
-                templateResult: AipUtil.formatIcon,
-                templateSelection: AipUtil.formatIcon
+                templateResult: NbnUtil.formatIcon,
+                templateSelection: NbnUtil.formatIcon
             });
 
             // Set the lists events
@@ -45,7 +45,7 @@ define([
 
                 // Set the new field value
                 var newFieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                ? AipUtil.getOptionPublicHash(thisFieldValue)
+                ? NbnUtil.getOptionPublicHash(thisFieldValue)
                 : thisFieldValue;
 
                 // Update the hidden target field value
@@ -71,14 +71,14 @@ define([
 
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
-                AipSlider.toggleView(e);
-                AipAddress.getAddressForm(self.o, e);
+                NbnSlider.toggleView(e);
+                NbnAddress.getAddressForm(self.o, e);
             });
 
             // Set the new card link event
             $(this.cardLinkSelector).on('click touch', function (e) {
-                AipSlider.toggleView(e);
-                AipPayment.getCardForm(self.o, e);
+                NbnSlider.toggleView(e);
+                NbnPayment.getCardForm(self.o, e);
             });
         },
 

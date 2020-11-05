@@ -6,8 +6,8 @@ define([
     'use strict';
 
     return {
-        sliderSelector: '#aip-slider',
-        nextSlideSelector: '#aip-next-slide-container',
+        sliderSelector: '#nbn-slider',
+        nextSlideSelector: '#nbn-next-slide-container',
 
         /**
          * Initialise the object.

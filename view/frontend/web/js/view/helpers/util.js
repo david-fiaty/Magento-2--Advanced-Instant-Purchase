@@ -29,7 +29,7 @@ define([
          */
         formatIcon: function (state) {
             // Check the element state
-            if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
+            if (!state.id || !state.element.parentElement.className.includes('nbn-payment-method-select')) {
                 return state.text;
             }
 
@@ -38,7 +38,7 @@ define([
 
             // Build the icon HTML
             var iconHtml = $(
-                '<span class="aip-card-icon">'
+                '<span class="nbn-card-icon">'
                 + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );

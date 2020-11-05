@@ -10,16 +10,16 @@ if (!$agreements) {
         <li class="item">
             <form id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
                 <?php if ($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_MANUAL): ?>
-                    <div class="aip-agreement-link-row">
+                    <div class="nbn-agreement-link-row">
                         <input type="checkbox"
                             id="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>"
                             name="agreement[<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>]"
                             value="1"
                             title="<?= $block->escapeHtml($agreement->getCheckboxText()) ?>"
-                            class="checkbox aip-agreement-box aip-box"
+                            class="checkbox nbn-agreement-box nbn-box"
                             data-validate="{required:true}"/>
                         <label class="label" for="agreement-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>">
-                            <a href="javascript:void(0)" class="aip-agreement-link" data-role="Agreement" data-id="<?= $agreement->getId() ?>">
+                            <a href="javascript:void(0)" class="nbn-agreement-link" data-role="Agreement" data-id="<?= $agreement->getId() ?>">
                                 <span>
                                     <?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?>
                                 </span>

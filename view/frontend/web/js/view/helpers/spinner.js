@@ -3,7 +3,7 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/util'
-], function (__, AipTemplate, AipLogger, AipUtil) {
+], function (__, NbnTemplate, NbnLogger, NbnUtil) {
     'use strict';
 
     return {
@@ -25,7 +25,7 @@ define([
 
                 // Set the spinner loaded flag
                 window.naxero = {
-                    aip: {
+                    nbn: {
                         spinner: true
                     }
                 };
@@ -44,10 +44,10 @@ define([
             };
 
             // Load the rendered HTML
-            this.o.loader = AipTemplate.getSpinner(params);
+            this.o.loader = NbnTemplate.getSpinner(params);
 
             // Log the event
-            AipLogger.log(
+            NbnLogger.log(
                 __('Loaded the spinner icon HTML'),
                 params
             );
@@ -57,7 +57,7 @@ define([
          * Check if the HTML spinner is loaded.
          */
         isSpinnerLoaded: function () {
-            return AipUtil.has(window, 'naxero.aip.spinner', true);
+            return NbnUtil.has(window, 'naxero.nbn.spinner', true);
         }
     };
 });

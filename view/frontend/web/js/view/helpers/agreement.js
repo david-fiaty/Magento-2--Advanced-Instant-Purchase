@@ -3,11 +3,11 @@ define([
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, AipSlider, AipModal, AipLogger) {
+], function ($, NbnSlider, NbnModal, NbnLogger) {
     'use strict';
 
     return {
-        agreementLinkSelector: '.aip-agreement-link',
+        agreementLinkSelector: '.nbn-agreement-link',
 
         /**
          * Initialise the object.
@@ -41,7 +41,7 @@ define([
             };
 
             // Toggle the view
-            AipSlider.toggleView(e);
+            NbnSlider.toggleView(e);
             
             // Send the request
             $.ajax({
@@ -50,10 +50,10 @@ define([
                 url: this.o.paths.get(this.o.confirmationUrl),
                 data: params,
                 success: function (data) {
-                    AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
-                    AipLogger.log(
+                    NbnLogger.log(
                         __('Error retrieving the terms and conditions data'),
                         error
                     );

@@ -6,9 +6,9 @@ define(
     function ($, __) {
         'use strict';
         return {
-            agreementRow: '.aip-agreement-link-row',
-            agreementBoxSelector: '.aip-agreement-box',
-            inputSelectors: '.aip-select, .aip-box',
+            agreementRow: '.nbn-agreement-link-row',
+            agreementBoxSelector: '.nbn-agreement-box',
+            inputSelectors: '.nbn-select, .nbn-box',
 
             /**
              * Initialise the object.
@@ -56,11 +56,11 @@ define(
              */
             checkRegionState: function () {
                 if ($('#region_id').prop('disabled') === true) {
-                    $('#region_id').addClass('aip-region-hidden');
-                    $('#region_id').removeClass('aip-region-visible');
+                    $('#region_id').addClass('nbn-region-hidden');
+                    $('#region_id').removeClass('nbn-region-visible');
                 } else {
-                    $('#region_id').addClass('aip-region-visible');
-                    $('#region_id').removeClass('aip-region-hidden');
+                    $('#region_id').addClass('nbn-region-visible');
+                    $('#region_id').removeClass('nbn-region-hidden');
                 }
             }
         }

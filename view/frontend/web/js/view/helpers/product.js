@@ -4,21 +4,21 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
     'popover',
-], function ($, __, AipLogger, AipView, popover) {
+], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
 
     return {
         listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.aip-list-form',
+        listProductFormSelector: '.nbn-list-form',
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
-        productBoxContainerSelector: '.aip-product-box-container',
-        confirmationContainerSelector: '#aip-confirmation-content',
-        optionFieldSelector: '#aip-option',
-        optionSelectorPrefix: '#aip-option-',
+        productBoxContainerSelector: '.nbn-product-box-container',
+        confirmationContainerSelector: '#nbn-confirmation-content',
+        optionFieldSelector: '#nbn-option',
+        optionSelectorPrefix: '#nbn-option-',
         popoverSelector: '.popover',
-        buttonErrorClass: 'aip-button-error',
+        buttonErrorClass: 'nbn-button-error',
 
         /**
          * Initialise the object.
@@ -32,7 +32,7 @@ define([
          * Get a product container selector.
          */
         getProductContainer: function () {
-            return AipView.isListView()
+            return NbnView.isListView()
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -45,7 +45,7 @@ define([
             var productContainerSelector = this.getProductContainer();
 
             // Get product form selector
-            var productFormSelector = AipView.isListView()
+            var productFormSelector = NbnView.isListView()
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
@@ -67,13 +67,13 @@ define([
             var buyNowData = this.getProductForm().serialize();
 
             // Log the purchase data
-            AipLogger.log(
+            NbnLogger.log(
                 __('Place order form data'),
                 this.getProductForm().serializeArray()
             );
 
             // Get the cart form data if list view
-            if (AipView.isListView()) {
+            if (NbnView.isListView()) {
                 var cartFormData = $(this.o.jsConfig.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)

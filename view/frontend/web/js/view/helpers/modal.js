@@ -8,15 +8,15 @@ define([
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, AipTemplate, AipSlider, AipProduct, AipLogger, AipMessage, AipPaths) {
+], function ($, __, ConfirmModal, NbnTemplate, NbnSlider, NbnProduct, NbnLogger, NbnMessage, NbnPaths) {
     'use strict';
 
     return {
         modalWrapperSelector: '.modal-inner-wrap',
-        submitButtonSelector: '.aip-submit',
-        submitButtonClasses: 'action-primary action-accept aip-submit',
+        submitButtonSelector: '.nbn-submit',
+        submitButtonClasses: 'action-primary action-accept nbn-submit',
         cancelButtonSelector: '.action-close',
-        cancelButtonSelectorPrefix: '.aip-button-',
+        cancelButtonSelectorPrefix: '.nbn-button-',
         orderUrl: 'order/request',
 
         /**
@@ -47,15 +47,15 @@ define([
             ConfirmModal({
                 title: this.o.jsConfig.popups.popup_title,
                 innerScroll: true,
-                modalClass: 'aip-modal',
-                content: AipTemplate.getConfirmation({}),
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
                     class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (self.o.isSubView) {
-                            AipSlider.toggleView(e);
+                            NbnSlider.toggleView(e);
                             var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
                             $(buttonId).trigger('click');
                         }
@@ -65,18 +65,18 @@ define([
                     text: self.o.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        AipSlider.showLoader();
+                        NbnSlider.showLoader();
                         $.ajax({
                             cache: false,
-                            url: AipPaths.get(self.orderUrl),
-                            data: AipProduct.getProductFormData(),
+                            url: NbnPaths.get(self.orderUrl),
+                            data: NbnProduct.getProductFormData(),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
-                                AipMessage.checkResponse(data, e);
+                                NbnMessage.checkResponse(data, e);
                             },
                             error: function (request, status, error) {
-                                AipLogger.log(
+                                NbnLogger.log(
                                     __('Error submitting the form data'),
                                     JSON.stringify(error)
                                 );
@@ -96,8 +96,8 @@ define([
             ConfirmModal({
                 title: title,
                 innerScroll: true,
-                modalClass: 'aip-modal',
-                content: AipTemplate.getLogger({}),
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

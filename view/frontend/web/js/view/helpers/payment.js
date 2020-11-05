@@ -6,11 +6,12 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, AipPaths) {
+], function ($, __, NbnPaths) {
     'use strict';
 
     return {
         addCardFormUrl: 'card/formAdd',
+        submitButtonSelector: '.nbn-submit',
 
         /**
          * Initialise the object.
@@ -24,13 +25,19 @@ define([
          * Get the address form.
          */
         getCardForm: function (obj, e) {
+            // Prepare the parameters
             var params = {
                 action: $(e.currentTarget).data('form')
             };
+
+            // Update the modal button title
+            $(this.submitButtonSelector).text(__('Save card'));
+
+            // Get the card form
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: AipPaths.get(this.addCardFormUrl),
+                url: NbnPaths.get(this.addCardFormUrl),
                 data: params,
                 success: function (data) {
                     obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);

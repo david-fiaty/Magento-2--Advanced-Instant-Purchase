@@ -20,10 +20,10 @@ define([
             showButton: false,
             loggerUrl: 'logs/index',
             confirmationUrl: 'order/confirmation',
-            buttonContainerSelector: '.aip-button-container',
-            popupContentSelector: '#aip-confirmation-content',
-            logViewerButtonSelector: '#aip-ui-logger-button',
-            formKeySelectorPrefix: '#aip-form-key-',
+            buttonContainerSelector: '.nbn-button-container',
+            popupContentSelector: '#nbn-confirmation-content',
+            logViewerButtonSelector: '#nbn-ui-logger-button',
+            formKeySelectorPrefix: '#nbn-form-key-',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -211,7 +211,7 @@ define([
             // Validate the product options
             // Todo - fix this
             var errors = [];
-            //var errors = AipValidation.validateOptions(this);
+            //var errors = NbnValidation.validateOptions(this);
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
