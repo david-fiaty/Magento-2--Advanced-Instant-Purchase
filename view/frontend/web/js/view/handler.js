@@ -113,7 +113,7 @@ define([
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!self.o.login.isLoggedIn()) {
-                        self.o.login.createPopUp();
+                        self.o.modal.getLoginModal();
                         return;
                     }
 

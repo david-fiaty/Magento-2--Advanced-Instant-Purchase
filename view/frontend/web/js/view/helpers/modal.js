@@ -16,6 +16,7 @@ define([
         submitButtonSelector: '.aip-submit',
         submitButtonClasses: 'action-primary action-accept aip-submit',
         cancelButtonSelector: '.action-close',
+        loginBlockSelector: '.block-authentication',
         cancelButtonClasses: 'action-secondary action-dismiss',
         orderUrl: 'order/request',
 
@@ -84,6 +85,24 @@ define([
         },
 
         /**
+         * Get the login modal popup.
+         */
+        getLoginModal: function () {
+            var options = {
+                'type': 'popup',
+                'modalClass': 'popup-authentication',
+                'focus': '[name=username]',
+                'responsive': true,
+                'innerScroll': true,
+                'trigger': '.proceed-to-checkout, .aip-login-popup',
+                'buttons': []
+            };
+
+            Modal(options, $(this.loginBlockSelector));
+            $(this.modalWindow).Modal('openModal').trigger('contentUpdated');
+        },
+
+        /**
          * Get the logger modal popup.
          */
         getLoggerModal: function () {
@@ -94,7 +113,7 @@ define([
                 title: title,
                 innerScroll: true,
                 modalClass: 'aip-modal',
-                content: AipTemplate.getLogger({}),
+                modalContent: AipTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

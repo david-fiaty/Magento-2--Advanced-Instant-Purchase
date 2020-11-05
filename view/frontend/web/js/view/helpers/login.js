@@ -1,11 +1,7 @@
-define([
-    'jquery',
-    'Magento_Ui/js/modal/modal'
-], function ($, Modal) {
+define([], function () {
     'use strict';
 
     return {
-        loginBlockSelector: '.block-authentication',
         loginUrl: 'customer/account/login',
 
         /**
@@ -28,24 +24,6 @@ define([
          */
         isLoggedIn: function () {
             return this.o.jsConfig.user.connected;
-        },
-
-        /**
-         * Create popUp window for provided element
-         */
-        createPopUp: function () {
-            var options = {
-                'type': 'popup',
-                'modalClass': 'popup-authentication',
-                'focus': '[name=username]',
-                'responsive': true,
-                'innerScroll': true,
-                'trigger': '.proceed-to-checkout, .aip-login-popup',
-                'buttons': []
-            };
-
-            modal(options, $(this.loginBlockSelector));
-            $(this.modalWindow).modal('openModal').trigger('contentUpdated');
         }
     };
 });
