@@ -36,32 +36,30 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function () {
-            if (this.hasOptions()) {
-                // Prepare the variables
-                var options = this.o.jsConfig.product.options;
+        initOptionsEvents: function (obj) {
+            // Prepare the variables
+            var options = obj.jsConfig.product.options;
 
-                // Set the options events and default values
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the fields
-                    var option = options[i];
-                    var sourceField = this.getOptionField(option);
+            // Set the options events and default values
+            for (var i = 0; i < options.length; i++) {
+                // Prepare the fields
+                var option = options[i];
+                var sourceField = this.getOptionField(option);
 
-                    // Set the value change events
-                    $(sourceField).on('change', function (e) {
-                        // Prepare the source Id
-                        var sourceId = e.currentTarget;
+                // Set the value change events
+                $(sourceField).on('change', function (e) {
+                    // Prepare the source Id
+                    var sourceId = e.currentTarget;
 
-                        // Prepare the target Id
-                        var targetId = '#super_attribute_';
-                        targetId += $(this).data('product-id');
-                        targetId += '_';
-                        targetId += $(this).data('attribute-id');
+                    // Prepare the target Id
+                    var targetId = '#super_attribute_';
+                    targetId += $(this).data('product-id');
+                    targetId += '_';
+                    targetId += $(this).data('attribute-id');
 
-                        // Assign value from source to target
-                        $(targetId).val($(sourceId).val());
-                    });
-                }
+                    // Assign value from source to target
+                    $(targetId).val($(sourceId).val());
+                });
             }
         },
 

@@ -49,9 +49,11 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            return NbnView.isListView() ?
-            NbnProductOptionSwatch.initOptionsEvents()
-            : NbnProductOptionSelect.initOptionsEvents();
+            if (this.hasOptions()) {
+                NbnView.isListView() ?
+                NbnProductOptionSwatch.initOptionsEvents(this.o)
+                : NbnProductOptionSelect.initOptionsEvents(this.o);
+            }
         },
 
         /**
