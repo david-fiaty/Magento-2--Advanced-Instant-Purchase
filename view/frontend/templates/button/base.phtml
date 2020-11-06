@@ -69,7 +69,7 @@
 
         <?php if ($isBlockView && !empty($config['product']['options'])): ?>
             <?php foreach ($config['product']['options'] as $option): ?>
-                <input type="hidden" id="super_attribute_<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="super_attribute[<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
+                <input type="hidden" id="super_attribute_<?= $block->escapeHtmlAttr($productId) ?>_<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
             <?php endforeach; ?>
         <?php endif; ?>
 

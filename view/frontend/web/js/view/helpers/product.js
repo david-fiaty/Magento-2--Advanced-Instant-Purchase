@@ -117,8 +117,15 @@
 
                     // Set the value change events
                     $(sourceField).on('change', function (e) {
+                        // Prepare the source Id
                         var sourceId = e.currentTarget;
-                        var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
+
+                        // Prepare the target Id
+                        var targetId = '#super_attribute_';
+                        targetId += $(this).data('product-id');
+                        targetId += $(this).data('attribute-id');
+
+                        // Assign value from source to target
                         $(targetId).val($(sourceId).val());
                     });
                 }
@@ -184,10 +191,6 @@
          * Check if a product option is valid.
          */
         isOptionInvalid: function (e, option) {
-            console.log('xxxxxxxxxx');
-            console.log(e);
-            console.log(option);
-
             // Find the target field
             var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
 
@@ -196,6 +199,12 @@
             .parent(this.getProductContainer())
             .find(targetField).val();
      
+            console.log('aa');
+            console.log($(e.currentTarget)
+            .parent(this.getProductContainer())
+            .find(targetField));
+
+
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 

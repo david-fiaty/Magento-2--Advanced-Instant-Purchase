@@ -1,5 +1,6 @@
 
 !!!PRIORITY!!!
+- check if place order contains product attributes selected by user (request data)
 - check agreements validation again
 - change popup window title for ui logger
 
