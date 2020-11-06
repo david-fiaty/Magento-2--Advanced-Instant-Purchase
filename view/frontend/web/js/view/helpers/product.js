@@ -214,16 +214,22 @@
          */
         getOptionField: function (option) {
             // Todo - Handle list view case with swatch options or not
+            var optionFieldId;
             if (!NbnView.isListView()) {
-                return this.optionSelectorPrefix
+                optionFieldId = this.optionSelectorPrefix
                 + this.o.jsConfig.product.id
                 + '-' + option['attribute_id'];
             }
             else {
-                //alert('teste');
+                console.log('option');
+
+                console.log(option);
+                optionFieldId = '#' + 'option-label-size-' 
+                + option['attribute_id'] 
+                + '-item-' + option['value'];
             }
 
-            return 
+            return optionFieldId;
         },
 
         /**
