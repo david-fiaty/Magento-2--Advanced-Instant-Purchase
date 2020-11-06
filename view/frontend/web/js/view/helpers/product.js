@@ -222,7 +222,6 @@
             }
             else {
                 optionFieldId = '.swatch-opt-'  + option['product_id'];
-                $(optionFieldId).find('.swatch-option.selected').attr('id');
             }
 
             return optionFieldId;
