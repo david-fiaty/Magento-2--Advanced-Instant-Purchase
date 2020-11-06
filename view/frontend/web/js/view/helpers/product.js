@@ -123,6 +123,7 @@
                         // Prepare the target Id
                         var targetId = '#super_attribute_';
                         targetId += $(this).data('product-id');
+                        targetId += '_';
                         targetId += $(this).data('attribute-id');
 
                         // Assign value from source to target
@@ -199,7 +200,6 @@
             .parent(this.getProductContainer())
             .find(targetField).val();
      
-            console.log('aa');
             console.log($(e.currentTarget)
             .parent(this.getProductContainer())
             .find(targetField));
