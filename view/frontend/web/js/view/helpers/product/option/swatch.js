@@ -54,10 +54,6 @@ define([
                     targetId += '_';
                     targetId += $(this).data('attribute-id');
 
-                    console.log('aaa');
-                    console.log($(e.currentTarget).val());
-                    console.log(targetId);
-
                     // Assign value from source to target
                     $(targetId).val($(e.currentTarget).val());
                 });
