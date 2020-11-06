@@ -17,10 +17,8 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/options/select',
-    'Naxero_BuyNow/js/view/helpers/product/options/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect,  NbnProductOptionSWatch, popover) {
+], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
 
     return {
@@ -43,15 +41,6 @@
         init: function (obj) {
             this.o = obj;
             return this;
-        },
-
-        /**
-         * Set product options events.
-         */
-        initOptionsEvents: function () {
-            return NbnView.isListView() ?
-            NbnProductOptionSWatch.initOptionsEvents()
-            : NbnProductOptionSelect.initOptionsEvents();
         },
 
         /**
@@ -112,6 +101,37 @@
             return buyNowData;
         },
 
+        /**
+         * Set product options events.
+         */
+        initOptionsEvents: function () {
+            if (this.hasOptions()) {
+                // Prepare the variables
+                var options = this.o.jsConfig.product.options;
+
+                // Set the options events and default values
+                for (var i = 0; i < options.length; i++) {
+                    // Prepare the fields
+                    var option = options[i];
+                    var sourceField = this.getOptionField(option);
+
+                    // Set the value change events
+                    $(sourceField).on('change', function (e) {
+                        // Prepare the source Id
+                        var sourceId = e.currentTarget;
+
+                        // Prepare the target Id
+                        var targetId = '#super_attribute_';
+                        targetId += $(this).data('product-id');
+                        targetId += '_';
+                        targetId += $(this).data('attribute-id');
+
+                        // Assign value from source to target
+                        $(targetId).val($(sourceId).val());
+                    });
+                }
+            }
+        },
 
         /**
          * Product options validation.
