@@ -74,7 +74,7 @@
         <?php endif; ?>
 
         <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
-        <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= json_encode($config['product']) ?>">
+        <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
 
     <?php if (!$isPageView): ?>
         </form>

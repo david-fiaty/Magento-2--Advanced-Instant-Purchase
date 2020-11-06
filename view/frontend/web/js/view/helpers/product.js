@@ -143,7 +143,7 @@
             e = e || null;
             var product;
             if (e) {
-                product = this.getProduct(e);
+                product = this.getProductData(e);
             }
             else {
                 product = this.o.jsConfig.product;
@@ -156,13 +156,11 @@
         /**
          * Get updated product data for events.
          */
-        getProduct: function (e) {
+        getProductData: function (e) {
             var productId = $(e.currentTarget).data('product-id');
             var productData = $(this.productDataSelectorPrefix + productId).val();
             
-            console.log($(this.productDataSelectorPrefix + productId));
-            console.log($(this.productDataSelectorPrefix + productId).val());
-            return productData;
+            return JSON.parse(productData);
         },
 
         /**
