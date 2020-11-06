@@ -20,7 +20,7 @@
     'Naxero_BuyNow/js/view/helpers/product/options/select',
     'Naxero_BuyNow/js/view/helpers/product/options/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect,  NbnProductOptionSWatch, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect,  NbnProductOptionSwatch, popover) {
     'use strict';
 
     return {
@@ -50,7 +50,7 @@
          */
         initOptionsEvents: function () {
             return NbnView.isListView() ?
-            NbnProductOptionSWatch.initOptionsEvents()
+            NbnProductOptionSwatch.initOptionsEvents()
             : NbnProductOptionSelect.initOptionsEvents();
         },
 
