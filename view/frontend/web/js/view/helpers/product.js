@@ -159,7 +159,10 @@
         getProduct: function (e) {
             var productId = $(e.currentTarget).data('product-id');
             var productData = $(this.productDataSelectorPrefix + productId).val();
-            console.log(productData);
+            
+            console.log($(this.productDataSelectorPrefix + productId));
+            console.log($(this.productDataSelectorPrefix + productId).val());
+            return productData;
         },
 
         /**
