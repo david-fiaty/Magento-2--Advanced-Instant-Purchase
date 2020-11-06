@@ -48,17 +48,18 @@ define([
 
                 // Set the value change events
                 $(sourceField).on('change', function (e) {
-                    // Prepare the source Id
-                    var sourceId = e.currentTarget;
-
                     // Prepare the target Id
                     var targetId = '#super_attribute_';
                     targetId += $(this).data('product-id');
                     targetId += '_';
                     targetId += $(this).data('attribute-id');
 
+                    console.log('aaa');
+                    console.log($(e.currentTarget).val());
+                    console.log(targetId);
+
                     // Assign value from source to target
-                    $(targetId).val($(sourceId).val());
+                    $(targetId).val($(e.currentTarget).val());
                 });
             }
         },
