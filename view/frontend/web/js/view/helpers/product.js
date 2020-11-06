@@ -130,7 +130,7 @@
          */
         validateOptions: function (e) {
             if (this.hasOptions(e)) {
-                return this.getOptionsErrors().length == 0;
+                return this.getOptionsErrors(e).length == 0;
             }
 
             return true;
@@ -166,9 +166,9 @@
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function () {
+        getOptionsErrors: function (e) {
             // Prepare variables
-            var options = this.o.jsConfig.product.options;
+            var options = this.getProductData(e)['options'];
             var errors = [];
 
             // Check each option
