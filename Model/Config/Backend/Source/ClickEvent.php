@@ -12,6 +12,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
+
 namespace Naxero\BuyNow\Model\Config\Backend\Source;
 
 /**
