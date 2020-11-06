@@ -127,20 +127,9 @@ define([
          * Get an option field selector.
          */
         getOptionField: function (option) {
-            // Todo - Handle list view case with swatch options or not
-            var optionFieldSelector;
-            if (!NbnView.isListView()) {
-                optionFieldSelector = this.optionSelectorPrefix
+            return this.optionSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
-            }
-            else {
-                optionFieldSelector = '.swatch-opt-'
-                + option['product_id']
-                + ' .swatch-attribute';
-            }
-
-            return optionFieldSelector;
         },
 
         /**

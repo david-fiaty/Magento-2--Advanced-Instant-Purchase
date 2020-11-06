@@ -52,7 +52,7 @@
             if (NbnView.isListView() && this.hasOptions()) {
                 NbnProductOptionSwatch.initOptionsEvents(this.o);
             }
-            else if (NbnView.isBlockView()){
+            else if (NbnView.isBlockView()) {
                 NbnProductOptionSelect.initOptionsEvents(this.o);
             }
         },

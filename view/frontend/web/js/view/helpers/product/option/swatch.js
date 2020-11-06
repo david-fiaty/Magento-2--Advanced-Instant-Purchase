@@ -37,6 +37,9 @@ define([
          * Set product options events.
          */
         initOptionsEvents: function (obj) {
+            console.log('select - initOptionsEvents');
+            console.log(obj.jsConfig.product.id);
+
             // Prepare the variables
             var options = obj.jsConfig.product.options;
 
