@@ -173,7 +173,7 @@
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(options[i])) {
+                if (this.isOptionInvalid(e, options[i])) {
                     errors.push(options[i]);
                 }
             }
@@ -184,12 +184,16 @@
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (option) {
+        isOptionInvalid: function (e, option) {
             // Find the target field
             var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
 
-            // Check the value
-            var val = $(targetField).val();
+            // Get the field value
+            var val = $(e.currentTarget)
+            .parent(this.getProductContainer)
+            .find($(targetField)).val();
+     
+            // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
             return !isValid;
