@@ -191,7 +191,7 @@
             // Get the field value
             var val = $(e.currentTarget)
             .parent(this.getProductContainer())
-            .find($(targetField)).val();
+            .find(targetField).val();
      
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
