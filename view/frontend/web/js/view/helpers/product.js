@@ -190,7 +190,7 @@
 
             // Get the field value
             var val = $(e.currentTarget)
-            .parent(this.getProductContainer)
+            .parent(this.getProductContainer())
             .find($(targetField)).val();
      
             // Check the field value
