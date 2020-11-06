@@ -220,7 +220,7 @@
                 + '-' + option['attribute_id'];
             }
             else {
-                alert('teste');
+                //alert('teste');
             }
 
             return 
