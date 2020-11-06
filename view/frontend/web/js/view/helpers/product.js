@@ -140,14 +140,7 @@
          * Check if a product has options.
          */
         hasOptions: function (e) {
-            e = e || null;
-            var product;
-            if (e) {
-                product = this.getProductData(e);
-            }
-            else {
-                product = this.o.jsConfig.product;
-            }
+            var product = this.getProductData(e);
 
             return product.options.length
             && product.options.length > 0;
@@ -157,8 +150,14 @@
          * Get updated product data for events.
          */
         getProductData: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-            var productData = $(this.productDataSelectorPrefix + productId).val();
+            e = e || null;
+            var productData;
+            if (e) {
+                var productId = $(e.currentTarget).data('product-id');
+                var productData = $(this.productDataSelectorPrefix + productId).val();            }
+            else {
+                productData = this.o.jsConfig.product;
+            }
             
             return JSON.parse(productData);
         },
@@ -185,6 +184,10 @@
          * Check if a product option is valid.
          */
         isOptionInvalid: function (e, option) {
+            console.log('xxxxxxxxxx');
+            console.log(e);
+            console.log(option);
+
             // Find the target field
             var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
 
