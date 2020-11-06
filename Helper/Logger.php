@@ -1,7 +1,21 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Logger Helper.
@@ -40,7 +54,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->customerSession = $customerSession;
         $this->pageFactory = $pageFactory;

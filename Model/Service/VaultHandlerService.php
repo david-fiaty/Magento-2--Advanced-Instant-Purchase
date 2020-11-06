@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Service;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 
@@ -77,8 +91,8 @@ class VaultHandlerService
         \Magento\Vault\Api\PaymentTokenManagementInterface $paymentTokenManagement,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Model\Service\CardHandlerService $cardHandler,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Model\Service\CardHandlerService $cardHandler,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->storeManager = $storeManager;
         $this->paymentTokenRepository = $paymentTokenRepository;
@@ -133,7 +147,7 @@ class VaultHandlerService
             // Sort the array by date
             usort(
                 $cardList,
-                function($a, $b) {
+                function ($a, $b) {
                     $a = is_array($a) && isset($a['instance']) ? $a['instance'] : $a;
                     $b = is_array($b) && isset($b['instance']) ? $b['instance'] : $b;
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());

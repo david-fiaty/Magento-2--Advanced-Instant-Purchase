@@ -1,7 +1,21 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider'
-], function($, AipSlider) {
+    'Naxero_BuyNow/js/view/helpers/slider'
+], function ($, NbnSlider) {
     'use strict';
 
     return {
@@ -10,15 +24,15 @@ define([
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
 
         /**
          * Clear all visible errors.
-         */        
-        clearErrors: function(slide) {
+         */
+        clearErrors: function (slide) {
             slide.find('.messages').remove();
             slide.find('input').removeClass('mage-error');
             slide.find('div.mage-error').remove();
@@ -27,7 +41,7 @@ define([
         /**
          * Check the AJAX response.
          */
-        checkResponse: function(data, e) {
+        checkResponse: function (data, e) {
             var cssClass;
             if (data.success === false) {
                 // Add the main message
@@ -54,8 +68,8 @@ define([
         /**
          * Show the error messages.
          */
-        show: function(type, str) {
-            var slide = AipSlider.getCurrentSlide();
+        show: function (type, str) {
+            var slide = NbnSlider.getCurrentSlide();
             this.clearErrors(slide);
             slide.prepend(this.o.loader);
             slide.find('.message').addClass(type);

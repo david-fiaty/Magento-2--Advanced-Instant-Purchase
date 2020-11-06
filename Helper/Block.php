@@ -1,7 +1,21 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Block helper.
@@ -38,10 +52,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Service\FilterHandlerService $filterHandler
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
@@ -154,10 +168,30 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
 
+        // Module route
+        $config['module']['route'] = Naming::getModuleRoute();
+
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler
         ->filterContent($config['popups']['popup_title'], $config);
 
         return $config;
+    }
+
+    /**
+     * Render a product box.
+     */
+    public function renderProductBox($productId, $subject = null)
+    {
+        // Get the layout
+        $layout = $subject
+        ? $subject->getLayout()
+        : $this->pageFactory->create()->getLayout();
+
+        return $layout
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setData('content', $this->getConfig($productId))
+        ->toHtml();
     }
 }

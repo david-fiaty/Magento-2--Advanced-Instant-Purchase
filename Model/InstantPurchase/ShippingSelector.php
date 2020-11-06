@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\InstantPurchase;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Model\InstantPurchase;
 
 use Magento\Framework\DataObject;
 
@@ -47,8 +61,8 @@ class ShippingSelector
         \Magento\Quote\Api\Data\ShippingMethodInterfaceFactory $shippingMethodFactory,
         \Magento\Shipping\Model\Config $shippingModel,
         \Magento\Shipping\Model\Config $carriersConfig,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Customer $customerHelper
     ) {
         $this->storeManager = $storeManager;
         $this->shippingMethodFactory = $shippingMethodFactory;

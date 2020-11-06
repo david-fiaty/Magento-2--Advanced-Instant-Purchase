@@ -1,11 +1,27 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+-->
+
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="Naxero_AdvancedInstantPurchase::css/main.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/lib/select2/select2.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/lib/slick/slick-theme.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/lib/popover/popover.css" />
-        <css src="Naxero_AdvancedInstantPurchase::css/lib/json/jquery.json-viewer.css" />
+        <css src="Naxero_BuyNow::css/main.css" />
+        <css src="Naxero_BuyNow::css/lib/select2/select2.css" />
+        <css src="Naxero_BuyNow::css/lib/slick/slick.css" />
+        <css src="Naxero_BuyNow::css/lib/slick/slick-theme.css" />
+        <css src="Naxero_BuyNow::css/lib/popover/popover.css" />
+        <css src="Naxero_BuyNow::css/lib/json/jquery.json-viewer.css" />
     </head>
 </page>

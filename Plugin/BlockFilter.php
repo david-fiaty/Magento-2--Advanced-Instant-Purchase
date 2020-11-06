@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Plugin;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Plugin;
 
 /**
  * Class BlockFilter.
@@ -19,11 +33,6 @@ class BlockFilter
     public $blockHelper;
 
     /**
-     * Purchase
-     */
-    public $purchaseHelper;
-
-    /**
      * Product
      */
     public $productHelper;
@@ -37,13 +46,11 @@ class BlockFilter
      * Class BlockFilter constructor.
      */
     public function __construct(
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         $this->blockHelper = $blockHelper;
-        $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
         $this->loggerHelper = $loggerHelper;
     }
@@ -81,12 +88,13 @@ class BlockFilter
 
                     // Replace the tag with the generated HTML
                     if (empty($errors[0])) {
-                        // Get the blcok HTMl
+                        // Get the block HTMl
                         $blockHtml = str_replace($tag, $result['blockHtml']->toHtml(), $html);
 
                         // Get the product HTML
-                        $productHtml = $this->purchaseHelper->renderProductBox(
-                            $result['field']['value']
+                        $productHtml = $this->blockHelper->renderProductBox(
+                            $result['field']['value'],
+                            $subject
                         );
 
                         // Finalise the output

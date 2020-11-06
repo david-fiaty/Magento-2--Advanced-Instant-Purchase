@@ -2,14 +2,14 @@
 <!--
 /**
  * Naxero.com
- * Professional ecommerce integrations for Magento
+ * Professional ecommerce integrations for Magento.
  *
  * PHP version 7
  *
  * @category  Magento2
  * @package   Naxero
  * @author    Platforms Development Team <contact@naxero.com>
- * @copyright Naxero.com
+ * @copyright © Naxero.com all rights reserved
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
@@ -20,16 +20,16 @@
         <tab id="naxero">
             <label>Naxero</label>
         </tab>
-        <section id="advanced_instant_purchase" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Advanced Instant Purchase</label>
+        <section id="buy_now" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Buy Now</label>
             <tab>naxero</tab>
-            <resource>Naxero_AdvancedInstantPurchase::config</resource>
+            <resource>Naxero_BuyNow::config</resource>
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Module enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable the Advanced Instant Purchase module. Enabling will override the core Instant Purchase feature.</comment>
+                    <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
                 <field id="enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable agreements</label>
@@ -73,10 +73,21 @@
                     <comment>Text to display on the purchase button.</comment>
                 </field>
 
+                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show guest button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show the Instant Purchase button to guest users.</comment>
+                </field>
+
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Bypass out of stock</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the button even if the product is out of stock.</comment>
+                </field>
+
+                <field id="button_classes" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button classes</label>
+                    <comment>Add custom class names separated by a white space.</comment>
                 </field>
             </group>
             <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -84,12 +95,12 @@
                 <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Product view button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Advanced Instant Purchase button in the product details view.</comment>
+                    <comment>Display the Buy Now button in the product details view.</comment>
                 </field>
                 <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Product list button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Advanced Instant Purchase button in the product list view.</comment>
+                    <comment>Display the Buy Now button in the product list view.</comment>
                 </field>
             </group>
             <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -101,7 +112,7 @@
                 </field>
                 <field id="popup_title" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup title</label>
-                    <comment>Title for the Advanced Instant Purchase popup.</comment>
+                    <comment>Title for the Buy Now popup window.</comment>
                 </field>
                 <field id="popup_header_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Popup header text</label>
@@ -212,59 +223,12 @@
                     </depends>
                 </field>
             </group>
-            <group id="guest" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Guest user settings</label>
-                <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show guest button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the Instant Purchase button to guest users.</comment>
-                </field>
-                <field id="guest_button_state" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Guest button enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_guest_button">1</field>
-                    </depends>
-                    <comment>Guest button state.</comment>
-                </field>
-            </group>
-            <group id="registered" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Registered user settings</label>
-                <field id="show_registered_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show registered button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the Instant Purchase button to registered users.</comment>
-                </field> 
-                <field id="bypass_missing_payment" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing payment</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no stored payment method available.</comment>
-                </field> 
-                <field id="bypass_missing_billing" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing billing</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no saved billing address available.</comment>
-                </field> 
-                <field id="bypass_missing_shipping" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass missing shipping</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_registered_button">1</field>
-                    </depends>
-                    <comment>Show the Instant Purchase button to registered users even if they have no saved shipping address available.</comment>
-                </field> 
-            </group>
+
             <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Payment settings</label>
                 <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Allowed card payment methods</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
                     <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
                 </field>
                 <field id="show_other_allowed" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -273,7 +237,7 @@
                 </field>
                 <field id="other_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Other allowed payment methods</label>
-                    <source_model>Naxero\AdvancedInstantPurchase\Model\Config\Backend\Source\PaymentMethods</source_model>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
                     <depends>
                         <field id="show_other_allowed">1</field>
                     </depends>

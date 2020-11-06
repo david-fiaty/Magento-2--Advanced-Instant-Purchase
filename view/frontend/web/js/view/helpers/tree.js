@@ -1,16 +1,30 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
     'jsonViewer'
-], function($, jsonViewer) {
+], function ($, jsonViewer) {
     'use strict';
 
     return {
-        treeContainerSelector: '.aip-logger-tree',
+        treeContainerSelector: '.nbn-logger-tree',
 
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -18,13 +32,12 @@ define([
         /**
          * Build a jQtree instance.
          */
-        build: function() {
+        build: function () {
             if (this.needsUiLogging()) {
-                // Initialize the data tree viewer
                 $(this.treeContainerSelector).jsonViewer(
                     this.o.jsConfig,
                     {
-                        collapsed: false
+                        collapsed: true
                     }
                 );
             }
@@ -33,7 +46,7 @@ define([
         /**
          * Check if UI logging i enabled.
          */
-        needsUiLogging: function() {
+        needsUiLogging: function () {
             return this.o.jsConfig.general.debug_enabled
              && this.o.jsConfig.general.ui_logging_enabled;
         }

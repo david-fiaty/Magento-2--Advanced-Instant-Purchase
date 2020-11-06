@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Config;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Model\Config;
 
 /**
  * Class Naming.
@@ -11,7 +25,7 @@ class Naming
      */
     public static function getModuleName()
     {
-        return 'Naxero_AdvancedInstantPurchase';
+        return 'Naxero_BuyNow';
     }
 
     /**
@@ -19,7 +33,7 @@ class Naming
      */
     public static function getModuleAlias()
     {
-        return 'naxero_aip';
+        return 'naxero_buy_now';
     }
 
     /**
@@ -27,7 +41,15 @@ class Naming
      */
     public static function getModulePath()
     {
-        return 'Naxero\AdvancedInstantPurchase';
+        return 'Naxero\BuyNow';
+    }
+
+    /**
+     * Get the module route.
+     */
+    public static function getModuleRoute()
+    {
+        return 'naxero-buy-now';
     }
 
     /**
@@ -35,6 +57,6 @@ class Naming
      */
     public static function getModuleTitle()
     {
-        return __('Naxero Advanced Instant Purchase');
+        return __('Naxero Buy Now');
     }
 }

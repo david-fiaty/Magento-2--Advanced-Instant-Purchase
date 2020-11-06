@@ -1,6 +1,22 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
 <?php $config = $block->getConfig() ?>
 <?php if ($config): ?>
-<?php
+    <?php
     // Process the block display logic
     if ($this->blockHelper->bypassOos($config['product']['id'])) {
         $productId = $config['product']['id'];
@@ -12,20 +28,29 @@
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+        $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     }
-?>
+    ?>
 
-<div id="aip-<?= $productId ?>" class="aip-button-container">
+<!-- Product box -->
+    <?php if ($showProductBox): ?>
+    <div class="nbn-product-box-container">
+        <?= $this->blockHelper->renderProductBox($productId) ?>
+    </div>
+<?php endif; ?>
+
+<div id="nbn-<?= $productId ?>" class="nbn-button-container">
     <!-- Button -->
     <button 
         id="<?= $buttonId ?>"
+        data-product-id="<?= $productId ?>"
         type="button"
-        class="<?= $block->purchaseHelper->getButtonCss() ?> action primary instant-purchase aip-button"
+        class="<?= $block->purchaseHelper->getButtonCss() ?> action instant-purchase nbn-button"
         title="<?= __($config['buttons']['button_text']) ?>">
         <?= __($config['buttons']['button_text']) ?>
     
         <?php if ($uiLogging): ?>
-            <div id="aip-ui-logger-button-<?= $productId ?>" class="aip-ui-logger-button">
+            <div id="nbn-ui-logger-button-<?= $productId ?>" class="nbn-ui-logger-button">
                 <a href="javascript:void(0)" title="<?= __('View logs') ?>">&#9432;</a>
             </div>
         <?php endif; ?> 
@@ -33,14 +58,14 @@
 
     <!-- Form -->
     <?php if (!$isPageView): ?>
-        <form name="aip-list-form" method="post" class="aip-list-form">
+        <form name="nbn-list-form" method="post" class="nbn-list-form">
     <?php endif; ?>
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
-        <input type="hidden" name="aip[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
+        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
         <?php if ($isBlockView && !empty($config['product']['options'])): ?>
             <?php foreach ($config['product']['options'] as $option): ?>
@@ -48,7 +73,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <input type="hidden" name="form_key" value="<?= $formKey ?>" />
+        <input id="nbn-form-key-<?= $productId ?>" type="hidden" name="form_key" value="<?= $formKey ?>">
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
@@ -56,7 +81,7 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "aip": <?= json_encode(['jsConfig' => $config], true) ?>
+                "nbn": <?= json_encode(['jsConfig' => $config], true) ?>
             }
         }
     </script>

@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Controller\Order;
 
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
@@ -8,7 +22,7 @@ use Magento\Framework\App\RequestInterface;
 /**
  * Order controller class
  */
-class Order extends \Magento\Framework\App\Action\Action
+class Request extends \Magento\Framework\App\Action\Action
 {
     /**
      * List of request params handled by the controller.
@@ -28,11 +42,6 @@ class Order extends \Magento\Framework\App\Action\Action
      * @var StoreManagerInterface
      */
     private $storeManager;
-
-    /**
-     * @var Session
-     */
-    private $customerSession;
 
     /**
      * @var Validator
@@ -85,7 +94,6 @@ class Order extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
@@ -93,13 +101,12 @@ class Order extends \Magento\Framework\App\Action\Action
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Payment\PaymentHandler $paymentHandler
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler
     ) {
         parent::__construct($context);
 
         $this->storeManager = $storeManager;
-        $this->customerSession = $customerSession;
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
@@ -243,8 +250,8 @@ class Order extends \Magento\Framework\App\Action\Action
     public function getRequestData($request)
     {
         $params = $request->getParams();
-        $formatted = array_merge($params['aip'], array());
-        unset($params['aip']);
+        $formatted = array_merge($params['nbn'], []);
+        unset($params['nbn']);
 
         return array_merge($params, $formatted[0]);
     }
@@ -312,7 +319,7 @@ class Order extends \Magento\Framework\App\Action\Action
         );
         if ($successMessage) {
             $this->messageManager->addComplexSuccessMessage(
-                'naxeroAipOrderSuccessMessage',
+                'nbnOrderSuccessMessage',
                 ['message' => $message],
                 null
             );

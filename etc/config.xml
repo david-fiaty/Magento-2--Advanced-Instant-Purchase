@@ -2,14 +2,14 @@
 <!--
 /**
  * Naxero.com
- * Professional ecommerce integrations for Magento
+ * Professional ecommerce integrations for Magento.
  *
  * PHP version 7
  *
  * @category  Magento2
  * @package   Naxero
  * @author    Platforms Development Team <contact@naxero.com>
- * @copyright Naxero.com
+ * @copyright © Naxero.com all rights reserved
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
@@ -17,7 +17,7 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <advanced_instant_purchase>
+        <buy_now>
             <general>
                 <enabled>1</enabled>
                 <debug_enabled>0</debug_enabled>
@@ -28,8 +28,10 @@
             </general>
             <buttons>
                 <button_text>Buy Now</button_text>
+                <show_guest_button>1</show_guest_button>
                 <products_with_options>open</products_with_options>
                 <bypass_oos>0</bypass_oos>
+                <button_classes>primary button</button_classes>
             </buttons>
             <products>
                 <product_view>1</product_view>
@@ -58,16 +60,6 @@
                 <show_product_desc>1</show_product_desc>
                 <show_product_options>1</show_product_options>
             </blocks>
-            <guest>
-                <show_guest_button>1</show_guest_button>
-                <guest_button_state>1</guest_button_state>
-            </guest>
-            <registered>
-                <show_registered_button>1</show_registered_button>
-                <bypass_missing_payment>1</bypass_missing_payment>
-                <bypass_missing_billing>1</bypass_missing_billing>
-                <bypass_missing_shipping>1</bypass_missing_shipping>
-            </registered>
             <payment_methods>
                 <card_allowed></card_allowed>
                 <show_other_allowed></show_other_allowed>
@@ -76,6 +68,6 @@
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
-        </advanced_instant_purchase> 
+        </buy_now> 
     </default>
 </config>

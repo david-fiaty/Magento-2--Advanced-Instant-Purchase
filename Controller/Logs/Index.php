@@ -1,12 +1,26 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Controller\Ajax;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Controller\Logs;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Logs controller class
+ * Index controller class
  */
-class Logs extends \Magento\Framework\App\Action\Action
+class Index extends \Magento\Framework\App\Action\Action
 {
     /**
      * @var Validator
@@ -34,15 +48,15 @@ class Logs extends \Magento\Framework\App\Action\Action
     public $loggerHelper;
 
     /**
-     * Logs controller class constructor
+     * Index controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Logger $loggerHelper
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Logger $loggerHelper
     ) {
         parent::__construct($context);
 
@@ -85,7 +99,7 @@ class Logs extends \Magento\Framework\App\Action\Action
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Framework\View\Element\Template')
-            ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
+            ->setTemplate(Naming::getModuleName() . '::messages/logger.phtml')
             ->setData('config', $this->blockHelper->getConfig($productId))
             ->setData('title', Naming::getModuleTitle())
             ->toHtml();

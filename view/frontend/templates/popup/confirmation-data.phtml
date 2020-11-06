@@ -1,10 +1,25 @@
-<?php 
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
     // Get the confirmation content
     $content = $this->getData('content');
 
     // Product box display
-    $showProductBox = $content['config']['popups']['show_product']
-    || !empty($content['config']['product']['options']);
+    $showProductBox = $content['config']['popups']['show_product'];
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
@@ -13,67 +28,67 @@
 
 <!-- Product box -->
 <?php if ($showProductBox): ?>
-    <div class="aip-product-box-container">
-        <img class="aip-spinner" src="<?= $content['config']['ui']['loader'] ?>">
+    <div class="nbn-product-box-container">
+        <?= $this->blockHelper->renderProductBox($content['config']['product']['id']) ?>
     </div>
 <?php endif; ?>
 
 <!-- Header text -->
-<p><?= $content['popup']['header_text'] ?></p>
+<p><?= $block->escapeHtml($content['popup']['header_text'])?></p>
 
 <!-- Billing address -->
-<div class="aip-field">
-    <label for="aip-billing-address-select">
-        <span class="aip-label">
+<div class="nbn-field">
+    <label for="nbn-billing-address-select">
+        <span class="nbn-label">
             <?= $block->escapeHtml(__('Billing address')) ?>
         </span>
         &nbsp;|&nbsp;
-        <a id="new-billing-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-            <?= __('New') ?>
+        <a id="new-billing-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
+            <?= $block->escapeHtml(__('New')) ?>
         </a>
         <p>
             <?php if (!empty($content['addresses'])): ?>
-                <select id="aip-billing-address-select" data-field="instant_purchase_billing_address" class="aip-select js-states form-control">
+                <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
-                            <?= $item['street'] ?>&nbsp;
-                            <?= $item['postcode'] ?>&nbsp;
-                            <?= $item['city'] ?>&nbsp;
-                            <?= $item['country_id'] ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $content['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['country_id']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             <?php else: ?>
-                <p><i><?= __('No records available.') ?></i></p>
+                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
             <?php endif; ?>
         </p>
     </label>
 </div>
 
 <!-- Shipping address -->
-<div class="aip-field">
-    <label for="aip-shipping-address-select">
-        <span class="aip-label">
+<div class="nbn-field">
+    <label for="nbn-shipping-address-select">
+        <span class="nbn-label">
             <?= $block->escapeHtml(__('Shipping address')) ?>
         </span>
         &nbsp;|&nbsp;
-        <a id="new-shipping-address" class="aip-new" data-form="Address" href="javascript:void(0)">
-            <?= __('New') ?>
+        <a id="new-shipping-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
+            <?= $block->escapeHtml(__('New')) ?>
         </a>
         <p>
             <?php if (!empty($content['addresses'])): ?>
-                <select id="aip-shipping-address-select" data-field="instant_purchase_shipping_address" class="aip-select js-states form-control">
+                <select id="nbn-shipping-address-select" data-field="instant_purchase_shipping_address" class="nbn-select js-states form-control">
                     <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $item['entity_id'] ?>" <?= $item['entity_id'] == $content['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
-                            <?= $item['street'] ?>&nbsp;
-                            <?= $item['postcode'] ?>&nbsp;
-                            <?= $item['city'] ?>&nbsp;
-                            <?= $item['country_id'] ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $content['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['country_id']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             <?php else: ?>
-                <p><i><?= __('No records available.') ?></i></p>
+                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
             <?php endif; ?>
         </p>
     </label>
@@ -81,18 +96,18 @@
 
 <!-- Saved cards -->
 <?php if (!$content['product']['is_free']): ?>
-    <div class="aip-field">
-        <label for="aip-payment-method-select">
-            <span class="aip-label">
+    <div class="nbn-field">
+        <label for="nbn-payment-method-select">
+            <span class="nbn-label">
                 <?= $block->escapeHtml(__('Saved cards')) ?>
             </span>
             &nbsp;|&nbsp;
-            <a id="new-payment-method" class="aip-new" data-form="Card" href="javascript:void(0)">
-                <?= __('New') ?>
+            <a id="new-payment-method" class="nbn-new nbn-card-link" data-form="Card" href="javascript:void(0)">
+                <?= $block->escapeHtml(__('New')) ?>
             </a>
             <p>
                 <?php if (!empty($content['savedCards'])): ?>
-                    <select id="aip-payment-method-select" data-field="instant_purchase_payment_token" class="aip-select aip-payment-method-select js-states form-control">
+                    <select id="nbn-payment-method-select" data-field="instant_purchase_payment_token" class="nbn-select nbn-payment-method-select js-states form-control">
                         <?php foreach ($content['savedCards'] as $item): ?>
                             <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
                                 &nbsp;&nbsp;<?= $item['token'] ?>
@@ -100,7 +115,7 @@
                         <?php endforeach; ?>
                     </select>
                 <?php else: ?>
-                    <p><i><?= __('No records available.') ?></i></p>
+                    <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
                 <?php endif; ?>
             </p>
         </label> 
@@ -109,15 +124,15 @@
 
 <!-- Other payment methods -->
 <?php if ($showOtherPaymentMethods && !$content['product']['is_free']): ?>
-    <div class="aip-field">
-        <label for="aip-other-method-select">
-            <input type="checkbox" id="aip-show-other-methods">
-            <span class="aip-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
+    <div class="nbn-field">
+        <label for="nbn-other-method-select">
+            <input type="checkbox" id="nbn-show-other-methods">
+            <span class="nbn-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
             <p>
-                <select id="aip-other-method-select" data-field="instant_purchase_method_code" class="aip-select aip-other-method-select js-states form-control">
+                <select id="nbn-other-method-select" data-field="instant_purchase_method_code" class="nbn-select nbn-other-method-select js-states form-control">
                     <?php foreach ($content['otherPaymentMethods'] as $item): ?>
-                        <option value="<?= $item['value'] ?>">
-                            &nbsp;&nbsp;<?= $item['label'] ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['value']) ?>">
+                            &nbsp;&nbsp;<?= $block->escapeHtml($item['label']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -128,15 +143,15 @@
 
 <!-- Shipping method -->
 <?php if (!empty($content['addresses']) && !empty($content['savedCards']) && !$content['product']['is_free']): ?>
-<div class="aip-field">
-    <label for="aip-shipping-method-select">
-        <span class="aip-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+<div class="nbn-field">
+    <label for="nbn-shipping-method-select">
+        <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
         <p>
-            <select id="aip-shipping-method-select" data-field="instant_purchase_shipping" class="aip-select js-states form-control">
+            <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
                 <?php foreach ($content['shippingRates'] as $item): ?>
-                    <option value="<?= $item['carrier_code'] ?>">
-                        <?= $item['carrier_title'] ?>&nbsp;
-                        <?= $item['carrier_price'] ?>
+                    <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
+                        <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
+                        <?= $block->escapeHtml($item['carrier_price']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -146,5 +161,5 @@
 <?php endif; ?>
 
 <!-- Footer text -->
-<p><?= $content['popup']['footer_text'] ?></p>
+<p><?= $block->escapeHtml($content['popup']['footer_text']) ?></p>
 

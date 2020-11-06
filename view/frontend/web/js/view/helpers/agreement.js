@@ -1,19 +1,32 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
-    'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/modal',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger'
-], function($, UrlBuilder, AipSlider, AipModal, AipLogger) {
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/modal',
+    'Naxero_BuyNow/js/view/helpers/logger'
+], function ($, NbnSlider, NbnModal, NbnLogger) {
     'use strict';
 
     return {
-        agreementLinkSelector: '.aip-agreement-link',
+        agreementLinkSelector: '.nbn-agreement-link',
 
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -21,10 +34,10 @@ define([
         /**
          * Set the agrements events.
          */
-        build: function() {
+        build: function () {
             if (this.o.jsConfig.general.enable_agreements) {
                 var self = this;
-                $(self.agreementLinkSelector).on('click', function(e) {
+                $(self.agreementLinkSelector).on('click', function (e) {
                     self.getAgreement(e);
                 });
             }
@@ -33,7 +46,7 @@ define([
          /**
          * Get an agreement.
          */
-        getAgreement: function(e) {
+        getAgreement: function (e) {
             // Prepare the request parameters
             var self = this;
             var params = {
@@ -42,19 +55,19 @@ define([
             };
 
             // Toggle the view
-            AipSlider.toggleView(e);
+            NbnSlider.toggleView(e);
             
             // Send the request
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: UrlBuilder.build(this.o.confirmUrl),
+                url: this.o.paths.get(this.o.confirmationUrl),
                 data: params,
-                success: function(data) {
-                    AipModal.addHtml(AipSlider.nextSlideSelector, data.html);
+                success: function (data) {
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
                 },
-                error: function(request, status, error) {
-                    AipLogger.log(
+                error: function (request, status, error) {
+                    NbnLogger.log(
                         __('Error retrieving the terms and conditions data'),
                         error
                     );
