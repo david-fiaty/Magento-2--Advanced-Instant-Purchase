@@ -23,12 +23,12 @@
 ?>
 
 <!-- UI logs viewer container -->
-<div id="nbn-ui-logger-<?= $productId ?>" class="nbn-ui-logger">
-    <h3><?= __('Product data') ?></h3>
+<div id="nbn-ui-logger-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-ui-logger">
+    <h3><?= $block->escapeHtml(__('Product data')) ?></h3>
     <pre class="nbn-logger-tree">
     </pre>
 
-    <h3><?= __('Module parameters') ?></h3>
+    <h3><?= $block->escapeHtml(__('Module parameters')) ?></h3>
     <pre class="nbn-logger-tree">
     </pre>
 </div>

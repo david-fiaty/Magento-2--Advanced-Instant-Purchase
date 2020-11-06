@@ -19,7 +19,6 @@ if (!$agreements) {
 }
 ?>
 <ol id="checkout-agreements" class="agreements checkout items">
-    <?php /** @var \Magento\CheckoutAgreements\Api\Data\AgreementInterface $agreement */ ?>
     <?php foreach ($agreements as $agreement): ?>
         <li class="item">
             <form id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
