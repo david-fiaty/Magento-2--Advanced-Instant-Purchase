@@ -115,7 +115,6 @@
             return buyNowData;
         },
 
-
         /**
          * Product options validation.
          */
