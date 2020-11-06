@@ -151,15 +151,15 @@
          */
         getProductData: function (e) {
             e = e || null;
-            var productData;
+            var productData = this.o.jsConfig.product;
             if (e) {
                 var productId = $(e.currentTarget).data('product-id');
-                var productData = $(this.productDataSelectorPrefix + productId).val();            }
-            else {
-                productData = this.o.jsConfig.product;
+                productData = JSON.parse(
+                    $(this.productDataSelectorPrefix + productId).val()
+                );            
             }
             
-            return JSON.parse(productData);
+            return productData;
         },
 
         /**
