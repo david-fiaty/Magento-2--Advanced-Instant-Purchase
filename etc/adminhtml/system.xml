@@ -85,7 +85,7 @@
                     <comment>Display the button even if the product is out of stock.</comment>
                 </field>
 
-                <field id="button_classes" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="button_classes" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button classes</label>
                     <comment>Add custom class names separated by a white space.</comment>
                 </field>
