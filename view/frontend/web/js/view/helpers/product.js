@@ -217,20 +217,12 @@
             var optionFieldId;
             if (!NbnView.isListView()) {
                 optionFieldId = this.optionSelectorPrefix
-                + this.o.jsConfig.product.id
+                + option['product_id']
                 + '-' + option['attribute_id'];
             }
             else {
-                console.log('option');
-
-                console.log(option);
-
-                optionFieldId = '#' + 'option-label-size-' 
-                + option['attribute_id'] 
-                + '-item-' + option['value'];
-
-                console.log(optionFieldId);
-
+                optionFieldId = '.swatch-opt-'  + option['product_id'];
+                $(optionFieldId).find('.swatch-option.selected').attr('id');
             }
 
             return optionFieldId;

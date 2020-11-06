@@ -149,6 +149,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         // Reset the array keys
         $optionsArray = array_merge([], $optionsArray);
 
+        // Add the product id to each option record
+        $i = 0;
+        foreach ($optionsArray as $opt) {
+            $opt['product_id'] = $productId;
+            $optionsArray[$i] = $opt;
+            $i++;
+        }
+
         return $optionsArray;
     }
 
