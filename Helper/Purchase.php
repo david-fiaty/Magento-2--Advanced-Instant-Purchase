@@ -195,11 +195,17 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the logged in button classes.
+     * Get the button CSS classes.
      */
     public function getButtonCss()
     {
-        return $this->customerHelper->isLoggedIn()
-        ? 'nbn-login-popup' : '';
+        // Load the default config classes
+        $classes = $this->configHelper->value('buttons/button_classes');
+
+        // Add additional classes
+        $classes .= $this->customerHelper->isLoggedIn()
+        ? ' nbn-login-popup' : '';
+
+        return $classes;
     }
 }
