@@ -192,19 +192,17 @@
          * Check if a product option is valid.
          */
         isOptionInvalid: function (e, option) {
-            // Find the target field
-            var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
+            // Prepare the target Id
+            var targetId = '#super_attribute_';
+            targetId += $(this).data('product-id');
+            targetId += '_';
+            targetId += $(this).data('attribute-id');
 
             // Get the field value
             var val = $(e.currentTarget)
-            .parent(this.getProductContainer())
-            .find(targetField).val();
+            .closest(targetId)
+            .val();
      
-            console.log($(e.currentTarget)
-            .parent(this.getProductContainer())
-            .find(targetField));
-
-
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
@@ -216,9 +214,16 @@
          */
         getOptionField: function (option) {
             // Todo - Handle list view case with swatch options or not
-            return this.optionSelectorPrefix
-            + this.o.jsConfig.product.id
-            + '-' + option['attribute_id'];
+            if (!NbnView.isListView()) {
+                return this.optionSelectorPrefix
+                + this.o.jsConfig.product.id
+                + '-' + option['attribute_id'];
+            }
+            else {
+                alert('teste');
+            }
+
+            return 
         },
 
         /**
