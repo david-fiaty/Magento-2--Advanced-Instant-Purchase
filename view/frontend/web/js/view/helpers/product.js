@@ -18,6 +18,7 @@ define([
         optionFieldSelector: '#nbn-option',
         optionSelectorPrefix: '#nbn-option-',
         popoverSelector: '.popover',
+        productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
 
         /**
@@ -113,8 +114,8 @@ define([
         /**
          * Product options validation.
          */
-        validateOptions: function () {
-            if (this.hasOptions()) {
+        validateOptions: function (e) {
+            if (this.hasOptions(e)) {
                 return this.getOptionsErrors().length == 0;
             }
 
@@ -124,9 +125,27 @@ define([
         /**
          * Check if a product has options.
          */
-        hasOptions: function () {
-            return this.o.jsConfig.product.options.length
-            && this.o.jsConfig.product.options.length > 0;
+        hasOptions: function (e) {
+            e = e || null;
+            var product;
+            if (e) {
+                product = this.getProduct(e);
+            }
+            else {
+                product = this.o.jsConfig.product;
+            }
+
+            return product.options.length
+            && product.options.length > 0;
+        },
+
+        /**
+         * Get updated product data for events.
+         */
+        getProduct: function (e) {
+            var productId = $(e.currentTarget).data('product-id');
+            var productData = $(this.productDataSelectorPrefix + productId).val();
+            console.log(productData);
         },
 
         /**
