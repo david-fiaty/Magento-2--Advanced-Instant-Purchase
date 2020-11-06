@@ -58,6 +58,18 @@
         },
 
         /**
+         * Validate the product options.
+         */
+        validateOptions: function () {
+            if (NbnView.isListView() && this.hasOptions()) {
+                NbnProductOptionSwatch.validateOptions(this.o);
+            }
+            else if (NbnView.isBlockView()) {
+                NbnProductOptionSelect.validateOptions(this.o);
+            }
+        },
+
+        /**
          * Get a product container selector.
          */
         getProductContainer: function () {
@@ -150,90 +162,6 @@
             }
             
             return productData;
-        },
-
-        /**
-         * Check if a product options are valid.
-         */
-        getOptionsErrors: function (e) {
-            // Prepare variables
-            var options = this.getProductData(e)['options'];
-            var errors = [];
-
-            // Check each option
-            for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(e, options[i])) {
-                    errors.push(options[i]);
-                }
-            }
-
-            return errors;
-        },
-
-        /**
-         * Check if a product option is valid.
-         */
-        isOptionInvalid: function (e, option) {
-            // Prepare the target Id
-            var targetId = '#nbn-super-attribute-';
-            targetId += $(this).data('product-id');
-            targetId += '_';
-            targetId += $(this).data('attribute-id');
-
-            // Get the field value
-            var val = $(e.currentTarget)
-            .closest(targetId)
-            .val();
-     
-            // Check the field value
-            var isValid = val && val.length > 0 && parseInt(val) > 0;
-
-            return !isValid;
-        },
-
-        /**
-         * Get an option field selector.
-         */
-        getOptionField: function (option) {
-            // Todo - Handle list view case with swatch options or not
-            var optionFieldSelector;
-            if (!NbnView.isListView()) {
-                optionFieldSelector = this.optionSelectorPrefix
-                + option['product_id']
-                + '-' + option['attribute_id'];
-            }
-            else {
-                optionFieldSelector = '.swatch-opt-'
-                + option['product_id']
-                + ' .swatch-attribute';
-            }
-
-            return optionFieldSelector;
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedOptionsValues: function () {
-            if (this.hasOptions() && this.o.jsConfig.blocks.show_product) {
-                var options = this.o.jsConfig.product.options;
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the parameters
-                    var sourceField = 'input[name="nbn[' + options[i]['product_id'] + ']super_attribute[' + options[i]['attribute_id'] + ']"]';
-                    var targetField = this.getOptionField(options[i]);
-                    var sourceFieldValue = $(sourceField).val();
-
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
-
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                    }
-                }
-            }
         },
 
         /**
