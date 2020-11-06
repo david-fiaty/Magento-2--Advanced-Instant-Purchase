@@ -146,10 +146,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $this->getProduct($productId)
         );
 
-        // Add the product id
-        $optionsArray['product_id'] = $productId;
-        
-        return array_merge([], $optionsArray);
+        // Reset the array keys
+        $optionsArray = array_merge([], $optionsArray);
+
+        return $optionsArray;
     }
 
     /**

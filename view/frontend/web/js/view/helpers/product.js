@@ -224,9 +224,13 @@
                 console.log('option');
 
                 console.log(option);
+
                 optionFieldId = '#' + 'option-label-size-' 
                 + option['attribute_id'] 
                 + '-item-' + option['value'];
+
+                console.log(optionFieldId);
+
             }
 
             return optionFieldId;
