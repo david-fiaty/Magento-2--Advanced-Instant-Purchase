@@ -37,9 +37,6 @@ define([
          * Set product options events.
          */
         initOptionsEvents: function (obj) {
-            console.log('select - initOptionsEvents');
-            console.log(obj.jsConfig.product.id);
-
             // Prepare the variables
             var options = obj.jsConfig.product.options;
 
@@ -52,7 +49,7 @@ define([
                 // Set the value change events
                 $(sourceField).on('change', function (e) {
                     // Prepare the target Id
-                    var targetId = '#super_attribute_';
+                    var targetId = '#nbn-super-attribute-';
                     targetId += $(this).data('product-id');
                     targetId += '_';
                     targetId += $(this).data('attribute-id');
@@ -111,7 +108,7 @@ define([
          */
         isOptionInvalid: function (e, option) {
             // Prepare the target Id
-            var targetId = '#super_attribute_';
+            var targetId = '#nbn-super-attribute-';
             targetId += $(this).data('product-id');
             targetId += '_';
             targetId += $(this).data('attribute-id');

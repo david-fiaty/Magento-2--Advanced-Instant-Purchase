@@ -176,7 +176,7 @@
          */
         isOptionInvalid: function (e, option) {
             // Prepare the target Id
-            var targetId = '#super_attribute_';
+            var targetId = '#nbn-super-attribute-';
             targetId += $(this).data('product-id');
             targetId += '_';
             targetId += $(this).data('attribute-id');
@@ -220,7 +220,7 @@
                 var options = this.o.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
-                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
+                    var sourceField = 'input[name="nbn[' + options[i]['product_id'] + ']super_attribute[' + options[i]['attribute_id'] + ']"]';
                     var targetField = this.getOptionField(options[i]);
                     var sourceFieldValue = $(sourceField).val();
 
