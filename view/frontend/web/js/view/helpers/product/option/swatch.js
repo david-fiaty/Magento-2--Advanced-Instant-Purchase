@@ -12,15 +12,11 @@
  * @link      https://www.naxero.com
  */
 
- define([
+define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/logger',
-    'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/select',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
-    'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
+    'Naxero_BuyNow/js/view/helpers/view'
+], function ($, __, NbnView) {
     'use strict';
 
     return {
@@ -38,80 +34,36 @@
         buttonErrorClass: 'nbn-button-error',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Set product options events.
          */
         initOptionsEvents: function () {
-            return NbnView.isListView() ?
-            NbnProductOptionSwatch.initOptionsEvents()
-            : NbnProductOptionSelect.initOptionsEvents();
-        },
+            if (this.hasOptions()) {
+                // Prepare the variables
+                var options = this.o.jsConfig.product.options;
 
-        /**
-         * Get a product container selector.
-         */
-        getProductContainer: function () {
-            return NbnView.isListView()
-            ? this.listProductContainerSelector
-            : this.viewProductContainerSelector;
-        },
+                // Set the options events and default values
+                for (var i = 0; i < options.length; i++) {
+                    // Prepare the fields
+                    var option = options[i];
+                    var sourceField = this.getOptionField(option);
 
-        /**
-         * Get a product container selector.
-         */
-        getProductForm: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
+                    // Set the value change events
+                    $(sourceField).on('change', function (e) {
+                        // Prepare the source Id
+                        var sourceId = e.currentTarget;
 
-            // Get product form selector
-            var productFormSelector = NbnView.isListView()
-            ? this.listProductFormSelector
-            : this.viewProductFormSelector;
+                        // Prepare the target Id
+                        var targetId = '#super_attribute_';
+                        targetId += $(this).data('product-id');
+                        targetId += '_';
+                        targetId += $(this).data('attribute-id');
 
-            // Get the form
-            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
-            .find(productFormSelector);
-
-            return form;
-        },
-
-        /**
-         * Get the product form data.
-         */
-        getProductFormData: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get the buy now data
-            var buyNowData = this.getProductForm().serialize();
-
-            // Log the purchase data
-            NbnLogger.log(
-                __('Place order form data'),
-                this.getProductForm().serializeArray()
-            );
-
-            // Get the cart form data if list view
-            if (NbnView.isListView()) {
-                var cartFormData = $(this.o.jsConfig.product.button_selector)
-                .closest(productContainerSelector)
-                .find(this.listProductCartFormSelector)
-                .serialize();
-
-                // Add the cart form data to the purchase data
-                buyNowData += '&' + cartFormData;
+                        // Assign value from source to target
+                        $(targetId).val($(sourceId).val());
+                    });
+                }
             }
-
-            return buyNowData;
         },
-
 
         /**
          * Product options validation.
@@ -132,22 +84,6 @@
 
             return product.options.length
             && product.options.length > 0;
-        },
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (e) {
-            e = e || null;
-            var productData = this.o.jsConfig.product;
-            if (e) {
-                var productId = $(e.currentTarget).data('product-id');
-                productData = JSON.parse(
-                    $(this.productDataSelectorPrefix + productId).val()
-                );            
-            }
-            
-            return productData;
         },
 
         /**
@@ -232,38 +168,6 @@
                     }
                 }
             }
-        },
-
-        /**
-         * Display the product options errors.
-         */
-        displayErrors: function (e) {
-            // Prepare variables
-            var self = this;
-            var button = $(e.currentTarget);
-
-            // Clear previous errors
-            self.clearErrors(e);
-
-            // Update the button state
-            button.popover({
-                title : '',
-                content : __('Please select options for this product'),
-                autoPlace : false,
-                trigger : 'hover',
-                placement : 'right',
-                delay : 10
-            });
-            button.addClass(this.buttonErrorClass);
-            button.trigger('mouseover');
-        },
-
-        /**
-         * Clear UI error messages.
-         */
-        clearErrors: function (e) {
-            $(e.currentTarget).removeClass(this.buttonErrorClass);
-            $(this.popoverSelector).remove();
         }
     };
 });

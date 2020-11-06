@@ -12,13 +12,11 @@
  * @link      https://www.naxero.com
  */
 
- define([
+define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/logger',
-    'Naxero_BuyNow/js/view/helpers/view',
-    'popover',
-], function ($, __, NbnLogger, NbnView, popover) {
+    'Naxero_BuyNow/js/view/helpers/view'
+], function ($, __, NbnView) {
     'use strict';
 
     return {
@@ -34,72 +32,6 @@
         popoverSelector: '.popover',
         productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
-
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductContainer: function () {
-            return NbnView.isListView()
-            ? this.listProductContainerSelector
-            : this.viewProductContainerSelector;
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductForm: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get product form selector
-            var productFormSelector = NbnView.isListView()
-            ? this.listProductFormSelector
-            : this.viewProductFormSelector;
-
-            // Get the form
-            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
-            .find(productFormSelector);
-
-            return form;
-        },
-
-        /**
-         * Get the product form data.
-         */
-        getProductFormData: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get the buy now data
-            var buyNowData = this.getProductForm().serialize();
-
-            // Log the purchase data
-            NbnLogger.log(
-                __('Place order form data'),
-                this.getProductForm().serializeArray()
-            );
-
-            // Get the cart form data if list view
-            if (NbnView.isListView()) {
-                var cartFormData = $(this.o.jsConfig.product.button_selector)
-                .closest(productContainerSelector)
-                .find(this.listProductCartFormSelector)
-                .serialize();
-
-                // Add the cart form data to the purchase data
-                buyNowData += '&' + cartFormData;
-            }
-
-            return buyNowData;
-        },
 
         /**
          * Set product options events.
@@ -152,22 +84,6 @@
 
             return product.options.length
             && product.options.length > 0;
-        },
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (e) {
-            e = e || null;
-            var productData = this.o.jsConfig.product;
-            if (e) {
-                var productId = $(e.currentTarget).data('product-id');
-                productData = JSON.parse(
-                    $(this.productDataSelectorPrefix + productId).val()
-                );            
-            }
-            
-            return productData;
         },
 
         /**
@@ -252,38 +168,6 @@
                     }
                 }
             }
-        },
-
-        /**
-         * Display the product options errors.
-         */
-        displayErrors: function (e) {
-            // Prepare variables
-            var self = this;
-            var button = $(e.currentTarget);
-
-            // Clear previous errors
-            self.clearErrors(e);
-
-            // Update the button state
-            button.popover({
-                title : '',
-                content : __('Please select options for this product'),
-                autoPlace : false,
-                trigger : 'hover',
-                placement : 'right',
-                delay : 10
-            });
-            button.addClass(this.buttonErrorClass);
-            button.trigger('mouseover');
-        },
-
-        /**
-         * Clear UI error messages.
-         */
-        clearErrors: function (e) {
-            $(e.currentTarget).removeClass(this.buttonErrorClass);
-            $(this.popoverSelector).remove();
         }
     };
 });
