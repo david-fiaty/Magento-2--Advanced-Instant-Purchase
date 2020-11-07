@@ -50,6 +50,23 @@ define([
             }
         },
 
+
+        /**
+         * Get updated product data for events.
+         */
+        getProductData: function (e) {
+            e = e || null;
+            var productData = this.o.jsConfig.product;
+            if (e) {
+                var productId = $(e.currentTarget).data('product-id');
+                productData = JSON.parse(
+                    $(this.productDataSelectorPrefix + productId).val()
+                );            
+            }
+            
+            return productData;
+        },
+        
         /**
          * Product options validation.
          */
