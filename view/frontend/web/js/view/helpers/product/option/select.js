@@ -48,17 +48,6 @@ define([
         },
 
         /**
-         * Product options validation.
-         */
-        validateOptions: function (e) {
-            if (this.hasOptions(e)) {
-                return this.getOptionsErrors(e).length == 0;
-            }
-
-            return true;
-        },
-
-        /**
          * Check if a product options are valid.
          */
         getOptionsErrors: function (options, e) {

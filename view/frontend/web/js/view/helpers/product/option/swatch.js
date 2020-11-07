@@ -48,33 +48,6 @@ define([
         },
 
         /**
-         * Product options validation.
-         */
-        validateOptions: function (e) {
-            if (this.hasOptions(e)) {
-                return this.getOptionsErrors(e).length == 0;
-            }
-
-            return true;
-        },
-
-        /**
-         * Check if a product has options.
-         */
-        hasOptions: function (e) {
-            var product = this.getProductData(e);
-
-            return product.options.length > 0;
-        },
-
-        /**
-         * Get a product options.
-         */
-        getOptions: function (e) {
-            return this.getProductData(e);
-        },
-
-        /**
          * Check if a product options are valid.
          */
         getOptionsErrors: function (options, e) {
@@ -123,23 +96,21 @@ define([
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
-            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
-                var options = obj.jsConfig.product.options;
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the parameters
-                    var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
-                    var targetField = this.getOptionField(options[i]);
-                    var sourceFieldValue = $(sourceField).val();
+            var options = obj.jsConfig.product.options;
+            for (var i = 0; i < options.length; i++) {
+                // Prepare the parameters
+                var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
+                var targetField = this.getOptionField(options[i]);
+                var sourceFieldValue = $(sourceField).val();
 
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
+                // Prepare the conditions
+                var condition = sourceFieldValue
+                && sourceFieldValue != 'undefined'
+                && sourceFieldValue.length > 0;
 
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                    }
+                // Update the options selected value
+                if (condition) {
+                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
                 }
             }
         }
