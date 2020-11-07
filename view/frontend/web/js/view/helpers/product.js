@@ -46,27 +46,29 @@
         },
 
         /**
+         * Get the option handler component.
+         */
+        getOptionHandler: function () {
+            if (NbnView.isListView() && this.hasOptions()) {
+               return NbnProductOptionSwatch;
+            }
+            else if (NbnView.isBlockView()) {
+                return NbnProductOptionSelect;
+            }
+        },
+
+        /**
          * Set product options events.
          */
         initOptionsEvents: function () {
-            if (NbnView.isListView() && this.hasOptions()) {
-                NbnProductOptionSwatch.initOptionsEvents(this.o);
-            }
-            else if (NbnView.isBlockView()) {
-                NbnProductOptionSelect.initOptionsEvents(this.o);
-            }
+            this.getOptionHandler().initOptionsEvents(this.o);
         },
 
         /**
          * Validate the product options.
          */
         validateOptions: function () {
-            if (NbnView.isListView() && this.hasOptions()) {
-                NbnProductOptionSwatch.validateOptions(this.o);
-            }
-            else if (NbnView.isBlockView()) {
-                NbnProductOptionSelect.validateOptions(this.o);
-            }
+            this.getOptionHandler().validateOptions(this.o);
         },
 
         /**
@@ -132,7 +134,7 @@
          */
         validateOptions: function (e) {
             if (this.hasOptions(e)) {
-                return this.getOptionsErrors(e).length == 0;
+                return this.getOptionHandler().getOptionsErrors(e).length == 0;
             }
 
             return true;
