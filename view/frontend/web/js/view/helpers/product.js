@@ -163,7 +163,9 @@
          * Get updated product data for events.
          */
         getProductData: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
+            var productId = e
+            ? $(e.currentTarget).data('product-id')
+            : this.o.jsConfig.product.id;
 
             return JSON.parse(
                 $(this.productDataSelectorPrefix + productId).val()

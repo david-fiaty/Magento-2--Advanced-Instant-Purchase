@@ -151,7 +151,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         foreach ($optionsArray as $key => $opt) {
             $opt['product_id'] = $productId;
             $opt['option_id'] = $key;
-            $output[] = $opt;
+            $output[$key] = $opt;
         }
 
         return $output;
