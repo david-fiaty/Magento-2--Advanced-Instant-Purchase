@@ -54,6 +54,7 @@ define([
          * Product options validation.
          */
         validateOptions: function (e) {
+            return true;
             if (this.hasOptions(e)) {
                 return this.getOptionsErrors(e).length == 0;
             }
@@ -99,9 +100,7 @@ define([
             targetId += option['attribute_id'];
 
             // Get the field value
-            var val = $(e.currentTarget)
-            .closest(targetId)
-            .val();
+            var val = $(targetId).val();
      
             console.log('zzzzz');
             console.log(option);
