@@ -45,6 +45,12 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
+
+            console.log('zorru');
+            console.log(NbnView.isPageView());
+            console.log(this.hasOptions());
+
+
             if (!NbnView.isPageView() && this.hasOptions()) {
                 this.getOptionHandler().initOptionsEvents(
                     this.getOptions()
@@ -149,6 +155,9 @@
          * Check if a product has options.
          */
         hasOptions: function (e) {
+            console.log('uuu');
+            console.log(this.getProductData(e));
+
             return this.getProductData(e)['options'].length > 0;
         },
 
