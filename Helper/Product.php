@@ -146,17 +146,15 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $this->getProduct($productId)
         );
 
-        // Reset the array keys
-        $optionsArray = array_merge([], $optionsArray);
+        // Add the product id to each option record
+        $output = [];
+        foreach ($optionsArray as $key => $opt) {
+            $opt['product_id'] = $productId;
+            $opt['option_id'] = $key;
+            $output[] = $opt;
+        }
 
-        // Add additional fields to each option
-        $optionsArray = array_map(function ($key, $option) use ($productId) {
-            $option['product_id'] = $productId;
-            $option['option_id'] = $key;
-            return $option;
-        }, $optionsArray);
-
-        return $optionsArray;
+        return $output;
     }
 
     /**
