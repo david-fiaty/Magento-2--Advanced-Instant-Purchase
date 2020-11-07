@@ -61,14 +61,18 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            this.getOptionHandler().initOptionsEvents(this.o);
+            if (!NbnView.isPageView()) {
+                this.getOptionHandler().initOptionsEvents(this.o);
+            }
         },
 
         /**
          * Validate the product options.
          */
         validateOptions: function () {
-            this.getOptionHandler().validateOptions(this.o);
+            if (!NbnView.isPageView()) {
+                this.getOptionHandler().validateOptions(this.o);
+            }
         },
 
         /**
