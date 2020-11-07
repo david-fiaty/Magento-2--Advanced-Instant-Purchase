@@ -63,7 +63,7 @@ define([
         /**
          * Product options validation.
          */
-        validateOptions: function (e) {
+        validateOptions: function (obj, e) {
             if (this.hasOptions(e)) {
                 return this.getOptionsErrors(e).length == 0;
             }
@@ -84,9 +84,8 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function (e) {
+        getOptionsErrors: function (options, e) {
             // Prepare variables
-            var options = this.getProductData(e)['options'];
             var errors = [];
 
             // Check each option

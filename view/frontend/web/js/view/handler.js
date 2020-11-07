@@ -130,7 +130,7 @@ define([
                     // Block and list views
                     if (self.o.view.isBlockView() || self.o.view.isListView()) {
                         // Validate the product options if needed
-                        var optionsValid = self.o.product.validateOptions(e);
+                        var optionsValid = self.o.product.validateOptions(self, e);
                         if (!optionsValid) {
                             // Display the errors
                             self.o.product.clearErrors(e);

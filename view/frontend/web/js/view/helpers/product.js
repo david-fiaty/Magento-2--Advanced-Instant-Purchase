@@ -67,15 +67,6 @@
         },
 
         /**
-         * Validate the product options.
-         */
-        validateOptions: function () {
-            if (!NbnView.isPageView()) {
-                this.getOptionHandler().validateOptions(this.o);
-            }
-        },
-
-        /**
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
@@ -145,9 +136,12 @@
         /**
          * Product options validation.
          */
-        validateOptions: function (e) {
+        validateOptions: function (obj, e) {
             if (this.hasOptions(e)) {
-                return this.getOptionHandler().getOptionsErrors(e).length == 0;
+                return this.getOptionHandler().getOptionsErrors(
+                    this.getProductData(e)['options'],
+                    e
+                ).length == 0;
             }
 
             return true;

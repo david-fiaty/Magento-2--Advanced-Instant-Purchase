@@ -84,9 +84,8 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function (e) {
+        getOptionsErrors: function (options, e) {
             // Prepare variables
-            var options = this.getProductData(e)['options'];
             var errors = [];
 
             // Check each option
