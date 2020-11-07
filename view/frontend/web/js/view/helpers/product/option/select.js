@@ -54,16 +54,11 @@ define([
          * Get updated product data for events.
          */
         getProductData: function (e) {
-            e = e || null;
-            var productData = this.o.jsConfig.product;
-            if (e) {
-                var productId = $(e.currentTarget).data('product-id');
-                productData = JSON.parse(
-                    $(this.productDataSelectorPrefix + productId).val()
-                );            
-            }
-            
-            return productData;
+            var productId = $(e.currentTarget).data('product-id');
+
+            return JSON.parse(
+                $(this.productDataSelectorPrefix + productId).val()
+            );            
         },
 
         /**
@@ -81,16 +76,14 @@ define([
          * Check if a product has options.
          */
         hasOptions: function (e) {
-            var product = this.getProductData(e);
-
-            return product.options.length > 0;
+            return this.getProductData(e)['options'].length > 0;
         },
 
         /**
          * Get a product options.
          */
         getOptions: function (e) {
-            return this.getProductData(e);
+            return this.getProductData(e)['options'];
         },
 
         /**
