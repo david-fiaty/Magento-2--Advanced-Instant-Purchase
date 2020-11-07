@@ -96,7 +96,7 @@ define([
             var targetId = '#nbn-super-attribute-';
             targetId += $(e.currentTarget).data('product-id');
             targetId += '-';
-            targetId += option['attribute-id'];
+            targetId += option['attribute_id'];
 
             // Get the field value
             var val = $(e.currentTarget)
@@ -104,6 +104,8 @@ define([
             .val();
      
             console.log('zzzzz');
+            console.log(option);
+
             console.log(targetId);
 
             console.log(val);
