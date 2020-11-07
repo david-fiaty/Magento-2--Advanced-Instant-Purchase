@@ -150,7 +150,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $optionsArray = array_merge([], $optionsArray);
 
         // Add additional fields to each option
-        $optionsArray = array_map(function ($key, $option) {
+        $optionsArray = array_map(function ($key, $option) use ($productId) {
             $option['product_id'] = $productId;
             $option['option_id'] = $key;
             return $option;
