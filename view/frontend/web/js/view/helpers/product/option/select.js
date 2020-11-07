@@ -126,7 +126,7 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
-                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
+                    var sourceField = '#nbn_super_attribute_' + options[i]['product_id'] + '_' + options[i]['attribute_id'];
                     var targetField = this.getOptionField(options[i]);
                     var sourceFieldValue = $(sourceField).val();
 
