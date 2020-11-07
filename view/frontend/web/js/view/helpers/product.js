@@ -68,6 +68,9 @@
             else if (NbnView.isBlockView()) {
                 return NbnProductOptionSelect;
             }
+            else {
+                return NbnProductOptionSelect;   
+            }
         },
 
         /**
