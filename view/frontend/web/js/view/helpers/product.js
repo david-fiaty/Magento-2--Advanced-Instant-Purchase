@@ -42,6 +42,17 @@
         },
 
         /**
+         * Set product options events.
+         */
+        initOptionsEvents: function () {
+            if (!NbnView.isPageView()) {
+                this.getOptionHandler().initOptionsEvents(
+                    this.getOptions()
+                );
+            }
+        },
+
+        /**
          * Get the option handler component.
          */
         getOptionHandler: function () {
@@ -50,17 +61,6 @@
             }
             else if (NbnView.isBlockView()) {
                 return NbnProductOptionSelect;
-            }
-        },
-
-        /**
-         * Set product options events.
-         */
-        initOptionsEvents: function () {
-            if (!NbnView.isPageView()) {
-                this.getOptionHandler().initOptionsEvents(
-                    this.getOptions()
-                );
             }
         },
 
