@@ -94,15 +94,20 @@ define([
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
             var targetId = '#nbn-super-attribute-';
-            targetId += $(this).data('product-id');
+            targetId += $(e.currentTarget).data('product-id');
             targetId += '-';
-            targetId += $(this).data('attribute-id');
+            targetId += option['attribute-id'];
 
             // Get the field value
             var val = $(e.currentTarget)
             .closest(targetId)
             .val();
      
+            console.log('zzzzz');
+            console.log(targetId);
+
+            console.log(val);
+
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
