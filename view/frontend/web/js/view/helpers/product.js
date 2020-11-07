@@ -45,7 +45,7 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            if (!NbnView.isPageView()) {
+            if (!NbnView.isPageView() && this.hasOptions()) {
                 this.getOptionHandler().initOptionsEvents(
                     this.getOptions()
                 );
@@ -56,7 +56,7 @@
          * Get the option handler component.
          */
         getOptionHandler: function () {
-            if (NbnView.isListView() && this.hasOptions()) {
+            if (NbnView.isListView()) {
                return NbnProductOptionSwatch;
             }
             else if (NbnView.isBlockView()) {
