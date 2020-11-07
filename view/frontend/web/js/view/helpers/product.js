@@ -56,9 +56,11 @@
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (e) {
+        initOptionsEvents: function () {
             if (!NbnView.isPageView()) {
-                this.getOptionHandler().initOptionsEvents(e);
+                this.getOptionHandler().initOptionsEvents(
+                    this.getOptions()
+                );
             }
         },
 
@@ -147,10 +149,25 @@
          * Check if a product has options.
          */
         hasOptions: function (e) {
-            var product = this.getProductData(e);
+            return this.getProductData(e)['options'].length > 0;
+        },
 
-            return product.options.length
-            && product.options.length > 0;
+        /**
+         * Get a product options.
+         */
+        getOptions: function (e) {
+            return this.getProductData(e)['options'];
+        },
+
+        /**
+         * Get updated product data for events.
+         */
+        getProductData: function (e) {
+            var productId = $(e.currentTarget).data('product-id');
+
+            return JSON.parse(
+                $(this.productDataSelectorPrefix + productId).val()
+            );            
         },
 
         /**

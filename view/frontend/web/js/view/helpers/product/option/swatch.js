@@ -26,10 +26,7 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (e) {
-            // Prepare the variables
-            var options =  this.getOptions(e);
-
+        initOptionsEvents: function (options) {
             // Set the options events and default values
             for (var i = 0; i < options.length; i++) {
                 // Prepare the fields
@@ -50,23 +47,6 @@ define([
             }
         },
 
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (e) {
-            e = e || null;
-            var productData = this.o.jsConfig.product;
-            if (e) {
-                var productId = $(e.currentTarget).data('product-id');
-                productData = JSON.parse(
-                    $(this.productDataSelectorPrefix + productId).val()
-                );            
-            }
-            
-            return productData;
-        },
-        
         /**
          * Product options validation.
          */
