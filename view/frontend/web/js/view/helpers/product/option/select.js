@@ -20,18 +20,8 @@ define([
     'use strict';
 
     return {
-        listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.nbn-list-form',
-        listProductCartFormSelector: 'form[data-role="tocart-form"]',
-        viewProductContainerSelector: '.product-info-main',
-        viewProductFormSelector: '#product_addtocart_form',
-        productBoxContainerSelector: '.nbn-product-box-container',
         confirmationContainerSelector: '#nbn-confirmation-content',
-        optionFieldSelector: '#nbn-option',
         optionSelectorPrefix: '#nbn-option-',
-        popoverSelector: '.popover',
-        productDataSelectorPrefix: '#nbn-product-data-',
-        buttonErrorClass: 'nbn-button-error',
 
         /**
          * Set product options events.
