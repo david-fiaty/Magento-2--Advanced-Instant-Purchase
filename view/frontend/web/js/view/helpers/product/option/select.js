@@ -98,6 +98,9 @@ define([
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
+            console.log('isValid');
+            console.log(isValid);
+
             return !isValid;
         },
 
