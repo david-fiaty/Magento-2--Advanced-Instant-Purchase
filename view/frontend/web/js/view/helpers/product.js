@@ -132,7 +132,7 @@
         /**
          * Product options validation.
          */
-        validateOptions: function (obj, e) {
+        validateOptions: function (e) {
             if (this.hasOptions(e)) {
                 return this.getOptionHandler().getOptionsErrors(
                     this.getProductData(e)['options'],

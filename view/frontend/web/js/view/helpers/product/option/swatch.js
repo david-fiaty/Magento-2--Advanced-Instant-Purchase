@@ -53,7 +53,7 @@ define([
         /**
          * Product options validation.
          */
-        validateOptions: function (obj, e) {
+        validateOptions: function (e) {
             if (this.hasOptions(e)) {
                 return this.getOptionsErrors(e).length == 0;
             }
