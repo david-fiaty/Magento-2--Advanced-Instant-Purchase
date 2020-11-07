@@ -33,9 +33,6 @@ define([
                 var option = options[i];
                 var sourceField = this.getOptionField(option);
 
-                console.log('ppp');
-                console.log(sourceField);
-
                 // Set the value change events
                 $(sourceField).on('change', function (e) {
                     // Prepare the target Id
@@ -43,10 +40,6 @@ define([
                     targetId += $(this).data('product-id');
                     targetId += '-';
                     targetId += $(this).data('attribute-id');
-
-                    console.log('qqq');
-                    console.log(targetId);
-                    console.log(e);
 
                     // Assign value from source to target
                     $(targetId).val($(e.currentTarget).val());
@@ -97,9 +90,6 @@ define([
 
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
-
-            console.log('isValid');
-            console.log(isValid);
 
             return !isValid;
         },
