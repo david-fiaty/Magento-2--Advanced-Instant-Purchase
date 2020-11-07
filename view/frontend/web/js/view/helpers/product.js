@@ -17,8 +17,10 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/option/select',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
     'use strict';
 
     return {
@@ -27,11 +29,8 @@
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
-        productBoxContainerSelector: '.nbn-product-box-container',
-        confirmationContainerSelector: '#nbn-confirmation-content',
-        optionFieldSelector: '#nbn-option',
-        optionSelectorPrefix: '#nbn-option-',
         popoverSelector: '.popover',
+        productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
 
         /**
@@ -42,6 +41,41 @@
             return this;
         },
 
+        /**
+         * Set product options events.
+         */
+        initOptionsEvents: function () {
+            if (!NbnView.isPageView() && this.hasOptions()) {
+                this.getOptionHandler().initOptionsEvents(
+                    this.getOptions()
+                );
+            }
+        },
+
+        /**
+         * Get the option handler component.
+         */
+        getOptionHandler: function () {
+            if (NbnView.isListView()) {
+               return NbnProductOptionSwatch;
+            }
+            else if (NbnView.isBlockView()) {
+                return NbnProductOptionSelect;
+            }
+            else {
+                return NbnProductOptionSelect;   
+            }
+        },
+
+        /**
+         * Update the selected product options values.
+         */
+        updateSelectedOptionsValues: function (obj) {
+            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
+                this.getOptionHandler().updateSelectedOptionsValues(obj);
+            }
+        },
+        
         /**
          * Get a product container selector.
          */
@@ -101,35 +135,14 @@
         },
 
         /**
-         * Set product options events.
-         */
-        initOptionsEvents: function () {
-            if (this.hasOptions()) {
-                // Prepare the variables
-                var options = this.o.jsConfig.product.options;
-
-                // Set the options events and default values
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the fields
-                    var option = options[i];
-                    var sourceField = this.getOptionField(option);
-
-                    // Set the value change events
-                    $(sourceField).on('change', function (e) {
-                        var sourceId = e.currentTarget;
-                        var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
-                        $(targetId).val($(sourceId).val());
-                    });
-                }
-            }
-        },
-
-        /**
          * Product options validation.
          */
-        validateOptions: function () {
-            if (this.hasOptions()) {
-                return this.getOptionsErrors().length == 0;
+        validateOptions: function (e) {
+            if (this.hasOptions(e)) {
+                return this.getOptionHandler().getOptionsErrors(
+                    this.getProductData(e)['options'],
+                    e
+                ).length == 0;
             }
 
             return true;
@@ -138,76 +151,28 @@
         /**
          * Check if a product has options.
          */
-        hasOptions: function () {
-            return this.o.jsConfig.product.options.length
-            && this.o.jsConfig.product.options.length > 0;
+        hasOptions: function (e) {
+            return this.getProductData(e)['options'].length > 0;
         },
 
         /**
-         * Check if a product options are valid.
+         * Get a product options.
          */
-        getOptionsErrors: function () {
-            // Prepare variables
-            var options = this.o.jsConfig.product.options;
-            var errors = [];
-
-            // Check each option
-            for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(options[i])) {
-                    errors.push(options[i]);
-                }
-            }
-
-            return errors;
+        getOptions: function (e) {
+            return this.getProductData(e)['options'];
         },
 
         /**
-         * Check if a product option is valid.
+         * Get updated product data for events.
          */
-        isOptionInvalid: function (option) {
-            // Find the target field
-            var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
+        getProductData: function (e) {
+            var productId = e
+            ? $(e.currentTarget).data('product-id')
+            : this.o.jsConfig.product.id;
 
-            // Check the value
-            var val = $(targetField).val();
-            var isValid = val && val.length > 0 && parseInt(val) > 0;
-
-            return !isValid;
-        },
-
-        /**
-         * Get an option field selector.
-         */
-        getOptionField: function (option) {
-            // Todo - Handle list view case with swatch options or not
-            return this.optionSelectorPrefix
-            + this.o.jsConfig.product.id
-            + '-' + option['attribute_id'];
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedOptionsValues: function () {
-            if (this.hasOptions() && this.o.jsConfig.blocks.show_product) {
-                var options = this.o.jsConfig.product.options;
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the parameters
-                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
-                    var targetField = this.getOptionField(options[i]);
-                    var sourceFieldValue = $(sourceField).val();
-
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
-
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                    }
-                }
-            }
+            return JSON.parse(
+                $(this.productDataSelectorPrefix + productId).val()
+            );            
         },
 
         /**

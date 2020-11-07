@@ -24,7 +24,7 @@
         $purchaseData = $block->purchaseHelper->getPurchaseData();
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isBlockView = $config['product']['display'] == 'block';
+        $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
@@ -39,19 +39,19 @@
     </div>
 <?php endif; ?>
 
-<div id="nbn-<?= $productId ?>" class="nbn-button-container">
+<div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
     <!-- Button -->
     <button 
-        id="<?= $buttonId ?>"
-        data-product-id="<?= $productId ?>"
+        id="<?= $block->escapeHtmlAttr($buttonId) ?>"
+        data-product-id="<?= $block->escapeHtmlAttr($productId) ?>"
         type="button"
-        class="<?= $block->purchaseHelper->getButtonCss() ?> action instant-purchase nbn-button"
-        title="<?= __($config['buttons']['button_text']) ?>">
-        <?= __($config['buttons']['button_text']) ?>
+        class="<?= $block->escapeHtmlAttr($block->purchaseHelper->getButtonCss()) ?> action primary instant-purchase nbn-button"
+        title="<?= $block->escapeHtmlAttr(__($config['buttons']['button_text'])) ?>">
+        <?= $block->escapeHtml(__($config['buttons']['button_text'])) ?>
     
         <?php if ($uiLogging): ?>
-            <div id="nbn-ui-logger-button-<?= $productId ?>" class="nbn-ui-logger-button">
-                <a href="javascript:void(0)" title="<?= __('View logs') ?>">&#9432;</a>
+            <div id="nbn-ui-logger-button-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-ui-logger-button">
+                <a href="javascript:void(0)" title="<?= $block->escapeHtmlAttr(__('View logs')) ?>">&#9432;</a>
             </div>
         <?php endif; ?> 
     </button>
@@ -60,20 +60,22 @@
     <?php if (!$isPageView): ?>
         <form name="nbn-list-form" method="post" class="nbn-list-form">
     <?php endif; ?>
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
-        <input type="hidden" name="nbn[<?= $productId ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
+        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
         <?php if ($isBlockView && !empty($config['product']['options'])): ?>
             <?php foreach ($config['product']['options'] as $option): ?>
-                <input type="hidden" id="super_attribute_<?= $option['attribute_id'] ?>" name="super_attribute[<?= $option['attribute_id'] ?>]" value="" />
+                <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <input id="nbn-form-key-<?= $productId ?>" type="hidden" name="form_key" value="<?= $formKey ?>">
+        <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
+        <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
+
     <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>

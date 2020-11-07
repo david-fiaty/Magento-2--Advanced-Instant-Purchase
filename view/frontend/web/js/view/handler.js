@@ -130,7 +130,7 @@ define([
                     // Block and list views
                     if (self.o.view.isBlockView() || self.o.view.isListView()) {
                         // Validate the product options if needed
-                        var optionsValid = self.o.product.validateOptions();
+                        var optionsValid = self.o.product.validateOptions(e);
                         if (!optionsValid) {
                             // Display the errors
                             self.o.product.clearErrors(e);
@@ -182,7 +182,7 @@ define([
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
-                    self.o.product.updateSelectedOptionsValues();
+                    self.o.product.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
                     self.o.select.build();
@@ -218,15 +218,9 @@ define([
             // Get the current form
             var form = this.o.product.getProductForm();
 
-            // Validate the product options
-            // Todo - fix this
-            var errors = [];
-            //var errors = NbnValidation.validateOptions(this);
-
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
-            var condition2 = errors.length == 0;
-            if (!condition1 || !condition2) {
+            if (!condition1) {
                 return;
             }
 
