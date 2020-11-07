@@ -87,9 +87,9 @@ define([
          * Get an option field selector.
          */
         getOptionField: function (option) {
-            return this.optionSelectorPrefix
-                + option['product_id']
-                + '-' + option['attribute_id'];
+            return '.swatch-opt-'
+            + option['product_id']
+            + ' .swatch-attribute';
         },
 
         /**
