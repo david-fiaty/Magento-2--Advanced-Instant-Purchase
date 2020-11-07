@@ -143,9 +143,9 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function () {
-            if (this.hasOptions() && this.o.jsConfig.blocks.show_product) {
-                var options = this.o.jsConfig.product.options;
+        updateSelectedOptionsValues: function (obj) {
+            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
+                var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
                     var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';

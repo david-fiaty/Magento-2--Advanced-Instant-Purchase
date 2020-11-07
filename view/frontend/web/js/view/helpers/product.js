@@ -76,6 +76,15 @@
         },
 
         /**
+         * Update the selected product options values.
+         */
+        updateSelectedOptionsValues: function (obj) {
+            if (!NbnView.isPageView()) {
+                this.getOptionHandler().updateSelectedOptionsValues(obj);
+            }
+        },
+        
+        /**
          * Get a product container selector.
          */
         getProductContainer: function () {
