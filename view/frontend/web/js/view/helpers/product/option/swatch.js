@@ -26,9 +26,9 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (obj) {
+        initOptionsEvents: function (e) {
             // Prepare the variables
-            var options = obj.jsConfig.product.options;
+            var options =  this.getOptions(e);
 
             // Set the options events and default values
             for (var i = 0; i < options.length; i++) {
@@ -67,8 +67,14 @@ define([
         hasOptions: function (e) {
             var product = this.getProductData(e);
 
-            return product.options.length
-            && product.options.length > 0;
+            return product.options.length > 0;
+        },
+
+        /**
+         * Get a product options.
+         */
+        getOptions: function (e) {
+            return this.getProductData(e);
         },
 
         /**
@@ -91,18 +97,23 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {
+        isOptionInvalid: function (e, option) {            
             // Prepare the target Id
             var targetId = '#nbn-super-attribute-';
-            targetId += $(this).data('product-id');
+            targetId += $(e.currentTarget).data('product-id');
             targetId += '-';
-            targetId += $(this).data('attribute-id');
+            targetId += option['option_id'];
 
             // Get the field value
-            var val = $(e.currentTarget)
-            .closest(targetId)
-            .val();
+            var val = $(targetId).val();
      
+            console.log('zzzzz');
+            console.log(option);
+
+            console.log(targetId);
+
+            console.log(val);
+
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
@@ -113,9 +124,9 @@ define([
          * Get an option field selector.
          */
         getOptionField: function (option) {
-            return '.swatch-opt-'
-            + option['product_id']
-            + ' .swatch-attribute';
+            return this.optionSelectorPrefix
+                + option['product_id']
+                + '-' + option['attribute_id'];
         },
 
         /**

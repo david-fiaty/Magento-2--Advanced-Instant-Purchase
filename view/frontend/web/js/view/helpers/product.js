@@ -56,9 +56,9 @@
         /**
          * Set product options events.
          */
-        initOptionsEvents: function () {
+        initOptionsEvents: function (e) {
             if (!NbnView.isPageView()) {
-                this.getOptionHandler().initOptionsEvents(this.o);
+                this.getOptionHandler().initOptionsEvents(e);
             }
         },
 

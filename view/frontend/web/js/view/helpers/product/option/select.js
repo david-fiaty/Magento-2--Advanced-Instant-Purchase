@@ -26,9 +26,9 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (obj) {
+        initOptionsEvents: function (e) {
             // Prepare the variables
-            var options = obj.jsConfig.product.options;
+            var options =  this.getOptions(e);
 
             // Set the options events and default values
             for (var i = 0; i < options.length; i++) {
@@ -54,7 +54,6 @@ define([
          * Product options validation.
          */
         validateOptions: function (e) {
-            return true;
             if (this.hasOptions(e)) {
                 return this.getOptionsErrors(e).length == 0;
             }
@@ -68,8 +67,14 @@ define([
         hasOptions: function (e) {
             var product = this.getProductData(e);
 
-            return product.options.length
-            && product.options.length > 0;
+            return product.options.length > 0;
+        },
+
+        /**
+         * Get a product options.
+         */
+        getOptions: function (e) {
+            return this.getProductData(e);
         },
 
         /**
