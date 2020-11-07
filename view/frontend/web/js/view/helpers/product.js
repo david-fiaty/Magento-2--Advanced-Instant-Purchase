@@ -68,7 +68,7 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
-            if (!NbnView.isPageView()) {
+            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
                 this.getOptionHandler().updateSelectedOptionsValues(obj);
             }
         },
