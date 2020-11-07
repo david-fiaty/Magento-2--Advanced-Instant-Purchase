@@ -41,7 +41,7 @@ define([
                     // Prepare the target Id
                     var targetId = '#nbn-super-attribute-';
                     targetId += $(this).data('product-id');
-                    targetId += '_';
+                    targetId += '-';
                     targetId += $(this).data('attribute-id');
 
                     // Assign value from source to target
@@ -91,11 +91,11 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {
+        isOptionInvalid: function (e, option) {            
             // Prepare the target Id
             var targetId = '#nbn-super-attribute-';
             targetId += $(this).data('product-id');
-            targetId += '_';
+            targetId += '-';
             targetId += $(this).data('attribute-id');
 
             // Get the field value
@@ -126,7 +126,7 @@ define([
                 var options = obj.jsConfig.product.options;
                 for (var i = 0; i < options.length; i++) {
                     // Prepare the parameters
-                    var sourceField = '#nbn_super_attribute_' + options[i]['product_id'] + '_' + options[i]['attribute_id'];
+                    var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
                     var targetField = this.getOptionField(options[i]);
                     var sourceFieldValue = $(sourceField).val();
 
