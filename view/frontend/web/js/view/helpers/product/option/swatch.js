@@ -34,15 +34,23 @@ define([
                 var sourceField = this.getOptionField(option);
 
                 // Set the value change events
-                $(sourceField).on('change', function (e) {
+                $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
                     var targetId = '#nbn-super-attribute-';
-                    targetId += $(this).data('product-id');
+                    targetId += option['product_id'];
                     targetId += '-';
-                    targetId += $(this).data('attribute-id');
+                    targetId += $(this).attr('attribute-id');
+
+                    // Get the source value
+                    var val = $(this).getAttribute('option-selected');
+
+                    console.log('zzz');
+                    console.log(targetId);
+
+                    console.log(val);
 
                     // Assign value from source to target
-                    $(targetId).val($(e.currentTarget).val());
+                    $(targetId).val(val);
                 });
             }
         },
