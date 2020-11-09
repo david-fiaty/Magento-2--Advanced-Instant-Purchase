@@ -87,8 +87,9 @@
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
-                this.getOptionHandler('swatch').updateSelectedOptionsValues(obj);
-                this.getOptionHandler('select').updateSelectedOptionsValues(obj);
+                for (var handler in this.optionHandlers) {
+                    this.getOptionHandler(handler).updateSelectedOptionsValues(obj);
+                }
             }
         },
         
@@ -155,10 +156,16 @@
          */
         validateOptions: function (e) {
             if (this.hasOptions(e)) {
-                return this.getOptionHandler().getOptionsErrors(
-                    this.getProductData(e)['options'],
-                    e
-                ).length == 0;
+                var errors = [];
+                for (var handler in this.optionHandlers) {
+                    var optionErrors = this.getOptionHandler(handler).getOptionsErrors(
+                        this.getProductData(e)['options'],
+                        e
+                    );
+                    errors.concat(optionErrors);
+                }
+
+                return errors.length == 0;
             }
 
             return true;

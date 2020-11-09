@@ -127,16 +127,13 @@ define([
                         return;
                     }
 
-                    // Block and list views
-                    if (self.o.view.isBlockView() || self.o.view.isListView()) {
-                        // Validate the product options if needed
-                        var optionsValid = self.o.product.validateOptions(e);
-                        if (!optionsValid) {
-                            // Display the errors
-                            self.o.product.clearErrors(e);
-                            self.o.product.displayErrors(e);
-                            return;
-                        }
+                    // Validate the product options if needed
+                    var optionsValid = self.o.product.validateOptions(e);
+                    if (!optionsValid) {
+                        // Display the errors
+                        self.o.product.clearErrors(e);
+                        self.o.product.displayErrors(e);
+                        return;
                     }
                     
                     // Page view and/or all conditions valid
