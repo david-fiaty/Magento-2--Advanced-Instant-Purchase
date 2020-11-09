@@ -87,8 +87,8 @@
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
-                for (var handler in this.optionHandlers) {
-                    this.getOptionHandler(handler).updateSelectedOptionsValues(obj);
+                for (var i = 0; i < this.optionHandlers.length; i++) {
+                    this.getOptionHandler(this.optionHandlers[i]).updateSelectedOptionsValues(obj);
                 }
             }
         },
@@ -157,8 +157,8 @@
         validateOptions: function (e) {
             if (this.hasOptions(e)) {
                 var errors = [];
-                for (var handler in this.optionHandlers) {
-                    var optionErrors = this.getOptionHandler(handler).getOptionsErrors(
+                for (var i = 0; i < this.optionHandlers.length; i++) {
+                    var optionErrors = this.getOptionHandler(this.optionHandlers[i]).getOptionsErrors(
                         this.getProductData(e)['options'],
                         e
                     );
