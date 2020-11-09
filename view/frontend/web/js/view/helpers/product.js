@@ -85,7 +85,8 @@
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
-                this.getOptionHandler().updateSelectedOptionsValues(obj);
+                this.getOptionHandler('swatch').updateSelectedOptionsValues(obj);
+                this.getOptionHandler('select').updateSelectedOptionsValues(obj);
             }
         },
         

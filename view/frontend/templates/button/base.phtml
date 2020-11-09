@@ -68,7 +68,7 @@
         <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
         <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
-        <?php if (($isBlockView || $isListView ) && !empty($config['product']['options'])): ?>
+        <?php if (!empty($config['product']['options'])): ?>
             <?php foreach ($config['product']['options'] as $option): ?>
                 <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
             <?php endforeach; ?>
