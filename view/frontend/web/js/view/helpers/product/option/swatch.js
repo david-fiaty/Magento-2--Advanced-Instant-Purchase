@@ -147,18 +147,20 @@ define([
                 var sourceField = this.getSourceField(targetField);
                 var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
-                console.log(sourceField);
-                console.log(sourceFieldValue);
-                console.log(targetField);
+                if (sourceFieldValue != 'undefined') {
+                    console.log(sourceField);
+                    console.log(sourceFieldValue);
+                    console.log(targetField);
 
-                // Prepare the conditions
-                var condition = sourceFieldValue
-                && sourceFieldValue != 'undefined'
-                && sourceFieldValue.length > 0;
+                    // Prepare the conditions
+                    var condition = sourceFieldValue
+                    && sourceFieldValue != 'undefined'
+                    && sourceFieldValue.length > 0;
 
-                // Update the options selected value
-                if (condition) {
-                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
+                    // Update the options selected value
+                    if (condition) {
+                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
+                    }
                 }
             }
         }

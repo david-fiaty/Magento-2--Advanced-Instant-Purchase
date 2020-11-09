@@ -100,9 +100,9 @@ define([
          */
         getTargetField: function (sourceField) {
             return this.superAttributeSelectorPrefix
-            + sourceField.data('product-id')
+            + $(sourceField).data('product-id')
             + '-'
-            + sourceField.data('attribute-id');
+            + $(sourceField).data('attribute-id');
         },
 
         /**
@@ -121,7 +121,6 @@ define([
         updateSelectedOptionsValues: function (obj) {
             var options = obj.jsConfig.product.options;
             for (var i = 0; i < options.length; i++) {
-                // Prepare the parameters
                 // Prepare the parameters
                 var targetField = this.getTargetField(options[i]);
                 var sourceField = this.getSourceField(targetField);
