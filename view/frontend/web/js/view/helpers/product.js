@@ -45,25 +45,31 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            if (!NbnView.isPageView() && this.hasOptions()) {
-                this.getOptionHandler().initOptionsEvents(
-                    this.getOptions()
-                );
+            if (this.hasOptions()) {
+                var optionHandler;
+                if (NbnView.isPageView()) {
+                    optionHandler = this.getOptionHandler('swatch');
+                }
+                else if (NbnView.isListView()) {
+                    optionHandler = this.getOptionHandler('swatch');
+                }
+                else if (NbnView.isBlockView()) {
+                    optionHandler = this.getOptionHandler('select');        
+                }
+
+                optionHandler.initOptionsEvents(this.getOptions());
             }
         },
 
         /**
          * Get the option handler component.
          */
-        getOptionHandler: function () {
-            if (NbnView.isListView()) {
+        getOptionHandler: function (optionType) {
+            if (optionType == 'swatch') {
                return NbnProductOptionSwatch;
             }
-            else if (NbnView.isBlockView()) {
-                return NbnProductOptionSelect;
-            }
-            else {
-                return NbnProductOptionSelect;   
+            else if (optionType == 'select') {
+               return NbnProductOptionSelect;
             }
         },
 
