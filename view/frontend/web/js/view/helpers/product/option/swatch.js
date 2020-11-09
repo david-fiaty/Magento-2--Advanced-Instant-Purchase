@@ -35,7 +35,7 @@ define([
             for (var i = 0; i < options.length; i++) {
                 // Prepare the fields
                 var option = options[i];
-                var sourceField = this.getOptionField(option);
+                var sourceField = this.getSourceField(option);
 
                 console.log(sourceField);
 
@@ -78,11 +78,16 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getOptionField(option);
+            var targetId = this.getTargetField(
+                this.getSourceField(option)
+            );
 
             // Get the field value
-            var val = this.getOptionFieldValue(targetId);
+            var val = this.getSourceFieldValue(targetId);
+            console.log('ddd');
+            console.log(targetId);
 
+            console.log(val);
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
@@ -92,7 +97,7 @@ define([
         /**
          * Get an option field selector.
          */
-        getOptionField: function (option) {
+        getSourceField: function (option) {
             var optionSelector;
             if (NbnView.isListView()) {
                 optionSelector = this.swatchOptionSelectorPrefix
@@ -110,12 +115,22 @@ define([
         /**
          * Get an option field value.
          */
-        getOptionFieldValue: function (sourceField) {
+        getSourceFieldValue: function (sourceField) {
             return NbnView.isListView()
             ? $(sourceField).val()
             : $(sourceField + ' .selected').attr('option-id');
         },
         
+        /**
+         * Get a target option hidden field selector.
+         */
+        getTargetField: function (sourceField) {
+            return this.superAttributeSelectorPrefix
+            + sourceField.data('product-id')
+            + '-'
+            + sourceField.data('attribute-id');
+        },
+
         /**
          * Update the selected product options values.
          */
@@ -123,9 +138,9 @@ define([
             var options = obj.jsConfig.product.options;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
-                var sourceField = this.superAttributeSelectorPrefix + options[i]['product_id'] + '-' + options[i]['attribute_id'];
-                var targetField = this.getOptionField(options[i]);
-                var sourceFieldValue = this.getOptionFieldValue(sourceField);
+                var targetField = this.getTargetField(options[i]);
+                var sourceField = this.getSourceField(targetField);
+                var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
                 console.log(sourceField);
                 console.log(sourceFieldValue);

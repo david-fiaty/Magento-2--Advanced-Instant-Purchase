@@ -22,6 +22,7 @@ define([
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
+        superAttributeSelectorPrefix: '#nbn-super-attribute-',
 
         /**
          * Set product options events.
@@ -31,15 +32,12 @@ define([
             for (var i = 0; i < options.length; i++) {
                 // Prepare the fields
                 var option = options[i];
-                var sourceField = this.getOptionField(option);
+                var sourceField = this.getSourceField(option);
 
                 // Set the value change events
                 $(sourceField).on('change', function (e) {
                     // Prepare the target Id
-                    var targetId = '#nbn-super-attribute-';
-                    targetId += $(this).data('product-id');
-                    targetId += '-';
-                    targetId += $(this).data('attribute-id');
+                    var targetId = self.getTargetField($(this));
 
                     // Assign value from source to target
                     $(targetId).val($(e.currentTarget).val());
@@ -69,10 +67,12 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getOptionField(option);
+            var targetId = this.getTargetField(
+                this.getSourceField(option)
+            );
 
             // Get the field value
-            var val = this.getOptionFieldValue(targetId);
+            var val = this.getSourceFieldValue(targetId);
 
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
@@ -81,9 +81,9 @@ define([
         },
 
         /**
-         * Get an option field selector.
+         * Get a source option field selector.
          */
-        getOptionField: function (option) {
+        getSourceField: function (option) {
             return this.optionSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
@@ -92,8 +92,18 @@ define([
         /**
          * Get an option field value.
          */
-        getOptionFieldValue: function (sourceField) {
+        getSourceFieldValue: function (sourceField) {
             return $(sourceField).val();
+        },
+
+        /**
+         * Get a target option hidden field selector.
+         */
+        getTargetField: function (sourceField) {
+            return this.superAttributeSelectorPrefix
+            + sourceField.data('product-id')
+            + '-'
+            + sourceField.data('attribute-id');
         },
 
         /**
@@ -104,8 +114,8 @@ define([
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
                 var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
-                var targetField = this.getOptionField(options[i]);
-                var sourceFieldValue = this.getOptionFieldValue(sourceField);
+                var targetField = this.getSourceField(options[i]);
+                var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
                 // Prepare the conditions
                 var condition = sourceFieldValue
