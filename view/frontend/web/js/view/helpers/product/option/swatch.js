@@ -107,6 +107,15 @@ define([
         },
 
         /**
+         * Get an option field value.
+         */
+        getOptionFieldValue: function (sourceField) {
+            return NbnView.isListView()
+            ? $(sourceField).val()
+            : $(sourceField).attr('option-id');
+        },
+        
+        /**
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
@@ -115,7 +124,7 @@ define([
                 // Prepare the parameters
                 var sourceField = this.superAttributeSelectorPrefix + options[i]['product_id'] + '-' + options[i]['attribute_id'];
                 var targetField = this.getOptionField(options[i]);
-                var sourceFieldValue = $(sourceField).val();
+                var sourceFieldValue = this.getOptionFieldValue(sourceField);
 
                 console.log(sourceField);
                 console.log(sourceFieldValue);

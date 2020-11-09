@@ -93,6 +93,13 @@ define([
         },
 
         /**
+         * Get an option field value.
+         */
+        getOptionFieldValue: function (sourceField) {
+            return $(sourceField).val();
+        },
+
+        /**
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
@@ -101,7 +108,7 @@ define([
                 // Prepare the parameters
                 var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
                 var targetField = this.getOptionField(options[i]);
-                var sourceFieldValue = $(sourceField).val();
+                var sourceFieldValue = this.getOptionFieldValue(sourceField);
 
                 // Prepare the conditions
                 var condition = sourceFieldValue
