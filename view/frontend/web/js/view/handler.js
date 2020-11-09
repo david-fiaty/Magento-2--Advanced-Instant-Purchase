@@ -118,8 +118,15 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function () {
+            // Prepare variables
             var self = this;
-            $(this.jsConfig.product.button_selector).on('click touch', function (e) {
+            var button = $(AipButton.submitButtonSelector);
+
+            // Enable the buy now button
+            button.prop('disabled', false);
+
+            // Button click event
+            button.on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!self.o.login.isLoggedIn()) {

@@ -23,6 +23,7 @@
     AdditionalValidators.registerValidator(NbnValidation);
 
     return {
+        submitButtonSelector: '.aip-submit',
 
         /**
          * Initialise the object.

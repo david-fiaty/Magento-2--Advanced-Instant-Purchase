@@ -4,9 +4,12 @@
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
+- improve the button loading state
 
 - fix getOptionField method in list view, procut.js line 167
 => needs improvements to find options in lists
+
+- how to add buy now button to core product list blcoks
 
 REVIEW
 - when product display attributes implemented, check what rpoduct options display should look like

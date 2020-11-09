@@ -46,6 +46,7 @@
         id="<?= $block->escapeHtmlAttr($buttonId) ?>"
         data-product-id="<?= $block->escapeHtmlAttr($productId) ?>"
         type="button"
+        disabled="disabled"
         class="<?= $block->escapeHtmlAttr($block->purchaseHelper->getButtonCss()) ?> action primary instant-purchase nbn-button"
         title="<?= $block->escapeHtmlAttr(__($config['buttons']['button_text'])) ?>">
         <?= $block->escapeHtml(__($config['buttons']['button_text'])) ?>
