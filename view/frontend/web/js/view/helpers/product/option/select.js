@@ -67,7 +67,7 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getTargetValidationField(e), option;
+            var targetId = this.getTargetValidationField(e, option);
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
