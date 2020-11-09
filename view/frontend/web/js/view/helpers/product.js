@@ -51,7 +51,7 @@
         initOptionsEvents: function () {
             if (this.hasOptions()) {
                 for (var i = 0; i < this.optionHandlers.length; i++) {
-                this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(this.getOptions());
+                    this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(this.getOptions());
                 }
             }
         },
@@ -164,8 +164,12 @@
                         this.getProductData(e)['options'],
                         e
                     );
-                    errors.concat(optionErrors);
+                    Array.prototype.push.apply(errors, optionErrors); 
                 }
+
+                console.log('errors');
+
+                console.log(errors);
 
                 return errors.length == 0;
             }
