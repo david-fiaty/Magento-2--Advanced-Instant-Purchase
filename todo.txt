@@ -2,7 +2,8 @@
 !!!PRIORITY!!!
 - check if place order contains product attributes selected by user (request data)
 - check agreements validation again
-- change popup window title for ui logger
+- handle non swatch options values (list, input) in page view
+- handle non swatch options values (list, input) in list view
 
 - fix getOptionField method in list view, procut.js line 167
 => needs improvements to find options in lists
