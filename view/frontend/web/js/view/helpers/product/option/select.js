@@ -122,8 +122,8 @@ define([
             var options = obj.jsConfig.product.options;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
-                var targetField = this.getTargetField(options[i]);
-                var sourceField = this.getSourceField(targetField);
+                var sourceField = this.getSourceField(options[i]);
+                var targetField = this.getTargetField(sourceField);
                 var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
                 // Prepare the conditions
