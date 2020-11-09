@@ -144,7 +144,7 @@ define([
                 }
                 else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    self.o.modal.getLoggerModal(e);
+                    self.o.modal.getLoggerModal(self);
 
                     // Get the log data
                     self.getLoggerData(e);

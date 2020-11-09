@@ -104,9 +104,9 @@
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function () {
+        getLoggerModal: function (obj) {
             var self = this;
-            var title = this.o.jsConfig.module.title + ' ' + __('Logger');
+            var title = obj.jsConfig.module.title + ' ' + __('Logger');
             ConfirmModal({
                 title: title,
                 innerScroll: true,
