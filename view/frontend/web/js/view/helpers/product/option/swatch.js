@@ -22,6 +22,7 @@ define([
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
+        swatchOptionSelectorPrefix: '.swatch-opt-',
 
         /**
          * Set product options events.
@@ -90,9 +91,14 @@ define([
          * Get an option field selector.
          */
         getOptionField: function (option) {
-            return '.swatch-opt-'
-            + option['product_id']
-            + ' .swatch-attribute';
+            if (NbnView.isListView()) {
+                return this.swatchOptionSelectorPrefix
+                + option['product_id'] 
+                + ' .swatch-attribute';
+            }
+            else if (NbnView.isPageView()) {
+                return this.swatchOptionSelectorPrefix;
+            }
         },
 
         /**

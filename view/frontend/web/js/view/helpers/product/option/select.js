@@ -104,6 +104,7 @@ define([
                 var sourceFieldValue = $(sourceField).val();
 
                 console.log(sourceField);
+                console.log(sourceFieldValue);
                 console.log(targetField);
 
 
