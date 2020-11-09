@@ -158,7 +158,7 @@ define([
         getConfirmContent: function (e) {
             // Prepare the parameters
             var self = this;
-            var productId = $(e.currentTarget).data('product-id');
+            var productId = this.o.product.getProductData(e)['product_id'];
             var params = {
                 product_id: productId,
                 form_key: $(this.formKeySelectorPrefix + productId).val()
