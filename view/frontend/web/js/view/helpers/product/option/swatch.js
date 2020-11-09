@@ -63,7 +63,7 @@ define([
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(e)) {
+                if (this.isOptionInvalid(e, options[i])) {
                     errors.push(options[i]);
                 }
             }
@@ -74,9 +74,9 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e) {            
+        isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getTargetValidationField(e);
+            var targetId = this.getTargetValidationField(e, option);
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
@@ -130,11 +130,11 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getTargetValidationField: function (e) {
+        getTargetValidationField: function (e, option) {
             return this.superAttributeSelectorPrefix
             + $(e.currentTarget).data('product-id')
             + '-'
-            + $(e.currentTarget).data('attribute-id');
+            + option['option_id'];
         },
 
         /**

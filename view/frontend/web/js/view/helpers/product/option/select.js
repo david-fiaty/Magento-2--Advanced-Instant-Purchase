@@ -29,6 +29,7 @@ define([
          */
         initOptionsEvents: function (options) {
             // Set the options events and default values
+            var self = this;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the fields
                 var option = options[i];
