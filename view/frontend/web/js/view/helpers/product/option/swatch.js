@@ -22,11 +22,10 @@ define([
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
+        superAttributeSelectorPrefix: '#nbn-super-attribute-',
         swatchOptionSelectorPrefix: '.swatch-opt-',
         swatchOptionSelector: '.swatch-opt',
         swatchAttributeSelector: '.swatch-attribute',
-        superAttributeSelectorPrefix: '#nbn-super-attribute-',
-
         /**
          * Set product options events.
          */

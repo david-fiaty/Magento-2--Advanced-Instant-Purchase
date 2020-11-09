@@ -122,8 +122,9 @@ define([
             var options = obj.jsConfig.product.options;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
-                var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
-                var targetField = this.getSourceField(options[i]);
+                // Prepare the parameters
+                var targetField = this.getTargetField(options[i]);
+                var sourceField = this.getSourceField(targetField);
                 var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
                 // Prepare the conditions
