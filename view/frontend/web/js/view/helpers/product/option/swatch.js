@@ -42,10 +42,7 @@ define([
                     targetId += $(this).attr('attribute-id');
 
                     // Get the source value
-                    var val = $(this).attr('option-selected');
-
-                    console.log('zzz');
-                    console.log(val);
+                    var val = $(e.originalEvent.target).attr('option-id');
 
                     // Assign value from source to target
                     $(targetId).val(val);
