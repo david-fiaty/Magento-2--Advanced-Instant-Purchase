@@ -46,18 +46,7 @@
          */
         initOptionsEvents: function () {
             if (this.hasOptions()) {
-                var optionHandler;
-                if (NbnView.isPageView()) {
-                    optionHandler = this.getOptionHandler('swatch');
-                }
-                else if (NbnView.isListView()) {
-                    optionHandler = this.getOptionHandler('swatch');
-                }
-                else if (NbnView.isBlockView()) {
-                    optionHandler = this.getOptionHandler('select');        
-                }
-
-                optionHandler.initOptionsEvents(this.getOptions());
+                this.getOptionHandler().initOptionsEvents(this.getOptions());
             }
         },
 
@@ -65,11 +54,26 @@
          * Get the option handler component.
          */
         getOptionHandler: function (optionType) {
-            if (optionType == 'swatch') {
-               return NbnProductOptionSwatch;
+            // Argument provided
+            optionType = optionType || null;
+            if (optionType) {
+                if (optionType == 'swatch') {
+                    return NbnProductOptionSwatch;
+                }
+                else if (optionType == 'select') {
+                    return NbnProductOptionSelect;
+                }
             }
-            else if (optionType == 'select') {
-               return NbnProductOptionSelect;
+
+            // No argument provided
+            if (NbnView.isPageView()) {
+                return NbnProductOptionSwatch;
+            }
+            else if (NbnView.isListView()) {
+                return NbnProductOptionSwatch;
+            }
+            else if (NbnView.isBlockView()) {
+                return NbnProductOptionSelect;        
             }
         },
 
