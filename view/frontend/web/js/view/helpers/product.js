@@ -32,6 +32,10 @@
         popoverSelector: '.popover',
         productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
+        optionHandlers: [
+            'swatch',
+            'select'
+        ],
 
         /**
          * Initialise the object.
@@ -57,12 +61,10 @@
             // Argument provided
             optionType = optionType || null;
             if (optionType) {
-                if (optionType == 'swatch') {
-                    return NbnProductOptionSwatch;
-                }
-                else if (optionType == 'select') {
-                    return NbnProductOptionSelect;
-                }
+                var optionComponent = 'NbnProductOption'
+                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
+                
+                return eval(optionComponent);
             }
 
             // No argument provided
