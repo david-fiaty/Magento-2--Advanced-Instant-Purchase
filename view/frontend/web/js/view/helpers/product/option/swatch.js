@@ -37,6 +37,8 @@ define([
                 var option = options[i];
                 var sourceField = this.getOptionField(option);
 
+                console.log(sourceField);
+
                 // Set the value change events
                 $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
@@ -46,10 +48,10 @@ define([
                     targetId += $(this).attr('attribute-id');
 
                     // Get the source value
-                    var val = $(e.originalEvent.target).attr('option-id');
+                    var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
                     // Assign value from source to target
-                    $(targetId).val(val);
+                    $(targetId).val(sourceFieldValue);
                 });
             }
         },
@@ -97,10 +99,12 @@ define([
                 + option['product_id'];
             }
             else if (NbnView.isPageView()) {
-                optionSelector = this.swatchOptionSelector;
+                optionSelector = this.swatchOptionSelector
+                + ' '
+                + this.swatchAttributeSelector;
             }
 
-            return optionSelector + ' ' + this.swatchAttributeSelector;
+            return optionSelector;
         },
 
         /**
