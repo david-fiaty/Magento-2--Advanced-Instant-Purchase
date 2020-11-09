@@ -34,6 +34,7 @@ define([
             popupContentSelector: '#nbn-confirmation-content',
             logViewerButtonSelector: '#nbn-ui-logger-button',
             formKeySelectorPrefix: '#nbn-form-key-',
+            buttonSelectorPrefix: '#nbn-button-',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -120,7 +121,7 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(AipButton.submitButtonSelector);
+            var button = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
 
             // Enable the buy now button
             button.prop('disabled', false);
