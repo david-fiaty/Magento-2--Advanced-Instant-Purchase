@@ -67,9 +67,7 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getTargetField(
-                this.getSourceField(option)
-            );
+            var targetId = this.getTargetValidationField(e), option;
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
@@ -104,6 +102,16 @@ define([
             + sourceField.data('product-id')
             + '-'
             + sourceField.data('attribute-id');
+        },
+
+        /**
+         * Get a target option hidden field selector.
+         */
+        getTargetValidationField: function (e, option) {
+            return this.superAttributeSelectorPrefix
+            + $(e.currentTarget).data('product-id')
+            + '-'
+            + option['option_id'];
         },
 
         /**

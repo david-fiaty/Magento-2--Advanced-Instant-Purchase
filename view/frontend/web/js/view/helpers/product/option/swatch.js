@@ -37,8 +37,6 @@ define([
                 var option = options[i];
                 var sourceField = this.getSourceField(option);
 
-                console.log(sourceField);
-
                 // Set the value change events
                 $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
@@ -65,7 +63,7 @@ define([
 
             // Check each option
             for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(e, options[i])) {
+                if (this.isOptionInvalid(e)) {
                     errors.push(options[i]);
                 }
             }
@@ -76,11 +74,9 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {            
+        isOptionInvalid: function (e) {            
             // Prepare the target Id
-            var targetId = this.getTargetField(
-                this.getSourceField(option)
-            );
+            var targetId = this.getTargetValidationField(e);
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
@@ -126,9 +122,19 @@ define([
          */
         getTargetField: function (sourceField) {
             return this.superAttributeSelectorPrefix
-            + sourceField.data('product-id')
+            + $(sourceField).data('product-id')
             + '-'
-            + sourceField.data('attribute-id');
+            + $(sourceField).data('attribute-id');
+        },
+
+        /**
+         * Get a target option hidden field selector.
+         */
+        getTargetValidationField: function (e) {
+            return this.superAttributeSelectorPrefix
+            + $(e.currentTarget).data('product-id')
+            + '-'
+            + $(e.currentTarget).data('attribute-id');
         },
 
         /**
