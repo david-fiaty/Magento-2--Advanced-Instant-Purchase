@@ -31,6 +31,7 @@ define([
          */
         initOptionsEvents: function (options) {
             // Set the options events and default values
+            var self = this;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the fields
                 var option = options[i];
@@ -39,10 +40,7 @@ define([
                 // Set the value change events
                 $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
-                    var targetId = self.superAttributeSelectorPrefix;
-                    targetId += option['product_id'];
-                    targetId += '-';
-                    targetId += $(this).attr('attribute-id');
+                    var targetId = self.getTargetField($(this));
 
                     // Get the source value
                     var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
@@ -79,10 +77,7 @@ define([
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
-            console.log('ddd');
-            console.log(targetId);
 
-            console.log(val);
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
@@ -101,7 +96,8 @@ define([
             else if (NbnView.isPageView()) {
                 optionSelector = this.swatchOptionSelector
                 + ' '
-                + this.swatchAttributeSelector;
+                + this.swatchAttributeSelector
+                + '[attribute-id=' + option['product_id'] + ']';
             }
 
             return optionSelector;
