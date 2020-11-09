@@ -158,20 +158,10 @@
          */
         validateOptions: function (e) {
             if (this.hasOptions(e)) {
-                var errors = [];
-                for (var i = 0; i < this.optionHandlers.length; i++) {
-                    var optionErrors = this.getOptionHandler(this.optionHandlers[i]).getOptionsErrors(
-                        this.getProductData(e)['options'],
-                        e
-                    );
-                    Array.prototype.push.apply(errors, optionErrors); 
-                }
-
-                console.log('errors');
-
-                console.log(errors);
-
-                return errors.length == 0;
+                return this.getOptionHandler().getOptionsErrors(
+                    this.getProductData(e)['options'],
+                    e
+                ).length == 0;
             }
 
             return true;
