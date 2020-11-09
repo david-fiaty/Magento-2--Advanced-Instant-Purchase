@@ -147,7 +147,7 @@ define([
                 var sourceField = this.getSourceField(targetField);
                 var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
-                if (sourceFieldValue != 'undefined') {
+                if (typeof sourceFieldValue !== 'undefined') {
                     console.log(sourceField);
                     console.log(sourceFieldValue);
                     console.log(targetField);
