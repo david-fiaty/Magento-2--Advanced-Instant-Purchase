@@ -103,11 +103,6 @@ define([
                 var targetField = this.getOptionField(options[i]);
                 var sourceFieldValue = $(sourceField).val();
 
-                console.log(sourceField);
-                console.log(sourceFieldValue);
-                console.log(targetField);
-
-
                 // Prepare the conditions
                 var condition = sourceFieldValue
                 && sourceFieldValue != 'undefined'

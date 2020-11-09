@@ -24,6 +24,8 @@ define([
         optionSelectorPrefix: '#nbn-option-',
         swatchOptionSelectorPrefix: '.swatch-opt-',
         swatchOptionSelector: '.swatch-opt',
+        swatchAttributeSelector: '.swatch-attribute',
+        superAttributeSelectorPrefix: '#nbn-super-attribute-',
 
         /**
          * Set product options events.
@@ -38,7 +40,7 @@ define([
                 // Set the value change events
                 $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
-                    var targetId = '#nbn-super-attribute-';
+                    var targetId = self.superAttributeSelectorPrefix;
                     targetId += option['product_id'];
                     targetId += '-';
                     targetId += $(this).attr('attribute-id');
@@ -74,7 +76,7 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = '#nbn-super-attribute-';
+            var targetId = this.superAttributeSelectorPrefix;
             targetId += $(e.currentTarget).data('product-id');
             targetId += '-';
             targetId += option['option_id'];
@@ -92,14 +94,16 @@ define([
          * Get an option field selector.
          */
         getOptionField: function (option) {
+            var optionSelector;
             if (NbnView.isListView()) {
-                return this.swatchOptionSelectorPrefix
-                + option['product_id'] 
-                + ' .swatch-attribute';
+                optionSelector = this.swatchOptionSelectorPrefix
+                + option['product_id'];
             }
             else if (NbnView.isPageView()) {
-                return this.swatchOptionSelector;
+                optionSelector = this.swatchOptionSelector;
             }
+
+            return optionSelector + ' ' + this.swatchAttributeSelector;
         },
 
         /**
@@ -109,9 +113,13 @@ define([
             var options = obj.jsConfig.product.options;
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
-                var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
+                var sourceField = this.superAttributeSelectorPrefix + options[i]['product_id'] + '-' + options[i]['attribute_id'];
                 var targetField = this.getOptionField(options[i]);
                 var sourceFieldValue = $(sourceField).val();
+
+                console.log(sourceField);
+                console.log(sourceFieldValue);
+                console.log(targetField);
 
                 // Prepare the conditions
                 var condition = sourceFieldValue

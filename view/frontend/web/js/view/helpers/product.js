@@ -50,7 +50,9 @@
          */
         initOptionsEvents: function () {
             if (this.hasOptions()) {
-                this.getOptionHandler().initOptionsEvents(this.getOptions());
+                for (var i = 0; i < this.optionHandlers.length; i++) {
+                this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(this.getOptions());
+                }
             }
         },
 
