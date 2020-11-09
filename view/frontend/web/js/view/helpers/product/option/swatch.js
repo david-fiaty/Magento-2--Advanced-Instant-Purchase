@@ -112,7 +112,7 @@ define([
         getOptionFieldValue: function (sourceField) {
             return NbnView.isListView()
             ? $(sourceField).val()
-            : $(sourceField).attr('option-id');
+            : $(sourceField + ' .selected' + ).attr('option-id');
         },
         
         /**
