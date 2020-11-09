@@ -97,7 +97,7 @@ define([
                 optionSelector = this.swatchOptionSelector
                 + ' '
                 + this.swatchAttributeSelector
-                + '[attribute-id=' + option['product_id'] + ']';
+                + '[attribute-id="' + option['product_id'] + '"]';
             }
 
             return optionSelector;
@@ -109,7 +109,7 @@ define([
         getSourceFieldValue: function (sourceField) {
             return NbnView.isListView()
             ? $(sourceField).val()
-            : $(sourceField + ' .selected').attr('option-id');
+            : $(sourceField).find('.selected').attr('option-id');
         },
         
         /**
