@@ -23,6 +23,7 @@ define([
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
         swatchOptionSelectorPrefix: '.swatch-opt-',
+        swatchOptionSelector: '.swatch-opt',
 
         /**
          * Set product options events.
@@ -97,7 +98,7 @@ define([
                 + ' .swatch-attribute';
             }
             else if (NbnView.isPageView()) {
-                return this.swatchOptionSelectorPrefix;
+                return this.swatchOptionSelector;
             }
         },
 
