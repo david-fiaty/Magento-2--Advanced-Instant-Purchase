@@ -34,6 +34,9 @@ define([
             var self = this;
             var sourceField = this.getSourceField(option);
 
+            console.log('sourceField');
+            console.log(sourceField);
+
             // Set the value change events
             $(sourceField).on('click touch', function (e) {
                 // Prepare the target Id
@@ -85,7 +88,7 @@ define([
                 optionSelector = this.swatchOptionSelector
                 + ' '
                 + this.swatchAttributeSelector
-                + '[attribute-id="' + option['product_id'] + '"]';
+                + '[attribute-id="' + option['attribute_id'] + '"]';
             }
 
             return optionSelector;
