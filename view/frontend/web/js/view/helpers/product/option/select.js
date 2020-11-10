@@ -47,8 +47,8 @@ define([
          */
         getOptionErrors: function (option, e) {
             return this.isOptionInvalid(e, option)
-            ? option
-            : 0;
+            ? [option]
+            : [];
         },
 
         /**

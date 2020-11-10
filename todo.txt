@@ -5,6 +5,8 @@
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 
+- add button error reporting to button popover.
+
 - fix getOptionField method in list view, procut.js line 167
 => needs improvements to find options in lists
 
@@ -49,7 +51,6 @@ https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-
 
 FEATURES
 - ! add quick cart checkout option in minicart and basket page
-
 - create list button action on click: redirect, open popup with options, force options selection
 - button display conditions engine
 - add advanced config for css selectors for UI items
