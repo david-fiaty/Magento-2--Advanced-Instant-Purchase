@@ -163,7 +163,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $opt['option_id'] = $key;
 
             // Is swatch attribute
-            $opt['is_swatch'] = $this->attributeHelper->isSwatch('color');
+            $opt['is_swatch'] = $this->attributeHelper->isSwatch($opt['attribute_code']);
 
             // Add the extra fields
             $output[] = $opt;

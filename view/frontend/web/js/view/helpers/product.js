@@ -86,7 +86,6 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (e, obj) {
-            console.log(obj);
             var condition1 = this.hasOptions(e);
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
