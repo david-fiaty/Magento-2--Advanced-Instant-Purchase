@@ -155,19 +155,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Add extra fields to each option
         $output = [];
-        foreach ($optionsArray as $key => $opt) {
+        foreach ($optionsArray as $key => $option) {
             // Product id
-            $opt['product_id'] = $productId;
+            $option['product_id'] = $productId;
 
             // Option id
-            $opt['option_id'] = $key;
+            $option['option_id'] = $key;
 
             // Attribute type info
-            $opt['is_swatch'] = $this->attributeHelper->isSwatch($opt['attribute_code']);
-            $opt['display'] = $this->attributeHelper->getAttributeType($opt['attribute_code']);
+            $option = $this->attributeHelper->addAttributeData($option);
 
             // Add the extra fields
-            $output[] = $opt;
+            $output[] = $option;
         }
 
         return $output;

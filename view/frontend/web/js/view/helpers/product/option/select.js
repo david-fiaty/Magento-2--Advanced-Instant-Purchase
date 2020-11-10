@@ -114,7 +114,7 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionValue: function (options) {
+        updateSelectedOptionValue: function (option) {
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
                 var targetField = this.getTargetField(options[i]);

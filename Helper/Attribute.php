@@ -31,14 +31,21 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
     public $swatchHelper;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
         \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Swatches\Helper\Data $swatchHelper
+        \Magento\Swatches\Helper\Data $swatchHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->eavConfig = $eavConfig;
         $this->swatchHelper = $swatchHelper;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -58,4 +65,25 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
         // Todo - Handle other attribute types
         return $this->isSwatch($code) ? 'swatch' : 'select';
     }
+
+    /**
+     * Add the product attribute data to an option.
+     */
+    public function addAttributeData($option)
+    {   
+        // Default logic
+        $option['is_swatch'] = $this->isSwatch($option['attribute_code']);
+        $option['display'] = $this->getAttributeType($option['attribute_code']);
+
+        // Swatch as select override
+        $swatchAsSelect = $this->configHelper->value('products/swatch_as_select');
+        if ($swatchAsSelect) {
+            $option['is_swatch'] = false;
+            $option['display'] = 'select';
+        }
+
+        return $option;
+    }
+
+
 }
