@@ -94,4 +94,12 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     {
         return parent::getProduct();
     }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config);
+    }
 }

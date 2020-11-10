@@ -101,19 +101,7 @@ class BlockButton extends \Magento\Framework\View\Element\Template
      */
     public function updateAttributesData($config)
     {
-        // Prepare parameters
-        $force = false;
-        $swatchAsSelect = $config['products']['swatch_as_select'];
-
-        // Update the attribute display parameters
-        if ($config['product']['has_options']) {
-            foreach ($config['product']['options'] as $option) {
-                $isSwatch = $option['attribute_type'] == 'swatch';
-                if ($isSwatch && ($swatchAsSelect || $force)) {
-                    $option['attribute_type'] == 'select';
-                }
-            }
-        }
+        return $this->blockHelper->updateAttributesData($config, true);
     }
 
     /**

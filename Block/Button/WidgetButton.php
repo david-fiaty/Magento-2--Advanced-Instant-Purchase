@@ -102,6 +102,14 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     }
 
     /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config, true);
+    }
+
+    /**
      * Disable the block cache.
      */
     public function getCacheLifetime()

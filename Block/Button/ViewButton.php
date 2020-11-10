@@ -101,4 +101,12 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         return $this->registry->registry('current_product');
     }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config);
+    }
 }
