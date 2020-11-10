@@ -23,7 +23,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var \Magento\Eav\Model\Entity\Attribute
      */
-    public $entityAttribute;
+    public $eavConfig;
 
     /**
      * @var \Magento\Swatches\Helper\Data
@@ -34,20 +34,19 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Product helper constructor.
      */
     public function __construct(
-        \Magento\Eav\Model\Entity\Attribute $entityAttribute, 
+        \Magento\Eav\Model\Config $eavConfig,
         \Magento\Swatches\Helper\Data $swatchHelper
     ) {
-        $this->entityAttribute = $entityAttribute;
+        $this->eavConfig = $eavConfig;
         $this->swatchHelper = $swatchHelper;
     }
 
     /**
      * Check if a product attribute is swatch.
      */
-    public function isSwatch($attributeCode)
+    public function isSwatch($code)
     {
-        $attribute = $this->entityAttribute->loadByCode('catalog_product', $attributeCode);
-
+        $attribute = $this->eavConfig->getAttribute('catalog_product', $code);
         return $this->swatchHelper->isSwatchAttribute($attribute);
     }
 }
