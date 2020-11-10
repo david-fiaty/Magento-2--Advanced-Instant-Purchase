@@ -209,14 +209,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
             foreach ($config['product']['options'] as $option) {
                 $isSwatch = $option['attribute_type'] == 'swatch';
                 if ($isSwatch && ($swatchAsSelect || $force)) {
-                    $option['attribute_type'] == 'select';
+                    $option['attribute_type'] = 'select';
                 }
-
+                
                 $updatedOptions[] = $option;
             }
 
-            $config['product']['options'] = $updatedOptions;
-            
             return $config;
         }
     }
