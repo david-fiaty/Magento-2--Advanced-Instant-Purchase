@@ -87,10 +87,20 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (e, obj) {
-            var condition1 = this.hasOptions(e);
+            var options = this.getOptions();
+            var condition1 = options && options.length > 0;
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['display'])
+                    .updateSelectedOptionValue(options[i]);
+                }
+            }
+
+            var condition1 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
+            var condition2 = !NbnView.isBlockView();
+            if (condition1 || condition2) {
                 for (var i = 0; i < this.optionHandlers.length; i++) {
                     this.getOptionHandler(this.optionHandlers[i])
                     .updateSelectedOptionsValues(

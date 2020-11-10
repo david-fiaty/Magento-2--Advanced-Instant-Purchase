@@ -42,11 +42,6 @@ define([
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
-
-                console.log('bbb');
-                console.log(targetId);
-                console.log(sourceFieldValue);
-
                 // Assign value from source to target
                 $(targetId).val(sourceFieldValue);
             });
@@ -136,7 +131,7 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (options) {
+        updateSelectedOptionValue: function (options) {
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
                 var targetField = this.getTargetField(options[i]);
