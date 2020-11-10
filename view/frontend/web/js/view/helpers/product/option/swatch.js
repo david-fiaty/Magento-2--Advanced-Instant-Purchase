@@ -130,10 +130,6 @@ define([
             var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
             if (typeof sourceFieldValue !== 'undefined') {
-                console.log(sourceField);
-                console.log(sourceFieldValue);
-                console.log(targetField);
-
                 // Prepare the conditions
                 var condition = sourceFieldValue
                 && sourceFieldValue != 'undefined'

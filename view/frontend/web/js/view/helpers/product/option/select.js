@@ -32,10 +32,16 @@ define([
             var self = this;
             var sourceField = this.getSourceField(option);
 
+            console.log('xxx called');
+
             // Set the value change events
             $(sourceField).on('change', function (e) {
                 // Prepare the target Id
                 var targetId = self.getTargetField($(this));
+
+                console.log(sourceField);
+                console.log(targetId);
+                console.log($(e.currentTarget).val());
 
                 // Assign value from source to target
                 $(targetId).val($(e.currentTarget).val());

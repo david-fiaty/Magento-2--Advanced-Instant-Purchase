@@ -74,16 +74,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
         // Default logic
         $option['is_swatch'] = $this->isSwatch($option['attribute_code']);
         $option['display'] = $this->getAttributeType($option['attribute_code']);
-
-        // Swatch as select override
-        $swatchAsSelect = $this->configHelper->value('products/swatch_as_select');
-        if ($swatchAsSelect) {
-            $option['is_swatch'] = false;
-            $option['display'] = 'select';
-        }
-
+        
         return $option;
     }
-
-
 }
