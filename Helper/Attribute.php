@@ -54,12 +54,8 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
      * Get a product attribute type.
      */
     public function getAttributeType($code)
-    {
-        $attribute = $this->eavConfig->getAttribute('catalog_product', $code);
-        
+    {        
         // Todo - Handle other attribute types
-        return $this->swatchHelper->isSwatchAttribute($attribute)
-        ? 'swatch' 
-        : 'select';
+        return $this->isSwatch($code) ? 'swatch' : 'select';
     }
 }

@@ -49,10 +49,11 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            for (var i = 0; i < this.optionHandlers.length; i++) {
-                var options = this.getOptions();
-                if (options && options.length > 0) {
-                    this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(options);
+            var options = this.getOptions();
+            if (options && options.length > 0) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['display'])
+                    .initOptionEvent(options[i]);
                 }
             }
         },

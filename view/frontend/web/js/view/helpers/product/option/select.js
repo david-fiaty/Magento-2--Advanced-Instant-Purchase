@@ -27,26 +27,19 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (options) {
-            console.log('ooo select');
-            console.log(options);
-
-            // Set the options events and default values
+        initOptionEvent: function (option) {
+            // Prepare variables
             var self = this;
-            for (var i = 0; i < options.length; i++) {
-                // Prepare the fields
-                var option = options[i];
-                var sourceField = this.getSourceField(option);
+            var sourceField = this.getSourceField(option);
 
-                // Set the value change events
-                $(sourceField).on('change', function (e) {
-                    // Prepare the target Id
-                    var targetId = self.getTargetField($(this));
+            // Set the value change events
+            $(sourceField).on('change', function (e) {
+                // Prepare the target Id
+                var targetId = self.getTargetField($(this));
 
-                    // Assign value from source to target
-                    $(targetId).val($(e.currentTarget).val());
-                });
-            }
+                // Assign value from source to target
+                $(targetId).val($(e.currentTarget).val());
+            });
         },
 
         /**

@@ -29,38 +29,27 @@ define([
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (options) {
-            console.log('ooo swatch');
-            console.log(options);
-
-            // Set the options events and default values
+        initOptionEvent: function (option) {
+            // Prepare variables
             var self = this;
-            for (var i = 0; i < options.length; i++) {
-                // Prepare the fields
-                var option = options[i];
-                var sourceField = this.getSourceField(option);
+            var sourceField = this.getSourceField(option);
 
-                console.log('aaa');
+            // Set the value change events
+            $(sourceField).on('click touch', function (e) {
+                // Prepare the target Id
+                var targetId = self.getTargetField(option);
 
-                console.log(sourceField);
-
-                // Set the value change events
-                $(sourceField).on('click touch', function (e) {
-                    // Prepare the target Id
-                    var targetId = self.getTargetField(option);
-
-                    // Get the source value
-                    var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
+                // Get the source value
+                var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
 
-                    console.log('bbb');
-                    console.log(targetId);
-                    console.log(sourceFieldValue);
+                console.log('bbb');
+                console.log(targetId);
+                console.log(sourceFieldValue);
 
-                    // Assign value from source to target
-                    $(targetId).val(sourceFieldValue);
-                });
-            }
+                // Assign value from source to target
+                $(targetId).val(sourceFieldValue);
+            });
         },
 
         /**
