@@ -49,9 +49,10 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            if (this.hasOptions()) {
-                for (var i = 0; i < this.optionHandlers.length; i++) {
-                    this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(this.getOptions());
+            for (var i = 0; i < this.optionHandlers.length; i++) {
+                var options = this.getOptions();
+                if (options && options.length > 0) {
+                    this.getOptionHandler(this.optionHandlers[i]).initOptionsEvents(options);
                 }
             }
         },
@@ -85,7 +86,7 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (e) {
-            var condition1 = this.hasOptions();
+            var condition1 = this.hasOptions(e);
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
