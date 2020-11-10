@@ -50,18 +50,10 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function (options, e) {
-            // Prepare variables
-            var errors = [];
-
-            // Check each option
-            for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(e, options[i])) {
-                    errors.push(options[i]);
-                }
-            }
-
-            return errors;
+        getOptionErrors: function (option, e) {
+            return this.isOptionInvalid(e, option)
+            ? option
+            : 0;
         },
 
         /**

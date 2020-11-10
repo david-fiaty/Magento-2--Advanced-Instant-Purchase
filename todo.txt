@@ -48,10 +48,13 @@ https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
 https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-on-country-and-postcode-change
 
 FEATURES
+- ! add quick cart checkout option in minicart and basket page
+
 - create list button action on click: redirect, open popup with options, force options selection
-- add popup/banner/add system with instant purchase
 - button display conditions engine
 - add advanced config for css selectors for UI items
+- add popup/banner/add system with instant purchase
+
 
 - add themes system
 - login with google, facebook

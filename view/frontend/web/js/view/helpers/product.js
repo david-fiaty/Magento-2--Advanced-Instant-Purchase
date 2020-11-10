@@ -171,7 +171,7 @@
                 for (var i = 0; i < options.length; i++) {
                     // Validate the option
                     var error = this.getOptionHandler(options[i]['display'])
-                    .getOptionsErrors(options[i],e)
+                    .getOptionErrors(options[i], e)
                     .length > 0;
 
                     // Register the error
