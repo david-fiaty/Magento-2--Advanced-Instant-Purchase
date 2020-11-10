@@ -30,6 +30,9 @@ define([
          * Set product options events.
          */
         initOptionsEvents: function (options) {
+            console.log('ooo swatch');
+            console.log(options);
+
             // Set the options events and default values
             var self = this;
             for (var i = 0; i < options.length; i++) {

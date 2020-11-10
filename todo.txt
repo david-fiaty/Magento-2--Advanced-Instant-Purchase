@@ -10,6 +10,9 @@
 
 - how to add buy now button to core product list blcoks
 
+EXPLORE
+- can we render swatch instead of list when needed?
+
 REVIEW
 - when product display attributes implemented, check what rpoduct options display should look like
 - when select list option attributes implemented, check other filed types

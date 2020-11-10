@@ -61,6 +61,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $toolsHelper;
 
     /**
+     * @var Attribute
+     */
+    public $attributeHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
@@ -71,7 +76,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
         \Naxero\BuyNow\Helper\Config $configHelper,
-        \Naxero\BuyNow\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Attribute $attributeHelper
     ) {
         $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;
@@ -81,6 +87,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->stockItemRepository = $stockItemRepository;
         $this->configHelper = $configHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->attributeHelper = $attributeHelper;
     }
 
     /**
@@ -146,11 +153,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $this->getProduct($productId)
         );
 
-        // Add the product id to each option record
+        // Add extra fields to each option
         $output = [];
         foreach ($optionsArray as $key => $opt) {
+            // Product id
             $opt['product_id'] = $productId;
+
+            // Option id
             $opt['option_id'] = $key;
+
+            // Is swatch attribute
+            $opt['is_swatch'] = $this->attributeHelper->isSwatch('color');
+
+            // Add the extra fields
             $output[] = $opt;
         }
 
