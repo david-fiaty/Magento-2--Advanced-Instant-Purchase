@@ -37,13 +37,22 @@ define([
                 var option = options[i];
                 var sourceField = this.getSourceField(option);
 
+                console.log('aaa');
+
+                console.log(sourceField);
+
                 // Set the value change events
                 $(sourceField).on('click touch', function (e) {
                     // Prepare the target Id
-                    var targetId = self.getTargetField($(this));
+                    var targetId = self.getTargetField(option);
 
                     // Get the source value
                     var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
+
+
+                    console.log('bbb');
+                    console.log(targetId);
+                    console.log(sourceFieldValue);
 
                     // Assign value from source to target
                     $(targetId).val(sourceFieldValue);
@@ -115,11 +124,11 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getTargetField: function (sourceField) {
+        getTargetField: function (option) {
             return this.superAttributeSelectorPrefix
-            + $(sourceField).data('product-id')
+            + option['product_id']
             + '-'
-            + $(sourceField).data('attribute-id');
+            + option['attribute_id'];
         },
 
         /**
@@ -135,8 +144,7 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (obj) {
-            var options = obj.jsConfig.product.options;
+        updateSelectedOptionsValues: function (options) {
             for (var i = 0; i < options.length; i++) {
                 // Prepare the parameters
                 var targetField = this.getTargetField(options[i]);

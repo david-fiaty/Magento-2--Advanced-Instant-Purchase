@@ -187,7 +187,7 @@ define([
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
-                    self.o.product.updateSelectedOptionsValues(self);
+                    self.o.product.updateSelectedOptionsValues(e);
 
                     // Initialise the select lists
                     self.o.select.build();

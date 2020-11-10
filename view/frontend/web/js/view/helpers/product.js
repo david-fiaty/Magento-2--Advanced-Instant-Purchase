@@ -84,13 +84,16 @@
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (obj) {
+        updateSelectedOptionsValues: function (e) {
             var condition1 = this.hasOptions();
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < this.optionHandlers.length; i++) {
-                    this.getOptionHandler(this.optionHandlers[i]).updateSelectedOptionsValues(obj);
+                    this.getOptionHandler(this.optionHandlers[i])
+                    .updateSelectedOptionsValues(
+                        this.getProductData(e)['options']
+                    );
                 }
             }
         },
