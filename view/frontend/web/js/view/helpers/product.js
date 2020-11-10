@@ -52,7 +52,7 @@
             var options = this.getOptions();
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['display'])
+                    this.getOptionHandler(options[i]['attribute_type'])
                     .initOptionEvent(options[i]);
                 }
             }
@@ -93,7 +93,7 @@
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['display'])
+                    this.getOptionHandler(options[i]['attribute_type'])
                     .updateSelectedOptionValue(options[i]);
                 }
             }
@@ -170,7 +170,7 @@
             if (condition1) {
                 for (var i = 0; i < options.length; i++) {
                     // Validate the option
-                    var error = this.getOptionHandler(options[i]['display'])
+                    var error = this.getOptionHandler(options[i]['attribute_type'])
                     .getOptionErrors(options[i], e)
                     .length > 0;
 

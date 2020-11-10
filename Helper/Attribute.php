@@ -73,7 +73,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
     {   
         // Default logic
         $option['is_swatch'] = $this->isSwatch($option['attribute_code']);
-        $option['display'] = $this->getAttributeType($option['attribute_code']);
+        $option['attribute_type'] = $this->getAttributeType($option['attribute_code']);
         
         return $option;
     }
