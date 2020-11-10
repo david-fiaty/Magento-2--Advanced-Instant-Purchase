@@ -86,7 +86,7 @@
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (e, obj) {
+        updateSelectedOptionsValues: function (obj) {
             var options = this.getOptions();
             var condition1 = options && options.length > 0;
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
@@ -95,17 +95,6 @@
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['display'])
                     .updateSelectedOptionValue(options[i]);
-                }
-            }
-
-            var condition1 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
-            var condition2 = !NbnView.isBlockView();
-            if (condition1 || condition2) {
-                for (var i = 0; i < this.optionHandlers.length; i++) {
-                    this.getOptionHandler(this.optionHandlers[i])
-                    .updateSelectedOptionsValues(
-                        this.getProductData(e)['options']
-                    );
                 }
             }
         },
@@ -172,11 +161,24 @@
          * Product options validation.
          */
         validateOptions: function (e) {
-            if (this.hasOptions(e)) {
-                return this.getOptionHandler().getOptionsErrors(
-                    this.getProductData(e)['options'],
-                    e
-                ).length == 0;
+            // Prepare variables
+            var options = this.getOptions();
+            var condition1 = options && options.length > 0;
+            var errors = 0;
+
+            // Loop through the product options
+            if (condition1) {
+                for (var i = 0; i < options.length; i++) {
+                    // Validate the option
+                    var error = this.getOptionHandler(options[i]['display'])
+                    .getOptionsErrors(options[i],e)
+                    .length > 0;
+
+                    // Register the error
+                    if (error) errors++;
+                }
+
+                return errors == 0;
             }
 
             return true;

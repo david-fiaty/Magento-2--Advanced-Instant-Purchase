@@ -131,27 +131,25 @@ define([
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionValue: function (options) {
-            for (var i = 0; i < options.length; i++) {
-                // Prepare the parameters
-                var targetField = this.getTargetField(options[i]);
-                var sourceField = this.getSourceField(targetField);
-                var sourceFieldValue = this.getSourceFieldValue(sourceField);
+        updateSelectedOptionValue: function (option) {
+            // Prepare the parameters
+            var targetField = this.getTargetField(option);
+            var sourceField = this.getSourceField(targetField);
+            var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
-                if (typeof sourceFieldValue !== 'undefined') {
-                    console.log(sourceField);
-                    console.log(sourceFieldValue);
-                    console.log(targetField);
+            if (typeof sourceFieldValue !== 'undefined') {
+                console.log(sourceField);
+                console.log(sourceFieldValue);
+                console.log(targetField);
 
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
+                // Prepare the conditions
+                var condition = sourceFieldValue
+                && sourceFieldValue != 'undefined'
+                && sourceFieldValue.length > 0;
 
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                    }
+                // Update the options selected value
+                if (condition) {
+                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
                 }
             }
         }

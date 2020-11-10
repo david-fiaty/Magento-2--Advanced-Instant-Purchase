@@ -59,6 +59,12 @@ FEATURES
 QA
 - check all config fields functional
 
+EXPLORE
+- Swatch options rendering
+https://mage2.pro/t/topic/1016
+https://webkul.com/blog/get-attribute-id-attribute-code-magento2/
+https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-name-options-from-attribute-code/
+
 NEW IDEAS
 
 - fancy interactive product grid in category views with masonry
