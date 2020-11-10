@@ -84,7 +84,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         && $config['general']['enabled']
         && $this->purchaseHelper->canDisplayButton();
 
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
     
     /**

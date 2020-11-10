@@ -87,7 +87,11 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         && $config['products']['product_view']
         && $this->purchaseHelper->canDisplayButton();
         
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
     
     /**
