@@ -66,10 +66,6 @@ define([
             // Get the field value
             var val = $(targetId).val();
 
-            console.log('isOptionInvalid');
-            console.log(targetId);
-            console.log(val);
-
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
