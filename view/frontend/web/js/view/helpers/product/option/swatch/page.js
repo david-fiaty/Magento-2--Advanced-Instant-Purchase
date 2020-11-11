@@ -22,7 +22,7 @@ define([
         /**
          * Get a page swatch option values selectors.
          */
-        getPageSwatchValuesSelectors: function (option) {
+        getValuesSelectors: function (option) {
             // Prepare the selector prefix
             var selectors = [];
             var selectorPrefix = '.swatch-opt .swatch-attribute .swatch-option';
