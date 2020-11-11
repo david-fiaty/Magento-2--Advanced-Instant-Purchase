@@ -32,6 +32,10 @@
         popoverSelector: '.popover',
         productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
+        optionHandlers: [
+            'swatch',
+            'select'
+        ],
 
         /**
          * Initialise the object.
@@ -45,25 +49,37 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            if (!NbnView.isPageView() && this.hasOptions()) {
-                this.getOptionHandler().initOptionsEvents(
-                    this.getOptions()
-                );
+            var options = this.getOptions(this.o);
+            if (options && options.length > 0) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['attribute_type'])
+                    .initOptionEvent(options[i]);
+                }
             }
         },
 
         /**
          * Get the option handler component.
          */
-        getOptionHandler: function () {
-            if (NbnView.isListView()) {
-               return NbnProductOptionSwatch;
+        getOptionHandler: function (optionType) {
+            // Argument provided
+            optionType = optionType || null;
+            if (optionType) {
+                var optionComponent = 'NbnProductOption'
+                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
+                
+                return eval(optionComponent);
+            }
+
+            // No argument provided
+            if (NbnView.isPageView()) {
+                return NbnProductOptionSwatch;
+            }
+            else if (NbnView.isListView()) {
+                return NbnProductOptionSwatch;
             }
             else if (NbnView.isBlockView()) {
-                return NbnProductOptionSelect;
-            }
-            else {
-                return NbnProductOptionSelect;   
+                return NbnProductOptionSelect;        
             }
         },
 
@@ -71,8 +87,15 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
-            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
-                this.getOptionHandler().updateSelectedOptionsValues(obj);
+            var options = this.getOptions(obj);
+            var condition1 = options && options.length > 0;
+            var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
+            var condition3 = !NbnView.isBlockView();
+            if (condition1 && (condition2 || condition3)) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['attribute_type'])
+                    .updateSelectedOptionValue(options[i]);
+                }
             }
         },
         
@@ -138,11 +161,24 @@
          * Product options validation.
          */
         validateOptions: function (e) {
-            if (this.hasOptions(e)) {
-                return this.getOptionHandler().getOptionsErrors(
-                    this.getProductData(e)['options'],
-                    e
-                ).length == 0;
+            // Prepare variables
+            var options = this.getOptionsFromEvent(e);
+            var condition1 = options && options.length > 0;
+            var errors = 0;
+
+            // Loop through the product options
+            if (condition1) {
+                for (var i = 0; i < options.length; i++) {
+                    // Validate the option
+                    var error = this.getOptionHandler(options[i]['attribute_type'])
+                    .getOptionErrors(options[i], e)
+                    .length > 0;
+
+                    // Register the error
+                    if (error) errors++;
+                }
+
+                return errors == 0;
             }
 
             return true;
@@ -156,20 +192,25 @@
         },
 
         /**
+         * Get a product options from a click even.
+         */
+        getOptionsFromEvent: function (e) {
+            var productId = $(e.currentTarget).data('product-id');
+            return this.getProductData(productId)['options'];
+        },
+
+        /**
          * Get a product options.
          */
-        getOptions: function (e) {
-            return this.getProductData(e)['options'];
+        getOptions: function (obj) {
+            var productId = obj.jsConfig.product.id;
+            return this.getProductData(productId)['options'];
         },
 
         /**
          * Get updated product data for events.
          */
-        getProductData: function (e) {
-            var productId = e
-            ? $(e.currentTarget).data('product-id')
-            : this.o.jsConfig.product.id;
-
+        getProductData: function (productId) {
             return JSON.parse(
                 $(this.productDataSelectorPrefix + productId).val()
             );            

@@ -194,4 +194,29 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('content', $this->getConfig($productId))
         ->toHtml();
     }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config, $force = false)
+    {
+        // Prepare parameters
+        $updatedOptions = [];
+
+        // Update the attribute display parameters
+        if ($config['product']['has_options']) {
+            foreach ($config['product']['options'] as $option) {
+                $isSwatch = $option['attribute_type'] == 'swatch';
+                if ($isSwatch && $force) {
+                    $option['attribute_type'] = 'select';
+                }
+                
+                $updatedOptions[] = $option;
+            }
+
+            $config['product']['options'] = $updatedOptions;
+            
+            return $config;
+        }
+    }
 }

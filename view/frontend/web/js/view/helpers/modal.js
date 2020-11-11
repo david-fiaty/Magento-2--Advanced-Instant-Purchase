@@ -59,7 +59,7 @@
         getOrderModal: function (obj) {
             var self = this;
             ConfirmModal({
-                title: this.o.jsConfig.popups.popup_title,
+                title: obj.jsConfig.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
@@ -68,7 +68,7 @@
                     class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
-                        if (self.o.isSubView) {
+                        if (obj.isSubView) {
                             NbnSlider.toggleView(e);
                             var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
                             $(buttonId).trigger('click');
@@ -76,7 +76,7 @@
                     }
                 },
                 {
-                    text: self.o.jsConfig.popups.popup_confirm_button_text,
+                    text: obj.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
                         NbnSlider.showLoader();
@@ -104,9 +104,9 @@
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function () {
+        getLoggerModal: function (obj) {
             var self = this;
-            var title = this.o.jsConfig.module.title + ' ' + __('Logger');
+            var title = obj.jsConfig.module.title + ' ' + __('Logger');
             ConfirmModal({
                 title: title,
                 innerScroll: true,

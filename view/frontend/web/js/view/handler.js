@@ -34,6 +34,7 @@ define([
             popupContentSelector: '#nbn-confirmation-content',
             logViewerButtonSelector: '#nbn-ui-logger-button',
             formKeySelectorPrefix: '#nbn-form-key-',
+            buttonSelectorPrefix: '#nbn-button-',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -118,8 +119,15 @@ define([
          * Handle the button click event.
          */
         handleButtonClick: function () {
+            // Prepare variables
             var self = this;
-            $(this.jsConfig.product.button_selector).on('click touch', function (e) {
+            var button = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
+
+            // Enable the buy now button
+            button.prop('disabled', false);
+
+            // Button click event
+            button.on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!self.o.login.isLoggedIn()) {
@@ -127,16 +135,13 @@ define([
                         return;
                     }
 
-                    // Block and list views
-                    if (self.o.view.isBlockView() || self.o.view.isListView()) {
-                        // Validate the product options if needed
-                        var optionsValid = self.o.product.validateOptions(e);
-                        if (!optionsValid) {
-                            // Display the errors
-                            self.o.product.clearErrors(e);
-                            self.o.product.displayErrors(e);
-                            return;
-                        }
+                    // Validate the product options if needed
+                    var optionsValid = self.o.product.validateOptions(e);
+                    if (!optionsValid) {
+                        // Display the errors
+                        self.o.product.clearErrors(e);
+                        self.o.product.displayErrors(e);
+                        return;
                     }
                     
                     // Page view and/or all conditions valid
@@ -144,7 +149,7 @@ define([
                 }
                 else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    self.o.modal.getLoggerModal(e);
+                    self.o.modal.getLoggerModal(self);
 
                     // Get the log data
                     self.getLoggerData(e);

@@ -80,7 +80,11 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         && $config['products']['product_list']
         && $this->purchaseHelper->canDisplayButton();
        
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
 
     /**
@@ -89,5 +93,13 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function getProduct()
     {
         return parent::getProduct();
+    }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config);
     }
 }

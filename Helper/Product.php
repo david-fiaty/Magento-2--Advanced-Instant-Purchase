@@ -61,6 +61,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $toolsHelper;
 
     /**
+     * @var Attribute
+     */
+    public $attributeHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
@@ -71,7 +76,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
         \Naxero\BuyNow\Helper\Config $configHelper,
-        \Naxero\BuyNow\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Attribute $attributeHelper
     ) {
         $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;
@@ -81,6 +87,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->stockItemRepository = $stockItemRepository;
         $this->configHelper = $configHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->attributeHelper = $attributeHelper;
     }
 
     /**
@@ -146,12 +153,20 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $this->getProduct($productId)
         );
 
-        // Add the product id to each option record
+        // Add extra fields to each option
         $output = [];
-        foreach ($optionsArray as $key => $opt) {
-            $opt['product_id'] = $productId;
-            $opt['option_id'] = $key;
-            $output[] = $opt;
+        foreach ($optionsArray as $key => $option) {
+            // Product id
+            $option['product_id'] = $productId;
+
+            // Option id
+            $option['option_id'] = $key;
+
+            // Attribute type info
+            $option = $this->attributeHelper->addAttributeData($option);
+
+            // Add the extra fields
+            $output[] = $option;
         }
 
         return $output;

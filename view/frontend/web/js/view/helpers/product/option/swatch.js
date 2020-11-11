@@ -15,91 +15,53 @@
 define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/view'
-], function ($, __, NbnView) {
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch/list',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch/page'
+], function ($, __, NbnView, NbnListSwatch, NbnPageSwatch) {
     'use strict';
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
+        superAttributeSelectorPrefix: '#nbn-super-attribute-',
 
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (options) {
-            // Set the options events and default values
-            for (var i = 0; i < options.length; i++) {
-                // Prepare the fields
-                var option = options[i];
-                var sourceField = this.getOptionField(option);
+        initOptionEvent: function (option) {
+            // Prepare variables
+            var self = this;
+            var sourceFields = this.getValuesSelectors(option);
 
-                // Set the value change events
-                $(sourceField).on('change', function (e) {
-                    // Prepare the target Id
-                    var targetId = '#nbn-super-attribute-';
-                    targetId += $(this).data('product-id');
-                    targetId += '-';
-                    targetId += $(this).data('attribute-id');
+            // Set the value change events
+            $(sourceFields).on('click touch', function (e) {
+                // Prepare the target Id
+                var targetField = self.getTargetField(option);
 
-                    // Assign value from source to target
-                    $(targetId).val($(e.currentTarget).val());
-                });
-            }
-        },
+                // Get the source value
+                var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
-        /**
-         * Product options validation.
-         */
-        validateOptions: function (e) {
-            if (this.hasOptions(e)) {
-                return this.getOptionsErrors(e).length == 0;
-            }
-
-            return true;
-        },
-
-        /**
-         * Check if a product has options.
-         */
-        hasOptions: function (e) {
-            var product = this.getProductData(e);
-
-            return product.options.length > 0;
-        },
-
-        /**
-         * Get a product options.
-         */
-        getOptions: function (e) {
-            return this.getProductData(e);
+                // Assign value from source to target
+                $(targetField).val(sourceFieldValue);
+            });
         },
 
         /**
          * Check if a product options are valid.
          */
-        getOptionsErrors: function (options, e) {
-            // Prepare variables
-            var errors = [];
-
-            // Check each option
-            for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(e, options[i])) {
-                    errors.push(options[i]);
-                }
-            }
-
-            return errors;
+        getOptionErrors: function (option, e) {
+            return this.isOptionInvalid(option, e)
+            ? [option]
+            : [];
         },
 
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {            
+        isOptionInvalid: function (option, e) {            
             // Prepare the target Id
-            var targetId = '#nbn-super-attribute-';
-            targetId += $(e.currentTarget).data('product-id');
-            targetId += '-';
-            targetId += option['option_id'];
+            var targetId = this.getTargetField(option);
 
             // Get the field value
             var val = $(targetId).val();
@@ -111,35 +73,53 @@ define([
         },
 
         /**
-         * Get an option field selector.
+         * Get the swatch options handler.
          */
-        getOptionField: function (option) {
-            return this.optionSelectorPrefix
-                + option['product_id']
-                + '-' + option['attribute_id'];
+        getSwatchHandler: function () {
+            if (NbnView.isListView()) {
+                return NbnListSwatch;
+            }
+            else if (NbnView.isPageView()) {
+                return NbnPageSwatch;
+            }
+
+            return;
+        },
+
+        /**
+         * Get an option field values selectors.
+         */
+        getValuesSelectors: function (option) {
+            return this.getSwatchHandler().getValuesSelectors(option);
+        },
+        
+        /**
+         * Get a target option hidden field selector.
+         */
+        getTargetField: function (option) {
+            return this.superAttributeSelectorPrefix
+            + option['product_id']
+            + '-'
+            + option['attribute_id'];
         },
 
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (obj) {
-            if (this.hasOptions() && obj.jsConfig.blocks.show_product) {
-                var options = obj.jsConfig.product.options;
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the parameters
-                    var sourceField = '#nbn-super-attribute-' + options[i]['product_id'] + '-' + options[i]['attribute_id'];
-                    var targetField = this.getOptionField(options[i]);
-                    var sourceFieldValue = $(sourceField).val();
+        updateSelectedOptionValue: function (option) {
+            // Prepare the parameters
+            var targetField = this.getTargetField(option);
+            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetField);
 
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
+            if (typeof sourceFieldValue !== 'undefined') {
+                // Prepare the conditions
+                var condition = sourceFieldValue
+                && sourceFieldValue != 'undefined'
+                && sourceFieldValue.length > 0;
 
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                    }
+                // Update the options selected value
+                if (condition) {
+                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
                 }
             }
         }

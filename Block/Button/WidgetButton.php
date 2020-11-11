@@ -84,7 +84,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         && $config['general']['enabled']
         && $this->purchaseHelper->canDisplayButton();
 
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
     
     /**
@@ -95,6 +99,14 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         return $this->productHelper->getProduct(
             $this->getData('product_id')
         );
+    }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config, true);
     }
 
     /**

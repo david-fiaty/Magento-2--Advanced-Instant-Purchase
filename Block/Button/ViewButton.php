@@ -87,7 +87,11 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         && $config['products']['product_view']
         && $this->purchaseHelper->canDisplayButton();
         
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
     
     /**
@@ -96,5 +100,13 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function getProduct()
     {
         return $this->registry->registry('current_product');
+    }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config);
     }
 }

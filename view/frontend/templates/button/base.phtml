@@ -25,6 +25,7 @@
         $productIsFree = $block->productHelper->isFree($productId);
         $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
         $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
+        $isListView = $config['product']['display'] == 'list';
         $isPageView = $config['product']['display'] == 'view';
         $formKey = $config['product']['form_key'];
         $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
@@ -45,6 +46,7 @@
         id="<?= $block->escapeHtmlAttr($buttonId) ?>"
         data-product-id="<?= $block->escapeHtmlAttr($productId) ?>"
         type="button"
+        disabled="disabled"
         class="<?= $block->escapeHtmlAttr($block->purchaseHelper->getButtonCss()) ?> action primary instant-purchase nbn-button"
         title="<?= $block->escapeHtmlAttr(__($config['buttons']['button_text'])) ?>">
         <?= $block->escapeHtml(__($config['buttons']['button_text'])) ?>
@@ -67,7 +69,7 @@
         <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
         <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
-        <?php if ($isBlockView && !empty($config['product']['options'])): ?>
+        <?php if (!empty($config['product']['options'])): ?>
             <?php foreach ($config['product']['options'] as $option): ?>
                 <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
             <?php endforeach; ?>
