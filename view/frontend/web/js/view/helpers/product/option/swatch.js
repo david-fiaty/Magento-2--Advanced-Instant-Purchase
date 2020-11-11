@@ -61,7 +61,7 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = self.getTargetField(option);
+            var targetId = this.getTargetField(option);
 
             // Get the field value
             var val = this.getSwatchHandler().getSourceFieldValue(option);
