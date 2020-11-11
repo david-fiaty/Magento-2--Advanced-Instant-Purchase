@@ -24,8 +24,7 @@ define([
         optionSelectorPrefix: '#nbn-option-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
         swatchOptionSelectorPrefix: '.swatch-opt-',
-        swatchOptionSelector: '.swatch-opt',
-        swatchAttributeSelector: '.swatch-attribute',
+
         /**
          * Set product options events.
          */
@@ -33,6 +32,8 @@ define([
             // Prepare variables
             var self = this;
             var sourceField = this.getSourceField(option);
+
+            console.log(sourceField);
 
             // Set the value change events
             $(sourceField).off().on('click touch', function (e) {
@@ -42,6 +43,12 @@ define([
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
+
+                /*
+console.log(sourceFieldValue);
+console.log(targetField);
+console.log(option);
+*/
 
                 // Assign value from source to target
                 $(targetField).val(sourceFieldValue);
@@ -77,21 +84,18 @@ define([
          * Get an option field selector.
          */
         getSourceField: function (option) {
-            var optionSelector;
+            var output;
             if (NbnView.isListView()) {
-                optionSelector = this.swatchOptionSelectorPrefix
-                + option['product_id']
-                + ' '
-                + '.swatch-option';
+                output = this.getSwatchValuesSelectors(option);
             }
             else if (NbnView.isPageView()) {
-                optionSelector = this.swatchOptionSelector
+                output = this.swatchOptionSelector
                 + ' '
                 + this.swatchAttributeSelector
                 + '[attribute-id="' + option['attribute_id'] + '"]';
             }
 
-            return optionSelector;
+            return output;
         },
 
         /**
@@ -121,6 +125,31 @@ define([
             + $(e.currentTarget).data('product-id')
             + '-'
             + option['option_id'];
+        },
+
+        /**
+         * Get a swatch option values selectors.
+         */
+        getSwatchValuesSelectors: function (option) {
+            // Prepare the selector prefix
+            var selectors = [];
+            var selectorPrefix = this.swatchOptionSelectorPrefix
+            + option['product_id']
+            + ' '
+            + '.swatch-option';
+
+            // Add the swatch option values selectors
+            for (var i = 0; i < option['values'].length; i++) {
+                // Prepare the value selector
+                var selector = selectorPrefix 
+                + '[option-id="' 
+                + option['values'][i]['value_index']+ '"]';
+
+                // Add to the array
+                selectors.push(selector);
+            }
+
+            return selectors.join(', ');
         },
 
         /**
