@@ -162,7 +162,7 @@
          */
         validateOptions: function (e) {
             // Prepare variables
-            var options = this.getOptions();
+            var options = this.getOptionsFromEvent(e);
             var condition1 = options && options.length > 0;
             var errors = 0;
 
@@ -192,19 +192,24 @@
         },
 
         /**
+         * Get a product options from a click even.
+         */
+        getOptionsFromEvent: function (e) {
+            return this.getProductData(e)['options'];
+        },
+
+        /**
          * Get a product options.
          */
-        getOptions: function (e) {
-            return this.getProductData(e)['options'];
+        getOptions: function () {
+            return this.o.jsConfig.product.id;
         },
 
         /**
          * Get updated product data for events.
          */
         getProductData: function (e) {
-            var productId = e
-            ? $(e.currentTarget).data('product-id')
-            : this.o.jsConfig.product.id;
+            var productId = $(e.currentTarget).data('product-id');
 
             return JSON.parse(
                 $(this.productDataSelectorPrefix + productId).val()

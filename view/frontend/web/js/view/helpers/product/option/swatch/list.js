@@ -55,7 +55,7 @@ define([
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceField) {
-            return $(sourceField).val();
+            return $(sourceField).find('.selected').attr('option-id');
         }
     };
 });

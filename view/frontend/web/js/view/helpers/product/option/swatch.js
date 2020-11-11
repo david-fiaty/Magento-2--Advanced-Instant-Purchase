@@ -35,7 +35,7 @@ define([
             var sourceFields = this.getValuesSelectors(option);
 
             // Set the value change events
-            $(sourceFields).off().on('click touch', function (e) {
+            $(sourceFields).on('click touch', function (e) {
                 // Prepare the target Id
                 var targetField = self.getTargetField(option);
 
@@ -51,7 +51,7 @@ define([
          * Check if a product options are valid.
          */
         getOptionErrors: function (option, e) {
-            return this.isOptionInvalid(e, option)
+            return this.isOptionInvalid(option, e)
             ? [option]
             : [];
         },
@@ -59,7 +59,7 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {            
+        isOptionInvalid: function (option, e) {            
             // Prepare the target Id
             var targetId = this.getTargetField(option);
 

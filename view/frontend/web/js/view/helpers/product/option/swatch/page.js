@@ -50,9 +50,6 @@ define([
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceField) {
-            console.log('xxx');
-            console.log(sourceField);
-
             return $(sourceField).find('.selected').attr('option-id');
         }
     };
