@@ -64,7 +64,7 @@ define([
             var targetId = this.getTargetField(option);
 
             // Get the field value
-            var val = this.getSwatchHandler().getSourceFieldValue(targetId);
+            var val = $(targetId).val();
 
             console.log('isOptionInvalid');
             console.log(targetId);
