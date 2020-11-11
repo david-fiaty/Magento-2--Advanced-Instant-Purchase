@@ -31,7 +31,7 @@ define([
             for (var i = 0; i < option['values'].length; i++) {
                 selectors.push(this.getSourceFieldSelector(
                         option,
-                        option['values'][i]
+                        option['values'][i]['value_index']
                     )
                 );
             }
@@ -50,6 +50,9 @@ define([
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceField) {
+            console.log('xxx');
+            console.log(sourceField);
+
             return $(sourceField).find('.selected').attr('option-id');
         }
     };
