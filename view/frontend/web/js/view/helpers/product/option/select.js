@@ -86,11 +86,11 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getTargetField: function (sourceField) {
+        getTargetField: function (e, option) {
             return this.superAttributeSelectorPrefix
-            + $(sourceField).data('product-id')
+            + option['product_id']
             + '-'
-            + $(sourceField).data('attribute-id');
+            + option['attribute_id'];
         },
 
         /**
@@ -108,7 +108,7 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetField = this.getTargetField(option);
+            var targetField = this.getTargetField(e, option);
             var sourceField = this.getSourceField(targetField);
             var sourceFieldValue = this.getSourceFieldValue(sourceField);
 

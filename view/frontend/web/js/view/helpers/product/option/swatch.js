@@ -61,10 +61,10 @@ define([
          */
         isOptionInvalid: function (e, option) {            
             // Prepare the target Id
-            var targetId = this.getTargetValidationField(e, option);
+            var targetId = self.getTargetField(option);
 
             // Get the field value
-            var val = this.getSourceFieldValue(targetId);
+            var val = this.getSwatchHandler().getSourceFieldValue(option);
 
             console.log('isOptionInvalid');
             console.log(targetId);
@@ -96,20 +96,6 @@ define([
         getValuesSelectors: function (option) {
             return this.getSwatchHandler().getValuesSelectors(option);
         },
-
-        /**
-         * Get an option field selector.
-         */
-        getSourceField: function (option) {
-            return this.getSwatchHandler().getSourceField(option);
-        },
-
-        /**
-         * Get an option field value.
-         */
-        getSourceFieldValue: function (sourceField) {
-            return this.getSwatchHandler().getSourceFieldValue(sourceField);
-        },
         
         /**
          * Get a target option hidden field selector.
@@ -122,23 +108,12 @@ define([
         },
 
         /**
-         * Get a target option hidden field selector.
-         */
-        getTargetValidationField: function (e, option) {
-            return this.superAttributeSelectorPrefix
-            + $(e.currentTarget).data('product-id')
-            + '-'
-            + option['option_id'];
-        },
-
-        /**
          * Update the selected product options values.
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
             var targetField = this.getTargetField(option);
-            var sourceField = this.getSourceField(option);
-            var sourceFieldValue = this.getSourceFieldValue(sourceField);
+            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(option);
 
             if (typeof sourceFieldValue !== 'undefined') {
                 // Prepare the conditions
