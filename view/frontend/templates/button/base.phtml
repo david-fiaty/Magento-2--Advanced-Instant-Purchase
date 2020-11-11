@@ -31,7 +31,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
     $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     $isLoggedIn = $this->helper('Magento\Checkout\Helper\Cart')->getCart()->getCustomerSession()->isLoggedIn();
-    $buttonText = $isLoggedin ? $config['buttons']['button_text'] : $config['buttons']['guest_button_text'];
+    $buttonText = $isLoggedIn ? $config['buttons']['button_text'] : $config['buttons']['guest_button_text'];
 }
 ?>
 

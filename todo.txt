@@ -5,7 +5,7 @@
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
-
+- Improve UI logger information
 - make all config parameters available as block, widget and tag parameters
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
