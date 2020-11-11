@@ -32,10 +32,10 @@ define([
         initOptionEvent: function (option) {
             // Prepare variables
             var self = this;
-            var sourceField = this.getSourceField(option);
+            var sourceFields = this.getValuesSelectors(option);
 
             // Set the value change events
-            $(sourceField).off().on('click touch', function (e) {
+            $(sourceFields).off().on('click touch', function (e) {
                 // Prepare the target Id
                 var targetField = self.getTargetField(option);
 
@@ -66,6 +66,10 @@ define([
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
 
+            console.log('isOptionInvalid');
+            console.log(targetId);
+            console.log(val);
+
             // Check the field value
             var isValid = val && val.length > 0 && parseInt(val) > 0;
 
@@ -73,26 +77,38 @@ define([
         },
 
         /**
+         * Get the swatch options handler.
+         */
+        getSwatchHandler: function () {
+            if (NbnView.isListView()) {
+                return NbnListSwatch;
+            }
+            else if (NbnView.isPageView()) {
+                return NbnPageSwatch;
+            }
+
+            return;
+        },
+
+        /**
+         * Get an option field values selectors.
+         */
+        getValuesSelectors: function (option) {
+            return this.getSwatchHandler().getValuesSelectors(option);
+        },
+
+        /**
          * Get an option field selector.
          */
         getSourceField: function (option) {
-            if (NbnView.isListView()) {
-                return NbnListSwatch.getValuesSelectors(option);
-            }
-            else if (NbnView.isPageView()) {
-                return NbnPageSwatch.getValuesSelectors(option);
-            }
-
-            return '';
+            return this.getSwatchHandler().getSourceField(option);
         },
 
         /**
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceField) {
-            return NbnView.isListView()
-            ? $(sourceField).val()
-            : $(sourceField).find('.selected').attr('option-id');
+            return this.getSwatchHandler().getSourceFieldValue(sourceField);
         },
         
         /**
@@ -121,7 +137,7 @@ define([
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
             var targetField = this.getTargetField(option);
-            var sourceField = this.getSourceField(targetField);
+            var sourceField = this.getSourceField(option);
             var sourceFieldValue = this.getSourceFieldValue(sourceField);
 
             if (typeof sourceFieldValue !== 'undefined') {
