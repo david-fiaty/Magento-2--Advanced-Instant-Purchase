@@ -5,6 +5,7 @@
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 
+- add advanced config with placeholders for all CSS selectors used in js components
 - add button error reporting to button popover.
 
 - fix getOptionField method in list view, procut.js line 167
