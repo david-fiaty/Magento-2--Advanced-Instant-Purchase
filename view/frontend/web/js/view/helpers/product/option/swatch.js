@@ -75,18 +75,14 @@ define([
          * Get an option field selector.
          */
         getSourceField: function (option) {
-            var output;
             if (NbnView.isListView()) {
-                output = this.getSwatchValuesSelectors(option);
+                return this.getListSwatchValuesSelectors(option);
             }
             else if (NbnView.isPageView()) {
-                output = this.swatchOptionSelector
-                + ' '
-                + this.swatchAttributeSelector
-                + '[attribute-id="' + option['attribute_id'] + '"]';
+               return this.getPageSwatchValuesSelectors(option);
             }
 
-            return output;
+            return '';
         },
 
         /**
@@ -119,22 +115,37 @@ define([
         },
 
         /**
-         * Get a swatch option values selectors.
+         * Get a list swatch option values selectors.
          */
-        getSwatchValuesSelectors: function (option) {
+        getListSwatchValuesSelectors: function (option) {
             // Prepare the selector prefix
             var selectors = [];
-            var selectorPrefix = this.swatchOptionSelectorPrefix
-            + option['product_id']
-            + ' '
-            + '.swatch-option';
+            var selectorPrefix = '.swatch-opt-' + option['product_id'] + ' .swatch-option';
 
             // Add the swatch option values selectors
             for (var i = 0; i < option['values'].length; i++) {
                 // Prepare the value selector
-                var selector = selectorPrefix 
-                + '[option-id="' 
-                + option['values'][i]['value_index']+ '"]';
+                var selector = selectorPrefix + '[option-id="' + option['values'][i]['value_index']+ '"]';
+
+                // Add to the array
+                selectors.push(selector);
+            }
+
+            return selectors.join(', ');
+        },
+
+        /**
+         * Get a page swatch option values selectors.
+         */
+        getPageSwatchValuesSelectors: function (option) {
+            // Prepare the selector prefix
+            var selectors = [];
+            var selectorPrefix = '.swatch-opt .swatch-attribute .swatch-option';
+
+            // Add the swatch option values selectors
+            for (var i = 0; i < option['values'].length; i++) {
+                // Prepare the value selector
+                var selector = selectorPrefix + '[option-id="' + option['values'][i]['value_index']+ '"]';
 
                 // Add to the array
                 selectors.push(selector);
