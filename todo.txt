@@ -4,7 +4,6 @@
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
-- how to add buy now button to core product list blocks
 
 
 
@@ -16,6 +15,9 @@ EXTRA
 
 EXPLORE
 - can we render swatch instead of list when needed?
+- how to add buy now button to core product list blocks
+https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
+
 
 REVIEW
 - when product display attributes implemented, check what rpoduct options display should look like
