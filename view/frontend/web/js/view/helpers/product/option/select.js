@@ -35,7 +35,7 @@ define([
             // Set the value change events
             $(sourceField).on('change', function (e) {
                 // Prepare the target Id
-                var targetId = self.getTargetField($(this));
+                var targetId = self.getTargetField(e, option);
 
                 // Assign value from source to target
                 $(targetId).val($(e.currentTarget).val());

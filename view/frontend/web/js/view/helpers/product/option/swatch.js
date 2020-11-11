@@ -64,7 +64,7 @@ define([
             var targetId = this.getTargetField(option);
 
             // Get the field value
-            var val = this.getSwatchHandler().getSourceFieldValue(option);
+            var val = this.getSwatchHandler().getSourceFieldValue(targetId);
 
             console.log('isOptionInvalid');
             console.log(targetId);
@@ -113,7 +113,7 @@ define([
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
             var targetField = this.getTargetField(option);
-            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(option);
+            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetField);
 
             if (typeof sourceFieldValue !== 'undefined') {
                 // Prepare the conditions

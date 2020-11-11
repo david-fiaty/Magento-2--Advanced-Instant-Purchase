@@ -49,7 +49,7 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (option) {
+        getSourceFieldValue: function (sourceField) {
             return $(sourceField).find('.selected').attr('option-id');
         }
     };

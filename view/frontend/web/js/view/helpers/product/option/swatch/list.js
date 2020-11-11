@@ -54,7 +54,7 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (option) {
+        getSourceFieldValue: function (sourceField) {
             return $(sourceField).val();
         }
     };
