@@ -13,8 +13,8 @@
  */
 
 define([
-
-], function () {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {
@@ -37,6 +37,13 @@ define([
             }
 
             return selectors.join(', ');
+        },
+
+        /**
+         * Get an option field value.
+         */
+        getSourceFieldValue: function (sourceField) {
+            return $(sourceField).find('.selected').attr('option-id');
         }
     };
 });
