@@ -134,6 +134,14 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get the Buy Now button text.
+     */
+    public function getButtonText()
+    {
+        
+    }
+
+    /**
      * Get a block configuration parameters.
      */
     public function getConfig($productId)
