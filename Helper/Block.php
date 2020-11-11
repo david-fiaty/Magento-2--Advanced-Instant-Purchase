@@ -201,14 +201,13 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public function updateAttributesData($config, $force = false)
     {
         // Prepare parameters
-        $swatchAsSelect = $config['products']['swatch_as_select'];
         $updatedOptions = [];
 
         // Update the attribute display parameters
         if ($config['product']['has_options']) {
             foreach ($config['product']['options'] as $option) {
                 $isSwatch = $option['attribute_type'] == 'swatch';
-                if ($isSwatch && ($swatchAsSelect || $force)) {
+                if ($isSwatch && $force) {
                     $option['attribute_type'] = 'select';
                 }
                 

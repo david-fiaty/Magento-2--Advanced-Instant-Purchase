@@ -102,11 +102,6 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Display the Buy Now button in the product list view.</comment>
                 </field>
-                <field id="swatch_as_select" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Swatch as select</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display swatch product options as select lists.</comment>
-                </field>
             </group>
             <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Popup settings</label>
