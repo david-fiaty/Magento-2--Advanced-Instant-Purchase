@@ -34,11 +34,9 @@ define([
             var self = this;
             var sourceField = this.getSourceField(option);
 
-            console.log('sourceField');
-            console.log(sourceField);
-
             // Set the value change events
-            $(sourceField).on('click touch', function (e) {
+            $(sourceField).off().on('click touch', function (e) {
+
                 // Prepare the target Id
                 var targetId = self.getTargetField(option);
 
@@ -82,7 +80,9 @@ define([
             var optionSelector;
             if (NbnView.isListView()) {
                 optionSelector = this.swatchOptionSelectorPrefix
-                + option['product_id'];
+                + option['product_id']
+                + ' '
+                + '.swatch-option';
             }
             else if (NbnView.isPageView()) {
                 optionSelector = this.swatchOptionSelector
