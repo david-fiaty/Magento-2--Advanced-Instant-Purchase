@@ -38,13 +38,13 @@ define([
             $(sourceField).off().on('click touch', function (e) {
 
                 // Prepare the target Id
-                var targetId = self.getTargetField(option);
+                var targetField = self.getTargetField(option);
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
                 // Assign value from source to target
-                $(targetId).val(sourceFieldValue);
+                $(targetField).val(sourceFieldValue);
             });
         },
 
