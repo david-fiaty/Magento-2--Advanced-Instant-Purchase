@@ -4,15 +4,15 @@
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
+- how to add buy now button to core product list blocks
 
 
-- add advanced config with placeholders for all CSS selectors used in js components
+
+
+EXTRA
 - add button error reporting to button popover.
+- add advanced config with placeholders for all CSS selectors used in js components
 
-- fix getOptionField method in list view, procut.js line 167
-=> needs improvements to find options in lists
-
-- how to add buy now button to core product list blcoks
 
 EXPLORE
 - can we render swatch instead of list when needed?
