@@ -33,22 +33,13 @@ define([
             var self = this;
             var sourceField = this.getSourceField(option);
 
-            console.log(sourceField);
-
             // Set the value change events
             $(sourceField).off().on('click touch', function (e) {
-
                 // Prepare the target Id
                 var targetField = self.getTargetField(option);
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
-
-                /*
-console.log(sourceFieldValue);
-console.log(targetField);
-console.log(option);
-*/
 
                 // Assign value from source to target
                 $(targetField).val(sourceFieldValue);
