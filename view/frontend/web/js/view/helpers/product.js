@@ -49,7 +49,7 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            var options = this.getOptions();
+            var options = this.getOptions(this.o);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['attribute_type'])
@@ -87,7 +87,7 @@
          * Update the selected product options values.
          */
         updateSelectedOptionsValues: function (obj) {
-            var options = this.getOptions();
+            var options = this.getOptions(obj);
             var condition1 = options && options.length > 0;
             var condition2 = obj.jsConfig.blocks.show_product && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
@@ -195,22 +195,22 @@
          * Get a product options from a click even.
          */
         getOptionsFromEvent: function (e) {
-            return this.getProductData(e)['options'];
+            var productId = $(e.currentTarget).data('product-id');
+            return this.getProductData(productId)['options'];
         },
 
         /**
          * Get a product options.
          */
-        getOptions: function () {
-            return this.o.jsConfig.product.id;
+        getOptions: function (obj) {
+            var productId = obj.jsConfig.product.id;
+            return this.getProductData(productId)['options'];
         },
 
         /**
          * Get updated product data for events.
          */
-        getProductData: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-
+        getProductData: function (productId) {
             return JSON.parse(
                 $(this.productDataSelectorPrefix + productId).val()
             );            
