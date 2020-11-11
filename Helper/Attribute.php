@@ -61,7 +61,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
      * Get a product attribute type.
      */
     public function getAttributeType($code)
-    {        
+    {
         // Todo - Handle other attribute types
         return $this->isSwatch($code) ? 'swatch' : 'select';
     }
@@ -70,7 +70,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
      * Add the product attribute data to an option.
      */
     public function addAttributeData($option)
-    {   
+    {
         $option['attribute_type'] = $this->getAttributeType($option['attribute_code']);
         
         return $option;

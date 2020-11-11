@@ -30,10 +30,9 @@ define([
             // Add the swatch option values selectors
             for (var i = 0; i < option['values'].length; i++) {
                 selectors.push(this.getSourceFieldSelector(
-                        option,
-                        option['values'][i]['value_index']
-                    )
-                );
+                    option,
+                    option['values'][i]['value_index']
+                ));
             }
 
             return selectors.join(', ');

@@ -74,12 +74,10 @@
             // No argument provided
             if (NbnView.isPageView()) {
                 return NbnProductOptionSwatch;
-            }
-            else if (NbnView.isListView()) {
+            } else if (NbnView.isListView()) {
                 return NbnProductOptionSwatch;
-            }
-            else if (NbnView.isBlockView()) {
-                return NbnProductOptionSelect;        
+            } else if (NbnView.isBlockView()) {
+                return NbnProductOptionSelect;
             }
         },
 
@@ -175,7 +173,9 @@
                     .length > 0;
 
                     // Register the error
-                    if (error) errors++;
+                    if (error) {
+                        errors++;
+                    }
                 }
 
                 return errors == 0;
@@ -213,7 +213,7 @@
         getProductData: function (productId) {
             return JSON.parse(
                 $(this.productDataSelectorPrefix + productId).val()
-            );            
+            );
         },
 
         /**

@@ -59,7 +59,7 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (option, e) {            
+        isOptionInvalid: function (option, e) {
             // Prepare the target Id
             var targetId = this.getTargetField(option);
 
@@ -78,8 +78,7 @@ define([
         getSwatchHandler: function () {
             if (NbnView.isListView()) {
                 return NbnListSwatch;
-            }
-            else if (NbnView.isPageView()) {
+            } else if (NbnView.isPageView()) {
                 return NbnPageSwatch;
             }
 

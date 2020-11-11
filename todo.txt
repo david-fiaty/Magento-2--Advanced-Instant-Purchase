@@ -1,11 +1,12 @@
 
 !!!PRIORITY!!!
+- fix select options state when popup opens
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 
-
+- complete payment integrations
 
 
 EXTRA
@@ -28,8 +29,6 @@ UI LOGGER WINDOW BUGS
 - Loader sometimes not hiding on window open
 - make sure obj instant-purchase .showSubmitButton is false when closing ui logging window
 - disable submit button on logger window opened
-
-
 
 
 - how to add product options in popup view?
@@ -78,3 +77,4 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
+phpcbf --standard=PSR2 BuyNow
