@@ -15,15 +15,16 @@
 define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/view'
-], function ($, __, NbnView) {
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch/list',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch/page'
+], function ($, __, NbnView, NbnListSwatch, NbnPageSwatch) {
     'use strict';
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
-        swatchOptionSelectorPrefix: '.swatch-opt-',
 
         /**
          * Set product options events.
@@ -76,10 +77,10 @@ define([
          */
         getSourceField: function (option) {
             if (NbnView.isListView()) {
-                return this.getListSwatchValuesSelectors(option);
+                return NbnListSwatch.getValuesSelectors(option);
             }
             else if (NbnView.isPageView()) {
-               return this.getPageSwatchValuesSelectors(option);
+                return NbnPageSwatch.getValuesSelectors(option);
             }
 
             return '';
@@ -112,46 +113,6 @@ define([
             + $(e.currentTarget).data('product-id')
             + '-'
             + option['option_id'];
-        },
-
-        /**
-         * Get a list swatch option values selectors.
-         */
-        getListSwatchValuesSelectors: function (option) {
-            // Prepare the selector prefix
-            var selectors = [];
-            var selectorPrefix = '.swatch-opt-' + option['product_id'] + ' .swatch-option';
-
-            // Add the swatch option values selectors
-            for (var i = 0; i < option['values'].length; i++) {
-                // Prepare the value selector
-                var selector = selectorPrefix + '[option-id="' + option['values'][i]['value_index']+ '"]';
-
-                // Add to the array
-                selectors.push(selector);
-            }
-
-            return selectors.join(', ');
-        },
-
-        /**
-         * Get a page swatch option values selectors.
-         */
-        getPageSwatchValuesSelectors: function (option) {
-            // Prepare the selector prefix
-            var selectors = [];
-            var selectorPrefix = '.swatch-opt .swatch-attribute .swatch-option';
-
-            // Add the swatch option values selectors
-            for (var i = 0; i < option['values'].length; i++) {
-                // Prepare the value selector
-                var selector = selectorPrefix + '[option-id="' + option['values'][i]['value_index']+ '"]';
-
-                // Add to the array
-                selectors.push(selector);
-            }
-
-            return selectors.join(', ');
         },
 
         /**
