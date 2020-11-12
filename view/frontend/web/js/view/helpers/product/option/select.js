@@ -68,7 +68,7 @@ define([
         },
 
         /**
-         * Get a source option field selector.
+         * Get a source option field id.
          */
         getOptionFieldId: function (option) {
             return this.optionSelectorPrefix

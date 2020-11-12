@@ -73,6 +73,13 @@ define([
         },
 
         /**
+         * Get a source option field id.
+         */
+        getOptionFieldId: function (option) {
+            return this.getSwatchHandler().getOptionFieldId(option);
+        },
+
+        /**
          * Get the swatch options handler.
          */
         getSwatchHandler: function () {
@@ -109,11 +116,14 @@ define([
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getSwatchHandler().getOptionFieldId(option);
+            var targetFieldId = this.getOptionFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {
-                $(this.confirmationContainerSelector).find(targetFieldId).val(sourceFieldValue).change();
+                $(this.confirmationContainerSelector)
+                .find(targetFieldId)
+                .val(sourceFieldValue)
+                .change();
             }
         },
 
