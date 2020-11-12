@@ -24,9 +24,4 @@
         <css src="Naxero_BuyNow::css/lib/popover/popover.css" />
         <css src="Naxero_BuyNow::css/lib/json/jquery.json-viewer.css" />
     </head>
-    <body>
-        <referenceContainer name="header-wrapper">
-            <block name="naxero.buynow.minicart" cacheable="false" class="Naxero\BuyNow\Block\Button\CartButton" template="Naxero_BuyNow::button/cart.phtml" after="-" />
-        </referenceContainer>
-    </body>
 </page>
