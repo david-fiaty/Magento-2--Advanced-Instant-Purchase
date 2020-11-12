@@ -16,28 +16,29 @@
 
 <?php $config = $block->getConfig() ?>
 <?php if ($config): ?>
-    <?php
-    // Process the block display logic
-    if ($this->blockHelper->bypassOos($config['product']['id'])) {
-        $productId = $config['product']['id'];
-        $buttonId = $config['product']['button_id'];
-        $purchaseData = $block->purchaseHelper->getPurchaseData();
-        $productIsFree = $block->productHelper->isFree($productId);
-        $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-        $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
-        $isListView = $config['product']['display'] == 'list';
-        $isPageView = $config['product']['display'] == 'view';
-        $formKey = $config['product']['form_key'];
-        $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
-        $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
-    }
-    ?>
+<?php
+// Process the block display logic
+if ($this->blockHelper->bypassOos($config['product']['id'])) {
+    $productId = $config['product']['id'];
+    $buttonId = $config['product']['button_id'];
+    $purchaseData = $block->purchaseHelper->getPurchaseData();
+    $productIsFree = $block->productHelper->isFree($productId);
+    $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
+    $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
+    $isListView = $config['product']['display'] == 'list';
+    $isPageView = $config['product']['display'] == 'view';
+    $formKey = $config['product']['form_key'];
+    $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+    $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
+    $buttonText = $this->blockHelper->getButtonText();
+}
+?>
 
 <!-- Product box -->
-    <?php if ($showProductBox): ?>
-    <div class="nbn-product-box-container">
-        <?= $this->blockHelper->renderProductBox($productId) ?>
-    </div>
+<?php if ($showProductBox): ?>
+<div class="nbn-product-box-container">
+    <?= $this->blockHelper->renderProductBox($productId) ?>
+</div>
 <?php endif; ?>
 
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
@@ -48,8 +49,8 @@
         type="button"
         disabled="disabled"
         class="<?= $block->escapeHtmlAttr($block->purchaseHelper->getButtonCss()) ?> action primary instant-purchase nbn-button"
-        title="<?= $block->escapeHtmlAttr(__($config['buttons']['button_text'])) ?>">
-        <?= $block->escapeHtml(__($config['buttons']['button_text'])) ?>
+        title="<?= $block->escapeHtmlAttr(__($buttonText)) ?>">
+        <?= $block->escapeHtml(__($buttonText)) ?>
     
         <?php if ($uiLogging): ?>
             <div id="nbn-ui-logger-button-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-ui-logger-button">

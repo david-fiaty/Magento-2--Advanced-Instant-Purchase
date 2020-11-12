@@ -19,6 +19,7 @@ define([
 
     return {
         selectorPrefix: '.swatch-opt .swatch-attribute .swatch-option',
+        optionSelectorPrefix: '#nbn-option-',
  
         /**
          * Get a page swatch option values selectors.
@@ -39,6 +40,15 @@ define([
         },
 
         /**
+         * Get a source option field id.
+         */
+        getOptionFieldId: function (option) {
+            return this.optionSelectorPrefix
+                + option['product_id']
+                + '-' + option['attribute_id'];
+        },
+
+        /**
          * Get a source field selector.
          */
         getSourceFieldSelector: function (option, valueIndex) {
@@ -48,8 +58,8 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (sourceField) {
-            return $(sourceField).find('.selected').attr('option-id');
+        getSourceFieldValue: function (sourceFieldId) {
+            return $(sourceFieldId).find('.selected').attr('option-id');
         }
     };
 });

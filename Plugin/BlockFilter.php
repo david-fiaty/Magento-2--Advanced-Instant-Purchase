@@ -66,7 +66,6 @@ class BlockFilter
         // Process tags found
         if ($matches) {
             for ($i = 0; $i < count($matches[0]); $i++) {
-                // Loop through the tag parameters
                 if ($this->tagHasParameters($matches, $i)) {
                     // Prepare the loop variables
                     $errors = [];
@@ -76,15 +75,7 @@ class BlockFilter
                     $block = $this->blockHelper->buildButtonBlock($subject);
 
                     // Process the block tab parameters
-                    foreach (self::$blockParams as $key) {
-                        // Process the parameter
-                        $result = $this->processParam($key, $i, $matches, $block);
-
-                        // Handle the parameter errors
-                        if ($result['errors'] > 0) {
-                            $errors[] = $result['errors'];
-                        }
-                    }
+                    $errors = $this->processParams($i, $matches, $block);
 
                     // Replace the tag with the generated HTML
                     if (empty($errors[0])) {
@@ -114,6 +105,28 @@ class BlockFilter
         }
 
         return $html;
+    }
+
+    /**
+     * Process all block parameters.
+     */
+    public function processParams($i, $matches, $block)
+    {
+        // Prepare the errors array
+        $errors = [];
+
+        // Check all parameters
+        foreach (self::$blockParams as $key) {
+            // Process the parameter
+            $result = $this->processParam($key, $i, $matches, $block);
+
+            // Handle the parameter errors
+            if ($result['errors'] > 0) {
+                $errors[] = $result['errors'];
+            }
+        }
+
+        return $errors;
     }
 
     /**
