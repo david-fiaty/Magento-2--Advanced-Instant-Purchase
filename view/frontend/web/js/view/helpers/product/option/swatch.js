@@ -109,7 +109,7 @@ define([
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getOptionFieldId(option);
+            var targetFieldId = this.getSwatchHandler().getOptionFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {
