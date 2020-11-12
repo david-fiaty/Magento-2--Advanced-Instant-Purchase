@@ -30,7 +30,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
     $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
-    $buttonText = $block->getButtonText();
+    $buttonText = $this->blockHelper->getButtonText();
 }
 ?>
 

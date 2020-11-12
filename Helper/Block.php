@@ -138,7 +138,13 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getButtonText()
     {
-        
+        // Get logged in status
+        $isLoggedIn = $this->customerHelper->getUserParams()['user']['connected'];
+
+        // Return the button text
+        return $isLoggedIn
+        ? $config['buttons']['button_text'] 
+        : $config['buttons']['guest_button_text'];
     }
 
     /**
