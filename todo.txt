@@ -33,7 +33,8 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
-
+- store pickup
+https://magentodeveloper.in/add-static-content-to-minicart-magento2.html
 
 
 
