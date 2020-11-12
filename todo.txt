@@ -34,7 +34,12 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - display buy now button based on stock avail rules
 
 - store pickup
+
+
+- minicart 
 https://magentodeveloper.in/add-static-content-to-minicart-magento2.html
+https://magento.stackexchange.com/questions/184501/how-to-add-empty-cart-button-to-minicart
+https://magento.stackexchange.com/questions/286046/magento-2-add-custom-button-next-to-cart-button
 
 
 
