@@ -111,17 +111,17 @@ define([
             var sourceFieldValue = $(sourceFieldId).val();
             var targetFieldId = this.getOptionFieldId(option);
 
-            if (typeof sourceFieldValue !== 'undefined') {
-                // Prepare the conditions
-                var condition = sourceFieldValue
-                && sourceFieldValue != 'undefined'
-                && sourceFieldValue.length > 0;
-
-                // Update the options selected value
-                if (condition) {
-                    $(this.confirmationContainerSelector).find(targetFieldId).val(sourceFieldValue).change();
-                }
+            // Update the option selected value
+            if (this.isSelectedValueValid(sourceFieldValue)) {
+                $(this.confirmationContainerSelector).find(targetFieldId).val(sourceFieldValue).change();
             }
+        },
+
+        isSelectedValueValid: function (value) {
+            return value 
+            && typeof value !== 'undefined'
+            && value != 'undefined' 
+            && value.length > 0;
         }
     };
 });
