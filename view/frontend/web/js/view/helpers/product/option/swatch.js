@@ -37,13 +37,13 @@ define([
             // Set the value change events
             $(sourceFields).on('click touch', function (e) {
                 // Prepare the target Id
-                var targetField = self.getTargetField(option);
+                var targetFieldId = self.getHiddenFieldId(option);
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
                 // Assign value from source to target
-                $(targetField).val(sourceFieldValue);
+                $(targetFieldId).val(sourceFieldValue);
             });
         },
 
@@ -61,7 +61,7 @@ define([
          */
         isOptionInvalid: function (option, e) {
             // Prepare the target Id
-            var targetId = this.getTargetField(option);
+            var targetId = this.getHiddenFieldId(option);
 
             // Get the field value
             var val = $(targetId).val();
@@ -95,7 +95,7 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getTargetField: function (option) {
+        getHiddenFieldId: function (option) {
             return this.superAttributeSelectorPrefix
             + option['product_id']
             + '-'
@@ -107,8 +107,8 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetField = this.getTargetField(option);
-            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetField);
+            var targetFieldId = this.getHiddenFieldId(option);
+            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetFieldId);
 
             if (typeof sourceFieldValue !== 'undefined') {
                 // Prepare the conditions
@@ -118,7 +118,7 @@ define([
 
                 // Update the options selected value
                 if (condition) {
-                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
+                    $(this.confirmationContainerSelector).find(targetFieldId).val(sourceFieldValue).change();
                 }
             }
         }

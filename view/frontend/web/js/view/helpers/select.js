@@ -63,8 +63,8 @@
                 : thisFieldValue;
 
                 // Update the hidden target field value
-                var targetField = $(this).attr('data-field');
-                $('input[name="' + targetField + '"]').val(newFieldValue);
+                var targetFieldId = $(this).attr('data-field');
+                $('input[name="' + targetFieldId + '"]').val(newFieldValue);
             });
 
             // Other payment methods toggle

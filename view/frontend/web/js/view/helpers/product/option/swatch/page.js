@@ -48,8 +48,8 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (sourceField) {
-            return $(sourceField).find('.selected').attr('option-id');
+        getSourceFieldValue: function (sourceFieldId) {
+            return $(sourceFieldId).find('.selected').attr('option-id');
         }
     };
 });
