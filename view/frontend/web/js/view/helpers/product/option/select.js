@@ -30,12 +30,12 @@ define([
         initOptionEvent: function (option) {
             // Prepare variables
             var self = this;
-            var sourceFieldId = this.getSourceFieldId(option);
+            var sourceFieldId = this.getOptionFieldId(option);
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
                 // Prepare the target Id
-                var targetFieldId = self.getHiddenFieldId(e, option);
+                var targetFieldId = self.getHiddenFieldId(option);
 
                 // Assign value from source to target
                 $(targetFieldId).val($(e.currentTarget).val());
@@ -70,7 +70,7 @@ define([
         /**
          * Get a source option field selector.
          */
-        getSourceFieldId: function (option) {
+        getOptionFieldId: function (option) {
             return this.optionSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
@@ -86,7 +86,7 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getHiddenFieldId: function (e, option) {
+        getHiddenFieldId: function (option) {
             return this.superAttributeSelectorPrefix
             + option['product_id']
             + '-'
@@ -108,9 +108,9 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetFieldId = this.getHiddenFieldId(e, option);
-            var sourceFieldId = this.getSourceFieldId(targetFieldId);
-            var sourceFieldValue = this.getSourceFieldValue(sourceFieldId);
+            var sourceFieldId = this.getHiddenFieldId(option);
+            var sourceFieldValue = $(sourceFieldId).val();
+            var targetFieldId = this.getOptionFieldId(option);
 
             // Prepare the conditions
             var condition = sourceFieldValue

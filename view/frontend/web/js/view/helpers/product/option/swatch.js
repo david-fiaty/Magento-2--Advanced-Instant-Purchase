@@ -107,8 +107,9 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetFieldId = this.getHiddenFieldId(option);
-            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetFieldId);
+            var sourceFieldId = this.getHiddenFieldId(option);
+            var sourceFieldValue = $(sourceFieldId).val();
+            var targetFieldId = this.getOptionFieldId(option);
 
             if (typeof sourceFieldValue !== 'undefined') {
                 // Prepare the conditions
