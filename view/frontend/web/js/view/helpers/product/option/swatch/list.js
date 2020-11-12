@@ -18,7 +18,8 @@ define([
     'use strict';
 
     return {
-        selectorPrefix: '.swatch-opt-', 
+        optionSelectorPrefix: '#nbn-option-',
+        selectorPrefix: '.swatch-opt-',
         selectorSuffix: '.swatch-option',
 
         /**
@@ -31,21 +32,29 @@ define([
             // Add the swatch option values selectors
             for (var i = 0; i < option['values'].length; i++) {
                 selectors.push(this.getSourceFieldSelector(
-                        option,
-                        option['values'][i]['value_index']
-                    )
-                );
+                    option,
+                    option['values'][i]['value_index']
+                ));
             }
 
             return selectors.join(', ');
         },
 
         /**
+         * Get a source option field id.
+         */
+        getOptionFieldId: function (option) {
+            return this.optionSelectorPrefix
+                + option['product_id']
+                + '-' + option['attribute_id'];
+        },
+
+        /**
          * Get a source field selector.
          */
         getSourceFieldSelector: function (option, valueIndex) {
-            return this.selectorPrefix 
-            + option['product_id'] + ' ' 
+            return this.selectorPrefix
+            + option['product_id'] + ' '
             + this.selectorSuffix
             + '[option-id="' + valueIndex
             + '"]';
@@ -54,8 +63,8 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (sourceField) {
-            return $(sourceField).find('.selected').attr('option-id');
+        getSourceFieldValue: function (sourceFieldId) {
+            return $(sourceFieldId).find('.selected').attr('option-id');
         }
     };
 });

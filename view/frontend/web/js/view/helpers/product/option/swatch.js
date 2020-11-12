@@ -37,13 +37,13 @@ define([
             // Set the value change events
             $(sourceFields).on('click touch', function (e) {
                 // Prepare the target Id
-                var targetField = self.getTargetField(option);
+                var targetFieldId = self.getHiddenFieldId(option);
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
 
                 // Assign value from source to target
-                $(targetField).val(sourceFieldValue);
+                $(targetFieldId).val(sourceFieldValue);
             });
         },
 
@@ -59,9 +59,9 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (option, e) {            
+        isOptionInvalid: function (option, e) {
             // Prepare the target Id
-            var targetId = this.getTargetField(option);
+            var targetId = this.getHiddenFieldId(option);
 
             // Get the field value
             var val = $(targetId).val();
@@ -73,13 +73,19 @@ define([
         },
 
         /**
+         * Get a source option field id.
+         */
+        getOptionFieldId: function (option) {
+            return this.getSwatchHandler().getOptionFieldId(option);
+        },
+
+        /**
          * Get the swatch options handler.
          */
         getSwatchHandler: function () {
             if (NbnView.isListView()) {
                 return NbnListSwatch;
-            }
-            else if (NbnView.isPageView()) {
+            } else if (NbnView.isPageView()) {
                 return NbnPageSwatch;
             }
 
@@ -96,7 +102,7 @@ define([
         /**
          * Get a target option hidden field selector.
          */
-        getTargetField: function (option) {
+        getHiddenFieldId: function (option) {
             return this.superAttributeSelectorPrefix
             + option['product_id']
             + '-'
@@ -108,20 +114,24 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetField = this.getTargetField(option);
-            var sourceFieldValue = this.getSwatchHandler().getSourceFieldValue(targetField);
+            var sourceFieldId = this.getHiddenFieldId(option);
+            var sourceFieldValue = $(sourceFieldId).val();
+            var targetFieldId = this.getOptionFieldId(option);
 
-            if (typeof sourceFieldValue !== 'undefined') {
-                // Prepare the conditions
-                var condition = sourceFieldValue
-                && sourceFieldValue != 'undefined'
-                && sourceFieldValue.length > 0;
-
-                // Update the options selected value
-                if (condition) {
-                    $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
-                }
+            // Update the option selected value
+            if (this.isSelectedValueValid(sourceFieldValue)) {
+                $(this.confirmationContainerSelector)
+                .find(targetFieldId)
+                .val(sourceFieldValue)
+                .change();
             }
+        },
+
+        isSelectedValueValid: function (value) {
+            return value 
+            && typeof value !== 'undefined'
+            && value != 'undefined' 
+            && value.length > 0;
         }
     };
 });

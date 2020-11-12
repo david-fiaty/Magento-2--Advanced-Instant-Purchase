@@ -6,13 +6,6 @@
 "Invalid field","Invalid field"
 "The address could not be saved.","The address could not be saved."
 "Something went wrong while processing your order. Please try again later.","Something went wrong while processing your order. Please try again later."
-Disabled,Disabled
-Enabled,Enabled
-"Open the login popup","Open the login popup"
-"Redirect to the login page","Redirect to the login page"
-"Open the popup with options to select","Open the popup with options to select"
-"Force the user to select options","Force the user to select options"
-"Redirect the user to the product view page","Redirect the user to the product view page"
 "Naxero Buy Now","Naxero Buy Now"
 carrier_title,carrier_title
 ending,ending
@@ -37,6 +30,8 @@ Country,Country
 "Go back","Go back"
 "buttons' 'button_text","buttons' 'button_text"
 "View logs","View logs"
+"Product data","Product data"
+"Module parameters","Module parameters"
 "Your order heas been created successfully. Order reference:","Your order heas been created successfully. Order reference:"
 "Billing address","Billing address"
 New,New

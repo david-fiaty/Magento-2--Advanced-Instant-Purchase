@@ -146,8 +146,7 @@ define([
                     
                     // Page view and/or all conditions valid
                     self.purchasePopup(e);
-                }
-                else if (e.target.nodeName == 'A') {
+                } else if (e.target.nodeName == 'A') {
                     // Open the modal
                     self.o.modal.getLoggerModal(self);
 

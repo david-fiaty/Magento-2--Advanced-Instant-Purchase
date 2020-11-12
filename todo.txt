@@ -1,47 +1,41 @@
 
 !!!PRIORITY!!!
+- fix select options state when popup opens
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
+- Improve UI logger information
+- make all config parameters available as block, widget and tag parameters
+- complete payment integrations
+- when select list option attributes implemented, check other filed types
 
 
-
+FEATURES
+- ! add quick cart checkout option in minicart and basket page
+- button display conditions engine
+- add popup/banner/add system with instant purchase
+- add themes system
+- login with google, facebook
 
 EXTRA
+- add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
 - add button error reporting to button popover.
 - add advanced config with placeholders for all CSS selectors used in js components
+- move agreements settings to a better section than general
 
 
 EXPLORE
 - can we render swatch instead of list when needed?
 - how to add buy now button to core product list blocks
 https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
-
-
-REVIEW
-- when product display attributes implemented, check what rpoduct options display should look like
-- when select list option attributes implemented, check other filed types
-
-
-UI LOGGER WINDOW BUGS
-- Loader sometimes not hiding on window open
-- make sure obj instant-purchase .showSubmitButton is false when closing ui logging window
-- disable submit button on logger window opened
-
-
-
-
-- how to add product options in popup view?
-- move agreements settings to a better section than general
-- update the ui logger modal title retrieval
-
 - filter display by customer groups/profiles
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
-- add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
-- move log method from ip to utils
+
+
+
 
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
@@ -53,16 +47,7 @@ https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
 - handle shipping method observer in js
 https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-on-country-and-postcode-change
 
-FEATURES
-- ! add quick cart checkout option in minicart and basket page
-- create list button action on click: redirect, open popup with options, force options selection
-- button display conditions engine
-- add advanced config for css selectors for UI items
-- add popup/banner/add system with instant purchase
 
-
-- add themes system
-- login with google, facebook
 
 QA
 - check all config fields functional
@@ -78,3 +63,4 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
+phpcbf --standard=PSR2 BuyNow

@@ -30,15 +30,15 @@ define([
         initOptionEvent: function (option) {
             // Prepare variables
             var self = this;
-            var sourceField = this.getSourceField(option);
+            var sourceFieldId = this.getOptionFieldId(option);
 
             // Set the value change events
-            $(sourceField).on('change', function (e) {
+            $(sourceFieldId).on('change', function (e) {
                 // Prepare the target Id
-                var targetId = self.getTargetField(e, option);
+                var targetFieldId = self.getHiddenFieldId(option);
 
                 // Assign value from source to target
-                $(targetId).val($(e.currentTarget).val());
+                $(targetFieldId).val($(e.currentTarget).val());
             });
         },
 
@@ -54,7 +54,7 @@ define([
         /**
          * Check if a product option is valid.
          */
-        isOptionInvalid: function (e, option) {            
+        isOptionInvalid: function (e, option) {
             // Prepare the target Id
             var targetId = this.getTargetValidationField(e, option);
 
@@ -68,9 +68,9 @@ define([
         },
 
         /**
-         * Get a source option field selector.
+         * Get a source option field id.
          */
-        getSourceField: function (option) {
+        getOptionFieldId: function (option) {
             return this.optionSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
@@ -79,14 +79,14 @@ define([
         /**
          * Get an option field value.
          */
-        getSourceFieldValue: function (sourceField) {
-            return $(sourceField).val();
+        getSourceFieldValue: function (sourceFieldId) {
+            return $(sourceFieldId).val();
         },
 
         /**
          * Get a target option hidden field selector.
          */
-        getTargetField: function (e, option) {
+        getHiddenFieldId: function (option) {
             return this.superAttributeSelectorPrefix
             + option['product_id']
             + '-'
@@ -108,19 +108,21 @@ define([
          */
         updateSelectedOptionValue: function (option) {
             // Prepare the parameters
-            var targetField = this.getTargetField(e, option);
-            var sourceField = this.getSourceField(targetField);
-            var sourceFieldValue = this.getSourceFieldValue(sourceField);
+            var sourceFieldId = this.getHiddenFieldId(option);
+            var sourceFieldValue = $(sourceFieldId).val();
+            var targetFieldId = this.getOptionFieldId(option);
 
-            // Prepare the conditions
-            var condition = sourceFieldValue
-            && sourceFieldValue != 'undefined'
-            && sourceFieldValue.length > 0;
-
-            // Update the options selected value
-            if (condition) {
-                $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();
+            // Update the option selected value
+            if (this.isSelectedValueValid(sourceFieldValue)) {
+                $(this.confirmationContainerSelector).find(targetFieldId).val(sourceFieldValue).change();
             }
+        },
+
+        isSelectedValueValid: function (value) {
+            return value 
+            && typeof value !== 'undefined'
+            && value != 'undefined' 
+            && value.length > 0;
         }
     };
 });

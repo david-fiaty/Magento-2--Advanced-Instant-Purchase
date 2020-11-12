@@ -71,8 +71,8 @@ class FormAdd extends \Magento\Framework\App\Action\Action
     }
 
       /**
-     * Generates the new card block.
-     */
+       * Generates the new card block.
+       */
     public function newCardBlock()
     {
         return $this->pageFactory->create()->getLayout()

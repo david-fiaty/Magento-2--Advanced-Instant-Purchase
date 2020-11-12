@@ -15,7 +15,7 @@
 define([
     'jquery',
     'Magento_Ui/js/modal/modal'
-], function($, modal) {
+], function ($, modal) {
     'use strict';
 
     return {

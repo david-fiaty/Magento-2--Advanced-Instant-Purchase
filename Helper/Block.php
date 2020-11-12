@@ -134,6 +134,23 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get the Buy Now button text.
+     */
+    public function getButtonText()
+    {
+        // Get the module config
+        $config = $this->configHelper->getValues();
+
+        // Get logged in status
+        $isLoggedIn = $this->customerHelper->getUserParams()['user']['connected'];
+
+        // Return the button text
+        return $isLoggedIn
+        ? $config['buttons']['button_text'] 
+        : $config['buttons']['guest_button_text'];
+    }
+
+    /**
      * Get a block configuration parameters.
      */
     public function getConfig($productId)

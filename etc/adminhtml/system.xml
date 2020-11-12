@@ -70,13 +70,21 @@
                 <label>Button settings</label>
                 <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button text</label>
-                    <comment>Text to display on the purchase button.</comment>
+                    <comment>Text to display on the Buy Now button.</comment>
                 </field>
 
                 <field id="show_guest_button" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show guest button</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the Instant Purchase button to guest users.</comment>
+                    <comment>Show the Buy Now button to guest users.</comment>
+                </field>
+
+                <field id="guest_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Guest button text</label>
+                    <comment>Text to display on the Buy Now button for non logged in users.</comment>
+                        <depends>
+                            <field id="show_guest_button">1</field>
+                        </depends>
                 </field>
 
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
