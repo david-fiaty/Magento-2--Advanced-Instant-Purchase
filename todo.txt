@@ -1,20 +1,8 @@
 
 !!!PRIORITY!!!
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 - widget work: remove title filter and add other config parameters
 - content tag not working on pure pages
-
-=======
-- fix select options state when popup opens
->>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
-=======
-- fix select options state when popup opens
->>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
-=======
-- fix select options state when popup opens
->>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
@@ -46,19 +34,6 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - filter display by customer groups/profiles
 - improve the config fields comments
 - display buy now button based on stock avail rules
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-=======
-
-=======
-
-
->>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
-
->>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
 
 
 - custom widget:
