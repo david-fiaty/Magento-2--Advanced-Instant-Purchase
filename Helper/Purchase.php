@@ -119,37 +119,52 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Set the instant purchase availability
         $data = ['available' => true];
         
-        // Payment token
-        $paymentToken = $this->vaultHandler->preparePaymentToken();
-
-        // Shipping address
-        $shippingAddress = $this->customerHelper->getShippingAddress();
-
-        // Billing address
-        $billingAddress = $this->customerHelper->getBillingAddress();
-
-        // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
-
         // Data
         $data += [
-            'payment_token' => $paymentToken,
-            'shipping_address' => [
-                'id' => $shippingAddress->getId(),
-                'summary' => $this->customerAddressesFormatter->format($shippingAddress),
-            ],
-            'billing_address' => [
-                'id' => $billingAddress->getId(),
-                'summary' => $this->customerAddressesFormatter->format($billingAddress),
-            ],
-            'shipping_method' => [
-                'carrier' => $shippingMethod->getCarrierCode(),
-                'method' => $shippingMethod->getMethodCode(),
-                'summary' => $this->shippingMethodFormatter->format($shippingMethod),
-            ]
+            'payment_token' => $this->vaultHandler->preparePaymentToken(),
+            'shipping_address' => $this->buildShippingAddressArray(),
+            'billing_address' => $this->buildBillingAddressArray(),
+            'shipping_method' => $this->buildShippingMethodArray()
         ];
 
         return $data;
+    }
+
+    /**
+     * Build the shipping address array.
+     */
+    public function buildShippingAddressArray() {
+        $shippingAddress = $this->customerHelper->getShippingAddress();
+
+        return !$shippingAddress ? null : [
+            'id' => $shippingAddress->getId(),
+            'summary' => $this->customerAddressesFormatter->format($shippingAddress),
+        ];
+    }
+
+    /**
+     * Build the billing address array.
+     */
+    public function buildBillingAddressArray() {
+        $billingAddress = $this->customerHelper->getBillingAddress();
+
+        return !$billingAddress ? null : [
+            'id' => $billingAddress->getId(),
+            'summary' => $this->customerAddressesFormatter->format($billingAddress),
+        ];
+    }
+
+    /**
+     * Build the shipping method array.
+     */
+    public function buildShippingMethodArray() {
+        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
+
+        return !$shippingMethod ? null : [
+            'carrier' => $shippingMethod->getCarrierCode(),
+            'method' => $shippingMethod->getMethodCode(),
+            'summary' => $this->shippingMethodFormatter->format($shippingMethod),
+        ];
     }
 
     /**
