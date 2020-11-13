@@ -29,7 +29,7 @@
             <buttons>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
-                <guest_button_text>Login to buy now</guest_button_text>
+                <guest_button_text>Buy Now</guest_button_text>
                 <products_with_options>open</products_with_options>
                 <bypass_oos>0</bypass_oos>
                 <button_classes>primary button</button_classes>
