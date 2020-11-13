@@ -1,8 +1,12 @@
 
 !!!PRIORITY!!!
+<<<<<<< HEAD
 - widget work: remove title filter and add other config parameters
 - content tag not working on pure pages
 
+=======
+- fix select options state when popup opens
+>>>>>>> parent of c29fcba... Merge pull request #68 from david-fiaty/minicart
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
@@ -12,7 +16,6 @@
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 
-- check spinner in UI logger popup for all views
 
 FEATURES
 - ! add quick cart checkout option in minicart and basket page
@@ -36,13 +39,7 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
-- store pickup
 
-
-- minicart 
-https://magentodeveloper.in/add-static-content-to-minicart-magento2.html
-https://magento.stackexchange.com/questions/184501/how-to-add-empty-cart-button-to-minicart
-https://magento.stackexchange.com/questions/286046/magento-2-add-custom-button-next-to-cart-button
 
 
 
@@ -71,10 +68,5 @@ NEW IDEAS
 
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
-
-- empty cart button module
-https://magento.stackexchange.com/questions/184501/how-to-add-empty-cart-button-to-minicart
-
-- delete orders module
 
 phpcbf --standard=PSR2 BuyNow
