@@ -232,8 +232,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
             }
 
             $config['product']['options'] = $updatedOptions;
-            
-            return $config;
         }
+
+        return $config;
     }
 }
