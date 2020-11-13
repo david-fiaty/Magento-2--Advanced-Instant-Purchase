@@ -136,9 +136,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function buildShippingAddressArray() {
         $shippingAddress = $this->customerHelper->getShippingAddress();
 
-        return !$shippingAddress ? null : [
-            'id' => $shippingAddress->getId(),
-            'summary' => $this->customerAddressesFormatter->format($shippingAddress),
+        return [
+            'id' => !$shippingAddress ? 0 : $shippingAddress->getId(),
+            'summary' => !$shippingAddress ? '' : $this->customerAddressesFormatter->format($shippingAddress)
         ];
     }
 
@@ -148,9 +148,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function buildBillingAddressArray() {
         $billingAddress = $this->customerHelper->getBillingAddress();
 
-        return !$billingAddress ? null : [
-            'id' => $billingAddress->getId(),
-            'summary' => $this->customerAddressesFormatter->format($billingAddress),
+        return [
+            'id' => !$billingAddress ? 0 : $billingAddress->getId(),
+            'summary' => !$billingAddress ? '' : $this->customerAddressesFormatter->format($billingAddress)
         ];
     }
 
@@ -160,10 +160,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function buildShippingMethodArray() {
         $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
 
-        return !$shippingMethod ? null : [
-            'carrier' => $shippingMethod->getCarrierCode(),
-            'method' => $shippingMethod->getMethodCode(),
-            'summary' => $this->shippingMethodFormatter->format($shippingMethod),
+        return [
+            'carrier' => !$shippingMethod ? '' : $shippingMethod->getCarrierCode(),
+            'method' => !$shippingMethod ? '' : $shippingMethod->getMethodCode(),
+            'summary' => !$shippingMethod ? '' : $this->shippingMethodFormatter->format($shippingMethod)
         ];
     }
 
