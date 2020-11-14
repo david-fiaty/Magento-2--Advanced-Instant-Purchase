@@ -121,7 +121,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public function updateWidgetConfig($config)
     {
         // Get the XML config fields
-        $configFields = $this->tools->array_keys_recursive(
+        $configFields = $this->array_keys_recursive(
             $this->configHelper->getConfigFields()
         );
 
@@ -143,6 +143,22 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         return $config;
     }
 
+    /**
+     * Get array keys recursively.
+     */
+    public function array_keys_recursive(array $array) : array
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $index[$key] = $this->array_keys_recursive($value);
+            } else {
+                $index[]= $key;
+            }
+        }
+    
+        return $index ?? [];
+    }
+    
     /**
      * Disable the block cache.
      */
