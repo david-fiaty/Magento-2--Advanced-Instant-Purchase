@@ -120,9 +120,26 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
      */
     public function updateWidgetConfig($config)
     {
-        var_dump($this->getData('debug_enabled'));
+        // Get the XML config fields
+        $configFields = $this->tools->array_keys_recursive(
+            $this->configHelper->getConfigFields()
+        );
+
+        // Get the block data
+        $blockData = $this->getData();
+
+        // Loop through the available config fields
+        /*foreach ($configFields as $group => $fields) {
+            foreach ($fields as $i => $field) {
+
+            }
+        }*/
+
+        //var_dump();
+        var_dump($blockData);
+
         exit();
-        
+
         return $config;
     }
 

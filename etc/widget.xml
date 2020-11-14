@@ -26,6 +26,7 @@
             <parameter name="debug_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Debug enabled</label>
             </parameter>
+
         </parameters>
     </widget>
 </widgets>
