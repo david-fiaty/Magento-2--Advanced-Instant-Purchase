@@ -129,16 +129,15 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         $blockData = $this->getData();
 
         // Loop through the available config fields
-        /*foreach ($configFields as $group => $fields) {
+        foreach ($configFields as $group => $fields) {
             foreach ($fields as $i => $field) {
-
+                if (in_array($field, $blockData)) {
+                    $config[$group][$field] = $this->configHelper->toBooleanFilter(
+                        $blockData[$field]
+                    );
+                }   
             }
-        }*/
-
-        //var_dump();
-        var_dump($blockData);
-
-        exit();
+        }
 
         return $config;
     }
