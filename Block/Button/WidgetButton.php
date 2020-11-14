@@ -89,7 +89,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $config = $this->updateAttributesData($config);
 
             // Update the config with tag parameters
-            $config = $this->addTagParameters($config);
+            $config = $this->updateWidgetConfig($config);
 
             return $config;
         }
@@ -118,8 +118,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     /**
      * Update the config with tag parameters.
      */
-    public function addTagParameters($config)
+    public function updateWidgetConfig($config)
     {
+        var_dump($this->getData('debug_enabled'));
+        exit();
+        
         return $config;
     }
 
