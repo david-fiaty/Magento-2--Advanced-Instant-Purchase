@@ -48,7 +48,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public $productHelper;
 
     /**
-     * BlockButton class constructor.
+     * WidgetButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -85,7 +85,13 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         && $this->purchaseHelper->canDisplayButton();
 
         if ($condition) {
-            return $this->updateAttributesData($config);
+            // Update the product attributes data
+            $config = $this->updateAttributesData($config);
+
+            // Update the config with tag parameters
+            $config = $this->addTagParameters($config);
+
+            return $config;
         }
         
         return null;
@@ -107,6 +113,14 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public function updateAttributesData($config)
     {
         return $this->blockHelper->updateAttributesData($config, true);
+    }
+
+    /**
+     * Update the config with tag parameters.
+     */
+    public function addTagParameters($config)
+    {
+        return $config;
     }
 
     /**
