@@ -91,13 +91,8 @@ class BlockFilter
                         // Finalise the output
                         $html = $productHtml . $blockHtml;
                     } else {
-                        // Errors
-                        $errorsHtml = '';
-                        foreach ($errors as $error) {
-                            foreach ($error as $msg) {
-                                $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
-                            }
-                        }
+                        // Render the errors
+                        $errorsHtml = $this->renderErrors($errors);
                         $html = str_replace($tag, $tag . $errorsHtml, $html);
                     }
                 }
@@ -105,6 +100,21 @@ class BlockFilter
         }
 
         return $html;
+    }
+
+    /**
+     * Render all block parameters errors.
+     */
+    public function renderErrors($errors)
+    {
+        $errorsHtml = '';
+        foreach ($errors as $error) {
+            foreach ($error as $msg) {
+                $errorsHtml .= $this->loggerHelper->renderUiMessage($msg);
+            }
+        }
+
+        return $errorsHtml;
     }
 
     /**
