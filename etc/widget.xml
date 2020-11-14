@@ -20,9 +20,6 @@
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
-            <parameter name="widgettitle" sort_order="0" visible="true" xsi:type="text">
-                <label>Title</label>
-            </parameter>
             <parameter name="product_id" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
             </parameter>
