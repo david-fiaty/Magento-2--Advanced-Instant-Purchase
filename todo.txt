@@ -1,7 +1,11 @@
 
 !!!PRIORITY!!!
 
-- widget work: remove title filter and add other config parameters
+- widget work: 
+=> remove title filter and add other config parameters
+=> update block tag call in installData to widget tag call
+
+
 - content tag not working on pure pages
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
