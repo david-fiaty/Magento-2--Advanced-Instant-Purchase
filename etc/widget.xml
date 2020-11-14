@@ -26,6 +26,25 @@
             <parameter name="debug_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Debug enabled</label>
             </parameter>
+            <parameter name="ui_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Debug enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="console_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Debug enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="file_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Debug enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
+            </parameter>
+
 
         </parameters>
     </widget>
