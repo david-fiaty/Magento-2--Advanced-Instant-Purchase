@@ -45,6 +45,7 @@
             </parameter>
             <parameter name="button_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Button text</label>
+                <value translate="true">Buy Now</value>
             </parameter>
             <parameter name="show_guest_button" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show guest button</label>
@@ -54,12 +55,14 @@
                 <depends>
                     <parameter name="show_guest_button" value="1" />
                 </depends>
+                <value translate="true">Buy Now</value>
             </parameter>
             <parameter name="bypass_oos" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Bypass out of stock</label>
             </parameter>
             <parameter name="button_classes" xsi:type="text" visible="true" required="true">
                 <label translate="true">Button classes</label>
+                <value translate="false">primary button</value>
             </parameter>
 
             <!-- Widget settings -->
@@ -112,15 +115,19 @@
             </parameter>
             <parameter name="popup_title" xsi:type="text" visible="true" required="true">
                 <label translate="true">Popup title</label>
+                <value translate="true">Buy Now</value>
             </parameter>
             <parameter name="popup_header_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Popup header text</label>
+                <value translate="true">Please review the options and place your order.</value>
             </parameter>
             <parameter name="popup_footer_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Popup footer text</label>
+                <value translate="true">Submitting this form will process a payment and place an order.</value>
             </parameter>
             <parameter name="popup_confirm_button_text" xsi:type="text" visible="true" required="true">
-                <label translate="true">Popup footer text</label>
+                <label translate="true">Place order button text</label>
+                <value translate="true">Place order</value>
             </parameter>
             <parameter name="popup_show_product" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show product</label>
