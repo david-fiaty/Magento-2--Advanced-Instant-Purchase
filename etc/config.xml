@@ -40,11 +40,13 @@
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
-                <show_product>1</show_product>
-                <show_product_image>1</show_product_image>
-                <show_product_name>1</show_product_name>
-                <show_product_price>1</show_product_price>
-                <show_product_quantity>1</show_product_quantity>
+
+
+                <popup_show_product>1</popup_show_product>
+                <popup_show_product_image>1</popup_show_product_image>
+                <popup_show_product_name>1</popup_show_product_name>
+                <popup_show_product_price>1</popup_show_product_price>
+                <popup_show_product_quantity>1</popup_show_product_quantity>
             </popups>
             <widgets>
                 <widget_show_product>1</widget_show_product>

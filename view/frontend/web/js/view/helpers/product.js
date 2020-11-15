@@ -87,7 +87,7 @@
         updateSelectedOptionsValues: function (obj) {
             var options = this.getOptions(obj);
             var condition1 = options && options.length > 0;
-            var condition2 = obj.jsConfig.widgets.show_product && NbnView.isBlockView();
+            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isBlockView();
             var condition3 = !NbnView.isBlockView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {

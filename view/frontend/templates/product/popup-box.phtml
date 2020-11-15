@@ -19,9 +19,9 @@
     $content = $this->getData('content');
 
     // Display settings
-    $showProductImage = $content['popups']['show_product_image'];
-    $showProductName = $content['popups']['show_product_name'];
-    $showProductPrice = $content['popups']['show_product_price'];
+    $showProductImage = $content['popups']['popup_show_product_image'];
+    $showProductName = $content['popups']['popup_show_product_name'];
+    $showProductPrice = $content['popups']['popup_show_product_price'];
 ?>
 
 <div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
