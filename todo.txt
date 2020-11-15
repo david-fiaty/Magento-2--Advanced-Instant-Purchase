@@ -1,9 +1,7 @@
 
 !!!PRIORITY!!!
 
-- build order confirmation screen
 - check if place order contains expected product attributes selected by user (request data)
-- check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
@@ -14,6 +12,8 @@
 - set default values for widget fields
 
 FEATURES
+- build order confirmation screen after payment + editable info
+
 - ! add quick cart checkout option in minicart and basket page
 - button display conditions engine
 - add popup/banner/add system with instant purchase
