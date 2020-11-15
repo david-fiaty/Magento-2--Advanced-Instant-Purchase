@@ -80,10 +80,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function write($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the file logging config value
-        $fileLogging = $this->configHelper->value('general/file_logging_enabled');
+        $fileLogging = $this->configHelper->value('debug/file_logging_enabled');
 
         // Write the data to the log file
         if ($debug && $fileLogging) {
@@ -101,10 +101,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function display($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the UI logging
-        $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
+        $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             $this->messageManager->addNotice($data);
         }
@@ -116,10 +116,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function renderUiMessage($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the UI logging
-        $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
+        $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             return $this->getPageLayout()
             ->createBlock('Magento\Framework\View\Element\Template')

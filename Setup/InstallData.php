@@ -53,7 +53,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $cmsBlockData = [
             'title' => 'Naxero Buy Now Button',
             'identifier' => 'naxero_buy_now_button_1',
-            'content' => '{BuyNow product_id="1"}',
+            'content' => '{{widget type="Naxero\BuyNow\Block\Button\WidgetButton" product_id="1"}}',
             'is_active' => 1,
             'stores' => [0],
             'sort_order' => 0

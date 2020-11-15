@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Block\Button;
 
 /**
- * ViewButton class constructor.
+ * ViewButton class.
  */
 class ViewButton extends \Magento\Framework\View\Element\Template
 {

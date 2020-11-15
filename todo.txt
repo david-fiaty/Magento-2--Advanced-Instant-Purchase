@@ -1,17 +1,16 @@
 
 !!!PRIORITY!!!
 
-- widget work: remove title filter and add other config parameters
-- content tag not working on pure pages
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
-- make all config parameters available as block, widget and tag parameters
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 
+- make widget product selection auto complete
+- set default values for widget fields
 
 FEATURES
 - ! add quick cart checkout option in minicart and basket page
@@ -19,6 +18,7 @@ FEATURES
 - add popup/banner/add system with instant purchase
 - add themes system
 - login with google, facebook
+- add buy now button to emails, newsletters...
 
 EXTRA
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
