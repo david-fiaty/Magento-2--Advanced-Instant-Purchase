@@ -17,7 +17,7 @@
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 
-
+- make widget product selection auto complete
 - make sure all widget config parameters in config.xml are connected:
 <widgets>
     <show_product>1</show_product>
