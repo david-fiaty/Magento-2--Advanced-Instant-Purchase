@@ -39,7 +39,7 @@
             <parameter name="group_buttons" xsi:type="block" visible="true">
                 <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
-                        <item name="text" xsi:type="string" translate="true">General settings</item>
+                        <item name="text" xsi:type="string" translate="true">Button settings</item>
                     </data>
                 </block>
             </parameter>
@@ -63,8 +63,43 @@
             </parameter>
 
             <!-- Widget settings -->
+            <parameter name="group_widgets" xsi:type="block" visible="true">
+                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Widget settings</item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="widget_show_product" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product</label>
+            </parameter>
+            <parameter name="widget_show_product_image" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product image</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="widget_show_product_name" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product name</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="widget_show_product_price" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product price</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="widget_show_product_quantity" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product quantity</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
+            </parameter>
 
-            <!-- Button settings -->
+
+            <!-- Popup settings -->
 
 
             <!-- Debug settings-->
