@@ -67,6 +67,11 @@
                 <value>primary button</value>
             </parameter>
 
+            <!-- Widget settings -->
+
+            <!-- Popup settings -->
+
+
             <!-- Debug settings-->
             <parameter name="group_debug" xsi:type="block" visible="true">
                 <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
