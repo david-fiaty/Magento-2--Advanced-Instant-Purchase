@@ -1,10 +1,6 @@
 
 !!!PRIORITY!!!
 
-- widget work: 
-=> update block tag call in installData to widget tag call
-
-
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
 - handle non swatch options values (list, input) in page view
