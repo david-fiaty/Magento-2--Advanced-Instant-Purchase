@@ -32,7 +32,7 @@
                     <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
                 <field id="enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable agreements</label>
+                    <label>Enable terms and conditions</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
                 </field>  

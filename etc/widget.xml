@@ -44,7 +44,9 @@
                     <parameter name="debug_enabled" value="1" />
                 </depends>
             </parameter>
-
+            <parameter name="enable_agreements" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Enable terms and conditions</label>
+            </parameter>
 
         </parameters>
     </widget>
