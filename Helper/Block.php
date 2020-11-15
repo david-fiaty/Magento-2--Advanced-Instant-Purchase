@@ -137,9 +137,9 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Render a product box.
+     * Render a widget product box.
      */
-    public function renderProductBox($productId, $subject = null)
+    public function renderWidgetProductBox($productId, $subject = null)
     {
         // Get the layout
         $layout = $subject
@@ -148,7 +148,24 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $layout
         ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->setData('content', $this->getConfig($productId))
+        ->toHtml();
+    }
+
+    /**
+     * Render a popup product box.
+     */
+    public function renderPopupProductBox($productId, $subject = null)
+    {
+        // Get the layout
+        $layout = $subject
+        ? $subject->getLayout()
+        : $this->pageFactory->create()->getLayout();
+
+        return $layout
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
         ->setData('content', $this->getConfig($productId))
         ->toHtml();
     }
