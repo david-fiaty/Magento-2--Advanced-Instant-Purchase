@@ -181,8 +181,8 @@
                     </depends>
                 </field>
             </group>
-            <group id="blocks" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Blocks and widgets settings</label>
+            <group id="widgets" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Widgets settings</label>
                 <field id="show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
