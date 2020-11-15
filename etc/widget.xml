@@ -20,6 +20,16 @@
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
+
+            <parameter name="group_separator_1" xsi:type="block" visible="true">
+                <label translate="true">Product</label>
+                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">My Separator...</item>
+                    </data>
+                </block>
+            </parameter>
+
             <parameter name="product_id" xsi:type="select" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
             </parameter>

@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Block\Button;
 
 /**
- * WidgetButton class constructor.
+ * WidgetButton class.
  */
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
