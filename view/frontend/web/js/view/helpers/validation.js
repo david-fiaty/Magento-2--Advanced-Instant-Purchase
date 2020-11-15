@@ -32,30 +32,6 @@
             },
 
             /**
-             * Set the confirmation popup validation events.
-             */
-            setValidationEvents: function () {
-                // Errors array
-                var errors = [];
-
-                // Agreements validation
-                if (this.o.jsConfig.general.enable_agreements) {
-                    $(this.agreementRow).removeClass('error');
-                    $(this.agreementRow).each(function () {
-                        var input = $(this).find(this.agreementBoxSelector);
-                        if (!input.is(':checked')) {
-                            errors.push({
-                                id: input.attr('id')
-                            });
-                        }
-                    });
-                }
-
-                console.log(errors);
-
-            },
-
-            /**
              * Check the region state in address form.
              */
             checkRegionState: function () {

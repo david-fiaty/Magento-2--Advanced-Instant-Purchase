@@ -15,11 +15,12 @@
  define([
     'jquery',
     'mage/translate',
+    'Magento_Ui/js/modal/modal',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
+], function ($, __, modal, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
@@ -59,6 +60,8 @@
             // Toggle the view
             NbnSlider.toggleView(e);
 
+            $('.nbn-modal').modal.buttons = [];
+
             // Send the request
             $.ajax({
                 type: 'POST',
@@ -66,10 +69,7 @@
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
-                    // Update the modal button display
-                    $(self.submitButtonSelector).hide();
                     NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
-
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
