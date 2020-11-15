@@ -41,4 +41,20 @@ class Tools extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->formKey->getFormKey();
     }
+
+    /**
+     * Get array keys recursively.
+     */
+    public function array_keys_recursive(array $array) : array
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $index[$key] = $this->array_keys_recursive($value);
+            } else {
+                $index[]= $key;
+            }
+        }
+    
+        return $index ?? [];
+    }
 }

@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Block\Button;
 
 /**
- * ListButton class constructor.
+ * ListButton class.
  */
 class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {

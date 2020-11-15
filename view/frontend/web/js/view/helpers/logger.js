@@ -65,7 +65,7 @@
          */
         isConsoleLoggingEnabled: function () {
             return this.o.jsConfig.general.debug_enabled
-            && this.o.jsConfig.general.console_logging_enabled;
+            && this.o.jsConfig.debug.console_logging_enabled;
         },
 
         /**

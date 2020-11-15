@@ -28,8 +28,8 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $isListView = $config['product']['display'] == 'list';
     $isPageView = $config['product']['display'] == 'view';
     $formKey = $config['product']['form_key'];
-    $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
-    $showProductBox = $config['blocks']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
+    $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
+    $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     $buttonText = $this->blockHelper->getButtonText();
 }
 ?>
@@ -37,7 +37,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
 <!-- Product box -->
 <?php if ($showProductBox): ?>
 <div class="nbn-product-box-container">
-    <?= $this->blockHelper->renderProductBox($productId) ?>
+    <?= $this->blockHelper->renderWidgetProductBox($productId) ?>
 </div>
 <?php endif; ?>
 

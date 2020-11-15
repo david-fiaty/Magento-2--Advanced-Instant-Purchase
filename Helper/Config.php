@@ -78,9 +78,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Load the config data
         $output = [];
-        $configData = $this->xmlParser
-            ->load($this->getFilePath(self::CONFIG_FILE_NAME))
-            ->xmlToArray()['config']['_value']['default']['buy_now'];
+        $configData = $this->getConfigFields();
 
         // Update the array with database values
         foreach ($configData as $group => $fields) {
@@ -92,6 +90,16 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get the config fields array.
+     */
+    public function getConfigFields()
+    {
+        return $this->xmlParser
+        ->load($this->getFilePath(self::CONFIG_FILE_NAME))
+        ->xmlToArray()['config']['_value']['default']['buy_now'];
     }
 
     /**

@@ -19,7 +19,7 @@
     $content = $this->getData('content');
 
     // Product box display
-    $showProductBox = $content['config']['popups']['show_product'];
+    $showProductBox = $content['config']['popups']['popup_show_product'];
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
@@ -29,7 +29,7 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $this->blockHelper->renderProductBox($content['config']['product']['id']) ?>
+        <?= $this->blockHelper->renderPopupProductBox($content['config']['product']['id']) ?>
     </div>
 <?php endif; ?>
 

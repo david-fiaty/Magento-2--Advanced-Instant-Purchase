@@ -73,66 +73,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ? $this->value('buttons/bypass_oos')
         : true;
     }
-
-    /**
-     * Get block tags in content.
-     */
-    public function getBlockTags($subject, $html)
-    {
-        // Find all block tag matches
-        $matches = $this->findBlockTags($html);
-
-        return $this->outputHasTags($matches, $subject)
-        ? $matches : null;
-    }
-
-    /**
-     * Check if a content has block tags.
-     */
-    public function outputHasTags($matches, $subject)
-    {
-        // Get the target class name to exclude
-        $className = get_class($subject);
-
-        // Check if the current content output has valid tags
-        return !empty($matches) && !empty($matches[0])
-        && strpos($className, '\\BlockButton\\') === false
-        && is_array($matches[0])
-        && count($matches[0]) > 0;
-    }
-
-    /**
-     * Find block tags in content.
-     */
-    public function findBlockTags($html)
-    {
-        preg_match_all(
-            $this->getSearchPattern(),
-            $html,
-            $matches
-        );
-
-        return $matches;
-    }
-
-    /**
-     * Get the block tag search patern.
-     */
-    public function getSearchPattern()
-    {
-        return '/\{BuyNow(.*)\}/';
-    }
-
-    /**
-     * Build a base purchase block button.
-     */
-    public function buildButtonBlock($subject)
-    {
-        return $subject->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
-        ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
-    }
-
+    
     /**
      * Get the Buy Now button text.
      */
@@ -196,9 +137,9 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Render a product box.
+     * Render a widget product box.
      */
-    public function renderProductBox($productId, $subject = null)
+    public function renderWidgetProductBox($productId, $subject = null)
     {
         // Get the layout
         $layout = $subject
@@ -207,7 +148,24 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $layout
         ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
+        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->setData('content', $this->getConfig($productId))
+        ->toHtml();
+    }
+
+    /**
+     * Render a popup product box.
+     */
+    public function renderPopupProductBox($productId, $subject = null)
+    {
+        // Get the layout
+        $layout = $subject
+        ? $subject->getLayout()
+        : $this->pageFactory->create()->getLayout();
+
+        return $layout
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
         ->setData('content', $this->getConfig($productId))
         ->toHtml();
     }
@@ -232,8 +190,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
             }
 
             $config['product']['options'] = $updatedOptions;
-            
-            return $config;
         }
+
+        return $config;
     }
 }

@@ -32,38 +32,9 @@
                     <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
                 <field id="enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable agreements</label>
+                    <label>Enable terms and conditions</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
-                </field>  
-                <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Debug enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable the debug mode.</comment>
-                </field>  
-                <field id="ui_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>UI logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the user interface logging (frontend).</comment>
-                </field>  
-                <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Console logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the Javascript browser console logging (frontend).</comment>
-                </field>  
-                <field id="file_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>File logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the PHP file logging (backend).</comment>
                 </field>  
             </group>
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -127,107 +98,79 @@
                     <comment>Text for the purchase popup window header.</comment>
                 </field>
                 <field id="popup_footer_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Popup title</label>
+                    <label>Popup footer text</label>
                     <comment>Text for the purchase popup window footer.</comment>
                 </field>
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Place order button text</label>
                 </field>
-                <field id="show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show the product in the purchase popup windwow.</comment>
                 </field>
-                <field id="show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product image</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="popup_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product name</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="popup_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product price</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="popup_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="popup_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
-                    </depends>
-                </field>
-                <field id="show_product_desc" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product desc</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_product">1</field>
-                    </depends>
-                </field>
-                <field id="show_product_options" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product options</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_product">1</field>
+                        <field id="popup_show_product">1</field>
                     </depends>
                 </field>
             </group>
-            <group id="blocks" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Blocks and widgets settings</label>
-                <field id="show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="widgets" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Widgets settings</label>
+                <field id="widget_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show the product in the purchase popup windwow.</comment>
                 </field>
-                <field id="show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product image</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="widget_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="widget_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product name</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="widget_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="widget_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product price</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
+                        <field id="widget_show_product">1</field>
                     </depends>
                 </field>
-                <field id="show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="widget_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="show_product">1</field>
-                    </depends>
-                </field>
-                <field id="show_product_desc" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product desc</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_product">1</field>
-                    </depends>
-                </field>
-                <field id="show_product_options" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product options</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="show_product">1</field>
+                        <field id="widget_show_product">1</field>
                     </depends>
                 </field>
             </group>
@@ -258,6 +201,38 @@
                     <label>Code</label>
                     <comment>Custom HTML/Javascript code for the save card form.</comment>
                 </field>
+            </group>
+            <group id="debug" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Debug settings</label>
+                <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the debug mode.</comment>
+                </field>  
+                <field id="ui_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>UI logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the user interface logging (frontend).</comment>
+                </field>  
+                <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Console logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the Javascript browser console logging (frontend).</comment>
+                </field>  
+                <field id="file_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>File logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the PHP file logging (backend).</comment>
+                </field>  
             </group>
          </section>
     </system>
