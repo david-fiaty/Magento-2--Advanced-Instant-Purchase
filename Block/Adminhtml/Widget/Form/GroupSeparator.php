@@ -41,7 +41,7 @@ class GroupSeparator extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/group-separator.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/group-separator.phtml')
             ->setData('text', $this->getData('text'))
             ->toHtml();
 
