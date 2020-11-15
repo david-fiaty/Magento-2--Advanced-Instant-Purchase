@@ -48,8 +48,6 @@ class Agreements extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Config $configHelper
