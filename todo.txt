@@ -2,7 +2,6 @@
 !!!PRIORITY!!!
 
 - widget work: 
-=> remove title filter and add other config parameters
 => update block tag call in installData to widget tag call
 
 
