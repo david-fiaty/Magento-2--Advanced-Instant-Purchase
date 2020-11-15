@@ -58,7 +58,7 @@
 
             // Toggle the view
             NbnSlider.toggleView(e);
-            
+
             // Send the request
             $.ajax({
                 type: 'POST',
@@ -66,7 +66,10 @@
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
+                    // Update the modal button display
+                    $(self.submitButtonSelector).hide();
                     NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
+
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(

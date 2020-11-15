@@ -20,6 +20,8 @@
         'use strict';
         return {
             regionSelector: '#region_id',
+            agreementRow: '.nbn-agreement-link-row',
+            agreementBoxSelector: '.nbn-agreement-box',
 
             /**
              * Initialise the object.
@@ -27,6 +29,30 @@
             init: function (obj) {
                 this.o = obj;
                 return this;
+            },
+
+            /**
+             * Set the confirmation popup validation events.
+             */
+            setValidationEvents: function () {
+                // Errors array
+                var errors = [];
+
+                // Agreements validation
+                if (this.o.jsConfig.general.enable_agreements) {
+                    $(this.agreementRow).removeClass('error');
+                    $(this.agreementRow).each(function () {
+                        var input = $(this).find(this.agreementBoxSelector);
+                        if (!input.is(':checked')) {
+                            errors.push({
+                                id: input.attr('id')
+                            });
+                        }
+                    });
+                }
+
+                console.log(errors);
+
             },
 
             /**
