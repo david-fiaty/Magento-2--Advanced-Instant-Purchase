@@ -6,6 +6,7 @@
 => update block tag call in installData to widget tag call
 
 
+
 - content tag not working on pure pages
 - check if place order contains expected product attributes selected by user (request data)
 - check agreements validation again
@@ -23,6 +24,7 @@ FEATURES
 - add popup/banner/add system with instant purchase
 - add themes system
 - login with google, facebook
+- add buy now button to emails, newsletters...
 
 EXTRA
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
