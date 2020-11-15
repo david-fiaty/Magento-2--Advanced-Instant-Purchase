@@ -33,10 +33,14 @@ class GroupSeparator extends \Magento\Backend\Block\Template
         
     }
 
+    /**
+     * Render a widget field group separator.
+     */
     public function prepareElementHtml(AbstractElement $element)
     {
-        $element->setData('after_element_html', $this->getData('text'));
-        
-        return $element;
+        return $element->setData(
+            'after_element_html', 
+            $this->getData('text')
+        );
     }
 }

@@ -28,7 +28,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $isListView = $config['product']['display'] == 'list';
     $isPageView = $config['product']['display'] == 'view';
     $formKey = $config['product']['form_key'];
-    $uiLogging = $config['general']['debug_enabled'] && $config['general']['ui_logging_enabled'];
+    $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $showProductBox = $config['widgets']['show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     $buttonText = $this->blockHelper->getButtonText();
 }

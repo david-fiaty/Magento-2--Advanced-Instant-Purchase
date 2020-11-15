@@ -36,35 +36,6 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
                 </field>  
-                <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Debug enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable the debug mode.</comment>
-                </field>  
-                <field id="ui_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>UI logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the user interface logging (frontend).</comment>
-                </field>  
-                <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Console logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the Javascript browser console logging (frontend).</comment>
-                </field>  
-                <field id="file_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>File logging enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="debug_enabled">1</field>
-                    </depends>
-                    <comment>Enable the PHP file logging (backend).</comment>
-                </field>  
             </group>
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Button settings</label>
@@ -258,6 +229,38 @@
                     <label>Code</label>
                     <comment>Custom HTML/Javascript code for the save card form.</comment>
                 </field>
+            </group>
+            <group id="debug" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Debug settings</label>
+                <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the debug mode.</comment>
+                </field>  
+                <field id="ui_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>UI logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the user interface logging (frontend).</comment>
+                </field>  
+                <field id="console_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Console logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the Javascript browser console logging (frontend).</comment>
+                </field>  
+                <field id="file_logging_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>File logging enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="debug_enabled">1</field>
+                    </depends>
+                    <comment>Enable the PHP file logging (backend).</comment>
+                </field>  
             </group>
          </section>
     </system>

@@ -21,11 +21,10 @@
         <description>Naxero Buy Now Widget</description>
         <parameters>
 
-            <parameter name="group_separator_1" xsi:type="block" visible="true">
-                <label translate="true">Product</label>
+            <parameter name="group_general" xsi:type="block" visible="true">
                 <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
-                        <item name="text" xsi:type="string" translate="true">My Separator...</item>
+                        <item name="text" xsi:type="string" translate="true">General</item>
                     </data>
                 </block>
             </parameter>

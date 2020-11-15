@@ -20,10 +20,6 @@
         <buy_now>
             <general>
                 <enabled>1</enabled>
-                <debug_enabled>0</debug_enabled>
-                <ui_logging_enabled>0</ui_logging_enabled>
-                <console_logging_enabled>0</console_logging_enabled>
-                <file_logging_enabled>0</file_logging_enabled>
                 <enable_agreements>0</enable_agreements>
             </general>
             <buttons>
@@ -69,6 +65,12 @@
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
+            <debug>
+                <debug_enabled>0</debug_enabled>
+                <ui_logging_enabled>0</ui_logging_enabled>
+                <console_logging_enabled>0</console_logging_enabled>
+                <file_logging_enabled>0</file_logging_enabled>
+            </debug>
         </buy_now> 
     </default>
 </config>
