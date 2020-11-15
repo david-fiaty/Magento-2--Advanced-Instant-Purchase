@@ -23,6 +23,7 @@
 
     return {
         agreementLinkSelector: '.nbn-agreement-link',
+        agreementsUrl: 'order/agreements',
 
         /**
          * Initialise the object.
@@ -51,7 +52,6 @@
             // Prepare the request parameters
             var self = this;
             var params = {
-                action: $(e.currentTarget).data('role'),
                 id: $(e.currentTarget).data('id')
             };
 
@@ -62,7 +62,7 @@
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: NbnPaths.get(this.o.confirmationUrl),
+                url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
                     NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
