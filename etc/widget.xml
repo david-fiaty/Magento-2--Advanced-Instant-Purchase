@@ -100,7 +100,55 @@
 
 
             <!-- Popup settings -->
-
+            <parameter name="group_popups" xsi:type="block" visible="true">
+                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Popup settings</item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="popup_responsive" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Responsive</label>
+            </parameter>
+            <parameter name="popup_title" xsi:type="text" visible="true" required="true">
+                <label translate="true">Popup title</label>
+            </parameter>
+            <parameter name="popup_header_text" xsi:type="text" visible="true" required="true">
+                <label translate="true">Popup header text</label>
+            </parameter>
+            <parameter name="popup_footer_text" xsi:type="text" visible="true" required="true">
+                <label translate="true">Popup footer text</label>
+            </parameter>
+            <parameter name="popup_confirm_button_text" xsi:type="text" visible="true" required="true">
+                <label translate="true">Popup footer text</label>
+            </parameter>
+            <parameter name="popup_show_product" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product</label>
+            </parameter>
+            <parameter name="popup_show_product_image" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product image</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="popup_show_product_name" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product name</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="popup_show_product_price" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product price</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="popup_show_product_quantity" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show product quantity</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
+            </parameter>
 
             <!-- Debug settings-->
             <parameter name="group_debug" xsi:type="block" visible="true">

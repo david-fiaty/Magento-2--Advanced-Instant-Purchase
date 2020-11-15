@@ -98,7 +98,7 @@
                     <comment>Text for the purchase popup window header.</comment>
                 </field>
                 <field id="popup_footer_text" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Popup title</label>
+                    <label>Popup footer text</label>
                     <comment>Text for the purchase popup window footer.</comment>
                 </field>
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
