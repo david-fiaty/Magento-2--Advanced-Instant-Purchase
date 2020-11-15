@@ -62,7 +62,7 @@
             </parameter>
             <parameter name="button_classes" xsi:type="text" visible="true" required="true">
                 <label translate="true">Button classes</label>
-                <value translate="false">primary button</value>
+                <value>primary button</value>
             </parameter>
 
             <!-- Widget settings -->
