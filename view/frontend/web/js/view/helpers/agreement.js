@@ -12,11 +12,11 @@
  * @link      https://www.naxero.com
  */
 
- define([
+define([
     'jquery',
     'mage/translate',
-    'Magento_Ui/js/modal/modal',
     'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/paths'
 ], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
