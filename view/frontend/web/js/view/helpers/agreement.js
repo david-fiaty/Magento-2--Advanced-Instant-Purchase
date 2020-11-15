@@ -17,15 +17,16 @@
     'mage/translate',
     'Magento_Ui/js/modal/modal',
     'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, modal, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
+], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
         agreementLinkSelector: '.nbn-agreement-link',
         agreementsUrl: 'order/agreements',
+        submitButtonSelector: '.nbn-submit',
+        cancelButtonSelector: '.action-dismiss span',
 
         /**
          * Initialise the object.
@@ -60,7 +61,9 @@
             // Toggle the view
             NbnSlider.toggleView(e);
 
-            $('.nbn-modal').modal.buttons = [];
+            // Update the buttons
+            $(this.submitButtonSelector).hide();
+            $(this.cancelButtonSelector).text(__('Back'));
 
             // Send the request
             $.ajax({
