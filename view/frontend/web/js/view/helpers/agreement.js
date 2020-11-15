@@ -16,8 +16,9 @@
     'jquery',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
-    'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, NbnSlider, NbnModal, NbnLogger) {
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/paths'
+], function ($, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
@@ -61,7 +62,7 @@
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: this.o.paths.get(this.o.confirmationUrl),
+                url: NbnPaths.get(this.o.confirmationUrl),
                 data: params,
                 success: function (data) {
                     NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
