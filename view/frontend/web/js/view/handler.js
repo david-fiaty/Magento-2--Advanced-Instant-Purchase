@@ -197,9 +197,6 @@ define([
                     // Set the slider events
                     self.o.slider.build();
 
-                    // Set the additional validation events
-                    self.o.button.setValidationEvents();
-
                     // Log the purchase data
                     self.o.logger.log(
                         __('Purchase data on page load'),
