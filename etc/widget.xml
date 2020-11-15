@@ -24,13 +24,21 @@
             <parameter name="group_general" xsi:type="block" visible="true">
                 <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
-                        <item name="text" xsi:type="string" translate="true">General</item>
+                        <item name="text" xsi:type="string" translate="true">General settings</item>
                     </data>
                 </block>
             </parameter>
-
             <parameter name="product_id" xsi:type="select" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
+            </parameter>
+
+
+            <parameter name="group_debug" xsi:type="block" visible="true">
+                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Debug settings</item>
+                    </data>
+                </block>
             </parameter>
             <parameter name="debug_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Debug enabled</label>
@@ -56,6 +64,7 @@
             <parameter name="enable_agreements" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Enable terms and conditions</label>
             </parameter>
+
 
         </parameters>
     </widget>
