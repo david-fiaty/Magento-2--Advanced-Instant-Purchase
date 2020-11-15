@@ -16,6 +16,7 @@
 namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * GroupSeparator class.
@@ -38,9 +39,13 @@ class GroupSeparator extends \Magento\Backend\Block\Template
      */
     public function prepareElementHtml(AbstractElement $element)
     {
-        return $element->setData(
-            'after_element_html', 
-            $this->getData('text')
-        );
+        // Prepare the separator HTML
+        $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
+            ->setTemplate(Naming::getModuleName() . '::widget/group-separator.phtml')
+            ->setData('text', $this->getData('text'))
+            ->toHtml();
+
+        // Render the HTML
+        return $element->setData('after_element_html', $blockHtml);
     }
 }
