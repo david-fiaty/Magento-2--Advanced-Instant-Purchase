@@ -16,9 +16,10 @@
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, NbnSlider, NbnLogger, NbnPaths) {
+], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
@@ -65,7 +66,7 @@
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
-                    self.o.modal.addHtml(NbnSlider.nextSlideSelector, data.html);
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
