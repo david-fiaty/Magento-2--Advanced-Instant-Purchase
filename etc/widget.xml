@@ -20,7 +20,7 @@
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
-            <parameter name="product_id" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
+            <parameter name="product_id" xsi:type="select" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
             </parameter>
             <parameter name="debug_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
