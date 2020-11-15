@@ -67,9 +67,9 @@
             </card_form>
             <debug>
                 <debug_enabled>0</debug_enabled>
-                <ui_logging_enabled>0</ui_logging_enabled>
-                <console_logging_enabled>0</console_logging_enabled>
-                <file_logging_enabled>0</file_logging_enabled>
+                <ui_logging_enabled>1</ui_logging_enabled>
+                <console_logging_enabled>1</console_logging_enabled>
+                <file_logging_enabled>1</file_logging_enabled>
             </debug>
         </buy_now> 
     </default>
