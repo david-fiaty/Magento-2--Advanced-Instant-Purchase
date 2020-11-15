@@ -45,26 +45,21 @@
             </parameter>
             <parameter name="button_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Button text</label>
-                <value>Buy Now</value>
             </parameter>
             <parameter name="show_guest_button" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show guest button</label>
-                <value>1</value>
             </parameter>
             <parameter name="guest_button_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Guest button text</label>
-                <value>Buy Now</value>
                 <depends>
                     <parameter name="show_guest_button" value="1" />
                 </depends>
             </parameter>
             <parameter name="bypass_oos" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Bypass out of stock</label>
-                <value>0</value>
             </parameter>
             <parameter name="button_classes" xsi:type="text" visible="true" required="true">
                 <label translate="true">Button classes</label>
-                <value>primary button</value>
             </parameter>
 
             <!-- Widget settings -->
@@ -82,25 +77,21 @@
             </parameter>
             <parameter name="debug_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Debug enabled</label>
-                <value>0</value>
             </parameter>
             <parameter name="ui_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">UI logging enabled</label>
-                <value>1</value>
                 <depends>
                     <parameter name="debug_enabled" value="1" />
                 </depends>
             </parameter>
             <parameter name="console_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Console logging enabled</label>
-                <value>1</value>
                 <depends>
                     <parameter name="debug_enabled" value="1" />
                 </depends>
             </parameter>
             <parameter name="file_logging_enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">File logging enabled</label>
-                <value>1</value>
                 <depends>
                     <parameter name="debug_enabled" value="1" />
                 </depends>
