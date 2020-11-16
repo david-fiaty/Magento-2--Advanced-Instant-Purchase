@@ -28,7 +28,7 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="product_id" xsi:type="block" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
+            <parameter name="product_id" xsi:type="block" visible="true" required="true">
                 <label translate="true">Product</label>
                 <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
