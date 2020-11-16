@@ -13,63 +13,70 @@
  */
 
  define([
-        'jquery',
-        'mage/translate'
-    ],
-    function ($, __) {
-        'use strict';
-        return {
-            regionSelector: '#region_id',
-            agreementRow: '.nbn-agreement-link-row',
-            agreementBoxSelector: '.nbn-agreement-box',
+    'jquery',
+    'mage/translate',
+    'Naxero_BuyNow/js/view/helpers/template'
+],
+function ($, __, NbnTemplate) {
+    'use strict';
+    return {
+        regionSelector: '#region_id',
+        agreementRow: '.nbn-agreement-link-row',
+        agreementBoxSelector: '.nbn-agreement-box',
 
-            /**
-             * Initialise the object.
-             */
-            init: function (obj) {
-                this.o = obj;
-                return this;
-            },
+        /**
+         * Initialise the object.
+         */
+        init: function (obj) {
+            this.o = obj;
+            return this;
+        },
 
-            /**
-             * Additional form validation.
-             */
-            validate: function() {
-
-                return false;
-                
-                // Prepare the parameters
-                var errors = [];
-
-                // Agreements validation
-                /*
-                if (this.aipConfig.general.enable_agreements) {
-                    $(this.agreementRow).removeClass('error');
-                    $(this.agreementRow).each(function() {
-                        var input = $(this).find(this.agreementBoxSelector);
-                        if (!input.is(':checked')) {
-                            errors.push({
-                                id: input.attr('id')
-                            });
-                        }
-                    });
+        /**
+         * Additional form validation.
+         */
+        validate: function() {
+            var params = {
+                data: {
+                    message: 'hello'
                 }
-                */
-            },
+            };
 
-            /**
-             * Check the region state in address form.
-             */
-            checkRegionState: function () {
-                var regionField = $(this.regionSelector);
-                if (regionField.prop('disabled') === true) {
-                    regionField.addClass('nbn-region-hidden');
-                    regionField.removeClass('nbn-region-visible');
-                } else {
-                    regionField.addClass('nbn-region-visible');
-                    regionField.removeClass('nbn-region-hidden');
-                }
+            console.log(NbnTemplate.getMessage(params));
+            
+            return false;
+            
+            // Prepare the parameters
+            var errors = [];
+
+            // Agreements validation
+            /*
+            if (this.aipConfig.general.enable_agreements) {
+                $(this.agreementRow).removeClass('error');
+                $(this.agreementRow).each(function() {
+                    var input = $(this).find(this.agreementBoxSelector);
+                    if (!input.is(':checked')) {
+                        errors.push({
+                            id: input.attr('id')
+                        });
+                    }
+                });
+            }
+            */
+        },
+
+        /**
+         * Check the region state in address form.
+         */
+        checkRegionState: function () {
+            var regionField = $(this.regionSelector);
+            if (regionField.prop('disabled') === true) {
+                regionField.addClass('nbn-region-hidden');
+                regionField.removeClass('nbn-region-visible');
+            } else {
+                regionField.addClass('nbn-region-visible');
+                regionField.removeClass('nbn-region-hidden');
             }
         }
     }
-);
+});
