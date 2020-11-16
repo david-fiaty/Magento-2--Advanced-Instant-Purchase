@@ -14,10 +14,9 @@
 
  define([
     'jquery',
-    'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/template'
+    'mage/translate'
 ],
-function ($, __, NbnTemplate) {
+function ($, __) {
     'use strict';
     return {
         regionSelector: '#region_id',
@@ -36,21 +35,10 @@ function ($, __, NbnTemplate) {
          * Additional form validation.
          */
         validate: function() {
-            var params = {
-                data: {
-                    message: 'hello'
-                }
-            };
-
-            console.log(NbnTemplate.getMessage(params));
-            
-            return false;
-            
             // Prepare the parameters
             var errors = [];
 
             // Agreements validation
-            /*
             if (this.aipConfig.general.enable_agreements) {
                 $(this.agreementRow).removeClass('error');
                 $(this.agreementRow).each(function() {
@@ -62,7 +50,10 @@ function ($, __, NbnTemplate) {
                     }
                 });
             }
-            */
+
+            console.log(errors);
+
+            return false;
         },
 
         /**
