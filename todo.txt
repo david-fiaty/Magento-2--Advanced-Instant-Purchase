@@ -1,5 +1,6 @@
 
 !!!PRIORITY!!!
+- set default values for widget fields
 
 - check if place order contains expected product attributes selected by user (request data)
 - handle non swatch options values (list, input) in page view
@@ -8,10 +9,8 @@
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 
-- make widget product selection auto complete
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
  
-- set default values for widget fields
 
 FEATURES
 - build order confirmation screen after payment + editable info
