@@ -12,4 +12,8 @@
  * @link      https://www.naxero.com
  */
 
-var config = {};
+var config = {
+    paths: {
+        select2: 'Naxero_BuyNow/js/lib/select2/select2.full'
+    }
+};

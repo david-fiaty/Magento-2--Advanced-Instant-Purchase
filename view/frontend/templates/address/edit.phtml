@@ -205,7 +205,7 @@
         $('[name=country_id]')[0],
         $('[name=region]')[0],
         $('[name=region_id]')[0],
-        <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+        <?= $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
         'hide'
     );
     updater.optionalRegionAllowed = <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>;
