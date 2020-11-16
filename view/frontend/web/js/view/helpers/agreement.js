@@ -53,7 +53,6 @@ define([
          */
         getAgreement: function (e) {
             // Prepare the request parameters
-            var self = this;
             var params = {
                 id: $(e.currentTarget).data('id')
             };

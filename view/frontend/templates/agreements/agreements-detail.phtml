@@ -20,7 +20,7 @@ if (!$agreements) {
 
 $agreementId = (int) $block->getRequest()->getParam('id');
 ?>
-<ol id="checkout-agreements" class="agreements checkout items">
+<ol id="nbn-checkout-agreements" class="agreements checkout items">
     <?php foreach ($agreements as $agreement): ?>
         <?php if ($agreement->getID() == $agreementId): ?>
             <li class="item">

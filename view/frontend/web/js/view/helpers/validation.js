@@ -22,6 +22,7 @@ function ($, __) {
         regionSelector: '#region_id',
         agreementRow: '.nbn-agreement-link-row',
         agreementBoxSelector: '.nbn-agreement-box',
+        agreementErrorMessageSelector: '#nbn-checkout-agreements .messages',
 
         /**
          * Initialise the object.
@@ -36,13 +37,18 @@ function ($, __) {
          */
         validate: function() {
             // Prepare the parameters
+            var self = this;
             var errors = [];
 
             // Agreements validation
             if (this.o.jsConfig.general.enable_agreements) {
+                // Reset the errors
+                $(this.agreementErrorMessageSelector).hide();
                 $(this.agreementRow).removeClass('error');
+
+                // Perform the validation
                 $(this.agreementRow).each(function() {
-                    var input = $(this).find(this.agreementBoxSelector);
+                    var input = $(this).find(self.agreementBoxSelector);
                     if (!input.is(':checked')) {
                         errors.push({
                             id: input.attr('id')
@@ -51,9 +57,15 @@ function ($, __) {
                 });
             }
 
-            console.log(errors);
+            // Show error message
+            if (errors.length > 0) {
+                $(this.agreementRow).addClass('error');
+                $(this.agreementErrorMessageSelector).show();
+                
+                return false;
+            }
 
-            return false;
+            return true;
         },
 
         /**
