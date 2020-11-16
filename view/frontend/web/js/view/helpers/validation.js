@@ -39,7 +39,7 @@ function ($, __) {
             var errors = [];
 
             // Agreements validation
-            if (this.aipConfig.general.enable_agreements) {
+            if (this.o.jsConfig.general.enable_agreements) {
                 $(this.agreementRow).removeClass('error');
                 $(this.agreementRow).each(function() {
                     var input = $(this).find(this.agreementBoxSelector);
