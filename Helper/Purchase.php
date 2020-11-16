@@ -79,7 +79,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Naxero\BuyNow\Model\InstantPurchase\ShippingSelector $shippingSelector,
+        \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
