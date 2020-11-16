@@ -16,14 +16,19 @@
     'jquery',
     'mage/translate',
     'Magento_Ui/js/modal/confirm',
+    'Magento_Checkout/js/model/payment/additional-validators',
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/message',
-    'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, ConfirmModal, NbnTemplate, NbnSlider, NbnProduct, NbnLogger, NbnMessage, NbnPaths) {
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/validation'
+], function ($, __, ConfirmModal, AdditionalValidators, NbnTemplate, NbnSlider, NbnProduct, NbnLogger, NbnMessage, NbnPaths, NbnValivation) {
     'use strict';
+
+    // Register the custom validator
+    AdditionalValidators.registerValidator(AipValidation);
 
     return {
         modalWrapperSelector: '.modal-inner-wrap',
@@ -79,23 +84,28 @@
                     text: obj.jsConfig.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        NbnSlider.showLoader();
-                        $.ajax({
-                            cache: false,
-                            url: NbnPaths.get(self.orderUrl),
-                            data: NbnProduct.getProductFormData(),
-                            type: 'post',
-                            dataType: 'json',
-                            success: function (data) {
-                                NbnMessage.checkResponse(data, e);
-                            },
-                            error: function (request, status, error) {
-                                NbnLogger.log(
-                                    __('Error submitting the form data'),
-                                    JSON.stringify(error)
-                                );
-                            }
-                        });
+                        if (AdditionalValidators.validate()) {
+                            NbnSlider.showLoader();
+                            $.ajax({
+                                cache: false,
+                                url: NbnPaths.get(self.orderUrl),
+                                data: NbnProduct.getProductFormData(),
+                                type: 'post',
+                                dataType: 'json',
+                                success: function (data) {
+                                    NbnMessage.checkResponse(data, e);
+                                },
+                                error: function (request, status, error) {
+                                    NbnLogger.log(
+                                        __('Error submitting the form data'),
+                                        JSON.stringify(error)
+                                    );
+                                }
+                            });
+                        }
+                        else {
+                            alert('agreements invalid');
+                        }
                     }
                 }]
             });

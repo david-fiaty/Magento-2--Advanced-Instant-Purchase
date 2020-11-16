@@ -32,6 +32,32 @@
             },
 
             /**
+             * Additional form validation.
+             */
+            validate: function() {
+
+                return false;
+                
+                // Prepare the parameters
+                var errors = [];
+
+                // Agreements validation
+                /*
+                if (this.aipConfig.general.enable_agreements) {
+                    $(this.agreementRow).removeClass('error');
+                    $(this.agreementRow).each(function() {
+                        var input = $(this).find(this.agreementBoxSelector);
+                        if (!input.is(':checked')) {
+                            errors.push({
+                                id: input.attr('id')
+                            });
+                        }
+                    });
+                }
+                */
+            },
+
+            /**
              * Check the region state in address form.
              */
             checkRegionState: function () {
