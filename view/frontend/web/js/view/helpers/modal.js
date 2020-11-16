@@ -28,7 +28,7 @@
     'use strict';
 
     // Register the custom validator
-    AdditionalValidators.registerValidator(AipValidation);
+    AdditionalValidators.registerValidator(NbnValivation);
 
     return {
         modalWrapperSelector: '.modal-inner-wrap',
