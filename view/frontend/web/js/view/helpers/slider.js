@@ -22,6 +22,7 @@
     return {
         sliderSelector: '#nbn-slider',
         nextSlideSelector: '#nbn-next-slide-container',
+        cancelButtonSelector: '.action-dismiss span',
 
         /**
          * Initialise the object.
@@ -77,11 +78,11 @@
             if (this.o.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 this.o.isSubView = false;
-                $('.action-dismiss span').text(__('Cancel'));
+                $(this.cancelButtonSelector).text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
-                $('.action-dismiss span').text(__('Back'));
+                $(this.cancelButtonSelector).text(__('Back'));
                 this.o.isSubView = true;
             }
         }

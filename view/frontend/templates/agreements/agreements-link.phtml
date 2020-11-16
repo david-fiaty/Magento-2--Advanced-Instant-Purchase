@@ -18,10 +18,17 @@ if (!$agreements) {
     return;
 }
 ?>
-<ol id="checkout-agreements" class="agreements checkout items">
+
+
+<ol id="nbn-checkout-agreements" class="agreements checkout items">
+    <div class="messages">
+        <div class="message error">
+            <div class="message-text"><?= _('Please check the fields below') ?></div>
+        </div>
+    </div>
     <?php foreach ($agreements as $agreement): ?>
         <li class="item">
-            <form id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
+            <form id="nbn-checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree required">
                 <?php if ($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_MANUAL): ?>
                     <div class="nbn-agreement-link-row">
                         <input type="checkbox"
@@ -40,7 +47,7 @@ if (!$agreements) {
                         </label>
                     </div>
                 <?php elseif ($agreement->getMode() == \Magento\CheckoutAgreements\Model\AgreementModeOptions::MODE_AUTO): ?>
-                <div id="checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree">
+                <div id="nbn-checkout-agreements-form-<?= /* @escapeNotVerified */ $agreement->getAgreementId() ?>" class="field choice agree">
                     <span><?= $agreement->getIsHtml() ? $agreement->getCheckboxText() : $block->escapeHtml($agreement->getCheckboxText()) ?></span>
                 </div>
                 <?php endif; ?>

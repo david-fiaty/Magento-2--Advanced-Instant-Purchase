@@ -12,16 +12,21 @@
  * @link      https://www.naxero.com
  */
 
- define([
+define([
     'jquery',
+    'mage/translate',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/modal',
-    'Naxero_BuyNow/js/view/helpers/logger'
-], function ($, NbnSlider, NbnModal, NbnLogger) {
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/paths'
+], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
         agreementLinkSelector: '.nbn-agreement-link',
+        agreementsUrl: 'order/agreements',
+        submitButtonSelector: '.nbn-submit',
+        cancelButtonSelector: '.action-dismiss span',
 
         /**
          * Initialise the object.
@@ -48,20 +53,22 @@
          */
         getAgreement: function (e) {
             // Prepare the request parameters
-            var self = this;
             var params = {
-                action: $(e.currentTarget).data('role'),
                 id: $(e.currentTarget).data('id')
             };
 
             // Toggle the view
             NbnSlider.toggleView(e);
-            
+
+            // Update the buttons
+            $(this.submitButtonSelector).hide();
+            $(this.cancelButtonSelector).text(__('Back'));
+
             // Send the request
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: this.o.paths.get(this.o.confirmationUrl),
+                url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
                     NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);

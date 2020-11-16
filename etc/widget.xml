@@ -28,8 +28,9 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="product_id" xsi:type="select" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
+            <parameter name="product_id" xsi:type="block" visible="true" required="true">
                 <label translate="true">Product</label>
+                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
             <parameter name="enable_agreements" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Enable terms and conditions</label>
