@@ -16,6 +16,27 @@
 
 <?php
 
-var_dump($block->getData('product_list'));
+//var_dump($block->getData('product_list'));
 
 ?>
+
+<select id="test" name="test">
+<option >1</option>
+<option >2</option>
+<option >3</option>
+</select>
+
+<script>
+    require([
+    'jquery',
+    'mage/translate',
+    'select2'
+], function($, __, select2) {
+    'use strict';
+
+    $('#test').select2({
+        theme: 'classic'
+    });
+});
+    
+</script>
