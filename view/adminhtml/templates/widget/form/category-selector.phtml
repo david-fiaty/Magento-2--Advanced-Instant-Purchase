@@ -1,1 +1,27 @@
-category s
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+// Get the block data
+$elementId = $block->getData('element_id');
+$elementLabel = $block->getData('element_label');
+$elementName = $block->getData('element_name');
+$elementValue = $block->getData('element_value');
+?>
+
+<label class="label admin__field-label" for="<?= $elementId ?>">
+        <span><?= $elementLabel ?></span>
+</label>
