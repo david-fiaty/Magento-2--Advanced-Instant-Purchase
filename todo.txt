@@ -1,6 +1,5 @@
 
 !!!PRIORITY!!!
-- set default values for widget fields
 
 - check if place order contains expected product attributes selected by user (request data)
 - handle non swatch options values (list, input) in page view
