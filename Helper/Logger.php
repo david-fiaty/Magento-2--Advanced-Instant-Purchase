@@ -1,7 +1,21 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Logger Helper.
@@ -40,7 +54,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->customerSession = $customerSession;
         $this->pageFactory = $pageFactory;
@@ -66,10 +80,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function write($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the file logging config value
-        $fileLogging = $this->configHelper->value('general/file_logging_enabled');
+        $fileLogging = $this->configHelper->value('debug/file_logging_enabled');
 
         // Write the data to the log file
         if ($debug && $fileLogging) {
@@ -87,10 +101,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function display($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the UI logging
-        $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
+        $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             $this->messageManager->addNotice($data);
         }
@@ -102,10 +116,10 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     public function renderUiMessage($data)
     {
         // Get the debug config value
-        $debug = $this->configHelper->value('general/debug_enabled');
+        $debug = $this->configHelper->value('debug/debug_enabled');
 
         // Get the UI logging
-        $uiLogging = $this->configHelper->value('general/ui_logging_enabled');
+        $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             return $this->getPageLayout()
             ->createBlock('Magento\Framework\View\Element\Template')

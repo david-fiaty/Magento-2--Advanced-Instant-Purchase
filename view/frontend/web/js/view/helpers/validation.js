@@ -1,68 +1,85 @@
-define(
-    [
-        'jquery',
-        'mage/translate'
-    ],
-    function($, __) {
-        'use strict';
-        return {
-            agreementRow: '.aip-agreement-link-row',
-            agreementBoxSelector: '.aip-agreement-box',
-            inputSelectors: '.aip-select, .aip-box',
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-            /**
-             * Initialise the object.
-             */
-            init: function(obj) {
-                this.o = obj;
-                return this;
-            },
+ define([
+    'jquery',
+    'mage/translate'
+],
+function ($, __) {
+    'use strict';
+    return {
+        regionSelector: '#region_id',
+        agreementRow: '.nbn-agreement-link-row',
+        agreementBoxSelector: '.nbn-agreement-box',
+        agreementErrorMessageSelector: '#nbn-checkout-agreements .messages',
 
-            /**
-             * Additional form validation.
-             */
-            validate: function() {
-                // Prepare the parameters
-                var errors = [];
+        /**
+         * Initialise the object.
+         */
+        init: function (obj) {
+            this.o = obj;
+            return this;
+        },
 
-                // Agreements validation
-                if (this.o.jsConfig.general.enable_agreements) {
-                    $(this.agreementRow).removeClass('error');
-                    $(this.agreementRow).each(function() {
-                        var input = $(this).find(this.agreementBoxSelector);
-                        if (!input.is(':checked')) {
-                            errors.push({
-                                id: input.attr('id')
-                            });
-                        }
-                    });
-                }
+        /**
+         * Additional form validation.
+         */
+        validate: function() {
+            // Prepare the parameters
+            var self = this;
+            var errors = [];
 
-                // Fields validation
-                $(this.inputSelectors).each(function() {
-                    var val = $(this).val();
-                    if (val && val.length == 0) {
+            // Agreements validation
+            if (this.o.jsConfig.general.enable_agreements) {
+                // Reset the errors
+                $(this.agreementErrorMessageSelector).hide();
+                $(this.agreementRow).removeClass('error');
+
+                // Perform the validation
+                $(this.agreementRow).each(function() {
+                    var input = $(this).find(self.agreementBoxSelector);
+                    if (!input.is(':checked')) {
                         errors.push({
                             id: input.attr('id')
                         });
                     }
                 });
+            }
 
-                return errors.length == 0;
-            },
+            // Show error message
+            if (errors.length > 0) {
+                $(this.agreementRow).addClass('error');
+                $(this.agreementErrorMessageSelector).show();
+                
+                return false;
+            }
 
-            /**
-             * Check the region state in address form.
-             */
-            checkRegionState: function() {
-                if ($('#region_id').prop('disabled') === true) {
-                    $('#region_id').addClass('aip-region-hidden');
-                    $('#region_id').removeClass('aip-region-visible');
-                } else {
-                    $('#region_id').addClass('aip-region-visible');
-                    $('#region_id').removeClass('aip-region-hidden');
-                }
+            return true;
+        },
+
+        /**
+         * Check the region state in address form.
+         */
+        checkRegionState: function () {
+            var regionField = $(this.regionSelector);
+            if (regionField.prop('disabled') === true) {
+                regionField.addClass('nbn-region-hidden');
+                regionField.removeClass('nbn-region-visible');
+            } else {
+                regionField.addClass('nbn-region-visible');
+                regionField.removeClass('nbn-region-hidden');
             }
         }
     }
-);
+});

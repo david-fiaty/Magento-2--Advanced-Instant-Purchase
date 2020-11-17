@@ -2,14 +2,14 @@
 <!--
 /**
  * Naxero.com
- * Professional ecommerce integrations for Magento
+ * Professional ecommerce integrations for Magento.
  *
  * PHP version 7
  *
  * @category  Magento2
  * @package   Naxero
  * @author    Platforms Development Team <contact@naxero.com>
- * @copyright Naxero.com
+ * @copyright © Naxero.com all rights reserved
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
@@ -17,19 +17,18 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <advanced_instant_purchase>
+        <buy_now>
             <general>
                 <enabled>1</enabled>
-                <debug_enabled>0</debug_enabled>
-                <ui_logging_enabled>0</ui_logging_enabled>
-                <console_logging_enabled>0</console_logging_enabled>
-                <file_logging_enabled>0</file_logging_enabled>
                 <enable_agreements>0</enable_agreements>
             </general>
             <buttons>
                 <button_text>Buy Now</button_text>
+                <show_guest_button>1</show_guest_button>
+                <guest_button_text>Buy Now</guest_button_text>
                 <products_with_options>open</products_with_options>
                 <bypass_oos>0</bypass_oos>
+                <button_classes>primary button</button_classes>
             </buttons>
             <products>
                 <product_view>1</product_view>
@@ -41,33 +40,19 @@
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
-                <show_product>1</show_product>
-                <show_product_image>1</show_product_image>
-                <show_product_name>1</show_product_name>
-                <show_product_price>1</show_product_price>
-                <show_product_quantity>1</show_product_quantity>
-                <show_product_desc>1</show_product_desc>
-                <show_product_options>1</show_product_options>
+                <popup_show_product>1</popup_show_product>
+                <popup_show_product_image>1</popup_show_product_image>
+                <popup_show_product_name>1</popup_show_product_name>
+                <popup_show_product_price>1</popup_show_product_price>
+                <popup_show_product_quantity>1</popup_show_product_quantity>
             </popups>
-            <blocks>
-                <show_product>1</show_product>
-                <show_product_image>1</show_product_image>
-                <show_product_name>1</show_product_name>
-                <show_product_price>1</show_product_price>
-                <show_product_quantity>1</show_product_quantity>
-                <show_product_desc>1</show_product_desc>
-                <show_product_options>1</show_product_options>
-            </blocks>
-            <guest>
-                <show_guest_button>1</show_guest_button>
-                <guest_button_state>1</guest_button_state>
-            </guest>
-            <registered>
-                <show_registered_button>1</show_registered_button>
-                <bypass_missing_payment>1</bypass_missing_payment>
-                <bypass_missing_billing>1</bypass_missing_billing>
-                <bypass_missing_shipping>1</bypass_missing_shipping>
-            </registered>
+            <widgets>
+                <widget_show_product>1</widget_show_product>
+                <widget_show_product_image>1</widget_show_product_image>
+                <widget_show_product_name>1</widget_show_product_name>
+                <widget_show_product_price>1</widget_show_product_price>
+                <widget_show_product_quantity>1</widget_show_product_quantity>
+            </widgets>
             <payment_methods>
                 <card_allowed></card_allowed>
                 <show_other_allowed></show_other_allowed>
@@ -76,6 +61,12 @@
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
-        </advanced_instant_purchase> 
+            <debug>
+                <debug_enabled>0</debug_enabled>
+                <ui_logging_enabled>1</ui_logging_enabled>
+                <console_logging_enabled>1</console_logging_enabled>
+                <file_logging_enabled>1</file_logging_enabled>
+            </debug>
+        </buy_now> 
     </default>
 </config>

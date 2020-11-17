@@ -1,22 +1,40 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/util',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/util',
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/address',
+    'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, AipUtil, AipSlider, select2) {
+], function ($, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
     'use strict';
 
     return {
-        listSelector: '.aip-select',
-        linkSelector: '.aip-new, .aip-plus-icon',
-        paymentMethodSelector: '#aip-payment-method-select',
-        otherMethodsToggleSelector: '#aip-show-other-methods',
-        otherMethodsSelector: '#aip-other-method-select',
+        listSelector: '.nbn-select',
+        linkSelector: '.nbn-new, .nbn-plus-icon',
+        paymentMethodSelector: '#nbn-payment-method-select',
+        otherMethodsToggleSelector: '#nbn-show-other-methods',
+        otherMethodsSelector: '#nbn-other-method-select',
+        addressLinkSelector: '.nbn-address-link',
+        cardLinkSelector: '.nbn-card-link',
         
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -27,31 +45,31 @@ define([
         build: function () {
             // Initialise the select lists
             var self = this;
-            $(self.listSelector).select2({
+            $(this.listSelector).select2({
                 language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
-                templateResult: AipUtil.formatIcon,
-                templateSelection: AipUtil.formatIcon
+                templateResult: NbnUtil.formatIcon,
+                templateSelection: NbnUtil.formatIcon
             });
 
             // Set the lists events
-            $(self.listSelector).on('change', function () {
+            $(this.listSelector).on('change', function () {
                 // Get the current field value
                 var thisFieldValue = $(this).val();
 
                 // Set the new field value
                 var newFieldValue = $(this).data('field') == 'instant_purchase_payment_token'
-                ? AipUtil.getOptionPublicHash(thisFieldValue)
+                ? NbnUtil.getOptionPublicHash(thisFieldValue)
                 : thisFieldValue;
 
                 // Update the hidden target field value
-                var targetField = $(this).attr('data-field');
-                $('input[name="' + targetField + '"]').val(newFieldValue);
+                var targetFieldId = $(this).attr('data-field');
+                $('input[name="' + targetFieldId + '"]').val(newFieldValue);
             });
 
             // Other payment methods toggle
-            $(self.otherMethodsSelector).prop('disabled', true);
-            $(self.otherMethodsToggleSelector).on('click touch', function () {
+            $(this.otherMethodsSelector).prop('disabled', true);
+            $(this.otherMethodsToggleSelector).on('click touch', function () {
                 // Other methods select state
                 $(self.otherMethodsSelector).prop(
                     'disabled',
@@ -65,10 +83,16 @@ define([
                 );
             });
 
-            // Set the link events
-            $(self.linkSelector).on('click touch', function (e) {
-                AipSlider.toggleView(e);
-                self.o.getForm(e);
+            // Set the new address link event
+            $(this.addressLinkSelector).on('click touch', function (e) {
+                NbnSlider.toggleView(e);
+                NbnAddress.getAddressForm(self.o, e);
+            });
+
+            // Set the new card link event
+            $(this.cardLinkSelector).on('click touch', function (e) {
+                NbnSlider.toggleView(e);
+                NbnPayment.getCardForm(self.o, e);
             });
         },
 

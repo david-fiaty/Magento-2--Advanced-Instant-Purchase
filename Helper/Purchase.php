@@ -1,18 +1,27 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Purchase Helper.
  */
 class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    /**
-     * @var PageFactory
-     */
-    public $pageFactory;
-
     /**
      * @var RequestInterface
      */
@@ -67,19 +76,17 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Purchase helper constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\InstantPurchase\Model\Ui\CustomerAddressesFormatter $customerAddressesFormatter,
         \Magento\InstantPurchase\Model\Ui\ShippingMethodFormatter $shippingMethodFormatter,
-        \Naxero\AdvancedInstantPurchase\Model\InstantPurchase\ShippingSelector $shippingSelector,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Payment $paymentHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Service\VaultHandlerService $vaultHandler
+        \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Payment $paymentHelper,
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandler
     ) {
-        $this->pageFactory = $pageFactory;
         $this->request = $request;
         $this->customerAddressesFormatter = $customerAddressesFormatter;
         $this->shippingMethodFormatter = $shippingMethodFormatter;
@@ -112,49 +119,52 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Set the instant purchase availability
         $data = ['available' => true];
         
-        // Payment token
-        $paymentToken = $this->vaultHandler->preparePaymentToken();
-
-        // Shipping address
-        $shippingAddress = $this->customerHelper->getShippingAddress();
-
-        // Billing address
-        $billingAddress = $this->customerHelper->getBillingAddress();
-
-        // Shipping method
-        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
-
         // Data
         $data += [
-            'payment_token' => $paymentToken,
-            'shipping_address' => [
-                'id' => $shippingAddress->getId(),
-                'summary' => $this->customerAddressesFormatter->format($shippingAddress),
-            ],
-            'billing_address' => [
-                'id' => $billingAddress->getId(),
-                'summary' => $this->customerAddressesFormatter->format($billingAddress),
-            ],
-            'shipping_method' => [
-                'carrier' => $shippingMethod->getCarrierCode(),
-                'method' => $shippingMethod->getMethodCode(),
-                'summary' => $this->shippingMethodFormatter->format($shippingMethod),
-            ]
+            'payment_token' => $this->vaultHandler->preparePaymentToken(),
+            'shipping_address' => $this->buildShippingAddressArray(),
+            'billing_address' => $this->buildBillingAddressArray(),
+            'shipping_method' => $this->buildShippingMethodArray()
         ];
 
         return $data;
     }
 
     /**
-     * Render a product box.
+     * Build the shipping address array.
      */
-    public function renderProductBox($productId)
-    {
-        return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/box.phtml')
-        ->setData('content', $this->blockHelper->getConfig($productId))
-        ->toHtml();
+    public function buildShippingAddressArray() {
+        $shippingAddress = $this->customerHelper->getShippingAddress();
+
+        return [
+            'id' => !$shippingAddress ? 0 : $shippingAddress->getId(),
+            'summary' => !$shippingAddress ? '' : $this->customerAddressesFormatter->format($shippingAddress)
+        ];
+    }
+
+    /**
+     * Build the billing address array.
+     */
+    public function buildBillingAddressArray() {
+        $billingAddress = $this->customerHelper->getBillingAddress();
+
+        return [
+            'id' => !$billingAddress ? 0 : $billingAddress->getId(),
+            'summary' => !$billingAddress ? '' : $this->customerAddressesFormatter->format($billingAddress)
+        ];
+    }
+
+    /**
+     * Build the shipping method array.
+     */
+    public function buildShippingMethodArray() {
+        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
+
+        return [
+            'carrier' => !$shippingMethod ? '' : $shippingMethod->getCarrierCode(),
+            'method' => !$shippingMethod ? '' : $shippingMethod->getMethodCode(),
+            'summary' => !$shippingMethod ? '' : $this->shippingMethodFormatter->format($shippingMethod)
+        ];
     }
 
     /**
@@ -210,15 +220,21 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function bypassLogin()
     {
         return $this->configHelper->value('general/enabled')
-        && $this->configHelper->value('guest/show_guest_button');
+        && $this->configHelper->value('buttons/show_guest_button');
     }
 
     /**
-     * Get the logged in button classes.
+     * Get the button CSS classes.
      */
     public function getButtonCss()
     {
-        return $this->customerHelper->isLoggedIn()
-        ? 'aip-login-popup' : '';
+        // Load the default config classes
+        $classes = $this->configHelper->value('buttons/button_classes');
+
+        // Add additional classes
+        $classes .= $this->customerHelper->isLoggedIn()
+        ? ' nbn-login-popup' : '';
+
+        return $classes;
     }
 }

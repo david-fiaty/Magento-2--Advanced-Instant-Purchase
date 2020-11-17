@@ -1,66 +1,45 @@
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
  */
+
 define([
-    'jquery',
-    'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/product'
-], function($, UrlBuilder, AipProduct) {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {
-        saveAddressUrl: 'customer/address/formPost',
-        purchaseUrl: 'naxero-aip/ajax/order',
-        addressFormSelector: '.form-address-edit',
 
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
 
         /**
-         * Get the modal confirmation URL.
-         */
-        getConfirmUrl: function(isSubView) {
-            var url = isSubView ? this.saveAddressUrl : this.purchaseUrl;
-            return UrlBuilder.build(url);
-        },
-
-        /**
-         * Get the current form.
-         */
-        getCurrentFormData: function() {
-            var form = this.o.isSubView
-            ? this.getAddressFormData()
-            : AipProduct.getProductFormData();
-
-            return form;
-        },
-
-        /**
-         * Get the address form data.
-         */
-        getAddressFormData: function() {
-            return $(this.addressFormSelector).serialize();
-        },
-
-        /**
          * Get a card option public hash.
          */
-        getOptionPublicHash: function(val) {
+        getOptionPublicHash: function (val) {
             return val.split('*~*')[0];
         },
 
         /**
          * Format a card icon.
          */
-        formatIcon: function(state) {
+        formatIcon: function (state) {
             // Check the element state
-            if (!state.id || !state.element.parentElement.className.includes('aip-payment-method-select')) {
+            if (!state.id || !state.element.parentElement.className.includes('nbn-payment-method-select')) {
                 return state.text;
             }
 
@@ -69,7 +48,7 @@ define([
 
             // Build the icon HTML
             var iconHtml = $(
-                '<span class="aip-card-icon">'
+                '<span class="nbn-card-icon">'
                 + '<img src="' + iconUrl + '">'
                 + state.text + '</span>'
             );
@@ -80,7 +59,7 @@ define([
         /**
          * Check if an object has a property.
          */
-        has: function(target, path, value) {
+        has: function (target, path, value) {
             if (typeof target !== 'object' || target === null) {
                 return false; }
                 var parts = path.split('.');

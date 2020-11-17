@@ -1,7 +1,23 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
 <?php $data = json_decode($block->getData('message')) ?>
 <p>
-    <?= __('Your order heas been created successfully. Order reference:'); ?>
-    <a href="<?= $data->order_url ?>">
-        <?= $data->order_increment_id ?>
+    <?= $block->escapeHtml(__('Your order heas been created successfully. Order reference:')); ?>
+    <a href="<?= $block->escapeHtmlAttr($data->order_url) ?>">
+        <?= $block->escapeHtml($data->order_increment_id) ?>
     </a>
 </p>

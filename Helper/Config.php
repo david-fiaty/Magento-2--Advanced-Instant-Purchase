@@ -1,7 +1,21 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Config helper.
@@ -50,7 +64,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function value($field, $core = false)
     {
-        $path = !$core ? 'advanced_instant_purchase/' . $field : $field;
+        $path = !$core ? 'buy_now/' . $field : $field;
         return $this->scopeConfig->getValue(
             $path,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -64,9 +78,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Load the config data
         $output = [];
-        $configData = $this->xmlParser
-            ->load($this->getFilePath(self::CONFIG_FILE_NAME))
-            ->xmlToArray()['config']['_value']['default']['advanced_instant_purchase'];
+        $configData = $this->getConfigFields();
 
         // Update the array with database values
         foreach ($configData as $group => $fields) {
@@ -78,6 +90,16 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get the config fields array.
+     */
+    public function getConfigFields()
+    {
+        return $this->xmlParser
+        ->load($this->getFilePath(self::CONFIG_FILE_NAME))
+        ->xmlToArray()['config']['_value']['default']['buy_now'];
     }
 
     /**

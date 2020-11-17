@@ -1,8 +1,22 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Block\Button;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Block\Button;
 
 /**
- * ListButton class constructor.
+ * ListButton class.
  */
 class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
@@ -33,10 +47,10 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
-        \Naxero\AdvancedInstantPurchase\Helper\Block $blockHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Purchase $purchaseHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -61,12 +75,16 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['guest']['show_guest_button']
+        $condition = $config['buttons']['show_guest_button']
         && $config['general']['enabled']
         && $config['products']['product_list']
         && $this->purchaseHelper->canDisplayButton();
        
-        return $condition ? $config : null;
+        if ($condition) {
+            return $this->updateAttributesData($config);
+        }
+        
+        return null;
     }
 
     /**
@@ -75,5 +93,13 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function getProduct()
     {
         return parent::getProduct();
+    }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config)
+    {
+        return $this->blockHelper->updateAttributesData($config);
     }
 }

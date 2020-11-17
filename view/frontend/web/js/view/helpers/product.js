@@ -1,40 +1,107 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
     'mage/translate',
-    'mage/url',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/logger',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/option/select',
+    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
     'popover',
-], function($, __, UrlBuilder, AipLogger, AipView, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
     'use strict';
 
     return {
         listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.aip-list-form',
+        listProductFormSelector: '.nbn-list-form',
         listProductCartFormSelector: 'form[data-role="tocart-form"]',
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
-        productDataUrl: 'naxero-aip/ajax/product',
-        productBoxContainerSelector: '.aip-product-box-container',
-        confirmationContainerSelector: '#aip-confirmation-content',
-        optionFieldSelector: '#aip-option',
-        optionSelectorPrefix: '#aip-option-',
         popoverSelector: '.popover',
-        buttonErrorClass: 'aip-button-error',
+        productDataSelectorPrefix: '#nbn-product-data-',
+        buttonErrorClass: 'nbn-button-error',
+        optionHandlers: [
+            'swatch',
+            'select'
+        ],
 
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
 
         /**
+         * Set product options events.
+         */
+        initOptionsEvents: function () {
+            var options = this.getOptions(this.o);
+            if (options && options.length > 0) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['attribute_type'])
+                    .initOptionEvent(options[i]);
+                }
+            }
+        },
+
+        /**
+         * Get the option handler component.
+         */
+        getOptionHandler: function (optionType) {
+            // Argument provided
+            optionType = optionType || null;
+            if (optionType) {
+                var optionComponent = 'NbnProductOption'
+                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
+                
+                return eval(optionComponent);
+            }
+
+            // No argument provided
+            if (NbnView.isPageView()) {
+                return NbnProductOptionSwatch;
+            } else if (NbnView.isListView()) {
+                return NbnProductOptionSwatch;
+            } else if (NbnView.isBlockView()) {
+                return NbnProductOptionSelect;
+            }
+        },
+
+        /**
+         * Update the selected product options values.
+         */
+        updateSelectedOptionsValues: function (obj) {
+            var options = this.getOptions(obj);
+            var condition1 = options && options.length > 0;
+            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isBlockView();
+            var condition3 = !NbnView.isBlockView();
+            if (condition1 && (condition2 || condition3)) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['attribute_type'])
+                    .updateSelectedOptionValue(options[i]);
+                }
+            }
+        },
+        
+        /**
          * Get a product container selector.
          */
-        getProductContainer: function() {
-            return AipView.isListView()
+        getProductContainer: function () {
+            return NbnView.isListView()
             ? this.listProductContainerSelector
             : this.viewProductContainerSelector;
         },
@@ -42,17 +109,17 @@ define([
         /**
          * Get a product container selector.
          */
-        getProductForm: function() {
+        getProductForm: function () {
             // Product container selector
             var productContainerSelector = this.getProductContainer();
 
             // Get product form selector
-            var productFormSelector = AipView.isListView()
+            var productFormSelector = NbnView.isListView()
             ? this.listProductFormSelector
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.o.getButtonId()).closest(productContainerSelector)
+            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -61,7 +128,7 @@ define([
         /**
          * Get the product form data.
          */
-        getProductFormData: function() {
+        getProductFormData: function () {
             // Product container selector
             var productContainerSelector = this.getProductContainer();
 
@@ -69,14 +136,14 @@ define([
             var buyNowData = this.getProductForm().serialize();
 
             // Log the purchase data
-            AipLogger.log(
-                __('Place order purchase data'),
+            NbnLogger.log(
+                __('Place order form data'),
                 this.getProductForm().serializeArray()
             );
 
             // Get the cart form data if list view
-            if (AipView.isListView()) {
-                var cartFormData = $(this.o.getButtonId())
+            if (NbnView.isListView()) {
+                var cartFormData = $(this.o.jsConfig.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
@@ -89,35 +156,29 @@ define([
         },
 
         /**
-         * Set product options events.
-         */
-        initOptionsEvents: function() {
-            if (this.hasOptions()) {
-                // Prepare the variables
-                var options = this.o.jsConfig.product.options;
-
-                // Set the options events and default values
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the fields
-                    var option = options[i];
-                    var sourceField = this.getOptionField(option);
-
-                    // Set the value change events
-                    $(sourceField).on('change', function() {
-                        var sourceId = '#' + $(this).attr('id');
-                        var targetId = 'input[name="super_attribute[' + $(this).data('attribute-id') + ']"]';
-                        $(targetId).val($(sourceId).val());
-                    });
-                }
-            }
-        },
-
-        /**
          * Product options validation.
          */
-        validateOptions: function() {
-            if (this.hasOptions()) {
-                return this.getOptionsErrors().length == 0;
+        validateOptions: function (e) {
+            // Prepare variables
+            var options = this.getOptionsFromEvent(e);
+            var condition1 = options && options.length > 0;
+            var errors = 0;
+
+            // Loop through the product options
+            if (condition1) {
+                for (var i = 0; i < options.length; i++) {
+                    // Validate the option
+                    var error = this.getOptionHandler(options[i]['attribute_type'])
+                    .getOptionErrors(options[i], e)
+                    .length > 0;
+
+                    // Register the error
+                    if (error) {
+                        errors++;
+                    }
+                }
+
+                return errors == 0;
             }
 
             return true;
@@ -126,128 +187,45 @@ define([
         /**
          * Check if a product has options.
          */
-        hasOptions: function() {
-            return this.o.jsConfig.product.options.length
-            && this.o.jsConfig.product.options.length > 0;
+        hasOptions: function (e) {
+            return this.getProductData(e)['options'].length > 0;
         },
 
         /**
-         * Check if a product options are valid.
+         * Get a product options from a click even.
          */
-        getOptionsErrors: function() {
-            // Prepare variables
-            var options = this.o.jsConfig.product.options;
-            var errors = [];
-
-            // Check each option
-            for (var i = 0; i < options.length; i++) {
-                if (this.isOptionInvalid(options[i])) {
-                    errors.push(options[i]);
-                }
-            }
-
-            return errors;
+        getOptionsFromEvent: function (e) {
+            var productId = $(e.currentTarget).data('product-id');
+            return this.getProductData(productId)['options'];
         },
 
         /**
-         * Check if a product option is valid.
+         * Get a product options.
          */
-        isOptionInvalid: function(option) {
-            // Find the target field
-            var targetField = 'input[name="super_attribute[' + option['attribute_id'] + ']"';
-
-            // Check the value
-            var val = $(targetField).val();
-            var isValid = val && val.length > 0 && parseInt(val) > 0;
-
-            return !isValid;
+        getOptions: function (obj) {
+            var productId = obj.jsConfig.product.id;
+            return this.getProductData(productId)['options'];
         },
 
         /**
-         * Get an option field selector.
+         * Get updated product data for events.
          */
-        getOptionField: function(option) {            
-            return this.optionSelectorPrefix
-            + this.o.jsConfig.product.id
-            + '-' + option['attribute_id'];
-        },
-
-        /**
-         * Check if a product box should be rendered.
-         */
-        needsProductBox: function() {    
-            return this.o.jsConfig.popups.show_product
-            && this.hasOptions() 
-            && !this.validateOptions();
-        },
-
-        /**
-         * Render a product box.
-         */
-        renderBox: function() {
-            // Prepare the parameters
-            var self = this;
-            var params = {
-                product_id: this.o.jsConfig.product.id,
-                form_key: this.o.jsConfig.product.form_key
-            };
-
-            // Send the AJAX request
-            $.ajax({
-                type: 'POST',
-                url: UrlBuilder.build(self.productDataUrl),
-                data: params,
-                success: function(data) {
-                    // Get the HTML content
-                    $(self.productBoxContainerSelector).html(data.html);
-
-                    // Update the selected product options values
-                    self.updateSelectedOptionsValues();
-                },
-                error: function(request, status, error) {
-                    AipLogger.log(
-                        __('Error retrieving the confimation window product box'),
-                        error
-                    );
-                }
-            });
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedOptionsValues: function() {
-            if (this.hasOptions()) {
-                var options = this.o.jsConfig.product.options;
-                for (var i = 0; i < options.length; i++) {
-                    // Prepare the parameters
-                    var sourceField = 'input[name="super_attribute[' + options[i]['attribute_id'] + ']"]';
-                    var targetField = this.getOptionField(options[i]);  
-                    var sourceFieldValue = $(sourceField).val();
-
-                    // Prepare the conditions
-                    var condition = sourceFieldValue
-                    && sourceFieldValue != 'undefined'
-                    && sourceFieldValue.length > 0;
-
-                    // Update the options selected value
-                    if (condition) {
-                        $(this.confirmationContainerSelector).find(targetField).val(sourceFieldValue).change();  
-                    }
-                }
-            }
+        getProductData: function (productId) {
+            return JSON.parse(
+                $(this.productDataSelectorPrefix + productId).val()
+            );
         },
 
         /**
          * Display the product options errors.
          */
-        displayErrors: function() {
+        displayErrors: function (e) {
             // Prepare variables
             var self = this;
-            var button = $(this.o.getButtonId());
+            var button = $(e.currentTarget);
 
             // Clear previous errors
-            self.clearErrors();
+            self.clearErrors(e);
 
             // Update the button state
             button.popover({
@@ -265,8 +243,8 @@ define([
         /**
          * Clear UI error messages.
          */
-        clearErrors: function() {
-            $(this.o.getButtonId()).removeClass(this.buttonErrorClass);
+        clearErrors: function (e) {
+            $(e.currentTarget).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

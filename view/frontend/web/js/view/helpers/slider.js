@@ -1,18 +1,33 @@
-define([
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+ define([
     'jquery',
     'mage/translate',
     'slick',
-], function($, __, slick) {
+], function ($, __, slick) {
     'use strict';
 
     return {
-        sliderSelector: '#aip-slider',
-        nextSlideSelector: '#aip-next-slide-container',
+        sliderSelector: '#nbn-slider',
+        nextSlideSelector: '#nbn-next-slide-container',
+        cancelButtonSelector: '.action-dismiss span',
 
         /**
          * Initialise the object.
          */
-        init: function(obj) {
+        init: function (obj) {
             this.o = obj;
             return this;
         },
@@ -20,7 +35,7 @@ define([
         /**
          * Create a login popup.
          */
-        build: function() {
+        build: function () {
             $(this.sliderSelector).slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -33,7 +48,7 @@ define([
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function() {
+        getCurrentSlide: function () {
             var slide = (this.o.isSubView)
             ? this.nextSlideSelector
             : this.o.popupContentSelector;
@@ -44,14 +59,14 @@ define([
         /**
          * Show the AJAX loader.
          */
-        showLoader: function() {
+        showLoader: function () {
             this.getCurrentSlide().html(this.o.loader);
         },
 
         /**
          * Handles the view switch.
          */
-        toggleView: function(e) {
+        toggleView: function (e) {
             // Handle the event
             e = e || null;
             if (e) {
@@ -63,11 +78,11 @@ define([
             if (this.o.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 this.o.isSubView = false;
-                $('.action-dismiss span').text(__('Cancel'));
+                $(this.cancelButtonSelector).text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
-                $('.action-dismiss span').text(__('Back'));
+                $(this.cancelButtonSelector).text(__('Back'));
                 this.o.isSubView = true;
             }
         }

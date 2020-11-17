@@ -1,7 +1,21 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
 
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+namespace Naxero\BuyNow\Helper;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Block helper.
@@ -38,10 +52,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Naxero\AdvancedInstantPurchase\Helper\Customer $customerHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Product $productHelper,
-        \Naxero\AdvancedInstantPurchase\Model\Service\FilterHandlerService $filterHandler
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
@@ -59,64 +73,22 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ? $this->value('buttons/bypass_oos')
         : true;
     }
-
+    
     /**
-     * Get block tags in content.
+     * Get the Buy Now button text.
      */
-    public function getBlockTags($subject, $html)
+    public function getButtonText()
     {
-        // Find all block tag matches
-        $matches = $this->findBlockTags($html);
+        // Get the module config
+        $config = $this->configHelper->getValues();
 
-        return $this->outputHasTags($matches, $subject)
-        ? $matches : null;
-    }
+        // Get logged in status
+        $isLoggedIn = $this->customerHelper->getUserParams()['user']['connected'];
 
-    /**
-     * Check if a content has block tags.
-     */
-    public function outputHasTags($matches, $subject)
-    {
-        // Get the target class name to exclude
-        $className = get_class($subject);
-
-        // Check if the current content output has valid tags
-        return !empty($matches) && !empty($matches[0])
-        && strpos($className, '\\BlockButton\\') === false
-        && is_array($matches[0])
-        && count($matches[0]) > 0;
-    }
-
-    /**
-     * Find block tags in content.
-     */
-    public function findBlockTags($html)
-    {
-        preg_match_all(
-            $this->getSearchPattern(),
-            $html,
-            $matches
-        );
-
-        return $matches;
-    }
-
-    /**
-     * Get the block tag search patern.
-     */
-    public function getSearchPattern()
-    {
-        return '/\{BuyNow(.*)\}/';
-    }
-
-    /**
-     * Build a base purchase block button.
-     */
-    public function buildButtonBlock($subject)
-    {
-        return $subject->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Button\BlockButton')
-        ->setTemplate(Naming::getModuleName() . '::button/base.phtml');
+        // Return the button text
+        return $isLoggedIn
+        ? $config['buttons']['button_text'] 
+        : $config['buttons']['guest_button_text'];
     }
 
     /**
@@ -154,9 +126,71 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
 
+        // Module route
+        $config['module']['route'] = Naming::getModuleRoute();
+
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler
         ->filterContent($config['popups']['popup_title'], $config);
+
+        return $config;
+    }
+
+    /**
+     * Render a widget product box.
+     */
+    public function renderWidgetProductBox($productId, $subject = null)
+    {
+        // Get the layout
+        $layout = $subject
+        ? $subject->getLayout()
+        : $this->pageFactory->create()->getLayout();
+
+        return $layout
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->setData('content', $this->getConfig($productId))
+        ->toHtml();
+    }
+
+    /**
+     * Render a popup product box.
+     */
+    public function renderPopupProductBox($productId, $subject = null)
+    {
+        // Get the layout
+        $layout = $subject
+        ? $subject->getLayout()
+        : $this->pageFactory->create()->getLayout();
+
+        return $layout
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
+        ->setData('content', $this->getConfig($productId))
+        ->toHtml();
+    }
+
+    /**
+     * Update the product attributes data.
+     */
+    public function updateAttributesData($config, $force = false)
+    {
+        // Prepare parameters
+        $updatedOptions = [];
+
+        // Update the attribute display parameters
+        if ($config['product']['has_options']) {
+            foreach ($config['product']['options'] as $option) {
+                $isSwatch = $option['attribute_type'] == 'swatch';
+                if ($isSwatch && $force) {
+                    $option['attribute_type'] = 'select';
+                }
+                
+                $updatedOptions[] = $option;
+            }
+
+            $config['product']['options'] = $updatedOptions;
+        }
 
         return $config;
     }

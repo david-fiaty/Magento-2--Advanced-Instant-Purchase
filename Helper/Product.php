@@ -1,5 +1,19 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Helper;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Helper;
 
 /**
  * Class Product helper.
@@ -47,6 +61,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $toolsHelper;
 
     /**
+     * @var Attribute
+     */
+    public $attributeHelper;
+
+    /**
      * Class Product helper constructor.
      */
     public function __construct(
@@ -56,8 +75,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Naxero\AdvancedInstantPurchase\Helper\Config $configHelper,
-        \Naxero\AdvancedInstantPurchase\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Config $configHelper,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Attribute $attributeHelper
     ) {
         $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;
@@ -67,6 +87,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->stockItemRepository = $stockItemRepository;
         $this->configHelper = $configHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->attributeHelper = $attributeHelper;
     }
 
     /**
@@ -87,7 +108,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
-                'button_container_selector' => '#aip-' . $productId,
+                'button_container_selector' => '#nbn-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'image_url' => $this->getProductImageUrl($productId),
                 'page_url' => $product->getProductUrl(),
@@ -103,7 +124,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getButtonId($productId)
     {
-        return 'aip-button-' . $productId;
+        return 'nbn-button-' . $productId;
     }
 
     /**
@@ -132,8 +153,23 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $this->getProduct($productId)
         );
 
-        // Reset the array keys
-        return array_merge([], $optionsArray);
+        // Add extra fields to each option
+        $output = [];
+        foreach ($optionsArray as $key => $option) {
+            // Product id
+            $option['product_id'] = $productId;
+
+            // Option id
+            $option['option_id'] = $key;
+
+            // Attribute type info
+            $option = $this->attributeHelper->addAttributeData($option);
+
+            // Add the extra fields
+            $output[] = $option;
+        }
+
+        return $output;
     }
 
     /**

@@ -1,18 +1,28 @@
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    
-    <!-- Purchase button block interceptor -->
-    <type name="Magento\Framework\View\Element\Template">
-        <plugin name="naxeroAipBlockFilter" type="Naxero\AdvancedInstantPurchase\Plugin\BlockFilter"/>
-    </type>
+<!--
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+-->
 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Complex UI messages -->
     <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
         <arguments>
             <argument name="configurationsMap" xsi:type="array">
-                <item name="naxeroAipOrderSuccessMessage" xsi:type="array">
+                <item name="nbnOrderSuccessMessage" xsi:type="array">
                     <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
                     <item name="data" xsi:type="array">
-                        <item name="template" xsi:type="string">Naxero_AdvancedInstantPurchase::messages/order-success.phtml</item>
+                        <item name="template" xsi:type="string">Naxero_BuyNow::messages/order-success.phtml</item>
                     </item>
                 </item>
             </argument>

@@ -1,13 +1,19 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
  */
-
-// @codingStandardsIgnoreFile
-
-/** @var \Magento\Customer\Block\Address\Edit $block */
 ?>
+
 <?php $_company = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Company') ?>
 <?php $_telephone = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Telephone') ?>
 <?php $_fax = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Fax') ?>
@@ -71,7 +77,7 @@
             </div>
         </div>
 
-        <?php if ($this->helper('Magento\Customer\Helper\Address')->isVatAttributeVisible()) : ?>
+        <?php if ($this->helper('Magento\Customer\Helper\Address')->isVatAttributeVisible()): ?>
             <div class="field taxvat">
                 <label class="label" for="vat_id">
                     <span><?= $block->escapeHtml(__('VAT number')) ?></span>
@@ -190,16 +196,16 @@
     require([
     'jquery',
     'Magento_Customer/js/addressValidation',
-    'Naxero_AdvancedInstantPurchase/js/view/helpers/validation',
+    'Naxero_BuyNow/js/view/helpers/validation',
     'mage/adminhtml/form'
-], function($, AddressValidation, AipValidation) {
+], function($, AddressValidation, NbnValidation) {
     'use strict';
 
     var updater = new RegionUpdater(
         $('[name=country_id]')[0],
         $('[name=region]')[0],
         $('[name=region_id]')[0],
-        <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+        <?= $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
         'hide'
     );
     updater.optionalRegionAllowed = <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>;
@@ -211,9 +217,9 @@
     window.updater = updater;
 
     // Country select on change event
-    AipValidation.checkRegionState();
+    NbnValidation.checkRegionState();
     $('#country').change(function() {
-        AipValidation.checkRegionState();
+        NbnValidation.checkRegionState();
     });
 });
     

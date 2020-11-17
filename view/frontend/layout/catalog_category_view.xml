@@ -1,7 +1,23 @@
+<!--
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+-->
+
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="category.product.addto">
-            <block name="product.info.addtocart.instantPurchase" cacheable="false" class="Naxero\AdvancedInstantPurchase\Block\Button\ListButton" template="Naxero_AdvancedInstantPurchase::button/base.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase" cacheable="false" class="Naxero\BuyNow\Block\Button\ListButton" template="Naxero_BuyNow::button/base.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

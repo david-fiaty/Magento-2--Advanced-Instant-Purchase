@@ -1,10 +1,24 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Payment\Integration\CheckoutcomVault;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Model\Payment\Integration\CheckoutcomVault;
 
 /**
  * Class Index.
  */
-class Index implements \Naxero\AdvancedInstantPurchase\Model\Payment\Integration\PaymentIntegrationInterface
+class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrationInterface
 {
     /**
      * @var QuoteManagement

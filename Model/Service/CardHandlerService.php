@@ -1,8 +1,22 @@
 <?php
-namespace Naxero\AdvancedInstantPurchase\Model\Service;
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+
+namespace Naxero\BuyNow\Model\Service;
 
 use Magento\Vault\Api\Data\PaymentTokenInterface;
-use Naxero\AdvancedInstantPurchase\Model\Config\Naming;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class CardHandlerService.
