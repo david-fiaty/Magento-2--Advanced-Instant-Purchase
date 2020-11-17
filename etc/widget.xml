@@ -29,13 +29,13 @@
                 </block>
             </parameter>
 
-            <parameter name="direct_product_selection" xsi:type="select" visible="true">
+            <parameter name="direct_product_selection" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Direct product selection</label>
                 <options>
-                    <option name="yes" value="1">
+                    <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
                     </option>
-                    <option name="no" value="0" selected="true">
+                    <option name="no" value="0">
                         <label translate="true">No</label>
                     </option>
                 </options>
