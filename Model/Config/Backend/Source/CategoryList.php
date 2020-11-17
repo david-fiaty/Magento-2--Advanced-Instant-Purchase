@@ -29,16 +29,23 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
      * CollectionFactory
      */
     public $categoryCollectionFactory;
- 
+
+    /**
+     * Tree
+     */
+    public $categoryTree;
+
     /**
      * CategoryList constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
+        \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
+        $this->categoryTree = $categoryTree;
     }
     
     public function getCategories()
@@ -55,6 +62,11 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
         }
 
         return $items;
+    }
+
+    public function getTree()
+    {
+        return $this->categoryTree->getTree(); 
     }
 
     /**

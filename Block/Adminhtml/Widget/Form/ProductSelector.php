@@ -61,8 +61,12 @@ class ProductSelector extends \Magento\Backend\Block\Template
             ->setData('element_value', $element->getValue())
             ->setData('element_label', $element->getLabelHtml())
             ->setData('product_list', $this->productListSource->toOptionArray())
-            ->setData('category_list', $this->categoryListSource->toOptionArray())
+            ->setData('category_list', $this->categoryListSource->getTree())
             ->toHtml();
+
+            var_dump($this->categoryListSource->getTree());
+
+            exit();
 
         // Render the HTML
         $element->setData('after_element_html', $blockHtml);
