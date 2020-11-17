@@ -111,6 +111,9 @@
             </parameter>
             <parameter name="widget_show_product_image" xsi:type="select" visible="true">
                 <label translate="true">Show product image</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -119,12 +122,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="widget_show_product_name" xsi:type="select" visible="true">
                 <label translate="true">Show product name</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -133,12 +136,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="widget_show_product_price" xsi:type="select" visible="true">
                 <label translate="true">Show product price</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -147,12 +150,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="widget_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -161,9 +164,6 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
             </parameter>
 
             <!-- Popup settings -->
@@ -214,6 +214,9 @@
             </parameter>
             <parameter name="popup_show_product_image" xsi:type="select" visible="true">
                 <label translate="true">Show product image</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -222,12 +225,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="popup_show_product_name" xsi:type="select" visible="true">
                 <label translate="true">Show product name</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -236,12 +239,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="popup_show_product_price" xsi:type="select" visible="true">
                 <label translate="true">Show product price</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -250,12 +253,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
             </parameter>
             <parameter name="popup_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>
+                <depends>
+                    <parameter name="popup_show_product" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -264,9 +267,6 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
             </parameter>
 
             <!-- Debug settings-->
@@ -290,6 +290,9 @@
             </parameter>
             <parameter name="ui_logging_enabled" xsi:type="select" visible="true">
                 <label translate="true">UI logging enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -298,12 +301,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="debug_enabled" value="1" />
-                </depends>
             </parameter>
             <parameter name="console_logging_enabled" xsi:type="select" visible="true">
                 <label translate="true">Console logging enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -312,12 +315,12 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="debug_enabled" value="1" />
-                </depends>
             </parameter>
             <parameter name="file_logging_enabled" xsi:type="select" visible="true">
                 <label translate="true">File logging enabled</label>
+                <depends>
+                    <parameter name="debug_enabled" value="1" />
+                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -326,9 +329,6 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-                <depends>
-                    <parameter name="debug_enabled" value="1" />
-                </depends>
             </parameter>
             
         </parameters>
