@@ -28,7 +28,7 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="product_selction_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
+            <parameter name="product_selction_mode" xsi:type="select" visible="true">
                 <label translate="true">Product selection mode</label>
                 <options>
                     <option name="category" value="category">
