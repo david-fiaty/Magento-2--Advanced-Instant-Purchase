@@ -16,9 +16,9 @@
 namespace Naxero\BuyNow\Model\Config\Backend\Source;
 
 /**
- * Class ProductList
+ * Class CategoryList
  */
-class ProductList implements \Magento\Framework\Option\ArrayInterface
+class CategoryList implements \Magento\Framework\Option\ArrayInterface
 {
     /**
      * StoreManagerInterface
@@ -28,23 +28,23 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
     /**
      * CollectionFactory
      */
-    public $productCollectionFactory;
+    public $categoryCollectionFactory;
  
     /**
-     * ProductList constructor.
+     * CategoryList constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
     ) {
         $this->storeManager = $storeManager;
-        $this->productCollectionFactory = $productCollectionFactory;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
     }
     
-    public function getProducts()
+    public function getCategories()
     {
         $items = [];
-        $collection = $this->productCollectionFactory->create();
+        $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
         $collection->setStore($this->storeManager->getStore());
         foreach ($collection as $item) {
@@ -64,6 +64,6 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        return $this->getProducts();
+        return $this->getCategories();
     }
 }

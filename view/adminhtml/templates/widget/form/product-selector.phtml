@@ -21,6 +21,8 @@ $elementLabel = $block->getData('element_label');
 $elementName = $block->getData('element_name');
 $elementValue = $block->getData('element_value');
 $products = $block->getData('product_list');
+$categories = $block->getData('category_list');
+
 ?>
 
 <!-- Select 2 CSS -->
@@ -33,8 +35,22 @@ $products = $block->getData('product_list');
  }
 </style>
 
+<!-- Category list selector -->
+<div id="nbn-category-selector-container" class="nbn-category-selector">
+    <label class="label admin__field-label" for="nbn-category-selector">
+        <span><?= __('Category') ?></span>
+    </label>
+    <select id="nbn-category-selector" name="nbn-category-selector">
+    <?php foreach ($categories as $category): ?>
+        <option value="<?= $category['value'] ?>" <?= $product['value'] == $elementValue ? 'selected' : '' ?>>
+            <?= $category['label'] ?>
+        </option>
+    <?php endforeach; ?>
+    </select>
+</div>
+
 <!-- Product list selector -->
-<div class="nbn-product-selector">
+<div class="nbn-product-selector-container">
     <label class="label admin__field-label" for="<?= $elementId ?>">
         <span><?= $elementLabel ?></span>
     </label>
@@ -55,7 +71,7 @@ $products = $block->getData('product_list');
 ], function($, select2) {
     'use strict';
 
-    $('#<?= $elementId ?>').select2({
+    $('#nbn-category-selector-container, #<?= $elementId ?>').select2({
         theme: 'classic'
     });
 });
