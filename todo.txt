@@ -11,7 +11,6 @@
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
  
 - add advanced config with placeholders for all CSS selectors used in js components
-- move agreements settings to a better section than general
 
 FEATURES
 - build order confirmation screen after payment + editable info
