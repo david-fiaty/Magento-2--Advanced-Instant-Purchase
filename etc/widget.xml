@@ -28,10 +28,10 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="product_selction_mode" xsi:type="select" visible="true" required="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
+            <parameter name="product_selction_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Product selection mode</label>
             </parameter>
-            <parameter name="product_id" xsi:type="block" visible="true" required="true">
+            <parameter name="product_id" xsi:type="block" visible="true">
                 <label translate="true">Product</label>
                 <depends>
                     <parameter name="product_selction_mode" value="product" />
@@ -58,7 +58,7 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="button_text" xsi:type="text" visible="true" required="true">
+            <parameter name="button_text" xsi:type="text" visible="true">
                 <label translate="true">Button text</label>
                 <value translate="true">Buy Now</value>
             </parameter>
@@ -73,7 +73,7 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="guest_button_text" xsi:type="text" visible="true" required="true">
+            <parameter name="guest_button_text" xsi:type="text" visible="true">
                 <label translate="true">Guest button text</label>
                 <depends>
                     <parameter name="show_guest_button" value="1" />
@@ -91,7 +91,7 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="button_classes" xsi:type="text" visible="true" required="true">
+            <parameter name="button_classes" xsi:type="text" visible="true">
                 <label translate="true">Button classes</label>
                 <value>primary button</value>
             </parameter>
@@ -191,19 +191,19 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="popup_title" xsi:type="text" visible="true" required="true">
+            <parameter name="popup_title" xsi:type="text" visible="true">
                 <label translate="true">Popup title</label>
                 <value translate="true">Buy Now</value>
             </parameter>
-            <parameter name="popup_header_text" xsi:type="text" visible="true" required="true">
+            <parameter name="popup_header_text" xsi:type="text" visible="true">
                 <label translate="true">Popup header text</label>
                 <value translate="true">Please review the options and place your order.</value>
             </parameter>
-            <parameter name="popup_footer_text" xsi:type="text" visible="true" required="true">
+            <parameter name="popup_footer_text" xsi:type="text" visible="true">
                 <label translate="true">Popup footer text</label>
                 <value translate="true">Submitting this form will process a payment and place an order.</value>
             </parameter>
-            <parameter name="popup_confirm_button_text" xsi:type="text" visible="true" required="true">
+            <parameter name="popup_confirm_button_text" xsi:type="text" visible="true">
                 <label translate="true">Place order button text</label>
                 <value translate="true">Place order</value>
             </parameter>
