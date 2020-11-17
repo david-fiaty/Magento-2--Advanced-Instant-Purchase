@@ -196,11 +196,7 @@ class Request extends \Magento\Framework\App\Action\Action
                 $payment = $quote->getPayment();
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
-                $payment->importData(
-                    [
-                    'method' => $paymentData['paymentMethodCode']
-                    ]
-                );
+                $payment->importData(['method' => $paymentData['paymentMethodCode']]);
                 $payment->save();
             }
 
@@ -217,12 +213,10 @@ class Request extends \Magento\Framework\App\Action\Action
             if ($paymentResponse->paymentSuccess()) {
                 $order = $paymentResponse->createOrder($quote, $paymentResponse);
                 if ($order) {
-                    $message = json_encode(
-                        [
+                    $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
                         'order_increment_id' => $order->getIncrementId()
-                        ]
-                    );
+                    ]);
                     
                     return $this->createResponse($message, true);
                 } else {
