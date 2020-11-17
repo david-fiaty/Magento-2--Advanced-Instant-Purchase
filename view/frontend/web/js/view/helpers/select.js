@@ -14,12 +14,13 @@
 
  define([
     'jquery',
+    'mage/translate',
     'Naxero_BuyNow/js/view/helpers/util',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/address',
     'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
+], function ($, __, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
     'use strict';
 
     return {
@@ -46,6 +47,7 @@
             // Initialise the select lists
             var self = this;
             $(this.listSelector).select2({
+                placeholder: __('Select an option'),
                 language: self.getLocale(this.o.jsConfig.user.language),
                 theme: 'classic',
                 templateResult: NbnUtil.formatIcon,

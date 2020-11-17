@@ -42,7 +42,7 @@ $categories = $block->getData('category_list');
     </label>
     <select id="nbn-category-selector" name="nbn-category-selector">
     <?php foreach ($categories as $category): ?>
-        <option value="<?= $category['value'] ?>" <?= $product['value'] == $elementValue ? 'selected' : '' ?>>
+        <option value="<?= $category['value'] ?>" <?= $category['value'] == $elementValue ? 'selected' : '' ?>>
             <?= $category['label'] ?>
         </option>
     <?php endforeach; ?>
@@ -67,11 +67,13 @@ $categories = $block->getData('category_list');
 <script>
     require([
         'jquery',
+        'mage/translate',
         'select2'
-], function($, select2) {
+], function($, __, select2) {
     'use strict';
 
     $('#nbn-category-selector-container, #<?= $elementId ?>').select2({
+        placeholder: __('Select an option'),
         theme: 'classic'
     });
 });
