@@ -22,15 +22,22 @@
         <parameters>
             <!-- General settings-->
             <parameter name="group_general" xsi:type="block" visible="true">
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">General settings</item>
                     </data>
                 </block>
             </parameter>
+            <parameter name="product_selction_mode" xsi:type="select" visible="true" required="true">
+                <label translate="true">Product selection mode</label>
+                <block class="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode"/>
+            </parameter>
             <parameter name="product_id" xsi:type="block" visible="true" required="true">
                 <label translate="true">Product</label>
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
+                <depends>
+                    <parameter name="product_selction_mode" value="product" />
+                </depends>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
             <parameter name="enable_agreements" xsi:type="select" visible="true">
                 <label translate="true">Enable terms and conditions</label>
@@ -46,7 +53,7 @@
 
             <!-- Button settings -->
             <parameter name="group_buttons" xsi:type="block" visible="true">
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Button settings</item>
                     </data>
@@ -92,7 +99,7 @@
 
             <!-- Widget settings -->
             <parameter name="group_widgets" xsi:type="block" visible="true">
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Widget settings</item>
                     </data>
@@ -168,7 +175,7 @@
 
             <!-- Popup settings -->
             <parameter name="group_popups" xsi:type="block" visible="true">
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Popup settings</item>
                     </data>
@@ -271,7 +278,7 @@
 
             <!-- Debug settings-->
             <parameter name="group_debug" xsi:type="block" visible="true">
-                <block class="\Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Debug settings</item>
                     </data>
