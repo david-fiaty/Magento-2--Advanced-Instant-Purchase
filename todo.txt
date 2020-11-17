@@ -8,10 +8,10 @@
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 
-- make widget product selection auto complete
 - add random block button product selector: {BuyNow product_id="*" category_id="5" limit="3" filter="cheapest"} 
  
-- set default values for widget fields
+- add advanced config with placeholders for all CSS selectors used in js components
+- move agreements settings to a better section than general
 
 FEATURES
 - build order confirmation screen after payment + editable info
@@ -25,8 +25,7 @@ FEATURES
 
 EXTRA
 - add button error reporting to button popover.
-- add advanced config with placeholders for all CSS selectors used in js components
-- move agreements settings to a better section than general
+
 
 
 EXPLORE
