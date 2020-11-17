@@ -19,9 +19,9 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * CateorySelector class.
+ * CategorySelector class.
  */
-class CateorySelector extends \Magento\Backend\Block\Template
+class CategorySelector extends \Magento\Backend\Block\Template
 {
     /**
      * @var ProductList
@@ -29,7 +29,7 @@ class CateorySelector extends \Magento\Backend\Block\Template
     public $productListSource;
 
     /**
-     * GroupSeparator class constructor.
+     * CategorySelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
