@@ -13,7 +13,7 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Model\InstantPurchase;
+namespace Naxero\BuyNow\Model\Order;
 
 use Magento\Framework\DataObject;
 
