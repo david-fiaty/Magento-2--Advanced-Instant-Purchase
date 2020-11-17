@@ -47,7 +47,6 @@ class CategorySelector extends \Magento\Backend\Block\Template
     public function prepareElementHtml(AbstractElement $element)
     {
         // Prepare the separator HTML
-        /*
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/category-selector.phtml')
             ->setData('element_id', $element->getId())
@@ -55,11 +54,10 @@ class CategorySelector extends \Magento\Backend\Block\Template
             ->setData('element_value', $element->getValue())
             ->setData('product_list', $this->productListSource->toOptionArray())
             ->toHtml();
-        */
 
         // Render the HTML
-        $element->setData('after_element_html', $element->toHtml());
+        $element->setData('after_element_html', $blockHtml);
 
-        return $element->toHtml();
+        return $element;
     }
 }
