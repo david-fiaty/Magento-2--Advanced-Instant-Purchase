@@ -50,7 +50,14 @@
             </parameter>
             <parameter name="show_guest_button" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show guest button</label>
-                <value>1</value>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
             </parameter>
             <parameter name="guest_button_text" xsi:type="text" visible="true" required="true">
                 <label translate="true">Guest button text</label>
