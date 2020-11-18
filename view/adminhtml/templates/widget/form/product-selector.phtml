@@ -80,7 +80,7 @@ $categories = $block->getData('categories');
     require([
         'jquery',
         'mage/translate',
-        'mage/url'
+        'mage/url',
         'select2'
 ], function($, __, Url, select2) {
     'use strict';
@@ -106,7 +106,7 @@ $categories = $block->getData('categories');
     // Category selector change event
     $('#nbn-category-selector').on('change', function() {
         var data = {
-            category_id: $(this).val();
+            category_id: $(this).val()
         };
 
         $.ajax({
