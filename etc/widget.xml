@@ -29,22 +29,7 @@
                 </block>
             </parameter>
 
-            <parameter name="direct_product_selection" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
-                <label translate="true">Direct product selection</label>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-
             <parameter name="product_id" xsi:type="block" visible="true">
-                <depends>
-                    <parameter name="direct_product_selection" value="1" />
-                </depends>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
