@@ -42,7 +42,7 @@ $categories = $block->getData('categories');
     </label>
     <select id="nbn-category-selector" name="nbn-category-selector">
     <?php foreach ($categories as $category): ?>
-        <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['value'] == $elementValue ? 'selected' : '' ?>>
+        <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $elementValue ? 'selected' : '' ?>>
             <?= $category['name'] ?>
         </option>
     <?php endforeach; ?>

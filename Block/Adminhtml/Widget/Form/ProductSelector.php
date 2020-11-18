@@ -73,7 +73,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
     /**
      * Get the catalog categories.
      */
-    public function getCategories($categories = null) {
+    public function getCategories($categories = null, $i = 0) {
         $output = [];
         $categories = $categories ?? $this->categoryListSource->getTree();
         if (!empty($categories))
@@ -81,12 +81,14 @@ class ProductSelector extends \Magento\Backend\Block\Template
             // Add the category
             $output[] = [
                 'id' => $category['id'],
-                'name' => $category['text']
+                'name' => $category['text'],
+                'level' => $i
             ];
 
             // Check subcategories
-            if (is_array($category['children']) && !empty(is_array($category['children']))) {
-                $output[] = $this->getCategories($category['children']);
+            if (isset($category['children']) && is_array($category['children']) && !empty($category['children'])) {
+                $output[] = $this->getCategories($category['children'], $i);
+                $i++;
             }
 
             return $output;
