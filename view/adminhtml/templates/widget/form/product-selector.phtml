@@ -89,6 +89,7 @@ $categories = $block->getData('categories');
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
+            // Hierarchical display for sub categories
             if (!data.element) {
                 return data.text;
             }
