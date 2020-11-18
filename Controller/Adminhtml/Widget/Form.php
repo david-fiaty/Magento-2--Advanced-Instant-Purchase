@@ -47,7 +47,7 @@ class Form extends \Magento\Backend\App\Action
     /**
      * Get products from category.
      */
-    public function getProducts()
+    public function execute()
     {
         // Prepare the output
         $output = '';

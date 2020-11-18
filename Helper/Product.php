@@ -209,6 +209,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProducts($categoryId = null)
     {
+        // Todo - Add the category filter to collection
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
