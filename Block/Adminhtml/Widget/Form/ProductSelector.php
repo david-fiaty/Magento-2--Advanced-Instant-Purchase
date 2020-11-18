@@ -60,17 +60,46 @@ class ProductSelector extends \Magento\Backend\Block\Template
             ->setData('element_name', $element->getName())
             ->setData('element_value', $element->getValue())
             ->setData('element_label', $element->getLabelHtml())
-            ->setData('product_list', $this->productListSource->toOptionArray())
-            ->setData('category_list', $this->categoryListSource->getTree())
+            ->setData('products', $this->productListSource->toOptionArray())
+            ->setData('categories', $this->getCategories())
             ->toHtml();
-
-            var_dump($this->categoryListSource->getTree());
-
-            exit();
 
         // Render the HTML
         $element->setData('after_element_html', $blockHtml);
 
         return $element;
+    }
+
+    /**
+     * Get the catalog categories.
+     */
+    public function getCategories($categories = null) {
+        $output = [];
+        $categories = $categories ?? $this->categoryListSource->getTree();
+        if (!empty($categories))
+        foreach ($categories as $category) {
+            // Add the category
+            $output[] = [
+                'id' => $category['id'],
+                'name' => $category['text']
+            ];
+
+            // Check subcategories
+            if (is_array($category['children']) && !empty(is_array($category['children']))) {
+                $output[] = $this->getCategories($category['children']);
+            }
+
+            return $output;
+        }
+
+        return $output;
+    }
+
+
+    /**
+     * Get children categories.
+     */
+    public function getSubCategories($children) {
+
     }
 }

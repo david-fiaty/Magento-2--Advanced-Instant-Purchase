@@ -48,7 +48,7 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
         $this->categoryTree = $categoryTree;
     }
     
-    public function getCategories()
+    public function getRootCategories()
     {
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
@@ -76,6 +76,6 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        return $this->getCategories();
+        return $this->getRootCategories();
     }
 }

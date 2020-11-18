@@ -20,8 +20,8 @@ $elementId = $block->getData('element_id');
 $elementLabel = $block->getData('element_label');
 $elementName = $block->getData('element_name');
 $elementValue = $block->getData('element_value');
-$products = $block->getData('product_list');
-$categories = $block->getData('category_list');
+$products = $block->getData('products');
+$categories = $block->getData('categories');
 
 ?>
 
@@ -42,8 +42,8 @@ $categories = $block->getData('category_list');
     </label>
     <select id="nbn-category-selector" name="nbn-category-selector">
     <?php foreach ($categories as $category): ?>
-        <option value="<?= $category['value'] ?>" <?= $category['value'] == $elementValue ? 'selected' : '' ?>>
-            <?= $category['label'] ?>
+        <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['value'] == $elementValue ? 'selected' : '' ?>>
+            <?= $category['name'] ?>
         </option>
     <?php endforeach; ?>
     </select>
