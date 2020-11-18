@@ -34,7 +34,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      * Tree
      */
     public $categoryTree;
-    
+
     /**
      * Class Category helper constructor.
      */
@@ -52,7 +52,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      * Get the catalog categories.
      */
     public function getCategories($categories = null, $output = [], $i = 0) {
-        $categories = $categories ?? $this->categoryListSource->getTree();
+        $categories = $categories ?? $this->getTree();
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Add the category
