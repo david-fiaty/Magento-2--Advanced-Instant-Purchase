@@ -26,6 +26,16 @@ class Form extends \Magento\Backend\App\Action
     public $resultJsonFactory;
 
     /**
+     * @var Validator
+     */
+    public $formKeyValidator;
+
+    /**
+     * @var PageFactory
+     */
+    public $pageFactory;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -36,9 +46,13 @@ class Form extends \Magento\Backend\App\Action
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
+        $this->formKeyValidator = $formKeyValidator;
+        $this->pageFactory = $pageFactory;
         $this->productHelper = $productHelper;
 
         parent::__construct($context);
@@ -61,6 +75,20 @@ class Form extends \Magento\Backend\App\Action
         }
 
         // Return the response
-        return $this->resultJsonFactory->create()->setData($output);
+        return $this->resultJsonFactory->create()->setData([
+            'html' => $output
+        ]);
+    }
+
+    /**
+     * Get the terms and conditions.
+     */
+    public function renderProductOptions($categoryId)
+    {
+        return $this->pageFactory->create()->getLayout()
+            ->createBlock('Magento\Backend\Block\Template')
+            ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
+            ->setData('products', $this->productHelper->getProducts($categoryId))
+            ->toHtml();
     }
 }
