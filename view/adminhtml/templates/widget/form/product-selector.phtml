@@ -117,6 +117,7 @@ $categories = $block->getData('categories');
             dataType: 'json',
             success: function (data) {
                 console.log(data);
+                $('#nbn-category-selector').html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);
