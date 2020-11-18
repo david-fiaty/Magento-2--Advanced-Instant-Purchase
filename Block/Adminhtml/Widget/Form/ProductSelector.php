@@ -73,35 +73,25 @@ class ProductSelector extends \Magento\Backend\Block\Template
     /**
      * Get the catalog categories.
      */
-    public function getCategories($categories = null, $i = 0) {
-        $output = [];
+    public function getCategories($categories = null, $output = [], $i = 0) {
         $categories = $categories ?? $this->categoryListSource->getTree();
-        if (!empty($categories))
-        foreach ($categories as $category) {
-            // Add the category
-            $output[] = [
-                'id' => $category['id'],
-                'name' => $category['text'],
-                'level' => $i
-            ];
+        if (!empty($categories)) {
+            foreach ($categories as $category) {
+                // Add the category
+                $output[] = [
+                    'id' => $category['id'],
+                    'name' => $category['text'],
+                    'level' => $i
+                ];
 
-            // Check subcategories
-            if (isset($category['children']) && is_array($category['children']) && !empty($category['children'])) {
-                $output[] = $this->getCategories($category['children'], $i);
-                $i++;
+                // Check subcategories recursively
+                $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
+                if ($condition) {
+                    return $this->getCategories($category['children'], $output, $i++);
+                }
             }
-
-            return $output;
         }
 
         return $output;
-    }
-
-
-    /**
-     * Get children categories.
-     */
-    public function getSubCategories($children) {
-
     }
 }

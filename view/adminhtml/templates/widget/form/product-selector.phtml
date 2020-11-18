@@ -30,9 +30,21 @@ $categories = $block->getData('categories');
 <style>
  @import url('https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css');
 
- .admin__field .control-value {
-     display: none;
- }
+.admin__field .control-value {
+    display: none;
+}
+
+.nbn-category-select-level-1 {
+    padding-left: 1em;
+}
+
+.nbn-category-select-level-2 {
+    padding-left: 2em;
+}
+
+.nbn-category-select-level-3 {
+    padding-left: 3em;
+}
 </style>
 
 <!-- Category list selector -->
@@ -72,7 +84,25 @@ $categories = $block->getData('categories');
 ], function($, __, select2) {
     'use strict';
 
-    $('#nbn-category-selector-container, #<?= $elementId ?>').select2({
+    // Category selector
+    $('#nbn-category-selector').select2({
+        placeholder: __('Select an option'),
+        theme: 'classic',
+        templateResult: function (data) { 
+            if (!data.element) {
+                return data.text;
+            }
+            var $element = $(data.element);
+            var $wrapper = $('<span></span>');
+            $wrapper.addClass($element[0].className);
+            $wrapper.text(data.text);
+
+            return $wrapper;
+        }
+    });    
+
+    // Product selector
+    $('#<?= $elementId ?>').select2({
         placeholder: __('Select an option'),
         theme: 'classic'
     });
