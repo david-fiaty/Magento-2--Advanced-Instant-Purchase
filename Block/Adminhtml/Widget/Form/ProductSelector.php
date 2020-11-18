@@ -29,9 +29,9 @@ class ProductSelector extends \Magento\Backend\Block\Template
     public $productListSource;
 
     /**
-     * @var CategoryList
+     * @var Category
      */
-    public $categoryListSource;
+    public $categoryHelper;
 
     /**
      * GroupSeparator class constructor.
@@ -39,13 +39,13 @@ class ProductSelector extends \Magento\Backend\Block\Template
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Naxero\BuyNow\Model\Config\Backend\Source\ProductList $productListSource,
-        \Naxero\BuyNow\Model\Config\Backend\Source\CategoryList $categoryListSource,
+        \Naxero\BuyNow\Helper\Category $categoryHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
      
         $this->productListSource = $productListSource;
-        $this->categoryListSource = $categoryListSource;
+        $this->categoryHelper = $categoryHelper;
     }
 
     /**
@@ -61,7 +61,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
             ->setData('element_value', $element->getValue())
             ->setData('element_label', $element->getLabelHtml())
             ->setData('products', $this->productListSource->toOptionArray())
-            ->setData('categories', $this->getCategories())
+            ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();
 
         // Render the HTML

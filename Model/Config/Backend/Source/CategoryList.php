@@ -20,7 +20,6 @@ namespace Naxero\BuyNow\Model\Config\Backend\Source;
  */
 class CategoryList implements \Magento\Framework\Option\ArrayInterface
 {
-
     /**
      * Category
      */
@@ -30,11 +29,10 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
      * CategoryList constructor.
      */
     public function __construct(
-        \Naxero\BuyNow\Helper\Category $cateegoryHelper
+        \Naxero\BuyNow\Helper\Category $categoryHelper
     ) {
-        $this->cateegoryHelper = $cateegoryHelper;
+        $this->categoryHelper = $categoryHelper;
     }
-
 
     /**
      * Options getter
@@ -43,6 +41,6 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        return $this->cateegoryHelper->getRootCategories();
+        return $this->categoryHelper->getRootCategories();
     }
 }
