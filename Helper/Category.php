@@ -21,13 +21,76 @@ namespace Naxero\BuyNow\Helper;
 class Category extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * StoreManagerInterface
+     */
+    public $storeManager;
+
+    /**
+     * CollectionFactory
+     */
+    public $categoryCollectionFactory;
+
+    /**
+     * Tree
+     */
+    public $categoryTree;
+    
+    /**
      * Class Category helper constructor.
      */
     public function __construct(
-     
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
+        \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree     
     ) {
- 
+        $this->storeManager = $storeManager;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
+        $this->categoryTree = $categoryTree; 
     }
 
+   /**
+     * Get the catalog categories.
+     */
+    public function getCategories($categories = null, $output = [], $i = 0) {
+        $categories = $categories ?? $this->categoryListSource->getTree();
+        if (!empty($categories)) {
+            foreach ($categories as $category) {
+                // Add the category
+                $output[] = [
+                    'id' => $category['id'],
+                    'name' => $category['text'],
+                    'level' => $i
+                ];
 
+                // Check subcategories recursively
+                $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
+                if ($condition) {
+                    return $this->getCategories($category['children'], $output, $i++);
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    public function getRootCategories()
+    {
+        $items = [];
+        $collection = $this->categoryCollectionFactory->create();
+        $collection->addAttributeToSelect('*');
+        $collection->setStore($this->storeManager->getStore());
+        foreach ($collection as $item) {
+            $items[] = [
+                'value' => $item->getId(),
+                'label' => __($item->getName())
+            ];
+        }
+
+        return $items;
+    }
+
+    public function getTree()
+    {
+        return $this->categoryTree->getTree(); 
+    }
 }

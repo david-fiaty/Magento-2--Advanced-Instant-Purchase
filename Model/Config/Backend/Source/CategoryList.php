@@ -20,54 +20,21 @@ namespace Naxero\BuyNow\Model\Config\Backend\Source;
  */
 class CategoryList implements \Magento\Framework\Option\ArrayInterface
 {
-    /**
-     * StoreManagerInterface
-     */
-    public $storeManager;
 
     /**
-     * CollectionFactory
+     * Category
      */
-    public $categoryCollectionFactory;
-
-    /**
-     * Tree
-     */
-    public $categoryTree;
+    public $categoryHelper;
 
     /**
      * CategoryList constructor.
      */
     public function __construct(
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
-        \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree
+        \Naxero\BuyNow\Helper\Category $cateegoryHelper
     ) {
-        $this->storeManager = $storeManager;
-        $this->categoryCollectionFactory = $categoryCollectionFactory;
-        $this->categoryTree = $categoryTree;
-    }
-    
-    public function getRootCategories()
-    {
-        $items = [];
-        $collection = $this->categoryCollectionFactory->create();
-        $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
-        foreach ($collection as $item) {
-            $items[] = [
-                'value' => $item->getId(),
-                'label' => __($item->getName())
-            ];
-        }
-
-        return $items;
+        $this->cateegoryHelper = $cateegoryHelper;
     }
 
-    public function getTree()
-    {
-        return $this->categoryTree->getTree(); 
-    }
 
     /**
      * Options getter
@@ -76,6 +43,6 @@ class CategoryList implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        return $this->getRootCategories();
+        return $this->cateegoryHelper->getRootCategories();
     }
 }
