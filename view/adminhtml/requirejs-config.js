@@ -14,6 +14,7 @@
 
 var config = {
     paths: {
-        select2: 'Naxero_BuyNow/js/lib/select2/select2.full'
-    }
+        select2: 'Naxero_BuyNow/js/lib/select2/select2.full',
+    },
+    urlArgs: "bust=" + (new Date()).getTime()
 };
