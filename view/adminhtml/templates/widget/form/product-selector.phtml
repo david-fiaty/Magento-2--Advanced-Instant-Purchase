@@ -80,11 +80,12 @@ $categories = $block->getData('categories');
     require([
         'jquery',
         'mage/translate',
+        'mage/url'
         'select2'
-], function($, __, select2) {
+], function($, __, Url, select2) {
     'use strict';
 
-    // Category selector
+    // Category selector select
     $('#nbn-category-selector').select2({
         placeholder: __('Filter by category'),
         theme: 'classic',
@@ -101,6 +102,27 @@ $categories = $block->getData('categories');
             return $wrapper;
         }
     });    
+
+    // Category selector change event
+    $('#nbn-category-selector').on('change', function() {
+        var data {
+            category_id: $(this).val();
+        };
+
+        $.ajax({
+            cache: false,
+            url: Url.build('naxero-buy-now/widget/form'),
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    });
 
     // Product selector
     $('#<?= $elementId ?>').select2({
