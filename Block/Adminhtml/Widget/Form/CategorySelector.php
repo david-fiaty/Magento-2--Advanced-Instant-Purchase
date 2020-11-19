@@ -19,32 +19,25 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * ProductSelector class.
+ * CategorySelector class.
  */
-class ProductSelector extends \Magento\Backend\Block\Template
+class CategorySelector extends \Magento\Backend\Block\Template
 {
-    /**
-     * @var ProductList
-     */
-    public $productListSource;
-
     /**
      * @var Category
      */
     public $categoryHelper;
 
     /**
-     * ProductSelector class constructor.
+     * CategorySelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Naxero\BuyNow\Model\Config\Backend\Source\ProductList $productListSource,
         \Naxero\BuyNow\Helper\Category $categoryHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
      
-        $this->productListSource = $productListSource;
         $this->categoryHelper = $categoryHelper;
     }
 
@@ -55,9 +48,8 @@ class ProductSelector extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/product-selector.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/category-selector.phtml')
             ->setData('element', $element)
-            ->setData('products', $this->productListSource->toOptionArray())
             ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();
 
