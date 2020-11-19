@@ -65,7 +65,6 @@ $categories = $block->getData('categories');
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
-                echo '|'; 
                 for ($i = 0; $i < (int) $category['level']; $i++) {
                     if ($i >= 0) echo '-';
                 }
