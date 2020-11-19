@@ -15,9 +15,9 @@
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
-    <router id="standard">
-        <route id="buy_now" frontName="naxero-buy-now">
-            <module name="Naxero_BuyNow" before="Magento_InstantPurchase"/>
+    <router id="admin">
+        <route id="buy_now_admin" frontName="naxero-buy-now">
+            <module name="Naxero_BuyNow"/>
         </route>
     </router>
 </config>

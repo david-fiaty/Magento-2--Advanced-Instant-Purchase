@@ -109,6 +109,8 @@ $categories = $block->getData('categories');
             category_id: $(this).val()
         };
 
+        console.log(Url.build('naxero-buy-now/widget/form'));
+
         $.ajax({
             cache: false,
             url: Url.build('naxero-buy-now/widget/form'),
