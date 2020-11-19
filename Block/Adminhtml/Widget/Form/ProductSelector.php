@@ -56,10 +56,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-selector.phtml')
-            ->setData('element_id', $element->getId())
-            ->setData('element_name', $element->getName())
-            ->setData('element_value', $element->getValue())
-            ->setData('element_label', $element->getLabelHtml())
+            ->setData('element_id', $element)
             ->setData('products', $this->productListSource->toOptionArray())
             ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();
