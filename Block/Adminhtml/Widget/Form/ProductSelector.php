@@ -29,16 +29,23 @@ class ProductSelector extends \Magento\Backend\Block\Template
     public $productListSource;
 
     /**
+     * @var Category
+     */
+    public $categoryHelper;
+
+    /**
      * GroupSeparator class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Naxero\BuyNow\Model\Config\Backend\Source\ProductList $productListSource,
+        \Naxero\BuyNow\Helper\Category $categoryHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
      
         $this->productListSource = $productListSource;
+        $this->categoryHelper = $categoryHelper;
     }
 
     /**
@@ -49,10 +56,9 @@ class ProductSelector extends \Magento\Backend\Block\Template
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-selector.phtml')
-            ->setData('element_id', $element->getId())
-            ->setData('element_name', $element->getName())
-            ->setData('element_value', $element->getValue())
-            ->setData('product_list', $this->productListSource->toOptionArray())
+            ->setData('element', $element)
+            ->setData('products', $this->productListSource->toOptionArray())
+            ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();
 
         // Render the HTML

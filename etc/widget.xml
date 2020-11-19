@@ -28,23 +28,12 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="product_selction_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
-                <label translate="true">Product selection mode</label>
-            </parameter>
-            <parameter name="category_id" xsi:type="block" visible="true">
-                <label translate="true">Category</label>
-                <depends>
-                    <parameter name="product_selction_mode" value="category" />
-                </depends>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\CategorySelector"/>
-            </parameter>
+
             <parameter name="product_id" xsi:type="block" visible="true">
-                <label translate="true">Product</label>
-                <depends>
-                    <parameter name="product_selction_mode" value="product" />
-                </depends>
+                <label translate="true">Product selection</label>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
+
             <parameter name="enable_agreements" xsi:type="select" visible="true">
                 <label translate="true">Enable terms and conditions</label>
                 <options>

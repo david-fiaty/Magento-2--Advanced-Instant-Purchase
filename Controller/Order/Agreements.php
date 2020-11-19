@@ -91,7 +91,7 @@ class Agreements extends \Magento\Framework\App\Action\Action
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
                 ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-                ->setTemplate(Naming::getModuleName() . '::/agreements/agreements-detail.phtml')
+                ->setTemplate(Naming::getModuleName() . '::agreements/agreements-detail.phtml')
                 ->toHtml();
         }
 

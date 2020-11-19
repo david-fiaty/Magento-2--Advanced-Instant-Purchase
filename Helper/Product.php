@@ -15,6 +15,8 @@
 
 namespace Naxero\BuyNow\Helper;
 
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
+
 /**
  * Class Product helper.
  */
@@ -51,6 +53,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository;
 
     /**
+     * StoreManagerInterface
+     */
+    public $storeManager;
+
+    /**
+     * CollectionFactory
+     */
+    public $productCollectionFactory;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -75,6 +87,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Tools $toolsHelper,
         \Naxero\BuyNow\Helper\Attribute $attributeHelper
@@ -85,6 +99,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $this->request = $request;
         $this->productFactory = $productFactory;
         $this->stockItemRepository = $stockItemRepository;
+        $this->storeManager = $storeManager;
+        $this->productCollectionFactory = $productCollectionFactory;
         $this->configHelper = $configHelper;
         $this->toolsHelper = $toolsHelper;
         $this->attributeHelper = $attributeHelper;
@@ -188,6 +204,30 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function getProduct($productId)
     {
         return $this->productFactory->create()->load($productId);
+    }
+
+    /**
+     * Get a product collection.
+     */
+    public function getProducts($categoryId = null)
+    {
+        // Todo - Add the category filter to collection
+        $items = [];
+        $collection = $this->productCollectionFactory->create();
+        $collection->addAttributeToSelect('*');
+        $collection->setStore($this->storeManager->getStore());
+        $collection->addAttributeToFilter('status', Status::STATUS_ENABLED);
+        if ($categoryId && (int) $categoryId > 0) {
+            $collection->addCategoriesFilter(['in' => [$categoryId]]);
+        }
+        foreach ($collection as $item) {
+            $items[] = [
+                'value' => $item->getId(),
+                'label' => __($item->getName())
+            ];
+        }
+
+        return $items;
     }
 
     /**
