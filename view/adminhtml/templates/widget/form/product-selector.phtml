@@ -56,6 +56,17 @@ $categories = $block->getData('categories');
 }
 </style>
 
+<!-- Display mode selector -->
+<div id="nbn-display-mode-selector-container" class="nbn-display-mode-selector-container">
+    <label class="label admin__field-label" for="nbn-display-mode-selector">
+        <span><?= __('Product selection') ?></span>
+    </label>
+    <select id="nbn-display-mode-selector" name="nbn-display-mode-selector">
+        <option value="product"><?= __('Direct product selection')?></option>
+        <option value="category"><?= __('Category filter selection')?></option>
+    </select>
+</div>
+
 <!-- Category list selector -->
 <div id="nbn-category-selector-container" class="nbn-category-selector">
     <label class="label admin__field-label" for="nbn-category-selector">
