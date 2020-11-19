@@ -125,7 +125,7 @@ $categories = $block->getData('categories');
     });
 
     // Product selector
-    $('#<?= $elementId ?>').select2({
+    $('#<?= $element->getId() ?>').select2({
         placeholder: __('Select an option'),
         theme: 'classic'
     });
