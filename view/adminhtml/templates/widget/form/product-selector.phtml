@@ -31,16 +31,20 @@ $categories = $block->getData('categories');
     display: none;
 }
 
-.nbn-category-select-level-1 {
+.nbn-category-select-level-0 {
     padding-left: 1em;
 }
 
-.nbn-category-select-level-2 {
+.nbn-category-select-level-1 {
     padding-left: 2em;
 }
 
-.nbn-category-select-level-3 {
+.nbn-category-select-level-2 {
     padding-left: 3em;
+}
+
+.nbn-category-select-level-4 {
+    padding-left: 4em;
 }
 </style>
 
@@ -115,7 +119,7 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                $('#<?= $element->getId() ?>').empty();
                 $('#<?= $element->getId() ?>').html(data.html);
             },
             error: function (request, status, error) {
