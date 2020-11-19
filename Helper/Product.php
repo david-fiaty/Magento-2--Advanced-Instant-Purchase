@@ -15,6 +15,8 @@
 
 namespace Naxero\BuyNow\Helper;
 
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
+
 /**
  * Class Product helper.
  */
@@ -214,6 +216,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
         $collection->setStore($this->storeManager->getStore());
+        $collection->addAttributeToFilter('status', Status::STATUS_ENABLED);
         if ($categoryId && (int) $categoryId > 0) {
             $collection->addCategoriesFilter(['in' => [$categoryId]]);
         }
