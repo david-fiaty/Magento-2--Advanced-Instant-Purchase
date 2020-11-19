@@ -211,7 +211,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton()
     {
-        return $this->bypassLogin();
+        $condition = $this->configHelper->value('buttons/show_guest_button')
+        && $this->configHelper->value('general/enabled');
+
+        return $this->bypassLogin() || $condition;
     }
 
     /**

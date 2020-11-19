@@ -53,7 +53,6 @@
                         </depends>
                 </field>
 
-
                 <field id="customer_group" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Customer group</label>
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
