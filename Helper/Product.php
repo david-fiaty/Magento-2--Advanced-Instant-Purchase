@@ -214,6 +214,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
         $collection->setStore($this->storeManager->getStore());
+        if ($categoryId && (int) $categoryId > 0) {
+            $collection->addCategoriesFilter(['in' => [$categoryId]]);
+        }
         foreach ($collection as $item) {
             $items[] = [
                 'value' => $item->getId(),
