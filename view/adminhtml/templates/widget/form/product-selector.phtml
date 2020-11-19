@@ -80,9 +80,8 @@ $categories = $block->getData('categories');
     require([
         'jquery',
         'mage/translate',
-        'mage/url',
         'select2'
-], function($, __, Url, select2) {
+], function($, __, select2) {
     'use strict';
 
     // Category selector select
@@ -105,15 +104,17 @@ $categories = $block->getData('categories');
 
     // Category selector change event
     $('#nbn-category-selector').on('change', function() {
+        // Prepare the parameters
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buy-now/widget/form')); ?>';
         var data = {
-            category_id: $(this).val()
+            category_id: $(this).val(),
+            form_key: window.FORM_KEY
         };
 
-        console.log(Url.build('naxero-buy-now/widget/form'));
-
+        // Ajax request
         $.ajax({
             cache: false,
-            url: Url.build('naxero-buy-now/widget/form'),
+            url: updateUrl,
             data: data,
             type: 'post',
             dataType: 'json',
