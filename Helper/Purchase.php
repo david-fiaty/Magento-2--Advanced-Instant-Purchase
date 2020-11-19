@@ -211,12 +211,12 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton()
     {
-        // Condition 1
+        // Button available
         $condition1 = $this->configHelper->value('buttons/show_guest_button')
         && $this->configHelper->value('general/enabled');
 
-        // Condition 2
-        $cutomerGroupId = '';
+        // Customer groups
+        $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
         $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
         $condition2 = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
 
