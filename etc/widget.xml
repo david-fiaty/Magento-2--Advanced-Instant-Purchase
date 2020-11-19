@@ -30,7 +30,7 @@
             </parameter>
 
             <parameter name="product_id" xsi:type="block" visible="true">
-                <label translate="true">Product selection</label>
+                <label translate="true">Product</label>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
