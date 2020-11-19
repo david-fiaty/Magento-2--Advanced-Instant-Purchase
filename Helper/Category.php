@@ -65,8 +65,10 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 // Check subcategories recursively
                 $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
                 if ($condition) {
-                    return $this->getCategories($category['children'], $output, $i++);
+                    $i++;
+                    return $this->getCategories($category['children'], $output, $i);
                 }
+
             }
         }
 
