@@ -20,7 +20,6 @@
         <buy_now>
             <general>
                 <enabled>1</enabled>
-                <enable_agreements>0</enable_agreements>
             </general>
             <buttons>
                 <button_text>Buy Now</button_text>
@@ -40,6 +39,7 @@
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
+                <enable_agreements>0</enable_agreements>
                 <popup_show_product>1</popup_show_product>
                 <popup_show_product_image>1</popup_show_product_image>
                 <popup_show_product_name>1</popup_show_product_name>

@@ -34,18 +34,6 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
-            <parameter name="enable_agreements" xsi:type="select" visible="true">
-                <label translate="true">Enable terms and conditions</label>
-                <options>
-                    <option name="yes" value="1">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0" selected="true">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-
             <!-- Button settings -->
             <parameter name="group_buttons" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
@@ -175,6 +163,17 @@
                         <item name="text" xsi:type="string" translate="true">Popup settings</item>
                     </data>
                 </block>
+            </parameter>
+            <parameter name="enable_agreements" xsi:type="select" visible="true">
+                <label translate="true">Enable terms and conditions</label>
+                <options>
+                    <option name="yes" value="1">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0" selected="true">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
             </parameter>
             <parameter name="popup_responsive" xsi:type="select" visible="true">
                 <label translate="true">Responsive</label>

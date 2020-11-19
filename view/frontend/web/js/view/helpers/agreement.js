@@ -40,7 +40,7 @@ define([
          * Set the agrements events.
          */
         build: function () {
-            if (this.o.jsConfig.general.enable_agreements) {
+            if (this.o.jsConfig.popups.enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click touch', function (e) {
                     self.getAgreement(e);
