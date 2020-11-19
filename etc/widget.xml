@@ -169,7 +169,7 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="enable_agreements" xsi:type="select" visible="true">
+            <parameter name="popup_enable_agreements" xsi:type="select" visible="true">
                 <label translate="true">Enable terms and conditions</label>
                 <options>
                     <option name="yes" value="1">

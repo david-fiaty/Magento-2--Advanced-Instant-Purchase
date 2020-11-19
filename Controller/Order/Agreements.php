@@ -87,7 +87,7 @@ class Agreements extends \Magento\Framework\App\Action\Action
      */
     public function newAgreementBlock()
     {
-        $enableAgreements = $this->configHelper->value('popups/enable_agreements');
+        $enableAgreements = $this->configHelper->value('popups/popup_enable_agreements');
         if ($enableAgreements) {
             return $this->pageFactory->create()->getLayout()
                 ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
