@@ -81,7 +81,7 @@ $categories = $block->getData('categories');
     'use strict';
 
     // Category selector select
-    $('<?= $element->getId() ?>').select2({
+    $('#<?= $element->getId() ?>').select2({
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
@@ -99,7 +99,7 @@ $categories = $block->getData('categories');
     });    
 
     // Category selector change event
-    $('<?= $element->getId() ?>').on('change', function() {
+    $('#<?= $element->getId() ?>').on('change', function() {
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
@@ -114,7 +114,8 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                $('#<?= $element->getId() ?>').empty().html(data.html);
+                $('#<?= $element->getId() ?>').closest('.nbn-product-selector')
+                .empty().html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);
