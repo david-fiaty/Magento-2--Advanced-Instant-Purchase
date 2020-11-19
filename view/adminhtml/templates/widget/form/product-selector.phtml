@@ -71,9 +71,9 @@ $categories = $block->getData('categories');
 </div>
 
 <!-- Product list selector -->
-<div class="nbn-product-selector-container">
+<div class="nbn-product-selector-container" class="nbn-product-selector">
     <label class="label admin__field-label" for="<?= $element->getId() ?>">
-        <span><?= $element->getLabelHtml() ?></span>
+    <span><?= __('Product') ?></span>
     </label>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
     <?php foreach ($products as $product): ?>
