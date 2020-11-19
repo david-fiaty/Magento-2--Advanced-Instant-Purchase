@@ -51,14 +51,12 @@ $categories = $block->getData('categories');
 }
 </style>
 
-<h1>Category selector</h1>
-
 <!-- Category list selector -->
 <div>
-    <label class="label admin__field-label" for="nbn-category-selector">
+    <label class="label admin__field-label" for="<?= $element->getId() ?>">
         <span><?= __('Select a category') ?></span>
     </label>
-    <select id="nbn-category-selector" name="nbn-category-selector">
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
@@ -72,18 +70,18 @@ $categories = $block->getData('categories');
     </select>
 </div>
 
-
 <!-- Select 2 script -->
 <script>
     require([
         'jquery',
         'mage/translate',
-        'select2'
+        'select2',
+        'domReady!'
 ], function($, __, select2) {
     'use strict';
 
     // Category selector select
-    $('#nbn-category-selector').select2({
+    $('<?= $element->getId() ?>').select2({
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
@@ -101,7 +99,7 @@ $categories = $block->getData('categories');
     });    
 
     // Category selector change event
-    $('#nbn-category-selector').on('change', function() {
+    $('<?= $element->getId() ?>').on('change', function() {
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
@@ -123,7 +121,5 @@ $categories = $block->getData('categories');
             }
         });
     });
-
-
 });
 </script>

@@ -18,59 +18,13 @@
 // Get the block data
 $element = $block->getData('element');
 $products = $block->getData('products');
-$categories = $block->getData('categories');
 ?>
 
 <!-- Select 2 CSS -->
 <!-- Todo - Move to local -->
 <style>
     @import url('https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css');
-
-    .admin__field .control-value {
-        display: none;
-    }
-
-    .nbn-category-select-level-0 {
-        padding-left: 0em;
-        font-weight: bold;
-    }
-
-    .nbn-category-select-level-1 {
-        padding-left: 1em;
-    }
-
-    .nbn-category-select-level-2 {
-        padding-left: 2em;
-    }
-
-    .nbn-category-select-level-3 {
-        padding-left: 3em;
-    }
-
-    .nbn-category-select-level-4 {
-        padding-left: 4em;
-}
 </style>
-
-<h1>Product selector</h1>
-<!-- Category list selector -->
-<div>
-    <label class="label admin__field-label" for="nbn-category-selector">
-        <span><?= __('Filter by category') ?></span>
-    </label>
-    <select id="nbn-category-selector" name="nbn-category-selector">
-    <?php foreach ($categories as $category): ?>
-        <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
-            <?php
-                for ($i = 0; $i < (int) $category['level']; $i++) {
-                    if ($i >= 0) echo '-';
-                }
-            ?>
-            <?= $category['name'] ?>
-        </option>
-    <?php endforeach; ?>
-    </select>
-</div>
 
 <!-- Product list selector -->
 <div>
@@ -91,51 +45,10 @@ $categories = $block->getData('categories');
     require([
         'jquery',
         'mage/translate',
-        'select2'
+        'select2',
+        'domReady!'
 ], function($, __, select2) {
     'use strict';
-
-    // Category selector select
-    $('#nbn-category-selector').select2({
-        placeholder: __('Filter by category'),
-        theme: 'classic',
-        templateResult: function (data) { 
-            // Hierarchical display for sub categories
-            if (!data.element) {
-                return data.text;
-            }
-            var $element = $(data.element);
-            var $wrapper = $('<span></span>');
-            $wrapper.addClass($element[0].className);
-            $wrapper.text(data.text);
-
-            return $wrapper;
-        }
-    });    
-
-    // Category selector change event
-    $('#nbn-category-selector').on('change', function() {
-        // Prepare the parameters
-        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
-        var data = {
-            category_id: $(this).val(),
-            form_key: window.FORM_KEY
-        };
-
-        // Ajax request
-        $.ajax({
-            url: updateUrl,
-            data: data,
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                $('#<?= $element->getId() ?>').empty().html(data.html);
-            },
-            error: function (request, status, error) {
-                console.log(error);
-            }
-        });
-    });
 
     // Product selector
     $('#<?= $element->getId() ?>').select2({
