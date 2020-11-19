@@ -65,7 +65,7 @@
                 <value translate="true">Buy Now</value>
             </parameter>
 
-            <parameter name="customer_group" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
+            <parameter name="customer_groups" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
                 <label translate="true">Customer groups</label>
             </parameter>
 

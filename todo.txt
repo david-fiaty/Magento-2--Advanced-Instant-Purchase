@@ -35,6 +35,9 @@ EXTRA
 
 
 EXPLORE
+- improved category UI selector:
+https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
+
 - can we render swatch instead of list when needed?
 - how to add buy now button to core product list blocks
 https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
