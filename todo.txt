@@ -13,6 +13,7 @@
 - add advanced config with placeholders for all CSS selectors used in js components
 - add module version checker
 
+- filter display by customer groups/profiles
 
 - admin category selector additional filters
 ->addAttributeToFilter('level',2)
@@ -23,7 +24,6 @@ FEATURES
 - build order confirmation screen after payment + editable info
 
 - ! add quick cart checkout option in minicart and basket page
-- button display conditions engine
 - add popup/banner/add system with instant purchase
 - add themes system
 - login with google, facebook
@@ -41,7 +41,7 @@ https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 - can we render swatch instead of list when needed?
 - how to add buy now button to core product list blocks
 https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
-- filter display by customer groups/profiles
+
 - improve the config fields comments
 - display buy now button based on stock avail rules
 
