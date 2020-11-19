@@ -14,6 +14,11 @@
 - add module version checker
 
 
+- admin category selector additional filters
+->addAttributeToFilter('level',2)
+->addAttributeToFilter('parent_id',['eq'=>3]);
+->addAttributeToSort('path', 'asc');
+
 FEATURES
 - build order confirmation screen after payment + editable info
 
