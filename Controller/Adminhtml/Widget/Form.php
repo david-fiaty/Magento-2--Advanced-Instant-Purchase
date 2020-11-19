@@ -64,19 +64,19 @@ class Form extends \Magento\Backend\App\Action
     public function execute()
     {
         // Prepare the output
-        $output = '';
+        $html = '';
 
         // Get the file id
         $categoryId = $this->getRequest()->getParam('category_id');
 
         // Load the requested item
         if ((int) $categoryId > 0) {
-            $output .= $this->productHelper->getProducts($categoryId);
+            $html .= $this->productHelper->getProducts($categoryId);
         }
 
         // Return the response
         return $this->resultJsonFactory->create()->setData([
-            'html' => $output
+            'html' => $html
         ]);
     }
 
