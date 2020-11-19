@@ -58,6 +58,13 @@
                         </depends>
                 </field>
 
+
+                <field id="customer_group" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer group</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
+                    <comment>Display the button only for the selected customer groups .</comment>
+                </field>
+
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Bypass out of stock</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
