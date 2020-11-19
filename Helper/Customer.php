@@ -72,6 +72,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
+        $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
     }
 
@@ -157,4 +158,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function getCustomerGroups() {
         return $this->customerGroupCollection->toOptionArray();
     }
+
+    /**
+     * Get the current customer group.
+     */
+    public function getCustomerGroupId() {
+        return $this->customerSession->getCustomer()->getGroupId();
+    }
+
 }
