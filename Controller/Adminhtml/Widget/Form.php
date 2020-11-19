@@ -71,7 +71,7 @@ class Form extends \Magento\Backend\App\Action
 
         // Load the requested item
         if ((int) $categoryId > 0) {
-            $html .= $this->productHelper->getProducts($categoryId);
+            $html .= $this->renderProductOptions($categoryId);
         }
 
         // Return the response
