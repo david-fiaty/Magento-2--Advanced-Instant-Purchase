@@ -36,16 +36,23 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $categoryTree;
 
     /**
+     * CategoryFactory
+     */
+    public $categoryFactory;
+
+    /**
      * Class Category helper constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
-        \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree     
+        \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
+        \Magento\Catalog\Model\CategoryFactory $categoryFactory 
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryTree = $categoryTree; 
+        $this->categoryFactory = $categoryFactory;
     }
 
    /**
@@ -55,18 +62,30 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $categories = $categories ?? $this->getTree();
         if (!empty($categories)) {
             foreach ($categories as $category) {
+                // Load the category product count
+                $categoryProductCount = $this->categoryFactory
+                ->create()
+                ->load($category['id'])
+                ->getProductCollection()
+                ->addAttributeToSelect('*')
+                ->count();
+
                 // Add the category
                 $output[] = [
                     'id' => $category['id'],
                     'name' => $category['text'],
-                    'level' => $i
+                    'level' => $i,
+                    'has_products' => $categoryProductCount > 0
                 ];
 
                 // Check subcategories recursively
                 $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
                 if ($condition) {
-                    return $this->getCategories($category['children'], $output, $i++);
+                    $i++;
+                    $children = $this->getCategories($category['children'], $output, $i);
+                    return $children;
                 }
+
             }
         }
 
