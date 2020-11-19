@@ -65,9 +65,8 @@
                 <value translate="true">Buy Now</value>
             </parameter>
 
-            <parameter name="customer_group" xsi:type="select" visible="true">
+            <parameter name="customer_group" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
                 <label translate="true">Customer groups</label>
-                <block class="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup"/>
             </parameter>
 
             <parameter name="bypass_oos" xsi:type="select" visible="true">
