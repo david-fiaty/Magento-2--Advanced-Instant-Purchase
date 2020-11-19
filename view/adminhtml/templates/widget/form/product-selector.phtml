@@ -64,7 +64,7 @@ $categories = $block->getData('categories');
     <select id="nbn-category-selector" name="nbn-category-selector">
     <?php foreach ($categories as $category): ?>
         <?php if ($category['has_products']): ?>
-            <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
+            <option data-level="<?= $category['level'] ?>" class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
                 <?php
                     for ($i = 0; $i < (int) $category['level']; $i++) {
                         if ($i >= 0) echo '-';
@@ -124,6 +124,7 @@ $categories = $block->getData('categories');
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
             category_id: $(this).val(),
+            category_level: $(this).data('level'),
             form_key: window.FORM_KEY
         };
 
@@ -134,8 +135,7 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                $('#<?= $element->getId() ?>').empty();
-                $('#<?= $element->getId() ?>').html(data.html);
+                $('#<?= $element->getId() ?>').empty().html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);
