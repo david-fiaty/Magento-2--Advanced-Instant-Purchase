@@ -26,7 +26,7 @@ $element = $block->getData('element');
         <option value="category"><?= _('Category') ?></option>
         <option value="product"><?= _('Product') ?></option>
     </select>
-    <input id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
+    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->

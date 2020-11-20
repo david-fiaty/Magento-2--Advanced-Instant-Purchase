@@ -29,7 +29,7 @@ $element = $block->getData('element');
         <option value="highest_price"><?= __('Highest price') ?></option>
         <option value="lowest_price"><?= __('Lowest price') ?></option>
     </select>
-    <input id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
+    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
