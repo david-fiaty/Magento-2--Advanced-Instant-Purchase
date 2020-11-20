@@ -55,7 +55,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $this->categoryFactory = $categoryFactory;
     }
 
-   /**
+    /**
      * Get the catalog categories.
      */
     public function getCategories($categories = null, $output = [], $i = 0) {
@@ -92,6 +92,9 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $output;
     }
 
+    /**
+     * Get the catalog root categories.
+     */
     public function getRootCategories()
     {
         $items = [];
@@ -108,8 +111,80 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $items;
     }
 
+    /**
+     * Get the catalog categories tree.
+     */
     public function getTree()
     {
         return $this->categoryTree->getTree(); 
+    }
+
+    /**
+     * Get a product collection in category.
+     */
+    public function getProductCollection($categoryId)
+    {
+        return $this->categoryCollectionFactory->create()
+            ->load($categoryId)
+            ->addAttributeToSelect('*')
+            ->setStore($this->storeManager->getStore())
+            ->getProductCollection();
+    }
+
+    /**
+     * Get the lowest price product.
+     */
+    public function getLowestPriceProduct($categoryId)
+    {
+        return $this->getProductCollection($categoryId)
+            ->setPageSize(1)
+            ->setOrder('price', 'ASC')
+            ->getFirstItem(); 
+    }
+
+    /**
+     * Get the highest price product.
+     */
+    public function getHighestPriceProduct($categoryId)
+    {
+        return $this->getProductCollection($categoryId)
+            ->setPageSize(1)
+            ->setOrder('price', 'DESC')
+            ->getFirstItem(); 
+    }
+
+    /**
+     * Get the latest product.
+     */
+    public function getLatestProduct($categoryId)
+    {
+        return $this->getProductCollection($categoryId)
+            ->setPageSize(1)
+            ->setOrder('entity_id', 'DESC')
+            ->getFirstItem(); 
+    }
+
+    /**
+     * Get the oldest product.
+     */
+    public function getOldestProduct($categoryId)
+    {
+        return $this->getProductCollection($categoryId)
+            ->setPageSize(1)
+            ->setOrder('entity_id', 'ASC')
+            ->getFirstItem(); 
+    }
+
+    /**
+     * Get a random product.
+     */
+    public function getRandomProduct($categoryId)
+    {
+        return $this->getProductCollection($categoryId)
+            ->setPageSize(1)
+            ->setOrder('entity_id', 'ASC')
+            ->getSelect()
+            ->orderRand()
+            ->getFirstItem(); 
     }
 }

@@ -15,6 +15,9 @@
 
 - filter display by customer groups/profiles
 
+- check how to get product price => $product->getFinalPrice()?
+
+
 - admin category selector additional filters
 ->addAttributeToFilter('level',2)
 ->addAttributeToFilter('parent_id',['eq'=>3]);

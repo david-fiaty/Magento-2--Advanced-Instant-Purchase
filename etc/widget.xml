@@ -57,8 +57,14 @@
                     <parameter name="product_selection_mode" value="category" />
                 </depends>
                 <options>
-                    <option name="latest" value="latest" selected="true">
+                    <option name="random" value="random" selected="true">
+                        <label translate="true">Random</label>
+                    </option>
+                    <option name="latest" value="latest">
                         <label translate="true">Latest</label>
+                    </option>
+                    <option name="oldest" value="oldest">
+                        <label translate="true">Oldest</label>
                     </option>
                     <option name="highest_price" value="highest_price">
                         <label translate="true">Highest price</label>
