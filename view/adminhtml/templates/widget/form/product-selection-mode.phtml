@@ -44,22 +44,5 @@ $element = $block->getData('element');
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
-
-    // Field event
-    $('#nbn-product-selection-mode').on('change', function() {
-        // Update the hidden field value
-        $('#<?= $element->getId() ?>').val($(this).val());
-
-        // Toggle the dependent fields
-        if ($(this).val() == 'product') {
-            $('#nbn-product-selector').parent('.admin__field').show();
-            $('#nbn-product-filter-selector').parent('.admin__field').hide();
-        }
-        else if ($(this).val() == 'category') {
-            $('#nbn-product-selector').parent('.admin__field').hide();
-            $('#nbn-product-filter-selector').parent('.admin__field').show();
-        }
-    });
-
 });
 </script>

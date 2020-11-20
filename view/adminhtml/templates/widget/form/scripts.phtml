@@ -26,6 +26,22 @@
 ], function($, __) {
     'use strict';
 
+    // Product selection mode event
+    $('#nbn-product-selection-mode').on('change', function() {
+        // Update the hidden field
+        $('#' + $(this).data('target-id')).val($(this).val());
+
+        // Toggle the dependent fields
+        if ($(this).val() == 'product') {
+            $('#nbn-product-selector').parent('.admin__field').show();
+            $('#nbn-product-filter-selector').parent('.admin__field').hide();
+        }
+        else if ($(this).val() == 'category') {
+            $('#nbn-product-selector').parent('.admin__field').hide();
+            $('#nbn-product-filter-selector').parent('.admin__field').show();
+        }
+    });
+
     // Category selector change event
     $('#nbn-category-selector').on('change', function() {
         // Update the hidden field
