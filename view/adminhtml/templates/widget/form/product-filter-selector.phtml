@@ -22,13 +22,14 @@ $element = $block->getData('element');
 <!-- Select 2 CSS -->
 <!-- Product list selector -->
 <div>
-    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
-        <option value="random"><?= _('Random') ?></option>
-        <option value="latest"><?= _('Latest') ?></option>
-        <option value="oldest"><?= _('Oldest') ?></option>
-        <option value="highest_price"><?= _('Highest price') ?></option>
-        <option value="lowest_price"><?= _('Lowest price') ?></option>
+    <select id="nbn-product-filter-selector">
+        <option value="random"><?= __('Random') ?></option>
+        <option value="latest"><?= __('Latest') ?></option>
+        <option value="oldest"><?= __('Oldest') ?></option>
+        <option value="highest_price"><?= __('Highest price') ?></option>
+        <option value="lowest_price"><?= __('Lowest price') ?></option>
     </select>
+    <input id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
@@ -42,9 +43,14 @@ $element = $block->getData('element');
     'use strict';
 
     // Product selector
-    $('#<?= $element->getId() ?>').select2({
+    $('#nbn-product-filter-selector').select2({
         placeholder: __('Select an option'),
         theme: 'classic'
+    });
+
+    // Field event
+    $('#nbn-product-filter-selector').on('change', function() {
+        $('#<?= $element->getId() ?>').val($(this).val());
     });
 });
 </script>

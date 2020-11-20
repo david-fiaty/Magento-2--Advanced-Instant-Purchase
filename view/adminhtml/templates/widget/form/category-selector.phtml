@@ -51,9 +51,9 @@ $categories = $block->getData('categories');
 }
 </style>
 
-<!-- Category list selector -->
+<!-- Category selector -->
 <div>
-    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
+    <select id="nbn-category-selector">
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
@@ -65,6 +65,7 @@ $categories = $block->getData('categories');
         </option>
     <?php endforeach; ?>
     </select>
+    <input id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
@@ -78,7 +79,7 @@ $categories = $block->getData('categories');
     'use strict';
 
     // Category selector select
-    $('#<?= $element->getId() ?>').select2({
+    $('#nbn-category-selector').select2({
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
@@ -96,7 +97,10 @@ $categories = $block->getData('categories');
     });    
 
     // Category selector change event
-    $('#<?= $element->getId() ?>').on('change', function() {
+    $('#nbn-category-selector').on('change', function() {
+        // Update the hidden field
+        $('#<?= $element->getId() ?>').val($(this).val());
+
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
@@ -111,9 +115,7 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                $('#<?= $element->getId() ?>').parents()
-                .find('.nbn-product-selector')
-                .empty().html(data.html);
+                $('#nbn-product-selector').empty().html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);

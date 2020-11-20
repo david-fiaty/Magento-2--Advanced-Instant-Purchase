@@ -49,7 +49,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
     }
 
     /**
-     * Render a widget field group separator.
+     * Render the widget field.
      */
     public function prepareElementHtml(AbstractElement $element)
     {
