@@ -110,8 +110,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         $selectionMode = $this->getData('product_selection_mode');
         $productId = $this->getData('product_id');
 
-        var_dump($selectionMode);
-        var_dump($productId);
+        var_dump($this->getData());
 exit();
 
 

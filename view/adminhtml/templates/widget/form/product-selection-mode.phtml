@@ -44,5 +44,10 @@ $element = $block->getData('element');
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
+
+    // Field event
+    $('#nbn-product-selection-mode').on('change', function() {
+        $('#<?= $element->getId() ?>').val($(this).val());
+    });
 });
 </script>
