@@ -21,11 +21,10 @@ $element = $block->getData('element');
 
 <!-- Product selection mode selector -->
 <div>
-    <select id="nbn-product-selection-mode" data-target-id="<?= $element->getId() ?>">
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
         <option value="category"><?= _('Category') ?></option>
         <option value="product"><?= _('Product') ?></option>
     </select>
-    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
@@ -39,15 +38,25 @@ $element = $block->getData('element');
     'use strict';
 
     // Product selection mode
-    $('#nbn-product-selection-mode').select2({
+    $('#<?= $element->getId() ?>').select2({
         placeholder: __('Select an option'),
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
 
-    // Field event
-    $('#nbn-product-selection-mode').on('change', function() {
-        $('#<?= $element->getId() ?>').val($(this).val());
+    // Product selection mode event
+    /*
+    $('#<?= $element->getId() ?>').on('change', function() {
+        // Toggle the dependent fields
+        if ($(this).val() == 'product') {
+            $('#nbn-product-selector').closest('.admin__field.field').show();
+            $('#nbn-product-filter-selector').closest('.admin__field.field').hide();
+        }
+        else if ($(this).val() == 'category') {
+            $('#nbn-product-selector').closest('.admin__field.field').hide();
+            $('#nbn-product-filter-selector').closest('.admin__field.field').show();
+        }
     });
+    */
 });
 </script>

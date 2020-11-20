@@ -50,7 +50,7 @@ $categories = $block->getData('categories');
 
 <!-- Category selector -->
 <div>
-    <select id="nbn-category-selector" data-target-id="<?= $element->getId() ?>">
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
@@ -62,7 +62,6 @@ $categories = $block->getData('categories');
         </option>
     <?php endforeach; ?>
     </select>
-    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
@@ -76,7 +75,7 @@ $categories = $block->getData('categories');
     'use strict';
 
     // Category selector select
-    $('#nbn-category-selector').select2({
+    $('#<?= $element->getId() ?>').select2({
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
@@ -93,9 +92,28 @@ $categories = $block->getData('categories');
         }
     });    
 
-    // Field event
+    // Category selector change event
     $('#nbn-category-selector').on('change', function() {
-        $('#<?= $element->getId() ?>').val($(this).val());
+        // Prepare the parameters
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
+        var data = {
+            category_id: $(this).val(),
+            form_key: window.FORM_KEY
+        };
+
+        // Ajax request
+        $.ajax({
+            url: updateUrl,
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                //$('#nbn-product-selector').empty().html(data.html);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
     });
 });
 </script>

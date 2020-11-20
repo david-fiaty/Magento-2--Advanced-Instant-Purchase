@@ -21,14 +21,13 @@ $element = $block->getData('element');
 
 <!-- Product list selector -->
 <div>
-    <select id="nbn-product-filter-selector" data-target-id="<?= $element->getId() ?>">
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
         <option value="random"><?= __('Random') ?></option>
         <option value="latest"><?= __('Latest') ?></option>
         <option value="oldest"><?= __('Oldest') ?></option>
         <option value="highest_price"><?= __('Highest price') ?></option>
         <option value="lowest_price"><?= __('Lowest price') ?></option>
     </select>
-    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="">
 </div>
 
 <!-- Select 2 script -->
@@ -42,15 +41,11 @@ $element = $block->getData('element');
     'use strict';
 
     // Product selector
-    $('#nbn-product-filter-selector').select2({
+    $('#<?= $element->getId() ?>').select2({
         placeholder: __('Select an option'),
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
 
-    // Field event
-    $('#nbn-product-filter-selector').on('change', function() {
-        $('#<?= $element->getId() ?>').val($(this).val());
-    });
 });
 </script>
