@@ -53,9 +53,6 @@ $categories = $block->getData('categories');
 
 <!-- Category list selector -->
 <div>
-    <label class="label admin__field-label" for="<?= $element->getId() ?>">
-        <span><?= __('Select a category') ?></span>
-    </label>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>

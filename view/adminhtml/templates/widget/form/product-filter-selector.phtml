@@ -22,25 +22,12 @@ $element = $block->getData('element');
 <!-- Select 2 CSS -->
 <!-- Product list selector -->
 <div>
-    <label class="label admin__field-label" for="<?= $element->getId() ?>">
-    <span><?= __('Filter type') ?></span>
-    </label>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
-        <option value="random">
-            <label translate="true"><?= _('Random') ?></label>
-        </option>
-        <option value="latest">
-            <label translate="true"><?= _('Latest') ?></label>
-        </option>
-        <option value="oldest">
-            <label translate="true"><?= _('Oldest') ?></label>
-        </option>
-        <option value="highest_price">
-            <label translate="true"><?= _('Highest price') ?></label>
-        </option>
-        <option value="lowest_price">
-            <label translate="true"><?= _('Lowest price') ?></label>
-        </option>
+        <option value="random"><?= _('Random') ?></option>
+        <option value="latest"><?= _('Latest') ?></option>
+        <option value="oldest"><?= _('Oldest') ?></option>
+        <option value="highest_price"><?= _('Highest price') ?></option>
+        <option value="lowest_price"><?= _('Lowest price') ?></option>
     </select>
 </div>
 
