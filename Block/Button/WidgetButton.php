@@ -124,8 +124,8 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             }
             $fn .= 'Product';
 
-            // Get the product
-            $product = $this->categoryHelper->$fn($categoryId);
+            // Update the product id
+            $productId = $this->categoryHelper->$fn($categoryId)->getId();
         }
 
         return $this->productHelper->getProduct($productId);     
