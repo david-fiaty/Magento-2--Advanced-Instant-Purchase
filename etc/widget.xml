@@ -52,7 +52,7 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
-            <parameter name="product_filter" xsi:type="select" visible="true">
+            <parameter name="product_filter" xsi:type="block" visible="true">
                 <depends>
                     <parameter name="product_selection_mode" value="category" />
                 </depends>
