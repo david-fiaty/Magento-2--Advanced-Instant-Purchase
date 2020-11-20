@@ -80,7 +80,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
+            $this->getProduct()->getId()
         );
 
         // Set the display mode
@@ -110,22 +110,16 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         $selectionMode = $this->getData('product_selection_mode');
         $productId = $this->getData('product_id');
 
-        var_dump($productFilter);
-        var_dump($categoryId);
+        var_dump($selectionMode);
+        var_dump($productId);
+exit();
 
-        exit();
-        
+
         // Handle the category case
         if ($selectionMode == 'category') {
             // Prepare teh parameters
             $productFilter = $this->getData('product_filter');
             $categoryId = $this->getData('category_id');
-
-
-            var_dump($productFilter);
-            var_dump($categoryId);
-
-            exit();
 
             // Get the product filter funtion
             $fn = 'get';

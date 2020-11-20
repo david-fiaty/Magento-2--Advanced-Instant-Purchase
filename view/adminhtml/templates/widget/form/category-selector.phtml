@@ -92,5 +92,10 @@ $categories = $block->getData('categories');
             return $wrapper;
         }
     });    
+
+    // Field event
+    $('#nbn-category-selector').on('change', function() {
+        $('#<?= $element->getId() ?>').val($(this).val());
+    });
 });
 </script>
