@@ -31,6 +31,10 @@
         // Update the hidden field
         $('#' + $(this).data('target-id')).val($(this).val());
 
+        alert(
+            $(this).data('target-id').val()
+        );
+
         // Toggle the dependent fields
         if ($(this).val() == 'product') {
             $('#nbn-product-selector').parent('.admin__field').show();
