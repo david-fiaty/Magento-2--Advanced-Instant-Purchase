@@ -1,0 +1,63 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+// Get the block data
+$element = $block->getData('element');
+?>
+
+<!-- Select 2 CSS -->
+<!-- Product list selector -->
+<div>
+    <label class="label admin__field-label" for="<?= $element->getId() ?>">
+    <span><?= __('Filter type') ?></span>
+    </label>
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
+        <option value="random">
+            <label translate="true"><?= _('Random') ?></label>
+        </option>
+        <option value="latest">
+            <label translate="true"><?= _('Latest') ?></label>
+        </option>
+        <option value="oldest">
+            <label translate="true"><?= _('Oldest') ?></label>
+        </option>
+        <option value="highest_price">
+            <label translate="true"><?= _('Highest price') ?></label>
+        </option>
+        <option value="lowest_price">
+            <label translate="true"><?= _('Lowest price') ?></label>
+        </option>
+    </select>
+</div>
+
+<!-- Select 2 script -->
+<script>
+    require([
+        'jquery',
+        'mage/translate',
+        'select2',
+        'domReady!'
+], function($, __, select2) {
+    'use strict';
+
+    // Product selector
+    $('#<?= $element->getId() ?>').select2({
+        placeholder: __('Select an option'),
+        theme: 'classic'
+    });
+});
+</script>

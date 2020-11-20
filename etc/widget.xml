@@ -56,23 +56,7 @@
                 <depends>
                     <parameter name="product_selection_mode" value="category" />
                 </depends>
-                <options>
-                    <option name="random" value="random" selected="true">
-                        <label translate="true">Random</label>
-                    </option>
-                    <option name="latest" value="latest">
-                        <label translate="true">Latest</label>
-                    </option>
-                    <option name="oldest" value="oldest">
-                        <label translate="true">Oldest</label>
-                    </option>
-                    <option name="highest_price" value="highest_price">
-                        <label translate="true">Highest price</label>
-                    </option>
-                    <option name="lowest_price" value="lowest_price">
-                        <label translate="true">Lowest price</label>
-                    </option>
-                </options>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductFilterSelector"/>
             </parameter>
 
             <!-- Button settings -->
