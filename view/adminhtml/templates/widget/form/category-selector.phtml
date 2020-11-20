@@ -50,7 +50,7 @@ $categories = $block->getData('categories');
 
 <!-- Category selector -->
 <div>
-    <select id="nbn-category-selector">
+    <select id="nbn-category-selector" data-target-id="<?= $element->getId() ?>">
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
@@ -92,32 +92,5 @@ $categories = $block->getData('categories');
             return $wrapper;
         }
     });    
-
-    // Category selector change event
-    $('#nbn-category-selector').on('change', function() {
-        // Update the hidden field
-        $('#<?= $element->getId() ?>').val($(this).val());
-
-        // Prepare the parameters
-        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
-        var data = {
-            category_id: $(this).val(),
-            form_key: window.FORM_KEY
-        };
-
-        // Ajax request
-        $.ajax({
-            url: updateUrl,
-            data: data,
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                $('#nbn-product-selector').empty().html(data.html);
-            },
-            error: function (request, status, error) {
-                console.log(error);
-            }
-        });
-    });
 });
 </script>

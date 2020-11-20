@@ -19,10 +19,9 @@
 $element = $block->getData('element');
 ?>
 
-<!-- Select 2 CSS -->
 <!-- Product list selector -->
 <div>
-    <select id="nbn-product-filter-selector">
+    <select id="nbn-product-filter-selector" data-target-id="<?= $element->getId() ?>">
         <option value="random"><?= __('Random') ?></option>
         <option value="latest"><?= __('Latest') ?></option>
         <option value="oldest"><?= __('Oldest') ?></option>

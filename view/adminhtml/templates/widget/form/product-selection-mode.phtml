@@ -19,10 +19,9 @@
 $element = $block->getData('element');
 ?>
 
-<!-- Select 2 CSS -->
-<!-- Product list selector -->
+<!-- Product selection mode selector -->
 <div>
-    <select id="nbn-product-selection-mode">
+    <select id="nbn-product-selection-mode" data-target-id="<?= $element->getId() ?>">
         <option value="category"><?= _('Category') ?></option>
         <option value="product"><?= _('Product') ?></option>
     </select>

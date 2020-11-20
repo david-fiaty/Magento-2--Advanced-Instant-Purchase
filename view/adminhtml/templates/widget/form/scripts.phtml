@@ -27,7 +27,32 @@
     'use strict';
 
 
+    // Category selector change event
+    $('#nbn-category-selector').on('change', function() {
+        // Update the hidden field
+        $('#' + $(this).data('target-id')).val($(this).val());
 
+        // Prepare the parameters
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
+        var data = {
+            category_id: $(this).val(),
+            form_key: window.FORM_KEY
+        };
+
+        // Ajax request
+        $.ajax({
+            url: updateUrl,
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                $('#nbn-product-selector').empty().html(data.html);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    });
 
 
 
