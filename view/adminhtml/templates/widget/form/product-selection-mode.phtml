@@ -25,6 +25,7 @@ $element = $block->getData('element');
         <option value="category"><?= _('Category') ?></option>
         <option value="product"><?= _('Product') ?></option>
     </select>
+    <input type="hidden" id="nbn-product-selection-mode-selector" name="nbn-product-selection-mode-selector" value="<?= $element->getId() ?>">
 </div>
 
 <!-- Select 2 script -->
@@ -45,18 +46,20 @@ $element = $block->getData('element');
     });
 
     // Product selection mode event
-    /*
     $('#<?= $element->getId() ?>').on('change', function() {
+        // Prepare the variables
+        var productSelector = $('#' + $('#nbn-product-selector').val());
+        var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
+
         // Toggle the dependent fields
         if ($(this).val() == 'product') {
-            $('#nbn-product-selector').closest('.admin__field.field').show();
-            $('#nbn-product-filter-selector').closest('.admin__field.field').hide();
+            productSelector.closest('.admin__field.field').show();
+            productFilterSelector.closest('.admin__field.field').hide();
         }
         else if ($(this).val() == 'category') {
-            $('#nbn-product-selector').closest('.admin__field.field').hide();
-            $('#nbn-product-filter-selector').closest('.admin__field.field').show();
+            productSelector.closest('.admin__field.field').hide();
+            productFilterSelector.closest('.admin__field.field').show();
         }
     });
-    */
 });
 </script>

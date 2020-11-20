@@ -62,6 +62,7 @@ $categories = $block->getData('categories');
         </option>
     <?php endforeach; ?>
     </select>
+    <input type="hidden" id="nbn-category-selector" name="nbn-category-selector" value="<?= $element->getId() ?>">
 </div>
 
 <!-- Select 2 script -->
@@ -93,7 +94,7 @@ $categories = $block->getData('categories');
     });    
 
     // Category selector change event
-    $('#nbn-category-selector').on('change', function() {
+    $('#<?= $element->getId() ?>').on('change', function() {
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
@@ -108,7 +109,8 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                //$('#nbn-product-selector').empty().html(data.html);
+                var selectorId = '#' + $('#nbn-product-selector').val();
+                $(selectorId).empty().html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);
