@@ -114,7 +114,8 @@ $categories = $block->getData('categories');
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                $('#<?= $element->getId() ?>').closest('.nbn-product-selector')
+                $('#<?= $element->getId() ?>').parents()
+                .find('.nbn-product-selector')
                 .empty().html(data.html);
             },
             error: function (request, status, error) {

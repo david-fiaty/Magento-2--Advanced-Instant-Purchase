@@ -52,6 +52,23 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
+            <parameter name="product_filter" xsi:type="select" visible="true">
+                <depends>
+                    <parameter name="product_selection_mode" value="category" />
+                </depends>
+                <options>
+                    <option name="latest" value="latest" selected="true">
+                        <label translate="true">Latest</label>
+                    </option>
+                    <option name="highest_price" value="highest_price">
+                        <label translate="true">Highest price</label>
+                    </option>
+                    <option name="lowest_price" value="lowest_price">
+                        <label translate="true">Lowest price</label>
+                    </option>
+                </options>
+            </parameter>
+
             <!-- Button settings -->
             <parameter name="group_buttons" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
