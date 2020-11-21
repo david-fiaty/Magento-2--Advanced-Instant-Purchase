@@ -122,7 +122,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productCollectionFactory->create()
             ->addCategoriesFilter(['in' => $categoryId])
             ->addAttributeToSelect('*')
-            ->setStore($this->storeManager->getStore())
+            ->setStore($this->storeManager->getStore());
     }
 
     /**
