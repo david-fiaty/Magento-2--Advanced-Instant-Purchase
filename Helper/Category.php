@@ -189,7 +189,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestPriceProduct($categoryId)
     {
-        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
         $priceValues = [];
         foreach ($products as $product) {
             $priceValues[]= [
@@ -210,7 +210,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestPriceProduct($categoryId)
     {
-        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
         $priceValues = [];
         foreach ($products as $product) {
             $priceValues[]= [

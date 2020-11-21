@@ -1,6 +1,9 @@
 
 !!!PRIORITY!!!
 
+- set widget fields selected values on page load
+
+
 - check if place order contains expected product attributes selected by user (request data)
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
