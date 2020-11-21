@@ -158,7 +158,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
             return strcmp($a['stock_quantity'], $b['stock_quantity']);
         });
 
-        return $this->getProduct($stockValues[0]['product_id']);
+        return $this->productHelper->getProduct($stockValues[0]['product_id']);
     }
 
     /**
@@ -180,7 +180,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
             return strcmp($a['stock_quantity'], $b['stock_quantity']);
         });
 
-        return $this->getProduct($stockValues[count($stockValues) - 1]['product_id']);
+        return $this->productHelper->getProduct($stockValues[count($stockValues) - 1]['product_id']);
     }
 
     /**
