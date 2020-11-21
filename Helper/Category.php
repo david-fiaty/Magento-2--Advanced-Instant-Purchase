@@ -148,7 +148,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= $this->stockItemRepository->get($productId);
+            $stockValues[]= $this->stockItemRepository->get($productId)->getQty();
         }
 
         sort($stockValues);
@@ -164,7 +164,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= $this->stockItemRepository->get($productId);
+            $stockValues[]= $this->stockItemRepository->get($productId)->getQty();
         }
 
         sort($stockValues);
