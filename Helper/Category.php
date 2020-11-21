@@ -41,6 +41,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $productCollectionFactory;
 
     /**
+     * @var StockItemRepository
+     */
+    public $stockItemRepository;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -53,12 +58,14 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryTree = $categoryTree; 
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->stockItemRepository = $stockItemRepository;
         $this->productHelper = $productHelper;
     }
 
@@ -133,12 +140,55 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Get the lowest stock product.
+     */
+    public function getLowestStockProduct($categoryId)
+    {
+        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $productIds = array_keys($collection->getItems());
+        $stockValues = [];
+        foreach ($productIds as $productId) {
+            $stockValues[]= [
+                'product_id' => $productId,
+                'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
+            ];
+        }        
+        
+        usort($stockValues, function($a, $b) {
+            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        });
+
+        return $this->productHelper->getProduct($stockValues[0]['product_id']);
+    }
+
+    /**
+     * Get the highest stock product.
+     */
+    public function getHighestStockProduct($categoryId)
+    {
+        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $productIds = array_keys($collection->getItems());
+        $stockValues = [];
+        foreach ($productIds as $productId) {
+            $stockValues[]= [
+                'product_id' => $productId,
+                'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
+            ];
+        }        
+        
+        usort($stockValues, function($a, $b) {
+            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        });
+
+        return $this->productHelper->getProduct($stockValues[count($stockValues) - 1]['product_id']);
+    }
+
+    /**
      * Get the lowest price product.
      */
     public function getLowestPriceProduct($categoryId)
     {
         return $this->getProductCollection($categoryId)
-            ->setPageSize(1)
             ->setOrder('price', 'ASC')
             ->getFirstItem(); 
     }
@@ -149,7 +199,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getHighestPriceProduct($categoryId)
     {
         return $this->getProductCollection($categoryId)
-            ->setPageSize(1)
             ->setOrder('price', 'DESC')
             ->getFirstItem(); 
     }
@@ -160,7 +209,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getLatestProduct($categoryId)
     {
         return $this->getProductCollection($categoryId)
-            ->setPageSize(1)
             ->setOrder('entity_id', 'DESC')
             ->getFirstItem(); 
     }
@@ -171,7 +219,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getOldestProduct($categoryId)
     {
         return $this->getProductCollection($categoryId)
-            ->setPageSize(1)
             ->setOrder('entity_id', 'ASC')
             ->getFirstItem(); 
     }

@@ -199,6 +199,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if a product is out of stock.
+     */
+    public function getStockQuantity($productId)
+    {
+        return $this->stockItemRepository
+        ->get($productId)
+        ->getQty();
+    }
+
+    /**
      * Get a product instance.
      */
     public function getProduct($productId)

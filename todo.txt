@@ -17,6 +17,8 @@
 
 - check how to get product price => $product->getFinalPrice()?
 
+- handle 0 product found in category for widget category filter.
+
 
 - admin category selector additional filters
 ->addAttributeToFilter('level',2)
