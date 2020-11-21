@@ -136,6 +136,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productCollectionFactory->create()
             ->addCategoriesFilter(['in' => $categoryId])
             ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
             ->setStore($this->storeManager->getStore());
     }
 
@@ -264,6 +265,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $collection = $this->productCollectionFactory->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
         $collection->setPeriod('year');
+        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
         $productIds = array_keys($collection->getItems());
 
         return $this->productHelper->getProduct($productIds[0]); 
@@ -276,6 +278,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $collection = $this->productCollectionFactory->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
         $collection->setPeriod('year');
+        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
         $productIds = array_keys($collection->getItems());
 
         return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 

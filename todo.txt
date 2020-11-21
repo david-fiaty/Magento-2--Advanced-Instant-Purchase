@@ -2,21 +2,20 @@
 !!!PRIORITY!!!
 
 - set widget fields selected values on page load
+- complete payment integrations
+- when select list option attributes implemented, check other filed types
+- add advanced config with placeholders for all CSS selectors used in js components
 
 
 - check if place order contains expected product attributes selected by user (request data)
+
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
+
 - Improve UI logger information
-- complete payment integrations
-- when select list option attributes implemented, check other filed types
  
-- add advanced config with placeholders for all CSS selectors used in js components
 - add module version checker
 
-- filter display by customer groups/profiles
-
-- check how to get product price => $product->getFinalPrice()?
 
 - handle 0 product found in category for widget category filter.
 
