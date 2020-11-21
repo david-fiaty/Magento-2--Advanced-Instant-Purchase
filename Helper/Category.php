@@ -46,6 +46,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository;
 
     /**
+     * @var CollectionFactory
+     */
+    public $bestSellersCollectionFactory;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -59,6 +64,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
+        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory, 
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
@@ -66,6 +72,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $this->categoryTree = $categoryTree; 
         $this->productCollectionFactory = $productCollectionFactory;
         $this->stockItemRepository = $stockItemRepository;
+        $this->bestSellersCollectionFactory = $bestSellersCollectionFactory;
         $this->productHelper = $productHelper;
     }
 
@@ -136,6 +143,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productCollectionFactory->create()
             ->addCategoriesFilter(['in' => $categoryId])
             ->addAttributeToSelect('*')
+            ->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
             ->setStore($this->storeManager->getStore());
     }
 
@@ -188,9 +196,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestPriceProduct($categoryId)
     {
-        return $this->getProductCollection($categoryId)
-            ->setOrder('price', 'ASC')
-            ->getFirstItem(); 
+        $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $priceValues = [];
+        foreach ($products as $product) {
+            $priceValues[]= [
+                'product_id' => $product->getId(),
+                'final_price' => $product->getFinalPrice()
+            ];
+        }     
+        
+        usort($priceValues, function($a, $b) {
+            return strcmp($a['final_price'], $b['final_price']);
+        });
+
+        return $this->productHelper->getProduct($priceValues[0]['product_id']);
     }
 
     /**
@@ -198,9 +217,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestPriceProduct($categoryId)
     {
-        return $this->getProductCollection($categoryId)
-            ->setOrder('price', 'DESC')
-            ->getFirstItem(); 
+        $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $priceValues = [];
+        foreach ($products as $product) {
+            $priceValues[]= [
+                'product_id' => $product->getId(),
+                'final_price' => $product->getFinalPrice()
+            ];
+        }     
+        
+        usort($priceValues, function($a, $b) {
+            return strcmp($a['final_price'], $b['final_price']);
+        });
+
+        return $this->productHelper->getProduct($priceValues[count($priceValues) - 1]['product_id']);
     }
 
     /**
@@ -233,5 +263,33 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productId = array_rand($productIds);
 
         return $this->productHelper->getProduct($productId); 
+    }
+
+    /**
+     * Get the highest sales product.
+     */
+    public function getHighestSalesProduct($categoryId)
+    {
+        $items = $this->bestSellersCollectionFactory->create()
+        ->setPeriod('year')
+        ->getItems();
+        
+        $productIds = array_keys($items);
+
+        return $this->productHelper->getProduct($productIds[0]); 
+    }
+
+    /**
+     * Get the lowest sales product.
+     */
+    public function getLowestSalesProduct($categoryId)
+    {
+        $items = $this->bestSellersCollectionFactory->create()
+        ->setPeriod('year')
+        ->getItems();
+
+        $productIds = array_keys($items);
+
+        return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
     }
 }
