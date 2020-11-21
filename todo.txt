@@ -23,11 +23,6 @@
 https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
 
-- admin category selector additional filters
-->addAttributeToFilter('level',2)
-->addAttributeToFilter('parent_id',['eq'=>3]);
-->addAttributeToSort('path', 'asc');
-
 FEATURES
 - build order confirmation screen after payment + editable info
 
@@ -53,9 +48,6 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - improve the config fields comments
 
 
-- custom widget:
-https://inchoo.net/magento-2/magento-2-custom-widget/
-
 RESOURCES
 - execute php code from string
 https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
@@ -63,7 +55,8 @@ https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
 - handle shipping method observer in js
 https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-on-country-and-postcode-change
 
-
+- custom widget:
+https://inchoo.net/magento-2/magento-2-custom-widget/
 
 QA
 - check all config fields functional

@@ -46,6 +46,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $stockItemRepository;
 
     /**
+     * @var CollectionFactory
+     */
+    public $bestSellersCollectionFactory;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -59,6 +64,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
+        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory, 
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
@@ -66,6 +72,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $this->categoryTree = $categoryTree; 
         $this->productCollectionFactory = $productCollectionFactory;
         $this->stockItemRepository = $stockItemRepository;
+        $this->bestSellersCollectionFactory = $bestSellersCollectionFactory;
         $this->productHelper = $productHelper;
     }
 
@@ -263,9 +270,10 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestSalesProduct($categoryId)
     {
-        $collection = $this->productCollectionFactory->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
-        $collection->setPeriod('year');
-        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        $collection = $this->bestSellersCollectionFactory->create()
+            ->setPeriod('year')
+            ->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        
         $productIds = array_keys($collection->getItems());
 
         return $this->productHelper->getProduct($productIds[0]); 
@@ -276,11 +284,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        $collection = $this->productCollectionFactory->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection'); 
-        $collection->setPeriod('year');
-        $collection->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        $collection = $this->bestSellersCollectionFactory->create()
+            ->setPeriod('year')
+            ->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+        
         $productIds = array_keys($collection->getItems());
-
+        
         return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
     }
 }
