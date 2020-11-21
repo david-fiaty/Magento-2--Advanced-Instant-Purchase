@@ -15,6 +15,7 @@
 
 namespace Naxero\BuyNow\Helper;
 
+use Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection as BestSellersCollection;
 /**
  * Class Category helper.
  */
@@ -233,5 +234,29 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productId = array_rand($productIds);
 
         return $this->productHelper->getProduct($productId); 
+    }
+
+    /**
+     * Get the highest sales product.
+     */
+    public function getHighestSalesProduct($categoryId)
+    {
+        $collection = $this->productCollection->create('BestSellersCollection'); 
+        $collection->setPeriod('year');
+        $productIds = array_keys($collection->getItems());
+
+        return $this->productHelper->getProduct($productIds[0]); 
+    }
+
+    /**
+     * Get the lowest sales product.
+     */
+    public function getLowestSalesProduct($categoryId)
+    {
+        $collection = $this->productCollection->create('BestSellersCollection'); 
+        $collection->setPeriod('year');
+        $productIds = array_keys($collection->getItems());
+
+        return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
     }
 }
