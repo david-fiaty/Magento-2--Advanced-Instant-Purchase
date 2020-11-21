@@ -41,18 +41,25 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $categoryFactory;
 
     /**
+     * CollectionFactory
+     */
+    public $productCollectionFactory;
+
+    /**
      * Class Category helper constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
-        \Magento\Catalog\Model\CategoryFactory $categoryFactory 
+        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryTree = $categoryTree; 
         $this->categoryFactory = $categoryFactory;
+        $this->productCollectionFactory = $productCollectionFactory;
     }
 
     /**
@@ -63,7 +70,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
-                $categoryProductCount = $this->getProductCollection($category['id'])->count();
+                $categoryProductCount = $this->categoryFactory
+                ->create()
+                ->load($category['id'])
+                ->getProductCollection()
+                ->addAttributeToSelect('*')
+                ->count();
 
                 // Add the category
                 $output[] = [
@@ -119,11 +131,10 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProductCollection($categoryId)
     {
-        return $this->categoryCollectionFactory->create()
-            ->load($categoryId)
+        return $this->productCollectionFactory->create()
+            ->addCategoriesFilter(['in' => $categoryId])
             ->addAttributeToSelect('*')
             ->setStore($this->storeManager->getStore())
-            ->getProductCollection();
     }
 
     /**
@@ -178,6 +189,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->getProductCollection($categoryId)
             ->setPageSize(1)
             ->setOrder('entity_id', 'ASC')
+            ->getSelect()
             ->orderRand()
             ->getFirstItem(); 
     }
