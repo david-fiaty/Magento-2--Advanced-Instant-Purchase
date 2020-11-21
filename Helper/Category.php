@@ -36,11 +36,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $categoryTree;
 
     /**
-     * CategoryFactory
-     */
-    public $categoryFactory;
-
-    /**
      * CollectionFactory
      */
     public $productCollectionFactory;
@@ -52,13 +47,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
-        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryTree = $categoryTree; 
-        $this->categoryFactory = $categoryFactory;
         $this->productCollectionFactory = $productCollectionFactory;
     }
 
