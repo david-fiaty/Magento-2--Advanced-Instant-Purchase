@@ -116,7 +116,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $productFilter = $this->getData('product_filter');
             $categoryId = $this->getData('category_id');
 
-            // Get the product filter funtion
+            // Get the product filter function
             $fn = 'get';
             $members = explode('_', $productFilter);
             foreach ($members as $member) {
