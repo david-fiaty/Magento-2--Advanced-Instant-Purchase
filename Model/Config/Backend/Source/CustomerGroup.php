@@ -26,7 +26,7 @@ class CustomerGroup implements \Magento\Framework\Option\ArrayInterface
     public $customerHelper;
 
     /**
-     * CategoryList constructor.
+     * CustomerGroup constructor.
      */
     public function __construct(
         \Naxero\BuyNow\Helper\Customer $customerHelper
