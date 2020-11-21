@@ -21,6 +21,11 @@ namespace Naxero\BuyNow\Model\Config\Backend\Source;
 class ProductList implements \Magento\Framework\Option\ArrayInterface
 {
     /**
+     * StoreManagerInterface
+     */
+    public $storeManager;
+
+    /**
      * CollectionFactory
      */
     public $productCollectionFactory;
@@ -29,8 +34,10 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      * ProductList constructor.
      */
     public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ) {
+        $this->storeManager = $storeManager;
         $this->productCollectionFactory = $productCollectionFactory;
     }
     
@@ -39,6 +46,7 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
+        $collection->setStore($this->storeManager->getStore());
         foreach ($collection as $item) {
             $items[] = [
                 'value' => $item->getId(),

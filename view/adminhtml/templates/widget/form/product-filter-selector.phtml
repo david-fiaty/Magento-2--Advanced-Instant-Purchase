@@ -17,19 +17,18 @@
 <?php
 // Get the block data
 $element = $block->getData('element');
-$products = $block->getData('products');
 ?>
 
 <!-- Product list selector -->
 <div>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
-    <?php foreach ($products as $product): ?>
-        <option value="<?= $product['value'] ?>" <?= $product['value'] == $element->getValue() ? 'selected' : '' ?>>
-            <?= $product['label'] ?>
-        </option>
-    <?php endforeach; ?>
+        <option value="random"><?= __('Random') ?></option>
+        <option value="latest"><?= __('Latest') ?></option>
+        <option value="oldest"><?= __('Oldest') ?></option>
+        <option value="highest_price"><?= __('Highest price') ?></option>
+        <option value="lowest_price"><?= __('Lowest price') ?></option>
     </select>
-    <input type="hidden" id="nbn-product-selector" name="nbn-product-selector" value="<?= $element->getId() ?>">
+    <input type="hidden" id="nbn-product-filter-selector" name="nbn-product-filter-selector" value="<?= $element->getId() ?>">
 </div>
 
 <!-- Select 2 script -->
@@ -45,7 +44,9 @@ $products = $block->getData('products');
     // Product selector
     $('#<?= $element->getId() ?>').select2({
         placeholder: __('Select an option'),
+        minimumResultsForSearch: -1,
         theme: 'classic'
     });
+
 });
 </script>

@@ -29,30 +29,35 @@ class ProductSelector extends \Magento\Backend\Block\Template
     public $productListSource;
 
     /**
-     * GroupSeparator class constructor.
+     * @var Category
+     */
+    public $categoryHelper;
+
+    /**
+     * ProductSelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Naxero\BuyNow\Model\Config\Backend\Source\ProductList $productListSource,
+        \Naxero\BuyNow\Helper\Category $categoryHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
      
         $this->productListSource = $productListSource;
+        $this->categoryHelper = $categoryHelper;
     }
 
     /**
-     * Render a widget field group separator.
+     * Render the widget field.
      */
     public function prepareElementHtml(AbstractElement $element)
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-selector.phtml')
-            ->setData('element_id', $element->getId())
-            ->setData('element_name', $element->getName())
-            ->setData('element_value', $element->getValue())
-            ->setData('product_list', $this->productListSource->toOptionArray())
+            ->setData('element', $element)
+            ->setData('products', $this->productListSource->toOptionArray())
             ->toHtml();
 
         // Render the HTML

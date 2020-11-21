@@ -41,7 +41,7 @@ function ($, __) {
             var errors = [];
 
             // Agreements validation
-            if (this.o.jsConfig.general.enable_agreements) {
+            if (this.o.jsConfig.popups.popup_enable_agreements) {
                 // Reset the errors
                 $(this.agreementErrorMessageSelector).hide();
                 $(this.agreementRow).removeClass('error');

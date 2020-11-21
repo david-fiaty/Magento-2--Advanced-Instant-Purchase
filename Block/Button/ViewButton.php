@@ -82,10 +82,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['buttons']['show_guest_button']
-        && $config['general']['enabled']
-        && $config['products']['product_view']
-        && $this->purchaseHelper->canDisplayButton();
+        $condition = $config['products']['product_view'] && $this->purchaseHelper->canDisplayButton();
         
         if ($condition) {
             return $this->updateAttributesData($config);

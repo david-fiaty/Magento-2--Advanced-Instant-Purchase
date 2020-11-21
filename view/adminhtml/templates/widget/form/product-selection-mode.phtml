@@ -1,0 +1,65 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+// Get the block data
+$element = $block->getData('element');
+?>
+
+<!-- Product selection mode selector -->
+<div>
+    <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
+        <option value="category"><?= _('Category') ?></option>
+        <option value="product"><?= _('Product') ?></option>
+    </select>
+    <input type="hidden" id="nbn-product-selection-mode-selector" name="nbn-product-selection-mode-selector" value="<?= $element->getId() ?>">
+</div>
+
+<!-- Select 2 script -->
+<script>
+    require([
+        'jquery',
+        'mage/translate',
+        'select2',
+        'domReady!'
+], function($, __, select2) {
+    'use strict';
+
+    // Product selection mode
+    $('#<?= $element->getId() ?>').select2({
+        placeholder: __('Select an option'),
+        minimumResultsForSearch: -1,
+        theme: 'classic'
+    });
+
+    // Product selection mode event
+    $('#<?= $element->getId() ?>').on('change', function() {
+        // Prepare the variables
+        var productSelector = $('#' + $('#nbn-product-selector').val());
+        var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
+
+        // Toggle the dependent fields
+        if ($(this).val() == 'product') {
+            productSelector.closest('.admin__field.field').show();
+            productFilterSelector.closest('.admin__field.field').hide();
+        }
+        else if ($(this).val() == 'category') {
+            productSelector.closest('.admin__field.field').hide();
+            productFilterSelector.closest('.admin__field.field').show();
+        }
+    });
+});
+</script>

@@ -1,3 +1,4 @@
+<?php
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -11,10 +12,12 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
+?>
 
-var config = {
-    paths: {
-        select2: 'Naxero_BuyNow/js/lib/select2/select2.full'
-    },
-    urlArgs: "bust=" + (new Date()).getTime()
-};
+<?php $products = $block->getData('products'); ?>
+
+<?php foreach ($products as $product): ?>
+    <option value="<?= $product['value'] ?>">
+        <?= $product['label'] ?>
+    </option>
+<?php endforeach; ?>

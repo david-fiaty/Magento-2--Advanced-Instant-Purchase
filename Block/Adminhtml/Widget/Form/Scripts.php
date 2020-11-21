@@ -19,19 +19,18 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * GroupSeparator class.
+ * Scripts class.
  */
-class GroupSeparator extends \Magento\Backend\Block\Template
+class Scripts extends \Magento\Backend\Block\Template
 {
     /**
-     * GroupSeparator class constructor.
+     * Scripts class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
     }
 
     /**
@@ -41,11 +40,13 @@ class GroupSeparator extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/group-separator.phtml')
-            ->setData('text', $this->getData('text'))
+            ->setTemplate(Naming::getModuleName() . '::widget/form/scripts.phtml')
+            ->setData('element', $element)
             ->toHtml();
 
         // Render the HTML
-        return $element->setData('after_element_html', $blockHtml);
+        $element->setData('after_element_html', $blockHtml);
+
+        return $element;
     }
 }

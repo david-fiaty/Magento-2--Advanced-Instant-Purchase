@@ -31,11 +31,6 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
                 </field>    
-                <field id="enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable terms and conditions</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
-                </field>  
             </group>
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Button settings</label>
@@ -56,6 +51,12 @@
                         <depends>
                             <field id="show_guest_button">1</field>
                         </depends>
+                </field>
+
+                <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer group</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
+                    <comment>Display the button only for the selected customer groups. No cutomer groups selected above is the same as all customer groups selected.</comment>
                 </field>
 
                 <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -104,6 +105,11 @@
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Place order button text</label>
                 </field>
+                <field id="popup_enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable terms and conditions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
+                </field>  
                 <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

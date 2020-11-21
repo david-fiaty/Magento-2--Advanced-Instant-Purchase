@@ -49,7 +49,7 @@ class Naming
      */
     public static function getModuleRoute()
     {
-        return 'naxero-buy-now';
+        return 'naxero-buynow';
     }
 
     /**
