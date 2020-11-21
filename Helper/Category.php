@@ -148,11 +148,17 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= $this->stockItemRepository->get($productId)->getQty();
-        }
+            $stockValues[]= [
+                'product_id' => $productId,
+                'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
+            ];
+        }        
+        
+        usort($stockValues, function($a, $b) {
+            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        });
 
-        sort($stockValues);
-        return $stockValues[0];
+        return $this->getProduct($stockValues[0]['product_id']);
     }
 
     /**
@@ -164,11 +170,17 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= $this->stockItemRepository->get($productId)->getQty();
-        }
+            $stockValues[]= [
+                'product_id' => $productId,
+                'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
+            ];
+        }        
+        
+        usort($stockValues, function($a, $b) {
+            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        });
 
-        sort($stockValues);
-        return $stockValues[count($stockValues) - 1];
+        return $this->getProduct($stockValues[count($stockValues) - 1]['product_id']);
     }
 
     /**
