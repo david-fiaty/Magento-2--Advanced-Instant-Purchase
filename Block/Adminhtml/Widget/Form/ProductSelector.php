@@ -34,7 +34,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
     public $categoryHelper;
 
     /**
-     * GroupSeparator class constructor.
+     * ProductSelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -49,7 +49,7 @@ class ProductSelector extends \Magento\Backend\Block\Template
     }
 
     /**
-     * Render a widget field group separator.
+     * Render the widget field.
      */
     public function prepareElementHtml(AbstractElement $element)
     {
@@ -58,7 +58,6 @@ class ProductSelector extends \Magento\Backend\Block\Template
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-selector.phtml')
             ->setData('element', $element)
             ->setData('products', $this->productListSource->toOptionArray())
-            ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();
 
         // Render the HTML

@@ -48,6 +48,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public $productHelper;
 
     /**
+     * @var Category
+     */
+    public $categoryHelper;
+
+    /**
      * WidgetButton class constructor.
      */
     public function __construct(
@@ -56,6 +61,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Category $categoryHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -64,6 +70,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
+        $this->categoryHelper = $categoryHelper;
     }
 
     /**
@@ -73,17 +80,14 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Prepare the config
         $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
+            $this->getProduct()->getId()
         );
 
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['buttons']['show_guest_button']
-        && $config['general']['enabled']
-        && $this->purchaseHelper->canDisplayButton();
-
+        $condition = $this->purchaseHelper->canDisplayButton();
         if ($condition) {
             // Update the product attributes data
             $config = $this->updateAttributesData($config);
@@ -102,9 +106,29 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
      */
     public function getProduct()
     {
-        return $this->productHelper->getProduct(
-            $this->getData('product_id')
-        );
+        // Prepare the variables
+        $selectionMode = $this->getData('product_selection_mode');
+        $productId = $this->getData('product_id');
+
+        // Handle the category case
+        if ($selectionMode == 'category') {
+            // Prepare teh parameters
+            $productFilter = $this->getData('product_filter');
+            $categoryId = $this->getData('category_id');
+
+            // Get the product filter function
+            $fn = 'get';
+            $members = explode('_', $productFilter);
+            foreach ($members as $member) {
+                $fn .= ucfirst($member);
+            }
+            $fn .= 'Product';
+
+            // Update the product id
+            $productId = $this->categoryHelper->$fn($categoryId)->getId();
+        }
+
+        return $this->productHelper->getProduct($productId);     
     }
 
     /**
