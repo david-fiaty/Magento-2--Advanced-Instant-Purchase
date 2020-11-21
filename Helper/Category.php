@@ -270,11 +270,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestSalesProduct($categoryId)
     {
-        $items = $this->bestSellersCollectionFactory->create()
-        ->setPeriod('year')
-        ->getItems();
-        
-        $productIds = array_keys($items);
+        $collection = $this->productCollectionFactory
+        ->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection')
+        ->setPeriod('year');
+
+        $productIds = array_keys($collection->getItems());
 
         return $this->productHelper->getProduct($productIds[0]); 
     }
@@ -284,11 +284,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        $items = $this->bestSellersCollectionFactory->create()
-        ->setPeriod('year')
-        ->getItems();
-
-        $productIds = array_keys($items);
+        $collection = $this->productCollectionFactory
+        ->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection')
+        ->setPeriod('year');
+        
+        $productIds = array_keys($collection->getItems());
 
         return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
     }
