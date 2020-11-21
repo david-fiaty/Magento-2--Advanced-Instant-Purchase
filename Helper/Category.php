@@ -189,9 +189,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestPriceProduct($categoryId)
     {
-        return $this->getProductCollection($categoryId)
-            ->setOrder('price', 'ASC')
-            ->getFirstItem(); 
+        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $priceValues = [];
+        foreach ($products as $product) {
+            $priceValues[]= [
+                'product_id' => $product->getId(),
+                'final_price' => $product->getFinalPrice()
+            ];
+        }     
+        
+        usort($priceValues, function($a, $b) {
+            return strcmp($a['final_price'], $b['final_price']);
+        });
+
+        return $this->productHelper->getProduct($priceValues[0]['product_id']);
     }
 
     /**
@@ -199,9 +210,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestPriceProduct($categoryId)
     {
-        return $this->getProductCollection($categoryId)
-            ->setOrder('price', 'DESC')
-            ->getFirstItem(); 
+        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
+        $priceValues = [];
+        foreach ($products as $product) {
+            $priceValues[]= [
+                'product_id' => $product->getId(),
+                'final_price' => $product->getFinalPrice()
+            ];
+        }     
+        
+        usort($priceValues, function($a, $b) {
+            return strcmp($a['final_price'], $b['final_price']);
+        });
+
+        return $this->productHelper->getProduct($priceValues[count($priceValues) - 1]['product_id']);
     }
 
     /**
@@ -241,7 +263,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestSalesProduct($categoryId)
     {
-        $collection = $this->productCollection->create('BestSellersCollection'); 
+        $collection = $this->productCollectionFactory->create('BestSellersCollection'); 
         $collection->setPeriod('year');
         $productIds = array_keys($collection->getItems());
 
@@ -253,7 +275,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        $collection = $this->productCollection->create('BestSellersCollection'); 
+        $collection = $this->productCollectionFactory->create('BestSellersCollection'); 
         $collection->setPeriod('year');
         $productIds = array_keys($collection->getItems());
 
