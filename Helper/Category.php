@@ -41,18 +41,25 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $productCollectionFactory;
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * Class Category helper constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryTree = $categoryTree; 
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -174,11 +181,10 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRandomProduct($categoryId)
     {
-        $collection = $this->getProductCollection($categoryId);
-        $collection->addAttributeToSelect('entity_id');
+        $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
         $productIds = array_keys($collection->getItems());
         $productId = array_rand($productIds);
 
-        return $this->getProduct($productId); 
+        return $this->productHelper->getProduct($productId); 
     }
 }
