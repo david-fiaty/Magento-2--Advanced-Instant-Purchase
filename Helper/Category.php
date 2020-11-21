@@ -63,12 +63,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
-                $categoryProductCount = $this->categoryFactory
-                ->create()
-                ->load($category['id'])
-                ->getProductCollection()
-                ->addAttributeToSelect('*')
-                ->count();
+                $categoryProductCount = $this->getProductCollection($category['id'])->count();
 
                 // Add the category
                 $output[] = [
@@ -183,7 +178,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->getProductCollection($categoryId)
             ->setPageSize(1)
             ->setOrder('entity_id', 'ASC')
-            ->getSelect()
             ->orderRand()
             ->getFirstItem(); 
     }
