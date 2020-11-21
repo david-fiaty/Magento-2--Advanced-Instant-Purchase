@@ -70,12 +70,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
-                $categoryProductCount = $this->categoryFactory
-                ->create()
-                ->load($category['id'])
-                ->getProductCollection()
-                ->addAttributeToSelect('*')
-                ->count();
+                $categoryProductCount = $this->getProductCollection($category['id'])->count();
 
                 // Add the category
                 $output[] = [
