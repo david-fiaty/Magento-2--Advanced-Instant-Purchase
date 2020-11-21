@@ -174,11 +174,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRandomProduct($categoryId)
     {
-        $collection = $this->getProductCollection($categoryId)
-        ->getSelect()
-        ->orderRand()
-        ->getItems();
+        $collection = $this->getProductCollection($categoryId);
+        $collection->addAttributeToSelect('entity_id');
+        $productIds = array_keys($collection->getItems());
+        $productId = array_rand($productIds);
 
-        return array_rand($collection); 
+        return $this->getProduct($productId); 
     }
 }
