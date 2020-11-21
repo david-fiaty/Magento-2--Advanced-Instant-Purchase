@@ -51,6 +51,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public $bestSellersCollectionFactory;
 
     /**
+     * @var Factory
+     */
+    public $reportCollectionFactory;
+
+    /**
      * @var Product
      */
     public $productHelper;
@@ -64,7 +69,8 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory, 
+        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory,
+        \Magento\Reports\Model\ResourceModel\Report\Collection\Factory $reportCollectionFactory,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
@@ -73,6 +79,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $this->productCollectionFactory = $productCollectionFactory;
         $this->stockItemRepository = $stockItemRepository;
         $this->bestSellersCollectionFactory = $bestSellersCollectionFactory;
+        $this->reportCollectionFactory = $reportCollectionFactory;
         $this->productHelper = $productHelper;
     }
 
@@ -270,7 +277,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestSalesProduct($categoryId)
     {
-        $collection = $this->productCollectionFactory
+        $collection = $this->reportCollectionFactory
         ->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection')
         ->setPeriod('year');
 
@@ -284,7 +291,8 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        $collection = $this->productCollectionFactory
+        
+        $collection = $this->reportCollectionFactory
         ->create('Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection')
         ->setPeriod('year');
         
