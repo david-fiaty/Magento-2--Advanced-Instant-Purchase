@@ -11,8 +11,6 @@
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 
-- add image zoom control for widget
-
 - check if place order contains expected product attributes selected by user (request data)
 
 - handle non swatch options values (list, input) in page view

@@ -32,12 +32,12 @@
     <!-- Product image -->
     <?php if ($showProductImage): ?>
         <style>
-        .nbn-product-box-image {
-            max-width: <?= $content['widgets']['widget_image_width'] ?>
+        #<?= $boxId ?> .nbn-product-box-image {
+            width: <?= $content['widgets']['widget_image_width'] ?>
         }
         </style>
         <div class="nbn-product-box-image">
-            <img src="<?= $block->escapeUrl($content['product']['images']['small']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
+            <img src="<?= $block->escapeUrl($content['product']['images']['large']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>
     <?php endif; ?>
 

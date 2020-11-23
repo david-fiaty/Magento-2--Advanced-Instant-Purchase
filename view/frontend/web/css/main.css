@@ -197,6 +197,10 @@
     float: left;
 }
 
+.nbn-product-box-image img {
+    width: 100% !important;
+}
+
 .nbn-product-box-info {
     float: left;
     width: 70%;

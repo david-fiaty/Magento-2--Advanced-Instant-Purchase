@@ -180,7 +180,7 @@
                     </depends>
                 </field>
                 <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Image max width</label>
+                    <label>Image width</label>
                     <depends>
                         <field id="widget_show_product_image">1</field>
                     </depends>
