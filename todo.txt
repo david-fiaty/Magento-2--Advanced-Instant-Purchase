@@ -1,7 +1,7 @@
 
 !!!PRIORITY!!!
 
-- set widget fields selected values on page load
+- set admin widget fields selected values on page load
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components

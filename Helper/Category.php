@@ -259,10 +259,13 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getRandomProduct($categoryId)
     {
         $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
-        $productIds = array_keys($collection->getItems());
-        $productId = array_rand($productIds);
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection->getItems());
+            $productId = array_rand($productIds);
+            return $this->productHelper->getProduct($productId); 
+        }
 
-        return $this->productHelper->getProduct($productId); 
+        return null;
     }
 
     /**
@@ -271,9 +274,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getHighestSalesProduct($categoryId)
     {
         $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
-        $productIds = array_keys($collection);
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection);
+            return $this->productHelper->getProduct($productIds[0]); 
+        }
 
-        return $this->productHelper->getProduct($productIds[0]); 
+        return null;
     }
 
     /**
@@ -281,10 +287,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        
         $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
-        $productIds = array_keys($collection);
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection);
+            return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
+        }
 
-        return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
+        return null;
     }
 }
