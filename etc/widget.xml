@@ -192,9 +192,10 @@
                 </options>
             </parameter>
 
-            <parameter name="widget_zoom_type" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
+            <parameter name="widget_zoom_type" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ZoomType">
                 <label translate="true">Zoom type</label>
                 <depends>
+                    <parameter name="widget_show_product_image" value="1" />
                     <parameter name="widget_zoom_enabled" value="1"/>
                 </depends>
             </parameter>
