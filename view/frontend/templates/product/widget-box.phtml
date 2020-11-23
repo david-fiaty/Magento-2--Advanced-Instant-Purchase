@@ -75,7 +75,7 @@
     <div class="nbn-clr"></div>   
 </div>
 
-<?php if ($zoomEnabled): ?>
+<?php if ($showProductImage && $zoomEnabled): ?>
 <script>
     require([
         'jquery',
@@ -85,7 +85,10 @@
         'use strict';
 
         // Zoom enabler
-        $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom();    
+        $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom({
+            responsive: false,
+            zoomType: '<?= $content['widgets']['widget_zoom_type'] ?>'
+        });    
     });
 </script>
 <?php endif; ?> 
