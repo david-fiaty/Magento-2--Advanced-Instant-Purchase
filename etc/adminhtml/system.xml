@@ -190,7 +190,7 @@
                     <label>Zoom type</label>
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ZoomType</source_model>
                     <depends>
-                        <field id="widget_show_product_image">1</field>
+                        <field id="widget_zoom_enabled">1</field>
                     </depends>
                 </field>
             </group>
