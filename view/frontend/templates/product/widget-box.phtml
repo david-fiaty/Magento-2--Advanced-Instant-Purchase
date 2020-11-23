@@ -17,18 +17,23 @@
 <?php
     // Get the data
     $content = $this->getData('content');
+    $zoomJsUrl = $this->getData('zoom_js_url');
 
     // Display settings
     $showProductImage = $content['widgets']['widget_show_product_image'];
     $showProductName = $content['widgets']['widget_show_product_name'];
     $showProductPrice = $content['widgets']['widget_show_product_price'];
+    $zoomEnabled = $content['widgets']['widget_enable_zoom'];
+
+    // CSS selectors
+    $boxId = 'nbn-product-box-' . $content['product']['id'];
 ?>
 
-<div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
+<div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
     <?php if ($showProductImage): ?>
         <!-- Product image -->
         <div class="nbn-product-box-image">
-            <img src="<?= $block->escapeUrl($content['product']['image_url']) ?>"> 
+            <img src="<?= $block->escapeUrl($content['product']['image_url']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['image_url']) ?>"> 
         </div>
     <?php endif; ?>
 
@@ -70,3 +75,18 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
+
+<?php if ($zoomEnabled): ?>
+    <script src="<?= $zoomJsUrl ?>"></script>
+    <script>
+    require([
+        'jquery',
+        'domReady!'
+    ], function($) {
+        'use strict';
+
+        // Zoom enabler
+        $('#<?= $element->getId() ?> .nbn-product-box-image').elevateZoom();    
+    });
+</script>
+<?php endif; ?> 

@@ -37,7 +37,7 @@
         /**
          * Check if the current product is in block view.
          */
-        isBlockView: function () {
+        isWidgetView: function () {
             return this.o.jsConfig.product.display == 'block'
             || this.o.jsConfig.product.display == 'widget';
         },
@@ -46,7 +46,7 @@
          * Check if the current product is in page view.
          */
         isPageView: function () {
-            return !this.isBlockView() && !this.isListView();
+            return !this.isWidgetView() && !this.isListView();
         },
 
         /**

@@ -30,11 +30,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public $_template = "button/base.phtml";
 
     /**
-     * @var Repository
-     */
-    public $assetRepository;
-
-    /**
      * @var Block
      */
     public $blockHelper;
@@ -64,7 +59,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Framework\View\Asset\Repository $assetRepository,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
@@ -74,7 +68,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     ) {
         parent::__construct($context, $data);
         
-        $this->assetRepository = $assetRepository;
         $this->blockHelper = $blockHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
@@ -194,18 +187,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         }
     
         return $index ?? [];
-    }
-
-    /**
-     * Load additional scripts.
-     */
-    public function getJsAssets()
-    {
-        return [
-            $this->assetRepository->createAsset(
-                Naming::getModuleName() . '::js/lib/elevate/jquery.elevatezoom.js'
-            )
-        ];
     }
     
     /**

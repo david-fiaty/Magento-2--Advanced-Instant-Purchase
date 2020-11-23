@@ -2,6 +2,9 @@
 !!!PRIORITY!!!
 
 - set admin widget fields selected values on page load
+
+- add slick slideshow to widget view with slick
+
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
