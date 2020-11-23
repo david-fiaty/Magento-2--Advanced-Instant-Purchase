@@ -17,7 +17,6 @@
 <?php
     // Get the data
     $content = $this->getData('content');
-    $zoomJsUrl = $this->getData('zoom_js_url');
 
     // Display settings
     $showProductImage = $content['widgets']['widget_show_product_image'];
@@ -81,7 +80,7 @@
     require([
         'jquery',
         'elevatezoom',
-        'domReady!',
+        'domReady!'
     ], function($, elevateZoom) {
         'use strict';
 
