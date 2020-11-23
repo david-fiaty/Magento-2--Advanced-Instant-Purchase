@@ -39,6 +39,21 @@
         </style>
         <div class="nbn-product-box-image">
             <img src="<?= $block->escapeUrl($content['product']['images']['large']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
+            <div class="nbn-widget-image-modal">
+                <div data-bind="mageInit: {
+                    'Magento_Ui/js/modal/modal':{
+                        'type': 'popup',
+                        'title': 'Popup title',
+                        'trigger': '[data-trigger=trigger]',
+                        'responsive': true,
+                        'buttons': [{
+                            text: jQuery.mage.__('Submit'),
+                            class: 'action'
+                        }]
+                    }}">
+                    <div class="content">Popup Content</div>
+                </div>            
+            </div>
         </div>
     <?php endif; ?>
 
@@ -101,10 +116,7 @@
             $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom(params); 
         }
         else {
-            $('#<?= $boxId ?> .nbn-product-box-image').css('cursor', 'pointer');
-            $('#<?= $boxId ?> .nbn-product-box-image').on('click touch', function() {
-                alert('modal');
-            });
+            $('#<?= $boxId ?> .nbn-product-box-image').css('cursor', 'pointer');        
         }
     });
 </script>
