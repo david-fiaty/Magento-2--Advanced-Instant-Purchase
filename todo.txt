@@ -11,7 +11,6 @@
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 
-- check if place order contains expected product attributes selected by user (request data)
 
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
@@ -27,6 +26,10 @@
 - see if best sales filter should have a year/month/day sub select
 https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
+
+QA
+- check that widget config override is working as expected, especially for zoom parameters
+- check if place order contains expected product attributes selected by user (request data)
 
 FEATURES
 - build order confirmation screen after payment + editable info

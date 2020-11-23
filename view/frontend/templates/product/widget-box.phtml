@@ -23,6 +23,7 @@
     $showProductName = $content['widgets']['widget_show_product_name'];
     $showProductPrice = $content['widgets']['widget_show_product_price'];
     $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
+    $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
 
     // CSS selectors
     $boxId = 'nbn-product-box-' . $content['product']['id'];
@@ -79,7 +80,6 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
-
 <?php if ($showProductImage && $zoomEnabled): ?>
 <script>
     require([
@@ -89,11 +89,23 @@
     ], function($, elevateZoom) {
         'use strict';
 
-        // Zoom enabler
-        $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom({
+        // Zoom parameters
+        var isLightbox = <?= $isLightbox ?>;
+        var params = {
             responsive: true,
             zoomType: '<?= $content['widgets']['widget_zoom_type'] ?>'
-        });    
+        };
+
+        // Zoom initialisation
+        if (!isLightbox) {
+            $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom(params); 
+        }
+        else {
+            $('#<?= $boxId ?> .nbn-product-box-image').css('cursor', 'pointer');
+            $('#<?= $boxId ?> .nbn-product-box-image').on('click touch', function() {
+                alert('modal');
+            });
+        }
     });
 </script>
 <?php endif; ?> 
