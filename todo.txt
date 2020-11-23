@@ -1,7 +1,7 @@
 
 !!!PRIORITY!!!
 
-- set widget fields selected values on page load
+- set admin widget fields selected values on page load
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
@@ -16,6 +16,7 @@
  
 - add module version checker
 
+- display UI error messages for widget products not found with category filters
 
 - handle 0 product found in category for widget category filter.
 
