@@ -177,6 +177,11 @@
                 </options>
             </parameter>
 
+            <parameter name="widget_image_width" xsi:type="text" visible="true">
+                <label translate="true">Image max width</label>
+                <value>300px</value>
+            </parameter>
+
             <parameter name="widget_zoom_enabled" xsi:type="select" visible="true">
                 <label translate="true">Zoom enabled</label>
                 <depends>

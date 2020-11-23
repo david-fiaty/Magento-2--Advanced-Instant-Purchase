@@ -53,6 +53,7 @@
                 <widget_show_product_price>1</widget_show_product_price>
                 <widget_show_product_quantity>1</widget_show_product_quantity>
                 <widget_show_product_image>1</widget_show_product_image>
+                <widget_image_width>300px</widget_image_width>
                 <widget_zoom_enabled>1</widget_zoom_enabled>
                 <widget_zoom_type>lens</widget_zoom_type>
             </widgets>

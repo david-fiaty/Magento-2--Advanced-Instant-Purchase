@@ -31,6 +31,11 @@
 <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
     <?php if ($showProductImage): ?>
         <!-- Product image -->
+        <style>
+        .nbn-product-box-image {
+            max-width: <?= $content['widgets']['widget_image_width'] ?>
+        }
+        </style>
         <div class="nbn-product-box-image">
             <img src="<?= $block->escapeUrl($content['product']['images']['small']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>

@@ -179,6 +179,12 @@
                         <field id="widget_show_product">1</field>
                     </depends>
                 </field>
+                <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image max width</label>
+                    <depends>
+                        <field id="widget_show_product_image">1</field>
+                    </depends>
+                </field>
                 <field id="widget_zoom_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable zoom</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
