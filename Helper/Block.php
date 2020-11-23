@@ -23,11 +23,6 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Repository
-     */
-    public $assetRepository;
-
-    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -56,14 +51,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Block helper class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Asset\Repository $assetRepository,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
-        $this->assetRepository = $assetRepository;
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
@@ -158,16 +151,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('content', $this->getConfig($productId))
         ->toHtml();
-    }
-
-    /**
-     * Get the JS URL for the zoom script.
-     */
-    public function getZoomJsUrl()
-    {
-        return $this->assetRepository->createAsset(
-            Naming::getModuleName() . '::js/lib/elevate/jquery.elevatezoom.js'
-        )->getUrl();
     }
 
     /**
