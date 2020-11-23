@@ -16,6 +16,7 @@
  
 - add module version checker
 
+- display UI error messages for widget products not found with category filters
 
 - handle 0 product found in category for widget category filter.
 
