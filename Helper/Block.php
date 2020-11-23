@@ -157,7 +157,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('content', $this->getConfig($productId))
-        ->setData('zoom_js_url', $this->getZoomJsUrl())
         ->toHtml();
     }
 

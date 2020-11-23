@@ -77,16 +77,16 @@
 </div>
 
 <?php if ($zoomEnabled): ?>
-    <script src="<?= $zoomJsUrl ?>"></script>
-    <script>
+<script>
     require([
         'jquery',
-        'domReady!'
-    ], function($) {
+        'elevatezoom',
+        'domReady!',
+    ], function($, elevateZoom) {
         'use strict';
 
         // Zoom enabler
-        $('#<?= $element->getId() ?> .nbn-product-box-image').elevateZoom();    
+        $('#<?= $boxId ?> .nbn-product-box-image').elevateZoom();    
     });
 </script>
 <?php endif; ?> 

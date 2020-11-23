@@ -14,7 +14,7 @@
 
  define([
     'jquery',
-    'jsonViewer'
+    'jsonviewer'
 ], function ($, jsonViewer) {
     'use strict';
 
