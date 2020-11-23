@@ -126,7 +126,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
-                'image_url' => $this->getProductImageUrl($productId),
+                'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
                 'options' => $this->getOptions($productId)
             ];
@@ -255,15 +255,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product image url.
      */
-    public function getProductImageUrl($productId)
+    public function getProductImages($productId)
     {
-        return $this->imageHelper->init(
-            $this->getProduct($productId),
-            'product_base_image'
-        )->constrainOnly(false)
-        ->keepAspectRatio(true)
-        ->keepFrame(false)
-        ->getUrl();
+        $product = $this->getProduct($productId);
+        return [
+            'small' => $this->imageHelper->init($product, 'product_page_image_small')->getUrl(),
+            'medium' => $this->imageHelper->init($product, 'product_page_image_medium')->getUrl(),
+            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl()
+        ];
     }
 
     /**

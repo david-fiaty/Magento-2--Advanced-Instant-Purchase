@@ -32,7 +32,7 @@
     <?php if ($showProductImage): ?>
         <!-- Product image -->
         <div class="nbn-product-box-image">
-            <img src="<?= $block->escapeUrl($content['product']['image_url']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['image_url']) ?>"> 
+            <img src="<?= $block->escapeUrl($content['product']['images']['small']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>
     <?php endif; ?>
 
