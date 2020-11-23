@@ -53,7 +53,7 @@
                 <widget_show_product_price>1</widget_show_product_price>
                 <widget_show_product_quantity>1</widget_show_product_quantity>
                 <widget_show_product_image>1</widget_show_product_image>
-                <widget_enable_zoom>1</widget_enable_zoom>
+                <widget_zoom_enabled>1</widget_zoom_enabled>
             </widgets>
             <payment_methods>
                 <card_allowed></card_allowed>
