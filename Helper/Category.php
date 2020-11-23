@@ -64,7 +64,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Catalog\Block\Adminhtml\Category\Tree $categoryTree,
         \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
-        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory, 
+        \Magento\Sales\Model\ResourceModel\Report\Bestsellers\CollectionFactory $bestSellersCollectionFactory,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         $this->storeManager = $storeManager;
@@ -259,10 +259,13 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getRandomProduct($categoryId)
     {
         $collection = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
-        $productIds = array_keys($collection->getItems());
-        $productId = array_rand($productIds);
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection->getItems());
+            $productId = array_rand($productIds);
+            return $this->productHelper->getProduct($productId); 
+        }
 
-        return $this->productHelper->getProduct($productId); 
+        return null;
     }
 
     /**
@@ -270,13 +273,13 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getHighestSalesProduct($categoryId)
     {
-        $items = $this->bestSellersCollectionFactory->create()
-        ->setPeriod('year')
-        ->getItems();
-        
-        $productIds = array_keys($items);
+        $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection);
+            return $this->productHelper->getProduct($productIds[0]); 
+        }
 
-        return $this->productHelper->getProduct($productIds[0]); 
+        return null;
     }
 
     /**
@@ -284,12 +287,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLowestSalesProduct($categoryId)
     {
-        $items = $this->bestSellersCollectionFactory->create()
-        ->setPeriod('year')
-        ->getItems();
+        $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
+        if ($collection->count() > 0) {
+            $productIds = array_keys($collection);
+            return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
+        }
 
-        $productIds = array_keys($items);
-
-        return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
+        return null;
     }
 }
