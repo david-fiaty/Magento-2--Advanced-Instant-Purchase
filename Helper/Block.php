@@ -168,7 +168,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->assetRepository->createAsset(
             Naming::getModuleName() . '::js/lib/elevate/jquery.elevatezoom.js'
-        );
+        )->getUrl();
     }
 
     /**
