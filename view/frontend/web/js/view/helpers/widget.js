@@ -49,7 +49,7 @@ define([
                 $(boxId + ' .nbn-product-box-image img').elevateZoom(params); 
             }
             else {
-                $(boxId + ' .nbn-product-box-image').css('cursor', 'pointer'); 
+                $(boxId + ' .nbn-product-box-image').css('cursor', 'zoom-in'); 
                 $(boxId + ' .nbn-product-box-image').on('click touch', function() {
                     NbnModal.getGalleryModal(obj);
                 });           

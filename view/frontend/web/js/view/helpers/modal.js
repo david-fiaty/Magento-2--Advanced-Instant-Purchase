@@ -136,16 +136,21 @@
          * Get the product media gallery modal.
          */
         getGalleryModal: function (obj) {
-            console.log('obj');
-
-            console.log(obj);
+            // Prepare parameters
             var self = this;
             var title = obj.jsConfig.product.title;
+            var params = {
+                data: {
+                    product: obj.jsConfig.product
+                }
+            };
+
+            // Build the modal
             ConfirmModal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: NbnTemplate.getGallery({}),
+                content: NbnTemplate.getGallery(params),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
