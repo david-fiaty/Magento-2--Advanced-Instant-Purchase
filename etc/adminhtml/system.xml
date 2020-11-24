@@ -53,6 +53,11 @@
                         </depends>
                 </field>
 
+                <field id="product_tree_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product tree filter</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter</source_model>
+                </field>
+
                 <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Customer group</label>
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>

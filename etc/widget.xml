@@ -80,6 +80,10 @@
                 <value translate="true">Buy Now</value>
             </parameter>
 
+            <parameter name="product_tree_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter">
+                <label translate="true">Product tree filter</label>
+            </parameter>
+
             <parameter name="customer_groups" xsi:type="multiselect" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
                 <label translate="true">Customer groups</label>
             </parameter>
@@ -95,6 +99,7 @@
                     </option>
                 </options>
             </parameter>
+
             <parameter name="button_classes" xsi:type="text" visible="true">
                 <label translate="true">Button classes</label>
                 <value>primary button</value>

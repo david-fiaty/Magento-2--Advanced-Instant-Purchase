@@ -88,19 +88,39 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
-        // Check the display conditions
-        $condition = $this->purchaseHelper->canDisplayButton();
-        if ($condition) {
+        // Check the global display conditions
+        if ($this->purchaseHelper->canDisplayButton()) {
             // Update the product attributes data
             $config = $this->updateAttributesData($config);
 
             // Update the config with tag parameters
             $config = $this->updateWidgetConfig($config);
 
-            return $config;
+            // Check the widget display conditions
+            if ($this->canDisplayButton($config)) {
+                return $config;
+            }
+
+            return null;
         }
         
         return null;
+    }
+   
+    /**
+     * Check if the widget can be displayed.
+     */
+    public function canDisplayButton($config)
+    {
+        // Cand display parents
+        $condition1 = !$config['product']['has_parents']
+        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'parent');
+
+        // Cand display children
+        $condition2 = $config['product']['has_parents']
+        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'child');
+
+        return $condition1 || $condition2;
     }
     
     /**
