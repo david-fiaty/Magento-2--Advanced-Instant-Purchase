@@ -16,11 +16,12 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
+    'elevatezoom',
     'Naxero_BuyNow/js/view/core',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, Core) {
+], function ($, __, Component, elevateZoom, Core) {
     'use strict';
     
     return Component.extend({
@@ -162,13 +163,33 @@ define([
             var self = this;
             var imageContainer = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
 
+            // Zoom parameters
+            var boxId = '#nbn-product-box-' + this.jsConfig.product.id;
+            var zoomType = this.jsConfig.widgets.widget_zoom_type;
+            var isLightbox = this.jsConfig.widgets.widget_zoom_type == 'lightbox';
+            var params = {
+                responsive: true,
+                zoomType: zoomType
+            };
+
             // Image container click event
             imageContainer.on('click touch', function (e) {
-                // Open the modal
-                self.o.modal.getGalleryModal(self);
 
-                // Get the log data
-                self.getGalleryData(e);             
+                // Zoom initialisation
+                if (!isLightbox) {
+                    $(boxId + ' .nbn-product-box-image img').elevateZoom(params); 
+                }
+                else {
+                    // Image state
+                    $(boxId + ' .nbn-product-box-image').css('cursor', 'zoom-in'); 
+
+                    // Open the modal
+                    self.o.modal.getGalleryModal(self);
+
+                    // Get the log data
+                    self.getGalleryData(e);     
+                }
+        
             });
         },
 
