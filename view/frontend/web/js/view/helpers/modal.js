@@ -142,7 +142,7 @@
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: NbnTemplate.getLogger({}),
+                content: NbnTemplate.getGallery({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

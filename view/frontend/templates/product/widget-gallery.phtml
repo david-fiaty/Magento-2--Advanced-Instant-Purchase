@@ -14,21 +14,6 @@
  */
 ?>
 
-<?php
-    // Get the data
-    $content = $this->getData('content');
-
-    // Display settings
-    $showProductImage = $content['widgets']['widget_show_product_image'];
-    $showProductName = $content['widgets']['widget_show_product_name'];
-    $showProductPrice = $content['widgets']['widget_show_product_price'];
-    $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
-    $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
-
-    // CSS selectors
-    $boxId = 'nbn-product-box-' . $content['product']['id'];
-?>
-
 <div>
     <h1>
         product gallery
