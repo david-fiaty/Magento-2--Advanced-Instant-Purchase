@@ -33,7 +33,7 @@ define([
         /**
          * Build the widget features.
          */
-        build: function () {
+        build: function (obj) {
             // Zoom parameters
             var self = this;
             var boxId = '#nbn-product-box-' + this.o.jsConfig.product.id;
@@ -50,8 +50,8 @@ define([
             }
             else {
                 $(boxId + ' .nbn-product-box-image').css('cursor', 'pointer'); 
-                $(boxId + ' .nbn-product-box-image').on('click touch', function(e) {
-                    NbnModal.getGalleryModal(this.o);
+                $(boxId + ' .nbn-product-box-image').on('click touch', function() {
+                    NbnModal.getGalleryModal(obj);
                 });           
             }
         }

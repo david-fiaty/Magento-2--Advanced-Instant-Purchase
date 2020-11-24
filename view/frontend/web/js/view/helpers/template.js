@@ -17,9 +17,10 @@
         'mage/template',
         'text!Naxero_BuyNow/template/loader.html',
         'text!Naxero_BuyNow/template/message.html',
+        'text!Naxero_BuyNow/template/widget-gallery.html',
         'text!Naxero_BuyNow/template/slider.html'
     ],
-    function (MageTemplate, Loader, Message, Slider) {
+    function (MageTemplate, Loader, Message, WidgetGallery, Slider) {
         'use strict';
 
         return {
@@ -63,7 +64,7 @@
              * Render the product gallery modal.
              */
             getGallery: function (params) {
-                return MageTemplate(Slider)(params);
+                return MageTemplate(WidgetGallery)(params);
             }
         };
     }

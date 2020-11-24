@@ -121,7 +121,7 @@
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
-                content: NbnTemplate.getGallery({}),
+                content: NbnTemplate.getLogger({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
@@ -136,8 +136,11 @@
          * Get the product media gallery modal.
          */
         getGalleryModal: function (obj) {
+            console.log('obj');
+
+            console.log(obj);
             var self = this;
-            var title = obj.jsConfig.product.title + ' ' + __('Logger');
+            var title = obj.jsConfig.product.title;
             ConfirmModal({
                 title: title,
                 innerScroll: true,

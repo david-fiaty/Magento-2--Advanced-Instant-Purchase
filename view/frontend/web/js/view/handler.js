@@ -59,8 +59,6 @@ define([
          * @param {Object} data
          */
         build: function () {
-            var self = this;
-
             // Spinner icon
             this.o.spinner.loadIcon();
 
@@ -69,11 +67,11 @@ define([
 
             // Widget features
             if (this.o.view.isWidgetView()) {
-                this.o.widget.build()
+                this.o.widget.build(this);
             }
 
             // Button click event
-            self.handleButtonClick();
+            this.handleButtonClick();
 
             // Log the step
             this.o.logger.log(
