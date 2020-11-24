@@ -133,9 +133,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             ];
         }
 
-        var_dump($output); exit();
-
-
         return $output;
     }
 
