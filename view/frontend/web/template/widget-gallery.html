@@ -14,12 +14,11 @@
  */
 -->
 
+
 <div class="nbn-gallery-images">
-    <% _.each(data.product.images.gallery, function(image) { %>
+    <% for (var image in data.product.images.gallery) { %>
         <div class="nbn-gallery-image">
-            <% if (image.url) { %>
-                <img src="<%= image.url %>"/>
-            <% } %>
+            <img src="<%= image.url %>">
         </div>
     <% }); %>
 </div>
