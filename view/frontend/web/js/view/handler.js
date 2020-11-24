@@ -30,7 +30,7 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
-            galleryUrl: 'products/index',
+            galleryUrl: 'product/index',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
@@ -69,7 +69,7 @@ define([
 
             // Widget features
             if (this.o.view.isWidgetView()) {
-                handleImageClick();
+                this.handleImageClick();
             }
 
             // Button click event

@@ -63,7 +63,7 @@
              * Render the product gallery modal.
              */
             getGallery: function (params) {
-                return MageTemplate(WidgetGallery)(params);
+                return MageTemplate(Slider)(params);
             }
         };
     }
