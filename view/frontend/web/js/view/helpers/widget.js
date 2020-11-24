@@ -35,7 +35,6 @@ define([
          */
         build: function (obj) {
             // Zoom parameters
-            var self = this;
             var boxId = '#nbn-product-box-' + this.o.jsConfig.product.id;
             var zoomType = this.o.jsConfig.widgets.widget_zoom_type;
             var isLightbox = this.o.jsConfig.widgets.widget_zoom_type == 'lightbox';

@@ -5,6 +5,9 @@
 
 - add slick slideshow to widget view with slick
 
+- sort widget gallery images data array by "position"
+
+
 - add product quantity box in popup and widget
 
 - complete payment integrations

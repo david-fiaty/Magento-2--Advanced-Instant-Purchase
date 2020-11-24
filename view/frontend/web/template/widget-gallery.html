@@ -14,8 +14,30 @@
  */
 -->
 
-<div>
-    <h1>
-        <%- data.product %>
-    </h1>
+<div class="nbn-gallery-images">
+    <% _.each(data.product.images.gallery, function(image) { %>
+        <div class="nbn-gallery-image">
+            <% if (image.url) { %>
+                <img src="<%= image.url %>"/>
+            <% } %>
+        </div>
+    <% }); %>
 </div>
+
+<script>
+    require([
+        'jquery',
+        'slick',
+        'domReady!'
+    ], function($, slick) {
+        'use strict';
+
+        $('.nbn-gallery-images').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: false,
+                speed: 500,
+                arrows: true
+        });
+    });
+</script>
