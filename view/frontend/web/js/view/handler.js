@@ -29,6 +29,7 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
+            galleryUrl: 'products/index',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
@@ -67,7 +68,7 @@ define([
 
             // Widget features
             if (this.o.view.isWidgetView()) {
-                this.o.widget.build(this);
+                handleImageClick();
             }
 
             // Button click event
@@ -81,6 +82,41 @@ define([
                 ),
                 this.jsConfig
             );
+        },
+
+        /**
+         * Build a product gallery.
+         */
+        getGalleryData: function (e) {
+            // Prepare variables
+            var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var params = {
+                product_id: productId,
+                form_key: $(this.formKeySelectorPrefix + productId).val()
+            };
+
+            // Set the data viewer button event
+            self.o.slider.showLoader();
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: self.o.paths.get(self.galleryUrl),
+                data: params,
+                success: function (data) {
+                    // Get the HTML content
+                    self.o.modal.addHtml(self.popupContentSelector, data.html);
+
+                    // Build the data tree
+                    self.o.widget.build();
+                },
+                error: function (request, status, error) {
+                    self.o.logger.log(
+                        __('Error retrieving the product gallery data'),
+                        error
+                    );
+                }
+            });
         },
 
         /**
@@ -115,6 +151,24 @@ define([
                         error
                     );
                 }
+            });
+        },
+
+        /**
+         * Handle the image click event.
+         */
+        handleImageClick: function () {
+            // Prepare variables
+            var self = this;
+            var imageContainer = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
+
+            // Image container click event
+            imageContainer.on('click touch', function (e) {
+                // Open the modal
+                self.o.modal.getGalleryModal(self);
+
+                // Get the log data
+                self.getGalleryData(e);             
             });
         },
 

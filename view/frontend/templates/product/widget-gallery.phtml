@@ -1,4 +1,4 @@
-<!--
+<?php
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -12,13 +12,17 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
--->
+?>
 
+<?php
+    // Get the data
+    $content = $this->getData('content');
+?>
 
 <div class="nbn-gallery-images">
-    <% _.each(data.product.images.gallery, function(image) { %>
+    <?php foreach ($content['product']['images']['gallery'] as $image): ?>
         <div class="nbn-gallery-image">
-            <img src="<%- image.url %>"/>
+            <img src="<?= $image['url'] ?>">
         </div>
-    <% }); %>
+    <?php endforeach; ?>
 </div>
