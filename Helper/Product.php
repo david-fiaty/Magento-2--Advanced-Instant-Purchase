@@ -121,6 +121,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'price' => $this->getProductPrice($productId),
                 'is_free' => $this->isFree($productId),
                 'form_key' => $this->toolsHelper->getFormKey(),
+                'has_parents' => $this->hasParents($product),
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
@@ -131,6 +132,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'options' => $this->getOptions($productId)
             ];
         }
+
+        var_dump($output); exit();
+
 
         return $output;
     }
@@ -157,6 +161,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function hasOptions($productId)
     {
         return $this->getProduct($productId)->getData('has_options');
+    }
+
+    /**
+     * Check if a product has parent products.
+     */
+    public function hasParents($product)
+    {
+        return !empty($product->getTypeInstance()->getParentIdsByChild($product->getId()));
     }
 
     /**

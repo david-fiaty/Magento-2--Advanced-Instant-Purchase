@@ -15,9 +15,10 @@
 define([
     'jquery',
     'Naxero_BuyNow/js/view/helpers/modal',
+    'slick',
     'elevatezoom',
     'domReady!'
-], function ($, NbnModal, elevateZoom) {
+], function ($, NbnModal, slick, elevateZoom) {
     'use strict';
 
     return {
@@ -51,6 +52,13 @@ define([
                 $(boxId + ' .nbn-product-box-image').css('cursor', 'zoom-in'); 
                 $(boxId + ' .nbn-product-box-image').on('click touch', function() {
                     NbnModal.getGalleryModal(obj);
+                    $('.nbn-gallery-images').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: false,
+                        speed: 500,
+                        arrows: true
+                    });
                 });           
             }
         }
