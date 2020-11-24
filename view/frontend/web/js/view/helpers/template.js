@@ -57,6 +57,13 @@
              */
             getLogger: function (params) {
                 return MageTemplate(Slider)(params);
+            },
+
+            /**
+             * Render the product gallery modal.
+             */
+            getGallery: function (params) {
+                return MageTemplate(Slider)(params);
             }
         };
     }

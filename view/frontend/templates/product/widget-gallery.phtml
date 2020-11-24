@@ -1,0 +1,36 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+    // Get the data
+    $content = $this->getData('content');
+
+    // Display settings
+    $showProductImage = $content['widgets']['widget_show_product_image'];
+    $showProductName = $content['widgets']['widget_show_product_name'];
+    $showProductPrice = $content['widgets']['widget_show_product_price'];
+    $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
+    $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
+
+    // CSS selectors
+    $boxId = 'nbn-product-box-' . $content['product']['id'];
+?>
+
+<div>
+    <h1>
+        product gallery
+    </h1>
+</div>

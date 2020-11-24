@@ -14,9 +14,10 @@
 
 define([
     'jquery',
+    'Naxero_BuyNow/js/view/helpers/modal',
     'elevatezoom',
     'domReady!'
-], function ($, elevateZoom) {
+], function ($, NbnModal, elevateZoom) {
     'use strict';
 
     return {
@@ -34,6 +35,7 @@ define([
          */
         build: function () {
             // Zoom parameters
+            var self = this;
             var boxId = '#nbn-product-box-' + this.o.jsConfig.product.id;
             var zoomType = this.o.jsConfig.widgets.widget_zoom_type;
             var isLightbox = this.o.jsConfig.widgets.widget_zoom_type == 'lightbox';
@@ -48,8 +50,8 @@ define([
             }
             else {
                 $(boxId + ' .nbn-product-box-image').css('cursor', 'pointer'); 
-                $(boxId + ' .nbn-product-box-image').on('click touch', function() {
-                    alert('Modal gallery');
+                $(boxId + ' .nbn-product-box-image').on('click touch', function(e) {
+                    NbnModal.getGalleryModal(this.o);
                 });           
             }
         }
