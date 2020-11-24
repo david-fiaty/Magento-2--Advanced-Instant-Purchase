@@ -107,6 +107,9 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
+
+                    // Build the gallery
+                    self.o.gallery.build();
                 },
                 error: function (request, status, error) {
                     self.o.logger.log(

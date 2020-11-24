@@ -102,7 +102,7 @@ class Index extends \Magento\Framework\App\Action\Action
         $blockHtml = $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Framework\View\Element\Template')
             ->setTemplate(Naming::getModuleName() . '::product/gallery.phtml')
-            ->setData('config', $this->blockHelper->getConfig($productId))
+            ->setData('content', $this->blockHelper->getConfig($productId))
             ->setData('title', Naming::getModuleTitle())
             ->toHtml();
 
