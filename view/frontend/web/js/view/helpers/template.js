@@ -17,10 +17,9 @@
         'mage/template',
         'text!Naxero_BuyNow/template/loader.html',
         'text!Naxero_BuyNow/template/message.html',
-        'text!Naxero_BuyNow/template/widget-gallery.html',
         'text!Naxero_BuyNow/template/slider.html'
     ],
-    function (MageTemplate, Loader, Message, WidgetGallery, Slider) {
+    function (MageTemplate, Loader, Message, Slider) {
         'use strict';
 
         return {
