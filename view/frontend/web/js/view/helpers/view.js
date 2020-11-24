@@ -12,7 +12,7 @@
  * @link      https://www.naxero.com
  */
 
- define([
+define([
     'jquery'
 ], function ($) {
     'use strict';
@@ -38,8 +38,7 @@
          * Check if the current product is in block view.
          */
         isWidgetView: function () {
-            return this.o.jsConfig.product.display == 'block'
-            || this.o.jsConfig.product.display == 'widget';
+            return this.o.jsConfig.product.display == 'widget';
         },
 
         /**

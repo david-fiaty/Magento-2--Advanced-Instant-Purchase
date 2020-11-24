@@ -257,12 +257,26 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getProductImages($productId)
     {
+        // Get the product
         $product = $this->getProduct($productId);
-        return [
+
+        // Add the main image data
+        $output = [
             'small' => $this->imageHelper->init($product, 'product_page_image_small')->getUrl(),
             'medium' => $this->imageHelper->init($product, 'product_page_image_medium')->getUrl(),
-            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl()
+            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl(),
+            'gallery' => []
         ];
+
+        // Add the media gallery imagesdata
+        $galleryImages = $product->getMediaGalleryImages();
+        if ($galleryImages && !empty($galleryImages)) {
+            foreach ($galleryImages as $galleryImage) {
+                $output['gallery'][] = $galleryImage->getData();
+            }
+        }
+
+        return $output;
     }
 
     /**

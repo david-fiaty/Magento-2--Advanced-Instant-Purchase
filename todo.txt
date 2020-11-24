@@ -30,6 +30,7 @@ https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best
 QA
 - check that widget config override is working as expected, especially for zoom parameters
 - check if place order contains expected product attributes selected by user (request data)
+- check: multiple widgets in same page, multiple widgets in list and page view
 
 FEATURES
 - build order confirmation screen after payment + editable info

@@ -80,32 +80,3 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
-<?php if ($showProductImage && $zoomEnabled): ?>
-<script>
-    require([
-        'jquery',
-        'elevatezoom',
-        'domReady!'
-    ], function($, elevateZoom) {
-        'use strict';
-
-        // Zoom parameters
-        var isLightbox = <?= $isLightbox ?>;
-        var params = {
-            responsive: true,
-            zoomType: '<?= $content['widgets']['widget_zoom_type'] ?>'
-        };
-
-        // Zoom initialisation
-        if (!isLightbox) {
-            $('#<?= $boxId ?> .nbn-product-box-image img').elevateZoom(params); 
-        }
-        else {
-            $('#<?= $boxId ?> .nbn-product-box-image').css('cursor', 'pointer'); 
-            $('#<?= $boxId ?> .nbn-product-box-image').on('click touch', function() {
-                alert('Modal gallery');
-            });           
-        }
-    });
-</script>
-<?php endif; ?> 

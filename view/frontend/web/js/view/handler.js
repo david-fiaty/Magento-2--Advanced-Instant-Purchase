@@ -67,6 +67,11 @@ define([
             // Options validation
             this.o.product.initOptionsEvents();
 
+            // Widget features
+            if (this.o.view.isWidgetView()) {
+                this.o.widget.build()
+            }
+
             // Button click event
             self.handleButtonClick();
 
