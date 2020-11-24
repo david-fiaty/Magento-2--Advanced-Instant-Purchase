@@ -37,7 +37,7 @@
             width: <?= $content['widgets']['widget_image_width'] ?>
         }
         </style>
-        <div class="nbn-product-box-image">
+        <div class="nbn-product-box-image" data-product-id="<?= $content['product']['id'] ?>">
             <img src="<?= $block->escapeUrl($content['product']['images']['large']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>
     <?php endif; ?>

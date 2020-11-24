@@ -107,9 +107,6 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.o.modal.addHtml(self.popupContentSelector, data.html);
-
-                    // Build the data tree
-                    self.o.widget.build();
                 },
                 error: function (request, status, error) {
                     self.o.logger.log(
@@ -161,10 +158,13 @@ define([
         handleImageClick: function () {
             // Prepare variables
             var self = this;
-            var imageContainer = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
 
-            // Zoom parameters
+            // Selectors
             var boxId = '#nbn-product-box-' + this.jsConfig.product.id;
+            var imageContainer = boxId + ' .nbn-product-box-image';
+            var image = imageContainer + ' img';
+
+            // Zoom parameters      
             var zoomType = this.jsConfig.widgets.widget_zoom_type;
             var isLightbox = this.jsConfig.widgets.widget_zoom_type == 'lightbox';
             var params = {
@@ -172,16 +172,21 @@ define([
                 zoomType: zoomType
             };
 
-            // Image container click event
-            imageContainer.on('click touch', function (e) {
-
+            //Image initial state
+            if (!isLightbox) {
                 // Zoom initialisation
-                if (!isLightbox) {
-                    $(boxId + ' .nbn-product-box-image img').elevateZoom(params); 
-                }
-                else {
+                $(image).elevateZoom(params); 
+            }
+            else {
+                // Image state
+                $(imageContainer).css('cursor', 'zoom-in'); 
+            }
+
+            // Image container click event
+            $(imageContainer).on('click touch', function (e) {
+                if (isLightbox) {
                     // Image state
-                    $(boxId + ' .nbn-product-box-image').css('cursor', 'zoom-in'); 
+                    $(imageContainer).css('cursor', 'zoom-in'); 
 
                     // Open the modal
                     self.o.modal.getGalleryModal(self);
@@ -189,7 +194,6 @@ define([
                     // Get the log data
                     self.getGalleryData(e);     
                 }
-        
             });
         },
 
