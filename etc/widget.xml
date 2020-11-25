@@ -20,6 +20,11 @@
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
+            <!-- CSS assets-->
+            <parameter name="group_css" xsi:type="block" visible="false">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Css"/>
+            </parameter>
+
             <!-- General settings-->
             <parameter name="group_general" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
@@ -387,10 +392,6 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
-            </parameter>
-    
-            <parameter name="group_scripts" xsi:type="block" visible="false">
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Scripts"/>
             </parameter>
         </parameters>
     </widget>

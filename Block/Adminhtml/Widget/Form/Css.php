@@ -19,12 +19,12 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Scripts class.
+ * Css class.
  */
-class Scripts extends \Magento\Backend\Block\Template
+class Css extends \Magento\Backend\Block\Template
 {
     /**
-     * Scripts class constructor.
+     * Css class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -40,7 +40,7 @@ class Scripts extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/scripts.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/css.phtml')
             ->setData('element', $element)
             ->toHtml();
 
