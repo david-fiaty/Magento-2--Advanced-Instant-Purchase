@@ -45,12 +45,10 @@
             </parameter>
 
             <parameter name="product_id" xsi:type="block" visible="true">
-                <label translate="true">Product</label>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
             </parameter>
 
             <parameter name="product_filter" xsi:type="block" visible="true">
-                <label translate="true">Filter type</label>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductFilterSelector"/>
             </parameter>
 
