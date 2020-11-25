@@ -24,13 +24,21 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Js extends \Magento\Backend\Block\Template
 {
     /**
+     * @var Repository
+     */
+    public $assetRepository;
+
+    /**
      * Js class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\View\Asset\Repository $assetRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
+
+        $this->assetRepository = $assetRepository;
     }
 
     /**

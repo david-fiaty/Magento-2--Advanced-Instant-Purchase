@@ -40,23 +40,16 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     public $moduleDirReader;
 
     /**
-     * @var Repository
-     */
-    public $assetRepository;
-
-    /**
      * Class Config constructor.
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
-        \Magento\Framework\Module\Dir\Reader $moduleDirReader,
-        \Magento\Framework\View\Asset\Repository $assetRepository
+        \Magento\Framework\Module\Dir\Reader $moduleDirReader
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
-        $this->assetRepository = $assetRepository;
     }
 
     /**
@@ -132,15 +125,5 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
             Naming::getModuleName()
         ) . '/' . $fileName;
-    }
-
-    /**
-     * Gets the module CSS path.
-     *
-     * @return array
-     */
-    public function getCssPath()
-    {
-        return $this->assetRepository->getUrl(Naming::getModuleName() . '::css');
     }
 }
