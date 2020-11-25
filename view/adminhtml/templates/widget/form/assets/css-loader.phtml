@@ -14,7 +14,7 @@
  */
 ?>
 <style>
-    <?php foreach ($block->getCssAssets() as $url): ?>
+    <?php foreach ($block->getData('assets') as $url): ?>
         @import url('<?= $url ?>');
     <?php endforeach; ?>
 </style>
