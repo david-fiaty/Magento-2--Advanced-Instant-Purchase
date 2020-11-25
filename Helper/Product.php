@@ -277,13 +277,22 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             'gallery' => []
         ];
 
-        // Add the media gallery imagesdata
+        // Add the media gallery images data
         $galleryImages = $product->getMediaGalleryImages();
         if ($galleryImages && !empty($galleryImages)) {
             foreach ($galleryImages as $galleryImage) {
                 $output['gallery'][] = $galleryImage->getData();
             }
         }
+
+        // Sort by position field
+        usort($galleryImages, function($a, $b) {
+            $val1 = (int) $a['position'];
+            $val2 = (int) $b['position'];
+
+            if ($val1 == $val2) return 0;
+            return $val1 < $val2 ? -1 : 1;
+        });
 
         return $output;
     }

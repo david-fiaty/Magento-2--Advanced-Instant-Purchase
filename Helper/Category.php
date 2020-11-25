@@ -163,7 +163,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         }        
         
         usort($stockValues, function($a, $b) {
-            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+            $val1 = (int) $a['stock_quantity'];
+            $val2 = (int) $b['stock_quantity'];
+
+            if ($val1 == $val2) return 0;
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($stockValues[0]['product_id']);
@@ -185,7 +189,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         }        
         
         usort($stockValues, function($a, $b) {
-            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+            $val1 = (int) $a['stock_quantity'];
+            $val2 = (int) $b['stock_quantity'];
+
+            if ($val1 == $val2) return 0;
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($stockValues[count($stockValues) - 1]['product_id']);
@@ -204,9 +212,13 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 'final_price' => $product->getFinalPrice()
             ];
         }     
-        
+
         usort($priceValues, function($a, $b) {
-            return strcmp($a['final_price'], $b['final_price']);
+            $val1 = (float) $a['final_price'];
+            $val2 = (float) $b['final_price'];
+
+            if ($val1 == $val2) return 0;
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($priceValues[0]['product_id']);
@@ -227,7 +239,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         }     
         
         usort($priceValues, function($a, $b) {
-            return strcmp($a['final_price'], $b['final_price']);
+            $val1 = (float) $a['final_price'];
+            $val2 = (float) $b['final_price'];
+
+            if ($val1 == $val2) return 0;
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($priceValues[count($priceValues) - 1]['product_id']);
