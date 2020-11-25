@@ -51,7 +51,7 @@ $products = $block->getData('products');
     // Initial display state
     var parentSelect = $('#' + $('#nbn-product-selection-mode').val());
     if (parentSelect.val() != 'product') {
-        $('#<?= $element->getId() ?>').css('display', 'none');
+        $('#<?= $element->getId() ?>').parent('.admin__fieldset').css('display', 'none');
     }
 });
 </script>
