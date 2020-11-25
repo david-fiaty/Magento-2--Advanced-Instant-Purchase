@@ -30,8 +30,8 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
+    $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
     $buttonText = $this->blockHelper->getButtonText();
-}
 ?>
 
 <!-- Product box -->
@@ -42,6 +42,15 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
 <?php endif; ?>
 
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
+    <!-- Quantity widget -->
+    <input type="number"
+    name="qty"
+    id="qty"
+    maxlength="12"
+    value="1"
+    title="<?= __('Qty') ?>"
+    class="input-text qty" />
+
     <!-- Button -->
     <button 
         id="<?= $block->escapeHtmlAttr($buttonId) ?>"
