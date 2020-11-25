@@ -48,7 +48,7 @@ class JsLoader extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/js.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/js-loader.phtml')
             ->setData('element', $element)
             ->toHtml();
 
