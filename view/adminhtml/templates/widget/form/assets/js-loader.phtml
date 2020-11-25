@@ -13,6 +13,7 @@
  * @link      https://www.naxero.com
  */
 ?>
+
 <script>
 require([
     'jquery',
@@ -92,7 +93,7 @@ require([
     });
 
     // Product selection mode event
-    $('#<?= $element->getId() ?>').on('change', function() {
+    productSelectionMode.on('change', function() {
         // Prepare the variables
         var productSelector = $('#' + $('#nbn-product-selector').val());
         var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
