@@ -31,22 +31,3 @@ $products = $block->getData('products');
     </select>
     <input type="hidden" id="nbn-product-selector" name="nbn-product-selector" value="<?= $element->getId() ?>">
 </div>
-
-<!-- Select 2 script -->
-<script>
-    require([
-        'jquery',
-        'mage/translate',
-        'select2',
-        'domReady!'
-], function($, __, select2) {
-    'use strict';
-
-    // Product selector
-    $('#<?= $element->getId() ?>').select2({
-        placeholder: __('Select an option'),
-        theme: 'classic'
-    });
-
-});
-</script>

@@ -18,7 +18,6 @@
 // Get the block data
 $element = $block->getData('element');
 $options = $block->getData('options');
-
 ?>
 
 <!-- Product list selector -->
@@ -32,22 +31,3 @@ $options = $block->getData('options');
     </select>
     <input type="hidden" id="nbn-product-filter-selector" name="nbn-product-filter-selector" value="<?= $element->getId() ?>">
 </div>
-
-<!-- Select 2 script -->
-<script>
-    require([
-        'jquery',
-        'mage/translate',
-        'select2',
-        'domReady!'
-], function($, __, select2) {
-    'use strict';
-
-    // Product selector
-    $('#<?= $element->getId() ?>').select2({
-        placeholder: __('Select an option'),
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
-});
-</script>
