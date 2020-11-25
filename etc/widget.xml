@@ -34,9 +34,8 @@
                 </block>
             </parameter>
 
-            <parameter name="product_selection_mode" xsi:type="block" visible="true">
+            <parameter name="product_selection_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Product selection mode</label>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelectionMode"/>
             </parameter>
 
             <parameter name="category_id" xsi:type="block" visible="true">
