@@ -13,7 +13,7 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form;
+namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
@@ -40,7 +40,7 @@ class Css extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/css.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/css.phtml')
             ->setData('element', $element)
             ->toHtml();
 

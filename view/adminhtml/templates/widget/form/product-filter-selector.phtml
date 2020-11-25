@@ -49,11 +49,5 @@ $options = $block->getData('options');
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
-
-    // Initial display state
-    var parentSelect = $('#' + $('#nbn-product-selection-mode').val());
-    if (parentSelect.val() != 'category') {
-        $('#<?= $element->getId() ?>').parent('.admin__fieldset').css('display', 'none');
-    }
 });
 </script>

@@ -48,10 +48,5 @@ $products = $block->getData('products');
         theme: 'classic'
     });
 
-    // Initial display state
-    var parentSelect = $('#' + $('#nbn-product-selection-mode').val());
-    if (parentSelect.val() != 'product') {
-        $('#<?= $element->getId() ?>').parent('.admin__fieldset').css('display', 'none');
-    }
 });
 </script>
