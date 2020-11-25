@@ -47,5 +47,11 @@ $products = $block->getData('products');
         placeholder: __('Select an option'),
         theme: 'classic'
     });
+
+    // Initial display state
+    var parentSelect = $('#' + $('#nbn-product-selection-mode').val());
+    if (parentSelect.val() != 'product') {
+        $('#<?= $element->getId() ?>').css('display', 'none');
+    }
 });
 </script>

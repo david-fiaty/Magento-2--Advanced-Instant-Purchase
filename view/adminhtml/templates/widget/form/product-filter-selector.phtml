@@ -50,5 +50,10 @@ $options = $block->getData('options');
         theme: 'classic'
     });
 
+    // Initial display state
+    var parentSelect = $('#' + $('#nbn-product-selection-mode').val());
+    if (parentSelect.val() != 'category') {
+        $('#<?= $element->getId() ?>').css('display', 'none');
+    }
 });
 </script>

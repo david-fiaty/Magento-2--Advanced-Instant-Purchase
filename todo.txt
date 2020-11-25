@@ -2,17 +2,10 @@
 !!!PRIORITY!!!
 
 - set admin widget fields selected values on page load
-
-- sort widget gallery images data array by "position"
-
-
 - add product quantity box in popup and widget
-
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
-
-
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 

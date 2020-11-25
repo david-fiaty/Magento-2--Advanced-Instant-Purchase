@@ -283,16 +283,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             foreach ($galleryImages as $galleryImage) {
                 $output['gallery'][] = $galleryImage->getData();
             }
+
+            // Sort by position field
+            usort($output['gallery'], function($a, $b) {
+                $val1 = (int) $a['position'];
+                $val2 = (int) $b['position'];
+
+                if ($val1 == $val2) return 0;
+                return $val1 < $val2 ? -1 : 1;
+            });
         }
-
-        // Sort by position field
-        usort($galleryImages, function($a, $b) {
-            $val1 = (int) $a['position'];
-            $val2 = (int) $b['position'];
-
-            if ($val1 == $val2) return 0;
-            return $val1 < $val2 ? -1 : 1;
-        });
 
         return $output;
     }
