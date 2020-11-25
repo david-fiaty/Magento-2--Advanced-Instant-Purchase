@@ -24,12 +24,19 @@ use Naxero\BuyNow\Model\Config\Naming;
 class ProductSelectionMode extends \Magento\Backend\Block\Template
 {
     /**
+     * @var ProductSelectionMode
+     */
+    public $productSelectionModeSource;
+
+    /**
      * ProductSelectionMode class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode $productSelectionModeSource,
         array $data = []
     ) {
+        $this->productSelectionModeSource = $productSelectionModeSource;
         parent::__construct($context, $data);
     }
 
@@ -42,6 +49,7 @@ class ProductSelectionMode extends \Magento\Backend\Block\Template
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-selection-mode.phtml')
             ->setData('element', $element)
+            ->setData('options', $this->productSelectionModeSource->toOptionArray())
             ->toHtml();
 
         // Render the HTML

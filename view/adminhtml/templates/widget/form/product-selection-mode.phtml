@@ -17,15 +17,19 @@
 <?php
 // Get the block data
 $element = $block->getData('element');
+$options = $block->getData('options');
+
 ?>
 
 <!-- Product selection mode selector -->
 <div>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
-        <option value="category"><?= _('Category') ?></option>
-        <option value="product"><?= _('Product') ?></option>
+        <?php foreach ($options as $option): ?>
+            <option value="<?= $option['value'] ?>" <?= $element->getValue() == $option['value'] ? 'selected' : '' ?>>
+                <?= $option['label'] ?>
+            </option>
+        <?php endforeach; ?>
     </select>
-    <input type="hidden" id="nbn-product-selection-mode-selector" name="nbn-product-selection-mode-selector" value="<?= $element->getId() ?>">
 </div>
 
 <!-- Select 2 script -->

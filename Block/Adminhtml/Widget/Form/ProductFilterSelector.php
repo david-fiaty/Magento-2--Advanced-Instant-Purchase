@@ -23,13 +23,21 @@ use Naxero\BuyNow\Model\Config\Naming;
  */
 class ProductFilterSelector extends \Magento\Backend\Block\Template
 {
+
+    /**
+     * @var ProductFilterSelector
+     */
+    public $productFilterSelectorSource;
+
     /**
      * ProductFilterSelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Naxero\BuyNow\Model\Config\Backend\Source\ProductFilterSelector $productFilterSelectorSource,
         array $data = []
     ) {
+        $this->productFilterSelectorSource = $productFilterSelectorSource;
         parent::__construct($context, $data);
     }
 
@@ -42,6 +50,7 @@ class ProductFilterSelector extends \Magento\Backend\Block\Template
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/product-filter-selector.phtml')
             ->setData('element', $element)
+            ->setData('options', $this->productFilterSelectorSource->toOptionArray())
             ->toHtml();
 
         // Render the HTML
