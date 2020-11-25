@@ -25,6 +25,11 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     const CONFIG_FILE_NAME = 'config.xml';
 
     /**
+     * @var Repository
+     */
+    public $assetRepository;
+
+    /**
      * @var ScopeConfigInterface
      */
     public $scopeConfig;
@@ -43,10 +48,12 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Config constructor.
      */
     public function __construct(
+        \Magento\Framework\View\Asset\Repository $assetRepository,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Xml\Parser $xmlParser,
         \Magento\Framework\Module\Dir\Reader $moduleDirReader
     ) {
+        $this->assetRepository = $assetRepository;
         $this->scopeConfig = $scopeConfig;
         $this->xmlParser = $xmlParser;
         $this->moduleDirReader = $moduleDirReader;
