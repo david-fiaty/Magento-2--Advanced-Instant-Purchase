@@ -139,17 +139,22 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $categoryId = $this->getData('category_id');
 
             // Get the product filter function
-            $fn = 'get';
-            $members = explode('_', $productFilter);
-            foreach ($members as $member) {
-                $fn .= ucfirst($member);
-            }
-            $fn .= 'Product';
+            if ($productFilter) {
+                $fn = 'get';
+                $members = explode('_', $productFilter);
+                if (!empty($members)) {
+                    // Build the method name to call
+                    foreach ($members as $member) {
+                        $fn .= ucfirst($member);
+                    }
+                    $fn .= 'Product';
 
-            // Update the product id
-            $product = $this->categoryHelper->$fn($categoryId);
-            if ($product) {
-                $productId = $product->getId();
+                    // Update the product id if method exists
+                    if (method_exists($this->categoryHelper, $fn)) {
+                        $product = $this->categoryHelper->$fn($categoryId);
+                        $productId = $product ? $product->getId() : $productId;
+                    }
+                }
             }
         }
 
