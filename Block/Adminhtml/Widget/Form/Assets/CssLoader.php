@@ -57,4 +57,13 @@ class CssLoader extends \Magento\Backend\Block\Template
 
         return $element;
     }
+
+    /**
+     * Get the CSS assets URLs.
+     */
+    public function getCssAssets() {
+        return [
+            $this->assetRepository->getUrl(Naming::getModuleName() . '::css/lib/select2/select2.css')
+        ];
+    }
 }
