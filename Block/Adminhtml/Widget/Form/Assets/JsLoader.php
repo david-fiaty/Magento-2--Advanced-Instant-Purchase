@@ -19,9 +19,9 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Css class.
+ * JsLoader class.
  */
-class Css extends \Magento\Backend\Block\Template
+class JsLoader extends \Magento\Backend\Block\Template
 {
     /**
      * @var Repository
@@ -29,7 +29,7 @@ class Css extends \Magento\Backend\Block\Template
     public $assetRepository;
 
     /**
-     * Css class constructor.
+     * JsLoader class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -37,7 +37,7 @@ class Css extends \Magento\Backend\Block\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-    
+
         $this->assetRepository = $assetRepository;
     }
 
@@ -48,7 +48,7 @@ class Css extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/css.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/js.phtml')
             ->setData('element', $element)
             ->toHtml();
 

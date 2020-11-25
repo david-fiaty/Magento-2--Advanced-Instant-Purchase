@@ -22,7 +22,7 @@
         <parameters>
             <!-- CSS assets-->
             <parameter name="group_css" xsi:type="block" visible="false">
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Css"/>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\CssLoader"/>
             </parameter>
 
             <!-- General settings-->
@@ -396,6 +396,11 @@
                         <label translate="true">No</label>
                     </option>
                 </options>
+            </parameter>
+
+            <!-- JS assets-->
+            <parameter name="group_js" xsi:type="block" visible="false">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\JsLoader"/>
             </parameter>
         </parameters>
     </widget>
