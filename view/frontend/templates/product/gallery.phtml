@@ -18,6 +18,11 @@
     // Get the data
     $content = $this->getData('content');
 ?>
+<style>
+.nbn-gallery-image {
+    width: <?= $content['widgets']['widget_image_width'] ?>
+}
+</style>
 
 <div class="nbn-gallery-images">
     <?php if (!empty($content['product']['images']['gallery'])): ?>

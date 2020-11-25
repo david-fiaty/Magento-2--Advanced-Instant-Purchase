@@ -34,10 +34,9 @@
         build: function () {
             $('.nbn-gallery-images').slick({
                 slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: false,
+                infinite: true,
                 speed: 500,
-                arrows: true
+                dots: true
             });
         }
     };
