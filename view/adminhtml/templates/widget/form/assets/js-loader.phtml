@@ -24,7 +24,7 @@ require([
     'use strict';
 
     // Selectors
-    var categorySelector = $('select[name="parameters=[category_id]"]');
+    var categorySelector = $('#' + $('#nbn-category-selector').val());
     var productSelector = $('select[name="parameters=[product_id]"]');
 
     // Category selector select
