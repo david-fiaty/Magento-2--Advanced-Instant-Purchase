@@ -2,7 +2,10 @@
 !!!PRIORITY!!!
 
 - set admin widget fields selected values on page load
+-> product list should be update with ajax request on page load => reuse existing code
+
 - add product quantity box in popup and widget
+
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
@@ -27,6 +30,7 @@ QA
 - check: multiple widgets in same page, multiple widgets in list and page view
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
+- check add to cart values and display in popup and order request
 
 FEATURES
 - add buynow count down timer
