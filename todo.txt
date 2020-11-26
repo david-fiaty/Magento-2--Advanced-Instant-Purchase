@@ -2,13 +2,13 @@
 !!!PRIORITY!!!
 
 - set admin widget fields selected values on page load
+-> product list should be update with ajax request on page load => reuse existing code
+
+- add product quantity box in popup and widget
+
 - complete payment integrations
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
-
-
-- check if place order contains expected product attributes selected by user (request data)
-
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 
@@ -24,7 +24,18 @@
 https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
 
+QA
+- check that widget config override is working as expected, especially for zoom parameters
+- check if place order contains expected product attributes selected by user (request data)
+- check: multiple widgets in same page, multiple widgets in list and page view
+- fix/improve lightbox gallery images display
+- recheck all zoom modes
+- check add to cart values and display in popup and order request
+
 FEATURES
+- add buynow count down timer
+- add buynow time limit
+
 - build order confirmation screen after payment + editable info
 
 - ! add quick cart checkout option in minicart and basket page
@@ -37,6 +48,9 @@ EXTRA
 - add button error reporting to button popover.
 
 
+LIBS
+- update the slick version from 1.8.0 to 1.8.1
+- check other libraries versions
 
 EXPLORE
 - improved category UI selector:

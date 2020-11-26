@@ -13,24 +13,32 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form;
+namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * ProductSelectionMode class.
+ * JsLoader class.
  */
-class ProductSelectionMode extends \Magento\Backend\Block\Template
+class JsLoader extends \Magento\Backend\Block\Template
 {
     /**
-     * ProductSelectionMode class constructor.
+     * @var Repository
+     */
+    public $assetRepository;
+
+    /**
+     * JsLoader class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\View\Asset\Repository $assetRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
+
+        $this->assetRepository = $assetRepository;
     }
 
     /**
@@ -40,7 +48,7 @@ class ProductSelectionMode extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/product-selection-mode.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/js-loader.phtml')
             ->setData('element', $element)
             ->toHtml();
 

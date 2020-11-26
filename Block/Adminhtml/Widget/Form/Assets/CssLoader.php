@@ -13,24 +13,32 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form;
+namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Scripts class.
+ * CssLoader class.
  */
-class Scripts extends \Magento\Backend\Block\Template
+class CssLoader extends \Magento\Backend\Block\Template
 {
     /**
-     * Scripts class constructor.
+     * @var Repository
+     */
+    public $assetRepository;
+
+    /**
+     * CssLoader class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\View\Asset\Repository $assetRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
+    
+        $this->assetRepository = $assetRepository;
     }
 
     /**
@@ -40,13 +48,22 @@ class Scripts extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/scripts.phtml')
-            ->setData('element', $element)
+            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/css-loader.phtml')
+            ->setData('assets', $this->getCssAssets())
             ->toHtml();
 
         // Render the HTML
         $element->setData('after_element_html', $blockHtml);
 
         return $element;
+    }
+
+    /**
+     * Get the CSS assets URLs.
+     */
+    public function getCssAssets() {
+        return [
+            $this->assetRepository->getUrl(Naming::getModuleName() . '::css/lib/select2/select2.css')
+        ];
     }
 }

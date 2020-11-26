@@ -22,13 +22,23 @@
     $showProductImage = $content['widgets']['widget_show_product_image'];
     $showProductName = $content['widgets']['widget_show_product_name'];
     $showProductPrice = $content['widgets']['widget_show_product_price'];
+    $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
+    $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
+
+    // CSS selectors
+    $boxId = 'nbn-product-box-' . $content['product']['id'];
 ?>
 
-<div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
+<div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
+    <!-- Product image -->
     <?php if ($showProductImage): ?>
-        <!-- Product image -->
-        <div class="nbn-product-box-image">
-            <img src="<?= $block->escapeUrl($content['product']['image_url']) ?>"> 
+        <style>
+        #<?= $boxId ?> .nbn-product-box-image {
+            width: <?= $content['widgets']['widget_image_width'] ?>
+        }
+        </style>
+        <div class="nbn-product-box-image" data-product-id="<?= $content['product']['id'] ?>">
+            <img src="<?= $block->escapeUrl($content['product']['images']['large']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>
     <?php endif; ?>
 

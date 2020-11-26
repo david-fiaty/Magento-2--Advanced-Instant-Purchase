@@ -121,12 +121,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'price' => $this->getProductPrice($productId),
                 'is_free' => $this->isFree($productId),
                 'form_key' => $this->toolsHelper->getFormKey(),
+                'has_parents' => $this->hasParents($product),
                 'in_stock' => $this->isInStock($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
-                'image_url' => $this->getProductImageUrl($productId),
+                'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
                 'options' => $this->getOptions($productId)
             ];
@@ -157,6 +158,14 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function hasOptions($productId)
     {
         return $this->getProduct($productId)->getData('has_options');
+    }
+
+    /**
+     * Check if a product has parent products.
+     */
+    public function hasParents($product)
+    {
+        return !empty($product->getTypeInstance()->getParentIdsByChild($product->getId()));
     }
 
     /**
@@ -255,15 +264,37 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product image url.
      */
-    public function getProductImageUrl($productId)
+    public function getProductImages($productId)
     {
-        return $this->imageHelper->init(
-            $this->getProduct($productId),
-            'product_base_image'
-        )->constrainOnly(false)
-        ->keepAspectRatio(true)
-        ->keepFrame(false)
-        ->getUrl();
+        // Get the product
+        $product = $this->getProduct($productId);
+
+        // Add the main image data
+        $output = [
+            'small' => $this->imageHelper->init($product, 'product_page_image_small')->getUrl(),
+            'medium' => $this->imageHelper->init($product, 'product_page_image_medium')->getUrl(),
+            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl(),
+            'gallery' => []
+        ];
+
+        // Add the media gallery images data
+        $galleryImages = $product->getMediaGalleryImages();
+        if ($galleryImages && !empty($galleryImages)) {
+            foreach ($galleryImages as $galleryImage) {
+                $output['gallery'][] = $galleryImage->getData();
+            }
+
+            // Sort by position field
+            usort($output['gallery'], function($a, $b) {
+                $val1 = (int) $a['position'];
+                $val2 = (int) $b['position'];
+
+                if ($val1 == $val2) return 0;
+                return $val1 < $val2 ? -1 : 1;
+            });
+        }
+
+        return $output;
     }
 
     /**

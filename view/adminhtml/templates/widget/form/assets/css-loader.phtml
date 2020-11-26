@@ -13,7 +13,8 @@
  * @link      https://www.naxero.com
  */
 ?>
-
 <style>
-    @import url('https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css');
+    <?php foreach ($block->getData('assets') as $url): ?>
+        @import url('<?= $url ?>');
+    <?php endforeach; ?>
 </style>

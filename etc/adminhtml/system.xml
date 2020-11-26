@@ -53,6 +53,11 @@
                         </depends>
                 </field>
 
+                <field id="product_tree_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product tree filter</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter</source_model>
+                </field>
+
                 <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Customer group</label>
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
@@ -151,13 +156,6 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show the product in the purchase popup windwow.</comment>
                 </field>
-                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
-                </field>
                 <field id="widget_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product name</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -177,6 +175,33 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="widget_show_product">1</field>
+                    </depends>
+                </field>
+                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="widget_show_product">1</field>
+                    </depends>
+                </field>
+                <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image width</label>
+                    <depends>
+                        <field id="widget_show_product_image">1</field>
+                    </depends>
+                </field>
+                <field id="widget_zoom_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable zoom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="widget_show_product_image">1</field>
+                    </depends>
+                </field>
+                <field id="widget_zoom_type" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zoom type</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ZoomType</source_model>
+                    <depends>
+                        <field id="widget_zoom_enabled">1</field>
                     </depends>
                 </field>
             </group>

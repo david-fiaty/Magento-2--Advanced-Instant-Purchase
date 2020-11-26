@@ -16,11 +16,13 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
+    'elevatezoom',
     'Naxero_BuyNow/js/view/core',
+    'Naxero_BuyNow/js/view/assets/quantity-box',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, Core) {
+], function ($, __, Component, elevateZoom, Core, NbnQtyBox) {
     'use strict';
     
     return Component.extend({
@@ -29,6 +31,7 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
+            galleryUrl: 'product/index',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
@@ -59,16 +62,24 @@ define([
          * @param {Object} data
          */
         build: function () {
-            var self = this;
-
             // Spinner icon
             this.o.spinner.loadIcon();
 
             // Options validation
             this.o.product.initOptionsEvents();
 
+            // Widget features
+            if (this.o.view.isWidgetView()) {
+                // Image
+                this.handleImageClick();
+
+                // Quantity box
+                // Todo - check quantity config control enabled
+                NbnQtyBox.build();
+            }
+
             // Button click event
-            self.handleButtonClick();
+            this.handleButtonClick();
 
             // Log the step
             this.o.logger.log(
@@ -78,6 +89,41 @@ define([
                 ),
                 this.jsConfig
             );
+        },
+
+        /**
+         * Build a product gallery.
+         */
+        getGalleryData: function (e) {
+            // Prepare variables
+            var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var params = {
+                product_id: productId,
+                form_key: $(this.formKeySelectorPrefix + productId).val()
+            };
+
+            // Set the data viewer button event
+            self.o.slider.showLoader();
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: self.o.paths.get(self.galleryUrl),
+                data: params,
+                success: function (data) {
+                    // Get the HTML content
+                    self.o.modal.addHtml(self.popupContentSelector, data.html);
+
+                    // Build the gallery
+                    self.o.gallery.build();
+                },
+                error: function (request, status, error) {
+                    self.o.logger.log(
+                        __('Error retrieving the product gallery data'),
+                        error
+                    );
+                }
+            });
         },
 
         /**
@@ -111,6 +157,51 @@ define([
                         __('Error retrieving the UI logging data'),
                         error
                     );
+                }
+            });
+        },
+
+        /**
+         * Handle the image click event.
+         */
+        handleImageClick: function () {
+            // Prepare variables
+            var self = this;
+
+            // Selectors
+            var boxId = '#nbn-product-box-' + this.jsConfig.product.id;
+            var imageContainer = boxId + ' .nbn-product-box-image';
+            var image = imageContainer + ' img';
+
+            // Zoom parameters      
+            var zoomType = this.jsConfig.widgets.widget_zoom_type;
+            var isLightbox = this.jsConfig.widgets.widget_zoom_type == 'lightbox';
+            var params = {
+                responsive: true,
+                zoomType: zoomType
+            };
+
+            // Image initial state
+            if (!isLightbox) {
+                // Zoom initialisation
+                $(image).elevateZoom(params); 
+            }
+            else {
+                // Image state
+                $(imageContainer).css('cursor', 'zoom-in'); 
+            }
+
+            // Image container click event
+            $(imageContainer).on('click touch', function (e) {
+                if (isLightbox) {
+                    // Image state
+                    $(imageContainer).css('cursor', 'zoom-in'); 
+
+                    // Open the modal
+                    self.o.modal.getGalleryModal(self);
+
+                    // Get the log data
+                    self.getGalleryData(e);     
                 }
             });
         },

@@ -121,7 +121,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Prepare the UI loader
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        $config['ui']['css'] = $this->configHelper->getCssPath();
 
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();

@@ -15,6 +15,8 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
  * WidgetButton class.
  */
@@ -66,8 +68,8 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     ) {
         parent::__construct($context, $data);
         
-        $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
+        $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
         $this->categoryHelper = $categoryHelper;
@@ -86,19 +88,39 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
-        // Check the display conditions
-        $condition = $this->purchaseHelper->canDisplayButton();
-        if ($condition) {
+        // Check the global display conditions
+        if ($this->purchaseHelper->canDisplayButton()) {
             // Update the product attributes data
             $config = $this->updateAttributesData($config);
 
             // Update the config with tag parameters
             $config = $this->updateWidgetConfig($config);
 
-            return $config;
+            // Check the widget display conditions
+            if ($this->canDisplayButton($config)) {
+                return $config;
+            }
+
+            return null;
         }
         
         return null;
+    }
+   
+    /**
+     * Check if the widget can be displayed.
+     */
+    public function canDisplayButton($config)
+    {
+        // Cand display parents
+        $condition1 = !$config['product']['has_parents']
+        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'parent');
+
+        // Cand display children
+        $condition2 = $config['product']['has_parents']
+        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'child');
+
+        return $condition1 || $condition2;
     }
     
     /**
@@ -117,17 +139,22 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $categoryId = $this->getData('category_id');
 
             // Get the product filter function
-            $fn = 'get';
-            $members = explode('_', $productFilter);
-            foreach ($members as $member) {
-                $fn .= ucfirst($member);
-            }
-            $fn .= 'Product';
+            if ($productFilter) {
+                $fn = 'get';
+                $members = explode('_', $productFilter);
+                if (!empty($members)) {
+                    // Build the method name to call
+                    foreach ($members as $member) {
+                        $fn .= ucfirst($member);
+                    }
+                    $fn .= 'Product';
 
-            // Update the product id
-            $product = $this->categoryHelper->$fn($categoryId);
-            if ($product) {
-                $productId = $product->getId();
+                    // Update the product id if method exists
+                    if (method_exists($this->categoryHelper, $fn)) {
+                        $product = $this->categoryHelper->$fn($categoryId);
+                        $productId = $product ? $product->getId() : $productId;
+                    }
+                }
             }
         }
 
