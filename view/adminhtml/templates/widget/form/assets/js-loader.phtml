@@ -46,11 +46,33 @@ require([
     });    
 
     // Category selector change event
-    categorySelector.on('change', function() {
+    categorySelector.on('change', updateProductSelector);
+
+    // Product selector select
+    productSelector.select2({
+        placeholder: __('Select an option'),
+        theme: 'classic'
+    });
+
+    // Product selector default values
+    if (parseInt(categorySelector.val()) > 0) {
+        updateProductSelector();
+    }
+
+    // Product filter selector
+    var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
+    productFilterSelector.select2({
+        placeholder: __('Select an option'),
+        minimumResultsForSearch: -1,
+        theme: 'classic'
+    });
+
+    // Functions
+    function updateProductSelector() {
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var data = {
-            category_id: $(this).val(),
+            category_id: categorySelector.val(),
             form_key: window.FORM_KEY
         };
 
@@ -68,20 +90,6 @@ require([
                 console.log(error);
             }
         });
-    });
-
-    // Product selector
-    productSelector.select2({
-        placeholder: __('Select an option'),
-        theme: 'classic'
-    });
-
-    // Product filter selector
-    var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
-    productFilterSelector.select2({
-        placeholder: __('Select an option'),
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
+    }
 });
 </script>
