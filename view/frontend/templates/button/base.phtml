@@ -43,7 +43,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
 
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
     <!-- Quantity widget -->
-    <?php if (!$showQuantityBox): ?>
+    <?php if ($showQuantityBox): ?>
         <input 
             type="number"
             name="qty"

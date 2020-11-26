@@ -29,6 +29,9 @@ QA
 - recheck all zoom modes
 
 FEATURES
+- add buynow count down timer
+- add buynow time limit
+
 - build order confirmation screen after payment + editable info
 
 - ! add quick cart checkout option in minicart and basket page
