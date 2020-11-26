@@ -83,30 +83,5 @@ require([
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
-
-    // Product selection mode
-    var productSelectionMode = $('#' + $('#nbn-product-selection-mode').val());
-    productSelectionMode.select2({
-        placeholder: __('Select an option'),
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
-
-    // Product selection mode event
-    productSelectionMode.on('change', function() {
-        // Prepare the variables
-        var productSelector = $('#' + $('#nbn-product-selector').val());
-        var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
-
-        // Toggle the dependent fields
-        if ($(this).val() == 'product') {
-            productSelector.closest('.admin__field.field').show();
-            productFilterSelector.closest('.admin__field.field').hide();
-        }
-        else if ($(this).val() == 'category') {
-            productSelector.closest('.admin__field.field').hide();
-            productFilterSelector.closest('.admin__field.field').show();
-        }
-    });
 });
 </script>
