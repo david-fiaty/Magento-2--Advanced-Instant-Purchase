@@ -3,25 +3,19 @@
 
 - set admin widget fields selected values on page load
 -> product list should be update with ajax request on page load => reuse existing code
-
 - add product quantity box in popup and widget
 
 - complete payment integrations
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
-
 - Improve UI logger information
  
-- add module version checker
 
 - display UI error messages for widget products not found with category filters
-
 - handle 0 product found in category for widget category filter.
-
-- see if best sales filter should have a year/month/day sub select
-https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
 
 QA
@@ -35,6 +29,7 @@ QA
 FEATURES
 - add buynow count down timer
 - add buynow time limit
+- add module version checker
 
 - build order confirmation screen after payment + editable info
 
@@ -43,6 +38,9 @@ FEATURES
 - add themes system
 - login with google, facebook
 - add buy now button to emails, newsletters...
+
+- see if best sales filter should have a year/month/day sub select
+https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
 EXTRA
 - add button error reporting to button popover.
