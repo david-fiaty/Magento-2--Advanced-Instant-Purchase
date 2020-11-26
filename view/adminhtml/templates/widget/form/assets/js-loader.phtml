@@ -71,7 +71,7 @@ require([
     function updateProductSelector() {
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
-        var data = {
+        var params = {
             category_id: categorySelector.val(),
             form_key: window.FORM_KEY
         };
@@ -79,12 +79,11 @@ require([
         // Ajax request
         $.ajax({
             url: updateUrl,
-            data: data,
+            data: params,
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                var selectorId = productSelector.val();
-                $(selectorId).empty().html(data.html);
+                productSelector.empty().html(data.html);
             },
             error: function (request, status, error) {
                 console.log(error);
