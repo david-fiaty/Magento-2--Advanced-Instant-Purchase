@@ -25,7 +25,7 @@ require([
 
     // Selectors
     var categorySelector = $('#' + $('#nbn-category-selector').val());
-    var productSelector = $('#' + $('#nbn-product-selector').val());
+    var productSelector = $('select[name="parameters[product_id]"]');
 
     // Category selector select
     categorySelector.select2({
@@ -46,35 +46,18 @@ require([
     });    
 
     // Category selector change event
-    categorySelector.on('change', function() {
-        // Prepare the parameters
-        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
-        var data = {
-            category_id: $(this).val(),
-            form_key: window.FORM_KEY
-        };
+    categorySelector.on('change', updateProductSelector);
 
-        // Ajax request
-        $.ajax({
-            url: updateUrl,
-            data: data,
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                var selectorId = productSelector.val();
-                $(selectorId).empty().html(data.html);
-            },
-            error: function (request, status, error) {
-                console.log(error);
-            }
-        });
-    });
-
-    // Product selector
+    // Product selector select
     productSelector.select2({
         placeholder: __('Select an option'),
         theme: 'classic'
     });
+
+    // Product selector default values
+    if (parseInt(categorySelector.val()) > 0) {
+        updateProductSelector();
+    }
 
     // Product filter selector
     var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
@@ -83,5 +66,29 @@ require([
         minimumResultsForSearch: -1,
         theme: 'classic'
     });
+
+    // Functions
+    function updateProductSelector() {
+        // Prepare the parameters
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
+        var params = {
+            category_id: categorySelector.val(),
+            form_key: window.FORM_KEY
+        };
+
+        // Ajax request
+        $.ajax({
+            url: updateUrl,
+            data: params,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                productSelector.empty().html(data.html);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
+    }
 });
 </script>
