@@ -51,7 +51,7 @@ class JsLoader extends \Magento\Backend\Block\Template
             ->setTemplate(Naming::getModuleName() . '::widget/form/assets/js-loader.phtml')
             ->setData('element', $element)
             ->toHtml();
-
+            
         // Render the HTML
         $element->setData('after_element_html', $blockHtml);
 
