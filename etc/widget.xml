@@ -16,7 +16,7 @@
 -->
 
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget class="Naxero\BuyNow\Block\Button\WidgetButton" id="HostAdvice_customwidget_samplewidget">
+    <widget ttl="0" class="Naxero\BuyNow\Block\Button\WidgetButton" id="nbn_product_widget">
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
