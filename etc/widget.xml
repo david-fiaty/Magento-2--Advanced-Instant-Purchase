@@ -43,7 +43,7 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\CategorySelector"/>
             </parameter>
 
-            <parameter name="product_id" xsi:type="select" visible="true">
+            <parameter name="product_id" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
                 <depends>
                     <parameter name="product_selection_mode" value="product" />
