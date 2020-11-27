@@ -21,11 +21,6 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Form extends \Magento\Backend\App\Action
 {
     /**
-     * @var Instance
-     */
-    public $widgetModel;
-
-    /**
      * @var JsonFactory
      */
     public $resultJsonFactory;
@@ -50,13 +45,11 @@ class Form extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Widget\Model\Widget\Instance $widgetModel,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
-        $this->widgetModel = $widgetModel;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
@@ -96,18 +89,6 @@ class Form extends \Magento\Backend\App\Action
             ->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
             ->setData('products', $this->productHelper->getProducts($categoryId))
-            //->setData('selected_product_id', $this->getSelectedProductId())
             ->toHtml();
     }
-
-    /**
-     * Get the selected product id.
-     */
-    public function getSelectedProductId($categoryId)
-    {
-        $widgetId = $this->getRequest()->getParam('widget_id');
-
-        $this->widgetModel->load($widgetId)->getData();
-    }
-
 }

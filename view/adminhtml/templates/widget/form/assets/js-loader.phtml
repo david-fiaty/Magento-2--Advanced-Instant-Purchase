@@ -55,8 +55,10 @@ require([
     });
 
     // Product selector default values
-    if (parseInt(categorySelector.val()) > 0) {
-        updateProductSelector();
+    var selectedCategoryId = parseInt(categorySelector.val());
+    var selectedProductId = parseInt(productSelector.val());
+    if (selectedCategoryId > 0 && selectedProductId > 0) {
+        updateProductSelector(selectedProductId);
     }
 
     // Product filter selector
@@ -68,7 +70,10 @@ require([
     });
 
     // Functions
-    function updateProductSelector() {
+    function updateProductSelector(selectedProductId) {
+        // Default argument value
+        selectedProductId = selectedProductId || null;
+
         // Prepare the parameters
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var params = {
@@ -84,6 +89,10 @@ require([
             dataType: 'json',
             success: function (data) {
                 productSelector.empty().html(data.html);
+                if (selectedProductId) {
+                    productSelector.val(selectedProductId)
+                }
+
             },
             error: function (request, status, error) {
                 console.log(error);
