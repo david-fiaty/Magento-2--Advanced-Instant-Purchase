@@ -33,12 +33,12 @@ define([
          */  
         build: function(boxId) {
             // Refresh quantity increments
-            this.refresh();
+            this.refresh(boxId);
 
             // Update event
             var self = this;
             $(document).on('updated_wc_div', function () {
-                self.refresh();
+                self.refresh(boxId);
             });
 
             // Prepare the quantity button selectors
@@ -67,8 +67,8 @@ define([
         /**
          * Refresh the quantity increments.
          */  
-        refresh: function () {
-            $('div.nbn-qty-box:not(.nbn-qty-buttons-added), td.nbn-qty-box:not(.nbn-qty-buttons-added)')
+        refresh: function (boxId) {
+            $('#' + boxId + ':not(.nbn-qty-buttons-added), td' + '#' + boxId + ':not(.nbn-qty-buttons-added)')
             .each(function (a, b) {
                 var c = $(b);
                 c.addClass('nbn-qty-buttons-added');
