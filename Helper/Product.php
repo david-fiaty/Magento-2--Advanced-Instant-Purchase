@@ -123,6 +123,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'form_key' => $this->toolsHelper->getFormKey(),
                 'has_parents' => $this->hasParents($product),
                 'in_stock' => $this->isInStock($productId),
+                'quantity_limits' => $this->getQuantityLimits($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
@@ -205,6 +206,17 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->stockItemRepository
         ->get($productId)
         ->getIsInStock();
+    }
+
+    /**
+     * Get a product max and min quantity limits.
+     */
+    public function getQuantityLimits($productId)
+    {
+        return [
+            'min' => $this->stockItemRepository->get($productId)->getMinSaleQty(),
+            'max' => $this->stockItemRepository->get($productId)->getMaxSaleQty()
+        ];
     }
 
     /**

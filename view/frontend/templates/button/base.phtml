@@ -32,6 +32,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
     $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
     $buttonText = $this->blockHelper->getButtonText();
+    $quantityLimits = $config['product']['quantity_limits'];
 ?>
 
 <!-- Product box -->
@@ -46,7 +47,7 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     <?php if ($showQuantityBox): ?>
         <div class="nbn-qty-box nbn-qty-buttons-added">
             <input type="button" value<?= __('-') ?> class="nbn-qty-minus">
-            <input type="number" step="1" min="1" max="" name="quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text" size="4" pattern="" inputmode="">
+            <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text" pattern="" inputmode="">
             <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
         </div>
     <?php endif; ?>

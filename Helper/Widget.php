@@ -39,7 +39,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function renderWidgetProductBox($productId, $content, $subject = null)
+    public function getProductBoxHtml($productId, $content, $subject = null)
     {
         // Get the layout
         $layout = $subject
