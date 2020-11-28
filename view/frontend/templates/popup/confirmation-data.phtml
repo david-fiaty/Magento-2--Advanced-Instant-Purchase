@@ -16,10 +16,11 @@
 
 <?php
     // Get the confirmation content
-    $content = $this->getData('content');
+    $content = $block->getData('content');
 
-    // Product box display
+    // Display parameters
     $showProductBox = $content['config']['popups']['popup_show_product'];
+    $showQuantityBox = $content['popups']['popup_show_product_quantity'];
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
@@ -29,9 +30,15 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $this->blockHelper->renderPopupProductBox($content['config']['product']['id']) ?>
+        <?= $block->blockHelper->renderPopupProductBox($content['config']['product']['id']) ?>
+
+        <!-- Quantity box -->
+        <?php if ($showQuantityBox): ?>
+            <?= $block->renderQuantityBox->renderQuantityBox($content['config']['product']['id']) ?>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
+
 
 <!-- Header text -->
 <p><?= $block->escapeHtml($content['popup']['header_text'])?></p>
