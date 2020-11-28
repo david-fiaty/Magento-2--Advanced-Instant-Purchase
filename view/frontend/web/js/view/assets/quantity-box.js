@@ -47,8 +47,8 @@ define([
             selectors += '#' + boxId + ' ' + '.nbn-qty-plus';
 
             // Click event
-            $(selectors).on('click touch', function () {
-                var a = $(this).closest('.nbn-qty-box').find('.nbn-qty');
+            $(selectors).on('click touch', function (e) {
+                var a = $(e.currentTarget).closest('.nbn-qty-box').find('.nbn-qty');
                 var b = self.prepareValue(a.val(), 0);
                 var c = self.prepareValue(a.attr('max'), '');
                 var d = self.prepareValue(a.attr('min'), 0);
