@@ -39,7 +39,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function renderWidgetProductBox($productId, $subject = null)
+    public function renderWidgetProductBox($productId, $content, $subject = null)
     {
         // Get the layout
         $layout = $subject
@@ -49,7 +49,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
         return $layout
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('content', $this->getConfig($productId))
+        ->setData('content', $content)
         ->toHtml();
     }
 
