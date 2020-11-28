@@ -45,9 +45,9 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
     <!-- Quantity widget -->
     <?php if ($showQuantityBox): ?>
         <div class="nbn-qty-box nbn-qty-buttons-added">
-            <input type="button" value="-" class="nbn-qty-minus">
+            <input type="button" value<?= __('-') ?> class="nbn-qty-minus">
             <input type="number" step="1" min="1" max="" name="quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text" size="4" pattern="" inputmode="">
-            <input type="button" value="+" class="nbn-qty-plus">
+            <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
         </div>
     <?php endif; ?>
 

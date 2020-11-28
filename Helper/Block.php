@@ -28,6 +28,16 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $pageFactory;
 
     /**
+     * @var Widget
+     */
+    public $widgetHelper;
+
+    /**
+     * @var Popup
+     */
+    public $popupHelper;
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -52,12 +62,16 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Naxero\BuyNow\Helper\Widget $widgetHelper,
+        \Naxero\BuyNow\Helper\Popup $popupHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
+        $this->widgetHelper = $widgetHelper;
+        $this->popupHelper = $popupHelper;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
@@ -140,16 +154,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function renderWidgetProductBox($productId, $subject = null)
     {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
+        return $this->widgetHelper->getProductBoxHtml(
+            $productId,
+            $this->getConfig($productId), 
+            $subject
+        );
     }
 
     /**
@@ -157,16 +166,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function renderPopupProductBox($productId, $subject = null)
     {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
+        return $this->popupHelper->getProductBoxHtml(
+            $productId,
+            $this->getConfig($productId), 
+            $subject
+        );
     }
 
     /**
