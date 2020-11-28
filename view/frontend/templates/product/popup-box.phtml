@@ -22,6 +22,8 @@
     $showProductImage = $content['popups']['popup_show_product_image'];
     $showProductName = $content['popups']['popup_show_product_name'];
     $showProductPrice = $content['popups']['popup_show_product_price'];
+    $showQuantityBox = $content['popups']['popup_show_product_quantity'];
+
 ?>
 
 <div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
@@ -46,6 +48,11 @@
             <p class="nbn-product-box-price">
                 <?= $block->escapeHtml($content['product']['price']) ?>
             </p>
+        <?php endif; ?>
+
+        <!-- Quantity box -->
+        <?php if ($showQuantityBox): ?>
+            <?= $block->blockHelper->renderQuantityBox($content['product']['id']) ?>
         <?php endif; ?>
 
         <!-- Product options -->
