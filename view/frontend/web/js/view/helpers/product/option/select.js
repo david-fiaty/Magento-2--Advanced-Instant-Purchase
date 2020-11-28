@@ -32,10 +32,13 @@ define([
             // Prepare variables
             var self = this;
             var sourceFieldId = this.getOptionFieldId(option);
-
+            var placeholder = $(this.selectFieldSelector)
+            .find('option[data-placeholder="*"]')
+            .data('placeholder');
+            
             // Select 2 
             $(this.selectFieldSelector).select2 ({
-                placeholder: __('Select an option'),
+                placeholder: placeholder,
                 minimumResultsForSearch: -1,
                 theme: 'classic'
             });
