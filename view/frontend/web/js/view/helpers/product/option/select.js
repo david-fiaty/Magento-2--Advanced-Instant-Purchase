@@ -23,7 +23,7 @@ define([
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
-        selectFieldSelector: '.nbn-field select',
+        optionFieldSelector: '.nbn-popup-option',
 
         /**
          * Set product options events.
@@ -32,12 +32,12 @@ define([
             // Prepare variables
             var self = this;
             var sourceFieldId = this.getOptionFieldId(option);
-            var placeholder = $(this.selectFieldSelector)
+            var placeholder = $(this.optionFieldSelector)
             .find('option[data-placeholder="*"]')
             .data('placeholder');
-            
+
             // Select 2 
-            $(this.selectFieldSelector).select2 ({
+            $(this.optionFieldSelector).select2 ({
                 placeholder: placeholder,
                 minimumResultsForSearch: -1,
                 theme: 'classic'

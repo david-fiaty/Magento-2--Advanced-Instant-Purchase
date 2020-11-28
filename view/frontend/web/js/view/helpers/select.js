@@ -31,7 +31,8 @@
         otherMethodsSelector: '#nbn-other-method-select',
         addressLinkSelector: '.nbn-address-link',
         cardLinkSelector: '.nbn-card-link',
-        
+        optionFieldSelector: '.nbn-widget-option',
+  
         /**
          * Initialise the object.
          */
@@ -45,10 +46,10 @@
          */
         build: function () {
             // Product options select 2
-            var placeholder = $(this.selectFieldSelector)
+            var placeholder = $(this.optionFieldSelector)
             .find('option[data-placeholder="*"]')
             .data('placeholder');
-            $(this.selectFieldSelector).select2 ({
+            $(this.optionFieldSelector).select2 ({
                 placeholder: placeholder,
                 minimumResultsForSearch: -1,
                 theme: 'classic'
