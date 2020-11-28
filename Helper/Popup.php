@@ -66,9 +66,3 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
         ->toHtml();
     }
 }
-
-
-<!-- Quantity box -->
-<?php if ($showQuantityBox): ?>
-    <?=  ?>
-<?php endif; ?>
