@@ -48,13 +48,22 @@ define([
                 var c = self.prepareValue(a.attr('max'), '');
                 var d = self.prepareValue(a.attr('min'), 0);
                 var e = self.prepareStepValue(a.attr('step'), 1);
-                $(this).is('.plus')
-                    ? c && b >= c
-                        ? a.val(c)
-                        : a.val((b + parseFloat(e)).toFixed(e.getDecimals()))
-                    : d && b <= d
-                    ? a.val(d)
-                    : b > 0 && a.val((b - parseFloat(e)).toFixed(e.getDecimals())),
+                
+                if ($(this).is('.plus')) {
+                    if (b >= c) {
+                        a.val(c)
+                    }
+                    else {
+                        a.val((b + parseFloat(e)).toFixed(e.getDecimals()));
+                    }
+                }
+                else if (b <= d) {
+                    a.val(d)
+                }
+                else {
+                    a.val((b - parseFloat(e)).toFixed(e.getDecimals()));
+                }
+
                 a.trigger('change');
             });
         },
