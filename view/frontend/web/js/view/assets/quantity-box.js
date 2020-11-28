@@ -63,10 +63,10 @@ define([
          * Refresh the quantity increments.
          */  
         refresh: function () {
-            $('div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)')
+            $('div.quantity:not(.nbn-qty-buttons-added), td.quantity:not(.nbn-qty-buttons-added)')
             .each(function (a, b) {
                 var c = $(b);
-                c.addClass('buttons_added');
+                c.addClass('nbn-qty-buttons-added');
                 c.children().first().before('<input type="button" value="-" class="minus" />');
                 c.children().last().after('<input type="button" value="+" class="plus" />');
             });

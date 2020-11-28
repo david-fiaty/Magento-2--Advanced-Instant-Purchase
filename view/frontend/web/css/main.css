@@ -235,11 +235,11 @@
 }
 
 /* Quantity box */
-.nbn-quantity-box {
+.nbn-qty-box {
     display: inline-block; 
 }
    
-.nbn-quantity-box .input-text.nbn-qty {
+.nbn-qty-box .input-text.nbn-qty {
     width: 35px;
     height: 39px;
     padding: 0 5px;
@@ -248,22 +248,22 @@
     border: 1px solid #efefef;
 }
    
-.nbn-quantity-box.nbn-qty-buttons-added {
+.nbn-qty-box.nbn-qty-buttons-added {
     text-align: left;
     position: relative;
     white-space: nowrap;
     vertical-align: top;
 }
    
-.nbn-quantity-box.nbn-qty-buttons-added input {
+.nbn-qty-box.nbn-qty-buttons-added input {
     display: inline-block;
     margin: 0;
     vertical-align: top;
     box-shadow: none;
 }
    
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus,
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus {
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus,
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus {
     padding: 7px 10px 8px;
     height: 41px;
     background-color: #ffffff;
@@ -271,28 +271,28 @@
     cursor:pointer;
 }
    
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus {
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus {
     border-right: 0; 
 }
 
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus {
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus {
     border-left: 0; 
 }
 
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus:hover,
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus:hover {
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus:hover,
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus:hover {
     background: #eeeeee; 
 }
 
-.nbn-quantity-box input::-webkit-outer-spin-button,
-.nbn-quantity-box input::-webkit-inner-spin-button {
+.nbn-qty-box input::-webkit-outer-spin-button,
+.nbn-qty-box input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     margin: 0; 
 }
 
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus:focus,
-.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus:focus {
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus:focus,
+.nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus:focus {
     outline: none; 
 }
    

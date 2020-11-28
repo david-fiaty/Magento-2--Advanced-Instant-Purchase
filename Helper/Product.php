@@ -213,9 +213,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getQuantityLimits($productId)
     {
+        // Min value
+        $min = $this->stockItemRepository->get($productId)->getMinSaleQty();
+        $max = $this->stockItemRepository->get($productId)->getMaxSaleQty();
+
         return [
-            'min' => $this->stockItemRepository->get($productId)->getMinSaleQty(),
-            'max' => $this->stockItemRepository->get($productId)->getMaxSaleQty()
+            'min' => (int) $min > 0 ?  $min : 1,
+            'max' => (int) $max > 0 ?  $max : ''
         ];
     }
 
