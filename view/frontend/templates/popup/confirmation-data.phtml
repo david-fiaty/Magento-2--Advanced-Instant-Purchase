@@ -31,11 +31,6 @@
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
         <?= $this->blockHelper->renderPopupProductBox($content['config']['product']['id']) ?>
-
-        <!-- Quantity box -->
-        <?php if ($showQuantityBox): ?>
-            <?= $this->blockHelper->renderQuantityBox($content['config']['product']['id']) ?>
-        <?php endif; ?>
     </div>
 <?php endif; ?>
 

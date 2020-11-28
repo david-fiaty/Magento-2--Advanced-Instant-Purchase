@@ -28,12 +28,19 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     public $pageFactory;
 
     /**
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
      * Popup helper class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Result\PageFactory $pageFactory
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Naxero\BuyNow\Helper\Config $blockHelper
     ) {
         $this->pageFactory = $pageFactory;
+        $this->blockHelper = $blockHelper;
     }
 
     /**
@@ -46,10 +53,22 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
         ? $subject->getLayout()
         : $this->pageFactory->create()->getLayout();
 
+        // Get the quantity box HTML
+        $qtyBoxHtml = $this->blockHelper->renderQuantityBox(
+            $content['config']['product']['id']
+        );
+
         return $layout
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
         ->setData('content', $content)
+        ->setData('quantity_box_html', $qtyBoxHtml)
         ->toHtml();
     }
 }
+
+
+<!-- Quantity box -->
+<?php if ($showQuantityBox): ?>
+    <?=  ?>
+<?php endif; ?>
