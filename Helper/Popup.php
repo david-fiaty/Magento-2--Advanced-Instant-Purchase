@@ -54,12 +54,12 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product quantity box.
      */
-    public function getQuantityBoxHtml($config)
+    public function getQuantityBoxHtml($content)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
-        ->setData('content', $config)
+        ->setData('content', $content)
         ->toHtml();
     }
 }
