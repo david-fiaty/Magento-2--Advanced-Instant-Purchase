@@ -25,3 +25,18 @@
     <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text" pattern="" inputmode="">
     <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
 </div>
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'Naxero_BuyNow/js/view/assets/quantity-box',
+    'domReady!'
+], function($, __, NbnQtyBox) {
+    'use strict';
+
+    // Build the quantity box
+    NbnQtyBox.build();
+
+});
+</script>

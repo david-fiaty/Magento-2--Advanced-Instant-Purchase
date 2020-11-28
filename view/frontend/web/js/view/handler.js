@@ -18,11 +18,10 @@ define([
     'uiComponent',
     'elevatezoom',
     'Naxero_BuyNow/js/view/core',
-    'Naxero_BuyNow/js/view/assets/quantity-box',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, Component, elevateZoom, Core, NbnQtyBox) {
+], function ($, __, Component, elevateZoom, Core) {
     'use strict';
     
     return Component.extend({
@@ -72,11 +71,6 @@ define([
             if (this.o.view.isWidgetView()) {
                 // Image
                 this.handleImageClick();
-
-                // Quantity box
-                if (this.jsConfig.widgets.widget_show_product_quantity) {
-                    NbnQtyBox.build();
-                }
             }
 
             // Button click event
