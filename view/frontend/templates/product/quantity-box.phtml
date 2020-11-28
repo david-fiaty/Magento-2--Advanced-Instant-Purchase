@@ -18,9 +18,14 @@
     // Get the data
     $content = $this->getData('content');
     $quantityLimits = $content['product']['quantity_limits'];
+    $isPopup = $this->getData('is_popup');
+
+    // Prepare the box id
+    $boxId = $isPopup ? 'nbn-popup-qty-box-' : 'nbn-widget-qty-box-';
+    $boxId .= $content['product']['id'];
 ?>
 
-<div class="nbn-qty-box nbn-qty-buttons-added">
+<div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
     <input type="button" value="<?= __('-') ?>" class="nbn-qty-minus">
     <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text" pattern="" inputmode="">
     <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
@@ -36,7 +41,7 @@ require([
     'use strict';
 
     // Build the quantity box
-    NbnQtyBox.build();
+    NbnQtyBox.build('<?= $boxId ?>');
 
 });
 </script>

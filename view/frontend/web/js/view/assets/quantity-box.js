@@ -31,7 +31,7 @@ define([
         /**
          * Build a product quantity box.
          */  
-        build: function() {
+        build: function(boxId) {
             // Refresh quantity increments
             this.refresh();
 
@@ -39,10 +39,14 @@ define([
             var self = this;
             $(document).on('updated_wc_div', function () {
                 self.refresh();
-            }),
+            });
 
             // Click event
-            $('.nbn-qty-minus, .nbn-qty-plus').on('click touch', function () {
+            var selectors = '#' + boxId + ' ' + '.nbn-qty-minus';
+            selectors += ', ';
+            selectors += '#' + boxId + ' ' + '.nbn-qty-plus';
+
+            $(selectors).on('click touch', function () {
                 var a = $(this).closest('.nbn-qty-box').find('.nbn-qty');
                 var b = self.prepareValue(a.val(), 0);
                 var c = self.prepareValue(a.attr('max'), '');
@@ -63,12 +67,12 @@ define([
          * Refresh the quantity increments.
          */  
         refresh: function () {
-            $('div.quantity:not(.nbn-qty-buttons-added), td.quantity:not(.nbn-qty-buttons-added)')
+            $('div.nbn-qty-box:not(.nbn-qty-buttons-added), td.nbn-qty-box:not(.nbn-qty-buttons-added)')
             .each(function (a, b) {
                 var c = $(b);
                 c.addClass('nbn-qty-buttons-added');
-                c.children().first().before('<input type="button" value="-" class="minus" />');
-                c.children().last().after('<input type="button" value="+" class="plus" />');
+                c.children().first().before('<input type="button" value="-" class="nbn-qty-minus" />');
+                c.children().last().after('<input type="button" value="+" class="nbn-qty-plus" />');
             });
         },
 

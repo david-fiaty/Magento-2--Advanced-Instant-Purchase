@@ -60,6 +60,7 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $content)
+        ->setData('is_popup', true)
         ->toHtml();
     }
 }
