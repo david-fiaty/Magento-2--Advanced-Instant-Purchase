@@ -41,11 +41,12 @@ define([
                 self.refresh();
             });
 
-            // Click event
+            // Prepare the quantity button selectors
             var selectors = '#' + boxId + ' ' + '.nbn-qty-minus';
             selectors += ', ';
             selectors += '#' + boxId + ' ' + '.nbn-qty-plus';
 
+            // Click event
             $(selectors).on('click touch', function () {
                 var a = $(this).closest('.nbn-qty-box').find('.nbn-qty');
                 var b = self.prepareValue(a.val(), 0);
