@@ -152,24 +152,22 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function renderWidgetProductBox($productId, $subject = null)
+    public function renderWidgetProductBox($productId)
     {
         return $this->widgetHelper->getProductBoxHtml(
             $productId,
-            $this->getConfig($productId), 
-            $subject
+            $this->getConfig($productId)
         );
     }
 
     /**
      * Render a popup product box.
      */
-    public function renderPopupProductBox($productId, $subject = null)
+    public function renderPopupProductBox($productId)
     {
         return $this->popupHelper->getProductBoxHtml(
             $productId,
-            $this->getConfig($productId), 
-            $subject
+            $this->getConfig($productId)
         );
     }
 

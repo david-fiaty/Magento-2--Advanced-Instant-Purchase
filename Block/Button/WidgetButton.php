@@ -35,6 +35,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public $blockHelper;
 
     /**
+     * @var Widget
+     */
+    public $widgetHelper;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -60,6 +65,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Widget $widgetHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
@@ -69,6 +75,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         parent::__construct($context, $data);
         
         $this->blockHelper = $blockHelper;
+        $this->widgetHelper = $widgetHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;

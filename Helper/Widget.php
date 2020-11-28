@@ -39,14 +39,9 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function getProductBoxHtml($productId, $content, $subject = null)
+    public function getProductBoxHtml($productId, $content)
     {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
+        return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('content', $content)
@@ -56,14 +51,9 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product quantity box.
      */
-    public function getQuantityBoxHtml($config, $subject = null)
+    public function getQuantityBoxHtml($config)
     {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
+        return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $config)
