@@ -41,6 +41,9 @@ FEATURES
 - see if best sales filter should have a year/month/day sub select
 https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
+HOME PAGE EXAMPLES
+https://www.channelengine.com/
+
 EXTRA
 - add button error reporting to button popover.
 
@@ -59,6 +62,7 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 
 - improve the config fields comments
 
+- marketplaces and ecommerce platforms available on https://www.channelengine.com/
 
 RESOURCES
 - execute php code from string
