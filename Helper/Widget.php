@@ -52,21 +52,4 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('content', $content)
         ->toHtml();
     }
-
-    /**
-     * Render a popup product box.
-     */
-    public function getProductBoxHtml($productId, $content, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('content', $content)
-        ->toHtml();
-    }
 }
