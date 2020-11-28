@@ -34,7 +34,7 @@
 
         <!-- Quantity box -->
         <?php if ($showQuantityBox): ?>
-            <?= $block->renderQuantityBox->renderQuantityBox($content['config']['product']['id']) ?>
+            <?= $block->blockHelper->renderQuantityBox($content['config']['product']['id']) ?>
         <?php endif; ?>
     </div>
 <?php endif; ?>
