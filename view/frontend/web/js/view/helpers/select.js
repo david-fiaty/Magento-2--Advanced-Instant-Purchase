@@ -44,6 +44,16 @@
          * Create a login popup.
          */
         build: function () {
+            // Product options select 2
+            var placeholder = $(this.selectFieldSelector)
+            .find('option[data-placeholder="*"]')
+            .data('placeholder');
+            $(this.selectFieldSelector).select2 ({
+                placeholder: placeholder,
+                minimumResultsForSearch: -1,
+                theme: 'classic'
+            });
+
             // Initialise the select lists
             var self = this;
             $(this.listSelector).select2({

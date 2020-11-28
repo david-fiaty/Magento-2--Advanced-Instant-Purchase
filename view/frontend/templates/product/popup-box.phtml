@@ -54,7 +54,7 @@
                 <div class="nbn-field">
                     <label for="nbn-option-<?= $block->escapeHtmlAttr($content['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
                         <p>
-                            <select id="nbn-option-<?= $block->escapeHtmlAttr($content['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $content['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
+                            <select id="nbn-option-<?= $block->escapeHtmlAttr($content['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $content['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-select nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
                                 <option data-placeholder="<?= $block->escapeHtml($row['label']) ?>" value=""><?= $block->escapeHtml($row['label']) ?></option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
