@@ -37,7 +37,7 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Naxero\BuyNow\Helper\Config $blockHelper
+        \Naxero\BuyNow\Helper\Block $blockHelper
     ) {
         $this->pageFactory = $pageFactory;
         $this->blockHelper = $blockHelper;

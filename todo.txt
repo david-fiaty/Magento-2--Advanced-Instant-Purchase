@@ -1,8 +1,6 @@
 
 !!!PRIORITY!!!
 
-- add product quantity box in popup and widget
-
 - select 2 on widget box select options
 
 
