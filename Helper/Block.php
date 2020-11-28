@@ -150,23 +150,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Render a product quantity box.
-     */
-    public function renderQuantityBox($productId, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
-    }
-
-    /**
      * Render a widget product box.
      */
     public function renderWidgetProductBox($productId, $subject = null)
