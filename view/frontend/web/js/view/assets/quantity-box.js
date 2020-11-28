@@ -42,13 +42,13 @@ define([
             }),
 
             // Click event
-            $(document).on('click touch', '.plus, .minus', function () {
-                var a = $(this).closest('.quantity').find('.qty');
+            $('.nbn-qty-minus, .nbn-qty-plus').on('click touch', function () {
+                var a = $(this).closest('.nbn-qty-box').find('.nbn-qty');
                 var b = self.prepareValue(a.val(), 0);
                 var c = self.prepareValue(a.attr('max'), '');
                 var d = self.prepareValue(a.attr('min'), 0);
                 var e = self.prepareStepValue(a.attr('step'), 1);
-                $(this).is('.plus')
+                $(this).is('.nbn-qty-plus')
                     ? c && b >= c
                         ? a.val(c)
                         : a.val((b + parseFloat(e)).toFixed(e.getDecimals()))

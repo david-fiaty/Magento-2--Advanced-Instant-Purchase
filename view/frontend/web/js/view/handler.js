@@ -74,8 +74,9 @@ define([
                 this.handleImageClick();
 
                 // Quantity box
-                // Todo - check quantity config control enabled
-                NbnQtyBox.build();
+                if (this.jsConfig.widgets.widget_show_product_quantity) {
+                    NbnQtyBox.build();
+                }
             }
 
             // Button click event

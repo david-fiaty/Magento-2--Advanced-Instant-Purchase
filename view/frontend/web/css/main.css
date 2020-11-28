@@ -235,11 +235,11 @@
 }
 
 /* Quantity box */
-.quantity {
+.nbn-quantity-box {
     display: inline-block; 
 }
    
-.quantity .input-text.qty {
+.nbn-quantity-box .input-text.nbn-qty {
     width: 35px;
     height: 39px;
     padding: 0 5px;
@@ -248,22 +248,22 @@
     border: 1px solid #efefef;
 }
    
-.quantity.buttons_added {
+.nbn-quantity-box.nbn-qty-buttons-added {
     text-align: left;
     position: relative;
     white-space: nowrap;
     vertical-align: top;
 }
    
-.quantity.buttons_added input {
+.nbn-quantity-box.nbn-qty-buttons-added input {
     display: inline-block;
     margin: 0;
     vertical-align: top;
     box-shadow: none;
 }
    
-.quantity.buttons_added .minus,
-.quantity.buttons_added .plus {
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus,
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus {
     padding: 7px 10px 8px;
     height: 41px;
     background-color: #ffffff;
@@ -271,28 +271,28 @@
     cursor:pointer;
 }
    
-.quantity.buttons_added .minus {
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus {
     border-right: 0; 
 }
 
-.quantity.buttons_added .plus {
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus {
     border-left: 0; 
 }
 
-.quantity.buttons_added .minus:hover,
-.quantity.buttons_added .plus:hover {
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus:hover,
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus:hover {
     background: #eeeeee; 
 }
 
-.quantity input::-webkit-outer-spin-button,
-.quantity input::-webkit-inner-spin-button {
+.nbn-quantity-box input::-webkit-outer-spin-button,
+.nbn-quantity-box input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     margin: 0; 
 }
 
-.quantity.buttons_added .minus:focus,
-.quantity.buttons_added .plus:focus {
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-minus:focus,
+.nbn-quantity-box.nbn-qty-buttons-added .nbn-qty-plus:focus {
     outline: none; 
 }
    
