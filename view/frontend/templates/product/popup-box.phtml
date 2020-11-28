@@ -16,7 +16,8 @@
 
 <?php
     // Get the data
-    $content = $this->getData('content');
+    $content = $block->getData('content');
+    $quantityBoxHtml = $block->getData('quantity_box_html');
 
     // Display settings
     $showProductImage = $content['popups']['popup_show_product_image'];
@@ -52,7 +53,7 @@
 
         <!-- Quantity box -->
         <?php if ($showQuantityBox): ?>
-            <?= $block->blockHelper->renderQuantityBox($content['product']['id']) ?>
+            <?= $quantityBoxHtml ?>
         <?php endif; ?>
 
         <!-- Product options -->
