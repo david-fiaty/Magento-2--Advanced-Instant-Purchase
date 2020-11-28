@@ -1,9 +1,10 @@
 
 !!!PRIORITY!!!
 
-- set admin widget fields selected values on page load
--> product list should be update with ajax request on page load => reuse existing code
 - add product quantity box in popup and widget
+
+- select 2 on widget box select options
+
 
 - complete payment integrations
 
