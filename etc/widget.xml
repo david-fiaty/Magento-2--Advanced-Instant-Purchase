@@ -92,6 +92,11 @@
                 <label translate="true">Product tree filter</label>
             </parameter>
 
+            <parameter name="product_time_limit" xsi:type="block" visible="true">
+                <label translate="true">Product time limit</label>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\Calendar"/>
+            </parameter>
+
             <parameter name="customer_groups" xsi:type="multiselect" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
                 <label translate="true">Customer groups</label>
             </parameter>

@@ -108,9 +108,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($productId > 0) {
             $html = $this->pageFactory->create()->getLayout()
                 ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
-                ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
+                ->setTemplate(Naming::getModuleName() . '::popup/confirmation.phtml')
                 ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
-                ->setData('product_quantity', $this->getProductQuantity())
                 ->toHtml();
 
             // Agreements
@@ -129,11 +128,19 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function getProductQuantity()
     {
-        // Get the product quantity from request
+        // Get the request parameters
         $productQuantity = (int) $this->getRequest()->getParam('product_quantity');
+        $productId = (int) $this->getRequest()->getParam('product_id');
+        
+        // Get the quantity limits
+        $quantityLimits = $this->productHelper->getQuantityLimits($productId);
 
-        $condition = $productQuantity > 0 && 
+        // Determine the value
+        $condition = $productQuantity > 0
+        && $productQuantity >= $quantityLimits['min']
+        && $productQuantity <= $quantityLimits['max'];
 
+        return $condition ? $productQuantity : $quantityLimits['min'];
     }
 
     /**

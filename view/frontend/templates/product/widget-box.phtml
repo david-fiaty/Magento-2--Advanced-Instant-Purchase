@@ -24,6 +24,8 @@
     $showProductPrice = $content['widgets']['widget_show_product_price'];
     $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
     $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
+    $timeLimit = $content['buttons']['product_time_limit'];
+    $showProductCountdown = $content['buttons']['show_product_countdown'];
 
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $content['product']['id'];
@@ -38,7 +40,7 @@
         }
         </style>
         <div class="nbn-product-box-image" data-product-id="<?= $content['product']['id'] ?>">
-            <img src="<?= $block->escapeUrl($content['product']['images']['large']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
+            <img src="<?= $block->escapeUrl($content['product']['images']['medium']) ?>" data-zoom-image="<?= $block->escapeUrl($content['product']['images']['large']) ?>"> 
         </div>
     <?php endif; ?>
 
@@ -56,6 +58,13 @@
             <p class="nbn-product-box-price">
                 <?= $block->escapeHtml($content['product']['price']) ?>
             </p>
+        <?php endif; ?>
+
+        <!-- Product countdown -->
+        <?php if ($showProductCountdown): ?>
+            <div class="nbn-product-box-countdown">
+
+            </div>
         <?php endif; ?>
 
         <!-- Product options -->
