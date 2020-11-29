@@ -49,6 +49,7 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
+            alert('x');
             var options = this.getOptions(this.o);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {

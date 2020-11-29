@@ -164,7 +164,7 @@ define([
             var self = this;
 
             // Selectors
-            var boxId = '#nbn-product-box-' + this.jsConfig.product.id;
+            var boxId = '#nbn-widget-product-box-' + this.jsConfig.product.id;
             var imageContainer = boxId + ' .nbn-product-box-image';
             var image = imageContainer + ' img';
 
