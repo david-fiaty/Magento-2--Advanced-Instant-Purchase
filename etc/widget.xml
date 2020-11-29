@@ -92,9 +92,10 @@
                 <label translate="true">Product tree filter</label>
             </parameter>
 
-            <parameter name="product_time_limit" xsi:type="block" visible="true">
+            <parameter name="product_time_limit" xsi:type="text" visible="true">
                 <label translate="true">Product time limit</label>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\Calendar"/>
+                <description>Display duration in number of days. No value or 0 equal unitmited time.</description>
+                <value>0</value>
             </parameter>
 
             <parameter name="customer_groups" xsi:type="multiselect" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
