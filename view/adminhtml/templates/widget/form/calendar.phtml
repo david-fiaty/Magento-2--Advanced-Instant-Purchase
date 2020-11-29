@@ -19,4 +19,25 @@
 $element = $block->getData('element');
 ?>
 
-<h1>calendar</h1>
+<div class="field">
+    <label><?= __('Date') ?></label>
+    <input type="text" class="input-text" id="example-date" style="width: auto" name="example-date" />
+</div>
+
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'mage/calendar'
+], function ($, __, calendar) {
+    $('#example-date').calendar({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        currentText: __('Go Today'),
+        closeText: __('Close'),
+        showWeek: true
+      });
+});
+</script>
