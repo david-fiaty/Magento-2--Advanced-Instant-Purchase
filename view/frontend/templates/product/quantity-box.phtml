@@ -57,7 +57,7 @@ require([
     });
 
     // Minus button event
-    $(boxId + ' .nbn-qty-minus').on('click touch', function () {
+    $(boxId + ' .nbn-qty-minus').off('click touch').on('click touch', function () {
         var quantity = parseInt(quantityField.val());
         var newQuantity = quantity - step;
         var condition = newQuantity && newQuantity !== 'NaN' && newQuantity >= min;
@@ -66,10 +66,11 @@ require([
     });
 
     // Plus button event
-    $(boxId + ' .nbn-qty-plus').on('click touch', function () {
+    $(boxId + ' .nbn-qty-plus').off('click touch').on('click touch', function () {
         var quantity = parseInt(quantityField.val());
         var newQuantity = quantity + step;
         var condition = newQuantity && newQuantity !== 'NaN' && newQuantity <= max;
+
         newQuantity = condition ? newQuantity : max;
         quantityField.val(newQuantity);
     });
