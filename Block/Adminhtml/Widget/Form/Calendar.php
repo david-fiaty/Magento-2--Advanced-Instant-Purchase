@@ -41,7 +41,6 @@ class Calendar extends \Magento\Backend\Block\Template
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/calendar.phtml')
-            ->setData('assets', $this->getCssAssets())
             ->toHtml();
 
         // Render the HTML
