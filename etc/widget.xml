@@ -96,6 +96,7 @@
                 <label translate="true">Product time limit</label>
                 <description>Display duration in number of days. No value or 0 equal unitmited time.</description>
                 <value>0</value>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Calendar"/>
             </parameter>
 
             <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
