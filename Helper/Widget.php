@@ -52,12 +52,14 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product quantity box.
      */
-    public function getQuantityBoxHtml($content)
+    public function getQuantityBoxHtml($content, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $content)
+        ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', false)
         ->toHtml();
     }
 }
