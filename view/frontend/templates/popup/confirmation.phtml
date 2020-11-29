@@ -31,10 +31,14 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $this->blockHelper->renderPopupProductBox($content, $productQantity) ?>
+        <?= $this->popupHelper->getProductBoxHtml($content) ?>
     </div>
 <?php endif; ?>
 
+<!-- Product quantity box -->
+<?php if ($showQuantityBox): ?>
+    <?= $this->popupHelper->getQuantityBoxHtml($content, $productQantity) ?>
+<?php endif; ?>
 
 <!-- Header text -->
 <p><?= $block->escapeHtml($content['popup']['header_text'])?></p>

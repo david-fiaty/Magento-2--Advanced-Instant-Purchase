@@ -33,11 +33,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $widgetHelper;
 
     /**
-     * @var Popup
-     */
-    public $popupHelper;
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -63,7 +58,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\BuyNow\Helper\Widget $widgetHelper,
-        \Naxero\BuyNow\Helper\Popup $popupHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
@@ -71,7 +65,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     ) {
         $this->pageFactory = $pageFactory;
         $this->widgetHelper = $widgetHelper;
-        $this->popupHelper = $popupHelper;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
@@ -147,27 +140,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->filterContent($config['popups']['popup_title'], $config);
 
         return $config;
-    }
-
-    /**
-     * Render a widget product box.
-     */
-    public function renderWidgetProductBox($config)
-    {
-        return $this->widgetHelper->getProductBoxHtml(
-            $this->getConfig($config['product']['id'])
-        );
-    }
-
-    /**
-     * Render a popup product box.
-     */
-    public function renderPopupProductBox($config, $productQantity)
-    {
-        return $this->popupHelper->getProductBoxHtml(
-            $this->getConfig($config['product']['id']),
-            $productQantity
-        );
     }
 
     /**
