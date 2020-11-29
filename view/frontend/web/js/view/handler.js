@@ -249,9 +249,12 @@ define([
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
+            var formKey = $(this.formKeySelectorPrefix + productId).val();
+            var productQuantity =  parseInt($(e.currentTarget).closest('.nbn-qty').val());
             var params = {
                 product_id: productId,
-                form_key: $(this.formKeySelectorPrefix + productId).val()
+                form_key: formKey,
+                product_quantity: productQuantity
             };
 
             // Log the parameters

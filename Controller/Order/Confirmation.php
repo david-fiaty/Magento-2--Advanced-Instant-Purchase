@@ -46,7 +46,12 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var Purchase
      */
     public $purchaseHelper;
-    
+ 
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
     /**
      * Confirmation controller class constructor
      */
@@ -58,7 +63,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Config $configHelper,
-        \Naxero\BuyNow\Helper\Purchase $purchaseHelper
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
         
@@ -67,6 +73,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -103,6 +110,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
                 ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
                 ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
                 ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
+                ->setData('product_quantity', $this->getProductQuantity())
                 ->toHtml();
 
             // Agreements
@@ -113,6 +121,19 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         }
 
         return $html;
+    }
+
+
+    /**
+     * Get the product quantity.
+     */
+    public function getProductQuantity()
+    {
+        // Get the product quantity from request
+        $productQuantity = (int) $this->getRequest()->getParam('product_quantity');
+
+        $condition = $productQuantity > 0 && 
+
     }
 
     /**
