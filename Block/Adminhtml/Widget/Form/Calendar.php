@@ -40,7 +40,7 @@ class Calendar extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/assets/calendar.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/calendar.phtml')
             ->setData('assets', $this->getCssAssets())
             ->toHtml();
 
@@ -48,14 +48,5 @@ class Calendar extends \Magento\Backend\Block\Template
         $element->setData('after_element_html', $blockHtml);
 
         return $element;
-    }
-
-    /**
-     * Get the CSS assets URLs.
-     */
-    public function getCssAssets() {
-        return [
-            $this->assetRepository->getUrl(Naming::getModuleName() . '::css/lib/select2/select2.css')
-        ];
     }
 }
