@@ -17,6 +17,7 @@
 <?php
     // Get the confirmation content
     $content = $this->getData('content');
+    $productQantity = $this->getData('product_quantity');
 
     // Display parameters
     $showProductBox = $content['config']['popups']['popup_show_product'];
@@ -30,7 +31,7 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $this->blockHelper->renderPopupProductBox($content) ?>
+        <?= $this->blockHelper->renderPopupProductBox($content, $productQantity) ?>
     </div>
 <?php endif; ?>
 

@@ -162,10 +162,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product box.
      */
-    public function renderPopupProductBox($config)
+    public function renderPopupProductBox($config, $productQantity)
     {
         return $this->popupHelper->getProductBoxHtml(
-            $this->getConfig($config['product']['id'])
+            $this->getConfig($config['product']['id']),
+            $productQantity
         );
     }
 

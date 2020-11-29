@@ -39,9 +39,9 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product box.
      */
-    public function getProductBoxHtml($content) {
+    public function getProductBoxHtml($content, $productQuantity) {
         // Get the quantity box HTML
-        $qtyBoxHtml = $this->getQuantityBoxHtml($content);
+        $qtyBoxHtml = $this->getQuantityBoxHtml($content, $productQuantity);
 
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
@@ -54,12 +54,13 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product quantity box.
      */
-    public function getQuantityBoxHtml($content)
+    public function getQuantityBoxHtml($content, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $content)
+        ->setData('product_quantity', $productQuantity)
         ->setData('is_popup', true)
         ->toHtml();
     }
