@@ -13,7 +13,7 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets;
+namespace Naxero\BuyNow\Block\Adminhtml\Widget\Form;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
