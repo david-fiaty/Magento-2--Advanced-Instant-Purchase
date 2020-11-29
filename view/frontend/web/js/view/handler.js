@@ -250,7 +250,7 @@ define([
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
             var formKey = $(this.formKeySelectorPrefix + productId).val();
-            var productQuantity =  parseInt($(e.currentTarget).closest('.nbn-qty').val());
+            var productQuantity = parseInt($(e.currentTarget).parents().find('.nbn-qty').val());
             var params = {
                 product_id: productId,
                 form_key: formKey,
