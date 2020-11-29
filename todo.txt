@@ -1,9 +1,6 @@
 
 !!!PRIORITY!!!
 
-- select 2 on widget box select options
-
-
 - complete payment integrations
 
 - when select list option attributes implemented, check other filed types
