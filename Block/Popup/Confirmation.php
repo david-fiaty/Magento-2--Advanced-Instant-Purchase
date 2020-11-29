@@ -36,7 +36,7 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Block $popupHelper,
+        \Naxero\BuyNow\Helper\Popup $popupHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
