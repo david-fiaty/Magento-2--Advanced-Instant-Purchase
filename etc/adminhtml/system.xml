@@ -60,7 +60,7 @@
 
                 <field id="product_time_limit" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Product time limit</label>
-                    <description>Display duration in number of days. No value or 0 equal unitmited time.</description>
+                    <comment>Display duration in number of days. No value or 0 equal unitmited time.</comment>
                 </field>
 
                 <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
