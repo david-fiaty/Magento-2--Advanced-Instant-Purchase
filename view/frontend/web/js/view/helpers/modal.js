@@ -103,9 +103,6 @@
                                 }
                             });
                         }
-                        else {
-                            alert('agreements invalid');
-                        }
                     }
                 }]
             });

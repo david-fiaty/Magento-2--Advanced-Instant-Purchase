@@ -26,7 +26,7 @@
     $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
 
     // CSS selectors
-    $boxId = 'nbn-product-box-' . $content['product']['id'];
+    $boxId = 'nbn-widget-product-box-' . $content['product']['id'];
 ?>
 
 <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
@@ -80,3 +80,27 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'select2',
+    'domReady!'
+], function($, __, select2) {
+    'use strict';
+
+    // Prepare variables
+    var selectOptionSelector = '#<?= $boxId ?>' + ' .nbn-field select';
+    var placeholder = $(selectOptionSelector)
+    .find('option[data-placeholder="*"]')
+    .data('placeholder');
+
+    // Build the product options select lists
+    $(selectOptionSelector).select2 ({
+        placeholder: placeholder,
+        minimumResultsForSearch: -1,
+        theme: 'classic'
+    });
+});
+</script>

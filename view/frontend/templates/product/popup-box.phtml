@@ -24,10 +24,10 @@
     $showProductName = $content['popups']['popup_show_product_name'];
     $showProductPrice = $content['popups']['popup_show_product_price'];
     $showQuantityBox = $content['popups']['popup_show_product_quantity'];
-
+    $boxId = 'nbn-popup-product-box-' . $content['product']['id'];
 ?>
 
-<div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
+<div id="<?= $boxId ?>" class="nbn-product-box">
     <?php if ($showProductImage): ?>
         <!-- Product image -->
         <div class="nbn-product-box-image">
@@ -78,3 +78,27 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'select2',
+    'domReady!'
+], function($, __, select2) {
+    'use strict';
+
+    // Prepare variables
+    var selectOptionSelector = '#<?= $boxId ?>' + ' .nbn-field select';
+    var placeholder = $(selectOptionSelector)
+    .find('option[data-placeholder="*"]')
+    .data('placeholder');
+
+    // Build the product options select lists
+    $(selectOptionSelector).select2 ({
+        placeholder: placeholder,
+        minimumResultsForSearch: -1,
+        theme: 'classic'
+    });
+});
+</script>
