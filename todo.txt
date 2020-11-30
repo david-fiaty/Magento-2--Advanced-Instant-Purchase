@@ -9,6 +9,8 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - quantity box in product list
+ - quantity countdown in product list
 
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
