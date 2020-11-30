@@ -62,4 +62,17 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('is_popup', false)
         ->toHtml();
     }
+
+    /**
+     * Render a widget product countdown box.
+     */
+    public function getCountdownBoxHtml($content)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/countown-box.phtml')
+        ->setData('content', $content)
+        ->setData('is_popup', false)
+        ->toHtml();
+    }
 }

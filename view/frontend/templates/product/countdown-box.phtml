@@ -17,19 +17,64 @@
 <?php
     // Get the data
     $content = $this->getData('content');
-    $quantityLimits = $content['product']['quantity_limits'];
     $isPopup = $this->getData('is_popup');
 
     // Prepare the box id
-    $boxId = $isPopup ? 'nbn-popup-qty-box-' : 'nbn-widget-qty-box-';
+    $boxId = $isPopup ? 'nbn-popup-countdown-box-' : 'nbn-widget-countdown-box-';
     $boxId .= $content['product']['id'];
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
-    <input type="button" value="<?= __('-') ?>" class="nbn-qty-minus">
-    <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text">
-    <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
+    <h1>Countdown Clock</h1>
+    <div id="clockdiv">
+        <div>
+            <span class="days"></span>
+            <div class="smalltext">Days</div>
+        </div>
+        <div>
+            <span class="hours"></span>
+            <div class="smalltext">Hours</div>
+        </div>
+        <div>
+            <span class="minutes"></span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div>
+            <span class="seconds"></span>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
 </div>
+
+<style>
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+}
+
+#clockdiv > div{
+  padding: 10px;
+  border-radius: 3px;
+  background: #00BF96;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 15px;
+  border-radius: 3px;
+  background: #00816A;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 16px;
+}
+</style>
 
 <script>
 require([
@@ -41,38 +86,51 @@ require([
 
     // Prepare variables
     var boxId = '#<?= $boxId ?>';
-    var quantityField = $(boxId + ' .nbn-qty');
-    var min = parseInt(quantityField.attr('min'));
-    var max = parseInt(quantityField.attr('max'));
-    var step = parseInt(quantityField.attr('step'));
+ 
+    function getTimeRemaining(endtime) {
+  const total = Date.parse(endtime) - Date.parse(new Date());
+  const seconds = Math.floor((total / 1000) % 60);
+  const minutes = Math.floor((total / 1000 / 60) % 60);
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(total / (1000 * 60 * 60 * 24));
+  
+  return {
+    total,
+    days,
+    hours,
+    minutes,
+    seconds
+  };
+}
 
-    // Value change event
-    quantityField.on('change', function (e) {
-        if ($(e.currentTarget).hasClass('nbn-qty')) {
-            var currentValue = parseInt($(this).val());
-            var condition = currentValue && currentValue !== 'Nan' && currentValue > 0;
-            var newValue = condition ? currentValue : min;
-            $(this).val(newValue);
-        }
-    });
+function initializeClock(id, endtime) {
+  const clock = document.getElementById(id);
+  const daysSpan = clock.querySelector('.days');
+  const hoursSpan = clock.querySelector('.hours');
+  const minutesSpan = clock.querySelector('.minutes');
+  const secondsSpan = clock.querySelector('.seconds');
 
-    // Minus button event
-    $(boxId + ' .nbn-qty-minus').off('click touch').on('click touch', function () {
-        var quantity = parseInt(quantityField.val());
-        var newQuantity = quantity - step;
-        var condition = newQuantity && newQuantity !== 'NaN' && newQuantity >= min;
-        newQuantity = condition ? newQuantity : min;
-        quantityField.val(newQuantity);
-    });
+  function updateClock() {
+    const t = getTimeRemaining(endtime);
 
-    // Plus button event
-    $(boxId + ' .nbn-qty-plus').off('click touch').on('click touch', function () {
-        var quantity = parseInt(quantityField.val());
-        var newQuantity = quantity + step;
-        var condition = newQuantity && newQuantity !== 'NaN' && newQuantity <= max;
+    daysSpan.innerHTML = t.days;
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
-        newQuantity = condition ? newQuantity : max;
-        quantityField.val(newQuantity);
-    });
+    if (t.total <= 0) {
+      clearInterval(timeinterval);
+    }
+  }
+
+  updateClock();
+  const timeinterval = setInterval(updateClock, 1000);
+}
+
+const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+initializeClock('clockdiv', deadline);
+
+
+
 });
 </script>
