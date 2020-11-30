@@ -9,6 +9,7 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - fix countdown default value in widget and module conf
  - quantity box in product list
  - quantity countdown in product list
 
@@ -19,6 +20,7 @@
 - Improve product price handling with quantity > 1
 => solution: add product + quantity to quote, get quote total, then delete quote and keep total.
 => do that with ajax request to frontend product data controller
+=> might avoid having to deal with price rules
 
 QA
 - check that widget config override is working as expected, especially for zoom parameters
