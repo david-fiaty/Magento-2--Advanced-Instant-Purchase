@@ -52,6 +52,9 @@ require([
     var max = parseInt(quantityField.attr('max'));
     var step = parseInt(quantityField.attr('step'));
 
+    // Update the quantity on page load (popup case)
+    updatePrice();
+
     // Value change event
     quantityField.on('change', function (e) {
         if ($(e.currentTarget).hasClass('nbn-qty')) {

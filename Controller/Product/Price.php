@@ -43,11 +43,6 @@ class Price extends \Magento\Framework\App\Action\Action
     public $productHelper;
 
     /**
-     * Data
-     */
-    public $pricingHelper;
-
-    /**
      * Index controller class constructor.
      */
     public function __construct(
@@ -55,7 +50,6 @@ class Price extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Magento\Framework\Pricing\Helper\Data $pricingHelper,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
@@ -63,7 +57,6 @@ class Price extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
-        $this->pricingHelper = $pricingHelper;
         $this->productHelper = $productHelper;
     }
 
@@ -82,36 +75,16 @@ class Price extends \Magento\Framework\App\Action\Action
         if ($request->isAjax()) {
         // Todo - Validate request form key
         //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $html .= $this->renderProductPrice();
+            $productId = $this->getRequest()->getParam('product_id');
+            $productQuantity = $this->getRequest()->getParam('product_quantity');    
+            $html .= $this->productHelper->renderProductPrice(
+                $productId,
+                $productQuantity
+            );
         }
 
         return $this->jsonFactory->create()->setData(
             ['html' => $html]
         );
-    }
-
-    /**
-     * Renders a product price.
-     */
-    public function renderProductPrice()
-    {
-        // Get the request parmeters
-        $productId = $this->getRequest()->getParam('product_id');
-        $productQuantity = $this->getRequest()->getParam('product_quantity');
-
-        // Get the product price
-        $productPrice = $this->productHelper->getProductPrice($productId, false, false);
-
-        // Calculate the total price
-        $totalPrice = $productQuantity * $productPrice;
-
-        // Formatted price
-        $formattedPrice = $this->pricingHelper->currency(
-            $totalPrice,
-            $format = true,
-            $includeContainer = true
-        );
-
-        return $formattedPrice;
     }
 }
