@@ -61,8 +61,27 @@ require([
             $(this).val(newValue);
         }
 
-        // Calculate the new price
-        console.log($(this).val());
+        // Ajax price update request
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
+        var params = {
+            product_id: <?= $productId ?>,
+            product_quanity: $(this).val(),
+            form_key: window.FORM_KEY
+        };
+
+        $.ajax({
+            url: updateUrl,
+            data: params,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.html);
+                $(boxId + ' .nbn-order-total').html(data.html);
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        });
     });
 
     // Minus button event
@@ -84,24 +103,5 @@ require([
         quantityField.val(newQuantity);
     });
 
-    // Ajax price update request
-    var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
-    var params = {
-        product_id: <?= $productId ?>,
-        form_key: window.FORM_KEY
-    };
-
-    $.ajax({
-        url: updateUrl,
-        data: params,
-        type: 'post',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (request, status, error) {
-            console.log(error);
-        }
-    });
 });
 </script>
