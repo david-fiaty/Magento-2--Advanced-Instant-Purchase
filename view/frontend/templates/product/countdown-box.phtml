@@ -17,7 +17,6 @@
 <?php
     // Get the data
     $content = $this->getData('content');
-    $productQuantity = $this->getData('product_quantity');
     $quantityLimits = $content['product']['quantity_limits'];
     $isPopup = $this->getData('is_popup');
 
@@ -28,7 +27,7 @@
 
 <div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
     <input type="button" value="<?= __('-') ?>" class="nbn-qty-minus">
-    <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="<?= $productQuantity ?>" title="<?= __('Qty') ?>" class="input-text nbn-qty text">
+    <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="1" title="<?= __('Qty') ?>" class="input-text nbn-qty text">
     <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
 </div>
 
