@@ -113,6 +113,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $output = [];
         $product = $this->getProduct($productId);
+
+        var_dump($product->getTierPrice());
+exit();
+        
         if ($product) {
             // Prepare the base data
             $output = [
