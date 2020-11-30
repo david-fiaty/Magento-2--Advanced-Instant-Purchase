@@ -20,7 +20,6 @@ $element = $block->getData('element');
 ?>
 
 <div class="field">
-    <label><?= __('Date') ?></label>
     <input type="text" class="input-text" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" />
 </div>
 
@@ -33,10 +32,8 @@ require([
     $('#<?= $element->getId() ?>').calendar({
         changeMonth: true,
         changeYear: true,
-        showButtonPanel: true,
-        currentText: __('Go Today'),
-        closeText: __('Close'),
-        showWeek: true
+        showButtonPanel: false,
+        showWeek: false
     });
 });
 </script>

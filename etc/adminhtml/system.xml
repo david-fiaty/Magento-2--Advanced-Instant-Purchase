@@ -144,13 +144,6 @@
                         <field id="popup_show_product">1</field>
                     </depends>
                 </field>
-                <field id="popup_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product price</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
-                </field>
                 <field id="popup_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -168,13 +161,6 @@
                 </field>
                 <field id="widget_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="widget_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product price</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="widget_show_product">1</field>

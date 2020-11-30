@@ -9,10 +9,16 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - quantity box in product list
+ - quantity countdown in product list
 
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
 
+
+- Improve product price handling with quantity > 1
+=> solution: add product + quantity to quote, get quote total, then delete quote and keep total.
+=> do that with ajax request to frontend product data controller
 
 QA
 - check that widget config override is working as expected, especially for zoom parameters

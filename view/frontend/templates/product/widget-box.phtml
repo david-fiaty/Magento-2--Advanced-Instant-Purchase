@@ -21,7 +21,6 @@
     // Display settings
     $showProductImage = $content['widgets']['widget_show_product_image'];
     $showProductName = $content['widgets']['widget_show_product_name'];
-    $showProductPrice = $content['widgets']['widget_show_product_price'];
     $zoomEnabled = $content['widgets']['widget_zoom_enabled'];
     $isLightbox = $content['widgets']['widget_zoom_type'] == 'lightbox';
     $timeLimit = $content['buttons']['product_time_limit'];
@@ -50,13 +49,6 @@
         <?php if ($showProductName): ?>
             <p class="nbn-product-box-name">
                 <?= $block->escapeHtml($content['product']['name']) ?>
-            </p>
-        <?php endif; ?>
-
-        <!-- Product price -->
-        <?php if ($showProductPrice): ?>
-            <p class="nbn-product-box-price">
-                <?= $block->escapeHtml($content['product']['price']) ?>
             </p>
         <?php endif; ?>
 

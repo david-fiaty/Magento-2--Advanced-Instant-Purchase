@@ -30,7 +30,7 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
-            galleryUrl: 'product/index',
+            galleryUrl: 'product/gallery',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',

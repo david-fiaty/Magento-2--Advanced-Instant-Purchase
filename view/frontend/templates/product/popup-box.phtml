@@ -21,7 +21,6 @@
     // Display settings
     $showProductImage = $content['config']['popups']['popup_show_product_image'];
     $showProductName = $content['config']['popups']['popup_show_product_name'];
-    $showProductPrice = $content['config']['popups']['popup_show_product_price'];
     $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
     $boxId = 'nbn-popup-product-box-' . $content['config']['product']['id'];
 ?>
@@ -40,13 +39,6 @@
         <?php if ($showProductName): ?>
             <p class="nbn-product-box-name">
                 <?= $block->escapeHtml($content['config']['product']['name']) ?>
-            </p>
-        <?php endif; ?>
-
-        <!-- Product price -->
-        <?php if ($showProductPrice): ?>
-            <p class="nbn-product-box-price">
-                <?= $block->escapeHtml($content['config']['product']['price']) ?>
             </p>
         <?php endif; ?>
 

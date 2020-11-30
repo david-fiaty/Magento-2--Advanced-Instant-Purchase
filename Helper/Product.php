@@ -113,6 +113,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $output = [];
         $product = $this->getProduct($productId);
+
         if ($product) {
             // Prepare the base data
             $output = [
@@ -268,12 +269,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product price.
      */
-    public function getProductPrice($productId)
+    public function getProductPrice($productId, $currency = true, $html = false)
     {
         return $this->priceHelper->currency(
             $this->getProduct($productId)->getFinalPrice(),
-            true,
-            false
+            $currency,
+            $html
         );
     }
 

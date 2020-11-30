@@ -20,6 +20,7 @@
     $productQuantity = $this->getData('product_quantity');
     $quantityLimits = $content['product']['quantity_limits'];
     $isPopup = $this->getData('is_popup');
+    $productId = $content['product']['id'];
 
     // Prepare the box id
     $boxId = $isPopup ? 'nbn-popup-qty-box-' : 'nbn-widget-qty-box-';
@@ -27,9 +28,13 @@
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
+    <span class="nbn-order-total">
+        <?= $content['product']['price'] ?>
+    </span>
     <input type="button" value="<?= __('-') ?>" class="nbn-qty-minus">
     <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="<?= $productQuantity ?>" title="<?= __('Qty') ?>" class="input-text nbn-qty text">
     <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
+
 </div>
 
 <script>
@@ -64,6 +69,7 @@ require([
         var condition = newQuantity && newQuantity !== 'NaN' && newQuantity >= min;
         newQuantity = condition ? newQuantity : min;
         quantityField.val(newQuantity);
+        updatePrice();
     });
 
     // Plus button event
@@ -74,6 +80,30 @@ require([
 
         newQuantity = condition ? newQuantity : max;
         quantityField.val(newQuantity);
+        updatePrice();
     });
+
+    // Ajax price update
+    function updatePrice() {
+        // Ajax price update request
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
+        var params = {
+            product_id: <?= $productId ?>,
+            product_quantity: $(boxId + ' .nbn-qty').val(),
+            form_key: window.FORM_KEY
+        };
+        $.ajax({
+                url: updateUrl,
+                data: params,
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $(boxId + ' .nbn-order-total').html(data.html);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        }
 });
 </script>
