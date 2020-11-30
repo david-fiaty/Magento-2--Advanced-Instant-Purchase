@@ -93,8 +93,8 @@
             </parameter>
 
             <parameter name="product_time_limit" xsi:type="block" visible="true">
-                <label translate="true">Product time limit</label>
-                <description>Display duration in number of days. No value or 0 equal unitmited time.</description>
+                <label translate="true">Display until</label>
+                <description>Display duration. No value equals unlimited time.</description>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Calendar"/>
             </parameter>
 
