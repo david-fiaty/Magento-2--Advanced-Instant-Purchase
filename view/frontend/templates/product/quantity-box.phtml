@@ -89,7 +89,7 @@ require([
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
         var params = {
             product_id: <?= $productId ?>,
-            product_quantity: $(this).val(),
+            product_quantity: $(boxId + ' .nbn-qty').val(),
             form_key: window.FORM_KEY
         };
         $.ajax({
