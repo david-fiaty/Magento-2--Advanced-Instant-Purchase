@@ -62,6 +62,7 @@ require([
             var condition = currentValue && currentValue !== 'Nan' && currentValue > 0;
             var newValue = condition ? currentValue : min;
             $(this).val(newValue);
+            updatePrice();
         }
     });
 
