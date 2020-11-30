@@ -14,6 +14,10 @@
 - handle 0 product found in category for widget category filter.
 
 
+- Improve product price handling with quantity > 1
+=> solution: add product + quantity to quote, get quote total, then delete quote and keep total.
+=> do that with ajax request to frontend product data controller
+
 QA
 - check that widget config override is working as expected, especially for zoom parameters
 - check if place order contains expected product attributes selected by user (request data)

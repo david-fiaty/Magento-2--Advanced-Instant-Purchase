@@ -59,6 +59,9 @@ require([
             var newValue = condition ? currentValue : min;
             $(this).val(newValue);
         }
+
+        // Calculate the new price
+        console.log($(this).val());
     });
 
     // Minus button event
