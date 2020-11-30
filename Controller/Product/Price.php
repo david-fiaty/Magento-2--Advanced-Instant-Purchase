@@ -43,6 +43,11 @@ class Price extends \Magento\Framework\App\Action\Action
     public $productHelper;
 
     /**
+     * PriceCurrencyInterface
+     */
+    public $priceCurrencyInterface;
+
+    /**
      * Index controller class constructor.
      */
     public function __construct(
@@ -50,6 +55,7 @@ class Price extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrencyInterface,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
@@ -57,6 +63,7 @@ class Price extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->priceCurrencyInterface = $priceCurrencyInterface;
         $this->productHelper = $productHelper;
     }
 
@@ -92,13 +99,15 @@ class Price extends \Magento\Framework\App\Action\Action
         $productId = $this->getRequest()->getParam('product_id');
         $productQuantity = $this->getRequest()->getParam('product_quantity');
 
-        // Load the product
-        //$product = $this->productHelper->getProduct($productId);
-
         // Get the product price
-        $productPrice = $this->productHelper->getProductPrice($productId);
-        exit();
+        $productPrice = $this->productHelper->getProductPrice($productId, false, false);
 
-        return $productQuantity * $this->productHelper->getProductPrice($productId);
+        // Calculate the total price
+        $totalPrice = $productQuantity * $productPrice;
+
+        // Formatted price
+        $formattedPrice = $this->priceCurrencyInterface->convertAndFormat($totalPrice);
+
+        return $formattedPrice;
     }
 }

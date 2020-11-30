@@ -269,41 +269,12 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the current product price.
      */
-    public function getProductPrice($productId)
+    public function getProductPrice($productId, $currency = true, $html = false)
     {
-
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($this->priceHelper->currency(
-    $this->getProduct($productId)->getFinalPrice(),
-    true,
-    false
-), 1));
-
-$logger->info(print_r($this->priceHelper->currency(
-    $this->getProduct($productId)->getFinalPrice(),
-    true,
-    true
-), 1));
-
-$logger->info(print_r($this->priceHelper->currency(
-    $this->getProduct($productId)->getFinalPrice(),
-    false,
-    true
-), 1));
-
-$logger->info(print_r($this->priceHelper->currency(
-    $this->getProduct($productId)->getFinalPrice(),
-    false,
-    false
-), 1));
-
         return $this->priceHelper->currency(
             $this->getProduct($productId)->getFinalPrice(),
-            true,
-            false
+            $currency,
+            $html
         );
     }
 
