@@ -219,6 +219,11 @@
     
 }
 
+/* Countdown box */
+.nbn-product-box-countdown {
+    margin-bottom: 2em;
+}
+
 /* Spinner icon */
 .nbn-ajax-loader-container {
     width: 100%;
