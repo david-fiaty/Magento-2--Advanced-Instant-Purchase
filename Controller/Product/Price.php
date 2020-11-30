@@ -43,9 +43,9 @@ class Price extends \Magento\Framework\App\Action\Action
     public $productHelper;
 
     /**
-     * PriceCurrencyInterface
+     * Data
      */
-    public $priceCurrencyInterface;
+    public $pricingHelper;
 
     /**
      * Index controller class constructor.
@@ -55,7 +55,7 @@ class Price extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrencyInterface,
+        \Magento\Framework\Pricing\Helper\Data $pricingHelper,
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
@@ -63,7 +63,7 @@ class Price extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
-        $this->priceCurrencyInterface = $priceCurrencyInterface;
+        $this->pricingHelper = $pricingHelper;
         $this->productHelper = $productHelper;
     }
 
@@ -106,7 +106,11 @@ class Price extends \Magento\Framework\App\Action\Action
         $totalPrice = $productQuantity * $productPrice;
 
         // Formatted price
-        $formattedPrice = $this->priceCurrencyInterface->convertAndFormat($totalPrice);
+        $formattedPrice = $this->pricingHelper->currency(
+            $totalPrice,
+            $format = true,
+            $includeContainer = true
+        );
 
         return $formattedPrice;
     }
