@@ -53,11 +53,11 @@
         <?php endif; ?>
 
         <!-- Product countdown -->
-        <?php /*if ($showProductCountdown):*/ ?>
+        <?php if ($showProductCountdown): ?>
             <div class="nbn-product-box-countdown">
-
+                <?= $block->getData('countdown_html'); ?>
             </div>
-        <?php /*endif;*/ ?>
+        <?php endif; ?>
 
         <!-- Product options -->
         <?php if (!empty($content['product']['options'])): ?>

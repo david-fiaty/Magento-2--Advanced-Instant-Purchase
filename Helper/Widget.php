@@ -45,6 +45,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock('Magento\Framework\View\Element\Template')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('content', $content)
+        ->setData('countdown_html', $this->getCountdownBoxHtml($content))
         ->setData('is_popup', false)
         ->toHtml();
     }
@@ -59,6 +60,19 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $content)
         ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', false)
+        ->toHtml();
+    }
+
+    /**
+     * Render a widget product countdown box.
+     */
+    public function getCountdownBoxHtml($content)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown-box.phtml')
+        ->setData('content', $content)
         ->setData('is_popup', false)
         ->toHtml();
     }
