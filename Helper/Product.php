@@ -119,7 +119,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $output = [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
-                'price' => $this->getProductPrice($productId),
+                'price' => $this->renderProductPrice($productId),
                 'is_free' => $this->isFree($productId),
                 'form_key' => $this->toolsHelper->getFormKey(),
                 'has_parents' => $this->hasParents($product),
@@ -281,8 +281,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Renders a product price.
      */
-    public function renderProductPrice($productId, $productQuantity)
+    public function renderProductPrice($productId, $productQuantity = null)
     {
+        // Prepare the product quantity
+        $productQuantity = (int) $productQuantity > 0
+        ? $productQuantity
+        : $this->getQuantityLimits($productId)['min'];
+
         // Get the product price
         $productPrice = $this->getProductPrice($productId, false, false);
 

@@ -9,8 +9,13 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - add product time limit check to "can display block"
+ - add time display to calendar config field 
+ - add calendar to system.xml
  - quantity box in product list
  - quantity countdown in product list
+
+- update new widget default values with current system values
 
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
@@ -19,6 +24,10 @@
 - Improve product price handling with quantity > 1
 => solution: add product + quantity to quote, get quote total, then delete quote and keep total.
 => do that with ajax request to frontend product data controller
+=> might avoid having to deal with price rules
+
+
+- use custom blocks everywhere instead of core \Template class so that people can override
 
 QA
 - check that widget config override is working as expected, especially for zoom parameters
@@ -29,8 +38,6 @@ QA
 - check add to cart values and display in popup and order request
 
 FEATURES
-- add buynow count down timer
-- add buynow time limit
 - add module version checker
 
 - build order confirmation screen after payment + editable info
@@ -76,6 +83,9 @@ https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-
 
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
+
+- countdown timer
+https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
 
 QA
 - check all config fields functional
