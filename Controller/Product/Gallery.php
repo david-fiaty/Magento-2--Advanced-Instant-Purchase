@@ -18,9 +18,9 @@ namespace Naxero\BuyNow\Controller\Product;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Index controller class.
+ * Gallery controller class.
  */
-class Index extends \Magento\Framework\App\Action\Action
+class Gallery extends \Magento\Framework\App\Action\Action
 {
     /**
      * @var Validator

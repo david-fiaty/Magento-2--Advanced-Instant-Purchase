@@ -28,11 +28,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $productTypeConfigurable;
 
     /**
-     * @var Product
-     */
-    public $productModel;
-
-    /**
      * @var Image
      */
     public $imageHelper;
@@ -87,7 +82,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeConfigurable,
-        \Magento\Catalog\Model\Product $productModel,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
@@ -100,7 +94,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\BuyNow\Helper\Attribute $attributeHelper
     ) {
         $this->productTypeConfigurable = $productTypeConfigurable;
-        $this->productModel = $productModel;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
