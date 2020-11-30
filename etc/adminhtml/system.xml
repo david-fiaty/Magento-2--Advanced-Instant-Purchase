@@ -59,8 +59,8 @@
                 </field>
 
                 <field id="product_time_limit" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product time limit</label>
-                    <comment>Display duration in number of days. No value or 0 equal unitmited time.</comment>
+                    <label>Display until</label>
+                    <comment>Display duration. No value equals unlimited time.</comment>
                 </field>
 
                 <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
