@@ -55,7 +55,7 @@
         <!-- Product countdown -->
         <?php if ($showProductCountdown): ?>
             <div class="nbn-product-box-countdown">
-            <?= strtotime($content['buttons']['product_time_limit']) ?>
+                <?= $block->getData('countdown_html'); ?>
             </div>
         <?php endif; ?>
 
