@@ -164,20 +164,6 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="widget_show_product_price" xsi:type="select" visible="true">
-                <label translate="true">Show product price</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
             <parameter name="widget_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>
                 <depends>
@@ -312,20 +298,6 @@
             </parameter>
             <parameter name="popup_show_product_name" xsi:type="select" visible="true">
                 <label translate="true">Show product name</label>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-            <parameter name="popup_show_product_price" xsi:type="select" visible="true">
-                <label translate="true">Show product price</label>
                 <depends>
                     <parameter name="popup_show_product" value="1" />
                 </depends>
