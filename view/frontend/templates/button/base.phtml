@@ -18,30 +18,36 @@
 <?php if ($config): ?>
 <?php
 // Process the block display logic
-if ($this->blockHelper->bypassOos($config['product']['id'])) {
+if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $productId = $config['product']['id'];
     $buttonId = $config['product']['button_id'];
     $purchaseData = $block->purchaseHelper->getPurchaseData();
     $productIsFree = $block->productHelper->isFree($productId);
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-    $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
+    $isWidgetView = $config['product']['display'] == 'widget';
     $isListView = $config['product']['display'] == 'list';
     $isPageView = $config['product']['display'] == 'view';
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
-    $buttonText = $this->blockHelper->getButtonText();
-}
+    $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
+    $buttonText = $block->blockHelper->getButtonText();
 ?>
 
 <!-- Product box -->
 <?php if ($showProductBox): ?>
 <div class="nbn-product-box-container">
-    <?= $this->blockHelper->renderWidgetProductBox($productId) ?>
+    <?= $block->widgetHelper->getProductBoxHtml($config) ?>
 </div>
 <?php endif; ?>
 
+<!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
+    <!-- Quantity box -->
+    <?php if ($showQuantityBox): ?>
+        <?= $block->widgetHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+    <?php endif; ?>
+
     <!-- Button -->
     <button 
         id="<?= $block->escapeHtmlAttr($buttonId) ?>"
@@ -91,5 +97,5 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
         }
     </script>
 </div>
-<?php endif; ?> 
-
+<?php } ?>
+<?php endif; ?>

@@ -16,19 +16,20 @@
 
 <?php
     // Get the data
-    $content = $this->getData('content');
+    $content = $block->getData('content');
 
     // Display settings
-    $showProductImage = $content['popups']['popup_show_product_image'];
-    $showProductName = $content['popups']['popup_show_product_name'];
-    $showProductPrice = $content['popups']['popup_show_product_price'];
+    $showProductImage = $content['config']['popups']['popup_show_product_image'];
+    $showProductName = $content['config']['popups']['popup_show_product_name'];
+    $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
+    $boxId = 'nbn-popup-product-box-' . $content['config']['product']['id'];
 ?>
 
-<div id="nbn-product-box-<?= $block->escapeHtmlAttr($content['product']['id']) ?>" class="nbn-product-box">
+<div id="<?= $boxId ?>" class="nbn-product-box">
     <?php if ($showProductImage): ?>
         <!-- Product image -->
         <div class="nbn-product-box-image">
-            <img src="<?= $block->escapeUrl($content['product']['image_url']) ?>"> 
+            <img src="<?= $block->escapeUrl($content['config']['product']['images']['small']) ?>"> 
         </div>
     <?php endif; ?>
 
@@ -37,25 +38,18 @@
         <!-- Product name -->
         <?php if ($showProductName): ?>
             <p class="nbn-product-box-name">
-                <?= $block->escapeHtml($content['product']['name']) ?>
-            </p>
-        <?php endif; ?>
-
-        <!-- Product price -->
-        <?php if ($showProductPrice): ?>
-            <p class="nbn-product-box-price">
-                <?= $block->escapeHtml($content['product']['price']) ?>
+                <?= $block->escapeHtml($content['config']['product']['name']) ?>
             </p>
         <?php endif; ?>
 
         <!-- Product options -->
-        <?php if (!empty($content['product']['options'])): ?>
-            <?php foreach ($content['product']['options'] as $row): ?>                
+        <?php if (!empty($content['config']['product']['options'])): ?>
+            <?php foreach ($content['config']['product']['options'] as $row): ?>                
                 <div class="nbn-field">
-                    <label for="nbn-option-<?= $block->escapeHtmlAttr($content['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
+                    <label for="nbn-option-<?= $block->escapeHtmlAttr($content['config']['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
                         <p>
-                            <select id="nbn-option-<?= $block->escapeHtmlAttr($content['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $content['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
-                                <option value=""><?= $block->escapeHtml($row['label']) ?></option>
+                            <select id="nbn-option-<?= $block->escapeHtmlAttr($content['config']['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $content['config']['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-popup-option nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
+                                <option data-placeholder="<?= $block->escapeHtml($row['label']) ?>" value=""><?= $block->escapeHtml($row['label']) ?></option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
                                         <?= $block->escapeHtml($item['label']) ?>
@@ -70,3 +64,27 @@
     </div>
     <div class="nbn-clr"></div>   
 </div>
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'select2',
+    'domReady!'
+], function($, __, select2) {
+    'use strict';
+
+    // Prepare variables
+    var selectOptionSelector = '#<?= $boxId ?>' + ' .nbn-field select';
+    var placeholder = $(selectOptionSelector)
+    .find('option[data-placeholder="*"]')
+    .data('placeholder');
+
+    // Build the product options select lists
+    $(selectOptionSelector).select2 ({
+        placeholder: placeholder,
+        minimumResultsForSearch: -1,
+        theme: 'classic'
+    });
+});
+</script>

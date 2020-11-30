@@ -14,13 +14,12 @@
 
  define([
     'jquery',
-    'jsonviewer'
-], function ($, jsonViewer) {
+    'mage/translate',
+    'slick',
+], function ($, __, slick) {
     'use strict';
 
     return {
-        treeContainerSelector: '.nbn-logger-tree',
-
         /**
          * Initialise the object.
          */
@@ -30,25 +29,15 @@
         },
 
         /**
-         * Build a jQtree instance.
+         * Build a product gallery.
          */
         build: function () {
-            if (this.needsUiLogging()) {
-                $(this.treeContainerSelector).jsonViewer(
-                    this.o.jsConfig,
-                    {
-                        collapsed: true
-                    }
-                );
-            }
-        },
-
-        /**
-         * Check if UI logging i enabled.
-         */
-        needsUiLogging: function () {
-            return this.o.jsConfig.general.debug_enabled
-             && this.o.jsConfig.general.ui_logging_enabled;
+            $('.nbn-gallery-images').slick({
+                slidesToShow: 1,
+                infinite: true,
+                speed: 500,
+                dots: true
+            });
         }
     };
 });

@@ -103,9 +103,6 @@
                                 }
                             });
                         }
-                        else {
-                            alert('agreements invalid');
-                        }
                     }
                 }]
             });
@@ -116,12 +113,36 @@
          */
         getLoggerModal: function (obj) {
             var self = this;
-            var title = obj.jsConfig.module.title + ' ' + __('Logger');
+            var title =  obj.jsConfig.popups.popup_title;
             ConfirmModal({
                 title: title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getLogger({}),
+                buttons: [{
+                    text: __('Close'),
+                    class: self.cancelButtonClasses,
+                    click: function (e) {
+                        $(self.cancelButtonSelector).trigger('click');
+                    }
+                }]
+            });
+        },
+
+        /**
+         * Get the product media gallery modal.
+         */
+        getGalleryModal: function (obj) {
+            // Prepare parameters
+            var self = this;
+            var title = obj.jsConfig.product.title;
+
+            // Build the modal
+            ConfirmModal({
+                title: title,
+                innerScroll: true,
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getGallery({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

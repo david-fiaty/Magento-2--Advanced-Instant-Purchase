@@ -1,3 +1,4 @@
+<?php
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -11,7 +12,9 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
-
-var config = {
-    urlArgs: "bust=" + (new Date()).getTime()
-};
+?>
+<style>
+    <?php foreach ($block->getData('assets') as $url): ?>
+        @import url('<?= $url ?>');
+    <?php endforeach; ?>
+</style>

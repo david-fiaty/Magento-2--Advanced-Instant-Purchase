@@ -76,7 +76,7 @@
                 return NbnProductOptionSwatch;
             } else if (NbnView.isListView()) {
                 return NbnProductOptionSwatch;
-            } else if (NbnView.isBlockView()) {
+            } else if (NbnView.isWidgetView()) {
                 return NbnProductOptionSelect;
             }
         },
@@ -87,8 +87,8 @@
         updateSelectedOptionsValues: function (obj) {
             var options = this.getOptions(obj);
             var condition1 = options && options.length > 0;
-            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isBlockView();
-            var condition3 = !NbnView.isBlockView();
+            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isWidgetView();
+            var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['attribute_type'])

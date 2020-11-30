@@ -28,6 +28,11 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $pageFactory;
 
     /**
+     * @var Widget
+     */
+    public $widgetHelper;
+
+    /**
      * @var Customer
      */
     public $customerHelper;
@@ -52,12 +57,14 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
+        \Naxero\BuyNow\Helper\Widget $widgetHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
+        $this->widgetHelper = $widgetHelper;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
@@ -121,7 +128,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Prepare the UI loader
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        $config['ui']['css'] = $this->configHelper->getCssPath();
 
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
@@ -134,40 +140,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->filterContent($config['popups']['popup_title'], $config);
 
         return $config;
-    }
-
-    /**
-     * Render a widget product box.
-     */
-    public function renderWidgetProductBox($productId, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
-    }
-
-    /**
-     * Render a popup product box.
-     */
-    public function renderPopupProductBox($productId, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
     }
 
     /**

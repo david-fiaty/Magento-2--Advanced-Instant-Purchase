@@ -12,13 +12,9 @@
  * @link      https://www.naxero.com
  */
 
- var config = {
+var config = {
     paths: {
-        slick: 'Naxero_BuyNow/js/lib/slick/slick',
-        popover: 'Naxero_BuyNow/js/lib/popover/popover',
-        jsonviewer: 'Naxero_BuyNow/js/lib/json/jquery.json-viewer',
-        elevatezoom: 'Naxero_BuyNow/js/lib/elevate/jquery.elevatezoom',
-        nbn: 'Naxero_BuyNow/js/view/handler'
+        select2: 'Naxero_BuyNow/js/lib/select2/select2.full'
     },
     urlArgs: "bust=" + (new Date()).getTime()
 };

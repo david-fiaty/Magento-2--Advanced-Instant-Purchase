@@ -28,6 +28,11 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $blockHelper;
 
     /**
+     * @var Widget
+     */
+    public $widgetHelper;
+
+    /**
      * @var Config
      */
     public $configHelper;
@@ -48,6 +53,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Widget $widgetHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
@@ -55,8 +61,9 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     ) {
         parent::__construct($context, $data);
         
-        $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
+        $this->widgetHelper = $widgetHelper;
+        $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
     }

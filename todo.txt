@@ -1,30 +1,38 @@
 
 !!!PRIORITY!!!
 
-- set admin widget fields selected values on page load
 - complete payment integrations
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
-
-
-- check if place order contains expected product attributes selected by user (request data)
-
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
-
 - Improve UI logger information
  
-- add module version checker
+ - quantity box in product list
+ - quantity countdown in product list
 
 - display UI error messages for widget products not found with category filters
-
 - handle 0 product found in category for widget category filter.
 
-- see if best sales filter should have a year/month/day sub select
-https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
+- Improve product price handling with quantity > 1
+=> solution: add product + quantity to quote, get quote total, then delete quote and keep total.
+=> do that with ajax request to frontend product data controller
+
+QA
+- check that widget config override is working as expected, especially for zoom parameters
+- check if place order contains expected product attributes selected by user (request data)
+- check: multiple widgets in same page, multiple widgets in list and page view
+- fix/improve lightbox gallery images display
+- recheck all zoom modes
+- check add to cart values and display in popup and order request
 
 FEATURES
+- add buynow count down timer
+- add buynow time limit
+- add module version checker
+
 - build order confirmation screen after payment + editable info
 
 - ! add quick cart checkout option in minicart and basket page
@@ -33,10 +41,19 @@ FEATURES
 - login with google, facebook
 - add buy now button to emails, newsletters...
 
+- see if best sales filter should have a year/month/day sub select
+https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
+
+HOME PAGE EXAMPLES
+https://www.channelengine.com/
+
 EXTRA
 - add button error reporting to button popover.
 
 
+LIBS
+- update the slick version from 1.8.0 to 1.8.1
+- check other libraries versions
 
 EXPLORE
 - improved category UI selector:
@@ -48,6 +65,7 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 
 - improve the config fields comments
 
+- marketplaces and ecommerce platforms available on https://www.channelengine.com/
 
 RESOURCES
 - execute php code from string
@@ -67,6 +85,10 @@ EXPLORE
 https://mage2.pro/t/topic/1016
 https://webkul.com/blog/get-attribute-id-attribute-code-magento2/
 https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-name-options-from-attribute-code/
+
+
+- Add product quantity box
+https://embed.plnkr.co/B5waxZ/
 
 NEW IDEAS
 
