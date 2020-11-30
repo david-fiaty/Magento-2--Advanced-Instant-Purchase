@@ -10,6 +10,8 @@
 - Improve UI logger information
  
  - add product time limit check to "can display block"
+ - add time display to calendar config field 
+ - add calendar to system.xml
  - fix countdown default value in widget and module conf
  - quantity box in product list
  - quantity countdown in product list
