@@ -37,6 +37,10 @@ class Price extends \Magento\Framework\App\Action\Action
      */
     public $jsonFactory;
 
+    /**
+     * Product
+     */
+    public $productHelper;
 
     /**
      * Index controller class constructor.
@@ -45,13 +49,15 @@ class Price extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
+        \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
 
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -82,7 +88,17 @@ class Price extends \Magento\Framework\App\Action\Action
      */
     public function renderProductPrice()
     {
-        // Get the product id
-        return 'ooo';
+        // Get the request parmeters
+        $productId = $this->getRequest()->getParam('product_id');
+        $productQuantity = $this->getRequest()->getParam('product_quantity');
+
+        // Load the product
+        //$product = $this->productHelper->getProduct($productId);
+
+        // Get the product price
+        $productPrice = $this->productHelper->getProductPrice($productId);
+        exit();
+
+        return $productQuantity * $this->productHelper->getProductPrice($productId);
     }
 }

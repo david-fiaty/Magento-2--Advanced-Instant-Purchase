@@ -60,28 +60,6 @@ require([
             var newValue = condition ? currentValue : min;
             $(this).val(newValue);
         }
-
-        // Ajax price update request
-        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
-        var params = {
-            product_id: <?= $productId ?>,
-            product_quanity: $(this).val(),
-            form_key: window.FORM_KEY
-        };
-
-        $.ajax({
-            url: updateUrl,
-            data: params,
-            type: 'post',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data.html);
-                $(boxId + ' .nbn-order-total').html(data.html);
-            },
-            error: function (request, status, error) {
-                console.log(error);
-            }
-        });
     });
 
     // Minus button event
@@ -91,6 +69,7 @@ require([
         var condition = newQuantity && newQuantity !== 'NaN' && newQuantity >= min;
         newQuantity = condition ? newQuantity : min;
         quantityField.val(newQuantity);
+        updatePrice();
     });
 
     // Plus button event
@@ -101,7 +80,30 @@ require([
 
         newQuantity = condition ? newQuantity : max;
         quantityField.val(newQuantity);
+        updatePrice();
     });
 
+    // Ajax price update
+    function updatePrice() {
+        // Ajax price update request
+        var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
+        var params = {
+            product_id: <?= $productId ?>,
+            product_quanity: $(this).val(),
+            form_key: window.FORM_KEY
+        };
+        $.ajax({
+                url: updateUrl,
+                data: params,
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $(boxId + ' .nbn-order-total').html(data.html);
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        }
 });
 </script>
