@@ -20,6 +20,7 @@
     $productQuantity = $this->getData('product_quantity');
     $quantityLimits = $content['product']['quantity_limits'];
     $isPopup = $this->getData('is_popup');
+    $productId = $content['product']['id'];
 
     // Prepare the box id
     $boxId = $isPopup ? 'nbn-popup-qty-box-' : 'nbn-widget-qty-box-';
@@ -81,6 +82,26 @@ require([
 
         newQuantity = condition ? newQuantity : max;
         quantityField.val(newQuantity);
+    });
+
+    // Ajax price update request
+    var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/product/price')); ?>';
+    var params = {
+        product_id: <?= $productId ?>,
+        form_key: window.FORM_KEY
+    };
+
+    $.ajax({
+        url: updateUrl,
+        data: params,
+        type: 'post',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (request, status, error) {
+            console.log(error);
+        }
     });
 });
 </script>
