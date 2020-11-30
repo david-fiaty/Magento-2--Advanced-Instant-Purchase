@@ -21,6 +21,8 @@
 - handle 0 product found in category for widget category filter.
 
 
+- Handle product price update with options in widget and popup
+
 - Not supported: product price handling with price rules (qty > 1, or other conditions...)
 => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
 => do that with ajax request to frontend product data controller
