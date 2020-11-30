@@ -17,7 +17,6 @@
 <?php
     // Get the data
     $content = $block->getData('content');
-    $quantityBoxHtml = $block->getData('quantity_box_html');
 
     // Display settings
     $showProductImage = $content['config']['popups']['popup_show_product_image'];
@@ -49,11 +48,6 @@
             <p class="nbn-product-box-price">
                 <?= $block->escapeHtml($content['config']['product']['price']) ?>
             </p>
-        <?php endif; ?>
-
-        <!-- Quantity box -->
-        <?php if ($showQuantityBox): ?>
-            <?= $quantityBoxHtml ?>
         <?php endif; ?>
 
         <!-- Product options -->
