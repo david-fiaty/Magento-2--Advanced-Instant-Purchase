@@ -9,6 +9,7 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - add product time limit check to "can display block"
  - fix countdown default value in widget and module conf
  - quantity box in product list
  - quantity countdown in product list
