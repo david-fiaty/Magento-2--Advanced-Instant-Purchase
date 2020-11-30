@@ -87,6 +87,9 @@ https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
 
+- countdown timer
+https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+
 QA
 - check all config fields functional
 
