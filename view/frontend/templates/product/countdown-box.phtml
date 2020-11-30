@@ -24,30 +24,27 @@
     $boxId .= $content['product']['id'];
 ?>
 
-<div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
-    <h1>Countdown Clock</h1>
-    <div id="clockdiv">
-        <div>
-            <span class="days"></span>
-            <div class="smalltext">Days</div>
-        </div>
-        <div>
-            <span class="hours"></span>
-            <div class="smalltext">Hours</div>
-        </div>
-        <div>
-            <span class="minutes"></span>
-            <div class="smalltext">Minutes</div>
-        </div>
-        <div>
-            <span class="seconds"></span>
-            <div class="smalltext">Seconds</div>
-        </div>
+<div id="<?= $boxId ?>" class="nbn-countown-box">
+    <div>
+        <span class="days"></span>
+        <div class="smalltext">Days</div>
+    </div>
+    <div>
+        <span class="hours"></span>
+        <div class="smalltext">Hours</div>
+    </div>
+    <div>
+        <span class="minutes"></span>
+        <div class="smalltext">Minutes</div>
+    </div>
+    <div>
+        <span class="seconds"></span>
+        <div class="smalltext">Seconds</div>
     </div>
 </div>
 
 <style>
-#clockdiv{
+.nbn-countown-box {
   font-family: sans-serif;
   color: #fff;
   display: inline-block;
@@ -56,21 +53,21 @@
   font-size: 30px;
 }
 
-#clockdiv > div{
+.nbn-countown-box > div {
   padding: 10px;
   border-radius: 3px;
   background: #00BF96;
   display: inline-block;
 }
 
-#clockdiv div > span{
+.nbn-countown-box div > span {
   padding: 15px;
   border-radius: 3px;
   background: #00816A;
   display: inline-block;
 }
 
-.smalltext{
+.nbn-countown-box .smalltext {
   padding-top: 5px;
   font-size: 16px;
 }
@@ -85,7 +82,7 @@ require([
     'use strict';
 
     // Prepare variables
-    var boxId = '#<?= $boxId ?>';
+    var boxId = '<?= $boxId ?>';
  
     function getTimeRemaining(endtime) {
         const total = Date.parse(endtime) - Date.parse(new Date());
@@ -125,7 +122,7 @@ require([
         const timeinterval = setInterval(updateClock, 1000);
     }
 
-    const deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-    initializeClock('clockdiv', deadline);
+    const deadline = new Date('<?= $content['buttons']['product_time_limit'] ?>');
+    initializeClock(boxId, deadline);
 });
 </script>
