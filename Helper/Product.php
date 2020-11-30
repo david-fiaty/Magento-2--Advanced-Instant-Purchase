@@ -279,6 +279,27 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Renders a product price.
+     */
+    public function renderProductPrice($productId, $productQuantity)
+    {
+        // Get the product price
+        $productPrice = $this->getProductPrice($productId, false, false);
+
+        // Calculate the total price
+        $totalPrice = $productQuantity * $productPrice;
+
+        // Formatted price
+        $formattedPrice = $this->priceHelper->currency(
+            $totalPrice,
+            $format = true,
+            $includeContainer = true
+        );
+
+        return $formattedPrice;
+    }
+
+    /**
      * Get the current product image url.
      */
     public function getProductImages($productId)
