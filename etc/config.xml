@@ -27,7 +27,7 @@
                 <guest_button_text>Buy Now</guest_button_text>
                 <products_with_options>open</products_with_options>
                 <product_tree_filter>parent</product_tree_filter>
-                <product_time_limit>0</product_time_limit>
+                <product_time_limit></product_time_limit>
                 <show_product_countdown>1</show_product_countdown>
                 <customer_groups></customer_groups>
                 <bypass_oos>0</bypass_oos>

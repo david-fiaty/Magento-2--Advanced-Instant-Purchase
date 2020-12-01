@@ -3,17 +3,23 @@
 
 - complete payment integrations
 
+- fix calendar empty value creating bug
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+
+
  - add product time limit check to "can display block"
  - add time display to calendar system.xml config field 
  - add calendar to system.xml
  - quantity box in product list
  - quantity countdown in product list
+
+
 
 - update new widget default values with current system values
 

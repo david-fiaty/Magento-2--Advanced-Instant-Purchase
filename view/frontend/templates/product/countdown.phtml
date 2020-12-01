@@ -16,15 +16,17 @@
 
 <?php
     // Get the data
-    $content = $this->getConfig();
+    $config = $this->getConfig();
     $isPopup = $this->getData('is_popup');
 
     // Prepare the box id
     $boxId = $isPopup ? 'nbn-popup-countdown-box-' : 'nbn-widget-countdown-box-';
-    $boxId .= $content['product']['id'];
+    $boxId .= $config['product']['id'];
 
     // Prepare the product time limit
-    $productTimeLimit = $content['buttons']['product_time_limit'];
+    $productTimeLimit = $config['buttons']['product_time_limit'];
+    var_dump($config);
+    exit();
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-countown-box">
