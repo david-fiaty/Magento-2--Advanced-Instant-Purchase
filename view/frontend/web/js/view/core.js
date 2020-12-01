@@ -26,7 +26,7 @@ define(['uiComponent'], function (Component) {
         /** @inheritdoc */
         initialize: function () {
             this._super();
-            this.config = window.naxero.buynow.config;
+            this.config = [];
         },
 
         /**
