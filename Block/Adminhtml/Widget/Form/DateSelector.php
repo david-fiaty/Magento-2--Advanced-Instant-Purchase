@@ -19,12 +19,12 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Calendar class.
+ * DateSelector class.
  */
-class Calendar extends \Magento\Backend\Block\Template
+class DateSelector extends \Magento\Backend\Block\Template
 {
     /**
-     * CssLoader class constructor.
+     * DateSelector class constructor.
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -40,7 +40,7 @@ class Calendar extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/calendar.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/date.phtml')
             ->setData('element', $element)
             ->toHtml();
 

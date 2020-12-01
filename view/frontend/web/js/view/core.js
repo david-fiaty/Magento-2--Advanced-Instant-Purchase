@@ -26,7 +26,11 @@ define(['uiComponent'], function (Component) {
         /** @inheritdoc */
         initialize: function () {
             this._super();
-            this.config = [];
+            this.config = window.naxero = {
+                buynow: {
+                    instances: []
+                }
+            };
         },
 
         /**

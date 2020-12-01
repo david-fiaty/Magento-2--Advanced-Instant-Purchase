@@ -95,7 +95,7 @@
             <parameter name="product_time_limit" xsi:type="block" visible="true">
                 <label translate="true">Display until</label>
                 <description>Display duration. No value equals unlimited time.</description>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Calendar"/>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
             </parameter>
 
             <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
