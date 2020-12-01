@@ -20,8 +20,7 @@ $element = $block->getData('element');
 ?>
 
 <div class="field">
-    <input type="text" id="nbn-calendar-field" value="<?= $element->getValue() ?>">
-    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="<?= $element->getValue() ?>">
+    <input type="text" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="<?= $element->getValue() ?>">
 </div>
 
 <script>
@@ -30,15 +29,11 @@ require([
     'mage/translate',
     'mage/calendar'
 ], function ($, __, calendar) {
-    $('#nbn-calendar-field').calendar({
+    $('#<?= $element->getId() ?>').calendar({
         changeMonth: true,
         changeYear: true,
         showButtonPanel: false,
         showWeek: false
-    });
-
-    $('#nbn-calendar-field').on('change', function() {
-        $('#<?= $element->getId() ?>').val($(this).val());
     });
 });
 </script>
