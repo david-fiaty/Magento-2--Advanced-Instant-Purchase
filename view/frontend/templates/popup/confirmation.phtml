@@ -22,7 +22,10 @@
     // Display parameters
     $showProductBox = $content['config']['popups']['popup_show_product'];
     $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
-    $showProductCountdown = $content['config']['popups']['show_product_countdown'];
+
+    // Todo - finalise this after template blocks refactoring
+    //$showProductCountdown = $content['config']['popups']['show_product_countdown'];
+    $showProductCountdown = false; 
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
