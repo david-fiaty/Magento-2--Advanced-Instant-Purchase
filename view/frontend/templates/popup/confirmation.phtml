@@ -25,8 +25,8 @@
     $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
 
     // Todo - finalise this after template blocks refactoring
-    //$showProductCountdown = $content['config']['popups']['show_product_countdown'];
-    $showProductCountdown = false; 
+    $showProductCountdown = $content['config']['popups']['show_product_countdown']
+    && !empty($config['buttons']['product_time_limit']);
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
