@@ -15,7 +15,6 @@
 define([
     'jquery',
     'mage/translate',
-    'uiComponent',
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/modal',
@@ -28,10 +27,10 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbNCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
+], function ($, __, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
     'use strict';
     
-    return Component.extend({
+    return NbnCore.extend({
         /**
          * Default parameters.
          */
@@ -56,12 +55,6 @@ define([
                 paymentMethodTitle: __('Payment Method'),
                 shippingMethodTitle: __('Shipping Method')
             }
-        },
-
-        /** @inheritdoc */
-        initialize: function () {
-            this._super();
-            this.build();
         },
 
         /**
