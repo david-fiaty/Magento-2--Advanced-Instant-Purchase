@@ -22,6 +22,7 @@
     // Display parameters
     $showProductBox = $content['config']['popups']['popup_show_product'];
     $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
+    $showProductCountdown = $content['config']['popups']['show_product_countdown'];
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
@@ -32,6 +33,13 @@
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
         <?= $block->popupHelper->getProductBoxHtml($content) ?>
+    </div>
+<?php endif; ?>
+
+<!-- Product countdown -->
+<?php if ($showProductCountdown): ?>
+    <div class="nbn-product-box-countdown">
+        <?= $block->popupHelper->getCountdownBoxHtml($content) ?>
     </div>
 <?php endif; ?>
 
