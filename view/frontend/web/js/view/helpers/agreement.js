@@ -32,7 +32,7 @@ define([
          * Set the agrements events.
          */
         build: function () {
-            if (this.o.jsConfig.popups.popup_enable_agreements) {
+            if (this.o.config.popups.popup_enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click touch', function (e) {
                     self.getAgreement(e);

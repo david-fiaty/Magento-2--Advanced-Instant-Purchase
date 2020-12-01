@@ -22,7 +22,7 @@ define([
          * Get a URL.
          */
         get: function (path) {
-            var url = this.o.jsConfig.module.route + '/' + path;
+            var url = this.o.config.module.route + '/' + path;
             return Url.build(url);
         }
     }

@@ -92,7 +92,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     <script type="text/x-magento-init">
         {
             "*": {
-                "nbn": <?= json_encode(['jsConfig' => $config], true) ?>
+                "nbn": <?= json_encode(['config' => $config], true) ?>
             }
         }
     </script>

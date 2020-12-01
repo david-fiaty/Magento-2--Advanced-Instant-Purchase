@@ -45,7 +45,7 @@
             // Get the spinner loaded flag
             var params = {
                 data: {
-                    url: this.o.jsConfig.ui.loader
+                    url: this.o.config.ui.loader
                 }
             };
 

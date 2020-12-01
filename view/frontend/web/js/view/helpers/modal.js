@@ -56,13 +56,13 @@
         getOrderModal: function (obj) {
             var self = this;
             ConfirmModal({
-                title: obj.jsConfig.popups.popup_title,
+                title: obj.config.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
+                    class: self.cancelButtonSelectorPrefix + obj.config.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
@@ -73,7 +73,7 @@
                     }
                 },
                 {
-                    text: obj.jsConfig.popups.popup_confirm_button_text,
+                    text: obj.config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate()) {
@@ -105,7 +105,7 @@
          */
         getLoggerModal: function (obj) {
             var self = this;
-            var title =  obj.jsConfig.popups.popup_title;
+            var title =  obj.config.popups.popup_title;
             ConfirmModal({
                 title: title,
                 innerScroll: true,
@@ -127,7 +127,7 @@
         getGalleryModal: function (obj) {
             // Prepare parameters
             var self = this;
-            var title = obj.jsConfig.product.title;
+            var title = obj.config.product.title;
 
             // Build the modal
             ConfirmModal({

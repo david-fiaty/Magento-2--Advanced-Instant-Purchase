@@ -40,7 +40,7 @@
          * Check if customer is logged in.
          */
         isLoggedIn: function () {
-            return this.o.jsConfig.user.connected;
+            return this.o.config.user.connected;
         }
     };
 });

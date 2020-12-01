@@ -32,7 +32,7 @@
         addressLinkSelector: '.nbn-address-link',
         cardLinkSelector: '.nbn-card-link',
         optionFieldSelector: '.nbn-widget-option',
-        
+
         /**
          * Create a login popup.
          */
@@ -51,7 +51,7 @@
             var self = this;
             $(this.listSelector).select2({
                 placeholder: __('Select an option'),
-                language: self.getLocale(this.o.jsConfig.user.language),
+                language: self.getLocale(this.o.config.user.language),
                 theme: 'classic',
                 templateResult: NbnUtil.formatIcon,
                 templateSelection: NbnUtil.formatIcon

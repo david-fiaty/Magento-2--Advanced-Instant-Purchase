@@ -79,7 +79,7 @@
         updateSelectedOptionsValues: function (obj) {
             var options = this.getOptions(obj);
             var condition1 = options && options.length > 0;
-            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isWidgetView();
+            var condition2 = obj.config['widgets']['widget_show_product'] && NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {
@@ -111,7 +111,7 @@
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
+            var form = $(this.o.config.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -135,7 +135,7 @@
 
             // Get the cart form data if list view
             if (NbnView.isListView()) {
-                var cartFormData = $(this.o.jsConfig.product.button_selector)
+                var cartFormData = $(this.o.config.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
@@ -195,7 +195,7 @@
          * Get a product options.
          */
         getOptions: function (obj) {
-            var productId = obj.jsConfig.product.id;
+            var productId = obj.config.product.id;
             return this.getProductData(productId)['options'];
         },
 

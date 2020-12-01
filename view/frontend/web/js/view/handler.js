@@ -43,7 +43,7 @@ define([
     
     return Component.extend({
         defaults: {
-            jsConfig: {},
+            config: {},
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
@@ -97,9 +97,9 @@ define([
             this.o.logger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
-                    this.jsConfig.product.id
+                    this.config.product.id
                 ),
-                this.jsConfig
+                this.config
             );
         },
 
@@ -181,13 +181,13 @@ define([
             var self = this;
 
             // Selectors
-            var boxId = '#nbn-widget-product-box-' + this.jsConfig.product.id;
+            var boxId = '#nbn-widget-product-box-' + this.config.product.id;
             var imageContainer = boxId + ' .nbn-product-box-image';
             var image = imageContainer + ' img';
 
             // Zoom parameters      
-            var zoomType = this.jsConfig.widgets.widget_zoom_type;
-            var isLightbox = this.jsConfig.widgets.widget_zoom_type == 'lightbox';
+            var zoomType = this.config.widgets.widget_zoom_type;
+            var isLightbox = this.config.widgets.widget_zoom_type == 'lightbox';
             var params = {
                 responsive: true,
                 zoomType: zoomType
@@ -224,7 +224,7 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + this.jsConfig.product.id);
+            var button = $(this.buttonSelectorPrefix + this.config.product.id);
 
             // Enable the buy now button
             button.prop('disabled', false);

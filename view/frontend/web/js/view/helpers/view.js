@@ -23,14 +23,14 @@ define([
          * Check if the current product is in list view.
          */
         isListView: function () {
-            return this.o.jsConfig.product.display == 'list';
+            return this.o.config.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
         isWidgetView: function () {
-            return this.o.jsConfig.product.display == 'widget';
+            return this.o.config.product.display == 'widget';
         },
 
         /**
@@ -44,7 +44,7 @@ define([
          * Check if the current product has options.
          */
         hasOptions: function () {
-            return this.o.jsConfig.product.has_options;
+            return this.o.config.product.has_options;
         }
     };
 

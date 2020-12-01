@@ -20,14 +20,14 @@
 
     return {
         treeContainerSelector: '.nbn-logger-tree',
-        
+
         /**
          * Build a jQtree instance.
          */
         build: function () {
             if (this.needsUiLogging()) {
                 $(this.treeContainerSelector).jsonViewer(
-                    this.o.jsConfig,
+                    this.o.config,
                     {
                         collapsed: true
                     }
@@ -39,8 +39,8 @@
          * Check if UI logging i enabled.
          */
         needsUiLogging: function () {
-            return this.o.jsConfig.general.debug_enabled
-             && this.o.jsConfig.general.ui_logging_enabled;
+            return this.o.config.general.debug_enabled
+             && this.o.config.general.ui_logging_enabled;
         }
     };
 });
