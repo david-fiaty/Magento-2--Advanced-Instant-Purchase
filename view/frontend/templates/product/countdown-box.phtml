@@ -22,6 +22,9 @@
     // Prepare the box id
     $boxId = $isPopup ? 'nbn-popup-countdown-box-' : 'nbn-widget-countdown-box-';
     $boxId .= $content['product']['id'];
+
+    // Prepare the product time limit
+    $productTimeLimit = $content['config']['buttons']['product_time_limit']
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-countown-box">
@@ -92,7 +95,7 @@ require([
         const timeinterval = setInterval(updateClock, 1000);
     }
 
-    const deadline = new Date('<?= $content['buttons']['product_time_limit'] ?>');
+    const deadline = new Date('<?= $productTimeLimit ?>');
     initializeClock(boxId, deadline);
 });
 </script>

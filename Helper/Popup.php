@@ -59,6 +59,7 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
         ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
         ->setData('content', $content)
         ->setData('product_quantity', $productQuantity)
+        ->setData('countdown_html', $this->getCountdownBoxHtml($content))
         ->setData('is_popup', true)
         ->toHtml();
     }
