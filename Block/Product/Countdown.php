@@ -13,12 +13,12 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Debug;
+namespace Naxero\BuyNow\Block\Product;
 
 /**
- * UiLogger class constructor.
+ * Countdown class constructor.
  */
-class UiLogger extends \Magento\Framework\View\Element\Template
+class Countdown extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -26,7 +26,7 @@ class UiLogger extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * UiLogger class constructor.
+     * Countdown class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,

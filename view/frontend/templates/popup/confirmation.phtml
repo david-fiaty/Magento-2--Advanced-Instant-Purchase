@@ -18,6 +18,7 @@
     // Get the confirmation content
     $content = $block->getData('content');
     $productQantity = $block->getData('product_quantity');
+    $productId = $content['config']['product']['id'];
 
     // Display parameters
     $showProductBox = $content['config']['popups']['popup_show_product'];
@@ -42,7 +43,7 @@
 <!-- Product countdown -->
 <?php if ($showProductCountdown): ?>
     <div class="nbn-product-box-countdown">
-        <?= $block->popupHelper->getCountdownBoxHtml($content) ?>
+        <?= $block->popupHelper->getCountdownBoxHtml($productId) ?>
     </div>
 <?php endif; ?>
 

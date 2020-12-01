@@ -21,6 +21,11 @@ namespace Naxero\BuyNow\Block\Debug;
 class UiLogger extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * @var Block
      */
     public $blockHelper;
@@ -30,12 +35,14 @@ class UiLogger extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
 
         parent::__construct($context, $data);
 
+        $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
     }
 

@@ -66,13 +66,13 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product countdown box.
      */
-    public function getCountdownBoxHtml($content)
+    public function getCountdownBoxHtml($productId)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown-box.phtml')
-        ->setData('content', $content)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('is_popup', false)
+        ->setData('product_id', $productId)
         ->toHtml();
     }
 }
