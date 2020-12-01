@@ -13,36 +13,29 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Debug;
+namespace Naxero\BuyNow\Block\Product;
 
 /**
- * UiLogger class constructor.
+ * PopupBox class constructor.
  */
-class UiLogger extends \Magento\Framework\View\Element\Template
+class PopupBox extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * @var Config
-     */
-    public $configHelper;
-
     /**
      * @var Block
      */
     public $blockHelper;
 
     /**
-     * UiLogger class constructor.
+     * PopupBox class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
 
         parent::__construct($context, $data);
 
-        $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
     }
 
