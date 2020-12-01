@@ -22,14 +22,6 @@
         loginUrl: 'customer/account/login',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Create a login popup.
          */
         loginPopup: function () {

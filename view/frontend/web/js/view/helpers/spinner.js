@@ -22,14 +22,6 @@
 
     return {
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Load the spinner icon.
          */
         loadIcon: function () {

@@ -21,7 +21,7 @@ $element = $block->getData('element');
 
 <div class="field">
     <input type="text" id="nbn-calendar-field" value="<?= $element->getValue() ?>">
-    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" >
+    <input type="hidden" id="<?= $element->getId() ?>" name="<?= $element->getName() ?>" value="<?= $element->getValue() ?>">
 </div>
 
 <script>

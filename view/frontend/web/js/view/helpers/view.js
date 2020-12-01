@@ -20,14 +20,6 @@ define([
     return {
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Check if the current product is in list view.
          */
         isListView: function () {

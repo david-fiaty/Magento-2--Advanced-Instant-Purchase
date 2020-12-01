@@ -20,14 +20,6 @@
         logTitleCss: 'font-weight: bold; color: blue;',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Log data to the browser console.
          */
         log: function (msg, data) {

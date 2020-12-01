@@ -32,15 +32,7 @@
         addressLinkSelector: '.nbn-address-link',
         cardLinkSelector: '.nbn-card-link',
         optionFieldSelector: '.nbn-widget-option',
-  
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
+        
         /**
          * Create a login popup.
          */

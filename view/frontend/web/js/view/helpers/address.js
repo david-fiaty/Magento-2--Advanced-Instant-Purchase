@@ -26,14 +26,6 @@ define([
         submitButtonSelector: '.nbn-submit',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Get the address form data.
          */
         getAddressFormData: function () {

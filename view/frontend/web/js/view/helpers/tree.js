@@ -20,15 +20,7 @@
 
     return {
         treeContainerSelector: '.nbn-logger-tree',
-
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
+        
         /**
          * Build a jQtree instance.
          */

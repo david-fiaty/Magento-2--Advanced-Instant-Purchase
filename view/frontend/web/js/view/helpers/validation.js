@@ -25,14 +25,6 @@ function ($, __) {
         agreementErrorMessageSelector: '#nbn-checkout-agreements .messages',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Additional form validation.
          */
         validate: function() {

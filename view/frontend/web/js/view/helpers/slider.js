@@ -25,14 +25,6 @@
         cancelButtonSelector: '.action-dismiss span',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Create a login popup.
          */
         build: function () {

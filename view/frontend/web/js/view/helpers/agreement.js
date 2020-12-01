@@ -29,14 +29,6 @@ define([
         cancelButtonSelector: '.action-dismiss span',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Set the agrements events.
          */
         build: function () {

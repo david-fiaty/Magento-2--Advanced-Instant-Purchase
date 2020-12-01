@@ -19,14 +19,6 @@ define([
 
     return {
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Get a URL.
          */
         get: function (path) {

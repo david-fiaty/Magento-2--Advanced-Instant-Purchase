@@ -16,12 +16,29 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
-    'elevatezoom',
-    'Naxero_BuyNow/js/view/core',
+    'Naxero_BuyNow/js/view/helpers/agreement',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/login',
+    'Naxero_BuyNow/js/view/helpers/message',
+    'Naxero_BuyNow/js/view/helpers/modal',
+    'Naxero_BuyNow/js/view/helpers/product',
+    'Naxero_BuyNow/js/view/helpers/select',
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/spinner',
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/tree',
+    'Naxero_BuyNow/js/view/helpers/util',
+    'Naxero_BuyNow/js/view/helpers/validation',
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/gallery',
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/address',
+    'Naxero_BuyNow/js/view/helpers/payment',
     'mage/validation',
     'mage/cookies',
+    'elevatezoom',
     'domReady!'
-], function ($, __, Component, elevateZoom, Core) {
+], function ($, __, Component, NbnAgreement, NbnLogger, NbnLogin, NbnMessage, NbnModal, NbnProduct, NbnSelect, NbnSlider, NbnSpinner, NbnTemplate, NbnTree, NbnUtil, NbnValidation, NbnView, NbnGallery, NbnPaths, NbnAddress, NbnPayment) {
     'use strict';
     
     return Component.extend({

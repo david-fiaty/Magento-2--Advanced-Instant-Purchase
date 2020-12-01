@@ -38,14 +38,6 @@
         ],
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Set product options events.
          */
         initOptionsEvents: function () {

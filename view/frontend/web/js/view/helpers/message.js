@@ -22,14 +22,6 @@
         cancelButtonSelector: '.action-close',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Clear all visible errors.
          */
         clearErrors: function (slide) {
