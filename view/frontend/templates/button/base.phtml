@@ -37,7 +37,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
 <!-- Product box -->
 <?php if ($showProductBox): ?>
 <div class="nbn-product-box-container">
-    <?= $block->widgetHelper->getProductBoxHtml($config) ?>
+    <?= $block->widgetHelper->getProductBoxHtml($productId) ?>
 </div>
 <?php endif; ?>
 
