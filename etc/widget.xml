@@ -271,6 +271,17 @@
                 <label translate="true">Place order button text</label>
                 <value translate="true">Place order</value>
             </parameter>
+            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show countdown timer</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
             <parameter name="popup_show_product" xsi:type="select" visible="true">
                 <label translate="true">Show product</label>
                 <options>

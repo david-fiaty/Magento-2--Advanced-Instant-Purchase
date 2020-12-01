@@ -125,6 +125,10 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
                 </field>  
+                <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show countdown timer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
