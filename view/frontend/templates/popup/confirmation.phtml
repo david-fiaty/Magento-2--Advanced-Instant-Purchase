@@ -32,7 +32,7 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->popupHelper->getProductBoxHtml($content) ?>
+        <?= $block->popupHelper->getProductBoxHtml($content['config']) ?>
     </div>
 <?php endif; ?>
 
