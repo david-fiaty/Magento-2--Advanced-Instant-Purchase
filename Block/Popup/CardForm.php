@@ -16,32 +16,17 @@
 namespace Naxero\BuyNow\Block\Popup;
 
 /**
- * Confirmation class constructor.
+ * CardForm class constructor.
  */
-class Confirmation extends \Magento\Framework\View\Element\Template
+class CardForm extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var Block
-     */
-    public $blockHelper;
-
-    /**
-     * @var Popup
-     */
-    public $popupHelper;
-
-    /**
-     * Confirmation class constructor.
+     * CardForm class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Popup $popupHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-
-        $this->blockHelper = $blockHelper;
-        $this->popupHelper = $popupHelper;
     }
 }

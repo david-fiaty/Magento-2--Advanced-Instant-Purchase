@@ -63,8 +63,6 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
-        $this->blockHelper = $blockHelper;
-        $this->loggerHelper = $loggerHelper;
     }
 
     /**
@@ -98,9 +96,9 @@ class Index extends \Magento\Framework\App\Action\Action
 
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\Framework\View\Element\Template')
-            ->setTemplate(Naming::getModuleName() . '::messages/logger.phtml')
-            ->setData('config', $this->blockHelper->getConfig($productId))
+            ->createBlock(Naming::getModulePath() . '\Block\Debug\UiLogger')
+            ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
+            ->setData('product_id', $productId)
             ->setData('title', Naming::getModuleTitle())
             ->toHtml();
 
