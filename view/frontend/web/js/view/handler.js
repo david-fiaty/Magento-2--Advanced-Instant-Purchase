@@ -16,6 +16,7 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
+    'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/product',
@@ -27,10 +28,13 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
+], function ($, __, Component, NbNCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
     'use strict';
     
     return Component.extend({
+        /**
+         * Default parameters.
+         */
         defaults: {
             config: {},
             uuid: null,
