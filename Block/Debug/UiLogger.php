@@ -44,6 +44,19 @@ class UiLogger extends \Magento\Framework\View\Element\Template
 
         $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
+    }
 
+    /**
+     * Get the block config.
+     */
+    public function getConfig()
+    {
+        // Get the base the config
+        $config = $this->blockHelper->getConfig(
+            $this->getData('product_id')
+        );
+
+        // Update with block config
+        return $this->blockHelper->updateAttributesData($config);
     }
 }
