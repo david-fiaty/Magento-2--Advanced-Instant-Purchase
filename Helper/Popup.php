@@ -42,7 +42,7 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     public function getProductBoxHtml($productId)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\PopupBox')
         ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
         ->setData('is_popup', true)
         ->setData('product_id', $productId)

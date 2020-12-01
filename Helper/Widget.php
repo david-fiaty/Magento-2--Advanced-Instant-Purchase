@@ -42,7 +42,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     public function getProductBoxHtml($productId)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('countdown_html', $this->getCountdownBoxHtml($productId))
         ->setData('is_popup', false)
