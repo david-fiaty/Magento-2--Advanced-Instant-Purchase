@@ -68,7 +68,6 @@ define([
         /** @inheritdoc */
         initialize: function () {
             this._super();
-            this.o = Core.init(this);
             this.build();
         },
 
@@ -79,13 +78,13 @@ define([
          */
         build: function () {
             // Spinner icon
-            this.o.spinner.loadIcon();
+            NbnSpinner.loadIcon();
 
             // Options validation
-            this.o.product.initOptionsEvents();
+            NbnProduct.initOptionsEvents();
 
             // Widget features
-            if (this.o.view.isWidgetView()) {
+            if (NbnView.isWidgetView()) {
                 // Image
                 this.handleImageClick();
             }
@@ -94,7 +93,7 @@ define([
             this.handleButtonClick();
 
             // Log the step
-            this.o.logger.log(
+            NbnLogger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
                     this.config.product.id
@@ -116,21 +115,21 @@ define([
             };
 
             // Set the data viewer button event
-            self.o.slider.showLoader();
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: self.o.paths.get(self.galleryUrl),
+                url: NbnPaths.get(self.galleryUrl),
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.o.modal.addHtml(self.popupContentSelector, data.html);
+                    NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
-                    self.o.gallery.build();
+                    self.config.gallery.build();
                 },
                 error: function (request, status, error) {
-                    self.o.logger.log(
+                    NbnLogger.log(
                         __('Error retrieving the product gallery data'),
                         error
                     );
@@ -151,21 +150,21 @@ define([
             };
 
             // Set the data viewer button event
-            self.o.slider.showLoader();
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: self.o.paths.get(self.loggerUrl),
+                url: NbnPaths.get(self.loggerUrl),
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.o.modal.addHtml(self.popupContentSelector, data.html);
+                    NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
-                    self.o.tree.build();
+                    self.config.tree.build();
                 },
                 error: function (request, status, error) {
-                    self.o.logger.log(
+                    NbnLogger.log(
                         __('Error retrieving the UI logging data'),
                         error
                     );
@@ -210,7 +209,7 @@ define([
                     $(imageContainer).css('cursor', 'zoom-in'); 
 
                     // Open the modal
-                    self.o.modal.getGalleryModal(self);
+                    NbnModal.getGalleryModal(self);
 
                     // Get the log data
                     self.getGalleryData(e);     
@@ -233,17 +232,17 @@ define([
             button.on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
-                    if (!self.o.login.isLoggedIn()) {
-                        self.o.login.loginPopup();
+                    if (!self.config.login.isLoggedIn()) {
+                        self.config.login.loginPopup();
                         return;
                     }
 
                     // Validate the product options if needed
-                    var optionsValid = self.o.product.validateOptions(e);
+                    var optionsValid = NbnProduct.validateOptions(e);
                     if (!optionsValid) {
                         // Display the errors
-                        self.o.product.clearErrors(e);
-                        self.o.product.displayErrors(e);
+                        NbnProduct.clearErrors(e);
+                        NbnProduct.displayErrors(e);
                         return;
                     }
                     
@@ -251,7 +250,7 @@ define([
                     self.purchasePopup(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    self.o.modal.getLoggerModal(self);
+                    NbnModal.getLoggerModal(self);
 
                     // Get the log data
                     self.getLoggerData(e);
@@ -275,42 +274,42 @@ define([
             };
 
             // Log the parameters
-            this.o.logger.log(
+            NbnLogger.log(
                 __('Confirmation window request parameters'),
                 params
             );
 
             // Send the request
-            this.o.slider.showLoader();
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: this.o.paths.get(this.confirmationUrl),
+                url: NbnPaths.get(this.confirmationUrl),
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.o.modal.addHtml(self.popupContentSelector, data.html);
+                    NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
-                    self.o.product.updateSelectedOptionsValues(self);
+                    NbnProduct.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
-                    self.o.select.build();
+                    self.config.select.build();
 
                     // Agreements events
-                    self.o.agreement.build();
+                    self.config.agreement.build();
                     
                     // Set the slider events
-                    self.o.slider.build();
+                    NbnSlider.build();
 
                     // Log the purchase data
-                    self.o.logger.log(
+                    NbnLogger.log(
                         __('Purchase data on page load'),
-                        self.o.product.getProductForm().serializeArray()
+                        NbnProduct.getProductForm().serializeArray()
                     );
                 },
                 error: function (request, status, error) {
-                    self.o.logger.log(
+                    NbnLogger.log(
                         __('Error retrieving the confimation window data'),
                         error
                     );
@@ -323,7 +322,7 @@ define([
          */
         purchasePopup: function (e) {
             // Get the current form
-            var form = this.o.product.getProductForm();
+            var form = NbnProduct.getProductForm();
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
@@ -332,7 +331,7 @@ define([
             }
 
             // Open the modal
-            this.o.modal.getOrderModal(this);
+            NbnModal.getOrderModal(this);
 
             // Get the AJAX content
             this.getConfirmContent(e);

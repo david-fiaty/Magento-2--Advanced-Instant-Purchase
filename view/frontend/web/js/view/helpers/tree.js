@@ -27,7 +27,7 @@
         build: function () {
             if (this.needsUiLogging()) {
                 $(this.treeContainerSelector).jsonViewer(
-                    this.o.config,
+                    this.config,
                     {
                         collapsed: true
                     }
@@ -39,8 +39,8 @@
          * Check if UI logging i enabled.
          */
         needsUiLogging: function () {
-            return this.o.config.general.debug_enabled
-             && this.o.config.general.ui_logging_enabled;
+            return this.config.general.debug_enabled
+             && this.config.general.ui_logging_enabled;
         }
     };
 });

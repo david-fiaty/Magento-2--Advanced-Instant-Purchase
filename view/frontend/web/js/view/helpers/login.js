@@ -33,14 +33,14 @@
          * Create a login redirection.
          */
         loginRedirect: function () {
-            window.location.href = this.o.paths.get(this.loginUrl);
+            window.location.href = NbnPaths.get(this.loginUrl);
         },
 
         /**
          * Check if customer is logged in.
          */
         isLoggedIn: function () {
-            return this.o.config.user.connected;
+            return this.config.user.connected;
         }
     };
 });

@@ -41,9 +41,9 @@
          * Get the current slide.
          */
         getCurrentSlide: function () {
-            var slide = (this.o.isSubView)
+            var slide = (this.config.isSubView)
             ? this.nextSlideSelector
-            : this.o.popupContentSelector;
+            : this.config.popupContentSelector;
 
             return $(slide);
         },
@@ -52,7 +52,7 @@
          * Show the AJAX loader.
          */
         showLoader: function () {
-            this.getCurrentSlide().html(this.o.loader);
+            this.getCurrentSlide().html(NbnLoader);
         },
 
         /**
@@ -67,15 +67,15 @@
 
             // Handle the toggle logic
             this.showLoader();
-            if (this.o.isSubView) {
+            if (this.config.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                this.o.isSubView = false;
+                this.config.isSubView = false;
                 $(this.cancelButtonSelector).text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
                 $(this.cancelButtonSelector).text(__('Back'));
-                this.o.isSubView = true;
+                this.config.isSubView = true;
             }
         }
     };

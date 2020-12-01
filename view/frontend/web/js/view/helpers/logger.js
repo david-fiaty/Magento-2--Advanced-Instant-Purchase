@@ -56,22 +56,22 @@
          * Check if console logging is enabled.
          */
         isConsoleLoggingEnabled: function () {
-            return this.o.config.general.debug_enabled
-            && this.o.config.debug.console_logging_enabled;
+            return this.config.general.debug_enabled
+            && this.config.debug.console_logging_enabled;
         },
 
         /**
          * Get a log title.
          */
         getLogTitle: function () {
-            return '%c[' + this.logCount + '][' + this.o.config.module.title + ']';
+            return '%c[' + this.logCount + '][' + this.config.module.title + ']';
         },
 
         /**
          * Get the target button for UI logging.
          */
         getButtonSelector: function () {
-            return '#' + this.logViewerButtonClass + '-' + this.o.config.product.id;
+            return '#' + this.logViewerButtonClass + '-' + this.config.product.id;
         }
         };
  });

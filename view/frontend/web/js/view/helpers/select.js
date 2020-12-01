@@ -51,7 +51,7 @@
             var self = this;
             $(this.listSelector).select2({
                 placeholder: __('Select an option'),
-                language: self.getLocale(this.o.config.user.language),
+                language: self.getLocale(this.config.user.language),
                 theme: 'classic',
                 templateResult: NbnUtil.formatIcon,
                 templateSelection: NbnUtil.formatIcon
@@ -91,13 +91,13 @@
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnAddress.getAddressForm(self.o, e);
+                NbnAddress.getAddressForm(self.config, e);
             });
 
             // Set the new card link event
             $(this.cardLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnPayment.getCardForm(self.o, e);
+                NbnPayment.getCardForm(self.config, e);
             });
         },
 

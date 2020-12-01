@@ -33,7 +33,7 @@ function ($, __) {
             var errors = [];
 
             // Agreements validation
-            if (this.o.config.popups.popup_enable_agreements) {
+            if (this.config.popups.popup_enable_agreements) {
                 // Reset the errors
                 $(this.agreementErrorMessageSelector).hide();
                 $(this.agreementRow).removeClass('error');

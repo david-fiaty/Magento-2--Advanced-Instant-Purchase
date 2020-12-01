@@ -63,7 +63,7 @@
         show: function (type, str) {
             var slide = NbnSlider.getCurrentSlide();
             this.clearErrors(slide);
-            slide.prepend(this.o.loader);
+            slide.prepend(NbnLoader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();

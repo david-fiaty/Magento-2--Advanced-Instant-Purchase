@@ -45,12 +45,12 @@
             // Get the spinner loaded flag
             var params = {
                 data: {
-                    url: this.o.config.ui.loader
+                    url: this.config.ui.loader
                 }
             };
 
             // Load the rendered HTML
-            this.o.loader = NbnTemplate.getSpinner(params);
+            NbnLoader = NbnTemplate.getSpinner(params);
 
             // Log the event
             NbnLogger.log(

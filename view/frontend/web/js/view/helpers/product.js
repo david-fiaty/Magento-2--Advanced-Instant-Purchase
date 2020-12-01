@@ -41,7 +41,7 @@
          * Set product options events.
          */
         initOptionsEvents: function () {
-            var options = this.getOptions(this.o);
+            var options = this.getOptions(this.config);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['attribute_type'])
@@ -111,7 +111,7 @@
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.o.config.product.button_selector).closest(productContainerSelector)
+            var form = $(this.config.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -135,7 +135,7 @@
 
             // Get the cart form data if list view
             if (NbnView.isListView()) {
-                var cartFormData = $(this.o.config.product.button_selector)
+                var cartFormData = $(this.config.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
