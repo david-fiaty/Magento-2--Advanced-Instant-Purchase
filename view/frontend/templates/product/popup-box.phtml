@@ -23,7 +23,6 @@
     $showProductName = $content['config']['popups']['popup_show_product_name'];
     $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
     $boxId = 'nbn-popup-product-box-' . $content['config']['product']['id'];
-    $showProductCountdown = $content['config']['popups']['show_product_countdown'];
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-product-box">
@@ -41,13 +40,6 @@
             <p class="nbn-product-box-name">
                 <?= $block->escapeHtml($content['config']['product']['name']) ?>
             </p>
-        <?php endif; ?>
-
-        <!-- Product countdown -->
-        <?php if ($showProductCountdown): ?>
-            <div class="nbn-product-box-countdown">
-                <?= $block->getData('countdown_html'); ?>
-            </div>
         <?php endif; ?>
 
         <!-- Product options -->
