@@ -35,6 +35,9 @@
 - use custom blocks everywhere instead of core \Template class so that people can override
 
 QA
+- check what happens to coundown clock when 1 digit box is out
+- check what happens to countown when all digits are out
+
 - check that widget config override is working as expected, especially for zoom parameters
 - check if place order contains expected product attributes selected by user (request data)
 - check: multiple widgets in same page, multiple widgets in list and page view
@@ -61,7 +64,7 @@ https://www.channelengine.com/
 
 EXTRA
 - add button error reporting to button popover.
-
+- add accordion to widget config?
 
 LIBS
 - update the slick version from 1.8.0 to 1.8.1

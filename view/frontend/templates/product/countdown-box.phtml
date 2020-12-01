@@ -25,21 +25,21 @@
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-countown-box">
-    <div>
-        <span class="days"></span>
-        <div class="smalltext"><?= __('Days') ?></div>
+    <div class="nbn-countdown-digit-box">
+        <span class="nbn-days"></span>
+        <div class="nbn-smalltext"><?= __('Days') ?></div>
     </div>
-    <div>
-        <span class="hours"></span>
-        <div class="smalltext"><?= __('Hours') ?></div>
+    <div class="nbn-countdown-digit-box">
+        <span class="nbn-hours"></span>
+        <div class="nbn-smalltext"><?= __('Hours') ?></div>
     </div>
-    <div>
-        <span class="minutes"></span>
-        <div class="smalltext"><?= __('Minutes') ?></div>
+    <div class="nbn-countdown-digit-box">
+        <span class="nbn-minutes"></span>
+        <div class="nbn-smalltext"><?= __('Minutes') ?></div>
     </div>
-    <div>
-        <span class="seconds"></span>
-        <div class="smalltext"><?= __('Seconds') ?></div>
+    <div class="nbn-countdown-digit-box">
+        <span class="nbn-seconds"></span>
+        <div class="nbn-smalltext"><?= __('Seconds') ?></div>
     </div>
 </div>
 
@@ -72,10 +72,10 @@ require([
 
     function initializeClock(id, endtime) {
         const clock = document.getElementById(id);
-        const daysSpan = clock.querySelector('.days');
-        const hoursSpan = clock.querySelector('.hours');
-        const minutesSpan = clock.querySelector('.minutes');
-        const secondsSpan = clock.querySelector('.seconds');
+        const daysSpan = clock.querySelector('.nbn-days');
+        const hoursSpan = clock.querySelector('.nbn-hours');
+        const minutesSpan = clock.querySelector('.nbn-minutes');
+        const secondsSpan = clock.querySelector('.nbn-seconds');
 
         function updateClock() {
             const t = getTimeRemaining(endtime);
