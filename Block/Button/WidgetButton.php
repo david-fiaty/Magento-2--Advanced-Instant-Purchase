@@ -193,10 +193,10 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         foreach ($configFields as $group => $fields) {
             foreach ($fields as $i => $field) {
                 if (array_key_exists($field, $blockData)) {
-                    if (!empty($blockData[$field])) {
-                        $config[$group][$field] = $this->configHelper->toBooleanFilter(
-                            $blockData[$field]
-                        );
+                    if (isset($blockData[$field]) && $blockData[$field]) {
+                        $config[$group][$field] = !empty($blockData[$field]) 
+                        ? $this->configHelper->toBooleanFilter($blockData[$field])
+                        : $blockData[$field];
                     }
                 }   
             }
