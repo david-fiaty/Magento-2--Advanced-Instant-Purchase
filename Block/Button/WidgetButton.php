@@ -121,11 +121,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Cand display parents
         $condition1 = !$config['product']['has_parents']
-        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'parent');
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'parent');
 
         // Cand display children
         $condition2 = $config['product']['has_parents']
-        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'child');
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'child');
 
         return $condition1 || $condition2;
     }
