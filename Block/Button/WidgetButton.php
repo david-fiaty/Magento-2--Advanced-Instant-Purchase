@@ -189,6 +189,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         // Get the block data
         $blockData = $this->getData();
 
+        var_dump($blockData);
+        var_dump($config);
+
+        exit();
+
         // Loop through the available config fields
         foreach ($configFields as $group => $fields) {
             foreach ($fields as $i => $field) {
@@ -202,7 +207,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             }
         }
 
-        exit();
         return $config;
     }
 
