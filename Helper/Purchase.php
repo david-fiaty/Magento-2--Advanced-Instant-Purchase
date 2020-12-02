@@ -212,7 +212,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function canDisplayButton()
     {
         // Button available
-        $buttonEnabled = $this->configHelper->value('buttons/enabled');
+        $buttonEnabled = $this->configHelper->value('general/enabled');
         $isLoggedIn = $this->customerHelper->isLoggedIn();        
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 

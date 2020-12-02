@@ -36,7 +36,7 @@
                 <show_product_countdown>1</show_product_countdown>
             </products>   
 
-            <!-- Button settings -->
+            <!-- Buttons settings -->
             <buttons>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
@@ -46,7 +46,7 @@
                 <button_classes>primary button</button_classes>
             </buttons>     
 
-            <!-- Popup settings -->
+            <!-- Popups settings -->
             <popups>
                 <popup_responsive>1</popup_responsive>
                 <popup_title><![CDATA[Buy now - {product_name} for {product_price}]]></popup_title>
