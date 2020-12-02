@@ -24,13 +24,26 @@
             <label>Buy Now</label>
             <tab>naxero</tab>
             <resource>Naxero_BuyNow::config</resource>
-            <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Button settings</label>
+
+            <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General settings</label>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>   
-
+                <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product view button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Buy Now button in the product details view.</comment>
+                </field>
+                <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product list button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Buy Now button in the product list view.</comment>
+                </field>
+            </group>
+            <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Button settings</label>
                 <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button text</label>
                     <comment>Text to display on the Buy Now button.</comment>
@@ -84,16 +97,8 @@
             </group>
             <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Products settings</label>
-                <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product view button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Buy Now button in the product details view.</comment>
-                </field>
-                <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product list button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Buy Now button in the product list view.</comment>
-                </field>
+
+
             </group>
             <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Popup settings</label>

@@ -25,11 +25,31 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\CssLoader"/>
             </parameter>
 
-            <!-- General settings-->
+            <!-- General settings -->
             <parameter name="general" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">General settings</item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Enabled</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <!-- Products settings-->
+            <parameter name="products" xsi:type="block" visible="true">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Products settings</item>
                     </data>
                 </block>
             </parameter>
@@ -64,17 +84,6 @@
                         <item name="text" xsi:type="string" translate="true">Button settings</item>
                     </data>
                 </block>
-            </parameter>
-            <parameter name="enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
-                <label translate="true">Enabled</label>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
             </parameter>
             <parameter name="button_text" xsi:type="text" visible="true">
                 <label translate="true">Button text</label>

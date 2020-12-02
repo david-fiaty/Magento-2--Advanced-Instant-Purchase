@@ -18,8 +18,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <buy_now>
-            <buttons>
+            <general>
                 <enabled>1</enabled>
+                <product_view>1</product_view>
+                <product_list>1</product_list>
+            </general>
+            <buttons>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_text>Buy Now</guest_button_text>
@@ -32,8 +36,7 @@
                 <button_classes>primary button</button_classes>
             </buttons>
             <products>
-                <product_view>1</product_view>
-                <product_list>1</product_list>
+
             </products>        
             <popups>
                 <popup_responsive>1</popup_responsive>
