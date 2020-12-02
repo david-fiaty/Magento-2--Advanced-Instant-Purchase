@@ -18,10 +18,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <buy_now>
-            <general>
-                <enabled>1</enabled>
-            </general>
             <buttons>
+                <enabled>1</enabled>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_text>Buy Now</guest_button_text>

@@ -213,7 +213,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Button available
         $condition1 = $this->configHelper->value('buttons/show_guest_button')
-        && $this->configHelper->value('general/enabled');
+        && $this->configHelper->value('buttons/enabled');
 
         // Customer groups
         $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
@@ -228,7 +228,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function bypassLogin()
     {
-        return $this->configHelper->value('general/enabled')
+        return $this->configHelper->value('buttons/enabled')
         && $this->configHelper->value('buttons/show_guest_button');
     }
 

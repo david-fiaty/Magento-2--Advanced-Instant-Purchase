@@ -21,12 +21,12 @@
         <description>Naxero Buy Now Widget</description>
         <parameters>
             <!-- CSS assets-->
-            <parameter name="group_css" xsi:type="block" visible="false">
+            <parameter name="css" xsi:type="block" visible="false">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\CssLoader"/>
             </parameter>
 
             <!-- General settings-->
-            <parameter name="group_general" xsi:type="block" visible="true">
+            <parameter name="general" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">General settings</item>
@@ -58,12 +58,23 @@
             </parameter>
 
             <!-- Button settings -->
-            <parameter name="group_buttons" xsi:type="block" visible="true">
+            <parameter name="buttons" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Button settings</item>
                     </data>
                 </block>
+            </parameter>
+            <parameter name="enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Enabled</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
             </parameter>
             <parameter name="button_text" xsi:type="text" visible="true">
                 <label translate="true">Button text</label>
@@ -132,7 +143,7 @@
             </parameter>
 
             <!-- Widget settings -->
-            <parameter name="group_widgets" xsi:type="block" visible="true">
+            <parameter name="widgets" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Widget settings</item>
@@ -226,7 +237,7 @@
             </parameter>
 
             <!-- Popup settings -->
-            <parameter name="group_popups" xsi:type="block" visible="true">
+            <parameter name="popups" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Popup settings</item>
@@ -337,7 +348,7 @@
             </parameter>
 
             <!-- Debug settings-->
-            <parameter name="group_debug" xsi:type="block" visible="true">
+            <parameter name="debug" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Debug settings</item>
@@ -399,7 +410,7 @@
             </parameter>
 
             <!-- JS assets-->
-            <parameter name="group_js" xsi:type="block" visible="false">
+            <parameter name="js" xsi:type="block" visible="false">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\JsLoader"/>
             </parameter>
         </parameters>

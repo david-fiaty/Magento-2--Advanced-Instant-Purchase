@@ -24,16 +24,13 @@
             <label>Buy Now</label>
             <tab>naxero</tab>
             <resource>Naxero_BuyNow::config</resource>
-            <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>General settings</label>
-                <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Module enabled</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
-                </field>    
-            </group>
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Button settings</label>
+                <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>   
+
                 <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button text</label>
                     <comment>Text to display on the Buy Now button.</comment>

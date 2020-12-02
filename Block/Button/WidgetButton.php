@@ -196,12 +196,13 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
                     if (isset($blockData[$field]) && $blockData[$field]) {
                         $config[$group][$field] = !empty($blockData[$field]) 
                         ? $this->configHelper->toBooleanFilter($blockData[$field])
-                        : $blockData[$field];
+                        : $config[$group][$field];
                     }
                 }   
             }
         }
 
+        exit();
         return $config;
     }
 
