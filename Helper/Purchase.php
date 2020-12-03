@@ -221,6 +221,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
         $isGroupValid = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
 
+        return true;
         return $buttonEnabled && $isGroupValid && ($isLoggedIn || $showGuestButton);
     }
 
