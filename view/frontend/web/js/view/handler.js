@@ -15,6 +15,7 @@
 define([
     'jquery',
     'mage/translate',
+    'uiComponent',
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/modal',
@@ -27,10 +28,10 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
+], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
     'use strict';
     
-    return NbnCore.extend({
+    return Component.extend({
         /**
          * Default parameters.
          */
@@ -63,8 +64,8 @@ define([
          * @param {Object} data
          */
         build: function () {
-            // Spinner icon
-            NbnSpinner.loadIcon();
+            // Load a button instance
+            NbnCore.load(this.config);
 
             // Options validation
             NbnProduct.initOptionsEvents();

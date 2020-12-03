@@ -38,26 +38,7 @@
             }
         },
 
-        /**
-         * Build the spinner icon.
-         */
-        buildIcon: function () {
-            // Get the spinner loaded flag
-            var params = {
-                data: {
-                    url: this.config.ui.loader
-                }
-            };
 
-            // Load the rendered HTML
-            NbnLoader = NbnTemplate.getSpinner(params);
-
-            // Log the event
-            NbnLogger.log(
-                __('Loaded the spinner icon HTML'),
-                params
-            );
-        },
 
         /**
          * Check if the HTML spinner is loaded.

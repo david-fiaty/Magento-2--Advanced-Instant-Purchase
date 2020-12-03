@@ -12,7 +12,12 @@
  * @link      https://www.naxero.com
  */
 
-define(['uiComponent'], function (Component) {
+define([
+    'mage/translate',
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/util'
+], function (__, NbnTemplate, NbnLogger, NbnUtil) {
     'use strict';
 
     return Component.extend({
@@ -26,18 +31,65 @@ define(['uiComponent'], function (Component) {
         /** @inheritdoc */
         initialize: function () {
             this._super();
-            this.config = window.naxero = {
-                buynow: {
-                    instances: []
-                }
-            };
+
+            // Load the spinner icon
+            if (!NbnUtil.has(window, 'naxero.nbn.spinner', true)) {
+                this.loadSpinnerIcon();
+            }
+
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+                window.naxero = {
+                    nbn: {
+                        instances: []
+                    }
+                };
+            }
         },
 
         /**
-         * Load the config.
+         * Load a button instance.
          */
-        getConfig: function () {
-           return this.config;
+        load: function(config) {
+            // Set the instance config
+            this.setConfig(config);
+
+            // Spinner icon
+            NbnSpinner.loadIcon(config);
+        },
+
+        /**
+         * Set a button instance config.
+         */
+        setConfig: function(config) {
+            window.naxero.nbn[config.product.id] = config;
+        },
+
+        /**
+         * Get a button instance config.
+         */
+        getConfig: function(productId) {
+            return window.naxero.nbn[productId];
+        },
+
+        /**
+         * Load the spinner icon.
+         */
+        loadSpinnerIcon: function () {
+            // Get the spinner loaded flag
+            var params = {
+                data: {
+                    url: this.config.ui.loader
+                }
+            };
+
+            // Load the rendered HTML
+            NbnLoader = NbnTemplate.getSpinner(params);
+
+            // Log the event
+            NbnLogger.log(
+                __('Loaded the spinner icon HTML'),
+                params
+            );
         }
     });
 });
