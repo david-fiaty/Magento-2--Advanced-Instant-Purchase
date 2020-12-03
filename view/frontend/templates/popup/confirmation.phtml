@@ -16,7 +16,7 @@
 
 <?php
     // Get the confirmation content
-    $content = $block->getData('content');
+    $content = $block->getData('config');
     $productQantity = $block->getData('product_quantity');
     $productId = $content['config']['product']['id'];
 
@@ -36,7 +36,7 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->popupHelper->getProductBoxHtml($productId) ?>
+        <?= $block->popupHelper->getProductBoxHtml($content['config']) ?>
     </div>
 <?php endif; ?>
 

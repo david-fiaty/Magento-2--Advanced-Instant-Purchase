@@ -39,28 +39,27 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function getProductBoxHtml($productId)
+    public function getProductBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('countdown_html', $this->getCountdownBoxHtml($productId))
+        ->setData('countdown_html', $this->getCountdownBoxHtml($config))
         ->setData('is_popup', false)
-        ->setData('product_id', $productId)
         ->toHtml();
     }
 
     /**
      * Render a widget product quantity box.
      */
-    public function getQuantityBoxHtml($productId, $productQuantity)
+    public function getQuantityBoxHtml($config, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
         ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
         ->setData('product_quantity', $productQuantity)
         ->setData('is_popup', false)
-        ->setData('product_id', $productId)
+        ->setData('config', $config)
         ->toHtml();
     }
 

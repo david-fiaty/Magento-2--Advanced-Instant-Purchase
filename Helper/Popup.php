@@ -39,25 +39,25 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product box.
      */
-    public function getProductBoxHtml($productId)
+    public function getProductBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\PopupBox')
         ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
         ->setData('is_popup', true)
-        ->setData('product_id', $productId)
+        ->setData('config', $config)
         ->toHtml();
     }
 
     /**
      * Render a popup product quantity box.
      */
-    public function getQuantityBoxHtml($productId, $productQuantity)
+    public function getQuantityBoxHtml($config, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
         ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('product_id', $productId)
+        ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->setData('is_popup', true)
         ->toHtml();
@@ -66,13 +66,13 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product countdown box.
      */
-    public function getCountdownBoxHtml($productId)
+    public function getCountdownBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
         ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('is_popup', false)
-        ->setData('product_id', $productId)
+        ->setData('config', $config)
         ->toHtml();
     }
 }
