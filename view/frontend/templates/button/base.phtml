@@ -12,6 +12,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
+
 ?>
 
 <?php $config = $block->getConfig() ?>
@@ -29,7 +30,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $isPageView = $config['product']['display'] == 'view';
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
-    $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
+    $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);
     $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
     $buttonText = $block->blockHelper->getButtonText();
 ?>
@@ -45,7 +46,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
     <!-- Quantity box -->
     <?php if ($showQuantityBox): ?>
-        <?= $block->widgetHelper->getQuantityBoxHtml($config['product']['id'], $config['product']['quantity_limits']['min']) ?>
+        <?= $block->widgetHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
     <?php endif; ?>
 
     <!-- Button -->

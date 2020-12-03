@@ -16,44 +16,44 @@
 
 <?php
     // Get the confirmation content
-    $content = $block->getData('config');
+    $config = $block->getData('config');
     $productQantity = $block->getData('product_quantity');
-    $productId = $content['config']['product']['id'];
+    $productId = $config['config']['product']['id'];
 
     // Display parameters
-    $showProductBox = $content['config']['popups']['popup_show_product'];
-    $showQuantityBox = $content['config']['popups']['popup_show_product_quantity'];
+    $showProductBox = $config['config']['popups']['popup_show_product'];
+    $showQuantityBox = $config['config']['popups']['popup_show_product_quantity'];
 
     // Todo - finalise this after template blocks refactoring
-    $showProductCountdown = $content['config']['popups']['show_product_countdown']
+    $showProductCountdown = $config['config']['popups']['show_product_countdown']
     && !empty($config['products']['product_time_limit']);
 
     // Other payment methods display
-    $showOtherPaymentMethods = !empty($content['otherPaymentMethods'])
-    && $content['config']['payment_methods']['show_other_allowed'];
+    $showOtherPaymentMethods = !empty($config['otherPaymentMethods'])
+    && $config['config']['payment_methods']['show_other_allowed'];
 ?>
 
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->popupHelper->getProductBoxHtml($content['config']) ?>
+        <?= $block->popupHelper->getProductBoxHtml($config['config']) ?>
     </div>
 <?php endif; ?>
 
 <!-- Product countdown -->
 <?php if ($showProductCountdown): ?>
     <div class="nbn-product-box-countdown">
-        <?= $block->popupHelper->getCountdownBoxHtml($productId) ?>
+        <?= $block->popupHelper->getCountdownBoxHtml($config['config']) ?>
     </div>
 <?php endif; ?>
 
 <!-- Product quantity box -->
 <?php if ($showQuantityBox): ?>
-    <?= $block->popupHelper->getQuantityBoxHtml($productId, $productQantity) ?>
+    <?= $block->popupHelper->getQuantityBoxHtml($config['config'], $productQantity) ?>
 <?php endif; ?>
 
 <!-- Header text -->
-<p><?= $block->escapeHtml($content['popup']['header_text'])?></p>
+<p><?= $block->escapeHtml($config['popup']['header_text'])?></p>
 
 <!-- Billing address -->
 <div class="nbn-field">
@@ -66,10 +66,10 @@
             <?= $block->escapeHtml(__('New')) ?>
         </a>
         <p>
-            <?php if (!empty($content['addresses'])): ?>
+            <?php if (!empty($config['addresses'])): ?>
                 <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
-                    <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $content['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
+                    <?php foreach ($config['addresses'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $config['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
                             <?= $block->escapeHtml($item['street']) ?>&nbsp;
                             <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
                             <?= $block->escapeHtml($item['city']) ?>&nbsp;
@@ -95,10 +95,10 @@
             <?= $block->escapeHtml(__('New')) ?>
         </a>
         <p>
-            <?php if (!empty($content['addresses'])): ?>
+            <?php if (!empty($config['addresses'])): ?>
                 <select id="nbn-shipping-address-select" data-field="instant_purchase_shipping_address" class="nbn-select js-states form-control">
-                    <?php foreach ($content['addresses'] as $item): ?>
-                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $content['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
+                    <?php foreach ($config['addresses'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $config['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
                             <?= $block->escapeHtml($item['street']) ?>&nbsp;
                             <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
                             <?= $block->escapeHtml($item['city']) ?>&nbsp;
@@ -114,7 +114,7 @@
 </div>
 
 <!-- Saved cards -->
-<?php if (!$content['product']['is_free']): ?>
+<?php if (!$config['product']['is_free']): ?>
     <div class="nbn-field">
         <label for="nbn-payment-method-select">
             <span class="nbn-label">
@@ -125,9 +125,9 @@
                 <?= $block->escapeHtml(__('New')) ?>
             </a>
             <p>
-                <?php if (!empty($content['savedCards'])): ?>
+                <?php if (!empty($config['savedCards'])): ?>
                     <select id="nbn-payment-method-select" data-field="instant_purchase_payment_token" class="nbn-select nbn-payment-method-select js-states form-control">
-                        <?php foreach ($content['savedCards'] as $item): ?>
+                        <?php foreach ($config['savedCards'] as $item): ?>
                             <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
                                 &nbsp;&nbsp;<?= $item['token'] ?>
                             </option>
@@ -142,14 +142,14 @@
 <?php endif; ?>
 
 <!-- Other payment methods -->
-<?php if ($showOtherPaymentMethods && !$content['product']['is_free']): ?>
+<?php if ($showOtherPaymentMethods && !$config['product']['is_free']): ?>
     <div class="nbn-field">
         <label for="nbn-other-method-select">
             <input type="checkbox" id="nbn-show-other-methods">
             <span class="nbn-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
             <p>
                 <select id="nbn-other-method-select" data-field="instant_purchase_method_code" class="nbn-select nbn-other-method-select js-states form-control">
-                    <?php foreach ($content['otherPaymentMethods'] as $item): ?>
+                    <?php foreach ($config['otherPaymentMethods'] as $item): ?>
                         <option value="<?= $block->escapeHtmlAttr($item['value']) ?>">
                             &nbsp;&nbsp;<?= $block->escapeHtml($item['label']) ?>
                         </option>
@@ -161,13 +161,13 @@
 <?php endif; ?>
 
 <!-- Shipping method -->
-<?php if (!empty($content['addresses']) && !empty($content['savedCards']) && !$content['product']['is_free']): ?>
+<?php if (!empty($config['addresses']) && !empty($config['savedCards']) && !$config['product']['is_free']): ?>
 <div class="nbn-field">
     <label for="nbn-shipping-method-select">
         <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
         <p>
             <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
-                <?php foreach ($content['shippingRates'] as $item): ?>
+                <?php foreach ($config['shippingRates'] as $item): ?>
                     <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
                         <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
                         <?= $block->escapeHtml($item['carrier_price']) ?>
@@ -180,5 +180,5 @@
 <?php endif; ?>
 
 <!-- Footer text -->
-<p><?= $block->escapeHtml($content['popup']['footer_text']) ?></p>
+<p><?= $block->escapeHtml($config['popup']['footer_text']) ?></p>
 
