@@ -67,7 +67,7 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product countdown box.
      */
-    public function getCountdownBoxHtml($productId)
+    public function getCountdownBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
