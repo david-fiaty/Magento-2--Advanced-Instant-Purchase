@@ -169,13 +169,13 @@ define([
             var self = this;
 
             // Selectors
-            var boxId = '#nbn-widget-product-box-' + this.config.current.product.id;
+            var boxId = '#nbn-widget-product-box-' + this.config.product.id;
             var imageContainer = boxId + ' .nbn-product-box-image';
             var image = imageContainer + ' img';
 
             // Zoom parameters      
-            var zoomType = this.config.current.widgets.widget_zoom_type;
-            var isLightbox = this.config.current.widgets.widget_zoom_type == 'lightbox';
+            var zoomType = this.config.widgets.widget_zoom_type;
+            var isLightbox = this.config.widgets.widget_zoom_type == 'lightbox';
             var params = {
                 responsive: true,
                 zoomType: zoomType
