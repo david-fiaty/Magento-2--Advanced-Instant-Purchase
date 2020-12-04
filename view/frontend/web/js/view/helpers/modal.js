@@ -103,9 +103,13 @@
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function () {
+        getLoggerModal: function (e) {
+            // Prepare parameters
             var self = this;
-            var title =  window.naxero.nbn.current.popups.popup_title;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].popups.popup_title;            
+            
+            // Load the confirm modal
             ConfirmModal({
                 title: title,
                 innerScroll: true,
@@ -124,10 +128,11 @@
         /**
          * Get the product media gallery modal.
          */
-        getGalleryModal: function () {
+        getGalleryModal: function (e) {
             // Prepare parameters
             var self = this;
-            var title = window.naxero.nbn.current.product.title;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].product.title;
 
             // Build the modal
             ConfirmModal({

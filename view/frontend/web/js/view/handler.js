@@ -18,6 +18,8 @@ define([
     'uiComponent',
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/select',
+    'Naxero_BuyNow/js/view/helpers/agreement',
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/slider',
@@ -28,7 +30,7 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin) {
+], function ($, __, Component, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin) {
     'use strict';
 
     return Component.extend({
@@ -195,7 +197,7 @@ define([
                     $(imageContainer).css('cursor', 'zoom-in'); 
 
                     // Open the modal
-                    NbnModal.getGalleryModal(self);
+                    NbnModal.getGalleryModal(e);
 
                     // Get the log data
                     self.getGalleryData(e);     
@@ -236,7 +238,7 @@ define([
                     self.purchasePopup(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    NbnModal.getLoggerModal(self);
+                    NbnModal.getLoggerModal(e);
 
                     // Get the log data
                     self.getLoggerData(e);
@@ -280,10 +282,10 @@ define([
                     NbnProduct.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
-                    window.naxero.nbn.current.select.build();
+                    NbnSelect.build();
 
                     // Agreements events
-                    window.naxero.nbn.current.agreement.build();
+                    NbnAgreement.build();
                     
                     // Set the slider events
                     NbnSlider.build();
