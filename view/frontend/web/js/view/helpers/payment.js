@@ -15,8 +15,11 @@
 define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, NbnPaths) {
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/modal',
+    'Naxero_BuyNow/js/view/helpers/logger'
+], function ($, __, NbnPaths, NbnSlider, NbnModal, NbnLogger) {
     'use strict';
 
     return {
@@ -28,6 +31,7 @@ define([
          */
         getCardForm: function (obj, e) {
             // Prepare the parameters
+            var self = this;
             var params = {
                 action: $(e.currentTarget).data('form')
             };
@@ -39,17 +43,17 @@ define([
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: NbnPaths.get(this.addCardFormUrl),
+                url: NbnPaths.get(self.addCardFormUrl),
                 data: params,
                 success: function (data) {
-                    obj.config.modal.addHtml(obj.slider.nextSlideSelector, data.html);
-                    $(obj.button.submitButtonSelector).prop(
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
+                    $(self.submitButtonSelector).prop(
                         'disabled',
                         false
                     );
                 },
                 error: function (request, status, error) {
-                    obj.config.logger.log(
+                    NbnLogger.log(
                         __('Error retrieving the card form data'),
                         error
                     );
