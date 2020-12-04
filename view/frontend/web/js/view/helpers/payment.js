@@ -42,14 +42,14 @@ define([
                 url: NbnPaths.get(this.addCardFormUrl),
                 data: params,
                 success: function (data) {
-                    obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);
-                    $(obj.o.button.submitButtonSelector).prop(
+                    obj.config.modal.addHtml(obj.slider.nextSlideSelector, data.html);
+                    $(obj.button.submitButtonSelector).prop(
                         'disabled',
                         false
                     );
                 },
                 error: function (request, status, error) {
-                    obj.o.logger.log(
+                    obj.config.logger.log(
                         __('Error retrieving the card form data'),
                         error
                     );
