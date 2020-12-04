@@ -13,7 +13,7 @@
 
  - add time display to calendar system.xml config field 
  - add calendar to system.xml
- - quantity countdown in product list
+ - quantity in product list
 
 
 
