@@ -121,11 +121,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Cand display parents
         $condition1 = !$config['product']['has_parents']
-        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'parent');
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'parent');
 
         // Cand display children
         $condition2 = $config['product']['has_parents']
-        && ($config['buttons']['product_tree_filter'] == 'all' || $config['buttons']['product_tree_filter'] == 'child');
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'child');
 
         return $condition1 || $condition2;
     }
@@ -193,10 +193,11 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         foreach ($configFields as $group => $fields) {
             foreach ($fields as $i => $field) {
                 if (array_key_exists($field, $blockData)) {
-                    if (!empty($blockData[$field])) {
-                        $config[$group][$field] = $this->configHelper->toBooleanFilter(
-                            $blockData[$field]
-                        );
+                    if (isset($blockData[$field]) && $blockData[$field] && !empty($blockData[$field])) {
+                        $config[$group][$field] = $this->configHelper->toBooleanFilter($blockData[$field]);
+                    }
+                    else {
+                        $config[$group][$field] = $this->configHelper->value($group . '/' . $field);
                     }
                 }   
             }

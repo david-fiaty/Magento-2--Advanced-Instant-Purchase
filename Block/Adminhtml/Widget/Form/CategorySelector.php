@@ -48,7 +48,7 @@ class CategorySelector extends \Magento\Backend\Block\Template
     {
         // Prepare the separator HTML
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::widget/form/category-selector.phtml')
+            ->setTemplate(Naming::getModuleName() . '::widget/form/category.phtml')
             ->setData('element', $element)
             ->setData('categories', $this->categoryHelper->getCategories())
             ->toHtml();

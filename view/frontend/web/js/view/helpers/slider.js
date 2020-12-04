@@ -21,16 +21,7 @@
 
     return {
         sliderSelector: '#nbn-slider',
-        nextSlideSelector: '#nbn-next-slide-container',
         cancelButtonSelector: '.action-dismiss span',
-
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
 
         /**
          * Create a login popup.
@@ -48,19 +39,15 @@
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function () {
-            var slide = (this.o.isSubView)
-            ? this.nextSlideSelector
-            : this.o.popupContentSelector;
-
-            return $(slide);
+        getCurrentSlide: function (e) {
+            return $(e.currentTarget).parent('.nbn-slide-container');
         },
 
         /**
          * Show the AJAX loader.
          */
-        showLoader: function () {
-            this.getCurrentSlide().html(this.o.loader);
+        showLoader: function (e) {
+            this.getCurrentSlide(e).html(window.naxero.nbn.ui.loader);
         },
 
         /**
@@ -74,16 +61,16 @@
             }
 
             // Handle the toggle logic
-            this.showLoader();
-            if (this.o.isSubView) {
+            this.showLoader(e);
+            if (window.naxero.nbn.current.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                this.o.isSubView = false;
+                window.naxero.nbn.current.isSubView = false;
                 $(this.cancelButtonSelector).text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
                 $(this.cancelButtonSelector).text(__('Back'));
-                this.o.isSubView = true;
+                window.naxero.nbn.current.isSubView = true;
             }
         }
     };

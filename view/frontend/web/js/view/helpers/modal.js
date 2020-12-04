@@ -39,14 +39,6 @@
         orderUrl: 'order/request',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Add HTML to a container.
          */
         addHtml: function (target, html) {
@@ -61,16 +53,21 @@
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function (obj) {
+        getOrderModal: function (e) {
+            // Prepare variables
             var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var config = window.naxero.nbn.instances[productId]; 
+
+            // Load the modal
             ConfirmModal({
-                title: obj.jsConfig.popups.popup_title,
+                title: config.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + obj.jsConfig.product.id,
+                    class: self.cancelButtonSelectorPrefix + config.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
@@ -81,11 +78,11 @@
                     }
                 },
                 {
-                    text: obj.jsConfig.popups.popup_confirm_button_text,
+                    text: config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        if (AdditionalValidators.validate()) {
-                            NbnSlider.showLoader();
+                        if (AdditionalValidators.validate(e)) {
+                            NbnSlider.showLoader(e);
                             $.ajax({
                                 cache: false,
                                 url: NbnPaths.get(self.orderUrl),
@@ -111,9 +108,13 @@
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function (obj) {
+        getLoggerModal: function (e) {
+            // Prepare parameters
             var self = this;
-            var title =  obj.jsConfig.popups.popup_title;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].popups.popup_title;            
+            
+            // Load the confirm modal
             ConfirmModal({
                 title: title,
                 innerScroll: true,
@@ -132,10 +133,11 @@
         /**
          * Get the product media gallery modal.
          */
-        getGalleryModal: function (obj) {
+        getGalleryModal: function (e) {
             // Prepare parameters
             var self = this;
-            var title = obj.jsConfig.product.title;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].product.title;
 
             // Build the modal
             ConfirmModal({

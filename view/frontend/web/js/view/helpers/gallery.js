@@ -21,14 +21,6 @@
 
     return {
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Build a product gallery.
          */
         build: function () {

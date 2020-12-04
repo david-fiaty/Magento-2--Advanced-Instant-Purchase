@@ -39,13 +39,13 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product box.
      */
-    public function getProductBoxHtml($content)
+    public function getProductBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('content', $content)
-        ->setData('countdown_html', $this->getCountdownBoxHtml($content))
+        ->setData('config', $config)
+        ->setData('countdown_html', $this->getCountdownBoxHtml($config))
         ->setData('is_popup', false)
         ->toHtml();
     }
@@ -53,26 +53,26 @@ class Widget extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a widget product quantity box.
      */
-    public function getQuantityBoxHtml($content, $productQuantity)
+    public function getQuantityBoxHtml($config, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
-        ->setData('content', $content)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
         ->setData('product_quantity', $productQuantity)
         ->setData('is_popup', false)
+        ->setData('config', $config)
         ->toHtml();
     }
 
     /**
      * Render a widget product countdown box.
      */
-    public function getCountdownBoxHtml($content)
+    public function getCountdownBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown-box.phtml')
-        ->setData('content', $content)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
+        ->setData('config', $config)
         ->setData('is_popup', false)
         ->toHtml();
     }

@@ -212,24 +212,17 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function canDisplayButton()
     {
         // Button available
-        $condition1 = $this->configHelper->value('buttons/show_guest_button')
-        && $this->configHelper->value('general/enabled');
+        $buttonEnabled = $this->configHelper->value('general/enabled');
+        $isLoggedIn = $this->customerHelper->isLoggedIn();        
+        $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 
         // Customer groups
         $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
         $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
-        $condition2 = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
+        $isGroupValid = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
 
-        return $this->bypassLogin() || ($condition1 && $condition2);
-    }
-
-    /**
-     * Check if the purchase button can bypass login.
-     */
-    public function bypassLogin()
-    {
-        return $this->configHelper->value('general/enabled')
-        && $this->configHelper->value('buttons/show_guest_button');
+        return true;
+        return $buttonEnabled && $isGroupValid && ($isLoggedIn || $showGuestButton);
     }
 
     /**

@@ -38,33 +38,19 @@ class Gallery extends \Magento\Framework\App\Action\Action
     public $jsonFactory;
 
     /**
-     * Block
-     */
-    public $blockHelper;
-
-    /**
-     * Logger
-     */
-    public $loggerHelper;
-
-    /**
      * Index controller class constructor.
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Logger $loggerHelper
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
     ) {
         parent::__construct($context);
 
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
-        $this->blockHelper = $blockHelper;
-        $this->loggerHelper = $loggerHelper;
     }
 
     /**
@@ -100,9 +86,8 @@ class Gallery extends \Magento\Framework\App\Action\Action
 
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\Framework\View\Element\Template')
+            ->createBlock(Naming::getModulePath() . '\Block\Product\Gallery')
             ->setTemplate(Naming::getModuleName() . '::product/gallery.phtml')
-            ->setData('content', $this->blockHelper->getConfig($productId))
             ->setData('title', Naming::getModuleTitle())
             ->toHtml();
 

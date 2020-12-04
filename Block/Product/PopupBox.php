@@ -13,12 +13,12 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Popup;
+namespace Naxero\BuyNow\Block\Product;
 
 /**
- * Confirmation class constructor.
+ * PopupBox class constructor.
  */
-class Confirmation extends \Magento\Framework\View\Element\Template
+class PopupBox extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -26,22 +26,30 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * @var Popup
-     */
-    public $popupHelper;
-
-    /**
-     * Confirmation class constructor.
+     * PopupBox class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Popup $popupHelper,
         array $data = []
     ) {
+
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
-        $this->popupHelper = $popupHelper;
+    }
+
+    /**
+     * Get the block config.
+     */
+    public function getConfig()
+    {
+        // Get the base the config
+        $config = $this->blockHelper->getConfig(
+            $this->getData('product_id')
+        );
+
+        // Update with block config
+        return $this->blockHelper->updateAttributesData($config);
     }
 }

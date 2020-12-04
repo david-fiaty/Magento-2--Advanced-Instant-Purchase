@@ -20,25 +20,17 @@ define([
     return {
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Check if the current product is in list view.
          */
         isListView: function () {
-            return this.o.jsConfig.product.display == 'list';
+            return window.naxero.nbn.current.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
         isWidgetView: function () {
-            return this.o.jsConfig.product.display == 'widget';
+            return window.naxero.nbn.current.product.display == 'widget';
         },
 
         /**
@@ -52,7 +44,7 @@ define([
          * Check if the current product has options.
          */
         hasOptions: function () {
-            return this.o.jsConfig.product.has_options;
+            return window.naxero.nbn.current.product.has_options;
         }
     };
 

@@ -39,25 +39,25 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product box.
      */
-    public function getProductBoxHtml($content)
+    public function getProductBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\PopupBox')
         ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('content', $content)
         ->setData('is_popup', true)
+        ->setData('config', $config)
         ->toHtml();
     }
 
     /**
      * Render a popup product quantity box.
      */
-    public function getQuantityBoxHtml($content, $productQuantity)
+    public function getQuantityBoxHtml($config, $productQuantity)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity-box.phtml')
-        ->setData('content', $content)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
+        ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->setData('is_popup', true)
         ->toHtml();
@@ -66,13 +66,13 @@ class Popup extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a popup product countdown box.
      */
-    public function getCountdownBoxHtml($content)
+    public function getCountdownBoxHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown-box.phtml')
-        ->setData('content', $content)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('is_popup', false)
+        ->setData('config', $config)
         ->toHtml();
     }
 }

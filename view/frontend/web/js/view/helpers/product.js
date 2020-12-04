@@ -38,18 +38,10 @@
         ],
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Set product options events.
          */
-        initOptionsEvents: function () {
-            var options = this.getOptions(this.o);
+        initOptionsEvents: function (config) {
+            var options = this.getOptions(config);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['attribute_type'])
@@ -84,10 +76,10 @@
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (obj) {
-            var options = this.getOptions(obj);
+        updateSelectedOptionsValues: function () {
+            var options = this.getOptions();
             var condition1 = options && options.length > 0;
-            var condition2 = obj.jsConfig['widgets']['widget_show_product'] && NbnView.isWidgetView();
+            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {
@@ -119,7 +111,7 @@
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.o.jsConfig.product.button_selector).closest(productContainerSelector)
+            var form = $(window.naxero.nbn.current.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -143,7 +135,7 @@
 
             // Get the cart form data if list view
             if (NbnView.isListView()) {
-                var cartFormData = $(this.o.jsConfig.product.button_selector)
+                var cartFormData = $(window.naxero.nbn.current.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();
@@ -202,8 +194,8 @@
         /**
          * Get a product options.
          */
-        getOptions: function (obj) {
-            var productId = obj.jsConfig.product.id;
+        getOptions: function () {
+            var productId = window.naxero.nbn.current.product.id;
             return this.getProductData(productId)['options'];
         },
 

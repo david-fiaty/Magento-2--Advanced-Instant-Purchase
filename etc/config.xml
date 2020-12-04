@@ -18,25 +18,35 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <buy_now>
+            <!-- General settings -->
             <general>
                 <enabled>1</enabled>
+                <product_view>1</product_view>
+                <product_list>1</product_list>
             </general>
+
+            <!-- Products settings-->
+            <products>
+                <product_tree_filter>parent</product_tree_filter>
+                <product_selection_mode>product</product_selection_mode>
+                <category_id></category_id>
+                <product_id></product_id>
+                <product_filter>latest</product_filter>
+                <product_time_limit></product_time_limit>
+                <show_product_countdown>1</show_product_countdown>
+            </products>   
+
+            <!-- Buttons settings -->
             <buttons>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_text>Buy Now</guest_button_text>
-                <products_with_options>open</products_with_options>
-                <product_tree_filter>parent</product_tree_filter>
-                <product_time_limit>0</product_time_limit>
-                <show_product_countdown>1</show_product_countdown>
                 <customer_groups></customer_groups>
                 <bypass_oos>0</bypass_oos>
                 <button_classes>primary button</button_classes>
-            </buttons>
-            <products>
-                <product_view>1</product_view>
-                <product_list>1</product_list>
-            </products>        
+            </buttons>     
+
+            <!-- Popups settings -->
             <popups>
                 <popup_responsive>1</popup_responsive>
                 <popup_title><![CDATA[Buy now - {product_name} for {product_price}]]></popup_title>
@@ -44,11 +54,14 @@
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
                 <popup_enable_agreements>0</popup_enable_agreements>
+                <show_product_countdown>1</show_product_countdown>
                 <popup_show_product>1</popup_show_product>
                 <popup_show_product_image>1</popup_show_product_image>
                 <popup_show_product_name>1</popup_show_product_name>
                 <popup_show_product_quantity>1</popup_show_product_quantity>
             </popups>
+
+            <!-- Widgets settings -->
             <widgets>
                 <widget_show_product>1</widget_show_product>
                 <widget_show_product_name>1</widget_show_product_name>
@@ -66,6 +79,8 @@
             <card_form>
                 <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
             </card_form>
+
+            <!-- Debug settings-->
             <debug>
                 <debug_enabled>0</debug_enabled>
                 <ui_logging_enabled>1</ui_logging_enabled>

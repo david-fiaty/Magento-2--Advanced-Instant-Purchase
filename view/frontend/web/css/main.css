@@ -226,30 +226,32 @@
 
 .nbn-countown-box {
     font-family: sans-serif;
-    color: #fff;
+    color: #999999;
     display: inline-block;
     font-weight: 100;
     text-align: center;
-    font-size: 30px;
 }
 
-.nbn-countown-box > div {
-    padding: 10px;
+.nbn-countown-box .nbn-countdown-digit-box {
+    padding: 1em;
     border-radius: 3px;
-    background: #00BF96;
+    background: white;
     display: inline-block;
+    border: solid 1px #f1f1f1;
 }
 
 .nbn-countown-box div > span {
-    padding: 15px;
+    padding: 0.5em;
     border-radius: 3px;
-    background: #00816A;
+    background: #f1f1f1;
     display: inline-block;
+    font-size: 1.5em;
+    color: #333333;
 }
 
-.nbn-countown-box .smalltext {
-    padding-top: 5px;
-    font-size: 16px;
+.nbn-countown-box .nbn-smalltext {
+    padding-top: 0.7em;
+    font-size: 0.9em;
 }
 
 /* Spinner icon */

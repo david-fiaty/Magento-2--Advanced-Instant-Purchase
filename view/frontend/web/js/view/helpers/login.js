@@ -22,14 +22,6 @@
         loginUrl: 'customer/account/login',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Create a login popup.
          */
         loginPopup: function () {
@@ -41,14 +33,14 @@
          * Create a login redirection.
          */
         loginRedirect: function () {
-            window.location.href = this.o.paths.get(this.loginUrl);
+            window.location.href = NbnPaths.get(this.loginUrl);
         },
 
         /**
          * Check if customer is logged in.
          */
         isLoggedIn: function () {
-            return this.o.jsConfig.user.connected;
+            return window.naxero.nbn.current.user.connected;
         }
     };
 });
