@@ -24,10 +24,6 @@
     $showProductBox = $config['config']['popups']['popup_show_product'];
     $showQuantityBox = $config['config']['popups']['popup_show_product_quantity'];
 
-    // Todo - finalise this after template blocks refactoring
-    $showProductCountdown = $config['config']['popups']['show_product_countdown']
-    && !empty($config['products']['product_time_limit']);
-
     // Other payment methods display
     $showOtherPaymentMethods = !empty($config['otherPaymentMethods'])
     && $config['config']['payment_methods']['show_other_allowed'];
@@ -37,13 +33,6 @@
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
         <?= $block->popupHelper->getProductBoxHtml($config['config']) ?>
-    </div>
-<?php endif; ?>
-
-<!-- Product countdown -->
-<?php if ($showProductCountdown): ?>
-    <div class="nbn-product-box-countdown">
-        <?= $block->popupHelper->getCountdownBoxHtml($config['config']) ?>
     </div>
 <?php endif; ?>
 
