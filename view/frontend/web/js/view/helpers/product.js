@@ -76,8 +76,8 @@
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function (obj) {
-            var options = this.getOptions(obj);
+        updateSelectedOptionsValues: function () {
+            var options = this.getOptions();
             var condition1 = options && options.length > 0;
             var condition2 = obj.config['widgets']['widget_show_product'] && NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
@@ -194,8 +194,8 @@
         /**
          * Get a product options.
          */
-        getOptions: function (obj) {
-            var productId = obj.config.product.id;
+        getOptions: function () {
+            var productId = window.naxero.nbn.current.product.id;
             return this.getProductData(productId)['options'];
         },
 
