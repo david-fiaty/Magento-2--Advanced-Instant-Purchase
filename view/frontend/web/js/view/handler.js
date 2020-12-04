@@ -23,11 +23,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/login',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths) {
+], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin) {
     'use strict';
 
     return Component.extend({
@@ -217,8 +218,8 @@ define([
             button.on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
-                    if (!window.naxero.nbn.current.login.isLoggedIn()) {
-                        window.naxero.nbn.current.login.loginPopup();
+                    if (!NbnLogin.isLoggedIn()) {
+                        NbnLogin.loginPopup();
                         return;
                     }
 
