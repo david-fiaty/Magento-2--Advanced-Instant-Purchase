@@ -3,8 +3,6 @@
 
 - complete payment integrations
 
-- fix calendar empty value creating bug
-
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
