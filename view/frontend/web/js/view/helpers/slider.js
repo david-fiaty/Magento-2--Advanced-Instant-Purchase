@@ -46,8 +46,8 @@
         /**
          * Show the AJAX loader.
          */
-        showLoader: function () {
-            this.getCurrentSlide().html(NbnLoader);
+        showLoader: function (e) {
+            this.getCurrentSlide(e).html(window.naxero.nbn.ui.loader);
         },
 
         /**
@@ -61,7 +61,7 @@
             }
 
             // Handle the toggle logic
-            this.showLoader();
+            this.showLoader(e);
             if (window.naxero.nbn.current.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 window.naxero.nbn.current.isSubView = false;

@@ -77,7 +77,7 @@
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate()) {
-                            NbnSlider.showLoader();
+                            NbnSlider.showLoader(e);
                             $.ajax({
                                 cache: false,
                                 url: NbnPaths.get(self.orderUrl),

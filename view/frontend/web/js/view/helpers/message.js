@@ -63,7 +63,7 @@
         show: function (type, str, e) {
             var slide = NbnSlider.getCurrentSlide(e);
             this.clearErrors(slide);
-            slide.prepend(NbnLoader);
+            slide.prepend(window.naxero.nbn.ui.loader);
             slide.find('.message').addClass(type);
             slide.find('.message-text').text(str);
             slide.find('.messages').show();
