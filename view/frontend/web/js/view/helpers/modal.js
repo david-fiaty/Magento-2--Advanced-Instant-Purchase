@@ -53,16 +53,21 @@
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function (obj) {
+        getOrderModal: function (e) {
+            // Prepare variables
             var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var config = window.naxero.nbn.instances[productId]; 
+
+            // Load the modal
             ConfirmModal({
-                title: window.naxero.nbn.current.popups.popup_title,
+                title: config.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + window.naxero.nbn.current.product.id,
+                    class: self.cancelButtonSelectorPrefix + config.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
@@ -73,10 +78,10 @@
                     }
                 },
                 {
-                    text: window.naxero.nbn.current.popups.popup_confirm_button_text,
+                    text: config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        if (AdditionalValidators.validate()) {
+                        if (AdditionalValidators.validate(e)) {
                             NbnSlider.showLoader(e);
                             $.ajax({
                                 cache: false,

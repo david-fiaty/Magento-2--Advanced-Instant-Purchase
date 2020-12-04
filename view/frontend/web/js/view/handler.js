@@ -212,7 +212,7 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + this.config.current.product.id);
+            var button = $(this.buttonSelectorPrefix + this.config.product.id);
 
             // Enable the buy now button
             button.prop('disabled', false);
@@ -320,7 +320,7 @@ define([
             }
 
             // Open the modal
-            NbnModal.getOrderModal(this);
+            NbnModal.getOrderModal(e);
 
             // Get the AJAX content
             this.getConfirmContent(e);
