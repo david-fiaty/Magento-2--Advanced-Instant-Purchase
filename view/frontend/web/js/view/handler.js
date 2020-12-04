@@ -111,7 +111,7 @@ define([
                     NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
-                    self.config.gallery.build();
+                    window.naxero.nbn.current.gallery.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -146,7 +146,7 @@ define([
                     NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
-                    self.config.tree.build();
+                    window.naxero.nbn.current.tree.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -217,8 +217,8 @@ define([
             button.on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
-                    if (!self.config.login.isLoggedIn()) {
-                        self.config.login.loginPopup();
+                    if (!window.naxero.nbn.current.login.isLoggedIn()) {
+                        window.naxero.nbn.current.login.loginPopup();
                         return;
                     }
 
@@ -279,10 +279,10 @@ define([
                     NbnProduct.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
-                    self.config.select.build();
+                    window.naxero.nbn.current.select.build();
 
                     // Agreements events
-                    self.config.agreement.build();
+                    window.naxero.nbn.current.agreement.build();
                     
                     // Set the slider events
                     NbnSlider.build();
