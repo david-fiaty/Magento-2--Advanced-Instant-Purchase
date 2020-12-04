@@ -21,6 +21,7 @@ define([
     'use strict';
 
     return {
+        config: {},
 
         /**
          * Load a button instance.
@@ -28,9 +29,6 @@ define([
         load: function(config) {
             // Set the instance config
             this.setConfig(config);
-
-            // Spinner icon
-            NbnSpinner.loadSpinnerIcon();
         },
 
         /**
@@ -38,16 +36,23 @@ define([
          */
         setConfig: function(config) {
             // Load the button instances data container
-            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+            if (!NbnUtil.has(window, 'naxero.nbn.loaded', true)) {
+                // Prepare the instance config
+                var instances = {};
+                instances[config.product.id] = config;
+
+                // Build the config data
                 window.naxero = {
                     nbn: {
-                        instances: []
+                        loaded: true,
+                        instances: instances,
+                        current: config,
+                        ui: {
+                            loader: this.getSpinnerHtml()
+                        }
                     }
                 };
             }
-
-            window.naxero.nbn.instances[config.product.id] = config;
-            this.config = config;
         },
 
         /**
@@ -58,38 +63,23 @@ define([
         },
 
         /**
-         * Prepare the instance config.
+         * Load the spinner icon HTML.
          */
-        prepareConfig: function () {
-            // Load the spinner icon
-            if (!NbnUtil.has(window, 'naxero.nbn.spinner', true)) {
-                this.loadSpinnerIcon();
-            }
-        },
-
-        /**
-         * Load the spinner icon.
-         */
-        loadSpinnerIcon: function () {
-            console.log('loadSpinnerIcon');
-
-            console.log(this.config);
-
+        getSpinnerHtml: function () {
             // Get the spinner loaded flag
             var params = {
                 data: {
-                    url: this.config.ui.loader
+                    url: window.naxero.nbn.current.ui.loader
                 }
             };
-
-            // Load the rendered HTML
-            NbnLoader = NbnTemplate.getSpinner(params);
 
             // Log the event
             NbnLogger.log(
                 __('Loaded the spinner icon HTML'),
                 params
             );
+
+            return NbnTemplate.getSpinner(params);
         }
     }
 });

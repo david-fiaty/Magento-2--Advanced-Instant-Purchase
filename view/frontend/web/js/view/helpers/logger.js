@@ -56,7 +56,7 @@
          * Check if console logging is enabled.
          */
         isConsoleLoggingEnabled: function () {
-            return this.config.general.debug_enabled
+            return this.config.debug.debug_enabled
             && this.config.debug.console_logging_enabled;
         },
 

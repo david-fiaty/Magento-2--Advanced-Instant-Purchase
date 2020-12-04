@@ -65,10 +65,6 @@ define([
             // Load a button instance
             NbnCore.load(this.config);
 
-            for (var i = 0; i < helpers.length; i++) {
-                helpers[i].config = this.config;
-            }
-
             // Options validation
             NbnProduct.initOptionsEvents(this.config);
 
