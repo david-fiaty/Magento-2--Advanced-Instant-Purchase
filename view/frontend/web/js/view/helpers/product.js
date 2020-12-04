@@ -79,7 +79,7 @@
         updateSelectedOptionsValues: function () {
             var options = this.getOptions();
             var condition1 = options && options.length > 0;
-            var condition2 = obj.config['widgets']['widget_show_product'] && NbnView.isWidgetView();
+            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < options.length; i++) {
