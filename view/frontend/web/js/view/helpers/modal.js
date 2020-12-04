@@ -56,13 +56,13 @@
         getOrderModal: function (obj) {
             var self = this;
             ConfirmModal({
-                title: obj.config.popups.popup_title,
+                title: window.naxero.nbn.current.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + obj.config.product.id,
+                    class: self.cancelButtonSelectorPrefix + window.naxero.nbn.current.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
@@ -73,7 +73,7 @@
                     }
                 },
                 {
-                    text: obj.config.popups.popup_confirm_button_text,
+                    text: window.naxero.nbn.current.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate()) {
@@ -103,9 +103,9 @@
         /**
          * Get the logger modal popup.
          */
-        getLoggerModal: function (obj) {
+        getLoggerModal: function () {
             var self = this;
-            var title =  obj.config.popups.popup_title;
+            var title =  window.naxero.nbn.current.popups.popup_title;
             ConfirmModal({
                 title: title,
                 innerScroll: true,
@@ -124,10 +124,10 @@
         /**
          * Get the product media gallery modal.
          */
-        getGalleryModal: function (obj) {
+        getGalleryModal: function () {
             // Prepare parameters
             var self = this;
-            var title = obj.config.product.title;
+            var title = window.naxero.nbn.current.product.title;
 
             // Build the modal
             ConfirmModal({
