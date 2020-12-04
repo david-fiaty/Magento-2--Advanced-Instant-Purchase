@@ -21,14 +21,13 @@ define([
     'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/spinner',
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnSpinner, NbnView, NbnPaths) {
+], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths) {
     'use strict';
     
     return Component.extend({
@@ -64,11 +63,16 @@ define([
          * @param {Object} data
          */
         build: function () {
+
+            console.log('xxx');
+            console.log(arguments);
+
+
             // Load a button instance
             NbnCore.load(this.config);
 
             // Options validation
-            NbnProduct.initOptionsEvents();
+            NbnProduct.initOptionsEvents(this.config);
 
             // Widget features
             if (NbnView.isWidgetView()) {

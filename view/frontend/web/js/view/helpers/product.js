@@ -40,8 +40,8 @@
         /**
          * Set product options events.
          */
-        initOptionsEvents: function () {
-            var options = this.getOptions(this.config);
+        initOptionsEvents: function (config) {
+            var options = this.getOptions(config);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
                     this.getOptionHandler(options[i]['attribute_type'])

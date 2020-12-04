@@ -20,32 +20,7 @@ define([
 ], function (__, NbnTemplate, NbnLogger, NbnUtil) {
     'use strict';
 
-    return Component.extend({
-        /**
-         * Default parameters.
-         */
-        defaults: {
-            config: {}
-        },
-
-        /** @inheritdoc */
-        initialize: function () {
-            this._super();
-
-            // Load the spinner icon
-            if (!NbnUtil.has(window, 'naxero.nbn.spinner', true)) {
-                this.loadSpinnerIcon();
-            }
-
-            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
-                window.naxero = {
-                    nbn: {
-                        instances: []
-                    }
-                };
-            }
-        },
-
+    return {
         /**
          * Load a button instance.
          */
@@ -61,6 +36,7 @@ define([
          * Set a button instance config.
          */
         setConfig: function(config) {
+            this.prepareConfig();
             window.naxero.nbn[config.product.id] = config;
         },
 
@@ -69,6 +45,24 @@ define([
          */
         getConfig: function(productId) {
             return window.naxero.nbn[productId];
+        },
+
+        /**
+         * Prepare the instance config.
+         */
+        prepareConfig: function () {
+            // Load the spinner icon
+            if (!NbnUtil.has(window, 'naxero.nbn.spinner', true)) {
+                this.loadSpinnerIcon();
+            }
+
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+                window.naxero = {
+                    nbn: {
+                        instances: []
+                    }
+                };
+            }
         },
 
         /**
@@ -91,5 +85,5 @@ define([
                 params
             );
         }
-    });
+    }
 });
