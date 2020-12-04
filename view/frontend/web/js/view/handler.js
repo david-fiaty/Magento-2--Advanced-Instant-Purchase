@@ -320,7 +320,7 @@ define([
             }
 
             // Open the modal
-            NbnModal.getOrderModal(e);
+            NbnModal.getOrderModal(this, e);
 
             // Get the AJAX content
             this.getConfirmContent(e);
