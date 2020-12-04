@@ -39,8 +39,8 @@
          * Check if UI logging i enabled.
          */
         needsUiLogging: function () {
-            return this.config.general.debug_enabled
-             && this.config.general.ui_logging_enabled;
+            return window.naxero.nbn.current.general.debug_enabled
+             && window.naxero.nbn.current.general.ui_logging_enabled;
         }
     };
 });

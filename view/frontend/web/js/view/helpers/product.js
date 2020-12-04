@@ -111,7 +111,7 @@
             : this.viewProductFormSelector;
 
             // Get the form
-            var form = $(this.config.product.button_selector).closest(productContainerSelector)
+            var form = $(window.naxero.nbn.current.product.button_selector).closest(productContainerSelector)
             .find(productFormSelector);
 
             return form;
@@ -135,7 +135,7 @@
 
             // Get the cart form data if list view
             if (NbnView.isListView()) {
-                var cartFormData = $(this.config.product.button_selector)
+                var cartFormData = $(window.naxero.nbn.current.product.button_selector)
                 .closest(productContainerSelector)
                 .find(this.listProductCartFormSelector)
                 .serialize();

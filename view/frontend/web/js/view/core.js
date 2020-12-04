@@ -21,8 +21,6 @@ define([
     'use strict';
 
     return {
-        config: {},
-
         /**
          * Load a button instance.
          */
@@ -47,11 +45,12 @@ define([
                         loaded: true,
                         instances: instances,
                         current: config,
-                        ui: {
-                            loader: this.getSpinnerHtml()
-                        }
+                        ui: {}
                     }
                 };
+
+                // Get the spinner HTML
+                window.naxero.nbn.ui.loader = this.getSpinnerHtml();
             }
         },
 

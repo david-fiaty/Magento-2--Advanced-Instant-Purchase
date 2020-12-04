@@ -40,7 +40,7 @@
          * Check if customer is logged in.
          */
         isLoggedIn: function () {
-            return this.config.user.connected;
+            return window.naxero.nbn.current.user.connected;
         }
     };
 });

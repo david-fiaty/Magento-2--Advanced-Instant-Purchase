@@ -23,14 +23,14 @@ define([
          * Check if the current product is in list view.
          */
         isListView: function () {
-            return this.config.product.display == 'list';
+            return window.naxero.nbn.current.product.display == 'list';
         },
 
         /**
          * Check if the current product is in block view.
          */
         isWidgetView: function () {
-            return this.config.product.display == 'widget';
+            return window.naxero.nbn.current.product.display == 'widget';
         },
 
         /**
@@ -44,7 +44,7 @@ define([
          * Check if the current product has options.
          */
         hasOptions: function () {
-            return this.config.product.has_options;
+            return window.naxero.nbn.current.product.has_options;
         }
     };
 

@@ -51,7 +51,7 @@
             var self = this;
             $(this.listSelector).select2({
                 placeholder: __('Select an option'),
-                language: self.getLocale(this.config.user.language),
+                language: self.getLocale(window.naxero.nbn.current.user.language),
                 theme: 'classic',
                 templateResult: NbnUtil.formatIcon,
                 templateSelection: NbnUtil.formatIcon

@@ -33,7 +33,7 @@ function ($, __) {
             var errors = [];
 
             // Agreements validation
-            if (this.config.popups.popup_enable_agreements) {
+            if (window.naxero.nbn.current.popups.popup_enable_agreements) {
                 // Reset the errors
                 $(this.agreementErrorMessageSelector).hide();
                 $(this.agreementRow).removeClass('error');

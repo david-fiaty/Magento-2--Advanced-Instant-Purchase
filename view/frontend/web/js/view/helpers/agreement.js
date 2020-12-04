@@ -32,7 +32,7 @@ define([
          * Set the agrements events.
          */
         build: function () {
-            if (this.config.popups.popup_enable_agreements) {
+            if (window.naxero.nbn.current.popups.popup_enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click touch', function (e) {
                     self.getAgreement(e);

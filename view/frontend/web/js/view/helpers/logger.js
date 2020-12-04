@@ -56,22 +56,22 @@
          * Check if console logging is enabled.
          */
         isConsoleLoggingEnabled: function () {
-            return this.config.debug.debug_enabled
-            && this.config.debug.console_logging_enabled;
+            return window.naxero.nbn.current.debug.debug_enabled
+            && window.naxero.nbn.current.debug.console_logging_enabled;
         },
 
         /**
          * Get a log title.
          */
         getLogTitle: function () {
-            return '%c[' + this.logCount + '][' + this.config.module.title + ']';
+            return '%c[' + this.logCount + '][' + window.naxero.nbn.current.module.title + ']';
         },
 
         /**
          * Get the target button for UI logging.
          */
         getButtonSelector: function () {
-            return '#' + this.logViewerButtonClass + '-' + this.config.product.id;
+            return '#' + this.logViewerButtonClass + '-' + window.naxero.nbn.current.product.id;
         }
         };
  });

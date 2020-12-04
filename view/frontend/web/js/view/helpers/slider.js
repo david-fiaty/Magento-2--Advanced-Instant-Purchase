@@ -41,9 +41,9 @@
          * Get the current slide.
          */
         getCurrentSlide: function () {
-            var slide = (this.config.isSubView)
+            var slide = (window.naxero.nbn.current.isSubView)
             ? this.nextSlideSelector
-            : this.config.popupContentSelector;
+            : window.naxero.nbn.current.popupContentSelector;
 
             return $(slide);
         },
@@ -67,15 +67,15 @@
 
             // Handle the toggle logic
             this.showLoader();
-            if (this.config.isSubView) {
+            if (window.naxero.nbn.current.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
-                this.config.isSubView = false;
+                window.naxero.nbn.current.isSubView = false;
                 $(this.cancelButtonSelector).text(__('Cancel'));
                 $(this.sliderSelector).slick('unslick');
             } else {
                 $(this.sliderSelector).slick('slickNext');
                 $(this.cancelButtonSelector).text(__('Back'));
-                this.config.isSubView = true;
+                window.naxero.nbn.current.isSubView = true;
             }
         }
     };

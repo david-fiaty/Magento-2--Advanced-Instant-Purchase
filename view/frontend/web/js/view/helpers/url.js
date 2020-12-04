@@ -22,7 +22,7 @@ define([
          * Get a URL.
          */
         get: function (path) {
-            var url = this.config.module.route + '/' + path;
+            var url = window.naxero.nbn.current.module.route + '/' + path;
             return Url.build(url);
         }
     }
