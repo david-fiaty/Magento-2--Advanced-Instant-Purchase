@@ -21,6 +21,8 @@ define([
     'use strict';
 
     return {
+        config: {},
+
         /**
          * Load a button instance.
          */
@@ -29,7 +31,7 @@ define([
             this.setConfig(config);
 
             // Spinner icon
-            NbnSpinner.loadIcon(config);
+            NbnSpinner.loadSpinnerIcon();
         },
 
         /**
@@ -37,7 +39,7 @@ define([
          */
         setConfig: function(config) {
             this.prepareConfig();
-            window.naxero.nbn[config.product.id] = config;
+            this.config = window.naxero.nbn[config.product.id] = config;
         },
 
         /**
@@ -56,6 +58,7 @@ define([
                 this.loadSpinnerIcon();
             }
 
+            // Load the button instances data container
             if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
                 window.naxero = {
                     nbn: {

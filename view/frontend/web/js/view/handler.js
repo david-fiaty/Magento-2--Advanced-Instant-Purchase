@@ -57,12 +57,9 @@ define([
             }
         },
 
-        /**
-         * Prepare the purchase data.
-         *
-         * @param {Object} data
-         */
-        build: function () {
+        /** @inheritdoc */
+        initialize: function () {
+            this._super();
 
             console.log('xxx');
             console.log(arguments);
