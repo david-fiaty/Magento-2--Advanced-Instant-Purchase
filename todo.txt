@@ -11,10 +11,8 @@
  
 
 
- - add product time limit check to "can display block"
  - add time display to calendar system.xml config field 
  - add calendar to system.xml
- - quantity box in product list
  - quantity countdown in product list
 
 
