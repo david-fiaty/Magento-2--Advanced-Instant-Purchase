@@ -29,12 +29,13 @@ define([
     'domReady!'
 ], function ($, __, Component, NbnCore, NbnLogger, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths) {
     'use strict';
-    
+
     return Component.extend({
         /**
          * Default parameters.
          */
         defaults: {
+            helpers: arguments,
             config: {},
             uuid: null,
             showButton: false,
@@ -61,12 +62,12 @@ define([
         initialize: function () {
             this._super();
 
-            console.log('xxx');
-            console.log(arguments);
-
-
             // Load a button instance
             NbnCore.load(this.config);
+
+            for (var i = 0; i < helpers.length; i++) {
+                helpers[i].config = this.config;
+            }
 
             // Options validation
             NbnProduct.initOptionsEvents(this.config);
