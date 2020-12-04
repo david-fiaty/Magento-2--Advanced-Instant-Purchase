@@ -21,7 +21,6 @@
 
     return {
         sliderSelector: '#nbn-slider',
-        nextSlideSelector: '#nbn-next-slide-container',
         cancelButtonSelector: '.action-dismiss span',
 
         /**
@@ -40,12 +39,8 @@
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function () {
-            var slide = (window.naxero.nbn.current.isSubView)
-            ? this.nextSlideSelector
-            : window.naxero.nbn.current.popupContentSelector;
-
-            return $(slide);
+        getCurrentSlide: function (e) {
+            return $(e.currentTarget).parent('.nbn-slide-container');
         },
 
         /**

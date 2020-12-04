@@ -38,7 +38,7 @@
             if (data.success === false) {
                 // Add the main message
                 cssClass = 'mage-error';
-                this.show('error', data.messages.main);
+                this.show('error', data.messages.main, e);
 
                 // Add the field messages
                 if (data.messages.fields.length > 0) {
@@ -53,15 +53,15 @@
             } else if (data.hasOwnProperty('response')) {
                 $(this.cancelButtonSelector).trigger('click');
             } else {
-                this.show('success', data.messages.main);
+                this.show('success', data.messages.main, e);
             }
         },
 
         /**
          * Show the error messages.
          */
-        show: function (type, str) {
-            var slide = NbnSlider.getCurrentSlide();
+        show: function (type, str, e) {
+            var slide = NbnSlider.getCurrentSlide(e);
             this.clearErrors(slide);
             slide.prepend(NbnLoader);
             slide.find('.message').addClass(type);
