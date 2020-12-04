@@ -50,6 +50,7 @@ define([
             logViewerButtonSelector: '#nbn-ui-logger-button',
             formKeySelectorPrefix: '#nbn-form-key-',
             buttonSelectorPrefix: '#nbn-button-',
+            buttonSelector: '.nbn-button',
             isSubView: false,
             loader: '',
             confirmationData: {
@@ -168,13 +169,13 @@ define([
             var self = this;
 
             // Selectors
-            var boxId = '#nbn-widget-product-box-' + window.naxero.nbn.current.product.id;
+            var boxId = '#nbn-widget-product-box-' + this.config.current.product.id;
             var imageContainer = boxId + ' .nbn-product-box-image';
             var image = imageContainer + ' img';
 
             // Zoom parameters      
-            var zoomType = window.naxero.nbn.current.widgets.widget_zoom_type;
-            var isLightbox = window.naxero.nbn.current.widgets.widget_zoom_type == 'lightbox';
+            var zoomType = this.config.current.widgets.widget_zoom_type;
+            var isLightbox = this.config.current.widgets.widget_zoom_type == 'lightbox';
             var params = {
                 responsive: true,
                 zoomType: zoomType
@@ -194,7 +195,7 @@ define([
             $(imageContainer).on('click touch', function (e) {
                 if (isLightbox) {
                     // Image state
-                    $(imageContainer).css('cursor', 'zoom-in'); 
+                    $(this).css('cursor', 'zoom-in'); 
 
                     // Open the modal
                     NbnModal.getGalleryModal(e);
@@ -211,7 +212,7 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + window.naxero.nbn.current.product.id);
+            var button = $(this.buttonSelectorPrefix + this.config.current.product.id);
 
             // Enable the buy now button
             button.prop('disabled', false);
