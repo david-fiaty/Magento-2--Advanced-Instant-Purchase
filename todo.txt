@@ -109,4 +109,4 @@ NEW IDEAS
 
 phpcbf --standard=PSR2 app/code/Naxero/BuyNow
 phpcbf --standard=PSR12 /app/code/Naxero/BuyNow
-vendor/bin/phpcbf ../dev/m234/app/code/Naxero/BuyNow --standard=Magento2
+vendor/bin/phpcbf /home/hnid/dev/m234/app/code/Naxero/BuyNow --standard=Magento2
