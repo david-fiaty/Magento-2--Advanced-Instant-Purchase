@@ -15,6 +15,8 @@
 
 namespace Naxero\BuyNow\Block\Popup;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
  * Confirmation class constructor.
  */
