@@ -28,11 +28,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     public $pageFactory;
 
     /**
-     * @var Widget
-     */
-    public $widgetHelper;
-
-    /**
      * @var Customer
      */
     public $customerHelper;
@@ -57,14 +52,12 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
-        \Naxero\BuyNow\Helper\Widget $widgetHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
         $this->pageFactory = $pageFactory;
-        $this->widgetHelper = $widgetHelper;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;

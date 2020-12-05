@@ -32,13 +32,13 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->popupHelper->getProductBoxHtml($config['config']) ?>
+        <?= $block->getProductBoxHtml($config['config']) ?>
     </div>
 <?php endif; ?>
 
 <!-- Product quantity box -->
 <?php if ($showQuantityBox): ?>
-    <?= $block->popupHelper->getQuantityBoxHtml($config['config'], $productQantity) ?>
+    <?= $block->getQuantityBoxHtml($config['config'], $productQantity) ?>
 <?php endif; ?>
 
 <!-- Header text -->
