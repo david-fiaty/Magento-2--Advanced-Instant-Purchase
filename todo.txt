@@ -14,6 +14,9 @@
  - fix buy now options validation in product list
 
 
+- split base list and page phtml into different templates
+
+
  - add time, category and product field display to calendar system.xml config  
  - quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
