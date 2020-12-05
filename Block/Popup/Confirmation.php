@@ -42,19 +42,6 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a popup product box.
-     */
-    public function getProductBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\PopupBox')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('is_popup', true)
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
      * Render a popup product quantity box.
      */
     public function getQuantityBoxHtml($config, $productQuantity)

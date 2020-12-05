@@ -148,30 +148,15 @@
                     <label>Show countdown timer</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
+                <field id="popup_show_summary" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show order summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the product in the purchase popup windwow.</comment>
-                </field>
-                <field id="popup_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="popup_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
                 </field>
                 <field id="popup_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="popup_show_product">1</field>
+                        <field id="popup_show_summary">1</field>
                     </depends>
                 </field>
             </group>
