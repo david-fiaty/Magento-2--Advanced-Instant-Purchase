@@ -76,9 +76,6 @@
                 <show_other_allowed></show_other_allowed>
                 <other_allowed></other_allowed>
             </payment_methods>
-            <card_form>
-                <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
-            </card_form>
 
             <!-- Debug settings-->
             <debug>

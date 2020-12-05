@@ -18,9 +18,8 @@
     'Naxero_BuyNow/js/view/helpers/util',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/address',
-    'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, __, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
+], function ($, __, NbnUtil, NbnSlider, NbnAddress, select2) {
     'use strict';
 
     return {
@@ -92,12 +91,6 @@
             $(this.addressLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
                 NbnAddress.getAddressForm(self, e);
-            });
-
-            // Set the new card link event
-            $(this.cardLinkSelector).on('click touch', function (e) {
-                NbnSlider.toggleView(e);
-                NbnPayment.getCardForm(self, e);
             });
         },
 
