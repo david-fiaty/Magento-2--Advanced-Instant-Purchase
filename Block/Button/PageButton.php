@@ -16,10 +16,12 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
- * ViewButton class.
+ * PageButton class.
  */
-class ViewButton extends \Magento\Framework\View\Element\Template
+class PageButton extends \Magento\Framework\View\Element\Template
 {
     const MODE = 'page';
 
@@ -49,7 +51,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * PageButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,

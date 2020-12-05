@@ -27,7 +27,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
     $isWidgetView = $config['product']['display'] == 'widget';
     $isListView = $config['product']['display'] == 'list';
-    $isPageView = $config['product']['display'] == 'view';
+    $isPageView = $config['product']['display'] == 'page';
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);

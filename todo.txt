@@ -39,6 +39,7 @@ QA
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
 - check add to cart values and display in popup and order request
+- Test time limit to string in admin with french and other langs
 
 FEATURES
 - add module version checker
@@ -108,6 +109,11 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
+
+SCRIPTS
 phpcbf --standard=PSR2 app/code/Naxero/BuyNow
 phpcbf --standard=PSR12 /app/code/Naxero/BuyNow
 vendor/bin/phpcbf /home/hnid/dev/m234/app/code/Naxero/BuyNow --standard=Magento2
+
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv

@@ -16,6 +16,8 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
  * ListButton class.
  */
@@ -44,7 +46,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * ListButton class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
