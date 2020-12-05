@@ -53,7 +53,7 @@
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function (e) {
+        getOrderModal: function (obj, e) {
             // Prepare variables
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
@@ -61,13 +61,13 @@
 
             // Load the modal
             ConfirmModal({
-                title: config.popups.popup_title,
+                title: obj.config.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + config.product.id,
+                    class: self.cancelButtonSelectorPrefix + obj.config.product.id,
                     click: function (e) {
                         $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
@@ -78,7 +78,7 @@
                     }
                 },
                 {
-                    text: config.popups.popup_confirm_button_text,
+                    text: obj.config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate(e)) {

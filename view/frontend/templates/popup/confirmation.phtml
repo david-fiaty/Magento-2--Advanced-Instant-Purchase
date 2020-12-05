@@ -17,16 +17,13 @@
 <?php
     // Get the confirmation content
     $config = $block->getData('config');
+
     $productQantity = $block->getData('product_quantity');
     $productId = $config['config']['product']['id'];
 
     // Display parameters
     $showProductBox = $config['config']['popups']['popup_show_product'];
     $showQuantityBox = $config['config']['popups']['popup_show_product_quantity'];
-
-    // Todo - finalise this after template blocks refactoring
-    $showProductCountdown = $config['config']['popups']['show_product_countdown']
-    && !empty($config['products']['product_time_limit']);
 
     // Other payment methods display
     $showOtherPaymentMethods = !empty($config['otherPaymentMethods'])
@@ -36,20 +33,13 @@
 <!-- Product box -->
 <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->popupHelper->getProductBoxHtml($config['config']) ?>
-    </div>
-<?php endif; ?>
-
-<!-- Product countdown -->
-<?php if ($showProductCountdown): ?>
-    <div class="nbn-product-box-countdown">
-        <?= $block->popupHelper->getCountdownBoxHtml($config['config']) ?>
+        <?= $block->getProductBoxHtml($config['config']) ?>
     </div>
 <?php endif; ?>
 
 <!-- Product quantity box -->
 <?php if ($showQuantityBox): ?>
-    <?= $block->popupHelper->getQuantityBoxHtml($config['config'], $productQantity) ?>
+    <?= $block->getQuantityBoxHtml($config['config'], $productQantity) ?>
 <?php endif; ?>
 
 <!-- Header text -->

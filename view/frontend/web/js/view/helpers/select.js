@@ -91,13 +91,13 @@
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnAddress.getAddressForm(self.config, e);
+                NbnAddress.getAddressForm(self, e);
             });
 
             // Set the new card link event
             $(this.cardLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnPayment.getCardForm(self.config, e);
+                NbnPayment.getCardForm(self, e);
             });
         },
 

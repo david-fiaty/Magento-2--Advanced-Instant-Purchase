@@ -216,6 +216,12 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $isLoggedIn = $this->customerHelper->isLoggedIn();        
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 
+        // Product time limit
+        $timeLimit = $this->configHelper->value('products/product_time_limit');
+        $showCountdown = $this->configHelper->value('products/show_product_countdown');
+        $timeLimitValid = ($showCountdown && !empty($timeLimit) && strtotime('now') < strtotime($timeLimit))
+        || !$showCountdown;
+
         // Customer groups
         $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
         $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
