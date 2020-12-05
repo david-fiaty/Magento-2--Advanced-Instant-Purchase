@@ -42,20 +42,6 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a popup product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('config', $config)
-        ->setData('product_quantity', $productQuantity)
-        ->setData('is_popup', true)
-        ->toHtml();
-    }
-
-    /**
      * Render a popup product countdown box.
      */
     public function getCountdownBoxHtml($config)
@@ -71,12 +57,13 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     /**
      * Render a popup summary box.
      */
-    public function getSummaryBoxHtml($config)
+    public function getSummaryBoxHtml($config, $productQuantity)
     {
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
         ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
         ->setData('config', $config)
+        ->setData('product_quantity', $config)
         ->toHtml();
     }
 }

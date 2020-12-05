@@ -16,6 +16,8 @@
 
 namespace Naxero\BuyNow\Block\Order;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
  * Summary class constructor.
  */
@@ -38,5 +40,19 @@ class Summary extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
+    }
+
+    /**
+     * Render a popup product quantity box.
+     */
+    public function getQuantityBoxHtml($config, $productQuantity)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
+        ->setData('config', $config)
+        ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', true)
+        ->toHtml();
     }
 }

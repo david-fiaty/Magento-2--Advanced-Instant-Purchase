@@ -33,13 +33,8 @@
 <!-- Order summary -->
 <?php if ($showSummary): ?>
     <div class="nbn-product-summary-container">
-        <?= $block->getSummaryBoxHtml($config['config']) ?>
+        <?= $block->getSummaryBoxHtml($config['config'], $productQantity) ?>
     </div>
-<?php endif; ?>
-
-<!-- Product quantity box -->
-<?php if ($showQuantityBox): ?>
-    <?= $block->getQuantityBoxHtml($config['config'], $productQantity) ?>
 <?php endif; ?>
 
 <!-- Header text -->
