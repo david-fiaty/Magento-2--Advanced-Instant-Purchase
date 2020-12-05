@@ -11,14 +11,8 @@
  
 
 
- - add time display to calendar system.xml config field 
- - add calendar to system.xml
+ - add time, category and product field display to calendar system.xml config  
  - quantity in product list
-
-
-
-- update new widget default values with current system values
-
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
 
@@ -32,9 +26,6 @@
 => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
 => do that with ajax request to frontend product data controller
 => might avoid having to deal with price rules
-
-
-- use custom blocks everywhere instead of core \Template class so that people can override
 
 QA
 - Make sure we can Run NBN and core IP feature at the same time on a site
