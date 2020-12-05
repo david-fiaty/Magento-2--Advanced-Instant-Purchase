@@ -229,6 +229,7 @@
     color: #999999;
     display: inline-block;
     text-align: center;
+    display: none;
 }
 
 .nbn-countown-box .nbn-countdown-digit-box {
