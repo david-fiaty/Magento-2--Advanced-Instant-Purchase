@@ -9,6 +9,7 @@
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - fix buy now options validation in product list
 
 
  - add time, category and product field display to calendar system.xml config  
