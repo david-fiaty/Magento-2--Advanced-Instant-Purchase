@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -41,7 +42,7 @@ class Agreements extends \Magento\Framework\App\Action\Action
      * @var Config
      */
     public $configHelper;
-    
+
     /**
      * Agreement controller class constructor
      */
@@ -53,7 +54,7 @@ class Agreements extends \Magento\Framework\App\Action\Action
         \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         parent::__construct($context);
-        
+
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;

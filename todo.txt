@@ -107,4 +107,6 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
-phpcbf --standard=PSR2 BuyNow
+phpcbf --standard=PSR2 app/code/Naxero/BuyNow
+phpcbf --standard=PSR12 /app/code/Naxero/BuyNow
+vendor/bin/phpcbf ../dev/m234/app/code/Naxero/BuyNow --standard=Magento2

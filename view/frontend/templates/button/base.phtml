@@ -17,36 +17,36 @@
 
 <?php $config = $block->getConfig() ?>
 <?php if ($config): ?>
-<?php
+    <?php
 // Process the block display logic
-if ($block->blockHelper->bypassOos($config['product']['id'])) {
-    $productId = $config['product']['id'];
-    $buttonId = $config['product']['button_id'];
-    $purchaseData = $block->purchaseHelper->getPurchaseData();
-    $productIsFree = $block->productHelper->isFree($productId);
-    $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-    $isWidgetView = $config['product']['display'] == 'widget';
-    $isListView = $config['product']['display'] == 'list';
-    $isPageView = $config['product']['display'] == 'view';
-    $formKey = $config['product']['form_key'];
-    $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
-    $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);
-    $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
-    $buttonText = $block->blockHelper->getButtonText();
-?>
+    if ($block->blockHelper->bypassOos($config['product']['id'])) {
+        $productId = $config['product']['id'];
+        $buttonId = $config['product']['button_id'];
+        $purchaseData = $block->purchaseHelper->getPurchaseData();
+        $productIsFree = $block->productHelper->isFree($productId);
+        $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
+        $isWidgetView = $config['product']['display'] == 'widget';
+        $isListView = $config['product']['display'] == 'list';
+        $isPageView = $config['product']['display'] == 'view';
+        $formKey = $config['product']['form_key'];
+        $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
+        $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);
+        $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
+        $buttonText = $block->blockHelper->getButtonText();
+        ?>
 
 <!-- Product box -->
-<?php if ($showProductBox): ?>
+        <?php if ($showProductBox): ?>
 <div class="nbn-product-box-container">
-    <?= $block->getProductBoxHtml($config) ?>
+            <?= $block->getProductBoxHtml($config) ?>
 </div>
 <?php endif; ?>
 
 <!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
     <!-- Quantity box -->
-    <?php if ($showQuantityBox): ?>
-        <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+        <?php if ($showQuantityBox): ?>
+            <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
     <?php endif; ?>
 
     <!-- Button -->
@@ -67,7 +67,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     </button>
 
     <!-- Form -->
-    <?php if (!$isPageView): ?>
+        <?php if (!$isPageView): ?>
         <form name="nbn-list-form" method="post" class="nbn-list-form">
     <?php endif; ?>
         <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
@@ -86,7 +86,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
         <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
         <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
 
-    <?php if (!$isPageView): ?>
+        <?php if (!$isPageView): ?>
         </form>
     <?php endif; ?>
 

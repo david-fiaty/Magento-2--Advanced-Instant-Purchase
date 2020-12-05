@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -46,7 +47,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var Purchase
      */
     public $purchaseHelper;
- 
+
     /**
      * @var Product
      */
@@ -67,7 +68,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
-        
+
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
@@ -131,7 +132,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     {
         // Get the request parameters
         $productQuantity = (int) $this->getRequest()->getParam('product_quantity');
-        
+
         // Get the quantity limits
         $quantityLimits = $this->productHelper->getQuantityLimits($productId);
 

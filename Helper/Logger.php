@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -36,7 +37,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
      * @var ManagerInterface
      */
     public $messageManager;
-    
+
     /**
      * @var Config
      */
@@ -87,7 +88,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Write the data to the log file
         if ($debug && $fileLogging) {
-            $filePath = BP . '/var/log/'. Naming::getModuleAlias() . '.log';
+            $filePath = BP . '/var/log/' . Naming::getModuleAlias() . '.log';
             $writer = new \Zend\Log\Writer\Stream($filePath);
             $logger = new \Zend\Log\Logger();
             $logger->addWriter($writer);

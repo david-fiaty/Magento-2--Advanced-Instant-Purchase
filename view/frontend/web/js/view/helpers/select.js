@@ -41,7 +41,7 @@
             var placeholder = $(this.optionFieldSelector)
             .find('option[data-placeholder="*"]')
             .data('placeholder');
-            $(this.optionFieldSelector).select2 ({
+            $(this.optionFieldSelector).select2({
                 placeholder: placeholder,
                 minimumResultsForSearch: -1,
                 theme: 'classic'

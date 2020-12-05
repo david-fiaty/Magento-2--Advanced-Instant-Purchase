@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -67,7 +68,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
+
         $this->blockHelper = $blockHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
@@ -103,10 +104,10 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
 
             return null;
         }
-        
+
         return null;
     }
-   
+
     /**
      * Check if the widget can be displayed.
      */
@@ -122,7 +123,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
 
         return $condition1 || $condition2;
     }
-    
+
     /**
      * Get the current product.
      */
@@ -158,7 +159,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             }
         }
 
-        return $this->productHelper->getProduct($productId);     
+        return $this->productHelper->getProduct($productId);
     }
 
     /**
@@ -188,11 +189,10 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
                 if (array_key_exists($field, $blockData)) {
                     if (isset($blockData[$field]) && $blockData[$field] && !empty($blockData[$field])) {
                         $config[$group][$field] = $this->configHelper->toBooleanFilter($blockData[$field]);
-                    }
-                    else {
+                    } else {
                         $config[$group][$field] = $this->configHelper->value($group . '/' . $field);
                     }
-                }   
+                }
             }
         }
 
@@ -202,16 +202,16 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     /**
      * Get array keys recursively.
      */
-    public function array_keys_recursive(array $array) : array
+    public function array_keys_recursive(array $array): array
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $index[$key] = $this->array_keys_recursive($value);
             } else {
-                $index[]= $key;
+                $index[] = $key;
             }
         }
-    
+
         return $index ?? [];
     }
 
@@ -255,7 +255,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         ->setData('is_popup', false)
         ->toHtml();
     }
-    
+
     /**
      * Disable the block cache.
      */

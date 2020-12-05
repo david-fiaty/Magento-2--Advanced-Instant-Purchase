@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -73,7 +74,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ? $this->value('buttons/bypass_oos')
         : true;
     }
-    
+
     /**
      * Get the Buy Now button text.
      */
@@ -87,7 +88,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Return the button text
         return $isLoggedIn
-        ? $config['buttons']['button_text'] 
+        ? $config['buttons']['button_text']
         : $config['buttons']['guest_button_text'];
     }
 
@@ -150,7 +151,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 if ($isSwatch && $force) {
                     $option['attribute_type'] = 'select';
                 }
-                
+
                 $updatedOptions[] = $option;
             }
 

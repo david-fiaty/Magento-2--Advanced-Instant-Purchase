@@ -41,7 +41,7 @@
                 this.getLogTitle(),
                 this.logTitleCss
             );
-                
+
             // Log the event message
             console.log('|-- ' + msg)
 
@@ -51,7 +51,7 @@
             // Log count
             this.logCount++;
         },
- 
+
         /**
          * Check if console logging is enabled.
          */

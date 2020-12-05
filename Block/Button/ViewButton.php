@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -60,7 +61,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
+
         $this->registry = $registry;
         $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
@@ -83,14 +84,14 @@ class ViewButton extends \Magento\Framework\View\Element\Template
 
         // Check the display conditions
         $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton();
-        
+
         if ($condition) {
             return $this->updateAttributesData($config);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Get the current product.
      */

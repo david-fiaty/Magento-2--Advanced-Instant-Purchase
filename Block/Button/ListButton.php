@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -54,7 +55,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
+
         $this->blockHelper = $blockHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
@@ -76,11 +77,11 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 
         // Check the display conditions
         $condition = $config['general']['product_list'] && $this->purchaseHelper->canDisplayButton();
-       
+
         if ($condition) {
             return $this->updateAttributesData($config);
         }
-        
+
         return null;
     }
 

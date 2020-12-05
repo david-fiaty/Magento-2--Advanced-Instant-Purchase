@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -190,7 +191,7 @@ class Request extends \Magento\Framework\App\Action\Action
 
             // Set the shipping method
             $quote->getShippingAddress()->addData($shippingAddress->getData());
-            
+
             // Set the payment method
             if ($paymentData['paymentMethodCode'] != 'free') {
                 $payment = $quote->getPayment();
@@ -208,7 +209,7 @@ class Request extends \Magento\Framework\App\Action\Action
             // Send the payment request and get the response
             $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
             $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
-            
+
             // Create the order
             if ($paymentResponse->paymentSuccess()) {
                 $order = $paymentResponse->createOrder($quote, $paymentResponse);
@@ -217,7 +218,7 @@ class Request extends \Magento\Framework\App\Action\Action
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
                         'order_increment_id' => $order->getIncrementId()
                     ]);
-                    
+
                     return $this->createResponse($message, true);
                 } else {
                     return $this->createResponse($this->createGenericErrorMessage(), false);

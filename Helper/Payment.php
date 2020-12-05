@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -26,14 +27,14 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      * @var \Magento\Sales\Model\ResourceModel\Order\Payment\Collection
      */
     protected $orderPayment;
-    
+
     /**
      * Payment Helper Data
      *
      * @var \Magento\Payment\Helper\Data
      */
     protected $paymentDataHelper;
-    
+
     /**
      * Payment Model Config
      *
@@ -45,7 +46,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      * @var Config
      */
     public $configHelper;
-    
+
     /**
      * Payment helper constructor.
      */
@@ -60,7 +61,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
         $this->paymentConfig = $paymentConfig;
         $this->configHelper = $configHelper;
     }
-    
+
     /**
      * Get all payment methods
      *
@@ -70,7 +71,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->paymentDataHelper->getPaymentMethods();
     }
-    
+
     /**
      * Get key-value pair of all payment methods
      * key = method code & value = method name
@@ -81,7 +82,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->paymentDataHelper->getPaymentMethodList();
     }
-    
+
     /**
      * Get active/enabled payment methods
      *
@@ -91,7 +92,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->paymentConfig->getActiveMethods();
     }
-    
+
     /**
      * Get non card payment methods available
      *

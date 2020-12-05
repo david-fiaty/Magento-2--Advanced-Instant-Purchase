@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -22,7 +23,7 @@ use Magento\Framework\DataObject;
  */
 class ShippingSelector
 {
-    
+
     /**
      * @var StoreManagerInterface
      */
@@ -99,7 +100,6 @@ class ShippingSelector
 
                 return $shippingMethod;
             }
-
         }
 
         return null;
@@ -128,7 +128,7 @@ class ShippingSelector
                         $carrierTitle = $this->getCarrierTitle($shippingCode);
                         $methods[] = [
                             'carrier_code' => $code,
-                            'carrier_title'=> $carrierTitle,
+                            'carrier_title' => $carrierTitle,
                             'carrier_price' => $carrierPrice,
                             'method_code' => $methodCode
                         ];
@@ -146,7 +146,7 @@ class ShippingSelector
     public function getCarrierPrice($shippingCode)
     {
         return $this->configHelper->value(
-            'carriers/'. $shippingCode . '/price',
+            'carriers/' . $shippingCode . '/price',
             true
         );
     }
@@ -157,7 +157,7 @@ class ShippingSelector
     public function getCarrierTitle($shippingCode)
     {
         return $this->configHelper->value(
-            'carriers/'. $shippingCode . '/title',
+            'carriers/' . $shippingCode . '/title',
             true
         );
     }

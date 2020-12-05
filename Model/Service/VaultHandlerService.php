@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -266,7 +267,7 @@ class VaultHandlerService
         $methodCode = isset($card['instance'])
         ? $card['instance']->getPaymentMethodCode()
         : '';
-        
+
         return [
             'public_hash' => $publicHash,
             'summary' => $summary,

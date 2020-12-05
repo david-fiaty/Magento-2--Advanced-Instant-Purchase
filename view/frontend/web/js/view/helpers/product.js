@@ -59,7 +59,7 @@
             if (optionType) {
                 var optionComponent = 'NbnProductOption'
                 + optionType.charAt(0).toUpperCase() + optionType.slice(1);
-                
+
                 return eval(optionComponent);
             }
 
@@ -88,7 +88,7 @@
                 }
             }
         },
-        
+
         /**
          * Get a product container selector.
          */

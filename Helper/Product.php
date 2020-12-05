@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -328,11 +329,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             }
 
             // Sort by position field
-            usort($output['gallery'], function($a, $b) {
+            usort($output['gallery'], function ($a, $b) {
                 $val1 = (int) $a['position'];
                 $val2 = (int) $b['position'];
 
-                if ($val1 == $val2) return 0;
+                if ($val1 == $val2) {
+                    return 0;
+                }
                 return $val1 < $val2 ? -1 : 1;
             });
         }
