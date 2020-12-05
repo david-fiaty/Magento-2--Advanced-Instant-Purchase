@@ -19,6 +19,7 @@ namespace Naxero\BuyNow\Controller\Order;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
+use Magento\Vault\Api\Data\PaymentTokenInterface;
 
 /**
  * Order controller class
@@ -38,6 +39,11 @@ class Request extends \Magento\Framework\App\Action\Action
         'instant_purchase_shipping_address',
         'instant_purchase_billing_address',
     ];
+
+    /**
+     * @var IntegrationsManager
+     */
+    private $integrationsManager;
 
     /**
      * @var StoreManagerInterface
@@ -90,10 +96,16 @@ class Request extends \Magento\Framework\App\Action\Action
     public $paymentHandler;
 
     /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandlerService;
+
+    /**
      * Order controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\InstantPurchase\PaymentMethodIntegration\IntegrationsManager $integrationsManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
@@ -103,10 +115,13 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
-        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler
+        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler,
+        \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
+
     ) {
         parent::__construct($context);
 
+        $this->integrationsManager = $integrationsManager;
         $this->storeManager = $storeManager;
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
@@ -117,6 +132,7 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
         $this->paymentHandler = $paymentHandler;
+        $this->vaultHandlerService = $vaultHandlerService;
     }
 
     /**
@@ -137,7 +153,7 @@ class Request extends \Magento\Framework\App\Action\Action
         if (!$this->doesRequestContainAllKnowParams($request)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
-
+        
         // Prepare the payment data
         $paymentData = [
             'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],
@@ -194,10 +210,22 @@ class Request extends \Magento\Framework\App\Action\Action
 
             // Set the payment method
             if ($paymentData['paymentMethodCode'] != 'free') {
+                // Payment token
+                $paymentToken = $this->vaultHandlerService->getCardFromHash(
+                    $paymentData['paymentTokenPublicHash'],
+                    $customer->getId()
+                );
+
+                // Payment set up
                 $payment = $quote->getPayment();
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
                 $payment->importData(['method' => $paymentData['paymentMethodCode']]);
+                $payment->setAdditionalInformation($this->buildPaymentAdditionalInformation(
+                    $paymentToken,
+                    $quote->getStoreId()
+                ));
+
                 $payment->save();
             }
 
@@ -236,6 +264,31 @@ class Request extends \Magento\Framework\App\Action\Action
                 false
             );
         }
+    }
+
+    /**
+     * Builds payment additional information based on token.
+     *
+     * @param PaymentTokenInterface $paymentToken
+     * @param int $storeId
+     * @return array
+     */
+    public function buildPaymentAdditionalInformation(PaymentTokenInterface $paymentToken, int $storeId): array
+    {
+        $common = [
+            PaymentTokenInterface::CUSTOMER_ID => $paymentToken->getCustomerId(),
+            PaymentTokenInterface::PUBLIC_HASH => $paymentToken->getPublicHash(),
+            VaultConfigProvider::IS_ACTIVE_CODE => true,
+
+            // mark payment
+            self::MARKER => 'true',
+        ];
+
+        $integration = $this->integrationManager->getByToken($paymentToken, $storeId);
+        $specific = $integration->getAdditionalInformation($paymentToken);
+
+        $additionalInformation = array_merge($common, $specific);
+        return $additionalInformation;
     }
 
     /* Get the request data.

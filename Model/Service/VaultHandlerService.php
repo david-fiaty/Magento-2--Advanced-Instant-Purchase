@@ -123,7 +123,7 @@ class VaultHandlerService
     /**
      * Get a user's saved card from public hash.
      */
-    public function getCardFromHash($publicHash, $customerId = null)
+    public function getCardFromHash($publicHash, $customerId)
     {
         if ($publicHash) {
             $cardList = $this->getUserCards($customerId);
