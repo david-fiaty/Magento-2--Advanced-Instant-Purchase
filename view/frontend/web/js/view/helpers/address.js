@@ -15,8 +15,11 @@
 define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, NbnPaths) {
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/modal',
+    'Naxero_BuyNow/js/view/helpers/slider',
+    'Naxero_BuyNow/js/view/helpers/logger'
+], function ($, __, NbnPaths, NbnModal, NbnSlider, NbnLogger) {
     'use strict';
 
     return {
@@ -24,14 +27,6 @@ define([
         addressFormUrl: 'address/formAdd',
         saveAddressUrl: 'address/formPost',
         submitButtonSelector: '.nbn-submit',
-
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
 
         /**
          * Get the address form data.
@@ -58,10 +53,10 @@ define([
                 url: NbnPaths.get(this.addressFormUrl),
                 data: params,
                 success: function (data) {
-                    obj.o.modal.addHtml(obj.o.slider.nextSlideSelector, data.html);
+                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
-                    obj.o.logger.log(
+                    NbnLogger.log(
                         __('Error retrieving the address form data'),
                         error
                     );

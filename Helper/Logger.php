@@ -122,7 +122,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             return $this->getPageLayout()
-            ->createBlock('Magento\Framework\View\Element\Template')
+            ->createBlock(Naming::getModulePath() . '\Block\Debug\ErrorMessage')
             ->setTemplate(Naming::getModuleName() . '::messages/error.phtml')
             ->setData('msg', $data)
             ->toHtml();

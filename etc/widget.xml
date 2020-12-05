@@ -21,19 +21,43 @@
         <description>Naxero Buy Now Widget</description>
         <parameters>
             <!-- CSS assets-->
-            <parameter name="group_css" xsi:type="block" visible="false">
+            <parameter name="css" xsi:type="block" visible="false">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\CssLoader"/>
             </parameter>
 
-            <!-- General settings-->
-            <parameter name="group_general" xsi:type="block" visible="true">
+            <!-- General settings -->
+            <parameter name="general" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">General settings</item>
                     </data>
                 </block>
             </parameter>
+            <parameter name="enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Enabled</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
 
+            <!-- Products settings-->
+            <parameter name="products" xsi:type="block" visible="true">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Products settings</item>
+                    </data>
+                </block>
+            </parameter>
+
+            <parameter name="product_tree_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter">
+                <label translate="true">Product tree filter</label>
+            </parameter>
+            
             <parameter name="product_selection_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Product selection mode</label>
             </parameter>
@@ -57,8 +81,26 @@
                 </depends>
             </parameter>
 
+            <parameter name="product_time_limit" xsi:type="block" visible="true">
+                <label translate="true">Display until</label>
+                <description>Display duration. No value equals unlimited time.</description>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
+            </parameter>
+
+            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show countdown timer</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+
             <!-- Button settings -->
-            <parameter name="group_buttons" xsi:type="block" visible="true">
+            <parameter name="buttons" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Button settings</item>
@@ -88,28 +130,6 @@
                 <value translate="true">Buy Now</value>
             </parameter>
 
-            <parameter name="product_tree_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter">
-                <label translate="true">Product tree filter</label>
-            </parameter>
-
-            <parameter name="product_time_limit" xsi:type="block" visible="true">
-                <label translate="true">Display until</label>
-                <description>Display duration. No value equals unlimited time.</description>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Calendar"/>
-            </parameter>
-
-            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
-                <label translate="true">Show countdown timer</label>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-
             <parameter name="customer_groups" xsi:type="multiselect" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup">
                 <label translate="true">Customer groups</label>
             </parameter>
@@ -132,7 +152,7 @@
             </parameter>
 
             <!-- Widget settings -->
-            <parameter name="group_widgets" xsi:type="block" visible="true">
+            <parameter name="widgets" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Widget settings</item>
@@ -226,7 +246,7 @@
             </parameter>
 
             <!-- Popup settings -->
-            <parameter name="group_popups" xsi:type="block" visible="true">
+            <parameter name="popups" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Popup settings</item>
@@ -270,6 +290,17 @@
             <parameter name="popup_confirm_button_text" xsi:type="text" visible="true">
                 <label translate="true">Place order button text</label>
                 <value translate="true">Place order</value>
+            </parameter>
+            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show countdown timer</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
             </parameter>
             <parameter name="popup_show_product" xsi:type="select" visible="true">
                 <label translate="true">Show product</label>
@@ -326,7 +357,7 @@
             </parameter>
 
             <!-- Debug settings-->
-            <parameter name="group_debug" xsi:type="block" visible="true">
+            <parameter name="debug" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Debug settings</item>
@@ -388,7 +419,7 @@
             </parameter>
 
             <!-- JS assets-->
-            <parameter name="group_js" xsi:type="block" visible="false">
+            <parameter name="js" xsi:type="block" visible="false">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\JsLoader"/>
             </parameter>
         </parameters>

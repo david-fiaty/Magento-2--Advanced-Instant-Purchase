@@ -28,11 +28,6 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $blockHelper;
 
     /**
-     * @var Widget
-     */
-    public $widgetHelper;
-
-    /**
      * @var Config
      */
     public $configHelper;
@@ -53,7 +48,6 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
-        \Naxero\BuyNow\Helper\Widget $widgetHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
@@ -62,7 +56,6 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         parent::__construct($context, $data);
         
         $this->blockHelper = $blockHelper;
-        $this->widgetHelper = $widgetHelper;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
@@ -82,7 +75,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['products']['product_list'] && $this->purchaseHelper->canDisplayButton();
+        $condition = $config['general']['product_list'] && $this->purchaseHelper->canDisplayButton();
        
         if ($condition) {
             return $this->updateAttributesData($config);

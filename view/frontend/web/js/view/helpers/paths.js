@@ -19,18 +19,10 @@ define([
 
     return {
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Get a URL.
          */
         get: function (path) {
-            var url = this.o.jsConfig.module.route + '/' + path;
+            var url = window.naxero.nbn.current.module.route + '/' + path;
             return Url.build(url);
         }
     }

@@ -22,20 +22,12 @@
         treeContainerSelector: '.nbn-logger-tree',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Build a jQtree instance.
          */
         build: function () {
             if (this.needsUiLogging()) {
                 $(this.treeContainerSelector).jsonViewer(
-                    this.o.jsConfig,
+                    this.config,
                     {
                         collapsed: true
                     }
@@ -47,8 +39,8 @@
          * Check if UI logging i enabled.
          */
         needsUiLogging: function () {
-            return this.o.jsConfig.general.debug_enabled
-             && this.o.jsConfig.general.ui_logging_enabled;
+            return window.naxero.nbn.current.general.debug_enabled
+             && window.naxero.nbn.current.general.ui_logging_enabled;
         }
     };
 });

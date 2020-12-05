@@ -20,14 +20,6 @@
         logTitleCss: 'font-weight: bold; color: blue;',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Log data to the browser console.
          */
         log: function (msg, data) {
@@ -64,22 +56,22 @@
          * Check if console logging is enabled.
          */
         isConsoleLoggingEnabled: function () {
-            return this.o.jsConfig.general.debug_enabled
-            && this.o.jsConfig.debug.console_logging_enabled;
+            return window.naxero.nbn.current.debug.debug_enabled
+            && window.naxero.nbn.current.debug.console_logging_enabled;
         },
 
         /**
          * Get a log title.
          */
         getLogTitle: function () {
-            return '%c[' + this.logCount + '][' + this.o.jsConfig.module.title + ']';
+            return '%c[' + this.logCount + '][' + window.naxero.nbn.current.module.title + ']';
         },
 
         /**
          * Get the target button for UI logging.
          */
         getButtonSelector: function () {
-            return '#' + this.logViewerButtonClass + '-' + this.o.jsConfig.product.id;
+            return '#' + this.logViewerButtonClass + '-' + window.naxero.nbn.current.product.id;
         }
         };
  });
