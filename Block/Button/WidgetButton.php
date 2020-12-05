@@ -224,7 +224,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
         ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
         ->setData('config', $config)
-        ->setData('countdown_html', $this->getCountdownBoxHtml($config))
         ->setData('is_popup', false)
         ->toHtml();
     }

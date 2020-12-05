@@ -13,7 +13,7 @@
 
 
  - add time, category and product field display to calendar system.xml config  
- - quantity in product list
+ - quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
 

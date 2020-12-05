@@ -107,4 +107,17 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     {
         return $this->blockHelper->updateAttributesData($config);
     }
+
+    /**
+     * Render a widget product countdown box.
+     */
+    public function getCountdownBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
+        ->setData('config', $config)
+        ->setData('is_popup', false)
+        ->toHtml();
+    }
 }
