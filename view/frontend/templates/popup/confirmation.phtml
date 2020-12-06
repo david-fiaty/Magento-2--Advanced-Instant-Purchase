@@ -22,7 +22,7 @@
     $productId = $config['config']['product']['id'];
 
     // Display parameters
-    $showProductBox = $config['config']['popups']['popup_show_product'];
+    $showSummary = $config['config']['popups']['popup_show_summary'];
     $showQuantityBox = $config['config']['popups']['popup_show_product_quantity'];
 
     // Other payment methods display
@@ -30,16 +30,11 @@
     && $config['config']['payment_methods']['show_other_allowed'];
 ?>
 
-<!-- Product box -->
-<?php if ($showProductBox): ?>
-    <div class="nbn-product-box-container">
-        <?= $block->getProductBoxHtml($config['config']) ?>
+<!-- Order summary -->
+<?php if ($showSummary): ?>
+    <div class="nbn-product-summary-container">
+        <?= $block->getSummaryBoxHtml($config['config'], $productQantity) ?>
     </div>
-<?php endif; ?>
-
-<!-- Product quantity box -->
-<?php if ($showQuantityBox): ?>
-    <?= $block->getQuantityBoxHtml($config['config'], $productQantity) ?>
 <?php endif; ?>
 
 <!-- Header text -->
@@ -172,3 +167,15 @@
 <!-- Footer text -->
 <p><?= $block->escapeHtml($config['popup']['footer_text']) ?></p>
 
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'domReady!'
+], function($, __) {
+    'use strict';
+
+    
+
+});
+</script>

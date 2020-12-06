@@ -119,6 +119,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             // Prepare the base data
             $output = [
                 'id' => $product->getId(),
+                'sku' => $product->getSku(),
                 'name' => $product->getName(),
                 'price' => $this->renderProductPrice($productId),
                 'is_free' => $this->isFree($productId),

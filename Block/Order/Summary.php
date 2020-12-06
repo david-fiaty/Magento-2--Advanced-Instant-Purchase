@@ -14,14 +14,14 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Popup;
+namespace Naxero\BuyNow\Block\Order;
 
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Confirmation class constructor.
+ * Summary class constructor.
  */
-class Confirmation extends \Magento\Framework\View\Element\Template
+class Summary extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -29,39 +29,41 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * Confirmation class constructor.
+     * Summary class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
+
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
     }
 
     /**
-     * Render a popup product countdown box.
+     * Render a popup product quantity box.
      */
-    public function getCountdownBoxHtml($config)
+    public function getQuantityBoxHtml($config, $productQuantity)
     {
         return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('is_popup', false)
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
         ->setData('config', $config)
+        ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', true)
         ->toHtml();
     }
 
     /**
-     * Render a popup summary box.
+     * Render a widget product price box.
      */
-    public function getSummaryBoxHtml($config, $productQuantity)
+    public function getPriceBoxHtml($config, $productQuantity)
     {
         return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
-        ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
+        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();

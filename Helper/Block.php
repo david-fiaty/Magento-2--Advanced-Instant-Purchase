@@ -117,9 +117,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function prepareBlockConfig($config)
     {
-        // Remove the card form
-        unset($config['card_form']);
-
         // Prepare the UI loader
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
 

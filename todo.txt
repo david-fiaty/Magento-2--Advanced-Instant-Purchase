@@ -3,6 +3,8 @@
 
 - complete payment integrations
 
+- make sure payment tokens are filtered by store
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
@@ -10,6 +12,9 @@
 - Improve UI logger information
  
  - fix buy now options validation in product list
+
+
+- split base list and page phtml into different templates
 
 
  - add time, category and product field display to calendar system.xml config  
@@ -33,6 +38,7 @@ QA
 - check what happens to coundown clock when 1 digit box is out
 - check what happens to countown when all digits are out
 
+- check multistore behaviour
 - check that widget config override is working as expected, especially for zoom parameters
 - check if place order contains expected product attributes selected by user (request data)
 - check: multiple widgets in same page, multiple widgets in list and page view

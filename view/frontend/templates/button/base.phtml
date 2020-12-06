@@ -49,16 +49,10 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
 
 <!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
-    <!-- Product countdown -->
-    <?php if ($showProductCountdown): ?>
-        <div class="nbn-product-box-countdown">
-            <?= $block->getCountdownBoxHtml($config); ?>
-        </div>
-    <?php endif; ?>
-
     <!-- Quantity box -->
-        <?php if ($showQuantityBox): ?>
-            <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+    <?php if ($showQuantityBox): ?>
+    <?= $block->getPriceBoxHtml($config) ?>
+    <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
     <?php endif; ?>
 
     <!-- Button -->
@@ -77,6 +71,13 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
             </div>
         <?php endif; ?> 
     </button>
+
+    <!-- Product countdown -->
+    <?php if ($showProductCountdown): ?>
+    <div class="nbn-product-box-countdown">
+        <?= $block->getCountdownBoxHtml($config); ?>
+    </div>
+    <?php endif; ?>
 
     <!-- Form -->
         <?php if (!$isPageView): ?>

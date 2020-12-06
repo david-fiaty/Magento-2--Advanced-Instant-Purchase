@@ -14,20 +14,36 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Popup;
+namespace Naxero\BuyNow\Block\Product;
 
 /**
- * CardForm class constructor.
+ * Price class constructor.
  */
-class CardForm extends \Magento\Framework\View\Element\Template
+class Price extends \Magento\Framework\View\Element\Template
 {
     /**
-     * CardForm class constructor.
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
+     * Price class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
+
         parent::__construct($context, $data);
+
+        $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
     }
 }

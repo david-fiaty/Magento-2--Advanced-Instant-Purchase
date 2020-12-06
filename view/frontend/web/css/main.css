@@ -215,10 +215,6 @@
     font-size: 1.2em;
 }
 
-.nbn-order-total {
-
-}
-
 /* Countdown box */
 .nbn-product-box-countdown {
     margin-bottom: 1.5em;
@@ -228,12 +224,11 @@
     font-family: sans-serif;
     color: #999999;
     display: inline-block;
-    font-weight: 100;
-    text-align: center;
+    display: none;
 }
 
 .nbn-countown-box .nbn-countdown-digit-box {
-    padding: 1em;
+    padding: 0.7em;
     border-radius: 3px;
     background: white;
     display: inline-block;
@@ -245,13 +240,13 @@
     border-radius: 3px;
     background: #f1f1f1;
     display: inline-block;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #333333;
 }
 
 .nbn-countown-box .nbn-smalltext {
     padding-top: 0.7em;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 /* Spinner icon */
@@ -265,6 +260,16 @@
 .nbn-ajax-loader-container img {
     display: block;
     margin: auto;
+}
+
+
+/* Popup order summary */
+.nbn-summary-box {
+    margin-bottom: 1em;
+}
+
+.nbn-summary-box table {
+    border: solid 1px #f1f1f1;
 }
 
 /* Card icons */
