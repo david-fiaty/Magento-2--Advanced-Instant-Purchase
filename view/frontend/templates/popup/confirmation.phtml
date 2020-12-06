@@ -171,11 +171,35 @@
 require([
     'jquery',
     'mage/translate',
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/logger',
     'domReady!'
-], function($, __) {
+], function($, __, NbnPaths, NbnLogger) {
     'use strict';
 
-    //$('.nbn-summary-shipping').html();
+    // Shipping method change event
+    $('#nbn-shipping-method-select').on('change', function() {
+        // Prepare the parameters
+        var params = {
+            product_id: productId,
+            form_key: $(this.formKeySelectorPrefix + productId).val()
+        };
 
+        // Send the update request
+        $.ajax({
+            type: 'POST',
+            url: NbnPaths.get('order/total'),
+            data: params,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (request, status, error) {
+                NbnLogger.log(
+                    __('Error retrieving the product gallery data'),
+                    error
+                );
+            }
+        });
+    });
 });
 </script>

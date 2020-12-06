@@ -4,6 +4,7 @@
 - complete payment integrations
 
 - make sure payment tokens are filtered by store
+- include coupon codes handling
 
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
@@ -13,9 +14,12 @@
  
  - fix buy now options validation in product list
 
+- update config field allowed cards methods to show only methods with vault.
+
 
 - split base list and page phtml into different templates
-
+- show shipping in summary only if shipping enabled
+- display store > config > shipping settings > shipping policy
 
  - add time, category and product field display to calendar system.xml config  
  - quantity in product list? countdown in product list? countown in product detail?
