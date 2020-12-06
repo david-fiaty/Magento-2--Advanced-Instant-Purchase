@@ -22,6 +22,9 @@
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
 
+
+- add customerData login observer to button click before login popup?
+
 - 2 approaches for product options display in widget:
 1. Remove options config control and automate display based on if product has options or not
 2. Keep options config control, then add control to redirect to rpoduct view page if product has options but widget options display is disabled
