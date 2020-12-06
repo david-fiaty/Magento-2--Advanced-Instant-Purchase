@@ -59,12 +59,13 @@ class Summary extends \Magento\Framework\View\Element\Template
     /**
      * Render a widget product price box.
      */
-    public function getPriceBoxHtml($config)
+    public function getPriceBoxHtml($config, $productQuantity)
     {
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
         ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
         ->setData('config', $config)
+        ->setData('product_quantity', $productQuantity)
         ->toHtml();
     }
 }

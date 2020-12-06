@@ -251,6 +251,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
         ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
         ->setData('config', $config)
+        ->setData('product_quantity', null)
         ->toHtml();
     }
 
