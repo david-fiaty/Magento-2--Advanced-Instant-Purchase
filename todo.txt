@@ -3,6 +3,8 @@
 
 - complete payment integrations
 
+- remove payment settings
+
 - make sure payment tokens are filtered by store
 - include coupon codes handling
 
@@ -14,7 +16,6 @@
  
  - fix buy now options validation in product list
 
-- update config field allowed cards methods to show only methods with vault.
 
 
 - split base list and page phtml into different templates
