@@ -19,6 +19,6 @@
     $config = $block->getData('config');
 ?>
 
-<span class="nbn-order-total">
+<span id="nbn-product-price-<?= $config['product']['id'] ?>" class="nbn-product-price">
     <?= $config['product']['price'] ?>
 </span>

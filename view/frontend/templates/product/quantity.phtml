@@ -45,6 +45,7 @@ require([
 
     // Prepare variables
     var boxId = '#<?= $boxId ?>';
+    var priceBoxId = '#nbn-product-price-<?= $boxId ?>';
     var quantityField = $(boxId + ' .nbn-qty');
     var min = parseInt(quantityField.attr('min'));
     var max = parseInt(quantityField.attr('max'));
@@ -100,7 +101,7 @@ require([
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    $(boxId + ' .nbn-order-total').html(data.html);
+                    $(priceBoxId).html(data.html);
                 },
                 error: function (request, status, error) {
                     console.log(error);
