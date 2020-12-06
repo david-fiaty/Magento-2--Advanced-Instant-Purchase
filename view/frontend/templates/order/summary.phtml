@@ -35,7 +35,7 @@
       <td><?= $config['product']['sku'] ?></td>
       <td><?= $config['product']['name'] ?></td>
       <td><?= $block->getQuantityBoxHtml($config, $productQantity) ?></td>
-      <td><?= $config['product']['price'] ?></td>
+      <td><?= $block->getPriceBoxHtml($config) ?></td>
     </tr>
   </tbody>
   <tfoot>

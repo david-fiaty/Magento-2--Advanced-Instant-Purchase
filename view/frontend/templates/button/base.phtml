@@ -51,6 +51,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
     <!-- Quantity box -->
     <?php if ($showQuantityBox): ?>
+    <?= $block->getPriceBoxHtml($config) ?>
     <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
     <?php endif; ?>
 

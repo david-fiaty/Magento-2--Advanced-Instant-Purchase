@@ -55,4 +55,16 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->setData('is_popup', true)
         ->toHtml();
     }
+
+    /**
+     * Render a widget product price box.
+     */
+    public function getPriceBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
+        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
+        ->setData('config', $config)
+        ->toHtml();
+    }
 }

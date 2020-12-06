@@ -17,9 +17,9 @@
 namespace Naxero\BuyNow\Block\Product;
 
 /**
- * Quantity class constructor.
+ * Price class constructor.
  */
-class Quantity extends \Magento\Framework\View\Element\Template
+class Price extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -27,7 +27,7 @@ class Quantity extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * Quantity class constructor.
+     * Price class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,

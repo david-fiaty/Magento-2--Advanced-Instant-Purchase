@@ -243,6 +243,18 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     }
 
     /**
+     * Render a widget product price box.
+     */
+    public function getPriceBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
+        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
+        ->setData('config', $config)
+        ->toHtml();
+    }
+
+    /**
      * Render a widget product countdown box.
      */
     public function getCountdownBoxHtml($config)
