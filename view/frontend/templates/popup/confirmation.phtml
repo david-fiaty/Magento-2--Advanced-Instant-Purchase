@@ -40,34 +40,24 @@
 <!-- Header text -->
 <p><?= $block->escapeHtml($config['popup']['header_text'])?></p>
 
-<!-- Billing address -->
+<!-- Shipping method -->
+<?php if (!empty($config['addresses']) && !empty($config['savedCards']) && !$config['product']['is_free']): ?>
 <div class="nbn-field">
-    <label for="nbn-billing-address-select">
-        <span class="nbn-label">
-            <?= $block->escapeHtml(__('Billing address')) ?>
-        </span>
-        &nbsp;|&nbsp;
-        <a id="new-billing-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
-            <?= $block->escapeHtml(__('New')) ?>
-        </a>
+    <label for="nbn-shipping-method-select">
+        <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
         <p>
-            <?php if (!empty($config['addresses'])): ?>
-                <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
-                    <?php foreach ($config['addresses'] as $item): ?>
-                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $config['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
-                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
-                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
-                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
-                            <?= $block->escapeHtml($item['country_id']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            <?php else: ?>
-                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
-            <?php endif; ?>
+            <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
+                <?php foreach ($config['shippingRates'] as $item): ?>
+                    <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
+                        <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
+                        <?= $block->escapeHtml($item['carrier_price']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </p>
     </label>
 </div>
+<?php endif; ?>
 
 <!-- Shipping address -->
 <div class="nbn-field">
@@ -84,6 +74,35 @@
                 <select id="nbn-shipping-address-select" data-field="instant_purchase_shipping_address" class="nbn-select js-states form-control">
                     <?php foreach ($config['addresses'] as $item): ?>
                         <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $config['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['country_id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else: ?>
+                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
+            <?php endif; ?>
+        </p>
+    </label>
+</div>
+
+<!-- Billing address -->
+<div class="nbn-field">
+    <label for="nbn-billing-address-select">
+        <span class="nbn-label">
+            <?= $block->escapeHtml(__('Billing address')) ?>
+        </span>
+        &nbsp;|&nbsp;
+        <a id="new-billing-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
+            <?= $block->escapeHtml(__('New')) ?>
+        </a>
+        <p>
+            <?php if (!empty($config['addresses'])): ?>
+                <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
+                    <?php foreach ($config['addresses'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $config['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
                             <?= $block->escapeHtml($item['street']) ?>&nbsp;
                             <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
                             <?= $block->escapeHtml($item['city']) ?>&nbsp;
@@ -143,25 +162,6 @@
             </p>
         </label> 
     </div>
-<?php endif; ?>
-
-<!-- Shipping method -->
-<?php if (!empty($config['addresses']) && !empty($config['savedCards']) && !$config['product']['is_free']): ?>
-<div class="nbn-field">
-    <label for="nbn-shipping-method-select">
-        <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
-        <p>
-            <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
-                <?php foreach ($config['shippingRates'] as $item): ?>
-                    <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
-                        <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
-                        <?= $block->escapeHtml($item['carrier_price']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </p>
-    </label>
-</div>
 <?php endif; ?>
 
 <!-- Footer text -->
