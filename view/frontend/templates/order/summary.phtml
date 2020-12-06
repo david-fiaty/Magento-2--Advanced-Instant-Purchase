@@ -28,24 +28,28 @@
       <th><?= __('Name') ?></th>
       <th><?= __('Price') ?></th>
       <th><?= __('Quantity') ?></th>
+      <th><?= __('Total') ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><?= $config['product']['sku'] ?></td>
       <td><?= $config['product']['name'] ?></td>
+      <td><?= $config['product']['price'] ?></td>
+      <td><?= $productQantity ?></td>
       <td><?= $block->getPriceBoxHtml($config) ?></td>
-      <td><?= $block->getQuantityBoxHtml($config, $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
     <td>&nbsp;</td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
      <td>Shipping</td>
       <td>$180</td>
     </tr>
     <tr>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
       <td>Total</td>
