@@ -22,7 +22,7 @@
     $productPrice = $config['product']['price'];
 ?>
 
-<span id="nbn-product-price-<?= productId ?>" class="nbn-product-price">
+<span id="nbn-product-price-<?= $productId ?>" class="nbn-product-price">
     <?php if ($productQuantity): ?>
     <?= $block->productHelper->renderProductPrice($productId, $productQuantity) ?>
     <?php else: ?>
