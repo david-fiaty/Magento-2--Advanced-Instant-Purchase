@@ -48,7 +48,7 @@
      <td><?= __('Shipping') ?></td>
       <td class="nbn-summary-shipping">
         <?php if (isset($data['shippingRates'][0])): ?>
-        <?= $block->toolsHelper->renderAmount($data['shippingRates'][0]) ?>
+        <?= $block->toolsHelper->renderAmount($data['shippingRates'][0]['carrier_price']) ?>
         <?php endif; ?>
       </td>
     </tr>

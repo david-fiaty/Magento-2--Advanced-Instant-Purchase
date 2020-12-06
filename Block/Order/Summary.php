@@ -34,12 +34,18 @@ class Summary extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
      * Summary class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Tools $toolsHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
 
@@ -47,6 +53,7 @@ class Summary extends \Magento\Framework\View\Element\Template
 
         $this->toolsHelper = $toolsHelper;
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -74,5 +81,13 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
+    }
+
+    /**
+     * Get the summary total.
+     */
+    public function getTotal($config, $productQuantity)
+    {
+        $productPrice = $this->productHelper->renderProductPrice($productId, $productQuantity)
     }
 }
