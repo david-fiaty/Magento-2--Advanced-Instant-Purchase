@@ -29,16 +29,30 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
+     * @var Tools
+     */
+    public $toolsHelper;
+
+    /**
      * Confirmation class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
+        $this->toolsHelper = $toolsHelper;
     }
 
     /**
@@ -57,12 +71,12 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     /**
      * Render a popup summary box.
      */
-    public function getSummaryBoxHtml($config, $productQuantity)
+    public function getSummaryBoxHtml($data, $productQuantity)
     {
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
         ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
-        ->setData('config', $config)
+        ->setData('data', $data)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
     }

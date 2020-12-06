@@ -16,7 +16,7 @@
 
 <?php
     // Get the data
-    $config = $block->getData('config');
+    $data = $block->getData('data');
     $productQantity = $block->getData('product_quantity');
 ?>
 
@@ -33,11 +33,11 @@
   </thead>
   <tbody>
     <tr>
-      <td><?= $config['product']['sku'] ?></td>
-      <td><?= $config['product']['name'] ?></td>
-      <td><?= $config['product']['price'] ?></td>
+      <td><?= $data['config']['product']['sku'] ?></td>
+      <td><?= $data['config']['product']['name'] ?></td>
+      <td><?= $data['config']['product']['price'] ?></td>
       <td><?= $productQantity ?></td>
-      <td><?= $block->getPriceBoxHtml($config, $productQantity) ?></td>
+      <td><?= $block->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
@@ -46,7 +46,11 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
      <td><?= __('Shipping') ?></td>
-      <td class="nbn-summary-shipping"></td>
+      <td class="nbn-summary-shipping">
+        <?php if (isset($data['shippingRates'][0])): ?>
+        <?= $block->toolsHelper->renderAmount($data['shippingRates'][0]) ?>
+        <?php endif; ?>
+      </td>
     </tr>
     <tr>
     <td>&nbsp;</td>
