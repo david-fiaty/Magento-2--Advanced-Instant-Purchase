@@ -2,6 +2,7 @@
 !!!PRIORITY!!!
 
 - complete payment integrations
+- fix shipping rates not showing (free)
 
 - remove payment settings
 
@@ -15,7 +16,6 @@
 - Improve UI logger information
  
  - fix buy now options validation in product list
-- fix shipping rates not showing
 
 
 - split base list and page phtml into different templates
