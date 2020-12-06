@@ -63,7 +63,7 @@ class Confirmation extends \Magento\Framework\View\Element\Template
         ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
         ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
         ->setData('config', $config)
-        ->setData('product_quantity', $config)
+        ->setData('product_quantity', $productQuantity)
         ->toHtml();
     }
 }
