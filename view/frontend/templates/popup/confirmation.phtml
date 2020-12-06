@@ -24,10 +24,6 @@
     // Display parameters
     $showSummary = $data['config']['popups']['popup_show_summary'];
     $showQuantityBox = $data['config']['popups']['popup_show_product_quantity'];
-
-    // Other payment methods display
-    $showOtherPaymentMethods = !empty($data['otherPaymentMethods'])
-    && $data['config']['payment_methods']['show_other_allowed'];
 ?>
 
 <!-- Order summary -->
@@ -140,25 +136,6 @@
                 <?php else: ?>
                     <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
                 <?php endif; ?>
-            </p>
-        </label> 
-    </div>
-<?php endif; ?>
-
-<!-- Other payment methods -->
-<?php if ($showOtherPaymentMethods && !$data['product']['is_free']): ?>
-    <div class="nbn-field">
-        <label for="nbn-other-method-select">
-            <input type="checkbox" id="nbn-show-other-methods">
-            <span class="nbn-label"><?= $block->escapeHtml(__('Other payment options')) ?></span>
-            <p>
-                <select id="nbn-other-method-select" data-field="instant_purchase_method_code" class="nbn-select nbn-other-method-select js-states form-control">
-                    <?php foreach ($data['otherPaymentMethods'] as $item): ?>
-                        <option value="<?= $block->escapeHtmlAttr($item['value']) ?>">
-                            &nbsp;&nbsp;<?= $block->escapeHtml($item['label']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
             </p>
         </label> 
     </div>
