@@ -266,6 +266,12 @@
     margin: auto;
 }
 
+
+/* Popup order summary */
+.nbn-summary-box table {
+    border: solid 1px #f1f1f1;
+}
+
 /* Card icons */
 .nbn-card-icon {
     display: flex;
