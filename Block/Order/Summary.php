@@ -24,6 +24,11 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Summary extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var Tools
+     */
+    public $toolsHelper;
+
+    /**
      * @var Block
      */
     public $blockHelper;
@@ -33,12 +38,14 @@ class Summary extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
 
         parent::__construct($context, $data);
 
+        $this->toolsHelper = $toolsHelper;
         $this->blockHelper = $blockHelper;
     }
 
