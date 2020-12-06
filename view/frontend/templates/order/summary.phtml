@@ -26,16 +26,16 @@
     <tr>
       <th><?= __('Reference') ?></th>
       <th><?= __('Name') ?></th>
-      <th><?= __('Quantity') ?></th>
       <th><?= __('Price') ?></th>
+      <th><?= __('Quantity') ?></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><?= $config['product']['sku'] ?></td>
       <td><?= $config['product']['name'] ?></td>
-      <td><?= $block->getQuantityBoxHtml($config, $productQantity) ?></td>
       <td><?= $block->getPriceBoxHtml($config) ?></td>
+      <td><?= $block->getQuantityBoxHtml($config, $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
