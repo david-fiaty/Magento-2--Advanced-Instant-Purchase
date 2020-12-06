@@ -88,6 +88,6 @@ class Summary extends \Magento\Framework\View\Element\Template
      */
     public function getTotal($config, $productQuantity)
     {
-        $productPrice = $this->productHelper->renderProductPrice($productId, $productQuantity)
+        $productPrice = $this->productHelper->renderProductPrice($productId, $productQuantity);
     }
 }
