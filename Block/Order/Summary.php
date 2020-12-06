@@ -86,8 +86,21 @@ class Summary extends \Magento\Framework\View\Element\Template
     /**
      * Get the summary total.
      */
-    public function getTotal($config, $productQuantity)
+    public function getTotal($data, $productQuantity)
     {
-        $productPrice = $this->productHelper->renderProductPrice($productId, $productQuantity);
+        // Product price
+        $productPrice = $this->productHelper->getProductPrice(
+            $data['config']['product']['id'],
+            false,
+            false
+        );
+
+        // Sub total
+        $subTotal = $productPrice * $productQuantity;
+
+        // Total
+        $total = $subTotal + $data['shippingRates'][0]['carrier_price'];
+
+        return $this->toolsHelper->renderAmount($total, true, false);
     }
 }
