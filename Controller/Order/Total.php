@@ -49,6 +49,11 @@ class Total extends \Magento\Framework\App\Action\Action
     public $toolsHelper;
 
     /**
+     * Order
+     */
+    public $orderHelper;
+
+    /**
      * Customer
      */
     public $customerHelper;
@@ -69,6 +74,7 @@ class Total extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Order $orderHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector
     ) {
@@ -79,6 +85,7 @@ class Total extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->productHelper = $productHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->orderHelper = $orderHelper;
         $this->customerHelper = $customerHelper;
         $this->shippingSelector = $shippingSelector;
     }

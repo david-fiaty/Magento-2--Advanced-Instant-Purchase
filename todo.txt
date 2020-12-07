@@ -3,6 +3,8 @@
 
 - complete payment integrations
 
+- change all private and protected properties to public
+
 - make sure payment tokens are filtered by store
 - include coupon codes handling?
 
