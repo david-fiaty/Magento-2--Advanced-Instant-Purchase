@@ -149,9 +149,8 @@ require([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths',
-    'Naxero_BuyNow/js/view/helpers/logger',
     'domReady!'
-], function($, __, NbnPaths, NbnLogger) {
+], function($, __, NbnPaths) {
     'use strict';
 
     var productId = <?= $productId ?>;
@@ -173,8 +172,8 @@ require([
                 console.log(data);
             },
             error: function (request, status, error) {
-                NbnLogger.log(
-                    __('Error retrieving the product gallery data'),
+                console.log(
+                    __('Error retrieving the updated shipping data'),
                     error
                 );
             }
