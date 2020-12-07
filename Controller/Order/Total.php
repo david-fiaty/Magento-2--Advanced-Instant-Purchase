@@ -110,7 +110,7 @@ class Total extends \Magento\Framework\App\Action\Action
         $subTotal = $productPrice * $productQuantity;
 
         // Total
-        $total = $subTotal + $data['shippingRates'][0]['carrier_price'];
+        $total = $subTotal + $carrierPrice;
 
         return [
             'amount' => $this->toolsHelper->renderAmount($total, false, false),
