@@ -141,6 +141,13 @@ class ShippingSelector
     public function getCarrierData($carrierCode, $customer)
     {
         $methods = $this->getShippingRates($customer);
+        foreach ($methods as $method) {
+            if ($method['carrier_code'] == $carrierCode) {
+                return $method;
+            }   
+        }
+
+        return null;
     }
 
     /**
