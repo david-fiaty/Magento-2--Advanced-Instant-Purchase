@@ -132,17 +132,21 @@ class ShippingSelector
             }
         }
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/c.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($methods, 1));
-
         return $methods;
+    }
+
+    /**
+     * Get the carrier data by code.
+     */
+    public function getCarrierData($carrierCode, $customer)
+    {
+        $methods = $this->getShippingRates($customer);
     }
 
     /**
      * Get the carrier price.
      */
+    // Todo - Use getCarrierData method to get the price
     public function getCarrierPrice($shippingCode)
     {
         return $this->configHelper->value(

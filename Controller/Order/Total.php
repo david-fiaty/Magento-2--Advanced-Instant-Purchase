@@ -49,6 +49,17 @@ class Total extends \Magento\Framework\App\Action\Action
     public $toolsHelper;
 
     /**
+     * Customer
+     */
+    public $customerHelper;
+
+
+    /**
+     * ShippingSelector
+     */
+    public $shippingSelector;
+
+    /**
      * Index controller class constructor.
      */
     public function __construct(
@@ -57,7 +68,9 @@ class Total extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Product $productHelper,
-        \Naxero\BuyNow\Helper\Tools $toolsHelper
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector
     ) {
         parent::__construct($context);
 
@@ -66,6 +79,8 @@ class Total extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->productHelper = $productHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->customerHelper = $customerHelper;
+        $this->shippingSelector = $shippingSelector;
     }
 
     /**
@@ -85,19 +100,18 @@ class Total extends \Magento\Framework\App\Action\Action
         //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $productId = $this->getRequest()->getParam('product_id');
             $productQuantity = $this->getRequest()->getParam('product_quantity');
-            $carrierPrice = $this->getRequest()->getParam('carrier_price');
-
+            $carrierCode = $this->getRequest()->getParam('carrier_code');
         }
 
         return $this->jsonFactory->create()->setData([
-            'data' => $this->getTotalData($productId, $productQuantity, $carrierPrice)
+            'data' => $this->getTotalData($productId, $productQuantity, $carrierCode)
         ]);
     }
 
     /**
      * Get the summary total data.
      */
-    public function getTotalData($productId, $productQuantity, $carrierPrice)
+    public function getTotalData($productId, $productQuantity, $carrierCode)
     {
         // Product price
         $productPrice = $this->productHelper->getProductPrice(
@@ -109,13 +123,19 @@ class Total extends \Magento\Framework\App\Action\Action
         // Subtotal
         $subtotal = $productPrice * $productQuantity;
 
+        // Get carrier price
+        $carrier = $this->shippingSelector->getCarrierData(
+            $carrierCode,
+            $this->customerHelper->getCustomer()
+        );
+
         // Total
-        $total = $subtotal + $carrierPrice;
+        $total = $subtotal + $carrier['carrier_price'];
 
         return [
             'shipping' => [
-                'amount' => $this->toolsHelper->renderAmount($carrierPrice, false, false),
-                'rendered' => $this->toolsHelper->renderAmount($carrierPrice, true, false)
+                'amount' => $this->toolsHelper->renderAmount($carrier['carrier_price'], false, false),
+                'rendered' => $this->toolsHelper->renderAmount($carrier['carrier_price'], true, false)
             ],
             'subtotal' => [
                 'amount' => $this->toolsHelper->renderAmount($subtotal, false, false),

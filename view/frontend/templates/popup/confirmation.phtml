@@ -154,12 +154,16 @@ require([
     'use strict';
 
     var productId = <?= $productId ?>;
+    var productQantity = <?= $productQantity ?>;
+    var carrierCode = 
 
     // Shipping method change event
     $('#nbn-shipping-method-select').on('change', function() {
         // Prepare the parameters
         var params = {
             product_id: productId,
+            product_quantity: productQantity,
+            carrier_code: $(this).val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
 
