@@ -168,8 +168,9 @@ require([
             type: 'POST',
             url: NbnPaths.get('order/total'),
             data: params,
-            success: function (data) {
-                console.log(data);
+            success: function (res) {
+                $('.nbn-summary-shipping').html(res.data.shipping.rendered);
+                $('.nbn-summary-total').html(res.data.total.rendered);
             },
             error: function (request, status, error) {
                 console.log(

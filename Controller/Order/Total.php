@@ -90,7 +90,7 @@ class Total extends \Magento\Framework\App\Action\Action
         }
 
         return $this->jsonFactory->create()->setData([
-            'total' => $this->getTotalData($productId, $productQuantity, $carrierPrice)
+            'data' => $this->getTotalData($productId, $productQuantity, $carrierPrice)
         ]);
     }
 
@@ -106,15 +106,25 @@ class Total extends \Magento\Framework\App\Action\Action
             false
         );
 
-        // Sub total
-        $subTotal = $productPrice * $productQuantity;
+        // Subtotal
+        $subtotal = $productPrice * $productQuantity;
 
         // Total
-        $total = $subTotal + $carrierPrice;
+        $total = $subtotal + $carrierPrice;
 
         return [
-            'amount' => $this->toolsHelper->renderAmount($total, false, false),
-            'rendered' => $this->toolsHelper->renderAmount($total, true, false)
+            'shipping' => [
+                'amount' => $this->toolsHelper->renderAmount($carrierPrice, false, false),
+                'rendered' => $this->toolsHelper->renderAmount($carrierPrice, true, false)
+            ],
+            'subtotal' => [
+                'amount' => $this->toolsHelper->renderAmount($subtotal, false, false),
+                'rendered' => $this->toolsHelper->renderAmount($subtotal, true, false)
+            ],
+            'total' => [
+                'amount' => $this->toolsHelper->renderAmount($total, false, false),
+                'rendered' => $this->toolsHelper->renderAmount($total, true, false)
+            ]
         ];
     }
 }
