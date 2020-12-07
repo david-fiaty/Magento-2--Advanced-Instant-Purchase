@@ -119,15 +119,18 @@ class ShippingSelector
             $carrierMethods = $shippingModel->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    $carrierPrice = $this->getCarrierPrice($shippingCode);
                     $code = $shippingCode . '_' . $methodCode;
-                    $carrierTitle = $this->getCarrierTitle($shippingCode);
-                    $methods[] = [
-                        'carrier_code' => $code,
-                        'carrier_title' => $carrierTitle,
-                        'carrier_price' => $carrierPrice ? $carrierPrice : 0,
-                        'method_code' => $methodCode
-                    ];
+                    $isTableRate = $shippingCode == 'tablerate';
+                    if (!$isTableRate) {
+                        $carrierPrice = $this->getCarrierPrice($shippingCode);
+                        $carrierTitle = $this->getCarrierTitle($shippingCode);
+                        $methods[] = [
+                            'carrier_code' => $code,
+                            'carrier_title' => $carrierTitle,
+                            'carrier_price' => $carrierPrice ? $carrierPrice : 0,
+                            'method_code' => $methodCode
+                        ];
+                    }
                 }
             }
         }
