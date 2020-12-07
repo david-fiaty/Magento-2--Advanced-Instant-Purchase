@@ -5,6 +5,8 @@
 
 - change all private and protected properties to public
 
+- fix all spinners (linked to container identification)
+
 - make sure payment tokens are filtered by store
 - include coupon codes handling?
 
