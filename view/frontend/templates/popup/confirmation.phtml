@@ -158,12 +158,12 @@ require([
     var carrierCode = 
 
     // Shipping method change event
-    $('#nbn-shipping-method-select').on('change', function() {
+    $('#nbn-shipping-method-select').on('change', function(e) {
         // Prepare the parameters
         var params = {
             product_id: productId,
             product_quantity: productQantity,
-            carrier_code: $(this).val(),
+            carrier_code: $(e.currentTarget).val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
 
@@ -173,6 +173,7 @@ require([
             url: NbnPaths.get('order/total'),
             data: params,
             success: function (res) {
+                console.log(res);
                 $('.nbn-summary-shipping').html(res.data.shipping.rendered);
                 $('.nbn-summary-total').html(res.data.total.rendered);
             },
