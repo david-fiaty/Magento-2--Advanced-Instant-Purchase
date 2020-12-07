@@ -119,20 +119,15 @@ class ShippingSelector
             $carrierMethods = $shippingModel->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    // Get the carrier price
                     $carrierPrice = $this->getCarrierPrice($shippingCode);
-
-                    // If the carrier has a price
-                    if ($carrierPrice) {
-                        $code = $shippingCode . '_' . $methodCode;
-                        $carrierTitle = $this->getCarrierTitle($shippingCode);
-                        $methods[] = [
-                            'carrier_code' => $code,
-                            'carrier_title' => $carrierTitle,
-                            'carrier_price' => $carrierPrice,
-                            'method_code' => $methodCode
-                        ];
-                    }
+                    $code = $shippingCode . '_' . $methodCode;
+                    $carrierTitle = $this->getCarrierTitle($shippingCode);
+                    $methods[] = [
+                        'carrier_code' => $code,
+                        'carrier_title' => $carrierTitle,
+                        'carrier_price' => $carrierPrice ? $carrierPrice : 0,
+                        'method_code' => $methodCode
+                    ];
                 }
             }
         }
@@ -141,8 +136,24 @@ class ShippingSelector
     }
 
     /**
+     * Get the carrier data by code.
+     */
+    public function getCarrierData($carrierCode, $customer)
+    {
+        $methods = $this->getShippingRates($customer);
+        foreach ($methods as $method) {
+            if ($method['carrier_code'] == $carrierCode) {
+                return $method;
+            }   
+        }
+
+        return null;
+    }
+
+    /**
      * Get the carrier price.
      */
+    // Todo - Use getCarrierData method to get the price
     public function getCarrierPrice($shippingCode)
     {
         return $this->configHelper->value(

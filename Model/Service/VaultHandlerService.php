@@ -204,18 +204,10 @@ class VaultHandlerService
         // Get the user cards list
         $cardList = $this->getUserCards();
 
-        // Get the allowed cards list
-        $allowedCards = explode(
-            ',',
-            $this->configHelper->value('payment_methods/cards_allowed')
-        );
-
         // Filter the user cards list
-        if (!empty($cardList) && !empty($allowedCards)) {
+        if (!empty($cardList)) {
             foreach ($cardList as $card) {
-                if (in_array($card['instance']->getCode(), $allowedCards)) {
-                    $output[] = $card;
-                }
+                $output[] = $card;
             }
         }
 

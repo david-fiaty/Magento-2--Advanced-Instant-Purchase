@@ -94,39 +94,6 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get non card payment methods available
-     *
-     * @return array
-     */
-    public function getOtherPaymentMethods()
-    {
-        // Get the other payment methods
-        $options = [];
-        $methods = $this->getActivePaymentMethods();
-        $allowed = explode(
-            ',',
-            $this->configHelper->value('payment_methods/other_allowed')
-        );
-        if (!empty($methods)) {
-            foreach ($methods as $method) {
-                $code = $method->getCode();
-                $canDisplay = $method->canUseCheckout()
-                && $method->isActive()
-                && in_array($code, $allowed)
-                && $code != 'free';
-                if ($canDisplay) {
-                    $options[] = [
-                        'value' => $method->getCode(),
-                        'label' => __($method->getTitle())
-                    ];
-                }
-            }
-        }
-
-        return $options;
-    }
-
-    /**
      * Check if an item is a saved card.
      */
     public function isSavedCard($item, $savedCards)

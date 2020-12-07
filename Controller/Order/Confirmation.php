@@ -110,7 +110,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             $html = $this->pageFactory->create()->getLayout()
                 ->createBlock(Naming::getModulePath() . '\Block\Popup\Confirmation')
                 ->setTemplate(Naming::getModuleName() . '::popup/confirmation.phtml')
-                ->setData('config', $this->purchaseHelper->getConfirmContent($productId))
+                ->setData('data', $this->purchaseHelper->getConfirmContent($productId))
                 ->setData('product_quantity', $this->getProductQuantity($productId))
                 ->toHtml();
 

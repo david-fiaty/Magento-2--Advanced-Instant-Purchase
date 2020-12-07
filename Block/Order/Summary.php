@@ -24,22 +24,36 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Summary extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var Tools
+     */
+    public $toolsHelper;
+
+    /**
      * @var Block
      */
     public $blockHelper;
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
 
     /**
      * Summary class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
 
         parent::__construct($context, $data);
 
+        $this->toolsHelper = $toolsHelper;
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -67,5 +81,26 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
+    }
+
+    /**
+     * Get the summary total.
+     */
+    public function getTotal($data, $productQuantity, $shippingRate)
+    {
+        // Product price
+        $productPrice = $this->productHelper->getProductPrice(
+            $data['config']['product']['id'],
+            false,
+            false
+        );
+
+        // Sub total
+        $subTotal = $productPrice * $productQuantity;
+
+        // Total
+        $total = $subTotal + $shippingRate;
+
+        return $this->toolsHelper->renderAmount($total, true, false);
     }
 }

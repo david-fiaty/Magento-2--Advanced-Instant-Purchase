@@ -69,11 +69,6 @@
                 <widget_zoom_enabled>1</widget_zoom_enabled>
                 <widget_zoom_type>lens</widget_zoom_type>
             </widgets>
-            <payment_methods>
-                <card_allowed></card_allowed>
-                <show_other_allowed></show_other_allowed>
-                <other_allowed></other_allowed>
-            </payment_methods>
 
             <!-- Debug settings-->
             <debug>
