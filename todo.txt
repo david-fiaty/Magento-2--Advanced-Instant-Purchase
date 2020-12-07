@@ -2,7 +2,6 @@
 !!!PRIORITY!!!
 
 - complete payment integrations
-- fix shipping rates not showing (free)
 
 - make sure payment tokens are filtered by store
 - include coupon codes handling?
