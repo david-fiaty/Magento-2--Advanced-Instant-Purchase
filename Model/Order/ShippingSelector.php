@@ -120,7 +120,7 @@ class ShippingSelector
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
                     $code = $shippingCode . '_' . $methodCode;
-                    $isTableRate = substr($code, 0, 9) === 'tablerate_';
+                    $isTableRate = $shippingCode == 'tablerate';
                     if (!$isTableRate) {
                         $carrierPrice = $this->getCarrierPrice($shippingCode);
                         $carrierTitle = $this->getCarrierTitle($shippingCode);
