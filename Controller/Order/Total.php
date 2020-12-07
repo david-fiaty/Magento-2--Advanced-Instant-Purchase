@@ -98,21 +98,25 @@ class Total extends \Magento\Framework\App\Action\Action
         if ($request->isAjax()) {
         // Todo - Validate request form key
         //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $productId = $this->getRequest()->getParam('product_id');
-            $productQuantity = $this->getRequest()->getParam('product_quantity');
-            $carrierCode = $this->getRequest()->getParam('carrier_code');
+            $data  = $this->getTotalData();
         }
 
         return $this->jsonFactory->create()->setData([
-            'data' => $this->getTotalData($productId, $productQuantity, $carrierCode)
+            'data' => $data
         ]);
     }
 
     /**
      * Get the summary total data.
      */
-    public function getTotalData($productId, $productQuantity, $carrierCode)
+    public function getTotalData()
     {
+        $productId = $this->getRequest()->getParam('product_id');
+        $productQuantity = $this->getRequest()->getParam('product_quantity');
+        $carrierCode = $this->getRequest()->getParam('carrier_code');
+        $carrierCode = $this->getRequest()->getParam('carrier_code');
+        $couponCode = $this->getRequest()->getParam('coupon_code');
+
         // Product price
         $productPrice = $this->productHelper->getProductPrice(
             $productId,
