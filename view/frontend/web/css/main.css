@@ -216,6 +216,10 @@
 }
 
 /* Discount box */
+#nbn-coupon-box {
+    margin-bottom: 2em;
+}
+
 #nbn-coupon-code {
     max-width: 17em;
 }
