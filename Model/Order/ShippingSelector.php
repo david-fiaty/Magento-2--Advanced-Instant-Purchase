@@ -119,23 +119,23 @@ class ShippingSelector
             $carrierMethods = $shippingModel->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    // Get the carrier price
                     $carrierPrice = $this->getCarrierPrice($shippingCode);
-
-                    // If the carrier has a price
-                    if ($carrierPrice) {
-                        $code = $shippingCode . '_' . $methodCode;
-                        $carrierTitle = $this->getCarrierTitle($shippingCode);
-                        $methods[] = [
-                            'carrier_code' => $code,
-                            'carrier_title' => $carrierTitle,
-                            'carrier_price' => $carrierPrice,
-                            'method_code' => $methodCode
-                        ];
-                    }
+                    $code = $shippingCode . '_' . $methodCode;
+                    $carrierTitle = $this->getCarrierTitle($shippingCode);
+                    $methods[] = [
+                        'carrier_code' => $code,
+                        'carrier_title' => $carrierTitle,
+                        'carrier_price' => $carrierPrice ? $carrierPrice : 0,
+                        'method_code' => $methodCode
+                    ];
                 }
             }
         }
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/c.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($methods, 1));
 
         return $methods;
     }

@@ -154,6 +154,8 @@ require([
 ], function($, __, NbnPaths, NbnLogger) {
     'use strict';
 
+    var productId = <?= $productId ?>;
+
     // Shipping method change event
     $('#nbn-shipping-method-select').on('change', function() {
         // Prepare the parameters
