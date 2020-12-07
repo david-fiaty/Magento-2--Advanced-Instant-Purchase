@@ -117,7 +117,7 @@ class ShippingSelector
         $methods = [];
         foreach ($carriers as $shippingCode => $shippingModel) {
             $carrierMethods = $shippingModel->getAllowedMethods();
-            $isTableRate = substr('tablerate_', 0, 9);
+            $isTableRate = substr($shippingCode, 0, 9) === 'tablerate_';
             if ($carrierMethods && !$isTableRate) {
                 foreach ($carrierMethods as $methodCode => $method) {
                     $carrierPrice = $this->getCarrierPrice($shippingCode);
