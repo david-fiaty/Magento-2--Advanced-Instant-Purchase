@@ -4,10 +4,11 @@
 - complete payment integrations
 - fix shipping rates not showing (free)
 
-- remove payment settings
-
 - make sure payment tokens are filtered by store
-- include coupon codes handling
+- include coupon codes handling?
+
+- display discounted price
+https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components

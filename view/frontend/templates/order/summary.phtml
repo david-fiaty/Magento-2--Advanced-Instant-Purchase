@@ -17,6 +17,7 @@
 <?php
     // Get the data
     $data = $block->getData('data');
+    $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
     $productQantity = $block->getData('product_quantity');
 ?>
 
@@ -47,8 +48,8 @@
       <td>&nbsp;</td>
      <td><?= __('Shipping') ?></td>
       <td class="nbn-summary-shipping">
-        <?php if (isset($data['shippingRates'][0])): ?>
-        <?= $block->toolsHelper->renderAmount($data['shippingRates'][0]['carrier_price']) ?>
+        <?php if ($shippingRate): ?>
+        <?= $block->toolsHelper->renderAmount($shippingRate) ?>
         <?php endif; ?>
       </td>
     </tr>
@@ -57,7 +58,7 @@
     <td>&nbsp;</td>
     <td>&nbsp;</td>
       <td><?= __('Total') ?></td>
-      <td><?= $block->getTotal($data, $productQantity) ?></td>
+      <td><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
   </tfoot>
 </table>
