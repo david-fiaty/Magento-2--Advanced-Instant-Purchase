@@ -118,11 +118,15 @@ class Total extends \Magento\Framework\App\Action\Action
      */
     public function getTotalData()
     {
+        // Request data
         $productId = $this->getRequest()->getParam('product_id');
         $productQuantity = $this->getRequest()->getParam('product_quantity');
         $carrierCode = $this->getRequest()->getParam('carrier_code');
         $carrierCode = $this->getRequest()->getParam('carrier_code');
         $couponCode = $this->getRequest()->getParam('coupon_code');
+
+        // Discount data
+        $discountDdata = [];
 
         // Product price
         $productPrice = $this->productHelper->getProductPrice(
@@ -134,6 +138,18 @@ class Total extends \Magento\Framework\App\Action\Action
         // Subtotal
         $subtotal = $productPrice * $productQuantity;
 
+        // Discount
+        if (!empty($couponCode)) {
+            $couponRule = $this->orderHelper->getCouponRule($couponCode);
+            if ($couponRule && $couponRule->getIsActive() == 1) {
+                // Discounted total
+                $discountedTotal = $this->orderHelper->applyDiscount($couponRule, $subtotal);
+
+                // Discount data
+                $discountData = $this->orderHelper->getCouponRuleData($couponRule);
+            }
+        }
+
         // Get carrier price
         $carrier = $this->shippingSelector->getCarrierData(
             $carrierCode,
@@ -144,6 +160,7 @@ class Total extends \Magento\Framework\App\Action\Action
         $total = $subtotal + $carrier['carrier_price'];
 
         return [
+            'discount' => $discountData,
             'shipping' => [
                 'amount' => $this->toolsHelper->renderAmount($carrier['carrier_price'], false, false),
                 'rendered' => $this->toolsHelper->renderAmount($carrier['carrier_price'], true, false)

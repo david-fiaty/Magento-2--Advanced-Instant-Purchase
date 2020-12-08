@@ -4,8 +4,10 @@
 - complete payment integrations
 
 - change all private and protected properties to public
-
+- add a field control for discount html box
 - fix all spinners (linked to container identification)
+
+- change product time limit to From/To dates. If From empty then use now.
 
 - make sure payment tokens are filtered by store
 - include coupon codes handling?

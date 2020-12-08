@@ -43,12 +43,37 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a discount amount from a coupon code.
+     * Applay a discount code to an amount.
      */
-    public function getDiscountAmount($couponCode)
+    public function applyDiscount($rule, $amount)
+    {
+        $discountedAmount = $amount - (float) $rule->getDiscountAmount();
+        return $discountedAmount > 0 ? $discountedAmount : 0;
+    }
+
+    /**
+     * Get a coupon code data.
+     */
+    public function getCouponRule($couponCode)
     {
         $ruleId =  $this->couponModel->loadByCode($couponCode)->getRuleId();
-        $rule = $this->ruleRepository->getById($ruleId);
-        return $rule->getDiscountAmount();
+        if ((int) $ruleId > 0) {
+            return $this->ruleRepository->getById($ruleId);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get a coupon code data.
+     */
+    public function getCouponRuleData($rule)
+    {
+        return [
+            'id' => $rule->getId(),
+            'name' => $rule->getName(),
+            'amount' => $rule->getDiscountAmount(),
+            'description' => $rule->getDescription(),
+        ];
     }
 }
