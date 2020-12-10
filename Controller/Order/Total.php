@@ -147,6 +147,9 @@ class Total extends \Magento\Framework\App\Action\Action
 
                 // Discount data
                 $discountData = $this->orderHelper->getCouponRuleData($couponRule);
+
+                // Update the subtotal
+                $subtotal = $discountedTotal;
             }
         }
 

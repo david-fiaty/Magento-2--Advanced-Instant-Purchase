@@ -281,6 +281,10 @@
     border: solid 1px #f1f1f1;
 }
 
+tr.nbn-discount-row {
+    display: none;
+}
+
 /* Card icons */
 .nbn-card-icon {
     display: flex;

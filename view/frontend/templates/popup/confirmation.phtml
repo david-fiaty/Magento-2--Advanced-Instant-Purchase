@@ -193,8 +193,16 @@ require([
             url: NbnPaths.get('order/total'),
             data: params,
             success: function (res) {
+                // Base total display
                 $('.nbn-summary-shipping').html(res.data.shipping.rendered);
                 $('.nbn-summary-total').html(res.data.total.rendered);
+
+                // Discount display
+                if (res.data.discount.length > 0) {
+                    $('.nbn-discount-row').show()
+                    .find('.nbn-discounted-amount')
+                    .html(res.data.total.rendered);
+                }
             },
             error: function (request, status, error) {
                 console.log(
