@@ -10,7 +10,6 @@
 - change product time limit to From/To dates. If From empty then use now.
 
 - make sure payment tokens are filtered by store
-- include coupon codes handling?
 
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
@@ -22,6 +21,7 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - Improve UI logger information
  
  - fix buy now options validation in product list
+- logger: fix "|-- Purchase data on page load" array empty in console log, or maybe remove it to gain time
 
 
 - split base list and page phtml into different templates
@@ -91,6 +91,9 @@ LIBS
 - check other libraries versions
 
 EXPLORE
+- add buynow external widgets
+
+
 - improved category UI selector:
 https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 
