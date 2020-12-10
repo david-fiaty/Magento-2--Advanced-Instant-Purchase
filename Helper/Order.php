@@ -43,7 +43,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Applay a discount code to an amount.
+     * Apply a discount code to an amount.
      */
     public function applyDiscount($rule, $amount)
     {

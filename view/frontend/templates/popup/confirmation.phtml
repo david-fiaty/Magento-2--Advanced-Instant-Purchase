@@ -200,7 +200,7 @@ require([
                 // Discount display
                 if (res.data.discount.length > 0) {
                     $('#nbn-discount-row').show();
-                    $('.nbn-discounted-amount').html(res.data.disount.rendered);
+                    $('.nbn-discounted-amount').html(res.data.discount.rendered);
                     $('#nbn-coupon-code').prop( "disabled", true );
                 }
             },
