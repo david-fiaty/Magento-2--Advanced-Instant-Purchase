@@ -198,6 +198,7 @@ require([
                 $('.nbn-summary-total').html(res.data.total.rendered);
 
                 // Discount display
+                console.log(res.data.discount.rendered);
                 if (res.data.discount.length > 0) {
                     $('#nbn-discount-row').show();
                     $('.nbn-discounted-amount').html(res.data.discount.rendered);
