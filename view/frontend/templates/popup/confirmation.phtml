@@ -199,9 +199,8 @@ require([
 
                 // Discount display
                 if (res.data.discount.length > 0) {
-                    $('.nbn-discount-row').show()
-                    .find('.nbn-discounted-amount')
-                    .html(res.data.disount.rendered);
+                    $('#nbn-discount-row').show();
+                    $('.nbn-discounted-amount').html(res.data.disount.rendered);
                 }
             },
             error: function (request, status, error) {
