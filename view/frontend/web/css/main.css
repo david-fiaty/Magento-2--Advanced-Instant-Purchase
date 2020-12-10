@@ -281,7 +281,7 @@
     border: solid 1px #f1f1f1;
 }
 
-tr.nbn-discount-row {
+tr#nbn-discount-row {
     display: none;
 }
 
