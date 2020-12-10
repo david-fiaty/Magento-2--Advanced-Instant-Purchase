@@ -70,7 +70,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     public function getCouponRuleData($rule)
     {
         return [
-            'id' => $rule->getId(),
+            'id' => $rule->getRuleId(),
             'name' => $rule->getName(),
             'amount' => $rule->getDiscountAmount(),
             'description' => $rule->getDescription(),
