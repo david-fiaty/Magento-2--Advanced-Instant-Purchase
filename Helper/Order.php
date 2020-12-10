@@ -63,17 +63,4 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
 
         return null;
     }
-
-    /**
-     * Get a coupon code data.
-     */
-    public function getCouponRuleData($rule)
-    {
-        return [
-            'id' => $rule->getRuleId(),
-            'name' => $rule->getName(),
-            'amount' => $rule->getDiscountAmount(),
-            'description' => $rule->getDescription(),
-        ];
-    }
 }

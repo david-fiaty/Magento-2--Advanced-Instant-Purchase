@@ -146,7 +146,7 @@ class Total extends \Magento\Framework\App\Action\Action
                 $discountedTotal = $this->orderHelper->applyDiscount($couponRule, $subtotal);
 
                 // Discount data
-                $discountData = $this->orderHelper->getCouponRuleData($couponRule);
+                $discountData = $this->getCouponRuleData($couponRule);
 
                 // Update the subtotal
                 $subtotal = $discountedTotal;
@@ -176,6 +176,22 @@ class Total extends \Magento\Framework\App\Action\Action
                 'amount' => $this->toolsHelper->renderAmount($total, false, false),
                 'rendered' => $this->toolsHelper->renderAmount($total, true, false)
             ]
+        ];
+    }
+
+    /**
+     * Get a coupon code data.
+     */
+    public function getCouponRuleData($rule)
+    {
+        $discountAmount = $rule->getDiscountAmount();
+
+        return [
+            'id' => $rule->getRuleId(),
+            'name' => $rule->getName(),
+            'amount' => $discountAmount,
+            'rendered' => $this->toolsHelper->renderAmount($discountAmount, true, false),
+            'description' => $rule->getDescription(),
         ];
     }
 }
