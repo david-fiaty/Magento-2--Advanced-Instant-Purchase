@@ -201,6 +201,7 @@ require([
                 if (res.data.discount.length > 0) {
                     $('#nbn-discount-row').show();
                     $('.nbn-discounted-amount').html(res.data.disount.rendered);
+                    $('#nbn-coupon-code').prop( "disabled", true );
                 }
             },
             error: function (request, status, error) {
