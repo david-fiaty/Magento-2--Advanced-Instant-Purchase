@@ -65,9 +65,12 @@
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductFilterSelector</source_model>
                 </field>
 
-                <field id="product_time_limit" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Display until</label>
-                    <comment>Display duration. No value equals unlimited time.</comment>
+                <field id="product_time_from" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Diplsay start date</label>
+                </field>
+
+                <field id="product_time_to" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Diplsay end date</label>
                 </field>
 
                 <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">

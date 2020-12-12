@@ -32,7 +32,8 @@
                 <category_id></category_id>
                 <product_id></product_id>
                 <product_filter>latest</product_filter>
-                <product_time_limit></product_time_limit>
+                <product_time_from></product_time_from>
+                <product_time_to></product_time_to>
                 <show_product_countdown>1</show_product_countdown>
             </products>   
 
