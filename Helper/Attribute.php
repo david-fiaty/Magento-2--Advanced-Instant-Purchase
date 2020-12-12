@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -72,7 +73,7 @@ class Attribute extends \Magento\Framework\App\Helper\AbstractHelper
     public function addAttributeData($option)
     {
         $option['attribute_type'] = $this->getAttributeType($option['attribute_code']);
-        
+
         return $option;
     }
 }

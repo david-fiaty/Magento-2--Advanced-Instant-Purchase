@@ -14,4 +14,14 @@
  */
 ?>
 
-<?= $block->escapeHtml($block->getData('load')) ?>
+<?php
+    // Get the data
+    $config = $block->getData('config');
+?>
+
+<div class="nbn-coupon-box">
+    <input id="nbn-coupon-code" type="text" name="nbn-coupon-code" value="" placeholder="<?= __('Discount code') ?>" class="input-text">
+    <button class="action primary instant-purchase nbn-button">
+        <?= __('Apply') ?>
+    </button>
+</div>

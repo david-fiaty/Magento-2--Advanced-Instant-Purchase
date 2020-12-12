@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -13,20 +14,31 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Popup;
+namespace Naxero\BuyNow\Block\Order;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * CardForm class constructor.
+ * Coupon class constructor.
  */
-class CardForm extends \Magento\Framework\View\Element\Template
+class Coupon extends \Magento\Framework\View\Element\Template
 {
     /**
-     * CardForm class constructor.
+     * @var Block
+     */
+    public $blockHelper;
+
+    /**
+     * Coupon class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+        \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
+
         parent::__construct($context, $data);
+
+        $this->blockHelper = $blockHelper;
     }
 }

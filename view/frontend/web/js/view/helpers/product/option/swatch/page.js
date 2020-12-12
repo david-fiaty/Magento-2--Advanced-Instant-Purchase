@@ -20,7 +20,7 @@ define([
     return {
         selectorPrefix: '.swatch-opt .swatch-attribute .swatch-option',
         optionSelectorPrefix: '#nbn-option-',
- 
+
         /**
          * Get a page swatch option values selectors.
          */

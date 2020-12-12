@@ -30,13 +30,9 @@
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-qty-box nbn-qty-buttons-added">
-    <span class="nbn-order-total">
-        <?= $config['product']['price'] ?>
-    </span>
     <input type="button" value="<?= __('-') ?>" class="nbn-qty-minus">
     <input type="number" step="1" min="<?= $quantityLimits['min'] ?>" max="<?= $quantityLimits['max'] ?>" name="nbn_purchase_quantity" value="<?= $productQuantity ?>" title="<?= __('Qty') ?>" class="input-text nbn-qty text">
     <input type="button" value="<?= __('+') ?>" class="nbn-qty-plus">
-
 </div>
 
 <script>
@@ -49,6 +45,7 @@ require([
 
     // Prepare variables
     var boxId = '#<?= $boxId ?>';
+    var priceBoxId = '#nbn-product-price-<?= $productId  ?>';
     var quantityField = $(boxId + ' .nbn-qty');
     var min = parseInt(quantityField.attr('min'));
     var max = parseInt(quantityField.attr('max'));
@@ -104,7 +101,7 @@ require([
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    $(boxId + ' .nbn-order-total').html(data.html);
+                    $(priceBoxId).html(data.html);
                 },
                 error: function (request, status, error) {
                     console.log(error);

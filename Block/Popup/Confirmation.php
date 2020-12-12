@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -41,33 +42,6 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a popup product box.
-     */
-    public function getProductBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\PopupBox')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('is_popup', true)
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a popup product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('config', $config)
-        ->setData('product_quantity', $productQuantity)
-        ->setData('is_popup', true)
-        ->toHtml();
-    }
-
-    /**
      * Render a popup product countdown box.
      */
     public function getCountdownBoxHtml($config)
@@ -77,6 +51,19 @@ class Confirmation extends \Magento\Framework\View\Element\Template
         ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('is_popup', false)
         ->setData('config', $config)
+        ->toHtml();
+    }
+
+    /**
+     * Render a popup summary box.
+     */
+    public function getSummaryBoxHtml($data, $productQuantity)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
+        ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
+        ->setData('data', $data)
+        ->setData('product_quantity', $productQuantity)
         ->toHtml();
     }
 }

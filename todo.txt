@@ -3,24 +3,48 @@
 
 - complete payment integrations
 
+- change all private and protected properties to public
+- add a field control for discount html box
+- fix all spinners (linked to container identification)
+
+- change product time limit to From/To dates. If From empty then use now.
+
+- make sure payment tokens are filtered by store
+
+- display discounted price
+https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
  
+ - fix buy now options validation in product list
+- logger: fix "|-- Purchase data on page load" array empty in console log, or maybe remove it to gain time
 
+
+- split base list and page phtml into different templates
+- show shipping in summary only if shipping enabled
+- display store > config > shipping settings > shipping policy
 
  - add time, category and product field display to calendar system.xml config  
- - quantity in product list
+ - quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
+
+
+- add customerData login observer to button click before login popup?
 
 - 2 approaches for product options display in widget:
 1. Remove options config control and automate display based on if product has options or not
 2. Keep options config control, then add control to redirect to rpoduct view page if product has options but widget options display is disabled
 
 - *** Handle product price update with options prices in widget and popup ***
+
+
+- Not supported: table rate shipping
+
 
 - Not supported: product price handling with price rules (qty > 1, or other conditions...)
 => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
@@ -32,12 +56,14 @@ QA
 - check what happens to coundown clock when 1 digit box is out
 - check what happens to countown when all digits are out
 
+- check multistore behaviour
 - check that widget config override is working as expected, especially for zoom parameters
 - check if place order contains expected product attributes selected by user (request data)
 - check: multiple widgets in same page, multiple widgets in list and page view
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
 - check add to cart values and display in popup and order request
+- Test time limit to string in admin with french and other langs
 
 FEATURES
 - add module version checker
@@ -65,6 +91,9 @@ LIBS
 - check other libraries versions
 
 EXPLORE
+- add buynow external widgets
+
+
 - improved category UI selector:
 https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 
@@ -107,4 +136,11 @@ NEW IDEAS
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
-phpcbf --standard=PSR2 BuyNow
+
+SCRIPTS
+phpcbf --standard=PSR2 app/code/Naxero/BuyNow
+phpcbf --standard=PSR12 /app/code/Naxero/BuyNow
+vendor/bin/phpcbf /home/hnid/dev/m234/app/code/Naxero/BuyNow --standard=Magento2
+
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv

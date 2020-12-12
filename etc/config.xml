@@ -55,9 +55,7 @@
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
                 <popup_enable_agreements>0</popup_enable_agreements>
                 <show_product_countdown>1</show_product_countdown>
-                <popup_show_product>1</popup_show_product>
-                <popup_show_product_image>1</popup_show_product_image>
-                <popup_show_product_name>1</popup_show_product_name>
+                <popup_show_summary>1</popup_show_summary>
                 <popup_show_product_quantity>1</popup_show_product_quantity>
             </popups>
 
@@ -71,14 +69,6 @@
                 <widget_zoom_enabled>1</widget_zoom_enabled>
                 <widget_zoom_type>lens</widget_zoom_type>
             </widgets>
-            <payment_methods>
-                <card_allowed></card_allowed>
-                <show_other_allowed></show_other_allowed>
-                <other_allowed></other_allowed>
-            </payment_methods>
-            <card_form>
-                <load><![CDATA[<h1>load</h1><script>alert("card form script")</script>]]></load>
-            </card_form>
 
             <!-- Debug settings-->
             <debug>

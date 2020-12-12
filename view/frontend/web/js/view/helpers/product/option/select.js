@@ -36,8 +36,8 @@ define([
             .find('option[data-placeholder="*"]')
             .data('placeholder');
 
-            // Select 2 
-            $(this.optionFieldSelector).select2 ({
+            // Select 2
+            $(this.optionFieldSelector).select2({
                 placeholder: placeholder,
                 minimumResultsForSearch: -1,
                 theme: 'classic'
@@ -130,9 +130,9 @@ define([
         },
 
         isSelectedValueValid: function (value) {
-            return value 
+            return value
             && typeof value !== 'undefined'
-            && value != 'undefined' 
+            && value != 'undefined'
             && value.length > 0;
         }
     };

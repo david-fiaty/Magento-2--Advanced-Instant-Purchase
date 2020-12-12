@@ -11,7 +11,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
- 
+
 /* General */
 .nbn-clr {
     visibility: hidden;
@@ -215,8 +215,13 @@
     font-size: 1.2em;
 }
 
-.nbn-order-total {
-    
+/* Discount box */
+#nbn-coupon-box {
+    margin-bottom: 2em;
+}
+
+#nbn-coupon-code {
+    max-width: 17em;
 }
 
 /* Countdown box */
@@ -228,12 +233,11 @@
     font-family: sans-serif;
     color: #999999;
     display: inline-block;
-    font-weight: 100;
-    text-align: center;
+    display: none;
 }
 
 .nbn-countown-box .nbn-countdown-digit-box {
-    padding: 1em;
+    padding: 0.7em;
     border-radius: 3px;
     background: white;
     display: inline-block;
@@ -245,13 +249,13 @@
     border-radius: 3px;
     background: #f1f1f1;
     display: inline-block;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #333333;
 }
 
 .nbn-countown-box .nbn-smalltext {
     padding-top: 0.7em;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 /* Spinner icon */
@@ -267,6 +271,20 @@
     margin: auto;
 }
 
+
+/* Popup order summary */
+.nbn-summary-box {
+    margin-bottom: 1em;
+}
+
+.nbn-summary-box table {
+    border: solid 1px #f1f1f1;
+}
+
+tr#nbn-discount-row {
+    display: none;
+}
+
 /* Card icons */
 .nbn-card-icon {
     display: flex;
@@ -275,9 +293,9 @@
 
 /* Quantity box */
 .nbn-qty-box {
-    display: inline-block; 
+    display: inline-block;
 }
-   
+
 .nbn-qty-box .input-text.nbn-qty {
     width: 35px;
     height: 39px;
@@ -286,21 +304,21 @@
     background-color: transparent;
     border: 1px solid #efefef;
 }
-   
+
 .nbn-qty-box.nbn-qty-buttons-added {
     text-align: left;
     position: relative;
     white-space: nowrap;
     vertical-align: top;
 }
-   
+
 .nbn-qty-box.nbn-qty-buttons-added input {
     display: inline-block;
     margin: 0;
     vertical-align: top;
     box-shadow: none;
 }
-   
+
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus,
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus {
     padding: 7px 10px 8px;
@@ -309,30 +327,30 @@
     border: 1px solid #efefef;
     cursor:pointer;
 }
-   
+
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus {
-    border-right: 0; 
+    border-right: 0;
 }
 
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus {
-    border-left: 0; 
+    border-left: 0;
 }
 
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus:hover,
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus:hover {
-    background: #eeeeee; 
+    background: #eeeeee;
 }
 
 .nbn-qty-box input::-webkit-outer-spin-button,
 .nbn-qty-box input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-minus:focus,
 .nbn-qty-box.nbn-qty-buttons-added .nbn-qty-plus:focus {
-    outline: none; 
+    outline: none;
 }
-   
+
    

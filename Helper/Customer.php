@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -155,15 +156,16 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the available customer groups.
      */
-    public function getCustomerGroups() {
+    public function getCustomerGroups()
+    {
         return $this->customerGroupCollection->toOptionArray();
     }
 
     /**
      * Get the current customer group.
      */
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+    {
         return $this->customerSession->getCustomer()->getGroupId();
     }
-
 }

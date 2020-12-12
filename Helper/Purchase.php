@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -118,7 +119,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Set the instant purchase availability
         $data = ['available' => true];
-        
+
         // Data
         $data += [
             'payment_token' => $this->vaultHandler->preparePaymentToken(),
@@ -133,7 +134,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the shipping address array.
      */
-    public function buildShippingAddressArray() {
+    public function buildShippingAddressArray()
+    {
         $shippingAddress = $this->customerHelper->getShippingAddress();
 
         return [
@@ -145,7 +147,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the billing address array.
      */
-    public function buildBillingAddressArray() {
+    public function buildBillingAddressArray()
+    {
         $billingAddress = $this->customerHelper->getBillingAddress();
 
         return [
@@ -157,7 +160,8 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the shipping method array.
      */
-    public function buildShippingMethodArray() {
+    public function buildShippingMethodArray()
+    {
         $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
 
         return [
@@ -193,7 +197,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             // Confirmation data
             $confirmationData['addresses'] = $customer->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
-            $confirmationData['otherPaymentMethods'] = $this->paymentHelper->getOtherPaymentMethods();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
             // Instant purchase data
@@ -213,7 +216,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Button available
         $buttonEnabled = $this->configHelper->value('general/enabled');
-        $isLoggedIn = $this->customerHelper->isLoggedIn();        
+        $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 
         // Product time limit

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -37,7 +38,7 @@ class CssLoader extends \Magento\Backend\Block\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-    
+
         $this->assetRepository = $assetRepository;
     }
 
@@ -61,7 +62,8 @@ class CssLoader extends \Magento\Backend\Block\Template
     /**
      * Get the CSS assets URLs.
      */
-    public function getCssAssets() {
+    public function getCssAssets()
+    {
         return [
             $this->assetRepository->getUrl(Naming::getModuleName() . '::css/lib/select2/select2.css')
         ];

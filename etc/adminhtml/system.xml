@@ -148,30 +148,15 @@
                     <label>Show countdown timer</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
+                <field id="popup_show_summary" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show order summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the product in the purchase popup windwow.</comment>
-                </field>
-                <field id="popup_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="popup_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
                 </field>
                 <field id="popup_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="popup_show_product">1</field>
+                        <field id="popup_show_summary">1</field>
                     </depends>
                 </field>
             </group>
@@ -224,34 +209,6 @@
                     <depends>
                         <field id="widget_zoom_enabled">1</field>
                     </depends>
-                </field>
-            </group>
-
-            <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Payment settings</label>
-                <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Allowed card payment methods</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
-                    <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
-                </field>
-                <field id="show_other_allowed" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show other payment methods</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="other_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Other allowed payment methods</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
-                    <depends>
-                        <field id="show_other_allowed">1</field>
-                    </depends>
-                    <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
-                </field>
-            </group>
-            <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Card form</label>
-                <field id="load" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Code</label>
-                    <comment>Custom HTML/Javascript code for the save card form.</comment>
                 </field>
             </group>
 

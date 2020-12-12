@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -76,7 +77,7 @@ class Price extends \Magento\Framework\App\Action\Action
         // Todo - Validate request form key
         //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
             $productId = $this->getRequest()->getParam('product_id');
-            $productQuantity = $this->getRequest()->getParam('product_quantity');    
+            $productQuantity = $this->getRequest()->getParam('product_quantity');
             $html .= $this->productHelper->renderProductPrice(
                 $productId,
                 $productQuantity

@@ -57,7 +57,7 @@
             // Prepare variables
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
-            var config = window.naxero.nbn.instances[productId]; 
+            var config = window.naxero.nbn.instances[productId];
 
             // Load the modal
             ConfirmModal({
@@ -112,8 +112,8 @@
             // Prepare parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
-            var title = window.naxero.nbn.instances[productId].popups.popup_title;            
-            
+            var title = window.naxero.nbn.instances[productId].popups.popup_title;
+
             // Load the confirm modal
             ConfirmModal({
                 title: title,

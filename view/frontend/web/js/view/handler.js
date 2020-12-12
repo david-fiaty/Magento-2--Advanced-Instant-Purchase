@@ -173,7 +173,7 @@ define([
             var imageContainer = boxId + ' .nbn-product-box-image';
             var image = imageContainer + ' img';
 
-            // Zoom parameters      
+            // Zoom parameters
             var zoomType = this.config.widgets.widget_zoom_type;
             var isLightbox = this.config.widgets.widget_zoom_type == 'lightbox';
             var params = {
@@ -184,24 +184,23 @@ define([
             // Image initial state
             if (!isLightbox) {
                 // Zoom initialisation
-                $(image).elevateZoom(params); 
-            }
-            else {
+                $(image).elevateZoom(params);
+            } else {
                 // Image state
-                $(imageContainer).css('cursor', 'zoom-in'); 
+                $(imageContainer).css('cursor', 'zoom-in');
             }
 
             // Image container click event
             $(imageContainer).on('click touch', function (e) {
                 if (isLightbox) {
                     // Image state
-                    $(this).css('cursor', 'zoom-in'); 
+                    $(this).css('cursor', 'zoom-in');
 
                     // Open the modal
                     NbnModal.getGalleryModal(e);
 
                     // Get the log data
-                    self.getGalleryData(e);     
+                    self.getGalleryData(e);
                 }
             });
         },
@@ -234,7 +233,7 @@ define([
                         NbnProduct.displayErrors(e);
                         return;
                     }
-                    
+
                     // Page view and/or all conditions valid
                     self.purchasePopup(e);
                 } else if (e.target.nodeName == 'A') {
@@ -287,7 +286,7 @@ define([
 
                     // Agreements events
                     NbnAgreement.build();
-                    
+
                     // Set the slider events
                     NbnSlider.build();
 

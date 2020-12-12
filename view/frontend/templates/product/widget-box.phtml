@@ -23,11 +23,6 @@
     $showProductName = $config['widgets']['widget_show_product_name'];
     $zoomEnabled = $config['widgets']['widget_zoom_enabled'];
     $isLightbox = $config['widgets']['widget_zoom_type'] == 'lightbox';
-    $timeLimit = $config['products']['product_time_limit'];
-
-    // Product countdown
-    $showProductCountdown = $config['products']['show_product_countdown']
-    && !empty($config['products']['product_time_limit']);
 
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
@@ -53,13 +48,6 @@
             <p class="nbn-product-box-name">
                 <?= $block->escapeHtml($config['product']['name']) ?>
             </p>
-        <?php endif; ?>
-
-        <!-- Product countdown -->
-        <?php if ($showProductCountdown): ?>
-            <div class="nbn-product-box-countdown">
-                <?= $block->getData('countdown_html'); ?>
-            </div>
         <?php endif; ?>
 
         <!-- Product options -->

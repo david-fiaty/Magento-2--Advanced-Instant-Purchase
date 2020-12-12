@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -32,7 +33,7 @@ interface PaymentIntegrationInterface
      * Check if a payment is successful.
      */
     public function paymentSuccess();
-    
+
     /**
      * Create an order.
      *

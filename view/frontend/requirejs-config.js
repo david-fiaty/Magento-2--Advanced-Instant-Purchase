@@ -13,11 +13,11 @@
  */
 
  var config = {
-    paths: {
-        slick: 'Naxero_BuyNow/js/lib/slick/slick',
-        popover: 'Naxero_BuyNow/js/lib/popover/popover',
-        jsonviewer: 'Naxero_BuyNow/js/lib/json/jquery.json-viewer',
-        elevatezoom: 'Naxero_BuyNow/js/lib/elevate/jquery.elevatezoom'
-    },
-    urlArgs: "bust=" + (new Date()).getTime()
-};
+        paths: {
+            slick: 'Naxero_BuyNow/js/lib/slick/slick',
+            popover: 'Naxero_BuyNow/js/lib/popover/popover',
+            jsonviewer: 'Naxero_BuyNow/js/lib/json/jquery.json-viewer',
+            elevatezoom: 'Naxero_BuyNow/js/lib/elevate/jquery.elevatezoom'
+        },
+        urlArgs: "bust=" + (new Date()).getTime()
+    };

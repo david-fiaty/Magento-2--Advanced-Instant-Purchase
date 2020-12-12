@@ -24,7 +24,7 @@ define([
         /**
          * Load a button instance.
          */
-        load: function(config) {
+        load: function (config) {
             // Set the instance config
             this.setConfig(config);
         },
@@ -32,7 +32,7 @@ define([
         /**
          * Set a button instance config.
          */
-        setConfig: function(config) {
+        setConfig: function (config) {
             // Load the button instances data container
             if (!NbnUtil.has(window, 'naxero.nbn.loaded', true)) {
                 // Prepare the instance config
@@ -57,7 +57,7 @@ define([
         /**
          * Get a button instance config.
          */
-        getConfig: function(productId) {
+        getConfig: function (productId) {
             return window.naxero.nbn[productId];
         },
 

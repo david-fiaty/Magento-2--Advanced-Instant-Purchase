@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -116,7 +117,7 @@ class Edit extends \Magento\Directory\Block\Data
         $this->addressMetadata = $addressMetadata;
         $this->postCodeConfig = $postCodeConfig;
         $this->serializer = $serializer;
-        
+
         parent::__construct(
             $context,
             $directoryHelper,

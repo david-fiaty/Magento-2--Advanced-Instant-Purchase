@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -15,10 +16,12 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
- * ViewButton class.
+ * PageButton class.
  */
-class ViewButton extends \Magento\Framework\View\Element\Template
+class PageButton extends \Magento\Framework\View\Element\Template
 {
     const MODE = 'page';
 
@@ -48,7 +51,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * PageButton class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
@@ -60,7 +63,7 @@ class ViewButton extends \Magento\Framework\View\Element\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
+
         $this->registry = $registry;
         $this->configHelper = $configHelper;
         $this->blockHelper = $blockHelper;
@@ -83,14 +86,14 @@ class ViewButton extends \Magento\Framework\View\Element\Template
 
         // Check the display conditions
         $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton();
-        
+
         if ($condition) {
             return $this->updateAttributesData($config);
         }
-        
+
         return null;
     }
-    
+
     /**
      * Get the current product.
      */
@@ -105,5 +108,18 @@ class ViewButton extends \Magento\Framework\View\Element\Template
     public function updateAttributesData($config)
     {
         return $this->blockHelper->updateAttributesData($config);
+    }
+
+    /**
+     * Render a widget product countdown box.
+     */
+    public function getCountdownBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
+        ->setData('config', $config)
+        ->setData('is_popup', false)
+        ->toHtml();
     }
 }
