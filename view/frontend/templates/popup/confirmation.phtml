@@ -201,8 +201,8 @@ require([
                 // Discount display
                 if (NbnUtil.has(res, 'data.discount.id') && parseInt(res.data.discount.id) > 0) {
                     $('#nbn-discount-row').show();
-                    $('.nbn-discounted-amount').html(res.data.discount.rendered);
-                    $('#nbn-coupon-code').prop( "disabled", true );
+                    $('.nbn-discounted-amount').html('-' + res.data.discount.rendered);
+                    $('#nbn-coupon-code').prop('disabled', true);
                 }
             },
             error: function (request, status, error) {
