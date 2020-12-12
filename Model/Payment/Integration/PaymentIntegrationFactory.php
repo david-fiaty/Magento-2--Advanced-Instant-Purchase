@@ -21,7 +21,7 @@ class PaymentIntegrationFactory
     /**
      * @var \Magento\Framework\ObjectManagerInterface
      */
-    protected $objectManager;
+    public $objectManager;
 
     /**
      * @param \Magento\Framework\ObjectManagerInterface $objectManager

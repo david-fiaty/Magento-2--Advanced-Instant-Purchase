@@ -26,21 +26,21 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var \Magento\Sales\Model\ResourceModel\Order\Payment\Collection
      */
-    protected $orderPayment;
+    public $orderPayment;
 
     /**
      * Payment Helper Data
      *
      * @var \Magento\Payment\Helper\Data
      */
-    protected $paymentDataHelper;
+    public $paymentDataHelper;
 
     /**
      * Payment Model Config
      *
      * @var \Magento\Payment\Model\Config
      */
-    protected $paymentConfig;
+    public $paymentConfig;
 
     /**
      * @var Config

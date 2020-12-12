@@ -24,12 +24,12 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
     /**
      * @var BlockFactory
      */
-    private $blockFactory;
+    public $blockFactory;
 
     /**
      * @var BlockRepository
      */
-    private $blockRepository;
+    public $blockRepository;
 
     /**
      * InstallData constructor.
