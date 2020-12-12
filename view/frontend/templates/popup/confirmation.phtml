@@ -149,8 +149,9 @@ require([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/util',
     'domReady!'
-], function($, __, NbnPaths) {
+], function($, __, NbnPaths, NbnUtil) {
     'use strict';
 
     var productId = <?= $productId ?>;
@@ -198,8 +199,7 @@ require([
                 $('.nbn-summary-total').html(res.data.total.rendered);
 
                 // Discount display
-                console.log(res.data.discount.rendered);
-                if (res.data.discount.length > 0) {
+                if (NbnUtil.has(res, 'data.discount.id') && parseInt(res.data.discount.id) > 0) {
                     $('#nbn-discount-row').show();
                     $('.nbn-discounted-amount').html(res.data.discount.rendered);
                     $('#nbn-coupon-code').prop( "disabled", true );
