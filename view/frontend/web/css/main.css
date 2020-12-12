@@ -277,6 +277,10 @@
     margin-bottom: 1em;
 }
 
+.nbn-product-summary-container {
+    margin-bottom: 1.5em;
+}
+
 .nbn-summary-box table {
     border: solid 1px #f1f1f1;
 }

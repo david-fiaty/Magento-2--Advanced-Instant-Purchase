@@ -3,7 +3,6 @@
 
 - complete payment integrations
 
-- change all private and protected properties to public
 - add a field control for discount html box
 - fix all spinners (linked to container identification)
 
