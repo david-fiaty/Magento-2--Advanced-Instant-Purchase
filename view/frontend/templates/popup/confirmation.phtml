@@ -149,13 +149,13 @@ require([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/util',
     'domReady!'
-], function($, __, NbnPaths) {
+], function($, __, NbnPaths, NbnUtil) {
     'use strict';
 
     var productId = <?= $productId ?>;
     var productQantity = <?= $productQantity ?>;
-    var carrierCode = 
 
     // Shipping method change event
     $('#nbn-shipping-method-select').on('change', function(e) {
@@ -164,18 +164,46 @@ require([
             product_id: productId,
             product_quantity: productQantity,
             carrier_code: $(e.currentTarget).val(),
+            coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
 
-        // Send the update request
-        $.ajax({
+        // Update the totals
+        updateTotals(params);
+    });
+
+    // Discount code submit event
+    $('.nbn-coupon-box button').on('click touch', function(e) {
+        // Prepare the parameters
+        var params = {
+            product_id: productId,
+            product_quantity: productQantity,
+            carrier_code: $('#nbn-shipping-method-select').val(),
+            coupon_code: $('#nbn-coupon-code').val(),
+            form_key: $(this.formKeySelectorPrefix + productId).val()
+        };
+
+        // Update the totals
+        updateTotals(params);
+    });
+
+    function updateTotals(params) {
+       // Send the update request
+       $.ajax({
             type: 'POST',
             url: NbnPaths.get('order/total'),
             data: params,
             success: function (res) {
-                console.log(res);
+                // Base total display
                 $('.nbn-summary-shipping').html(res.data.shipping.rendered);
                 $('.nbn-summary-total').html(res.data.total.rendered);
+
+                // Discount display
+                if (NbnUtil.has(res, 'data.discount.id') && parseInt(res.data.discount.id) > 0) {
+                    $('#nbn-discount-row').show();
+                    $('.nbn-discounted-amount').html('-' + res.data.discount.rendered);
+                    $('#nbn-coupon-code').prop('disabled', true);
+                }
             },
             error: function (request, status, error) {
                 console.log(
@@ -184,6 +212,6 @@ require([
                 );
             }
         });
-    });
+    }
 });
 </script>

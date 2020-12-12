@@ -71,7 +71,7 @@ class Summary extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a widget product price box.
+     * Render a product price box.
      */
     public function getPriceBoxHtml($config, $productQuantity)
     {
@@ -83,6 +83,17 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->toHtml();
     }
 
+    /**
+     * Render a product coupon box.
+     */
+    public function getCouponBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Order\Coupon')
+        ->setTemplate(Naming::getModuleName() . '::order/coupon.phtml')
+        ->setData('config', $config)
+        ->toHtml();
+    }
     /**
      * Get the summary total.
      */

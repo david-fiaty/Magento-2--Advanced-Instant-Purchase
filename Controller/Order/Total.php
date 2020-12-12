@@ -49,6 +49,11 @@ class Total extends \Magento\Framework\App\Action\Action
     public $toolsHelper;
 
     /**
+     * Order
+     */
+    public $orderHelper;
+
+    /**
      * Customer
      */
     public $customerHelper;
@@ -69,6 +74,7 @@ class Total extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Helper\Tools $toolsHelper,
+        \Naxero\BuyNow\Helper\Order $orderHelper,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector
     ) {
@@ -79,6 +85,7 @@ class Total extends \Magento\Framework\App\Action\Action
         $this->jsonFactory = $jsonFactory;
         $this->productHelper = $productHelper;
         $this->toolsHelper = $toolsHelper;
+        $this->orderHelper = $orderHelper;
         $this->customerHelper = $customerHelper;
         $this->shippingSelector = $shippingSelector;
     }
@@ -98,21 +105,29 @@ class Total extends \Magento\Framework\App\Action\Action
         if ($request->isAjax()) {
         // Todo - Validate request form key
         //if ($request->isAjax() && $this->formKeyValidator->validate($request)) {
-            $productId = $this->getRequest()->getParam('product_id');
-            $productQuantity = $this->getRequest()->getParam('product_quantity');
-            $carrierCode = $this->getRequest()->getParam('carrier_code');
+            $data  = $this->getTotalData();
         }
 
         return $this->jsonFactory->create()->setData([
-            'data' => $this->getTotalData($productId, $productQuantity, $carrierCode)
+            'data' => $data
         ]);
     }
 
     /**
      * Get the summary total data.
      */
-    public function getTotalData($productId, $productQuantity, $carrierCode)
+    public function getTotalData()
     {
+        // Request data
+        $productId = $this->getRequest()->getParam('product_id');
+        $productQuantity = $this->getRequest()->getParam('product_quantity');
+        $carrierCode = $this->getRequest()->getParam('carrier_code');
+        $carrierCode = $this->getRequest()->getParam('carrier_code');
+        $couponCode = $this->getRequest()->getParam('coupon_code');
+
+        // Discount data
+        $discountDdata = [];
+
         // Product price
         $productPrice = $this->productHelper->getProductPrice(
             $productId,
@@ -122,6 +137,21 @@ class Total extends \Magento\Framework\App\Action\Action
 
         // Subtotal
         $subtotal = $productPrice * $productQuantity;
+
+        // Discount
+        if (!empty($couponCode)) {
+            $couponRule = $this->orderHelper->getCouponRule($couponCode);
+            if ($couponRule && $couponRule->getIsActive() == 1) {
+                // Discounted total
+                $discountedTotal = $this->orderHelper->applyDiscount($couponRule, $subtotal);
+
+                // Discount data
+                $discountData = $this->getCouponRuleData($couponRule);
+
+                // Update the subtotal
+                $subtotal = $discountedTotal;
+            }
+        }
 
         // Get carrier price
         $carrier = $this->shippingSelector->getCarrierData(
@@ -133,6 +163,7 @@ class Total extends \Magento\Framework\App\Action\Action
         $total = $subtotal + $carrier['carrier_price'];
 
         return [
+            'discount' => $discountData,
             'shipping' => [
                 'amount' => $this->toolsHelper->renderAmount($carrier['carrier_price'], false, false),
                 'rendered' => $this->toolsHelper->renderAmount($carrier['carrier_price'], true, false)
@@ -145,6 +176,22 @@ class Total extends \Magento\Framework\App\Action\Action
                 'amount' => $this->toolsHelper->renderAmount($total, false, false),
                 'rendered' => $this->toolsHelper->renderAmount($total, true, false)
             ]
+        ];
+    }
+
+    /**
+     * Get a coupon code data.
+     */
+    public function getCouponRuleData($rule)
+    {
+        $discountAmount = $rule->getDiscountAmount();
+
+        return [
+            'id' => $rule->getRuleId(),
+            'name' => $rule->getName(),
+            'amount' => $discountAmount,
+            'rendered' => $this->toolsHelper->renderAmount($discountAmount, true, false),
+            'description' => $rule->getDescription(),
         ];
     }
 }

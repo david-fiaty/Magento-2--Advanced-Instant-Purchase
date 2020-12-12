@@ -215,6 +215,15 @@
     font-size: 1.2em;
 }
 
+/* Discount box */
+#nbn-coupon-box {
+    margin-bottom: 2em;
+}
+
+#nbn-coupon-code {
+    max-width: 17em;
+}
+
 /* Countdown box */
 .nbn-product-box-countdown {
     margin-bottom: 1.5em;
@@ -270,6 +279,10 @@
 
 .nbn-summary-box table {
     border: solid 1px #f1f1f1;
+}
+
+tr#nbn-discount-row {
+    display: none;
 }
 
 /* Card icons */

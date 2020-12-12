@@ -19,6 +19,8 @@
     $data = $block->getData('data');
     $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
     $productQantity = $block->getData('product_quantity');
+    //$showCouponBox = $data['config']['popups']['popup_coupon_box'];
+    $showCouponBox = true;
 ?>
 
 <div class="nbn-summary-box">
@@ -42,6 +44,13 @@
     </tr>
   </tbody>
   <tfoot>
+    <tr id="nbn-discount-row">
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><?= __('Discount') ?></td>
+      <td class="nbn-discounted-amount"></td>
+    </tr>
     <tr>
     <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -63,3 +72,7 @@
   </tfoot>
 </table>
 </div>
+
+<?php if ($showCouponBox): ?>
+<?= $block->getCouponBoxHtml($data['config']) ?>
+<?php endif; ?>
