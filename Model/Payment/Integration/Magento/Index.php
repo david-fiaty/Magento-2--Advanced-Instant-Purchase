@@ -34,7 +34,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
     /**
      * @var Purchase
      */
-    private $purchase;
+    public $purchase;
 
     /**
      * @var string|array|object

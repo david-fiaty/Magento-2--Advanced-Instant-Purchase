@@ -41,7 +41,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var ShippingSelector
      */
-    private $shippingSelector;
+    public $shippingSelector;
 
     /**
      * @var Config
