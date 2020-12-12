@@ -24,7 +24,7 @@
     $boxId .= $config['product']['id'];
 
     // Prepare the product time limit
-    $productTimeLimit = $config['products']['product_time_to'];
+    $productTimeTo = $config['products']['product_time_to'];
 ?>
 
 <div id="<?= $boxId ?>" class="nbn-countown-box">
@@ -95,7 +95,7 @@ require([
         const timeinterval = setInterval(updateClock, 1000);
     }
 
-    const deadline = new Date('<?= $productTimeLimit ?>');
+    const deadline = new Date('<?= $productTimeTo ?>');
     initializeClock(boxId, deadline);
     $('#' + boxId).show();
 });

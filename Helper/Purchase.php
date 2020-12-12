@@ -219,19 +219,35 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 
-        // Product time limit
-        $timeLimit = $this->configHelper->value('products/product_time_to');
-        $showCountdown = $this->configHelper->value('products/show_product_countdown');
-        $timeLimitValid = ($showCountdown && !empty($timeLimit) && strtotime('now') < strtotime($timeLimit))
-        || !$showCountdown;
-
         // Customer groups
         $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
         $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
         $isGroupValid = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
 
-        return true;
-        return $buttonEnabled && $isGroupValid && ($isLoggedIn || $showGuestButton);
+        return $buttonEnabled && $isGroupValid 
+        && $this->isProductTimeLimitValid()
+        && ($isLoggedIn || $showGuestButton);
+    }
+
+    /**
+     * Check if a product time limit is valid.
+     */
+    public function isProductTimeLimitValid()
+    {
+        // Get the displayb time parameters
+        $productTimeFrom = $this->configHelper->value('products/product_time_from');
+        $productTimeTo = $this->configHelper->value('products/product_time_to');
+        $now =  strtotime('now');
+
+        // Update the time limits
+        $productTimeFrom = !empty($productTimeFrom) ? strtotime($productTimeFrom) : $now;
+        $productTimeTo = !empty($productTimeTo) ? strtotime($productTimeTo) : null;
+
+        // Test the contitions
+        $condition1 = $productTimeFrom <= $now;
+        $condition2 = $productTimeTo ? ($productTimeTo  >= $now) : true;
+
+        return $condition1 && $condition2;
     }
 
     /**
