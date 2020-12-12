@@ -220,7 +220,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
 
         // Product time limit
-        $timeLimit = $this->configHelper->value('products/product_time_limit');
+        $timeLimit = $this->configHelper->value('products/product_time_to');
         $showCountdown = $this->configHelper->value('products/show_product_countdown');
         $timeLimitValid = ($showCountdown && !empty($timeLimit) && strtotime('now') < strtotime($timeLimit))
         || !$showCountdown;

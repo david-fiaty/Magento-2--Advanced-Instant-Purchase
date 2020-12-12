@@ -31,7 +31,7 @@ class Request extends \Magento\Framework\App\Action\Action
      *
      * @var array
      */
-    private static $knownRequestParams = [
+    public static $knownRequestParams = [
         'form_key',
         'product',
         'instant_purchase_payment_token',
