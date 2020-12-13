@@ -136,8 +136,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildShippingAddressArray()
     {
+        // Get the shipping address data
         $shippingAddress = $this->customerHelper->getShippingAddress();
 
+        // Return the shipping address array
         return [
             'id' => !$shippingAddress ? 0 : $shippingAddress->getId(),
             'summary' => !$shippingAddress ? '' : $this->customerAddressesFormatter->format($shippingAddress)
