@@ -49,7 +49,7 @@ class Confirmation extends \Magento\Framework\View\Element\Template
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
         ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('is_popup', false)
+        ->setData('is_popup', true)
         ->setData('config', $config)
         ->toHtml();
     }
