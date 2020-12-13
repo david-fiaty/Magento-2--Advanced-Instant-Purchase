@@ -162,10 +162,14 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current customer group.
+     * Check if the customer group is valid for button display.
      */
-    public function getCustomerGroupId()
+    public function canDisplayForGroup()
     {
-        return $this->customerSession->getCustomer()->getGroupId();
+        // Prepare the parameters
+        $cutomerGroupId = $this->customerSession->getCustomer()->getGroupId();
+        $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
+
+        return empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
     }
 }

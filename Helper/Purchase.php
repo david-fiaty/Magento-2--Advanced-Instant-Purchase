@@ -218,14 +218,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $buttonEnabled = $this->configHelper->value('general/enabled');
         $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
-
-        // Customer groups
-        $cutomerGroupId = $this->customerHelper->getCustomerGroupId();
-        $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
-        $isGroupValid = empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
-
-        return $buttonEnabled && $isGroupValid 
-        && $this->isProductTimeLimitValid()
+        $isGroupValid = $this->customerHelper->canDisplayForGroup();
+        $isTimeValid = $this->isProductTimeLimitValid();
+        
+        return $buttonEnabled && $isGroupValid && $isTimeValid
         && ($isLoggedIn || $showGuestButton);
     }
 
