@@ -57,6 +57,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * Class Customer helper constructor.
      */
     public function __construct(
@@ -66,7 +71,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection
+        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->authLink = $authLink;
         $this->addressModel = $addressModel;
@@ -75,6 +81,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
+        $this->configHelper = $configHelper;
     }
 
     /**
