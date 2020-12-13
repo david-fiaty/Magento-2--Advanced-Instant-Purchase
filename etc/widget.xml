@@ -82,14 +82,12 @@
             </parameter>
 
             <parameter name="product_time_from" xsi:type="block" visible="true">
-                <label translate="true">Display until</label>
-                <description>Display duration. No value equals unlimited time.</description>
+                <label translate="true">Display from</label>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
             </parameter>
 
             <parameter name="product_time_to" xsi:type="block" visible="true">
                 <label translate="true">Display until</label>
-                <description>Display duration. No value equals unlimited time.</description>
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
             </parameter>
 
