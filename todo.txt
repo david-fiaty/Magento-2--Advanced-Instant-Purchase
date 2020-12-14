@@ -1,6 +1,5 @@
 
 !!!PRIORITY!!!
-- change product time limit to From/To dates. If From empty then use now.
 - fix all spinners (linked to container identification)
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
