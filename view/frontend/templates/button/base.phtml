@@ -37,13 +37,6 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     // Product countdown
     $showProductCountdown = $config['products']['show_product_countdown']
     && !empty($config['products']['product_time_to']);
-
-
-    var_dump($config['products']['show_product_countdown']);
-    var_dump($config['products']['product_time_to']);
-
-exit();
-
 ?>
 
 <!-- Product box -->
@@ -81,7 +74,6 @@ exit();
     <!-- Product countdown -->
     <?php if ($showProductCountdown): ?>
     <div class="nbn-product-box-countdown">
-    ggg
         <?= $block->getCountdownBoxHtml($config); ?>
     </div>
     <?php endif; ?>
