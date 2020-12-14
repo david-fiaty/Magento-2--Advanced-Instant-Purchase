@@ -57,6 +57,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
+     * @var Config
+     */
+    public $configHelper;
+
+    /**
      * Class Customer helper constructor.
      */
     public function __construct(
@@ -66,7 +71,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection
+        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
+        \Naxero\BuyNow\Helper\Config $configHelper
     ) {
         $this->authLink = $authLink;
         $this->addressModel = $addressModel;
@@ -75,6 +81,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -162,10 +169,14 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current customer group.
+     * Check if the customer group is valid for button display.
      */
-    public function getCustomerGroupId()
+    public function canDisplayForGroup()
     {
-        return $this->customerSession->getCustomer()->getGroupId();
+        // Prepare the parameters
+        $cutomerGroupId = $this->customerSession->getCustomer()->getGroupId();
+        $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
+
+        return empty($customerGroups) || in_array($cutomerGroupId, $customerGroups);
     }
 }

@@ -32,7 +32,8 @@
                 <category_id></category_id>
                 <product_id></product_id>
                 <product_filter>latest</product_filter>
-                <product_time_limit></product_time_limit>
+                <product_time_from></product_time_from>
+                <product_time_to></product_time_to>
                 <show_product_countdown>1</show_product_countdown>
             </products>   
 
@@ -57,6 +58,7 @@
                 <show_product_countdown>1</show_product_countdown>
                 <popup_show_summary>1</popup_show_summary>
                 <popup_show_product_quantity>1</popup_show_product_quantity>
+                <popup_show_discount_form>1</popup_show_discount_form>
             </popups>
 
             <!-- Widgets settings -->

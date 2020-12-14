@@ -289,12 +289,6 @@ define([
 
                     // Set the slider events
                     NbnSlider.build();
-
-                    // Log the purchase data
-                    NbnLogger.log(
-                        __('Purchase data on page load'),
-                        NbnProduct.getProductForm().serializeArray()
-                    );
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(

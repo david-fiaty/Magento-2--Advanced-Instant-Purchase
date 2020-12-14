@@ -31,7 +31,7 @@ class Request extends \Magento\Framework\App\Action\Action
      *
      * @var array
      */
-    private static $knownRequestParams = [
+    public static $knownRequestParams = [
         'form_key',
         'product',
         'instant_purchase_payment_token',
@@ -43,27 +43,27 @@ class Request extends \Magento\Framework\App\Action\Action
     /**
      * @var IntegrationsManager
      */
-    private $integrationsManager;
+    public $integrationsManager;
 
     /**
      * @var StoreManagerInterface
      */
-    private $storeManager;
+    public $storeManager;
 
     /**
      * @var Validator
      */
-    private $formKeyValidator;
+    public $formKeyValidator;
 
     /**
      * @var CartRepositoryInterface
      */
-    private $quoteRepository;
+    public $quoteRepository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    public $productRepository;
 
     /**
      * @var CustomerRepositoryInterface
@@ -73,12 +73,12 @@ class Request extends \Magento\Framework\App\Action\Action
     /**
      * @var QuoteCreation
      */
-    private $quoteCreation;
+    public $quoteCreation;
 
     /**
      * @var QuoteFilling
      */
-    private $quoteFilling;
+    public $quoteFilling;
 
     /**
      * @var UrlInterface
@@ -309,7 +309,7 @@ class Request extends \Magento\Framework\App\Action\Action
      *
      * @return string
      */
-    private function createGenericErrorMessage(): string
+    public function createGenericErrorMessage(): string
     {
         return (string)__('Something went wrong while processing your order. Please try again later.');
     }
@@ -320,7 +320,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  RequestInterface $request
      * @return bool
      */
-    private function doesRequestContainAllKnowParams(array $request): bool
+    public function doesRequestContainAllKnowParams(array $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
             if ($request[$knownRequestParam] === null) {
@@ -336,7 +336,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  RequestInterface $request
      * @return array
      */
-    private function getRequestUnknownParams(array $requestParams): array
+    public function getRequestUnknownParams(array $requestParams): array
     {
         $unknownParams = [];
         foreach ($requestParams as $param => $value) {
@@ -354,7 +354,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  bool   $successMessage
      * @return JsonResult
      */
-    private function createResponse(string $message, bool $successMessage): JsonResult
+    public function createResponse(string $message, bool $successMessage): JsonResult
     {
         /**
  * @var JsonResult $result
