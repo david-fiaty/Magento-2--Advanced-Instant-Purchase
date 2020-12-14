@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -68,17 +69,5 @@ class FormAdd extends \Magento\Framework\App\Action\Action
         return $this->jsonFactory->create()->setData(
             ['html' => $html]
         );
-    }
-
-      /**
-       * Generates the new card block.
-       */
-    public function newCardBlock()
-    {
-        return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\Framework\View\Element\Template')
-            ->setTemplate(Naming::getModuleName() . '::popup/card.phtml')
-            ->setData('load', $this->configHelper->value('card_form/load'))
-            ->toHtml();
     }
 }

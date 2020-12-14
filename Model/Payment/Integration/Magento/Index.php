@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -33,7 +34,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
     /**
      * @var Purchase
      */
-    private $purchase;
+    public $purchase;
 
     /**
      * @var string|array|object
@@ -74,7 +75,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
     {
         return true;
     }
-    
+
     /**
      * Create a new order.
      */

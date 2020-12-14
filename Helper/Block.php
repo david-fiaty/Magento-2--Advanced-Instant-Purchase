@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -73,7 +74,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ? $this->value('buttons/bypass_oos')
         : true;
     }
-    
+
     /**
      * Get the Buy Now button text.
      */
@@ -87,7 +88,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Return the button text
         return $isLoggedIn
-        ? $config['buttons']['button_text'] 
+        ? $config['buttons']['button_text']
         : $config['buttons']['guest_button_text'];
     }
 
@@ -116,12 +117,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function prepareBlockConfig($config)
     {
-        // Remove the card form
-        unset($config['card_form']);
-
         // Prepare the UI loader
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
-        $config['ui']['css'] = $this->configHelper->getCssPath();
 
         // Module title
         $config['module']['title'] = Naming::getModuleTitle();
@@ -134,40 +131,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         ->filterContent($config['popups']['popup_title'], $config);
 
         return $config;
-    }
-
-    /**
-     * Render a widget product box.
-     */
-    public function renderWidgetProductBox($productId, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
-    }
-
-    /**
-     * Render a popup product box.
-     */
-    public function renderPopupProductBox($productId, $subject = null)
-    {
-        // Get the layout
-        $layout = $subject
-        ? $subject->getLayout()
-        : $this->pageFactory->create()->getLayout();
-
-        return $layout
-        ->createBlock('Magento\Framework\View\Element\Template')
-        ->setTemplate(Naming::getModuleName() . '::product/popup-box.phtml')
-        ->setData('content', $this->getConfig($productId))
-        ->toHtml();
     }
 
     /**
@@ -185,7 +148,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 if ($isSwatch && $force) {
                     $option['attribute_type'] = 'select';
                 }
-                
+
                 $updatedOptions[] = $option;
             }
 

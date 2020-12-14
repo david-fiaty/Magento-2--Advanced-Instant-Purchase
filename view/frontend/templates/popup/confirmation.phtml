@@ -1,0 +1,217 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+    // Get the confirmation content
+    $data = $block->getData('data');
+
+    $productQantity = $block->getData('product_quantity');
+    $productId = $data['config']['product']['id'];
+
+    // Display parameters
+    $showSummary = $data['config']['popups']['popup_show_summary'];
+    $showQuantityBox = $data['config']['popups']['popup_show_product_quantity'];
+?>
+
+<!-- Order summary -->
+<?php if ($showSummary): ?>
+    <div class="nbn-product-summary-container">
+        <?= $block->getSummaryBoxHtml($data, $productQantity) ?>
+    </div>
+<?php endif; ?>
+
+<!-- Header text -->
+<p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
+
+<!-- Shipping method -->
+<?php if (!empty($data['addresses']) && !empty($data['savedCards']) && !$data['product']['is_free']): ?>
+<div class="nbn-field">
+    <label for="nbn-shipping-method-select">
+        <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+        <p>
+            <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
+                <?php foreach ($data['shippingRates'] as $item): ?>
+                    <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
+                        <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
+                        <?= $block->escapeHtml($item['carrier_price']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </p>
+    </label>
+</div>
+<?php endif; ?>
+
+<!-- Shipping address -->
+<div class="nbn-field">
+    <label for="nbn-shipping-address-select">
+        <span class="nbn-label">
+            <?= $block->escapeHtml(__('Shipping address')) ?>
+        </span>
+        &nbsp;|&nbsp;
+        <a id="new-shipping-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
+            <?= $block->escapeHtml(__('New')) ?>
+        </a>
+        <p>
+            <?php if (!empty($data['addresses'])): ?>
+                <select id="nbn-shipping-address-select" data-field="instant_purchase_shipping_address" class="nbn-select js-states form-control">
+                    <?php foreach ($data['addresses'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['country_id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else: ?>
+                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
+            <?php endif; ?>
+        </p>
+    </label>
+</div>
+
+<!-- Billing address -->
+<div class="nbn-field">
+    <label for="nbn-billing-address-select">
+        <span class="nbn-label">
+            <?= $block->escapeHtml(__('Billing address')) ?>
+        </span>
+        &nbsp;|&nbsp;
+        <a id="new-billing-address" class="nbn-new nbn-address-link" data-form="Address" href="javascript:void(0)">
+            <?= $block->escapeHtml(__('New')) ?>
+        </a>
+        <p>
+            <?php if (!empty($data['addresses'])): ?>
+                <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
+                    <?php foreach ($data['addresses'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($item['street']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['city']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['country_id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else: ?>
+                <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
+            <?php endif; ?>
+        </p>
+    </label>
+</div>
+
+<!-- Saved cards -->
+<?php if (!$data['product']['is_free']): ?>
+    <div class="nbn-field">
+        <label for="nbn-payment-method-select">
+            <span class="nbn-label">
+                <?= $block->escapeHtml(__('Saved cards')) ?>
+            </span>
+            &nbsp;|&nbsp;
+            <a id="new-payment-method" class="nbn-new nbn-card-link" data-form="Card" href="javascript:void(0)">
+                <?= $block->escapeHtml(__('New')) ?>
+            </a>
+            <p>
+                <?php if (!empty($data['savedCards'])): ?>
+                    <select id="nbn-payment-method-select" data-field="instant_purchase_payment_token" class="nbn-select nbn-payment-method-select js-states form-control">
+                        <?php foreach ($data['savedCards'] as $item): ?>
+                            <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                                &nbsp;&nbsp;<?= $item['token'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else: ?>
+                    <p><i><?= $block->escapeHtml(__('No records available.')) ?></i></p>
+                <?php endif; ?>
+            </p>
+        </label> 
+    </div>
+<?php endif; ?>
+
+<!-- Footer text -->
+<p><?= $block->escapeHtml($data['popup']['footer_text']) ?></p>
+
+<script>
+require([
+    'jquery',
+    'mage/translate',
+    'Naxero_BuyNow/js/view/helpers/paths',
+    'Naxero_BuyNow/js/view/helpers/util',
+    'domReady!'
+], function($, __, NbnPaths, NbnUtil) {
+    'use strict';
+
+    var productId = <?= $productId ?>;
+    var productQantity = <?= $productQantity ?>;
+
+    // Shipping method change event
+    $('#nbn-shipping-method-select').on('change', function(e) {
+        // Prepare the parameters
+        var params = {
+            product_id: productId,
+            product_quantity: productQantity,
+            carrier_code: $(e.currentTarget).val(),
+            coupon_code: $('#nbn-coupon-code').val(),
+            form_key: $(this.formKeySelectorPrefix + productId).val()
+        };
+
+        // Update the totals
+        updateTotals(params);
+    });
+
+    // Discount code submit event
+    $('.nbn-coupon-box button').on('click touch', function(e) {
+        // Prepare the parameters
+        var params = {
+            product_id: productId,
+            product_quantity: productQantity,
+            carrier_code: $('#nbn-shipping-method-select').val(),
+            coupon_code: $('#nbn-coupon-code').val(),
+            form_key: $(this.formKeySelectorPrefix + productId).val()
+        };
+
+        // Update the totals
+        updateTotals(params);
+    });
+
+    function updateTotals(params) {
+       // Send the update request
+       $.ajax({
+            type: 'POST',
+            url: NbnPaths.get('order/total'),
+            data: params,
+            success: function (res) {
+                // Base total display
+                $('.nbn-summary-shipping').html(res.data.shipping.rendered);
+                $('.nbn-summary-total').html(res.data.total.rendered);
+
+                // Discount display
+                if (NbnUtil.has(res, 'data.discount.id') && parseInt(res.data.discount.id) > 0) {
+                    $('#nbn-discount-row').show();
+                    $('.nbn-discounted-amount').html('-' + res.data.discount.rendered);
+                    $('#nbn-coupon-code').prop('disabled', true);
+                }
+            },
+            error: function (request, status, error) {
+                console.log(
+                    __('Error retrieving the updated shipping data'),
+                    error
+                );
+            }
+        });
+    }
+});
+</script>

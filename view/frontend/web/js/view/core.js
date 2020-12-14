@@ -12,59 +12,73 @@
  * @link      https://www.naxero.com
  */
 
-/**
- * Helpers array.
- */
-var helpers = [
-    'agreement',
-    'logger',
-    'login',
-    'message',
-    'modal',
-    'product',
-    'select',
-    'slider',
-    'spinner',
-    'template',
-    'tree',
-    'util',
-    'validation',
-    'view',
-    'paths',
-    'address',
-    'payment'
-];
-
-/**
- * Helper file loader.
- */
-function getHelperFiles()
-{
-    var paths = [];
-    var prefix = 'Naxero_BuyNow/js/view/helpers/';
-    for (let i = 0; i < helpers.length; i++) {
-        paths.push(prefix + helpers[i]);
-    }
-
-    return paths;
-};
-
-/**
- * Core component.
- */
-define(getHelperFiles(), function (agreement, logger, login, message, modal, product, select, slider, spinner, template, tree, util, validation, view, paths, address, payment) {
+define([
+    'mage/translate',
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/logger',
+    'Naxero_BuyNow/js/view/helpers/util'
+], function (__, NbnTemplate, NbnLogger, NbnUtil) {
     'use strict';
 
     return {
         /**
-         * Initialise the helpers.
+         * Load a button instance.
          */
-        init: function (obj) {
-            for (let i = 0; i < helpers.length; i++) {
-                this[helpers[i]] = eval(helpers[i]).init(obj);
-            }
+        load: function (config) {
+            // Set the instance config
+            this.setConfig(config);
+        },
 
-            return this;
+        /**
+         * Set a button instance config.
+         */
+        setConfig: function (config) {
+            // Load the button instances data container
+            if (!NbnUtil.has(window, 'naxero.nbn.loaded', true)) {
+                // Prepare the instance config
+                var instances = {};
+                instances[config.product.id] = config;
+
+                // Build the config data
+                window.naxero = {
+                    nbn: {
+                        loaded: true,
+                        instances: instances,
+                        current: config,
+                        ui: {}
+                    }
+                };
+
+                // Get the spinner HTML
+                window.naxero.nbn.ui.loader = this.getSpinnerHtml();
+            }
+        },
+
+        /**
+         * Get a button instance config.
+         */
+        getConfig: function (productId) {
+            return window.naxero.nbn[productId];
+        },
+
+        /**
+         * Load the spinner icon HTML.
+         */
+        getSpinnerHtml: function () {
+            // Get the spinner loaded flag
+            var params = {
+                data: {
+                    url: window.naxero.nbn.current.ui.loader
+                }
+            };
+
+            // Log the event
+            NbnLogger.log(
+                __('Loaded the spinner icon HTML'),
+                params
+            );
+
+            return NbnTemplate.getSpinner(params);
         }
-    };
+    }
 });

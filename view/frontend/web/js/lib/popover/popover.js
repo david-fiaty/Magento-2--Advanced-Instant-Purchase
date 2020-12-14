@@ -32,7 +32,7 @@
         this.posMap = ['topLeft','top','topRight','rightTop','right','rightBottom','bottomLeft','bottom','bottomRight','leftTop','left','leftBottom'];
         this.posId = 1;//默认偏好放置索引
         this.opts = $.extend({}, defaults, options);
-        for (var i = this.posMap.length-1; i >=0; i--) {
+        for (var i = this.posMap.length - 1; i >= 0; i--) {
             if (this.opts.placement === this.posMap[i]) {
                 this.posId = i;
                 break;
@@ -58,19 +58,19 @@
         } else {
             _content = _this.opts.content;
         }
-        _html = '<div>'+
-                    '<div class="popover" id="'+_pid+'">'+
-                        '<div class="popover-container">'+
-                            '<div class="popover-inner">'+
-                                '<div class="popover-title">'+_this.opts.title+'</div>'+
-                                '<div class="popover-content">'+_content+'</div>'+
-                            '</div>'+
-                            '<div class="popover-arrow"></div>'+
-                        '</div>'+
-                    '</div>'+
+        _html = '<div>' +
+                    '<div class="popover" id="' + _pid + '">' +
+                        '<div class="popover-container">' +
+                            '<div class="popover-inner">' +
+                                '<div class="popover-title">' + _this.opts.title + '</div>' +
+                                '<div class="popover-content">' + _content + '</div>' +
+                            '</div>' +
+                            '<div class="popover-arrow"></div>' +
+                        '</div>' +
+                    '</div>' +
                 '</div>';
         _container.append(_html);
-        _this.product = $('#'+_pid);//渲染产品
+        _this.product = $('#' + _pid);//渲染产品
         _this.wrapper = _this.product.parent('div');//获取包裹容器
         this.place();
     };
@@ -221,7 +221,7 @@
             if (_plan.length) {
                 //启用自动优化放置方案
                 _result = _plan[0];
-                for (var i = _plan.length-1; i>=0; i--) {
+                for (var i = _plan.length - 1; i >= 0; i--) {
                     if (_plan[i].name === _this.opts.placement) {
                         _result = _plan[i];//找到一条既符合优化放置，又符合用户规定的方案
                         break;
@@ -240,7 +240,7 @@
             'top' : _result.top + 'px',
             'left': _result.left + 'px'
         });
-        _product.addClass('popover-'+_result.name);
+        _product.addClass('popover-' + _result.name);
         //为渲染的产品绑定事件
         _targets.mouseenter(function () {
             _this.show()
@@ -260,7 +260,7 @@
             case "click":
                 _element.on('click',function (e) {
                     e.stopPropagation();
-                    _this.product = $('#'+_this.pid);
+                    _this.product = $('#' + _this.pid);
                     if (!_this.product.length) {
                         _this.mouse = false;
                         _this.show();
@@ -278,14 +278,14 @@
             case "focus":
                 _element.on({
                     'focus' : function () {
-                        _this.product = $('#'+_this.pid);
+                        _this.product = $('#' + _this.pid);
                         if (!_this.product.length) {
                             _this.mouse = false;
                             _this.show()
                         }
                     },
                     'blur' : function () {
-                        _this.product = $('#'+_this.pid);
+                        _this.product = $('#' + _this.pid);
                         if (_this.product.length) {
                             _this.destroy();
                         }

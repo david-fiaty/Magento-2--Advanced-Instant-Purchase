@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -14,6 +15,8 @@
  */
 
 namespace Naxero\BuyNow\Block\Button;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * WidgetButton class.
@@ -65,9 +68,9 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
-        $this->configHelper = $configHelper;
+
         $this->blockHelper = $blockHelper;
+        $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
         $this->categoryHelper = $categoryHelper;
@@ -86,21 +89,41 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
-        // Check the display conditions
-        $condition = $this->purchaseHelper->canDisplayButton();
-        if ($condition) {
+        // Check the global display conditions
+        if ($this->purchaseHelper->canDisplayButton()) {
             // Update the product attributes data
             $config = $this->updateAttributesData($config);
 
             // Update the config with tag parameters
             $config = $this->updateWidgetConfig($config);
 
-            return $config;
+            // Check the widget display conditions
+            if ($this->canDisplayButton($config)) {
+                return $config;
+            }
+
+            return null;
         }
-        
+
         return null;
     }
-    
+
+    /**
+     * Check if the widget can be displayed.
+     */
+    public function canDisplayButton($config)
+    {
+        // Cand display parents
+        $condition1 = !$config['product']['has_parents']
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'parent');
+
+        // Cand display children
+        $condition2 = $config['product']['has_parents']
+        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'child');
+
+        return $condition1 || $condition2;
+    }
+
     /**
      * Get the current product.
      */
@@ -117,21 +140,26 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $categoryId = $this->getData('category_id');
 
             // Get the product filter function
-            $fn = 'get';
-            $members = explode('_', $productFilter);
-            foreach ($members as $member) {
-                $fn .= ucfirst($member);
-            }
-            $fn .= 'Product';
+            if ($productFilter) {
+                $fn = 'get';
+                $members = explode('_', $productFilter);
+                if (!empty($members)) {
+                    // Build the method name to call
+                    foreach ($members as $member) {
+                        $fn .= ucfirst($member);
+                    }
+                    $fn .= 'Product';
 
-            // Update the product id
-            $product = $this->categoryHelper->$fn($categoryId);
-            if ($product) {
-                $productId = $product->getId();
+                    // Update the product id if method exists
+                    if (method_exists($this->categoryHelper, $fn)) {
+                        $product = $this->categoryHelper->$fn($categoryId);
+                        $productId = $product ? $product->getId() : $productId;
+                    }
+                }
             }
         }
 
-        return $this->productHelper->getProduct($productId);     
+        return $this->productHelper->getProduct($productId);
     }
 
     /**
@@ -159,12 +187,12 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         foreach ($configFields as $group => $fields) {
             foreach ($fields as $i => $field) {
                 if (array_key_exists($field, $blockData)) {
-                    if (!empty($blockData[$field])) {
-                        $config[$group][$field] = $this->configHelper->toBooleanFilter(
-                            $blockData[$field]
-                        );
+                    if (isset($blockData[$field]) && $blockData[$field] && !empty($blockData[$field])) {
+                        $config[$group][$field] = $this->configHelper->toBooleanFilter($blockData[$field]);
+                    } else {
+                        $config[$group][$field] = $this->configHelper->value($group . '/' . $field);
                     }
-                }   
+                }
             }
         }
 
@@ -174,19 +202,72 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     /**
      * Get array keys recursively.
      */
-    public function array_keys_recursive(array $array) : array
+    public function array_keys_recursive(array $array): array
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $index[$key] = $this->array_keys_recursive($value);
             } else {
-                $index[]= $key;
+                $index[] = $key;
             }
         }
-    
+
         return $index ?? [];
     }
-    
+
+    /**
+     * Render a widget product box.
+     */
+    public function getProductBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
+        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->setData('config', $config)
+        ->setData('is_popup', false)
+        ->toHtml();
+    }
+
+    /**
+     * Render a widget product quantity box.
+     */
+    public function getQuantityBoxHtml($config, $productQuantity)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
+        ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', false)
+        ->setData('config', $config)
+        ->toHtml();
+    }
+
+    /**
+     * Render a widget product price box.
+     */
+    public function getPriceBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
+        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
+        ->setData('config', $config)
+        ->setData('product_quantity', null)
+        ->toHtml();
+    }
+
+    /**
+     * Render a widget product countdown box.
+     */
+    public function getCountdownBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
+        ->setData('config', $config)
+        ->setData('is_popup', false)
+        ->toHtml();
+    }
+
     /**
      * Disable the block cache.
      */

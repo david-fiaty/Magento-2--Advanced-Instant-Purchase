@@ -29,18 +29,10 @@ define([
         cancelButtonSelector: '.action-dismiss span',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Set the agrements events.
          */
         build: function () {
-            if (this.o.jsConfig.popups.popup_enable_agreements) {
+            if (window.naxero.nbn.current.popups.popup_enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click touch', function (e) {
                     self.getAgreement(e);

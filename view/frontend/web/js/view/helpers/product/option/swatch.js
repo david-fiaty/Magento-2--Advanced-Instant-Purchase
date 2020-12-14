@@ -98,7 +98,7 @@ define([
         getValuesSelectors: function (option) {
             return this.getSwatchHandler().getValuesSelectors(option);
         },
-        
+
         /**
          * Get a target option hidden field selector.
          */
@@ -128,9 +128,9 @@ define([
         },
 
         isSelectedValueValid: function (value) {
-            return value 
+            return value
             && typeof value !== 'undefined'
-            && value != 'undefined' 
+            && value != 'undefined'
             && value.length > 0;
         }
     };

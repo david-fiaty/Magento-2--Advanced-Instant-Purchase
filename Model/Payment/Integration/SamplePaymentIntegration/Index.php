@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -38,7 +39,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
     ) {
         $this->quoteManagement = $quoteManagement;
     }
-    
+
     /**
      * Send a payment request.
      */
@@ -51,7 +52,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
          * $this->response for further processing
          * in the $this->isSuccess() method.
          */
-        
+
         // Get the payment response
         $response = '';
 
@@ -74,7 +75,7 @@ class Index implements \Naxero\BuyNow\Model\Payment\Integration\PaymentIntegrati
 
         return true;
     }
-    
+
     /**
      * Create a new order.
      */

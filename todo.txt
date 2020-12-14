@@ -1,44 +1,76 @@
 
 !!!PRIORITY!!!
+- change product time limit to From/To dates. If From empty then use now.
+- fix all spinners (linked to container identification)
+- display discounted price
+https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
-- set admin widget fields selected values on page load
-- complete payment integrations
+
+- *** Handle product price update with options prices in widget and popup ***
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
-
-
-- check if place order contains expected product attributes selected by user (request data)
-
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
-
 - Improve UI logger information
- 
-- add module version checker
+- fix buy now options validation in product list
+- split base list and page phtml into different templates
+- show shipping in summary only if shipping enabled
+- display store > config > shipping settings > shipping policy
 
+- add time, category and product field display to calendar system.xml config  
+- quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
-
 - handle 0 product found in category for widget category filter.
+- add customerData login observer to button click before login popup?
 
-- see if best sales filter should have a year/month/day sub select
-https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
+QA
+- check all config fields functional
+- make sure payment tokens are filtered by store
+- Make sure we can Run NBN and core IP feature at the same time on a site
+- check what happens to coundown clock when 1 digit box is out
+- check what happens to countown when all digits are out
 
+- check multistore behaviour
+- check that widget config override is working as expected, especially for zoom parameters
+- check if place order contains expected product attributes selected by user (request data)
+- check: multiple widgets in same page, multiple widgets in list and page view
+- fix/improve lightbox gallery images display
+- recheck all zoom modes
+- check add to cart values and display in popup and order request
+- Test time limit to string in admin with french and other langs
+
+NOT SUPPORTED
+- table rate shipping
+- product price handling with price rules (qty > 1, or other conditions...)
+    => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
+    => do that with ajax request to frontend product data controller
+    => might avoid having to deal with price rules
 
 FEATURES
+- add module version checker
 - build order confirmation screen after payment + editable info
-
 - ! add quick cart checkout option in minicart and basket page
 - add popup/banner/add system with instant purchase
 - add themes system
 - login with google, facebook
 - add buy now button to emails, newsletters...
+- see if best sales filter should have a year/month/day sub select
+https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
+
+HOME PAGE EXAMPLES
+https://www.channelengine.com/
 
 EXTRA
 - add button error reporting to button popover.
+- add accordion to widget config?
 
-
+LIBS
+- update the slick version from 1.8.0 to 1.8.1
+- check other libraries versions
 
 EXPLORE
+- add buynow external widgets
 - improved category UI selector:
 https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 
@@ -47,7 +79,7 @@ https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 
 - improve the config fields comments
-
+- marketplaces and ecommerce platforms available on https://www.channelengine.com/
 
 RESOURCES
 - execute php code from string
@@ -59,8 +91,8 @@ https://magento.stackexchange.com/questions/212678/how-to-load-shipping-methods-
 - custom widget:
 https://inchoo.net/magento-2/magento-2-custom-widget/
 
-QA
-- check all config fields functional
+- countdown timer
+https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
 
 EXPLORE
 - Swatch options rendering
@@ -68,9 +100,20 @@ https://mage2.pro/t/topic/1016
 https://webkul.com/blog/get-attribute-id-attribute-code-magento2/
 https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-name-options-from-attribute-code/
 
+
+- Add product quantity box
+https://embed.plnkr.co/B5waxZ/
+
 NEW IDEAS
 
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
-phpcbf --standard=PSR2 BuyNow
+
+SCRIPTS
+phpcbf --standard=PSR2 app/code/Naxero/BuyNow
+phpcbf --standard=PSR12 /app/code/Naxero/BuyNow
+vendor/bin/phpcbf /home/hnid/dev/m234/app/code/Naxero/BuyNow --standard=Magento2
+
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv

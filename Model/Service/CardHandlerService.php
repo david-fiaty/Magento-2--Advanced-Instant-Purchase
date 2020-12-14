@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -87,7 +88,7 @@ class CardHandlerService
             return self::$cardMapper[$code];
         }
     }
-    
+
     /**
      * Get a card icon.
      *

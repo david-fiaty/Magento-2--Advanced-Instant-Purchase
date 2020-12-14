@@ -18,9 +18,8 @@
     'Naxero_BuyNow/js/view/helpers/util',
     'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/address',
-    'Naxero_BuyNow/js/view/helpers/payment',
     'select2'
-], function ($, __, NbnUtil, NbnSlider, NbnAddress, NbnPayment, select2) {
+], function ($, __, NbnUtil, NbnSlider, NbnAddress, select2) {
     'use strict';
 
     return {
@@ -31,24 +30,27 @@
         otherMethodsSelector: '#nbn-other-method-select',
         addressLinkSelector: '.nbn-address-link',
         cardLinkSelector: '.nbn-card-link',
-        
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
+        optionFieldSelector: '.nbn-widget-option',
 
         /**
          * Create a login popup.
          */
         build: function () {
+            // Product options select 2
+            var placeholder = $(this.optionFieldSelector)
+            .find('option[data-placeholder="*"]')
+            .data('placeholder');
+            $(this.optionFieldSelector).select2({
+                placeholder: placeholder,
+                minimumResultsForSearch: -1,
+                theme: 'classic'
+            });
+
             // Initialise the select lists
             var self = this;
             $(this.listSelector).select2({
                 placeholder: __('Select an option'),
-                language: self.getLocale(this.o.jsConfig.user.language),
+                language: self.getLocale(window.naxero.nbn.current.user.language),
                 theme: 'classic',
                 templateResult: NbnUtil.formatIcon,
                 templateSelection: NbnUtil.formatIcon
@@ -88,13 +90,7 @@
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnAddress.getAddressForm(self.o, e);
-            });
-
-            // Set the new card link event
-            $(this.cardLinkSelector).on('click touch', function (e) {
-                NbnSlider.toggleView(e);
-                NbnPayment.getCardForm(self.o, e);
+                NbnAddress.getAddressForm(self, e);
             });
         },
 

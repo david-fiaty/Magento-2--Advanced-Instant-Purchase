@@ -12,36 +12,55 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
+
 ?>
 
 <?php $config = $block->getConfig() ?>
 <?php if ($config): ?>
 <?php
 // Process the block display logic
-if ($this->blockHelper->bypassOos($config['product']['id'])) {
+if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $productId = $config['product']['id'];
     $buttonId = $config['product']['button_id'];
     $purchaseData = $block->purchaseHelper->getPurchaseData();
     $productIsFree = $block->productHelper->isFree($productId);
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
-    $isBlockView = $config['product']['display'] == 'block' || $config['product']['display'] == 'widget';
+    $isWidgetView = $config['product']['display'] == 'widget';
     $isListView = $config['product']['display'] == 'list';
-    $isPageView = $config['product']['display'] == 'view';
+    $isPageView = $config['product']['display'] == 'page';
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
-    $showProductBox = $config['widgets']['widget_show_product'] && $config['product']['display'] != 'list' && $config['product']['display'] != 'page';
-    $buttonText = $this->blockHelper->getButtonText();
-}
+    $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);
+    $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
+    $buttonText = $block->blockHelper->getButtonText();
+    
+    // Product countdown
+    $showProductCountdown = $config['products']['show_product_countdown']
+    && !empty($config['products']['product_time_to']);
+
+
+    var_dump($config['products']['show_product_countdown']);
+    var_dump($config['products']['product_time_to']);
+
+exit();
+
 ?>
 
 <!-- Product box -->
 <?php if ($showProductBox): ?>
 <div class="nbn-product-box-container">
-    <?= $this->blockHelper->renderWidgetProductBox($productId) ?>
+    <?= $block->getProductBoxHtml($config) ?>
 </div>
 <?php endif; ?>
 
+<!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-button-container">
+    <!-- Quantity box -->
+    <?php if ($showQuantityBox): ?>
+    <?= $block->getPriceBoxHtml($config) ?>
+    <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+    <?php endif; ?>
+
     <!-- Button -->
     <button 
         id="<?= $block->escapeHtmlAttr($buttonId) ?>"
@@ -59,37 +78,45 @@ if ($this->blockHelper->bypassOos($config['product']['id'])) {
         <?php endif; ?> 
     </button>
 
+    <!-- Product countdown -->
+    <?php if ($showProductCountdown): ?>
+    <div class="nbn-product-box-countdown">
+    ggg
+        <?= $block->getCountdownBoxHtml($config); ?>
+    </div>
+    <?php endif; ?>
+
     <!-- Form -->
     <?php if (!$isPageView): ?>
-        <form name="nbn-list-form" method="post" class="nbn-list-form">
+    <form name="nbn-list-form" method="post" class="nbn-list-form">
     <?php endif; ?>
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>" />
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>" />
 
-        <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $option): ?>
-                <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
-            <?php endforeach; ?>
-        <?php endif; ?>
+    <?php if (!empty($config['product']['options'])): ?>
+        <?php foreach ($config['product']['options'] as $option): ?>
+            <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
+        <?php endforeach; ?>
+    <?php endif; ?>
 
-        <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
-        <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
+    <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
+    <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
 
     <?php if (!$isPageView): ?>
-        </form>
+    </form>
     <?php endif; ?>
 
     <script type="text/x-magento-init">
         {
             "*": {
-                "nbn": <?= json_encode(['jsConfig' => $config], true) ?>
+                "Naxero_BuyNow/js/view/handler": <?= json_encode(['config' => $config], true) ?>
             }
         }
     </script>
 </div>
-<?php endif; ?> 
-
+<?php } ?>
+<?php endif; ?>

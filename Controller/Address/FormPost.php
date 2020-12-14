@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -51,7 +52,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
      * @var JsonFactory
      */
     public $jsonFactory;
-    
+
     /**
      * @var HelperData
      */
@@ -220,7 +221,7 @@ class FormPost extends \Magento\Customer\Controller\Address implements HttpPostA
             'main' => '',
             'fields' => []
         ];
-        
+
         if (!$this->_formKeyValidator->validate($this->getRequest()) || !$this->getRequest()->isPost()) {
             $messages['main'] = __('Invalid request');
         }

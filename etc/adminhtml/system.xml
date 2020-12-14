@@ -24,14 +24,62 @@
             <label>Buy Now</label>
             <tab>naxero</tab>
             <resource>Naxero_BuyNow::config</resource>
+            <!-- General settings -->
             <group id="general" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General settings</label>
                 <field id="enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Module enabled</label>
+                    <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable the module. Enabling will override the core Instant Purchase feature.</comment>
-                </field>    
+                </field>   
+                <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product view button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Buy Now button in the product details view.</comment>
+                </field>
+                <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product list button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display the Buy Now button in the product list view.</comment>
+                </field>
             </group>
+
+            <!-- Products settings-->
+            <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Products settings</label>
+                <field id="product_tree_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product tree filter</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter</source_model>
+                </field>
+                <field id="product_selection_mode" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product selection mode</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode</source_model>
+                </field>
+                <field id="category_id" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category</label>
+                </field>
+                <field id="product_id" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product</label>
+                </field>
+                <field id="product_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product filter</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductFilterSelector</source_model>
+                </field>
+
+                <field id="product_time_from" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display from</label>
+                </field>
+
+                <field id="product_time_to" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display until</label>
+                </field>
+
+                <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show countdown timer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- Button settings -->
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Button settings</label>
                 <field id="button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -70,19 +118,8 @@
                     <comment>Add custom class names separated by a white space.</comment>
                 </field>
             </group>
-            <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Products settings</label>
-                <field id="product_view" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product view button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Buy Now button in the product details view.</comment>
-                </field>
-                <field id="product_list" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product list button</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the Buy Now button in the product list view.</comment>
-                </field>
-            </group>
+
+            <!-- Popup settings -->
             <group id="popups" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Popup settings</label>
                 <field id="popup_responsive" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -110,40 +147,28 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
                 </field>  
-                <field id="popup_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
+                <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show countdown timer</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the product in the purchase popup windwow.</comment>
                 </field>
-                <field id="popup_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
+                <field id="popup_show_summary" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show order summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="popup_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="popup_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product price</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="popup_show_product">1</field>
-                    </depends>
                 </field>
                 <field id="popup_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
-                        <field id="popup_show_product">1</field>
+                        <field id="popup_show_summary">1</field>
                     </depends>
                 </field>
+                <field id="popup_show_discount_form" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show discount form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
+
+            <!-- Widgets settings -->
             <group id="widgets" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Widgets settings</label>
                 <field id="widget_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -151,22 +176,8 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Show the product in the purchase popup windwow.</comment>
                 </field>
-                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
-                </field>
                 <field id="widget_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
-                </field>
-                <field id="widget_show_product_price" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product price</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="widget_show_product">1</field>
@@ -179,35 +190,36 @@
                         <field id="widget_show_product">1</field>
                     </depends>
                 </field>
+                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show product image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="widget_show_product">1</field>
+                    </depends>
+                </field>
+                <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image width</label>
+                    <depends>
+                        <field id="widget_show_product_image">1</field>
+                    </depends>
+                </field>
+                <field id="widget_zoom_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable zoom</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="widget_show_product_image">1</field>
+                    </depends>
+                </field>
+                <field id="widget_zoom_type" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zoom type</label>
+                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ZoomType</source_model>
+                    <depends>
+                        <field id="widget_zoom_enabled">1</field>
+                    </depends>
+                </field>
             </group>
 
-            <group id="payment_methods" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Payment settings</label>
-                <field id="card_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Allowed card payment methods</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
-                    <comment>Options available for Instant Purchase. A saved card will be displayed to the user only if the card has been saved with a payment method enabled and selected here.</comment>
-                </field>
-                <field id="show_other_allowed" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show other payment methods</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="other_allowed" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Other allowed payment methods</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\PaymentMethods</source_model>
-                    <depends>
-                        <field id="show_other_allowed">1</field>
-                    </depends>
-                    <comment>Options available for Instant Purchase. The payment method will be displayed to the user only if it has been enabled and selected here.</comment>
-                </field>
-            </group>
-            <group id="card_form" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Card form</label>
-                <field id="load" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Code</label>
-                    <comment>Custom HTML/Javascript code for the save card form.</comment>
-                </field>
-            </group>
+            <!-- Debug settings-->
             <group id="debug" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Debug settings</label>
                 <field id="debug_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -122,7 +123,7 @@ class VaultHandlerService
     /**
      * Get a user's saved card from public hash.
      */
-    public function getCardFromHash($publicHash, $customerId = null)
+    public function getCardFromHash($publicHash, $customerId)
     {
         if ($publicHash) {
             $cardList = $this->getUserCards($customerId);
@@ -203,18 +204,10 @@ class VaultHandlerService
         // Get the user cards list
         $cardList = $this->getUserCards();
 
-        // Get the allowed cards list
-        $allowedCards = explode(
-            ',',
-            $this->configHelper->value('payment_methods/cards_allowed')
-        );
-
         // Filter the user cards list
-        if (!empty($cardList) && !empty($allowedCards)) {
+        if (!empty($cardList)) {
             foreach ($cardList as $card) {
-                if (in_array($card['instance']->getCode(), $allowedCards)) {
-                    $output[] = $card;
-                }
+                $output[] = $card;
             }
         }
 
@@ -266,7 +259,7 @@ class VaultHandlerService
         $methodCode = isset($card['instance'])
         ? $card['instance']->getPaymentMethodCode()
         : '';
-        
+
         return [
             'public_hash' => $publicHash,
             'summary' => $summary,

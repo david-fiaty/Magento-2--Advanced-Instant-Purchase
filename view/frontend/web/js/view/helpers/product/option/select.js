@@ -15,14 +15,15 @@
 define([
     'jquery',
     'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/view'
-], function ($, __, NbnView) {
+    'select2'
+], function ($, __, select2) {
     'use strict';
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
         optionSelectorPrefix: '#nbn-option-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
+        optionFieldSelector: '.nbn-popup-option',
 
         /**
          * Set product options events.
@@ -31,6 +32,16 @@ define([
             // Prepare variables
             var self = this;
             var sourceFieldId = this.getOptionFieldId(option);
+            var placeholder = $(this.optionFieldSelector)
+            .find('option[data-placeholder="*"]')
+            .data('placeholder');
+
+            // Select 2
+            $(this.optionFieldSelector).select2({
+                placeholder: placeholder,
+                minimumResultsForSearch: -1,
+                theme: 'classic'
+            });
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
@@ -119,9 +130,9 @@ define([
         },
 
         isSelectedValueValid: function (value) {
-            return value 
+            return value
             && typeof value !== 'undefined'
-            && value != 'undefined' 
+            && value != 'undefined'
             && value.length > 0;
         }
     };

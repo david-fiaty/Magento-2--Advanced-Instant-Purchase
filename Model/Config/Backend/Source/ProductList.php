@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -29,7 +30,7 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
      * CollectionFactory
      */
     public $productCollectionFactory;
- 
+
     /**
      * ProductList constructor.
      */
@@ -40,7 +41,7 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
         $this->storeManager = $storeManager;
         $this->productCollectionFactory = $productCollectionFactory;
     }
-    
+
     public function getProducts()
     {
         $items = [];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -18,6 +19,7 @@ namespace Naxero\BuyNow\Controller\Order;
 use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
+use Magento\Vault\Api\Data\PaymentTokenInterface;
 
 /**
  * Order controller class
@@ -29,7 +31,7 @@ class Request extends \Magento\Framework\App\Action\Action
      *
      * @var array
      */
-    private static $knownRequestParams = [
+    public static $knownRequestParams = [
         'form_key',
         'product',
         'instant_purchase_payment_token',
@@ -39,24 +41,29 @@ class Request extends \Magento\Framework\App\Action\Action
     ];
 
     /**
+     * @var IntegrationsManager
+     */
+    public $integrationsManager;
+
+    /**
      * @var StoreManagerInterface
      */
-    private $storeManager;
+    public $storeManager;
 
     /**
      * @var Validator
      */
-    private $formKeyValidator;
+    public $formKeyValidator;
 
     /**
      * @var CartRepositoryInterface
      */
-    private $quoteRepository;
+    public $quoteRepository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    public $productRepository;
 
     /**
      * @var CustomerRepositoryInterface
@@ -66,12 +73,12 @@ class Request extends \Magento\Framework\App\Action\Action
     /**
      * @var QuoteCreation
      */
-    private $quoteCreation;
+    public $quoteCreation;
 
     /**
      * @var QuoteFilling
      */
-    private $quoteFilling;
+    public $quoteFilling;
 
     /**
      * @var UrlInterface
@@ -89,10 +96,16 @@ class Request extends \Magento\Framework\App\Action\Action
     public $paymentHandler;
 
     /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandlerService;
+
+    /**
      * Order controller class constructor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\InstantPurchase\PaymentMethodIntegration\IntegrationsManager $integrationsManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
@@ -102,10 +115,13 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
-        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler
+        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler,
+        \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
+
     ) {
         parent::__construct($context);
 
+        $this->integrationsManager = $integrationsManager;
         $this->storeManager = $storeManager;
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
@@ -116,6 +132,7 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
         $this->paymentHandler = $paymentHandler;
+        $this->vaultHandlerService = $vaultHandlerService;
     }
 
     /**
@@ -136,7 +153,7 @@ class Request extends \Magento\Framework\App\Action\Action
         if (!$this->doesRequestContainAllKnowParams($request)) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
-
+        
         // Prepare the payment data
         $paymentData = [
             'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],
@@ -190,13 +207,25 @@ class Request extends \Magento\Framework\App\Action\Action
 
             // Set the shipping method
             $quote->getShippingAddress()->addData($shippingAddress->getData());
-            
+
             // Set the payment method
             if ($paymentData['paymentMethodCode'] != 'free') {
+                // Payment token
+                $paymentToken = $this->vaultHandlerService->getCardFromHash(
+                    $paymentData['paymentTokenPublicHash'],
+                    $customer->getId()
+                );
+
+                // Payment set up
                 $payment = $quote->getPayment();
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
                 $payment->importData(['method' => $paymentData['paymentMethodCode']]);
+                $payment->setAdditionalInformation($this->buildPaymentAdditionalInformation(
+                    $paymentToken,
+                    $quote->getStoreId()
+                ));
+
                 $payment->save();
             }
 
@@ -208,7 +237,7 @@ class Request extends \Magento\Framework\App\Action\Action
             // Send the payment request and get the response
             $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
             $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
-            
+
             // Create the order
             if ($paymentResponse->paymentSuccess()) {
                 $order = $paymentResponse->createOrder($quote, $paymentResponse);
@@ -217,7 +246,7 @@ class Request extends \Magento\Framework\App\Action\Action
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
                         'order_increment_id' => $order->getIncrementId()
                     ]);
-                    
+
                     return $this->createResponse($message, true);
                 } else {
                     return $this->createResponse($this->createGenericErrorMessage(), false);
@@ -235,6 +264,31 @@ class Request extends \Magento\Framework\App\Action\Action
                 false
             );
         }
+    }
+
+    /**
+     * Builds payment additional information based on token.
+     *
+     * @param PaymentTokenInterface $paymentToken
+     * @param int $storeId
+     * @return array
+     */
+    public function buildPaymentAdditionalInformation(PaymentTokenInterface $paymentToken, int $storeId): array
+    {
+        $common = [
+            PaymentTokenInterface::CUSTOMER_ID => $paymentToken->getCustomerId(),
+            PaymentTokenInterface::PUBLIC_HASH => $paymentToken->getPublicHash(),
+            VaultConfigProvider::IS_ACTIVE_CODE => true,
+
+            // mark payment
+            self::MARKER => 'true',
+        ];
+
+        $integration = $this->integrationManager->getByToken($paymentToken, $storeId);
+        $specific = $integration->getAdditionalInformation($paymentToken);
+
+        $additionalInformation = array_merge($common, $specific);
+        return $additionalInformation;
     }
 
     /* Get the request data.
@@ -255,7 +309,7 @@ class Request extends \Magento\Framework\App\Action\Action
      *
      * @return string
      */
-    private function createGenericErrorMessage(): string
+    public function createGenericErrorMessage(): string
     {
         return (string)__('Something went wrong while processing your order. Please try again later.');
     }
@@ -266,7 +320,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  RequestInterface $request
      * @return bool
      */
-    private function doesRequestContainAllKnowParams(array $request): bool
+    public function doesRequestContainAllKnowParams(array $request): bool
     {
         foreach (self::$knownRequestParams as $knownRequestParam) {
             if ($request[$knownRequestParam] === null) {
@@ -282,7 +336,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  RequestInterface $request
      * @return array
      */
-    private function getRequestUnknownParams(array $requestParams): array
+    public function getRequestUnknownParams(array $requestParams): array
     {
         $unknownParams = [];
         foreach ($requestParams as $param => $value) {
@@ -300,7 +354,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param  bool   $successMessage
      * @return JsonResult
      */
-    private function createResponse(string $message, bool $successMessage): JsonResult
+    public function createResponse(string $message, bool $successMessage): JsonResult
     {
         /**
  * @var JsonResult $result

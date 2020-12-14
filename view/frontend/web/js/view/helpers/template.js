@@ -24,14 +24,6 @@
 
         return {
             /**
-             * Initialise the object.
-             */
-            init: function (obj) {
-                this.o = obj;
-                return this;
-            },
-
-            /**
              * Render the spinner icon template.
              */
             getSpinner: function (params) {
@@ -56,6 +48,13 @@
              * Render the confirmation modal logger.
              */
             getLogger: function (params) {
+                return MageTemplate(Slider)(params);
+            },
+
+            /**
+             * Render the product gallery modal.
+             */
+            getGallery: function (params) {
                 return MageTemplate(Slider)(params);
             }
         };

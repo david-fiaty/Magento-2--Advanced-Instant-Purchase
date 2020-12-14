@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -25,27 +26,27 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var \Magento\Sales\Model\ResourceModel\Order\Payment\Collection
      */
-    protected $orderPayment;
-    
+    public $orderPayment;
+
     /**
      * Payment Helper Data
      *
      * @var \Magento\Payment\Helper\Data
      */
-    protected $paymentDataHelper;
-    
+    public $paymentDataHelper;
+
     /**
      * Payment Model Config
      *
      * @var \Magento\Payment\Model\Config
      */
-    protected $paymentConfig;
+    public $paymentConfig;
 
     /**
      * @var Config
      */
     public $configHelper;
-    
+
     /**
      * Payment helper constructor.
      */
@@ -60,7 +61,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
         $this->paymentConfig = $paymentConfig;
         $this->configHelper = $configHelper;
     }
-    
+
     /**
      * Get all payment methods
      *
@@ -70,7 +71,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->paymentDataHelper->getPaymentMethods();
     }
-    
+
     /**
      * Get key-value pair of all payment methods
      * key = method code & value = method name
@@ -81,7 +82,7 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->paymentDataHelper->getPaymentMethodList();
     }
-    
+
     /**
      * Get active/enabled payment methods
      *
@@ -90,39 +91,6 @@ class Payment extends \Magento\Framework\App\Helper\AbstractHelper
     public function getActivePaymentMethods()
     {
         return $this->paymentConfig->getActiveMethods();
-    }
-    
-    /**
-     * Get non card payment methods available
-     *
-     * @return array
-     */
-    public function getOtherPaymentMethods()
-    {
-        // Get the other payment methods
-        $options = [];
-        $methods = $this->getActivePaymentMethods();
-        $allowed = explode(
-            ',',
-            $this->configHelper->value('payment_methods/other_allowed')
-        );
-        if (!empty($methods)) {
-            foreach ($methods as $method) {
-                $code = $method->getCode();
-                $canDisplay = $method->canUseCheckout()
-                && $method->isActive()
-                && in_array($code, $allowed)
-                && $code != 'free';
-                if ($canDisplay) {
-                    $options[] = [
-                        'value' => $method->getCode(),
-                        'label' => __($method->getTitle())
-                    ];
-                }
-            }
-        }
-
-        return $options;
     }
 
     /**

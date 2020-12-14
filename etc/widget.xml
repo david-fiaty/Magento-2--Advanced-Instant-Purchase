@@ -16,22 +16,50 @@
 -->
 
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget class="Naxero\BuyNow\Block\Button\WidgetButton" id="HostAdvice_customwidget_samplewidget">
+    <widget ttl="0" class="Naxero\BuyNow\Block\Button\WidgetButton" id="nbn_product_widget">
         <label>Naxero Buy Now Widget</label>
         <description>Naxero Buy Now Widget</description>
         <parameters>
-            <!-- General settings-->
-            <parameter name="group_general" xsi:type="block" visible="true">
+            <!-- CSS assets-->
+            <parameter name="css" xsi:type="block" visible="false">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\CssLoader"/>
+            </parameter>
+
+            <!-- General settings -->
+            <parameter name="general" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">General settings</item>
                     </data>
                 </block>
             </parameter>
+            <parameter name="enabled" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Enabled</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
 
-            <parameter name="product_selection_mode" xsi:type="block" visible="true">
+            <!-- Products settings-->
+            <parameter name="products" xsi:type="block" visible="true">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
+                    <data>
+                        <item name="text" xsi:type="string" translate="true">Products settings</item>
+                    </data>
+                </block>
+            </parameter>
+
+            <parameter name="product_tree_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter">
+                <label translate="true">Product tree filter</label>
+            </parameter>
+            
+            <parameter name="product_selection_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Product selection mode</label>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelectionMode"/>
             </parameter>
 
             <parameter name="category_id" xsi:type="block" visible="true">
@@ -39,18 +67,44 @@
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\CategorySelector"/>
             </parameter>
 
-            <parameter name="product_id" xsi:type="block" visible="true">
+            <parameter name="product_id" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductList">
                 <label translate="true">Product</label>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductSelector"/>
+                <depends>
+                    <parameter name="product_selection_mode" value="product" />
+                </depends>
             </parameter>
 
-            <parameter name="product_filter" xsi:type="block" visible="true">
-                <label translate="true">Filter type</label>
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\ProductFilterSelector"/>
+            <parameter name="product_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductFilterSelector">
+                <label translate="true">Product filter</label>
+                <depends>
+                    <parameter name="product_selection_mode" value="category" />
+                </depends>
+            </parameter>
+
+            <parameter name="product_time_from" xsi:type="block" visible="true">
+                <label translate="true">Display from</label>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
+            </parameter>
+
+            <parameter name="product_time_to" xsi:type="block" visible="true">
+                <label translate="true">Display until</label>
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\DateSelector"/>
+            </parameter>
+
+            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show countdown timer</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
             </parameter>
 
             <!-- Button settings -->
-            <parameter name="group_buttons" xsi:type="block" visible="true">
+            <parameter name="buttons" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Button settings</item>
@@ -95,13 +149,14 @@
                     </option>
                 </options>
             </parameter>
+
             <parameter name="button_classes" xsi:type="text" visible="true">
                 <label translate="true">Button classes</label>
                 <value>primary button</value>
             </parameter>
 
             <!-- Widget settings -->
-            <parameter name="group_widgets" xsi:type="block" visible="true">
+            <parameter name="widgets" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Widget settings</item>
@@ -119,36 +174,8 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="widget_show_product_image" xsi:type="select" visible="true">
-                <label translate="true">Show product image</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
             <parameter name="widget_show_product_name" xsi:type="select" visible="true">
                 <label translate="true">Show product name</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-            <parameter name="widget_show_product_price" xsi:type="select" visible="true">
-                <label translate="true">Show product price</label>
                 <depends>
                     <parameter name="widget_show_product" value="1" />
                 </depends>
@@ -176,8 +203,54 @@
                 </options>
             </parameter>
 
+            <parameter name="widget_show_product_image" xsi:type="select" visible="true">
+                <label translate="true">Show product image</label>
+                <depends>
+                    <parameter name="widget_show_product" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter name="widget_image_width" xsi:type="text" visible="true">
+                <label translate="true">Image width</label>
+                <depends>
+                    <parameter name="widget_show_product_image" value="1" />
+                </depends>
+                <value>30%</value>
+            </parameter>
+
+            <parameter name="widget_zoom_enabled" xsi:type="select" visible="true">
+                <label translate="true">Zoom enabled</label>
+                <depends>
+                    <parameter name="widget_show_product_image" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter name="widget_zoom_type" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ZoomType">
+                <label translate="true">Zoom type</label>
+                <depends>
+                    <parameter name="widget_show_product_image" value="1" />
+                    <parameter name="widget_zoom_enabled" value="1"/>
+                </depends>
+            </parameter>
+
             <!-- Popup settings -->
-            <parameter name="group_popups" xsi:type="block" visible="true">
+            <parameter name="popups" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Popup settings</item>
@@ -222,8 +295,19 @@
                 <label translate="true">Place order button text</label>
                 <value translate="true">Place order</value>
             </parameter>
-            <parameter name="popup_show_product" xsi:type="select" visible="true">
-                <label translate="true">Show product</label>
+            <parameter name="show_product_countdown" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show countdown timer</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="popup_show_summary" xsi:type="select" visible="true">
+                <label translate="true">Show order summary</label>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -233,11 +317,9 @@
                     </option>
                 </options>                
             </parameter>
-            <parameter name="popup_show_product_image" xsi:type="select" visible="true">
-                <label translate="true">Show product image</label>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
+
+            <parameter name="popup_show_discount_form" xsi:type="select" visible="true">
+                <label translate="true">Responsive</label>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -247,38 +329,11 @@
                     </option>
                 </options>
             </parameter>
-            <parameter name="popup_show_product_name" xsi:type="select" visible="true">
-                <label translate="true">Show product name</label>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-            <parameter name="popup_show_product_price" xsi:type="select" visible="true">
-                <label translate="true">Show product price</label>
-                <depends>
-                    <parameter name="popup_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
+ 
             <parameter name="popup_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>
                 <depends>
-                    <parameter name="popup_show_product" value="1" />
+                    <parameter name="popup_show_summary" value="1" />
                 </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
@@ -291,7 +346,7 @@
             </parameter>
 
             <!-- Debug settings-->
-            <parameter name="group_debug" xsi:type="block" visible="true">
+            <parameter name="debug" xsi:type="block" visible="true">
                 <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\GroupSeparator">
                     <data>
                         <item name="text" xsi:type="string" translate="true">Debug settings</item>
@@ -351,9 +406,10 @@
                     </option>
                 </options>
             </parameter>
-    
-            <parameter name="group_scripts" xsi:type="block" visible="false">
-                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Scripts"/>
+
+            <!-- JS assets-->
+            <parameter name="js" xsi:type="block" visible="false">
+                <block class="Naxero\BuyNow\Block\Adminhtml\Widget\Form\Assets\JsLoader"/>
             </parameter>
         </parameters>
     </widget>

@@ -18,15 +18,6 @@ define([
     'use strict';
 
     return {
-
-        /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
         /**
          * Get a card option public hash.
          */

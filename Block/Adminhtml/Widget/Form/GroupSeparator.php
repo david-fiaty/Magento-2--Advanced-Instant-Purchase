@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -31,7 +32,6 @@ class GroupSeparator extends \Magento\Backend\Block\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
     }
 
     /**

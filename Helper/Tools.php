@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -26,12 +27,19 @@ class Tools extends \Magento\Framework\App\Helper\AbstractHelper
     public $formKey;
 
     /**
+     * @var Data
+     */
+    public $priceHelper;
+
+    /**
      * Class Tools helper constructor.
      */
     public function __construct(
-        \Magento\Framework\Data\Form\FormKey $formKey
+        \Magento\Framework\Data\Form\FormKey $formKey,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper
     ) {
         $this->formKey = $formKey;
+        $this->priceHelper = $priceHelper;
     }
 
     /**
@@ -43,18 +51,30 @@ class Tools extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Render an amount.
+     */
+    public function renderAmount($amount, $format = true, $includeContainer = false)
+    {
+        return $this->priceHelper->currency(
+            $amount,
+            $format,
+            $includeContainer
+        );;
+    }
+
+    /**
      * Get array keys recursively.
      */
-    public function array_keys_recursive(array $array) : array
+    public function array_keys_recursive(array $array): array
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $index[$key] = $this->array_keys_recursive($value);
             } else {
-                $index[]= $key;
+                $index[] = $key;
             }
         }
-    
+
         return $index ?? [];
     }
 }

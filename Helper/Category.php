@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -69,7 +70,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     ) {
         $this->storeManager = $storeManager;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
-        $this->categoryTree = $categoryTree; 
+        $this->categoryTree = $categoryTree;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->stockItemRepository = $stockItemRepository;
         $this->bestSellersCollectionFactory = $bestSellersCollectionFactory;
@@ -79,7 +80,8 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the catalog categories.
      */
-    public function getCategories($categories = null, $output = [], $i = 0) {
+    public function getCategories($categories = null, $output = [], $i = 0)
+    {
         $categories = $categories ?? $this->getTree();
         if (!empty($categories)) {
             foreach ($categories as $category) {
@@ -101,7 +103,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                     $children = $this->getCategories($category['children'], $output, $i);
                     return $children;
                 }
-
             }
         }
 
@@ -132,7 +133,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getTree()
     {
-        return $this->categoryTree->getTree(); 
+        return $this->categoryTree->getTree();
     }
 
     /**
@@ -143,7 +144,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->productCollectionFactory->create()
             ->addCategoriesFilter(['in' => $categoryId])
             ->addAttributeToSelect('*')
-            ->addAttributeToFilter('status',\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
+            ->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
             ->setStore($this->storeManager->getStore());
     }
 
@@ -156,14 +157,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= [
+            $stockValues[] = [
                 'product_id' => $productId,
                 'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
             ];
-        }        
-        
-        usort($stockValues, function($a, $b) {
-            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        }
+
+        usort($stockValues, function ($a, $b) {
+            $val1 = (int) $a['stock_quantity'];
+            $val2 = (int) $b['stock_quantity'];
+
+            if ($val1 == $val2) {
+                return 0;
+            }
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($stockValues[0]['product_id']);
@@ -178,14 +185,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $productIds = array_keys($collection->getItems());
         $stockValues = [];
         foreach ($productIds as $productId) {
-            $stockValues[]= [
+            $stockValues[] = [
                 'product_id' => $productId,
                 'stock_quantity' => $this->stockItemRepository->get($productId)->getQty()
             ];
-        }        
-        
-        usort($stockValues, function($a, $b) {
-            return strcmp($a['stock_quantity'], $b['stock_quantity']);
+        }
+
+        usort($stockValues, function ($a, $b) {
+            $val1 = (int) $a['stock_quantity'];
+            $val2 = (int) $b['stock_quantity'];
+
+            if ($val1 == $val2) {
+                return 0;
+            }
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($stockValues[count($stockValues) - 1]['product_id']);
@@ -199,14 +212,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
         $priceValues = [];
         foreach ($products as $product) {
-            $priceValues[]= [
+            $priceValues[] = [
                 'product_id' => $product->getId(),
                 'final_price' => $product->getFinalPrice()
             ];
-        }     
-        
-        usort($priceValues, function($a, $b) {
-            return strcmp($a['final_price'], $b['final_price']);
+        }
+
+        usort($priceValues, function ($a, $b) {
+            $val1 = (float) $a['final_price'];
+            $val2 = (float) $b['final_price'];
+
+            if ($val1 == $val2) {
+                return 0;
+            }
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($priceValues[0]['product_id']);
@@ -220,14 +239,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $products = $this->getProductCollection($categoryId)->addAttributeToSelect('entity_id');
         $priceValues = [];
         foreach ($products as $product) {
-            $priceValues[]= [
+            $priceValues[] = [
                 'product_id' => $product->getId(),
                 'final_price' => $product->getFinalPrice()
             ];
-        }     
-        
-        usort($priceValues, function($a, $b) {
-            return strcmp($a['final_price'], $b['final_price']);
+        }
+
+        usort($priceValues, function ($a, $b) {
+            $val1 = (float) $a['final_price'];
+            $val2 = (float) $b['final_price'];
+
+            if ($val1 == $val2) {
+                return 0;
+            }
+            return $val1 < $val2 ? -1 : 1;
         });
 
         return $this->productHelper->getProduct($priceValues[count($priceValues) - 1]['product_id']);
@@ -240,7 +265,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->getProductCollection($categoryId)
             ->setOrder('entity_id', 'DESC')
-            ->getFirstItem(); 
+            ->getFirstItem();
     }
 
     /**
@@ -250,7 +275,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->getProductCollection($categoryId)
             ->setOrder('entity_id', 'ASC')
-            ->getFirstItem(); 
+            ->getFirstItem();
     }
 
     /**
@@ -262,7 +287,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         if ($collection->count() > 0) {
             $productIds = array_keys($collection->getItems());
             $productId = array_rand($productIds);
-            return $this->productHelper->getProduct($productId); 
+            return $this->productHelper->getProduct($productId);
         }
 
         return null;
@@ -276,7 +301,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
         if ($collection->count() > 0) {
             $productIds = array_keys($collection);
-            return $this->productHelper->getProduct($productIds[0]); 
+            return $this->productHelper->getProduct($productIds[0]);
         }
 
         return null;
@@ -290,7 +315,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $collection = $this->bestSellersCollectionFactory->create()->setPeriod('year');
         if ($collection->count() > 0) {
             $productIds = array_keys($collection);
-            return $this->productHelper->getProduct($productIds[count($productIds) - 1]); 
+            return $this->productHelper->getProduct($productIds[count($productIds) - 1]);
         }
 
         return null;

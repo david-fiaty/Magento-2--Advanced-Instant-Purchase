@@ -25,14 +25,6 @@ function ($, __) {
         agreementErrorMessageSelector: '#nbn-checkout-agreements .messages',
 
         /**
-         * Initialise the object.
-         */
-        init: function (obj) {
-            this.o = obj;
-            return this;
-        },
-
-        /**
          * Additional form validation.
          */
         validate: function() {
@@ -41,7 +33,7 @@ function ($, __) {
             var errors = [];
 
             // Agreements validation
-            if (this.o.jsConfig.popups.popup_enable_agreements) {
+            if (window.naxero.nbn.current.popups.popup_enable_agreements) {
                 // Reset the errors
                 $(this.agreementErrorMessageSelector).hide();
                 $(this.agreementRow).removeClass('error');

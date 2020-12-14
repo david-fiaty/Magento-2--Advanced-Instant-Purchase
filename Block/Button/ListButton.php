@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -14,6 +15,8 @@
  */
 
 namespace Naxero\BuyNow\Block\Button;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * ListButton class.
@@ -43,7 +46,7 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $productHelper;
 
     /**
-     * ViewButton class constructor.
+     * ListButton class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
@@ -54,9 +57,9 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         array $data = []
     ) {
         parent::__construct($context, $data);
-        
-        $this->configHelper = $configHelper;
+
         $this->blockHelper = $blockHelper;
+        $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
         $this->productHelper = $productHelper;
     }
@@ -75,12 +78,12 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['products']['product_list'] && $this->purchaseHelper->canDisplayButton();
-       
+        $condition = $config['general']['product_list'] && $this->purchaseHelper->canDisplayButton();
+
         if ($condition) {
             return $this->updateAttributesData($config);
         }
-        
+
         return null;
     }
 

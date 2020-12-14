@@ -1,0 +1,32 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+    // Prepare the parameters
+    $title = $block->getData('title');
+    $productId = $block->getData('product_id');
+?>
+
+<!-- UI logs viewer container -->
+<div id="nbn-ui-logger-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-ui-logger">
+    <h3><?= $block->escapeHtml(__('Product data')) ?></h3>
+    <pre class="nbn-logger-tree">
+    </pre>
+
+    <h3><?= $block->escapeHtml(__('Module parameters')) ?></h3>
+    <pre class="nbn-logger-tree">
+    </pre>
+</div>

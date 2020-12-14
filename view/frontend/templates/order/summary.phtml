@@ -1,0 +1,77 @@
+<?php
+/**
+ * Naxero.com
+ * Professional ecommerce integrations for Magento.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Naxero
+ * @author    Platforms Development Team <contact@naxero.com>
+ * @copyright © Naxero.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.naxero.com
+ */
+?>
+
+<?php
+    // Get the data
+    $data = $block->getData('data');
+    $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
+    $productQantity = $block->getData('product_quantity');
+    $showDiscountForm = $data['config']['popups']['popup_show_discount_form'];
+?>
+
+<div class="nbn-summary-box">
+<table>
+  <thead>
+    <tr>
+      <th><?= __('Reference') ?></th>
+      <th><?= __('Name') ?></th>
+      <th><?= __('Price') ?></th>
+      <th><?= __('Quantity') ?></th>
+      <th><?= __('Total') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><?= $data['config']['product']['sku'] ?></td>
+      <td><?= $data['config']['product']['name'] ?></td>
+      <td><?= $data['config']['product']['price'] ?></td>
+      <td><?= $productQantity ?></td>
+      <td><?= $block->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr id="nbn-discount-row">
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><?= __('Discount') ?></td>
+      <td class="nbn-discounted-amount"></td>
+    </tr>
+    <tr>
+    <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+     <td><?= __('Shipping') ?></td>
+      <td class="nbn-summary-shipping">
+        <?php if ($shippingRate): ?>
+        <?= $block->toolsHelper->renderAmount($shippingRate) ?>
+        <?php endif; ?>
+      </td>
+    </tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+      <td><?= __('Total') ?></td>
+      <td class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+
+<?php if ($showDiscountForm): ?>
+<?= $block->getCouponBoxHtml($data['config']) ?>
+<?php endif; ?>

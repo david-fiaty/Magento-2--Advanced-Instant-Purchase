@@ -6,11 +6,27 @@
 "Invalid field","Invalid field"
 "The address could not be saved.","The address could not be saved."
 "Something went wrong while processing your order. Please try again later.","Something went wrong while processing your order. Please try again later."
+Random,Random
+Latest,Latest
+Oldest,Oldest
+"Highest price","Highest price"
+"Lowest price","Lowest price"
+"Lowest stock","Lowest stock"
+"Highest stock","Highest stock"
+"Lowest sales","Lowest sales"
+"Highest sales","Highest sales"
+Category,Category
+Product,Product
+"Parent products only","Parent products only"
+"Children products only","Children products only"
+"All products","All products"
+Lightbox,Lightbox
+Lens,Lens
+Inner,Inner
+Window,Window
 "Naxero Buy Now","Naxero Buy Now"
-carrier_title,carrier_title
 ending,ending
 expires,expires
-"Invalid value ""%1"" for parameter %2","Invalid value ""%1"" for parameter %2"
 "* Required Fields","* Required Fields"
 "Contact Information","Contact Information"
 Address,Address
@@ -28,11 +44,10 @@ Country,Country
 "Use as my default shipping address","Use as my default shipping address"
 "Save Address","Save Address"
 "Go back","Go back"
-"buttons' 'button_text","buttons' 'button_text"
 "View logs","View logs"
+"Your order heas been created successfully. Order reference:","Your order heas been created successfully. Order reference:"
 "Product data","Product data"
 "Module parameters","Module parameters"
-"Your order heas been created successfully. Order reference:","Your order heas been created successfully. Order reference:"
 "Billing address","Billing address"
 New,New
 "No records available.","No records available."
@@ -40,4 +55,51 @@ New,New
 "Saved cards","Saved cards"
 "Other payment options","Other payment options"
 "Shipping method","Shipping method"
-Product,Product
+Days,Days
+Hours,Hours
+Minutes,Minutes
+Seconds,Seconds
+-,-
+Qty,Qty
++,+
+"General settings","General settings"
+Enabled,Enabled
+Yes,Yes
+No,No
+"Products settings","Products settings"
+"Product tree filter","Product tree filter"
+"Product selection mode","Product selection mode"
+"Product filter","Product filter"
+"Display until","Display until"
+"Show countdown timer","Show countdown timer"
+"Button settings","Button settings"
+"Button text","Button text"
+"Buy Now","Buy Now"
+"Show guest button","Show guest button"
+"Guest button text","Guest button text"
+"Customer groups","Customer groups"
+"Bypass out of stock","Bypass out of stock"
+"Button classes","Button classes"
+"Widget settings","Widget settings"
+"Show product","Show product"
+"Show product name","Show product name"
+"Show product quantity","Show product quantity"
+"Show product image","Show product image"
+"Image width","Image width"
+"Zoom enabled","Zoom enabled"
+"Zoom type","Zoom type"
+"Popup settings","Popup settings"
+"Enable terms and conditions","Enable terms and conditions"
+Responsive,Responsive
+"Popup title","Popup title"
+"Popup header text","Popup header text"
+"Please review the options and place your order.","Please review the options and place your order."
+"Popup footer text","Popup footer text"
+"Submitting this form will process a payment and place an order.","Submitting this form will process a payment and place an order."
+"Place order button text","Place order button text"
+"Place order","Place order"
+"Debug settings","Debug settings"
+"Debug enabled","Debug enabled"
+"UI logging enabled","UI logging enabled"
+"Console logging enabled","Console logging enabled"
+"File logging enabled","File logging enabled"

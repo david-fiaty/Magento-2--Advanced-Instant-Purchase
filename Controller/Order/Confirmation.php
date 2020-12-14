@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -46,7 +47,12 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      * @var Purchase
      */
     public $purchaseHelper;
-    
+
+    /**
+     * @var Product
+     */
+    public $productHelper;
+
     /**
      * Confirmation controller class constructor
      */
@@ -58,15 +64,17 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Naxero\BuyNow\Helper\Config $configHelper,
-        \Naxero\BuyNow\Helper\Purchase $purchaseHelper
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper
     ) {
         parent::__construct($context);
-        
+
         $this->formKeyValidator = $formKeyValidator;
         $this->pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
         $this->configHelper = $configHelper;
         $this->purchaseHelper = $purchaseHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -100,9 +108,10 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $html = '';
         if ($productId > 0) {
             $html = $this->pageFactory->create()->getLayout()
-                ->createBlock(Naming::getModulePath() . '\Block\Screen\Confirmation')
-                ->setTemplate(Naming::getModuleName() . '::popup/confirmation-data.phtml')
-                ->setData('content', $this->purchaseHelper->getConfirmContent($productId))
+                ->createBlock(Naming::getModulePath() . '\Block\Popup\Confirmation')
+                ->setTemplate(Naming::getModuleName() . '::popup/confirmation.phtml')
+                ->setData('data', $this->purchaseHelper->getConfirmContent($productId))
+                ->setData('product_quantity', $this->getProductQuantity($productId))
                 ->toHtml();
 
             // Agreements
@@ -113,6 +122,26 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         }
 
         return $html;
+    }
+
+
+    /**
+     * Get the product quantity.
+     */
+    public function getProductQuantity($productId)
+    {
+        // Get the request parameters
+        $productQuantity = (int) $this->getRequest()->getParam('product_quantity');
+
+        // Get the quantity limits
+        $quantityLimits = $this->productHelper->getQuantityLimits($productId);
+
+        // Determine the value
+        $condition = $productQuantity > 0
+        && $productQuantity >= $quantityLimits['min']
+        && $productQuantity <= $quantityLimits['max'];
+
+        return $condition ? $productQuantity : $quantityLimits['min'];
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -30,47 +31,47 @@ class Edit extends \Magento\Directory\Block\Data
     /**
      * @var \Magento\Customer\Api\Data\AddressInterface|null
      */
-    protected $_address = null;
+    public $_address = null;
 
     /**
      * @var \Magento\Customer\Model\Session
      */
-    protected $_customerSession;
+    public $_customerSession;
 
     /**
      * @var \Magento\Customer\Api\AddressRepositoryInterface
      */
-    protected $_addressRepository;
+    public $_addressRepository;
 
     /**
      * @var \Magento\Customer\Api\Data\AddressInterfaceFactory
      */
-    protected $addressDataFactory;
+    public $addressDataFactory;
 
     /**
      * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
-    protected $currentCustomer;
+    public $currentCustomer;
 
     /**
      * @var \Magento\Framework\Api\DataObjectHelper
      */
-    protected $dataObjectHelper;
+    public $dataObjectHelper;
 
     /**
      * @var \Magento\Customer\Api\AddressMetadataInterface
      */
-    private $addressMetadata;
+    public $addressMetadata;
 
     /**
      * @var PostCodeConfig
      */
-    private $postCodeConfig;
+    public $postCodeConfig;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    public $serializer;
 
     /**
      * Constructor
@@ -116,7 +117,7 @@ class Edit extends \Magento\Directory\Block\Data
         $this->addressMetadata = $addressMetadata;
         $this->postCodeConfig = $postCodeConfig;
         $this->serializer = $serializer;
-        
+
         parent::__construct(
             $context,
             $directoryHelper,
@@ -133,7 +134,7 @@ class Edit extends \Magento\Directory\Block\Data
      *
      * @return $this
      */
-    protected function _prepareLayout()
+    public function _prepareLayout()
     {
         parent::_prepareLayout();
 
@@ -157,7 +158,7 @@ class Edit extends \Magento\Directory\Block\Data
      *
      * @return void
      */
-    private function initAddressObject()
+    public function initAddressObject()
     {
         // Init address object
         if ($addressId = $this->getRequest()->getParam('id')) {
@@ -187,7 +188,7 @@ class Edit extends \Magento\Directory\Block\Data
      *
      * @return void
      */
-    private function precheckRequiredAttributes()
+    public function precheckRequiredAttributes()
     {
         $precheckAttributes = $this->getData('check_attributes_on_render');
         $requiredAttributesPrechecked = [];
