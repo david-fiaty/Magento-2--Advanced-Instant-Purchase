@@ -1,55 +1,32 @@
 
 !!!PRIORITY!!!
-
-- complete payment integrations
-
-- add a field control for discount html box
-- fix all spinners (linked to container identification)
-
 - change product time limit to From/To dates. If From empty then use now.
-
-- make sure payment tokens are filtered by store
-
+- fix all spinners (linked to container identification)
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
+
+
+- *** Handle product price update with options prices in widget and popup ***
 
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
 - handle non swatch options values (list, input) in list view
 - Improve UI logger information
- 
- - fix buy now options validation in product list
-
-
+- fix buy now options validation in product list
 - split base list and page phtml into different templates
 - show shipping in summary only if shipping enabled
 - display store > config > shipping settings > shipping policy
 
- - add time, category and product field display to calendar system.xml config  
- - quantity in product list? countdown in product list? countown in product detail?
+- add time, category and product field display to calendar system.xml config  
+- quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
 - handle 0 product found in category for widget category filter.
-
-
 - add customerData login observer to button click before login popup?
 
-- 2 approaches for product options display in widget:
-1. Remove options config control and automate display based on if product has options or not
-2. Keep options config control, then add control to redirect to rpoduct view page if product has options but widget options display is disabled
-
-- *** Handle product price update with options prices in widget and popup ***
-
-
-- Not supported: table rate shipping
-
-
-- Not supported: product price handling with price rules (qty > 1, or other conditions...)
-=> solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
-=> do that with ajax request to frontend product data controller
-=> might avoid having to deal with price rules
-
 QA
+- check all config fields functional
+- make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
 - check what happens to coundown clock when 1 digit box is out
 - check what happens to countown when all digits are out
@@ -63,17 +40,21 @@ QA
 - check add to cart values and display in popup and order request
 - Test time limit to string in admin with french and other langs
 
+NOT SUPPORTED
+- table rate shipping
+- product price handling with price rules (qty > 1, or other conditions...)
+    => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.
+    => do that with ajax request to frontend product data controller
+    => might avoid having to deal with price rules
+
 FEATURES
 - add module version checker
-
 - build order confirmation screen after payment + editable info
-
 - ! add quick cart checkout option in minicart and basket page
 - add popup/banner/add system with instant purchase
 - add themes system
 - login with google, facebook
 - add buy now button to emails, newsletters...
-
 - see if best sales filter should have a year/month/day sub select
 https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best-seller-product-collection
 
@@ -90,8 +71,6 @@ LIBS
 
 EXPLORE
 - add buynow external widgets
-
-
 - improved category UI selector:
 https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 
@@ -100,7 +79,6 @@ https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
 https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 
 - improve the config fields comments
-
 - marketplaces and ecommerce platforms available on https://www.channelengine.com/
 
 RESOURCES
@@ -115,9 +93,6 @@ https://inchoo.net/magento-2/magento-2-custom-widget/
 
 - countdown timer
 https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
-
-QA
-- check all config fields functional
 
 EXPLORE
 - Swatch options rendering
