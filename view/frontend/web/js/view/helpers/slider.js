@@ -15,8 +15,9 @@
  define([
     'jquery',
     'mage/translate',
+    'Naxero_BuyNow/js/view/core',
     'slick',
-], function ($, __, slick) {
+], function ($, __, NbnCore, slick) {
     'use strict';
 
     return {
@@ -47,7 +48,7 @@
          * Show the AJAX loader.
          */
         showLoader: function (e) {
-            this.getCurrentSlide(e).html(window.naxero.nbn.ui.loader);
+            this.getCurrentSlide(e).html(NbnCore.getSpinnerHtml());
         },
 
         /**

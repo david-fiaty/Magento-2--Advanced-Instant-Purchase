@@ -12,51 +12,48 @@
  * @link      https://www.naxero.com
  */
 
- define(
-    [
-        'mage/template',
-        'text!Naxero_BuyNow/template/loader.html',
-        'text!Naxero_BuyNow/template/message.html',
-        'text!Naxero_BuyNow/template/slider.html'
-    ],
-    function (MageTemplate, Loader, Message, Slider) {
-        'use strict';
+ define([
+    'mage/template',
+    'text!Naxero_BuyNow/template/loader.html',
+    'text!Naxero_BuyNow/template/message.html',
+    'text!Naxero_BuyNow/template/slider.html'
+], function (MageTemplate, Loader, Message, Slider) {
+    'use strict';
 
-        return {
-            /**
-             * Render the spinner icon template.
-             */
-            getSpinner: function (params) {
-                return MageTemplate(Loader)(params);
-            },
+    return {
+        /**
+         * Render the spinner icon template.
+         */
+        getSpinner: function (params) {
+            return MageTemplate(Loader)(params);
+        },
 
-            /**
-             * Render the UI messages template.
-             */
-            getMessage: function (params) {
-                return MageTemplate(Message)(params);
-            },
+        /**
+         * Render the UI messages template.
+         */
+        getMessage: function (params) {
+            return MageTemplate(Message)(params);
+        },
 
-            /**
-             * Render the confirmation modal template.
-             */
-            getConfirmation: function (params) {
-                return MageTemplate(Slider)(params);
-            },
+        /**
+         * Render the confirmation modal template.
+         */
+        getConfirmation: function (params) {
+            return MageTemplate(Slider)(params);
+        },
 
-            /**
-             * Render the confirmation modal logger.
-             */
-            getLogger: function (params) {
-                return MageTemplate(Slider)(params);
-            },
+        /**
+         * Render the confirmation modal logger.
+         */
+        getLogger: function (params) {
+            return MageTemplate(Slider)(params);
+        },
 
-            /**
-             * Render the product gallery modal.
-             */
-            getGallery: function (params) {
-                return MageTemplate(Slider)(params);
-            }
-        };
-    }
-);
+        /**
+         * Render the product gallery modal.
+         */
+        getGallery: function (params) {
+            return MageTemplate(Slider)(params);
+        }
+    };
+});
