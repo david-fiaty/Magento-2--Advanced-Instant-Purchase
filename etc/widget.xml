@@ -317,6 +317,18 @@
                     </option>
                 </options>                
             </parameter>
+
+            <parameter name="popup_show_discount_form" xsi:type="select" visible="true">
+                <label translate="true">Responsive</label>
+                <options>
+                    <option name="yes" value="1" selected="true">
+                        <label translate="true">Yes</label>
+                    </option>
+                    <option name="no" value="0">
+                        <label translate="true">No</label>
+                    </option>
+                </options>
+            </parameter>
  
             <parameter name="popup_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>

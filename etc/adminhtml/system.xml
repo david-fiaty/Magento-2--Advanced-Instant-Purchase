@@ -162,6 +162,10 @@
                         <field id="popup_show_summary">1</field>
                     </depends>
                 </field>
+                <field id="popup_show_discount_form" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show discount form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
 
             <!-- Widgets settings -->

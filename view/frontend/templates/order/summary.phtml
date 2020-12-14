@@ -19,8 +19,7 @@
     $data = $block->getData('data');
     $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
     $productQantity = $block->getData('product_quantity');
-    //$showCouponBox = $data['config']['popups']['popup_coupon_box'];
-    $showCouponBox = true;
+    $showDiscountForm = $data['config']['popups']['popup_show_discount_form'];
 ?>
 
 <div class="nbn-summary-box">
@@ -73,6 +72,6 @@
 </table>
 </div>
 
-<?php if ($showCouponBox): ?>
+<?php if ($showDiscountForm): ?>
 <?= $block->getCouponBoxHtml($data['config']) ?>
 <?php endif; ?>
