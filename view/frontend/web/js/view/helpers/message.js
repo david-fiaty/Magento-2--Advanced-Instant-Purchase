@@ -61,7 +61,7 @@
          * Show the error messages.
          */
         show: function (type, str, e) {
-            var slide = NbnSlider.getCurrentSlide(e);
+            var slide = NbnSlider.getCurrentSlide();
             this.clearErrors(slide);
             slide.prepend(window.naxero.nbn.ui.loader);
             slide.find('.message').addClass(type);
