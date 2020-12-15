@@ -27,10 +27,12 @@
          */
         build: function (productId) {
             if (this.needsUiLogging(productId)) {
+                /*
                 $(this.treeContainerSelector).jsonViewer(
                     JSON.stringify(window.naxero.nbn[productId]),
                     {collapsed: true}
                 );
+                */
             }
         },
 
@@ -38,8 +40,8 @@
          * Check if UI logging i enabled.
          */
         needsUiLogging: function (productId) {
-            return window.naxero.nbn[productId].debug.debug_enabled
-             && window.naxero.nbn[productId].debug.ui_logging_enabled;
+            return window.naxero.nbn.instances[productId].debug.debug_enabled
+             && window.naxero.nbn.instances[productId].debug.ui_logging_enabled;
         }
     };
 });
