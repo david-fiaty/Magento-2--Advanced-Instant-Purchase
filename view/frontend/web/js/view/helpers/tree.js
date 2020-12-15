@@ -20,17 +20,19 @@
 
     return {
         treeContainerSelector: '.nbn-logger-tree',
+        treeDataSelector: '.nbn-ui-logger-data',
 
         /**
          * Build a jQtree instance.
          */
         build: function () {
             if (this.needsUiLogging()) {
+                console.log('ccc');
+                console.log(window.naxero.nbn[1218]);
+                console.log(JSON.stringify(window.naxero.nbn[1218]));
                 $(this.treeContainerSelector).jsonViewer(
-                    this.config,
-                    {
-                        collapsed: true
-                    }
+                    JSON.stringify(window.naxero.nbn[1218]),
+                    {collapsed: true}
                 );
             }
         },
