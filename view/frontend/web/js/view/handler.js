@@ -104,7 +104,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -139,7 +139,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -268,7 +268,7 @@ define([
             );
 
             // Send the request
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
