@@ -13,9 +13,8 @@
  */
 
  define([
-    'jquery',
-    'jsonviewer'
-], function ($, jsonViewer) {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {
@@ -27,13 +26,7 @@
          */
         build: function (productId) {
             if (this.needsUiLogging(productId)) {
-                $(this.treeContainerSelector).jsonViewer(
-                    window.naxero.nbn[productId],
-                    {
-                        collapsed: true,
-                        withLinks: false
-                    }
-                );
+
             }
         },
 

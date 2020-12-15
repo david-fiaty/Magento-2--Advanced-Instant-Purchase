@@ -23,7 +23,7 @@
 
 <!-- UI logs viewer container -->
 <div id="nbn-ui-logger-<?= $block->escapeHtmlAttr($productId) ?>" class="nbn-ui-logger">
-    <h3><?= $block->escapeHtml(__('Button data')) ?></h3>
     <pre class="nbn-logger-tree">
+    <?= json_encode($config) ?>
     </pre>
 </div>
