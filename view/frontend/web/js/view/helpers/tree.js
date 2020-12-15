@@ -25,13 +25,10 @@
         /**
          * Build a jQtree instance.
          */
-        build: function () {
-            if (this.needsUiLogging()) {
-                console.log('ccc');
-                console.log(window.naxero.nbn[1218]);
-                console.log(JSON.stringify(window.naxero.nbn[1218]));
+        build: function (productId) {
+            if (this.needsUiLogging(productId)) {
                 $(this.treeContainerSelector).jsonViewer(
-                    JSON.stringify(window.naxero.nbn[1218]),
+                    JSON.stringify(window.naxero.nbn[productId]),
                     {collapsed: true}
                 );
             }
@@ -40,9 +37,9 @@
         /**
          * Check if UI logging i enabled.
          */
-        needsUiLogging: function () {
-            return window.naxero.nbn.current.general.debug_enabled
-             && window.naxero.nbn.current.general.ui_logging_enabled;
+        needsUiLogging: function (productId) {
+            return window.naxero.nbn[productId].debug.debug_enabled
+             && window.naxero.nbn[productId].debug.ui_logging_enabled;
         }
     };
 });

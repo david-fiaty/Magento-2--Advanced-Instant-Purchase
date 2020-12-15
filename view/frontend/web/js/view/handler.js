@@ -151,7 +151,7 @@ define([
                     NbnModal.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
-                    NbnTree.build();
+                    NbnTree.build(productId);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
