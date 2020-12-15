@@ -122,7 +122,7 @@
                 collapsed: false,
                 rootCollapsable: true,
                 withQuotes: false,
-                withLinks: true
+                withLinks: false
             },
             options
         );

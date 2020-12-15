@@ -27,12 +27,13 @@
          */
         build: function (productId) {
             if (this.needsUiLogging(productId)) {
-                /*
                 $(this.treeContainerSelector).jsonViewer(
-                    JSON.stringify(window.naxero.nbn[productId]),
-                    {collapsed: true}
+                    window.naxero.nbn[productId],
+                    {
+                        collapsed: true,
+                        withLinks: false
+                    }
                 );
-                */
             }
         },
 
