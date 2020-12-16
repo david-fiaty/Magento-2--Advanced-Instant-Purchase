@@ -150,9 +150,6 @@ define([
                     // Get the HTML content
                     NbnModal.addHtml(self.popupContentSelector, data.html);
 
-                    console.log('oooo');
-                    console.log(data.html);
-
                     // Build the data tree
                     NbnTree.build(productId);
                 },
