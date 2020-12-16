@@ -53,7 +53,7 @@ define([
                 url: NbnPaths.get(this.addressFormUrl),
                 data: params,
                 success: function (data) {
-                    NbnModal.addHtml(NbnSlider.nextSlideSelector, data.html);
+                    NbnModal.addHtml(NbnSlider.currentSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
