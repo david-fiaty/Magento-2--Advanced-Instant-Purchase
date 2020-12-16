@@ -26,11 +26,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
     'Naxero_BuyNow/js/view/helpers/login',
+    'Naxero_BuyNow/js/view/helpers/tree',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin) {
+], function ($, __, Component, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree) {
     'use strict';
 
     return Component.extend({
@@ -104,7 +105,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -139,7 +140,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -149,8 +150,11 @@ define([
                     // Get the HTML content
                     NbnModal.addHtml(self.popupContentSelector, data.html);
 
+                    console.log('oooo');
+                    console.log(data.html);
+
                     // Build the data tree
-                    window.naxero.nbn.current.tree.build();
+                    NbnTree.build(productId);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -268,7 +272,7 @@ define([
             );
 
             // Send the request
-            NbnSlider.showLoader(e);
+            NbnSlider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,

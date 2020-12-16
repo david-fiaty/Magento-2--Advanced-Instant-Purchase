@@ -13,34 +13,29 @@
  */
 
  define([
-    'jquery',
-    'jsonviewer'
-], function ($, jsonViewer) {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {
         treeContainerSelector: '.nbn-logger-tree',
+        treeDataSelector: '.nbn-ui-logger-data',
 
         /**
          * Build a jQtree instance.
          */
-        build: function () {
-            if (this.needsUiLogging()) {
-                $(this.treeContainerSelector).jsonViewer(
-                    this.config,
-                    {
-                        collapsed: true
-                    }
-                );
+        build: function (productId) {
+            if (this.needsUiLogging(productId)) {
+
             }
         },
 
         /**
          * Check if UI logging i enabled.
          */
-        needsUiLogging: function () {
-            return window.naxero.nbn.current.general.debug_enabled
-             && window.naxero.nbn.current.general.ui_logging_enabled;
+        needsUiLogging: function (productId) {
+            return window.naxero.nbn.instances[productId].debug.debug_enabled
+             && window.naxero.nbn.instances[productId].debug.ui_logging_enabled;
         }
     };
 });

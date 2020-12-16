@@ -21,7 +21,9 @@
 
     return {
         sliderSelector: '#nbn-slider',
+        currentSlideSelector: '.slick-current',
         cancelButtonSelector: '.action-dismiss span',
+        slideContainerSelector: '.nbn-slide-container',
 
         /**
          * Create a login popup.
@@ -39,15 +41,15 @@
         /**
          * Get the current slide.
          */
-        getCurrentSlide: function (e) {
-            return $(e.currentTarget).parent('.nbn-slide-container');
+        getCurrentSlide: function () {
+            return $(this.slideContainerSelector).first();
         },
 
         /**
          * Show the AJAX loader.
          */
-        showLoader: function (e) {
-            this.getCurrentSlide(e).html(window.naxero.nbn.ui.loader);
+        showLoader: function () {
+            this.getCurrentSlide().html(window.naxero.nbn.ui.loader);
         },
 
         /**
@@ -61,7 +63,7 @@
             }
 
             // Handle the toggle logic
-            this.showLoader(e);
+            this.showLoader();
             if (window.naxero.nbn.current.isSubView) {
                 $(this.sliderSelector).slick('slickPrev');
                 window.naxero.nbn.current.isSubView = false;

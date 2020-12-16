@@ -22,6 +22,5 @@
         <css src="Naxero_BuyNow::css/lib/slick/slick.css" />
         <css src="Naxero_BuyNow::css/lib/slick/slick-theme.css" />
         <css src="Naxero_BuyNow::css/lib/popover/popover.css" />
-        <css src="Naxero_BuyNow::css/lib/json/jquery.json-viewer.css" />
     </head>
 </page>
