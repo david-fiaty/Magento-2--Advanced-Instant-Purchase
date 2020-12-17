@@ -314,7 +314,7 @@ define([
             }
 
             // Open the modal
-            NbnModal.getOrderModal(this, e);
+            NbnModal.getOrderModal(this, e.currentTarget);
 
             // Get the AJAX content
             this.getConfirmContent(e);

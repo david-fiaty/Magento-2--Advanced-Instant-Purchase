@@ -53,32 +53,32 @@
         /**
          * Get the confirmation page modal popup.
          */
-        getOrderModal: function (obj, e) {
+        getOrderModal: function (obj, currentTarget) {
             // Prepare variables
             var self = this;
-            var productId = $(e.currentTarget).data('product-id');
+            var productId = $(currentTarget).data('product-id');
             var config = window.naxero.nbn.instances[productId];
 
             // Load the modal
             ConfirmModal({
-                title: obj.config.popups.popup_title,
+                title: config.popups.popup_title,
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getConfirmation({}),
                 buttons: [{
                     text: __('Cancel'),
-                    class: self.cancelButtonSelectorPrefix + obj.config.product.id,
+                    class: self.cancelButtonSelectorPrefix + config.product.id,
                     click: function (e) {
-                        $(self.cancelButtonSelector).trigger('click');
                         if (obj.isSubView) {
                             NbnSlider.toggleView(e);
-                            var buttonId = '#' + $(e.currentTarget).attr('class').replace('.', '');
-                            $(buttonId).trigger('click');
+                        }
+                        else {
+                            $(self.cancelButtonSelector).trigger('click');
                         }
                     }
                 },
                 {
-                    text: obj.config.popups.popup_confirm_button_text,
+                    text: config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate(e)) {
