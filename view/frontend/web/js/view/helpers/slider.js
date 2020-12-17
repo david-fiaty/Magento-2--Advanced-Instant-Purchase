@@ -53,6 +53,18 @@
         },
 
         /**
+         * Add HTML to a container.
+         */
+        addHtml: function (target, html) {
+            $(target).html(html);
+            $(this.modalWrapperSelector).animate(
+                {minHeight: $(target).height()  + 'px'}
+                ,
+                300
+            );
+        },
+
+        /**
          * Handles the view switch.
          */
         toggleView: function (e) {

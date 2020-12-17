@@ -125,7 +125,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.addHtml(self.popupContentSelector, data.html);
+                    NbnSlider.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
                     window.naxero.nbn.current.gallery.build();
@@ -160,7 +160,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.addHtml(self.popupContentSelector, data.html);
+                    NbnSlider.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
                     NbnTree.build(productId);
@@ -289,7 +289,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.addHtml(self.popupContentSelector, data.html);
+                    NbnSlider.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
                     NbnProduct.updateSelectedOptionsValues(self);
@@ -435,18 +435,6 @@ define([
                     }
                 }]
             });
-        },
-
-        /**
-         * Add HTML to a container.
-         */
-        addHtml: function (target, html) {
-            $(target).html(html);
-            $(this.modalWrapperSelector).animate(
-                {minHeight: $(target).height()  + 'px'}
-                ,
-                300
-            );
         }
     });
 });
