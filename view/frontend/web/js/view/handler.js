@@ -29,11 +29,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/login',
     'Naxero_BuyNow/js/view/helpers/tree',
     'Naxero_BuyNow/js/view/helpers/validation',
+    'Naxero_BuyNow/js/view/helpers/template',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation) {
+], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate) {
     'use strict';
 
    // Register the custom validator
