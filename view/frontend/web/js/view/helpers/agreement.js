@@ -16,10 +16,9 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/paths'
-], function ($, __, NbnSlider, NbnModal, NbnLogger, NbnPaths) {
+], function ($, __, NbnSlider, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
@@ -31,11 +30,11 @@ define([
         /**
          * Set the agrements events.
          */
-        build: function () {
+        build: function (obj) {
             if (window.naxero.nbn.current.popups.popup_enable_agreements) {
                 var self = this;
                 $(self.agreementLinkSelector).on('click touch', function (e) {
-                    self.getAgreement(e);
+                    self.getAgreement(obj, e);
                 });
             }
         },
@@ -43,7 +42,7 @@ define([
          /**
          * Get an agreement.
          */
-        getAgreement: function (e) {
+        getAgreement: function (obj, e) {
             // Prepare the request parameters
             var params = {
                 id: $(e.currentTarget).data('id')
@@ -63,7 +62,7 @@ define([
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
-                    NbnModal.addHtml(NbnSlider.currentSlideSelector, data.html);
+                    obj.addHtml(NbnSlider.currentSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
