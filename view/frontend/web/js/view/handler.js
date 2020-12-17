@@ -30,11 +30,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/tree',
     'Naxero_BuyNow/js/view/helpers/validation',
     'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/gallery',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate) {
+], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate, NbnGallery) {
     'use strict';
 
    // Register the custom validator
@@ -128,7 +129,7 @@ define([
                     NbnSlider.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
-                    window.naxero.nbn.current.gallery.build();
+                    NbnGallery.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
