@@ -114,8 +114,7 @@ define([
         addHtml: function (target, html) {
             $(target).html(html);
             $(this.modalWrapperSelector).animate(
-                {minHeight: $(target).height()  + 'px'}
-                ,
+                {minHeight: $(target).height()  + 'px'},
                 300
             );
         },
@@ -406,6 +405,9 @@ define([
             var self = this;
             var productId = $(currentTarget).data('product-id');
             var config = window.naxero.nbn.instances[productId];
+
+            // Build the modal slider
+            this.slider.build();
 
             // Load the modal
             ConfirmModal({
