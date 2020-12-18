@@ -177,7 +177,7 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
-
+                  
                     // Build the data tree
                     NbnTree.build(productId);
                 },
