@@ -54,6 +54,7 @@ define([
             loggerUrl: 'logs/index',
             galleryUrl: 'product/gallery',
             confirmationUrl: 'order/confirmation',
+            currentSlideSelector: '.slick-current',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
             logViewerButtonSelector: '#nbn-ui-logger-button',
@@ -92,7 +93,6 @@ define([
 
             // Widget features
             if (NbnView.isWidgetView()) {
-                // Image
                 this.handleImageClick();
             }
 
@@ -312,7 +312,7 @@ define([
                     NbnProduct.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
-                    NbnSelect.build();
+                    NbnSelect.build(self);
 
                     // Agreements events
                     NbnAgreement.build(this);

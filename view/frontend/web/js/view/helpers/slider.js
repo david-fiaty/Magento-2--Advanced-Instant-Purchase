@@ -21,7 +21,6 @@
 
     return {
         sliderSelector: '#nbn-slider',
-        currentSlideSelector: '.slick-current',
         cancelButtonSelector: '.action-dismiss span',
         slideContainerSelector: '.nbn-slide-container',
 
