@@ -110,6 +110,18 @@ define([
         },
 
         /**
+         * Add HTML to a container.
+         */
+        addHtml: function (target, html) {
+            $(target).html(html);
+            $(this.modalWrapperSelector).animate(
+                {minHeight: $(target).height()  + 'px'}
+                ,
+                300
+            );
+        },
+
+        /**
          * Build a product gallery.
          */
         getGalleryData: function (e) {
@@ -130,7 +142,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.slider.addHtml(self.popupContentSelector, data.html);
+                    self.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
                     NbnGallery.build();
@@ -165,7 +177,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.slider.addHtml(self.popupContentSelector, data.html);
+                    self.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
                     NbnTree.build(productId);
@@ -294,7 +306,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    self.slider.addHtml(self.popupContentSelector, data.html);
+                    self.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
                     NbnProduct.updateSelectedOptionsValues(self);

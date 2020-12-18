@@ -61,7 +61,7 @@ define([
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
-                    obj.slider.addHtml(obj.slider.currentSlideSelector, data.html);
+                    obj.addHtml(obj.slider.currentSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
