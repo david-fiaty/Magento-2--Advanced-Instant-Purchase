@@ -402,7 +402,7 @@ define([
                     text: __('Cancel'),
                     class: self.cancelButtonSelectorPrefix + config.product.id,
                     click: function (e) {
-                        if (obj.isSubView) {
+                        if (self.isSubView) {
                             NbnSlider.toggleView(e);
                         }
                         else {
