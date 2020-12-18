@@ -35,7 +35,7 @@
         /**
          * Create a login popup.
          */
-        build: function () {
+        build: function (obj) {
             // Product options select 2
             var placeholder = $(this.optionFieldSelector)
             .find('option[data-placeholder="*"]')
@@ -90,7 +90,7 @@
             // Set the new address link event
             $(this.addressLinkSelector).on('click touch', function (e) {
                 NbnSlider.toggleView(e);
-                NbnAddress.getAddressForm(self, e);
+                NbnAddress.getAddressForm(obj, e);
             });
         },
 
