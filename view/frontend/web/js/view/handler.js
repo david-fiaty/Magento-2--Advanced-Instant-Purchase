@@ -54,7 +54,6 @@ define([
             loggerUrl: 'logs/index',
             galleryUrl: 'product/gallery',
             confirmationUrl: 'order/confirmation',
-            currentSlideSelector: '.slick-current',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
             logViewerButtonSelector: '#nbn-ui-logger-button',
