@@ -48,6 +48,7 @@ define([
         defaults: {
             helpers: arguments,
             config: {},
+            slider: {},
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
@@ -82,6 +83,9 @@ define([
 
             // Load a button instance
             NbnCore.load(this.config);
+
+            // Cache the slider instance
+            this.slider = NbnSlider;
 
             // Options validation
             NbnProduct.initOptionsEvents(this.config);
@@ -118,7 +122,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -126,7 +130,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnSlider.addHtml(self.popupContentSelector, data.html);
+                    self.slider.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
                     NbnGallery.build();
@@ -153,7 +157,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -161,7 +165,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnSlider.addHtml(self.popupContentSelector, data.html);
+                    self.slider.addHtml(self.popupContentSelector, data.html);
 
                     // Build the data tree
                     NbnTree.build(productId);
@@ -282,7 +286,7 @@ define([
             );
 
             // Send the request
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -290,7 +294,7 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnSlider.addHtml(self.popupContentSelector, data.html);
+                    self.slider.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
                     NbnProduct.updateSelectedOptionsValues(self);
@@ -302,7 +306,7 @@ define([
                     NbnAgreement.build(this);
 
                     // Set the slider events
-                    NbnSlider.build();
+                    self.slider.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -403,7 +407,7 @@ define([
                     class: self.cancelButtonSelectorPrefix + config.product.id,
                     click: function (e) {
                         if (self.isSubView) {
-                            NbnSlider.toggleView(e);
+                            self.slider.toggleView(e);
                         }
                         else {
                             $(self.cancelButtonSelector).trigger('click');
@@ -415,7 +419,7 @@ define([
                     class: self.submitButtonClasses,
                     click: function (e) {
                         if (AdditionalValidators.validate(e)) {
-                            NbnSlider.showLoader();
+                            self.slider.showLoader();
                             $.ajax({
                                 cache: false,
                                 url: NbnPaths.get(self.orderUrl),

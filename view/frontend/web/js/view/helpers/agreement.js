@@ -16,9 +16,8 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
-    'Naxero_BuyNow/js/view/helpers/paths',
-    'Naxero_BuyNow/js/view/helpers/slider'
-], function ($, __, NbnLogger, NbnPaths, NbnSlider) {
+    'Naxero_BuyNow/js/view/helpers/paths'
+], function ($, __, NbnLogger, NbnPaths) {
     'use strict';
 
     return {
@@ -49,7 +48,7 @@ define([
             };
 
             // Toggle the view
-            NbnSlider.toggleView(e);
+            obj.slider.toggleView(e);
 
             // Update the buttons
             $(this.submitButtonSelector).hide();
@@ -62,7 +61,7 @@ define([
                 url: NbnPaths.get(this.agreementsUrl),
                 data: params,
                 success: function (data) {
-                    NbnSlider.addHtml(NbnSlider.currentSlideSelector, data.html);
+                    obj.slider.addHtml(obj.slider.currentSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(

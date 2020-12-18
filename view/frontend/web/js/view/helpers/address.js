@@ -16,9 +16,8 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths',
-    'Naxero_BuyNow/js/view/helpers/logger',
-    'Naxero_BuyNow/js/view/helpers/slider'
-], function ($, __, NbnPaths, NbnLogger, NbnSlider) {
+    'Naxero_BuyNow/js/view/helpers/logger'
+], function ($, __, NbnPaths, NbnLogger) {
     'use strict';
 
     return {
@@ -52,7 +51,7 @@ define([
                 url: NbnPaths.get(this.addressFormUrl),
                 data: params,
                 success: function (data) {
-                    NbnSlider.addHtml(NbnSlider.currentSlideSelector, data.html);
+                    obj.slider.addHtml(obj.slider.currentSlideSelector, data.html);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
