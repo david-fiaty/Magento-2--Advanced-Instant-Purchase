@@ -13,9 +13,8 @@
  */
 
  define([
-    'jquery',
-    'Naxero_BuyNow/js/view/helpers/slider'
-], function ($, NbnSlider) {
+    'jquery'
+], function ($) {
     'use strict';
 
     return {

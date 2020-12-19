@@ -21,7 +21,6 @@ define([
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
-    'Naxero_BuyNow/js/view/helpers/agreement',
     'Naxero_BuyNow/js/view/helpers/product',
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
@@ -34,7 +33,7 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate, NbnGallery) {
+], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate, NbnGallery) {
     'use strict';
 
    // Register the custom validator
@@ -307,9 +306,6 @@ define([
 
                     // Initialise the select lists
                     NbnSelect.build(self);
-
-                    // Agreements events
-                    NbnAgreement.build(this);
 
                     // Set the slider events
                     self.slider.build();
