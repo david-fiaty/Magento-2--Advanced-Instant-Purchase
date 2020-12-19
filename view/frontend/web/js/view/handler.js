@@ -23,7 +23,6 @@ define([
     'Naxero_BuyNow/js/view/helpers/select',
     'Naxero_BuyNow/js/view/helpers/agreement',
     'Naxero_BuyNow/js/view/helpers/product',
-    'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
     'Naxero_BuyNow/js/view/helpers/login',
@@ -35,7 +34,7 @@ define([
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate, NbnGallery) {
+], function ($, __, Component, ConfirmModal, AdditionalValidators, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnValivation, NbnTemplate, NbnGallery) {
     'use strict';
 
    // Register the custom validator
@@ -83,9 +82,6 @@ define([
 
             // Load a button instance
             NbnCore.load(this.config);
-
-            // Cache the slider instance
-            this.slider = NbnSlider;
 
             // Options validation
             NbnProduct.initOptionsEvents(this.config);

@@ -16,9 +16,8 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/paths',
-    'Naxero_BuyNow/js/view/helpers/logger',
-    'Naxero_BuyNow/js/view/helpers/slider'
-], function ($, __, NbnPaths, NbnLogger, NbnSlider) {
+    'Naxero_BuyNow/js/view/helpers/logger'
+], function ($, __, NbnPaths, NbnLogger) {
     'use strict';
 
     return {
