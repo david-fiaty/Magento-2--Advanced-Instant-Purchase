@@ -26,8 +26,6 @@
         paymentMethodSelector: '#nbn-payment-method-select',
         otherMethodsToggleSelector: '#nbn-show-other-methods',
         otherMethodsSelector: '#nbn-other-method-select',
-        addressLinkSelector: '.nbn-address-link',
-        cardLinkSelector: '.nbn-card-link',
         optionFieldSelector: '.nbn-widget-option',
 
         /**

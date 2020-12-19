@@ -100,11 +100,6 @@
     font-size: 0.8em !important;
 }
 
-/* Agreements */
-.nbn-agreement-link-row.error a {
-    color: red;
-}
-
 /* Fields */
 .nbn-region-visible {
     display: block !important;
