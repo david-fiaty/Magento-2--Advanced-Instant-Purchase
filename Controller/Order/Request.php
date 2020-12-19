@@ -91,11 +91,6 @@ class Request extends \Magento\Framework\App\Action\Action
     public $customerHelper;
 
     /**
-     * @var PaymentHandler
-     */
-    public $paymentHandler;
-
-    /**
      * @var VaultHandlerService
      */
     public $vaultHandlerService;
@@ -115,7 +110,6 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
-        \Naxero\BuyNow\Model\Payment\PaymentHandler $paymentHandler,
         \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
 
     ) {
@@ -131,7 +125,6 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->quoteFilling = $quoteFilling;
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
-        $this->paymentHandler = $paymentHandler;
         $this->vaultHandlerService = $vaultHandlerService;
     }
 

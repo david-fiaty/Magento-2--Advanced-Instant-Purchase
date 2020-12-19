@@ -142,11 +142,6 @@
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Place order button text</label>
                 </field>
-                <field id="popup_enable_agreements" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable terms and conditions</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Requires the user to validate the terms and conditions before placing an order.</comment>
-                </field>  
                 <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show countdown timer</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
