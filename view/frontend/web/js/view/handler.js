@@ -17,7 +17,6 @@ define([
     'mage/translate',
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
-    'Magento_Checkout/js/model/payment/additional-validators',
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
