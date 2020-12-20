@@ -109,16 +109,10 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         if ($productId > 0) {
             $html = $this->pageFactory->create()->getLayout()
                 ->createBlock(Naming::getModulePath() . '\Block\Popup\Confirmation')
-                ->setTemplate(Naming::getModuleName() . '::popup/confirmation.phtml')
+                ->setTemplate(Naming::getModuleName() . '::order/confirmation.phtml')
                 ->setData('data', $this->purchaseHelper->getConfirmContent($productId))
                 ->setData('product_quantity', $this->getProductQuantity($productId))
                 ->toHtml();
-
-            // Agreements
-            $enableAgreements = $this->configHelper->value('popups/popup_enable_agreements');
-            if ($enableAgreements) {
-                $html .= $this->getAgreementsLinks();
-            }
         }
 
         return $html;
@@ -142,32 +136,5 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         && $productQuantity <= $quantityLimits['max'];
 
         return $condition ? $productQuantity : $quantityLimits['min'];
-    }
-
-    /**
-     * Get the agreements links.
-     */
-    public function getAgreementsLinks()
-    {
-        return $this->pageFactory->create()->getLayout()
-            ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-            ->setTemplate(Naming::getModuleName() . '::agreements/agreements-link.phtml')
-            ->toHtml();
-    }
-
-    /**
-     * Get the terms and conditions.
-     */
-    public function newAgreementBlock()
-    {
-        $enableAgreements = $this->configHelper->value('popups/popup_enable_agreements');
-        if ($enableAgreements) {
-            return $this->pageFactory->create()->getLayout()
-                ->createBlock('Magento\CheckoutAgreements\Block\Agreements')
-                ->setTemplate(Naming::getModuleName() . '::agreements/agreements-detail.phtml')
-                ->toHtml();
-        }
-
-        return '';
     }
 }
