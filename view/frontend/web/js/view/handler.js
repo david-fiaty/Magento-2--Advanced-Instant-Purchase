@@ -301,9 +301,6 @@ define([
 
                     // Initialise the select lists
                     NbnSelect.build(self);
-
-                    // Set the slider events
-                    self.slider.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -392,9 +389,6 @@ define([
             var self = this;
             var productId = $(currentTarget).data('product-id');
             var config = window.naxero.nbn.instances[productId];
-
-            // Build the modal slider
-            this.slider.build();
 
             // Load the modal
             ConfirmModal({
