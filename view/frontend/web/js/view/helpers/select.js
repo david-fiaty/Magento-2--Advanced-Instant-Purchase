@@ -16,10 +16,8 @@
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/util',
-    'Naxero_BuyNow/js/view/helpers/slider',
-    'Naxero_BuyNow/js/view/helpers/address',
     'select2'
-], function ($, __, NbnUtil, NbnSlider, NbnAddress, select2) {
+], function ($, __, NbnUtil, select2) {
     'use strict';
 
     return {
@@ -28,8 +26,6 @@
         paymentMethodSelector: '#nbn-payment-method-select',
         otherMethodsToggleSelector: '#nbn-show-other-methods',
         otherMethodsSelector: '#nbn-other-method-select',
-        addressLinkSelector: '.nbn-address-link',
-        cardLinkSelector: '.nbn-card-link',
         optionFieldSelector: '.nbn-widget-option',
 
         /**
@@ -85,12 +81,6 @@
                     'disabled',
                     $(this).is(':checked')
                 );
-            });
-
-            // Set the new address link event
-            $(this.addressLinkSelector).on('click touch', function (e) {
-                NbnSlider.toggleView(e);
-                NbnAddress.getAddressForm(obj, e);
             });
         },
 
