@@ -222,18 +222,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
         $isGroupValid = $this->customerHelper->canDisplayForGroup();
         $isTimeValid = $this->isProductTimeLimitValid();
-        
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($buttonEnabled, 1));
-        $logger->info(print_r($isGroupValid, 1));
-        $logger->info(print_r($isTimeValid, 1));
-        $logger->info(print_r($isLoggedIn, 1));
-        $logger->info(print_r($showGuestButton, 1));
 
-
-        return true;
         return $buttonEnabled && $isGroupValid && $isTimeValid
         && ($isLoggedIn || $showGuestButton);
     }
