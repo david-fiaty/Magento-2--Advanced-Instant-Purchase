@@ -16,22 +16,22 @@ define([
     'jquery',
     'mage/translate',
     'uiComponent',
+    'Magento_Ui/js/modal/confirm',
     'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
-    'Naxero_BuyNow/js/view/helpers/agreement',
-    'Naxero_BuyNow/js/view/helpers/modal',
     'Naxero_BuyNow/js/view/helpers/product',
-    'Naxero_BuyNow/js/view/helpers/slider',
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/paths',
     'Naxero_BuyNow/js/view/helpers/login',
     'Naxero_BuyNow/js/view/helpers/tree',
+    'Naxero_BuyNow/js/view/helpers/template',
+    'Naxero_BuyNow/js/view/helpers/gallery',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, NbnCore, NbnLogger, NbnSelect, NbnAgreement, NbnModal, NbnProduct, NbnSlider, NbnView, NbnPaths, NbnLogin, NbnTree) {
+], function ($, __, Component, ConfirmModal, NbnCore, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery) {
     'use strict';
 
     return Component.extend({
@@ -41,6 +41,7 @@ define([
         defaults: {
             helpers: arguments,
             config: {},
+            slider: {},
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
@@ -54,6 +55,12 @@ define([
             buttonSelector: '.nbn-button',
             isSubView: false,
             loader: '',
+            modalWrapperSelector: '.modal-inner-wrap',
+            submitButtonSelector: '.nbn-submit',
+            submitButtonClasses: 'action-primary action-accept nbn-submit',
+            cancelButtonSelector: '.action-close',
+            cancelButtonSelectorPrefix: '.nbn-button-',
+            orderUrl: 'order/request',
             confirmationData: {
                 message: __('Are you sure you want to place order and pay?'),
                 shippingAddressTitle: __('Shipping Address'),
@@ -75,7 +82,6 @@ define([
 
             // Widget features
             if (NbnView.isWidgetView()) {
-                // Image
                 this.handleImageClick();
             }
 
@@ -93,6 +99,17 @@ define([
         },
 
         /**
+         * Add HTML to a container.
+         */
+        addHtml: function (target, html) {
+            $(target).html(html);
+            $(this.modalWrapperSelector).animate(
+                {minHeight: $(target).height()  + 'px'},
+                300
+            );
+        },
+
+        /**
          * Build a product gallery.
          */
         getGalleryData: function (e) {
@@ -105,7 +122,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -113,10 +130,10 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnModal.addHtml(self.popupContentSelector, data.html);
+                    self.addHtml(self.popupContentSelector, data.html);
 
                     // Build the gallery
-                    window.naxero.nbn.current.gallery.build();
+                    NbnGallery.build();
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -140,7 +157,7 @@ define([
             };
 
             // Set the data viewer button event
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -148,11 +165,8 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnModal.addHtml(self.popupContentSelector, data.html);
-
-                    console.log('oooo');
-                    console.log(data.html);
-
+                    self.addHtml(self.popupContentSelector, data.html);
+                  
                     // Build the data tree
                     NbnTree.build(productId);
                 },
@@ -201,7 +215,7 @@ define([
                     $(this).css('cursor', 'zoom-in');
 
                     // Open the modal
-                    NbnModal.getGalleryModal(e);
+                    self.getGalleryModal(e);
 
                     // Get the log data
                     self.getGalleryData(e);
@@ -242,7 +256,7 @@ define([
                     self.purchasePopup(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
-                    NbnModal.getLoggerModal(e);
+                    self.getLoggerModal(e);
 
                     // Get the log data
                     self.getLoggerData(e);
@@ -272,7 +286,7 @@ define([
             );
 
             // Send the request
-            NbnSlider.showLoader();
+            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -280,19 +294,13 @@ define([
                 data: params,
                 success: function (data) {
                     // Get the HTML content
-                    NbnModal.addHtml(self.popupContentSelector, data.html);
+                    self.addHtml(self.popupContentSelector, data.html);
 
                     // Update the selected product options values
                     NbnProduct.updateSelectedOptionsValues(self);
 
                     // Initialise the select lists
-                    NbnSelect.build();
-
-                    // Agreements events
-                    NbnAgreement.build();
-
-                    // Set the slider events
-                    NbnSlider.build();
+                    NbnSelect.build(self);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -317,10 +325,113 @@ define([
             }
 
             // Open the modal
-            NbnModal.getOrderModal(this, e);
+            this.getOrderModal(e.currentTarget);
 
             // Get the AJAX content
             this.getConfirmContent(e);
+        },
+
+        /**
+         * Get the logger modal popup.
+         */
+        getLoggerModal: function (e) {
+            // Prepare parameters
+            var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].popups.popup_title;
+
+            // Load the confirm modal
+            ConfirmModal({
+                title: title,
+                innerScroll: true,
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getLogger({}),
+                buttons: [{
+                    text: __('Close'),
+                    class: self.cancelButtonClasses,
+                    click: function (e) {
+                        $(self.cancelButtonSelector).trigger('click');
+                    }
+                }]
+            });
+        },
+
+        /**
+         * Get the product media gallery modal.
+         */
+        getGalleryModal: function (e) {
+            // Prepare parameters
+            var self = this;
+            var productId = $(e.currentTarget).data('product-id');
+            var title = window.naxero.nbn.instances[productId].product.title;
+
+            // Build the modal
+            ConfirmModal({
+                title: title,
+                innerScroll: true,
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getGallery({}),
+                buttons: [{
+                    text: __('Close'),
+                    class: self.cancelButtonClasses,
+                    click: function (e) {
+                        $(self.cancelButtonSelector).trigger('click');
+                    }
+                }]
+            });
+        },
+
+        /**
+         * Get the confirmation page modal popup.
+         */
+        getOrderModal: function (currentTarget) {
+            // Prepare variables
+            var self = this;
+            var productId = $(currentTarget).data('product-id');
+            var config = window.naxero.nbn.instances[productId];
+
+            // Load the modal
+            ConfirmModal({
+                title: config.popups.popup_title,
+                innerScroll: true,
+                modalClass: 'nbn-modal',
+                content: NbnTemplate.getConfirmation({}),
+                buttons: [{
+                    text: __('Cancel'),
+                    class: self.cancelButtonSelectorPrefix + config.product.id,
+                    click: function (e) {
+                        if (self.isSubView) {
+                            self.slider.toggleView(e);
+                        }
+                        else {
+                            $(self.cancelButtonSelector).trigger('click');
+                        }
+                    }
+                },
+                {
+                    text: config.popups.popup_confirm_button_text,
+                    class: self.submitButtonClasses,
+                    click: function (e) {
+                        self.slider.showLoader();
+                        $.ajax({
+                            cache: false,
+                            url: NbnPaths.get(self.orderUrl),
+                            data: NbnProduct.getProductFormData(),
+                            type: 'post',
+                            dataType: 'json',
+                            success: function (data) {
+                                NbnMessage.checkResponse(data, e);
+                            },
+                            error: function (request, status, error) {
+                                NbnLogger.log(
+                                    __('Error submitting the form data'),
+                                    JSON.stringify(error)
+                                );
+                            }
+                        });
+                    }
+                }]
+            });
         }
     });
 });
