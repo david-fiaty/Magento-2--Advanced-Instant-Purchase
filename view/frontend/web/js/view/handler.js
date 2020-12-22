@@ -122,7 +122,6 @@ define([
             };
 
             // Set the data viewer button event
-            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -157,7 +156,6 @@ define([
             };
 
             // Set the data viewer button event
-            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -286,7 +284,6 @@ define([
             );
 
             // Send the request
-            this.slider.showLoader();
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -412,7 +409,6 @@ define([
                     text: config.popups.popup_confirm_button_text,
                     class: self.submitButtonClasses,
                     click: function (e) {
-                        self.slider.showLoader();
                         $.ajax({
                             cache: false,
                             url: NbnPaths.get(self.orderUrl),
