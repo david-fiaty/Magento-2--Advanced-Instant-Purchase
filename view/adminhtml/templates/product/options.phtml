@@ -18,8 +18,6 @@
 
 <?php foreach ($products as $product): ?>
     <option value="<?= $product['value'] ?>">
-        <span class="nbn-float-left" style="float:left; display:inline-block;"><?= $product['label'] ?></span>
-        <span class="nbn-float-right" style="float:right; display:inline-block;"><?= $product['id'] ?></span>
-        <span class="nbn-clr" style="clear:both; display:inline-block;"></span>
+        <span><?= $product['label'] ?></span>
     </option>
 <?php endforeach; ?>

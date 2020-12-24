@@ -8,7 +8,6 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 
 
 - add selected options display in product summary
-
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
@@ -25,12 +24,8 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - add customerData login observer to button click before login popup?
 
 QA
-- check all config fields functional
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
-- check what happens to coundown clock when 1 digit box is out
-- check what happens to countown when all digits are out
-
 - check multistore behaviour
 - check if place order contains expected product attributes selected by user (request data)
 - check: multiple widgets in same page, multiple widgets in list and page view

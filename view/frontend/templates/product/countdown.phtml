@@ -58,11 +58,20 @@ require([
     var boxId = '<?= $boxId ?>';
  
     function getTimeRemaining(endtime) {
+        // Get the total time
         const total = Date.parse(endtime) - Date.parse(new Date());
+
+        // Get the time components
         const seconds = Math.floor((total / 1000) % 60);
         const minutes = Math.floor((total / 1000 / 60) % 60);
         const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
         const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+        console.log(total);
+        console.log(seconds);
+        console.log(minutes);
+        console.log(hours);
+        console.log(days);
   
         return {
             total,

@@ -244,8 +244,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Test the contitions
         $condition1 = $productTimeFrom <= $now;
         $condition2 = $productTimeTo ? ($productTimeTo  >= $now) : true;
+        $condition3 = ((int) $productTimeFrom - (int) $productTimeTo) > 0;
 
-        return $condition1 && $condition2;
+        return $condition1 && $condition2 && $condition3;
     }
 
     /**
