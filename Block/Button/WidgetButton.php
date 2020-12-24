@@ -221,8 +221,8 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public function getProductBoxHtml($config)
     {
         return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
-        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Widget')
+        ->setTemplate(Naming::getModuleName() . '::product/widget.phtml')
         ->setData('config', $config)
         ->setData('is_popup', false)
         ->toHtml();

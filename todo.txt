@@ -6,6 +6,9 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 
 - *** Handle product price update with options prices in widget and popup ***
 
+
+- add selected options display in product summary
+
 - when select list option attributes implemented, check other filed types
 - add advanced config with placeholders for all CSS selectors used in js components
 - handle non swatch options values (list, input) in page view
