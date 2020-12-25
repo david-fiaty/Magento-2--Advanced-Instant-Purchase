@@ -216,12 +216,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton($config)
     {
-
-
-        var_dump($config);
-
-        exit();
-
         // Button available
         $buttonEnabled = $config['general']['enabled'];
         $isLoggedIn = $this->customerHelper->isLoggedIn();
