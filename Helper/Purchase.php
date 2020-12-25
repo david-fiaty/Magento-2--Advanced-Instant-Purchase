@@ -237,6 +237,12 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $productTimeTo = $this->configHelper->value('products/product_time_to');
         $now =  strtotime('now');
 
+        var_dump($productTimeFrom);
+        var_dump($productTimeTo);
+        var_dump($now);
+
+        exit();
+
         // Update the time limits
         $productTimeFrom = !empty($productTimeFrom) ? strtotime($productTimeFrom) : $now;
         $productTimeTo = !empty($productTimeTo) ? strtotime($productTimeTo) : null;
@@ -244,7 +250,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Test the contitions
         $condition1 = $productTimeFrom <= $now;
         $condition2 = $productTimeTo ? ($productTimeTo  >= $now) : true;
-        $condition3 = ((int) $productTimeFrom - (int) $productTimeTo) > 0;
+        $condition3 = $productTimeTo > $now;
 
         return $condition1 && $condition2 && $condition3;
     }
