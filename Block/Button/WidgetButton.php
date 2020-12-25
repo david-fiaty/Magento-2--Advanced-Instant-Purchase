@@ -90,7 +90,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         $config['product']['display'] = self::MODE;
 
         // Check the global display conditions
-        if ($this->purchaseHelper->canDisplayButton()) {
+        if ($this->purchaseHelper->canDisplayButton($config)) {
             // Update the product attributes data
             $config = $this->updateAttributesData($config);
 
@@ -177,7 +177,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Get the XML config fields
         $configFields = $this->array_keys_recursive(
-            $this->configHelper->getConfigFields()
+            $this->configHelper->getConfigFieldsList()
         );
 
         // Get the block data

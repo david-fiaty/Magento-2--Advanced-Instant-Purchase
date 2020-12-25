@@ -171,11 +171,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if the customer group is valid for button display.
      */
-    public function canDisplayForGroup()
+    public function canDisplayForGroup($config)
     {
         // Prepare the parameters
         $cutomerGroupId = $this->customerSession->getCustomer()->getGroupId();
-        $customerGroups = explode(',', $this->configHelper->value('buttons/customer_groups'));
+        $customerGroups = explode(',', $config['buttons']['customer_groups']);
         $noGroupFound = empty($customerGroups) || (isset($customerGroups[0]) && empty($customerGroups[0]));
 
         return $noGroupFound || in_array($cutomerGroupId, $customerGroups);

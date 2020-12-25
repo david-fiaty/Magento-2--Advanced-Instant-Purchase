@@ -23,6 +23,8 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - handle 0 product found in category for widget category filter.
 - add customerData login observer to button click before login popup?
 
+- make sure getButtonCss method uses config as argument instead of core config values
+
 QA
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
