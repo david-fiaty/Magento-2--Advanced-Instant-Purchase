@@ -194,7 +194,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
 
-            // Add the extra fields
+            // Add the full option data
             $output[] = $option;
         }
 
