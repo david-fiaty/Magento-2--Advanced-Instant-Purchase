@@ -78,8 +78,8 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['general']['product_list'] && $this->purchaseHelper->canDisplayButton();
-
+        $condition = $config['general']['product_list']
+        && $this->purchaseHelper->canDisplayButton($config);
         if ($condition) {
             return $this->updateAttributesData($config);
         }

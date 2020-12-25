@@ -214,14 +214,14 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if the purchase button can be displayed.
      */
-    public function canDisplayButton()
+    public function canDisplayButton($config)
     {
         // Button available
-        $buttonEnabled = $this->configHelper->value('general/enabled');
+        $buttonEnabled = $config['general']['enabled'];
         $isLoggedIn = $this->customerHelper->isLoggedIn();
-        $showGuestButton = !$isLoggedIn && $this->configHelper->value('buttons/show_guest_button');
-        $isGroupValid = $this->customerHelper->canDisplayForGroup();
-        $isTimeValid = $this->isProductTimeLimitValid();
+        $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
+        $isGroupValid = $this->customerHelper->canDisplayForGroup($config);
+        $isTimeValid = $this->isProductTimeValid($config);
 
         return $buttonEnabled && $isGroupValid && $isTimeValid
         && ($isLoggedIn || $showGuestButton);
@@ -230,11 +230,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a product time limit is valid.
      */
-    public function isProductTimeLimitValid()
+    public function isProductTimeValid($config)
     {
         // Get the displayb time parameters
-        $productTimeFrom = $this->configHelper->value('products/product_time_from');
-        $productTimeTo = $this->configHelper->value('products/product_time_to');
+        $productTimeFrom = $config['products']['product_time_from'];
+        $productTimeTo = $config['products']['product_time_to'];
         $now =  strtotime('now');
 
         // Update the time limits
@@ -244,8 +244,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Test the contitions
         $condition1 = $productTimeFrom <= $now;
         $condition2 = $productTimeTo ? ($productTimeTo  >= $now) : true;
+        $condition3 = $productTimeTo > $now;
 
-        return $condition1 && $condition2;
+        return $condition1 && $condition2 && $condition3;
     }
 
     /**
