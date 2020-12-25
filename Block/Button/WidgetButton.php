@@ -86,17 +86,17 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $this->getProduct()->getId()
         );
 
+        // Update the config with tag parameters
+        $config = $this->updateWidgetConfig($config);
+
+        // Update the product attributes data
+        $config = $this->updateAttributesData($config);
+
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
         // Check the global display conditions
-        if ($this->purchaseHelper->canDisplayButton()) {
-            // Update the product attributes data
-            $config = $this->updateAttributesData($config);
-
-            // Update the config with tag parameters
-            $config = $this->updateWidgetConfig($config);
-
+        if ($this->purchaseHelper->canDisplayButton($config)) {
             // Check the widget display conditions
             if ($this->canDisplayButton($config)) {
                 return $config;
@@ -177,7 +177,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     {
         // Get the XML config fields
         $configFields = $this->array_keys_recursive(
-            $this->configHelper->getConfigFields()
+            $this->configHelper->getConfigFieldsList()
         );
 
         // Get the block data
@@ -221,8 +221,8 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     public function getProductBoxHtml($config)
     {
         return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\WidgetBox')
-        ->setTemplate(Naming::getModuleName() . '::product/widget-box.phtml')
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Widget')
+        ->setTemplate(Naming::getModuleName() . '::product/widget.phtml')
         ->setData('config', $config)
         ->setData('is_popup', false)
         ->toHtml();

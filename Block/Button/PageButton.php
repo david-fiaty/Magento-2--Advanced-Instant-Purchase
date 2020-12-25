@@ -85,7 +85,7 @@ class PageButton extends \Magento\Framework\View\Element\Template
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton();
+        $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton($config);
 
         if ($condition) {
             return $this->updateAttributesData($config);

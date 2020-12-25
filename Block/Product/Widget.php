@@ -17,9 +17,9 @@
 namespace Naxero\BuyNow\Block\Product;
 
 /**
- * WidgetBox class constructor.
+ * Widgetclass constructor.
  */
-class WidgetBox extends \Magento\Framework\View\Element\Template
+class Widget extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -27,7 +27,7 @@ class WidgetBox extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * WidgetBox class constructor.
+     * Widge class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
