@@ -216,12 +216,18 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton($config)
     {
+
+
+        var_dump($config);
+
+        exit();
+
         // Button available
         $buttonEnabled = $config['general']['enabled'];
         $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
         $isGroupValid = $this->customerHelper->canDisplayForGroup($config);
-        $isTimeValid = $this->isProductTimeLimitValid($config);
+        $isTimeValid = $this->isProductTimeValid($config);
 
         return $buttonEnabled && $isGroupValid && $isTimeValid
         && ($isLoggedIn || $showGuestButton);
@@ -230,7 +236,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Check if a product time limit is valid.
      */
-    public function isProductTimeLimitValid($config)
+    public function isProductTimeValid($config)
     {
         // Get the displayb time parameters
         $productTimeFrom = $config['products']['product_time_from'];

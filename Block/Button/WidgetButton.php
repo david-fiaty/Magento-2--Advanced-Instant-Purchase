@@ -86,17 +86,17 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $this->getProduct()->getId()
         );
 
+        // Update the config with tag parameters
+        $config = $this->updateWidgetConfig($config);
+
+        // Update the product attributes data
+        $config = $this->updateAttributesData($config);
+
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
         // Check the global display conditions
         if ($this->purchaseHelper->canDisplayButton($config)) {
-            // Update the product attributes data
-            $config = $this->updateAttributesData($config);
-
-            // Update the config with tag parameters
-            $config = $this->updateWidgetConfig($config);
-
             // Check the widget display conditions
             if ($this->canDisplayButton($config)) {
                 return $config;
