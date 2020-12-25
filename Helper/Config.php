@@ -79,7 +79,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Load the config data
         $output = [];
-        $configData = $this->getConfigFields();
+        $configData = $this->getConfigFieldsList();
 
         // Update the array with database values
         foreach ($configData as $group => $fields) {
@@ -96,7 +96,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the config fields array.
      */
-    public function getConfigFields()
+    public function getConfigFieldsList()
     {
         return $this->xmlParser
         ->load($this->getFilePath(self::CONFIG_FILE_NAME))

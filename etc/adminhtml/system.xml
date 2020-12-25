@@ -66,11 +66,11 @@
                 </field>
 
                 <field id="product_time_from" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Display from</label>
+                    <label>Start date</label>
                 </field>
 
                 <field id="product_time_to" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Display until</label>
+                    <label>End date</label>
                 </field>
 
                 <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
