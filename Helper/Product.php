@@ -178,13 +178,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function getOptions($productId)
     {
         // Get the options array
-        $optionsArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+        $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
 
         // Add extra fields to each option
         $output = [];
-        foreach ($optionsArray as $key => $option) {
+        foreach ($attributesArray as $key => $option) {
             // Product id
             $option['product_id'] = $productId;
 
@@ -194,7 +194,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
 
-            // Add the extra fields
+            // Add the full option data
             $output[] = $option;
         }
 
