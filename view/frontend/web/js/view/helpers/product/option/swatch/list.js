@@ -18,7 +18,7 @@ define([
     'use strict';
 
     return {
-        attributeSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         selectorPrefix: '.swatch-opt-',
         selectorSuffix: '.swatch-option',
 

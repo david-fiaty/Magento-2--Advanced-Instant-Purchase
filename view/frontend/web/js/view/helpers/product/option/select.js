@@ -21,7 +21,7 @@ define([
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
-        attributeSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
         optionFieldSelector: '.nbn-popup-option',
 
