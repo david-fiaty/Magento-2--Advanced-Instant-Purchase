@@ -133,7 +133,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
-                'attributes' => $this->getAttributes($productId)
+                'attributes' => $this->getAttributes($productId),
+                'options' => $this->getOptions($productId)
             ];
         }
 
@@ -172,7 +173,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return !empty($product->getTypeInstance()->getParentIdsByChild($product->getId()));
     }
 
-    /**
+/**
      * Get a product attributes.
      */
     public function getAttributes($productId)
@@ -184,18 +185,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Add extra fields to each option
         $output = [];
-        foreach ($attributesArray as $key => $option) {
+        foreach ($attributesArray as $key => $attribute) {
             // Product id
-            $option['product_id'] = $productId;
+            $attribute['product_id'] = $productId;
 
             // Option id
-            $option['option_id'] = $key;
+            $attribute['attribute_id'] = $key;
 
             // Attribute type info
-            $option = $this->attributeHelper->addAttributeData($option);
+            $attribute = $this->attributeHelper->addAttributeData($attribute);
 
             // Add the full option data
-            $output[] = $option;
+            $output[] = $attribute;
         }
 
         return $output;

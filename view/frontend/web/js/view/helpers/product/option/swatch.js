@@ -40,7 +40,7 @@ define([
                 var targetFieldId = self.getHiddenFieldId(option);
 
                 // Get the source value
-                var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
+                var sourceFieldValue = $(e.originalEvent.target).attr('attribute-id');
 
                 // Assign value from source to target
                 $(targetFieldId).val(sourceFieldValue);

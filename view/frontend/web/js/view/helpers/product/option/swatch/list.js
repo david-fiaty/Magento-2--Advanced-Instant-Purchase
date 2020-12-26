@@ -56,7 +56,7 @@ define([
             return this.selectorPrefix
             + option['product_id'] + ' '
             + this.selectorSuffix
-            + '[option-id="' + valueIndex
+            + '[attribute-id="' + valueIndex
             + '"]';
         },
 
@@ -64,7 +64,7 @@ define([
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceFieldId) {
-            return $(sourceFieldId).find('.selected').attr('option-id');
+            return $(sourceFieldId).find('.selected').attr('attribute-id');
         }
     };
 });

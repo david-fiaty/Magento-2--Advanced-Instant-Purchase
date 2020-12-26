@@ -52,14 +52,14 @@ define([
          * Get a source field selector.
          */
         getSourceFieldSelector: function (option, valueIndex) {
-            return this.selectorPrefix + '[option-id="' + valueIndex + '"]';
+            return this.selectorPrefix + '[attribute-id="' + valueIndex + '"]';
         },
 
         /**
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceFieldId) {
-            return $(sourceFieldId).find('.selected').attr('option-id');
+            return $(sourceFieldId).find('.selected').attr('attribute-id');
         }
     };
 });

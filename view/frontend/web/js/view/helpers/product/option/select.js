@@ -111,7 +111,7 @@ define([
             return this.superAttributeSelectorPrefix
             + $(e.currentTarget).data('product-id')
             + '-'
-            + option['option_id'];
+            + option['attribute_id'];
         },
 
         /**
