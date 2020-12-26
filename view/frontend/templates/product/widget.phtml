@@ -51,8 +51,8 @@
         <?php endif; ?>
 
         <!-- Product options -->
-        <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $row): ?>                
+        <?php if (!empty($config['product']['attributes'])): ?>
+            <?php foreach ($config['product']['attributes'] as $row): ?>                
                 <div class="nbn-field">
                     <label for="nbn-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
                         <p>

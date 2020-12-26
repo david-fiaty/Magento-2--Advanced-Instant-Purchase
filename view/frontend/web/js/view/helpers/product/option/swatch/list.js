@@ -18,7 +18,7 @@ define([
     'use strict';
 
     return {
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-option-',
         selectorPrefix: '.swatch-opt-',
         selectorSuffix: '.swatch-option',
 
@@ -43,8 +43,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },

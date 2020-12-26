@@ -23,13 +23,13 @@ define([
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-option-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
 
         /**
          * Set product options events.
          */
-        initOptionEvent: function (option) {
+        initAttributeEvent: function (option) {
             // Prepare variables
             var self = this;
             var sourceFields = this.getValuesSelectors(option);
@@ -50,7 +50,7 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionErrors: function (option, e) {
+        getAttributeErrors: function (option, e) {
             return this.isOptionInvalid(option, e)
             ? [option]
             : [];
@@ -75,8 +75,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.getSwatchHandler().getOptionFieldId(option);
+        getAttributeFieldId: function (option) {
+            return this.getSwatchHandler().getAttributeFieldId(option);
         },
 
         /**
@@ -110,13 +110,13 @@ define([
         },
 
         /**
-         * Update the selected product options values.
+         * Update the selected product attribute value.
          */
-        updateSelectedOptionValue: function (option) {
+        updateSelectedAttributeValue: function (option) {
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getOptionFieldId(option);
+            var targetFieldId = this.getAttributeFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {

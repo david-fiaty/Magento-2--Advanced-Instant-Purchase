@@ -133,7 +133,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
-                'options' => $this->getOptions($productId)
+                'attributes' => $this->getAttributes($productId)
             ];
         }
 
@@ -173,9 +173,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a product options.
+     * Get a product attributes.
      */
-    public function getOptions($productId)
+    public function getAttributes($productId)
     {
         // Get the options array
         $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(

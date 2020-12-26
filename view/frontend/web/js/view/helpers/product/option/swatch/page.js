@@ -19,7 +19,7 @@ define([
 
     return {
         selectorPrefix: '.swatch-opt .swatch-attribute .swatch-option',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-option-',
 
         /**
          * Get a page swatch option values selectors.
@@ -42,8 +42,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },

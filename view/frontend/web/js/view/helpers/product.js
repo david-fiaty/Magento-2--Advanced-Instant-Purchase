@@ -40,12 +40,12 @@
         /**
          * Set product options events.
          */
-        initOptionsEvents: function (config) {
-            var options = this.getOptions(config);
+        initAtributesEvents: function (config) {
+            var options = this.getAttributes(config);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['attribute_type'])
-                    .initOptionEvent(options[i]);
+                    this.getAttributeHandler(options[i]['attribute_type'])
+                    .initAttributeEvent(options[i]);
                 }
             }
         },
@@ -53,7 +53,7 @@
         /**
          * Get the option handler component.
          */
-        getOptionHandler: function (optionType) {
+        getAttributeHandler: function (optionType) {
             // Argument provided
             optionType = optionType || null;
             if (optionType) {
@@ -76,15 +76,15 @@
         /**
          * Update the selected product options values.
          */
-        updateSelectedOptionsValues: function () {
-            var options = this.getOptions();
-            var condition1 = options && options.length > 0;
+        updateSelectedAttributesValues: function () {
+            var attributes = this.getAttributes();
+            var condition1 = attributes && attributes.length > 0;
             var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['attribute_type'])
-                    .updateSelectedOptionValue(options[i]);
+                for (var i = 0; i < attributes.length; i++) {
+                    this.getAttributeHandler(attributes[i]['attribute_type'])
+                    .updateSelectedAttributeValue(attributes[i]);
                 }
             }
         },
@@ -150,18 +150,18 @@
         /**
          * Product options validation.
          */
-        validateOptions: function (e) {
+        validateAttributes: function (e) {
             // Prepare variables
-            var options = this.getOptionsFromEvent(e);
-            var condition1 = options && options.length > 0;
+            var attributes = this.getAttributesFromEvent(e);
+            var condition1 = attributes && attributes.length > 0;
             var errors = 0;
 
             // Loop through the product options
             if (condition1) {
-                for (var i = 0; i < options.length; i++) {
+                for (var i = 0; i < attributes.length; i++) {
                     // Validate the option
-                    var error = this.getOptionHandler(options[i]['attribute_type'])
-                    .getOptionErrors(options[i], e)
+                    var error = this.getAttributeHandler(attributes[i]['attribute_type'])
+                    .getAttributeErrors(attributes[i], e)
                     .length > 0;
 
                     // Register the error
@@ -180,23 +180,23 @@
          * Check if a product has options.
          */
         hasOptions: function (e) {
-            return this.getProductData(e)['options'].length > 0;
+            return this.getProductData(e)['attributes'].length > 0;
         },
 
         /**
          * Get a product options from a click even.
          */
-        getOptionsFromEvent: function (e) {
+        getAttributesFromEvent: function (e) {
             var productId = $(e.currentTarget).data('product-id');
-            return this.getProductData(productId)['options'];
+            return this.getProductData(productId)['attributes'];
         },
 
         /**
-         * Get a product options.
+         * Get a product attributes.
          */
-        getOptions: function () {
+        getAttributes: function () {
             var productId = window.naxero.nbn.current.product.id;
-            return this.getProductData(productId)['options'];
+            return this.getProductData(productId)['attributes'];
         },
 
         /**
