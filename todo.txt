@@ -44,6 +44,8 @@ NOT SUPPORTED
 
 - product custom option of type file
 - product configuration (attributes) other than swatch and select
+- swatch rendering in widgets: swatch options are rendered as select lists
+- only options with fixed price types 
 
 FEATURES
 - add T&C handling
