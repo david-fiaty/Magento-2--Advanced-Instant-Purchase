@@ -190,7 +190,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $option['product_id'] = $productId;
 
             // Option id
-            $option['option_id'] = $key;
+            $option['attribute_id'] = $key;
 
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
