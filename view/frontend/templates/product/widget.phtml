@@ -23,6 +23,7 @@
     $showProductName = $config['widgets']['widget_show_product_name'];
     $zoomEnabled = $config['widgets']['widget_zoom_enabled'];
     $isLightbox = $config['widgets']['widget_zoom_type'] == 'lightbox';
+    $canDisplayOptions = !empty($config['product']['options']) && $config['product']['display'] == 'widget';
 
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
@@ -71,7 +72,7 @@
         <?php endif; ?>
 
         <!-- Product options -->
-        <?php if (!empty($config['product']['options'])): ?>
+        <?php if ($canDisplayOptions): ?>
         <div class="nbn-field">
             <?= $block->getOptionsHtml($config['product']['id']) ?>
         </div>
