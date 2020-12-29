@@ -64,11 +64,10 @@ class Widget extends \Magento\Framework\View\Element\Template
     /**
      * Get the block config.
      */
-    public function getOptionHtml()
+    public function getOptionHtml($productId)
     {
         $layout = $this->getLayout();
 
-        $productId = $this->getData('product_id');
         $product = $this->productHelper->getProduct($productId);
 
         $blockOptionData = $layout->createBlock('Magento\Catalog\Block\Product\View\Options')
@@ -77,7 +76,7 @@ class Widget extends \Magento\Framework\View\Element\Template
 
         $selectBlock = $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Select', 'select')
         ->setTemplate('Magento_Catalog::product/view/options/type/select.phtml');
-        
+
         $blockOptionData->setChild('select', $selectBlock);
 
         return $blockOptionData->toHtml();

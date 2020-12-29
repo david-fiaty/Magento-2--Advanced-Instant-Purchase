@@ -69,6 +69,15 @@
                 </div>
             <?php endforeach; ?>                
         <?php endif; ?>
+
+        <!-- Product options -->
+        <?php if (!empty($config['product']['options'])): ?>
+            <?php foreach ($config['product']['options'] as $row): ?>                
+                <div class="nbn-field">
+                    <?= $block->getOptionHtml($config['product']['id']) ?>
+                </div>
+            <?php endforeach; ?>                
+        <?php endif; ?>
     </div>
     <div class="nbn-clr"></div> 
     
