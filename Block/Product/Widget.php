@@ -96,6 +96,12 @@ class Widget extends \Magento\Framework\View\Element\Template
             ->setTemplate('Magento_Catalog::product/view/options/type/select.phtml');
         }
 
+        // Text field
+        if ($type == 'field') {
+            return $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Text', 'text')
+            ->setTemplate('Magento_Catalog::product/view/options/type/text.phtml');
+        }
+
         return '';
     }
 }
