@@ -78,6 +78,7 @@ class Widget extends \Magento\Framework\View\Element\Template
         // Set options renderers
         $blockOptionData->setChild('select', $this->getOptionBlock($layout, 'select'));
         $blockOptionData->setChild('text', $this->getOptionBlock($layout, 'text'));
+        $blockOptionData->setChild('date', $this->getOptionBlock($layout, 'date'));
 
         return $blockOptionData->toHtml();
     }
@@ -97,6 +98,12 @@ class Widget extends \Magento\Framework\View\Element\Template
         if ($type == 'text') {
             return $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Text', 'text')
             ->setTemplate('Magento_Catalog::product/view/options/type/text.phtml');
+        }
+
+        // Date field
+        if ($type == 'date') {
+            return $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Date', 'date')
+            ->setTemplate('Magento_Catalog::product/view/options/type/date.phtml');
         }
     }
 }
