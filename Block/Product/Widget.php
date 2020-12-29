@@ -17,7 +17,7 @@
 namespace Naxero\BuyNow\Block\Product;
 
 /**
- * Widgetclass constructor.
+ * Widget class constructor.
  */
 class Widget extends \Magento\Framework\View\Element\Template
 {
@@ -27,17 +27,24 @@ class Widget extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * Widge class constructor.
+     * @var Product
+     */
+    public $productHelper;
+
+    /**
+     * Widget class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
 
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -52,5 +59,27 @@ class Widget extends \Magento\Framework\View\Element\Template
 
         // Update with block config
         return $this->blockHelper->updateAttributesData($config);
+    }
+
+    /**
+     * Get the block config.
+     */
+    public function getOptionHtml()
+    {
+        $layout = $this->getLayout();
+
+        $productId = $this->getData('product_id');
+        $product = $this->productHelper->getProduct($productId);
+
+        $blockOptionData = $layout->createBlock('Magento\Catalog\Block\Product\View\Options')
+        ->setProduct($product)
+        ->setTemplate('Magento_Catalog::product/view/options.phtml');
+
+        $selectBlock = $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Select', 'select')
+        ->setTemplate('Magento_Catalog::product/view/options/type/select.phtml');
+        
+        $blockOptionData->setChild('select', $selectBlock);
+
+        return $blockOptionData->toHtml();
     }
 }
