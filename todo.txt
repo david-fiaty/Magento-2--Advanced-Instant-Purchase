@@ -43,6 +43,7 @@ NOT SUPPORTED
     => might avoid having to deal with price rules
 
 - product custom option of type file
+- product configuration (attributes) other than swatch and select
 
 FEATURES
 - add T&C handling
