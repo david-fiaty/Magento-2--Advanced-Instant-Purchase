@@ -62,23 +62,40 @@ class Widget extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get the block config.
+     * Get a custom option HTML.
      */
-    public function getOptionHtml($productId)
+    public function getOptionHtml($data)
     {
+        // Prepare parameters
         $layout = $this->getLayout();
+        $product = $this->productHelper->getProduct($data['product_id']);
 
-        $product = $this->productHelper->getProduct($productId);
-
+        // Block data
         $blockOptionData = $layout->createBlock('Magento\Catalog\Block\Product\View\Options')
         ->setProduct($product)
         ->setTemplate('Magento_Catalog::product/view/options.phtml');
 
-        $selectBlock = $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Select', 'select')
-        ->setTemplate('Magento_Catalog::product/view/options/type/select.phtml');
-
-        $blockOptionData->setChild('select', $selectBlock);
+        // Option renderer
+        $optionBlock = $this->getOptionBlock($data['type']);
+        $blockOptionData->setChild('select', $optionBlock);
 
         return $blockOptionData->toHtml();
+    }
+
+    /**
+     * Get an option block.
+     */
+    public function getOptionBlock($type)
+    {
+        // Prepare parameters
+        $layout = $this->getLayout();
+        
+        // Select list
+        if ($type == 'drop_down') {
+            return $layout->createBlock('Magento\Catalog\Block\Product\View\Options\Type\Select', 'select')
+            ->setTemplate('Magento_Catalog::product/view/options/type/select.phtml');
+        }
+
+        return '';
     }
 }

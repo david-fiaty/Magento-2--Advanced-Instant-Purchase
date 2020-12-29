@@ -72,9 +72,9 @@
 
         <!-- Product options -->
         <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $row): ?>                
+            <?php foreach ($config['product']['options'] as $option): ?>                
                 <div class="nbn-field">
-                    <?= $block->getOptionHtml($config['product']['id']) ?>
+                    <?= $block->getOptionHtml($option) ?>
                 </div>
             <?php endforeach; ?>                
         <?php endif; ?>
