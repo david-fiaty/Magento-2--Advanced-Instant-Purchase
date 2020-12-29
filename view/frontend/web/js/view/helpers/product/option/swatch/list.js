@@ -18,7 +18,7 @@ define([
     'use strict';
 
     return {
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         selectorPrefix: '.swatch-opt-',
         selectorSuffix: '.swatch-option',
 
@@ -43,8 +43,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },
@@ -56,7 +56,7 @@ define([
             return this.selectorPrefix
             + option['product_id'] + ' '
             + this.selectorSuffix
-            + '[option-id="' + valueIndex
+            + '[attribute-id="' + valueIndex
             + '"]';
         },
 
@@ -64,7 +64,7 @@ define([
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceFieldId) {
-            return $(sourceFieldId).find('.selected').attr('option-id');
+            return $(sourceFieldId).find('.selected').attr('attribute-id');
         }
     };
 });

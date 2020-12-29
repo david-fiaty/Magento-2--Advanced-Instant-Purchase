@@ -133,6 +133,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
+                'attributes' => $this->getAttributes($productId),
                 'options' => $this->getOptions($productId)
             ];
         }
@@ -173,9 +174,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a product options.
+     * Get a product attributes.
      */
-    public function getOptions($productId)
+    public function getAttributes($productId)
     {
         // Get the options array
         $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
@@ -189,7 +190,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
             $option['product_id'] = $productId;
 
             // Option id
-            $option['option_id'] = $key;
+            $option['attribute_id'] = $key;
 
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
@@ -199,6 +200,24 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get a product options.
+     */
+    public function getOptions($productId)
+    {
+        $output = [];
+        $product = $this->getProduct($productId);
+        $options = $product->getOptions();
+
+        if (!empty($options)) {
+            foreach ($options as $key => $option) {
+                $output[] = $option->getData();
+            }
+        }
+
+        return  $output;
     }
 
     /**

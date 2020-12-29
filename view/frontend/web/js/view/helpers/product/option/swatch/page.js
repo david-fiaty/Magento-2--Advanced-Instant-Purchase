@@ -19,7 +19,7 @@ define([
 
     return {
         selectorPrefix: '.swatch-opt .swatch-attribute .swatch-option',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
 
         /**
          * Get a page swatch option values selectors.
@@ -42,8 +42,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },
@@ -52,14 +52,14 @@ define([
          * Get a source field selector.
          */
         getSourceFieldSelector: function (option, valueIndex) {
-            return this.selectorPrefix + '[option-id="' + valueIndex + '"]';
+            return this.selectorPrefix + '[attribute-id="' + valueIndex + '"]';
         },
 
         /**
          * Get an option field value.
          */
         getSourceFieldValue: function (sourceFieldId) {
-            return $(sourceFieldId).find('.selected').attr('option-id');
+            return $(sourceFieldId).find('.selected').attr('attribute-id');
         }
     };
 });

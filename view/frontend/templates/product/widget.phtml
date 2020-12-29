@@ -50,13 +50,13 @@
             </p>
         <?php endif; ?>
 
-        <!-- Product options -->
-        <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $row): ?>                
+        <!-- Product attributes -->
+        <?php if (!empty($config['product']['attributes'])): ?>
+            <?php foreach ($config['product']['attributes'] as $row): ?>                
                 <div class="nbn-field">
-                    <label for="nbn-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
+                    <label for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>">
                         <p>
-                            <select id="nbn-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-widget-option nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
+                            <select id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="nbn-widget-option nbn-attribute js-states form-control" data-minimum-results-for-search="Infinity">
                                 <option data-placeholder="<?= $block->escapeHtml($row['label']) ?>" value=""><?= $block->escapeHtml($row['label']) ?></option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
@@ -69,8 +69,16 @@
                 </div>
             <?php endforeach; ?>                
         <?php endif; ?>
+
+        <!-- Product options -->
+        <?php if (!empty($config['product']['options'])): ?>
+        <div class="nbn-field">
+            <?= $block->getOptionsHtml($config['product']['id']) ?>
+        </div>
+        <?php endif; ?>
     </div>
-    <div class="nbn-clr"></div>   
+    <div class="nbn-clr"></div> 
+    
 </div>
 
 <script>

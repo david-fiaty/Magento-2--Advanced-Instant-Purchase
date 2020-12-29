@@ -42,6 +42,8 @@ NOT SUPPORTED
     => do that with ajax request to frontend product data controller
     => might avoid having to deal with price rules
 
+- product custom option of type file
+
 FEATURES
 - add T&C handling
 - add new address handling on confirmation screen
@@ -90,6 +92,9 @@ https://inchoo.net/magento-2/magento-2-custom-widget/
 
 - countdown timer
 https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
+
+- render custom product options
+https://magento.stackexchange.com/questions/182192/get-product-custom-option-html-in-custom-page
 
 EXPLORE
 - Swatch options rendering

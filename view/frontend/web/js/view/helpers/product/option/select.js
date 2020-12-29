@@ -21,17 +21,17 @@ define([
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
         optionFieldSelector: '.nbn-popup-option',
 
         /**
          * Set product options events.
          */
-        initOptionEvent: function (option) {
+        initAttributeEvent: function (option) {
             // Prepare variables
             var self = this;
-            var sourceFieldId = this.getOptionFieldId(option);
+            var sourceFieldId = this.getAttributeFieldId(option);
             var placeholder = $(this.optionFieldSelector)
             .find('option[data-placeholder="*"]')
             .data('placeholder');
@@ -56,7 +56,7 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionErrors: function (option, e) {
+        getAttributeErrors: function (option, e) {
             return this.isOptionInvalid(e, option)
             ? [option]
             : [];
@@ -81,8 +81,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },
@@ -111,17 +111,17 @@ define([
             return this.superAttributeSelectorPrefix
             + $(e.currentTarget).data('product-id')
             + '-'
-            + option['option_id'];
+            + option['attribute_id'];
         },
 
         /**
-         * Update the selected product options values.
+         * Update the selected product attribute values.
          */
-        updateSelectedOptionValue: function (option) {
+        updateSelectedAttributeValue: function (option) {
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getOptionFieldId(option);
+            var targetFieldId = this.getAttributeFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {
