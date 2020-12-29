@@ -91,6 +91,9 @@ https://inchoo.net/magento-2/magento-2-custom-widget/
 - countdown timer
 https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
 
+- render custom product options
+https://magento.stackexchange.com/questions/182192/get-product-custom-option-html-in-custom-page
+
 EXPLORE
 - Swatch options rendering
 https://mage2.pro/t/topic/1016
