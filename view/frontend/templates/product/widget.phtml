@@ -17,7 +17,7 @@
 <?php
     // Get the data
     $config = $block->getData('config');
-    
+
     // Display settings
     $showProductImage = $config['widgets']['widget_show_product_image'];
     $showProductName = $config['widgets']['widget_show_product_name'];
@@ -72,11 +72,9 @@
 
         <!-- Product options -->
         <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $option): ?>                
-                <div class="nbn-field">
-                    <?= $block->getOptionHtml($option) ?>
-                </div>
-            <?php endforeach; ?>                
+        <div class="nbn-field">
+            <?= $block->getOptionsHtml($config['product']['id']) ?>
+        </div>
         <?php endif; ?>
     </div>
     <div class="nbn-clr"></div> 
