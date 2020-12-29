@@ -42,6 +42,8 @@ NOT SUPPORTED
     => do that with ajax request to frontend product data controller
     => might avoid having to deal with price rules
 
+- product custom option of type file
+
 FEATURES
 - add T&C handling
 - add new address handling on confirmation screen
