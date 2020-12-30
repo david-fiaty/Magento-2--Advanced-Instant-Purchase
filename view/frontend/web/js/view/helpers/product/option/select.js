@@ -26,7 +26,7 @@ define([
         optionFieldSelector: '.nbn-popup-option',
 
         /**
-         * Set product options events.
+         * Set a product attribute events.
          */
         initAttributeEvent: function (option) {
             // Prepare variables
@@ -54,18 +54,18 @@ define([
         },
 
         /**
-         * Check if a product options are valid.
+         * Check if a product attributes are valid.
          */
         getAttributeErrors: function (option, e) {
-            return this.isOptionInvalid(e, option)
+            return this.isAttibuteInvalid(e, option)
             ? [option]
             : [];
         },
 
         /**
-         * Check if a product option is valid.
+         * Check if a product attribute is valid.
          */
-        isOptionInvalid: function (e, option) {
+        isAttibuteInvalid: function (e, option) {
             // Prepare the target Id
             var targetId = this.getTargetValidationField(e, option);
 
