@@ -42,7 +42,7 @@ NOT SUPPORTED
     => do that with ajax request to frontend product data controller
     => might avoid having to deal with price rules
 
-- product custom option of type file
+- product custom option of type file, type date, third party custom options modules (only core fields)
 - product configuration (attributes) other than swatch and select
 - swatch rendering in widgets: swatch options are rendered as select lists
 - only options with fixed price types 
