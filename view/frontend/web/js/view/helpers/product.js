@@ -30,7 +30,6 @@
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
-        productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
         optionHandlers: [
             'swatch',
@@ -203,9 +202,7 @@
          * Get updated product data for events.
          */
         getProductData: function (productId) {
-            return JSON.parse(
-                $(this.productDataSelectorPrefix + productId).val()
-            );
+            return window.naxero.nbn.instances[productId];
         },
 
         /**
