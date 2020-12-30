@@ -17,8 +17,8 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/select',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/select',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
     'popover',
 ], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
     'use strict';

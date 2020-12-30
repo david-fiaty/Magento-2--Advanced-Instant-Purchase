@@ -16,8 +16,8 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch/list',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch/page'
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch/list',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch/page'
 ], function ($, __, NbnView, NbnListSwatch, NbnPageSwatch) {
     'use strict';
 

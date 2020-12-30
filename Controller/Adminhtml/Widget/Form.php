@@ -88,7 +88,7 @@ class Form extends \Magento\Backend\App\Action
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
+            ->setTemplate(Naming::getModuleName() . '::product/attributess.phtml')
             ->setData('products', $this->productHelper->getProducts($categoryId))
             ->toHtml();
     }
