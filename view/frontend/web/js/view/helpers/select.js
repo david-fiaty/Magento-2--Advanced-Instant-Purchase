@@ -26,22 +26,11 @@
         paymentMethodSelector: '#nbn-payment-method-select',
         otherMethodsToggleSelector: '#nbn-show-other-methods',
         otherMethodsSelector: '#nbn-other-method-select',
-        optionFieldSelector: '.nbn-widget-option',
 
         /**
          * Create a login popup.
          */
         build: function (obj) {
-            // Product options select 2
-            var placeholder = $(this.optionFieldSelector)
-            .find('option[data-placeholder="*"]')
-            .data('placeholder');
-            $(this.optionFieldSelector).select2({
-                placeholder: placeholder,
-                minimumResultsForSearch: -1,
-                theme: 'classic'
-            });
-
             // Initialise the select lists
             var self = this;
             $(this.listSelector).select2({

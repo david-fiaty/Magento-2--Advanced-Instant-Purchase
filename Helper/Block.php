@@ -143,7 +143,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Update the attribute display parameters
         if ($config['product']['has_options']) {
-            foreach ($config['product']['options'] as $option) {
+            foreach ($config['product']['attributes'] as $option) {
                 $isSwatch = $option['attribute_type'] == 'swatch';
                 if ($isSwatch && $force) {
                     $option['attribute_type'] = 'select';
@@ -152,7 +152,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 $updatedOptions[] = $option;
             }
 
-            $config['product']['options'] = $updatedOptions;
+            $config['product']['attributes'] = $updatedOptions;
         }
 
         return $config;

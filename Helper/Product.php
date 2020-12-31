@@ -133,6 +133,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_selector' => '#' . $this->getButtonId($productId),
                 'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
+                'attributes' => $this->getAttributes($productId),
                 'options' => $this->getOptions($productId)
             ];
         }
@@ -173,32 +174,50 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a product options.
+     * Get a product attributes.
      */
-    public function getOptions($productId)
+    public function getAttributes($productId)
     {
         // Get the options array
-        $optionsArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+        $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
 
         // Add extra fields to each option
         $output = [];
-        foreach ($optionsArray as $key => $option) {
+        foreach ($attributesArray as $key => $option) {
             // Product id
             $option['product_id'] = $productId;
 
             // Option id
-            $option['option_id'] = $key;
+            $option['attribute_id'] = $key;
 
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
 
-            // Add the extra fields
+            // Add the full option data
             $output[] = $option;
         }
 
         return $output;
+    }
+
+    /**
+     * Get a product options.
+     */
+    public function getOptions($productId)
+    {
+        $output = [];
+        $product = $this->getProduct($productId);
+        $options = $product->getOptions();
+
+        if (!empty($options)) {
+            foreach ($options as $key => $option) {
+                $output[] = $option->getData();
+            }
+        }
+
+        return  $output;
     }
 
     /**

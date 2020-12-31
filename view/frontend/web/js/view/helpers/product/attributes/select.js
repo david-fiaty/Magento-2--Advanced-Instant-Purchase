@@ -14,34 +14,23 @@
 
 define([
     'jquery',
-    'mage/translate',
-    'select2'
-], function ($, __, select2) {
+    'mage/translate'
+], function ($, __) {
     'use strict';
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
         optionFieldSelector: '.nbn-popup-option',
 
         /**
-         * Set product options events.
+         * Set a product attribute events.
          */
-        initOptionEvent: function (option) {
+        initAttributeEvent: function (option) {
             // Prepare variables
             var self = this;
-            var sourceFieldId = this.getOptionFieldId(option);
-            var placeholder = $(this.optionFieldSelector)
-            .find('option[data-placeholder="*"]')
-            .data('placeholder');
-
-            // Select 2
-            $(this.optionFieldSelector).select2({
-                placeholder: placeholder,
-                minimumResultsForSearch: -1,
-                theme: 'classic'
-            });
+            var sourceFieldId = this.getAttributeFieldId(option);
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
@@ -54,18 +43,18 @@ define([
         },
 
         /**
-         * Check if a product options are valid.
+         * Check if a product attributes are valid.
          */
-        getOptionErrors: function (option, e) {
-            return this.isOptionInvalid(e, option)
+        getAttributeErrors: function (option, e) {
+            return this.isAttibuteInvalid(e, option)
             ? [option]
             : [];
         },
 
         /**
-         * Check if a product option is valid.
+         * Check if a product attribute is valid.
          */
-        isOptionInvalid: function (e, option) {
+        isAttibuteInvalid: function (e, option) {
             // Prepare the target Id
             var targetId = this.getTargetValidationField(e, option);
 
@@ -81,8 +70,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.optionSelectorPrefix
+        getAttributeFieldId: function (option) {
+            return this.attributeSelectorPrefix
                 + option['product_id']
                 + '-' + option['attribute_id'];
         },
@@ -111,17 +100,17 @@ define([
             return this.superAttributeSelectorPrefix
             + $(e.currentTarget).data('product-id')
             + '-'
-            + option['option_id'];
+            + option['attribute_id'];
         },
 
         /**
-         * Update the selected product options values.
+         * Update the selected product attribute values.
          */
-        updateSelectedOptionValue: function (option) {
+        updateSelectedAttributeValue: function (option) {
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getOptionFieldId(option);
+            var targetFieldId = this.getAttributeFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {

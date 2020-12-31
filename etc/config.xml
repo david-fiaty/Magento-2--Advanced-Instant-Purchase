@@ -56,7 +56,6 @@
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
                 <show_product_countdown>1</show_product_countdown>
                 <popup_show_summary>1</popup_show_summary>
-                <popup_show_product_quantity>1</popup_show_product_quantity>
                 <popup_show_discount_form>1</popup_show_discount_form>
             </popups>
 

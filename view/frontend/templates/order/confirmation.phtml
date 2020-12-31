@@ -23,7 +23,6 @@
 
     // Display parameters
     $showSummary = $data['config']['popups']['popup_show_summary'];
-    $showQuantityBox = $data['config']['popups']['popup_show_product_quantity'];
 ?>
 
 <!-- Order summary -->
@@ -38,20 +37,22 @@
 
 <!-- Shipping method -->
 <?php if (!empty($data['addresses']) && !empty($data['savedCards']) && !$data['product']['is_free']): ?>
-<div class="nbn-field">
-    <label for="nbn-shipping-method-select">
-        <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
-        <p>
-            <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
-                <?php foreach ($data['shippingRates'] as $item): ?>
-                    <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
-                        <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
-                        <?= $block->escapeHtml($item['carrier_price']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </p>
-    </label>
+<div class="nbn-fields">
+    <div class="nbn-field">
+        <label for="nbn-shipping-method-select">
+            <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+            <p>
+                <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
+                    <?php foreach ($data['shippingRates'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
+                            <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
+                            <?= $block->escapeHtml($item['carrier_price']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+        </label>
+    </div>
 </div>
 <?php endif; ?>
 

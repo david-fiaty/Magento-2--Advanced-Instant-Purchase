@@ -23,6 +23,7 @@
     $showProductName = $config['widgets']['widget_show_product_name'];
     $zoomEnabled = $config['widgets']['widget_zoom_enabled'];
     $isLightbox = $config['widgets']['widget_zoom_type'] == 'lightbox';
+    $canDisplayOptions = !empty($config['product']['options']);
 
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
@@ -50,49 +51,45 @@
             </p>
         <?php endif; ?>
 
-        <!-- Product options -->
-        <?php if (!empty($config['product']['options'])): ?>
-            <?php foreach ($config['product']['options'] as $row): ?>                
+        <!-- Product attributes -->
+        <?php if (!empty($config['product']['attributes'])): ?>
+            <?php foreach ($config['product']['attributes'] as $row): ?>                
                 <div class="nbn-field">
-                    <label for="nbn-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>">
-                        <p>
-                            <select id="nbn-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['option_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['option_id'] ?>" class="nbn-widget-option nbn-option js-states form-control" data-minimum-results-for-search="Infinity">
-                                <option data-placeholder="<?= $block->escapeHtml($row['label']) ?>" value=""><?= $block->escapeHtml($row['label']) ?></option>
-                                <?php foreach ($row['values'] as $item): ?>
-                                    <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
-                                        <?= $block->escapeHtml($item['label']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </p>
+                    <label for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>">
+                        <?= $block->escapeHtml($row['label']) ?>
                     </label>
+                    <p>
+                        <select id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="nbn-widget-option nbn-attribute js-states form-control" data-minimum-results-for-search="Infinity">
+                            <?php foreach ($row['values'] as $item): ?>
+                                <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
+                                    <?= $block->escapeHtml($item['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </p>
                 </div>
             <?php endforeach; ?>                
         <?php endif; ?>
+
+        <!-- Product options -->
+        <?php if ($canDisplayOptions): ?>
+        <div class="nbn-field nbn-product-options">
+            <?= $block->getOptionsHtml($config['product']['id']) ?>
+        </div>
+        <?php endif; ?>
     </div>
-    <div class="nbn-clr"></div>   
+    <div class="nbn-clr"></div> 
 </div>
 
 <script>
 require([
     'jquery',
     'mage/translate',
-    'select2',
     'domReady!'
-], function($, __, select2) {
+], function($, __) {
     'use strict';
 
     // Prepare variables
     var selectOptionSelector = '#<?= $boxId ?>' + ' .nbn-field select';
-    var placeholder = $(selectOptionSelector)
-    .find('option[data-placeholder="*"]')
-    .data('placeholder');
-
-    // Build the product options select lists
-    $(selectOptionSelector).select2 ({
-        placeholder: placeholder,
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
 });
 </script>

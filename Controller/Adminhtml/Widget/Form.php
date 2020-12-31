@@ -72,7 +72,7 @@ class Form extends \Magento\Backend\App\Action
 
         // Load the requested item
         if ((int) $categoryId > 0) {
-            $html .= $this->renderProductOptions($categoryId);
+            $html .= $this->renderProductAttributes($categoryId);
         }
 
         // Return the response
@@ -84,11 +84,11 @@ class Form extends \Magento\Backend\App\Action
     /**
      * Get the terms and conditions.
      */
-    public function renderProductOptions($categoryId)
+    public function renderProductAttributes($categoryId)
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
+            ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml')
             ->setData('products', $this->productHelper->getProducts($categoryId))
             ->toHtml();
     }

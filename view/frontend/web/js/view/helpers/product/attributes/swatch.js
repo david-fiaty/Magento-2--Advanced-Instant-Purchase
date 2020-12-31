@@ -16,20 +16,20 @@ define([
     'jquery',
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch/list',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch/page'
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch/list',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch/page'
 ], function ($, __, NbnView, NbnListSwatch, NbnPageSwatch) {
     'use strict';
 
     return {
         confirmationContainerSelector: '#nbn-confirmation-content',
-        optionSelectorPrefix: '#nbn-option-',
+        attributeSelectorPrefix: '#nbn-attribute-',
         superAttributeSelectorPrefix: '#nbn-super-attribute-',
 
         /**
          * Set product options events.
          */
-        initOptionEvent: function (option) {
+        initAttributeEvent: function (option) {
             // Prepare variables
             var self = this;
             var sourceFields = this.getValuesSelectors(option);
@@ -40,7 +40,7 @@ define([
                 var targetFieldId = self.getHiddenFieldId(option);
 
                 // Get the source value
-                var sourceFieldValue = $(e.originalEvent.target).attr('option-id');
+                var sourceFieldValue = $(e.originalEvent.target).attr('attribute-id');
 
                 // Assign value from source to target
                 $(targetFieldId).val(sourceFieldValue);
@@ -50,7 +50,7 @@ define([
         /**
          * Check if a product options are valid.
          */
-        getOptionErrors: function (option, e) {
+        getAttributeErrors: function (option, e) {
             return this.isOptionInvalid(option, e)
             ? [option]
             : [];
@@ -75,8 +75,8 @@ define([
         /**
          * Get a source option field id.
          */
-        getOptionFieldId: function (option) {
-            return this.getSwatchHandler().getOptionFieldId(option);
+        getAttributeFieldId: function (option) {
+            return this.getSwatchHandler().getAttributeFieldId(option);
         },
 
         /**
@@ -110,13 +110,13 @@ define([
         },
 
         /**
-         * Update the selected product options values.
+         * Update the selected product attribute value.
          */
-        updateSelectedOptionValue: function (option) {
+        updateSelectedAttributeValue: function (option) {
             // Prepare the parameters
             var sourceFieldId = this.getHiddenFieldId(option);
             var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getOptionFieldId(option);
+            var targetFieldId = this.getAttributeFieldId(option);
 
             // Update the option selected value
             if (this.isSelectedValueValid(sourceFieldValue)) {
