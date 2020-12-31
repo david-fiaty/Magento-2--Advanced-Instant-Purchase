@@ -17,10 +17,12 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/attributes',
+    'Naxero_BuyNow/js/view/helpers/product/options',
     'Naxero_BuyNow/js/view/helpers/product/attributes/select',
     'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductAttributeSelect, NbnProductAttributeSwatch, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, NbnProductAttributeSelect, NbnProductAttributeSwatch, popover) {
     'use strict';
 
     return {
@@ -49,6 +51,18 @@
             }
         },
 
+        /**
+         * Set product options events.
+         */
+        initOptionsEvents: function (config) {
+            var options = this.getOptions(config);
+            if (options && options.length > 0) {
+                for (var i = 0; i < options.length; i++) {
+                    this.getOptionHandler(options[i]['type'])
+                    .initOptionEvent(options[i]);
+                }
+            }
+        },
 
         /**
          * Get the option handler component.
