@@ -294,6 +294,9 @@ define([
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
 
+                    // Update the selected product options values
+                    NbnProduct.updateSelectedAttributesValues(self.config);
+
                     // Initialise the select lists
                     NbnSelect.build(self);
                 },

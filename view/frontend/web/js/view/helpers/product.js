@@ -107,6 +107,22 @@
         },
 
         /**
+         * Update the selected product options values.
+         */
+        updateSelectedAttributesValues: function (config) {
+            var attributes = NbnProductAttributes.getAttributes(config.product.id);
+            var condition1 = attributes && attributes.length > 0;
+            var condition2 = config.widgets.widget_show_product && NbnView.isWidgetView();
+            var condition3 = !NbnView.isWidgetView();
+            if (condition1 && (condition2 || condition3)) {
+                for (var i = 0; i < attributes.length; i++) {
+                    NbnProductAttributes.getAttributeHandler(attributes[i]['attribute_type'])
+                    .updateSelectedAttributeValue(attributes[i]);
+                }
+            }
+        },
+
+        /**
          * Display the product options errors.
          */
         displayErrors: function (e) {
