@@ -25,7 +25,7 @@
             var options = this.getOptions(productId);
             if (options && options.length > 0) {
                 for (var i = 0; i < options.length; i++) {
-                    NbnProductOptions.getOptionHandler(options[i]['type']).initOptionEvent(options[i]);
+                    this.getOptionHandler(options[i]['type']).initOptionEvent(options[i]);
                 }
             }
         },
