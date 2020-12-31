@@ -37,7 +37,7 @@
          * Get a product attributes.
          */
         getAttributes: function (productId) {
-            return window.naxero.nbn.instances[productId]['attributes'];
+            return window.naxero.nbn.instances[productId].product.attributes;
         },
 
         /**
@@ -65,6 +65,11 @@
         validateAttributes: function (productId) {
             // Prepare variables
             var attributes = this.getAttributes(productId);
+
+            console.log('attributes');
+            console.log(productId);
+            console.log(attributes);
+
             var condition1 = attributes && attributes.length > 0;
             var errors = 0;
 

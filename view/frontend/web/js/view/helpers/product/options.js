@@ -34,7 +34,7 @@
          * Get a product options.
          */
         getOptions: function (productId) {
-            return window.naxero.nbn.instances[productId]['options'];
+            return window.naxero.nbn.instances[productId].product.options;
         },
 
         /**
