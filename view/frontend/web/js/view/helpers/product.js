@@ -20,7 +20,7 @@
     'Naxero_BuyNow/js/view/helpers/product/attributes/select',
     'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributeSelect, NbnProductAttributeSwatch, popover) {
     'use strict';
 
     return {
@@ -37,43 +37,51 @@
         ],
 
         /**
-         * Set product options events.
+         * Set product attributes events.
          */
-        initAtributesEvents: function (config) {
-            var options = this.getAttributes(config);
-            if (options && options.length > 0) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getAttributeHandler(options[i]['attribute_type'])
-                    .initAttributeEvent(options[i]);
+        initAttributesEvents: function (config) {
+            var attributes = this.getAttributes(config);
+            if (attributes && attributes.length > 0) {
+                for (var i = 0; i < attributes.length; i++) {
+                    this.getAttributeHandler(attributes[i]['attribute_type'])
+                    .initAttributeEvent(attributes[i]);
                 }
             }
         },
 
+
         /**
          * Get the option handler component.
          */
-        getAttributeHandler: function (optionType) {
+        getOptionHandler: function (optionType) {
+            
+        },
+
+        /**
+         * Get the attribute handler component.
+         */
+        getAttributeHandler: function (attributeType) {
             // Argument provided
-            optionType = optionType || null;
-            if (optionType) {
+            attributeType = attributeType || null;
+            if (attributeType) {
                 var optionComponent = 'NbnProductOption'
-                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
+                + attributeType.charAt(0).toUpperCase() + attributeType.slice(1);
 
                 return eval(optionComponent);
             }
 
             // No argument provided
             if (NbnView.isPageView()) {
-                return NbnProductOptionSwatch;
+                return NbnProductAttributeSwatch;
             } else if (NbnView.isListView()) {
-                return NbnProductOptionSwatch;
+                return NbnProductAttributeSwatch;
             } else if (NbnView.isWidgetView()) {
-                return NbnProductOptionSelect;
+                return NbnProductAttributeSelect;
             }
         },
 
         /**
-         * Update the selected product options values.
+         * Update the selected product attributes values.
          */
         updateSelectedAttributesValues: function () {
             var attributes = this.getAttributes();
@@ -147,7 +155,37 @@
         },
 
         /**
-         * Product options validation.
+         * Product custom options validation.
+         */
+        validateOptions: function (e) {
+            // Prepare variables
+            var options = this.getOptionsFromEvent(e);
+            var condition1 = options && options.length > 0;
+            var errors = 0;
+
+            // Loop through the product options
+            if (condition1) {
+                for (var i = 0; i < options.length; i++) {
+                    // Validate the option
+                    var error = this.getAttributeHandler(option[i]['type'])
+                    .getAttributeErrors(option[i], e)
+                    .length > 0;
+
+                    // Register the error
+                    if (error) {
+                        errors++;
+                    }
+                }
+
+                return errors == 0;
+            }
+
+            return true;
+
+        },
+
+        /**
+         * Product attributes validation.
          */
         validateAttributes: function (e) {
             // Prepare variables
@@ -155,10 +193,10 @@
             var condition1 = attributes && attributes.length > 0;
             var errors = 0;
 
-            // Loop through the product options
+            // Loop through the product attributes
             if (condition1) {
                 for (var i = 0; i < attributes.length; i++) {
-                    // Validate the option
+                    // Validate the attribute
                     var error = this.getAttributeHandler(attributes[i]['attribute_type'])
                     .getAttributeErrors(attributes[i], e)
                     .length > 0;
@@ -176,20 +214,28 @@
         },
 
         /**
-         * Check if a product has options.
+         * Check if a product has attributes.
          */
-        hasOptions: function (e) {
-            return this.getProductData(e)['attributes'].length > 0;
+        hasAttributes: function (productId) {
+            return this.getProductData(productId)['attributes'].length > 0;
         },
 
         /**
-         * Get a product options from a click even.
+         * Get a product attributes from a click event.
          */
         getAttributesFromEvent: function (e) {
             var productId = $(e.currentTarget).data('product-id');
             return this.getProductData(productId)['attributes'];
         },
 
+        /**
+         * Get a product options from a click event.
+         */
+        getOptionsFromEvent: function (e) {
+            var productId = $(e.currentTarget).data('product-id');
+            return this.getProductData(productId)['options'];
+        },
+        
         /**
          * Get a product attributes.
          */

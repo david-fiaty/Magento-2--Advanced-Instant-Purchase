@@ -78,8 +78,11 @@ define([
             // Load a button instance
             NbnCore.load(this.config);
 
-            // Attibutes validation
-            NbnProduct.initAtributesEvents(this.config);
+            // Attributes validation
+            NbnProduct.initAttributesEvents(this.config);
+
+            // Options validation
+            NbnProduct.initOptionsEvents(this.config);
 
             // Widget features
             if (NbnView.isWidgetView()) {
@@ -243,8 +246,9 @@ define([
                     }
 
                     // Validate the product options if needed
-                    var optionsValid = NbnProduct.validateAttributes(e);
-                    if (!optionsValid) {
+                    var attributesValid = NbnProduct.validateAttributes(e);
+                    var optionsValid = NbnProduct.validateOptions(e);
+                    if (!attributesValid || !optionsValid) {
                         // Display the errors
                         NbnProduct.clearErrors(e);
                         NbnProduct.displayErrors(e);

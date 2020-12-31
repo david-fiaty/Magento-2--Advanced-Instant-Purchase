@@ -46,7 +46,7 @@ define([
          * Check if a product attributes are valid.
          */
         getAttributeErrors: function (option, e) {
-            return this.isAttibuteInvalid(e, option)
+            return this.isAttributeInvalid(e, option)
             ? [option]
             : [];
         },
@@ -54,7 +54,7 @@ define([
         /**
          * Check if a product attribute is valid.
          */
-        isAttibuteInvalid: function (e, option) {
+        isAttributeInvalid: function (e, option) {
             // Prepare the target Id
             var targetId = this.getTargetValidationField(e, option);
 
