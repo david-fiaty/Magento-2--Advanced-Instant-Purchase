@@ -79,7 +79,7 @@ define([
             NbnCore.load(this.config);
 
             // Attributes and options validation
-            NNbnProduct.initValidation(this.config.product.id);
+            NbnProduct.initValidation(this.config.product.id);
 
             // Widget features
             if (NbnView.isWidgetView()) {
