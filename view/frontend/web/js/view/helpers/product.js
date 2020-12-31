@@ -31,10 +31,6 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        optionHandlers: [
-            'swatch',
-            'select'
-        ],
 
         /**
          * Set product validation events.
@@ -48,7 +44,7 @@
          * Run a product fields validation.
          */
         validateFields: function (productId) {
-            return NbnProductAttributes.validateAttributes(productId) || NbnProductOptions.validateOptions(productId);
+            return NbnProductAttributes.validateAttributes(productId) && NbnProductOptions.validateOptions(productId);
         },
 
         /**
