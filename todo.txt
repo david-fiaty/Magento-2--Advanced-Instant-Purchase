@@ -2,6 +2,7 @@
 !!!PRIORITY!!!
 
 - fix countdown js errors when dates not valid
+- add currency display to shipping methods list in popup
 
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
@@ -49,6 +50,7 @@ NOT SUPPORTED
 - product configuration (attributes) other than swatch and select
 - swatch rendering in widgets: swatch options are rendered as select lists
 - only options with fixed price types 
+- image switch to product widget display when product attribute changed and has image
 
 FEATURES
 - configuration manager with list and detail view to create configs and apply them globally to layouts and urls
