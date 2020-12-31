@@ -56,24 +56,24 @@
             <?php foreach ($config['product']['attributes'] as $row): ?>                
                 <div class="nbn-field">
                     <label for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>">
-                        <p>
-                            <select id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="nbn-widget-option nbn-attribute js-states form-control" data-minimum-results-for-search="Infinity">
-                                <option data-placeholder="<?= $block->escapeHtml($row['label']) ?>" value=""><?= $block->escapeHtml($row['label']) ?></option>
-                                <?php foreach ($row['values'] as $item): ?>
-                                    <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
-                                        <?= $block->escapeHtml($item['label']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </p>
+                        <?= $block->escapeHtml($row['label']) ?>
                     </label>
+                    <p>
+                        <select id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="nbn-widget-option nbn-attribute js-states form-control" data-minimum-results-for-search="Infinity">
+                            <?php foreach ($row['values'] as $item): ?>
+                                <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
+                                    <?= $block->escapeHtml($item['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </p>
                 </div>
             <?php endforeach; ?>                
         <?php endif; ?>
 
         <!-- Product options -->
         <?php if ($canDisplayOptions): ?>
-        <div class="nbn-field">
+        <div class="nbn-field nbn-product-options">
             <?= $block->getOptionsHtml($config['product']['id']) ?>
         </div>
         <?php endif; ?>
@@ -85,22 +85,11 @@
 require([
     'jquery',
     'mage/translate',
-    'select2',
     'domReady!'
-], function($, __, select2) {
+], function($, __) {
     'use strict';
 
     // Prepare variables
     var selectOptionSelector = '#<?= $boxId ?>' + ' .nbn-field select';
-    var placeholder = $(selectOptionSelector)
-    .find('option[data-placeholder="*"]')
-    .data('placeholder');
-
-    // Build the product options select lists
-    $(selectOptionSelector).select2 ({
-        placeholder: placeholder,
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
 });
 </script>

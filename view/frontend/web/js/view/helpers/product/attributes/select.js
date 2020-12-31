@@ -14,9 +14,8 @@
 
 define([
     'jquery',
-    'mage/translate',
-    'select2'
-], function ($, __, select2) {
+    'mage/translate'
+], function ($, __) {
     'use strict';
 
     return {
@@ -32,16 +31,6 @@ define([
             // Prepare variables
             var self = this;
             var sourceFieldId = this.getAttributeFieldId(option);
-            var placeholder = $(this.optionFieldSelector)
-            .find('option[data-placeholder="*"]')
-            .data('placeholder');
-
-            // Select 2
-            $(this.optionFieldSelector).select2({
-                placeholder: placeholder,
-                minimumResultsForSearch: -1,
-                theme: 'classic'
-            });
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {

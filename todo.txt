@@ -1,5 +1,8 @@
 
 !!!PRIORITY!!!
+
+- fix countdown js errors when dates not valid
+
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
@@ -48,6 +51,7 @@ NOT SUPPORTED
 - only options with fixed price types 
 
 FEATURES
+- configuration manager with list and detail view to create configs and apply them globally to layouts and urls
 - add T&C handling
 - add new address handling on confirmation screen
 - add module version checker
