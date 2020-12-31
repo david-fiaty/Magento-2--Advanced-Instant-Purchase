@@ -51,7 +51,7 @@ define([
          * Check if a product attributes are valid.
          */
         getAttributeErrors: function (attribute) {
-            return this.isOptionInvalid(attribute)
+            return this.isAttributeInvalid(attribute)
             ? [attribute]
             : [];
         },

@@ -27,15 +27,15 @@ define([
         /**
          * Set a product attribute events.
          */
-        initAttributeEvent: function (option) {
+        initAttributeEvent: function (attribute) {
             // Prepare variables
             var self = this;
-            var sourceFieldId = this.getAttributeFieldId(option);
+            var sourceFieldId = this.getAttributeFieldId(attribute);
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
                 // Prepare the target Id
-                var targetFieldId = self.getHiddenFieldId(option);
+                var targetFieldId = self.getHiddenFieldId(attribute);
 
                 // Assign value from source to target
                 $(targetFieldId).val($(e.currentTarget).val());
