@@ -17,10 +17,10 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/attributes/select',
-    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
+    'Naxero_BuyNow/js/view/helpers/product/attributes',
+    'Naxero_BuyNow/js/view/helpers/product/options',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, popover) {
     'use strict';
 
     return {
@@ -31,61 +31,21 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        optionHandlers: [
-            'swatch',
-            'select'
-        ],
 
         /**
-         * Set product options events.
+         * Set product validation events.
          */
-        initAtributesEvents: function (config) {
-            var options = this.getAttributes(config);
-            if (options && options.length > 0) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getAttributeHandler(options[i]['attribute_type'])
-                    .initAttributeEvent(options[i]);
-                }
-            }
+        initValidation: function (productId) {
+            NbnProductAttributes.initAttributesEvents(productId);
+            //NbnProductOptions.initOptionsEvents(productId);
         },
 
         /**
-         * Get the option handler component.
+         * Run a product fields validation.
          */
-        getAttributeHandler: function (optionType) {
-            // Argument provided
-            optionType = optionType || null;
-            if (optionType) {
-                var optionComponent = 'NbnProductOption'
-                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
-
-                return eval(optionComponent);
-            }
-
-            // No argument provided
-            if (NbnView.isPageView()) {
-                return NbnProductOptionSwatch;
-            } else if (NbnView.isListView()) {
-                return NbnProductOptionSwatch;
-            } else if (NbnView.isWidgetView()) {
-                return NbnProductOptionSelect;
-            }
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedAttributesValues: function () {
-            var attributes = this.getAttributes();
-            var condition1 = attributes && attributes.length > 0;
-            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
-            var condition3 = !NbnView.isWidgetView();
-            if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < attributes.length; i++) {
-                    this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .updateSelectedAttributeValue(attributes[i]);
-                }
-            }
+        validateFields: function (productId) {
+            return NbnProductAttributes.validateAttributes(productId);
+            //&& NbnProductOptions.validateOptions(productId);
         },
 
         /**
@@ -147,62 +107,19 @@
         },
 
         /**
-         * Product options validation.
+         * Update the selected product options values.
          */
-        validateAttributes: function (e) {
-            // Prepare variables
-            var attributes = this.getAttributesFromEvent(e);
+        updateSelectedAttributesValues: function (config) {
+            var attributes = NbnProductAttributes.getAttributes(config.product.id);
             var condition1 = attributes && attributes.length > 0;
-            var errors = 0;
-
-            // Loop through the product options
-            if (condition1) {
+            var condition2 = config.widgets.widget_show_product && NbnView.isWidgetView();
+            var condition3 = !NbnView.isWidgetView();
+            if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < attributes.length; i++) {
-                    // Validate the option
-                    var error = this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .getAttributeErrors(attributes[i], e)
-                    .length > 0;
-
-                    // Register the error
-                    if (error) {
-                        errors++;
-                    }
+                    NbnProductAttributes.getAttributeHandler(attributes[i]['attribute_type'])
+                    .updateSelectedAttributeValue(attributes[i]);
                 }
-
-                return errors == 0;
             }
-
-            return true;
-        },
-
-        /**
-         * Check if a product has options.
-         */
-        hasOptions: function (e) {
-            return this.getProductData(e)['attributes'].length > 0;
-        },
-
-        /**
-         * Get a product options from a click even.
-         */
-        getAttributesFromEvent: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-            return this.getProductData(productId)['attributes'];
-        },
-
-        /**
-         * Get a product attributes.
-         */
-        getAttributes: function () {
-            var productId = window.naxero.nbn.current.product.id;
-            return this.getProductData(productId)['attributes'];
-        },
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (productId) {
-            return window.naxero.nbn.instances[productId];
         },
 
         /**

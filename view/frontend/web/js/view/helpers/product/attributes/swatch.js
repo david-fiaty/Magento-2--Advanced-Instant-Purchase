@@ -29,15 +29,15 @@ define([
         /**
          * Set product options events.
          */
-        initAttributeEvent: function (option) {
+        initAttributeEvent: function (attribute) {
             // Prepare variables
             var self = this;
-            var sourceFields = this.getValuesSelectors(option);
+            var sourceFields = this.getValuesSelectors(attribute);
 
             // Set the value change events
             $(sourceFields).on('click touch', function (e) {
                 // Prepare the target Id
-                var targetFieldId = self.getHiddenFieldId(option);
+                var targetFieldId = self.getHiddenFieldId(attribute);
 
                 // Get the source value
                 var sourceFieldValue = $(e.originalEvent.target).attr('attribute-id');
@@ -48,20 +48,38 @@ define([
         },
 
         /**
-         * Check if a product options are valid.
+         * Check if a product attributes are valid.
          */
-        getAttributeErrors: function (option, e) {
-            return this.isOptionInvalid(option, e)
-            ? [option]
+        getAttributeErrors: function (attribute) {
+            return this.isAttributeInvalid(attribute)
+            ? [attribute]
             : [];
         },
 
         /**
-         * Check if a product option is valid.
+         * Update the selected product attribute value.
          */
-        isOptionInvalid: function (option, e) {
+        updateSelectedAttributeValue: function (attribute) {
+            // Prepare the parameters
+            var sourceFieldId = this.getHiddenFieldId(attribute);
+            var sourceFieldValue = $(sourceFieldId).val();
+            var targetFieldId = this.getAttributeFieldId(attribute);
+
+            // Update the option selected value
+            if (this.isSelectedValueValid(sourceFieldValue)) {
+                $(this.confirmationContainerSelector)
+                .find(targetFieldId)
+                .val(sourceFieldValue)
+                .change();
+            }
+        },
+
+        /**
+         * Check if a product attribute is valid.
+         */
+        isAttributeInvalid: function (attribute) {
             // Prepare the target Id
-            var targetId = this.getHiddenFieldId(option);
+            var targetId = this.getHiddenFieldId(attribute);
 
             // Get the field value
             var val = $(targetId).val();
@@ -73,14 +91,14 @@ define([
         },
 
         /**
-         * Get a source option field id.
+         * Get a source attribute field id.
          */
-        getAttributeFieldId: function (option) {
-            return this.getSwatchHandler().getAttributeFieldId(option);
+        getAttributeFieldId: function (attribute) {
+            return this.getSwatchHandler().getAttributeFieldId(attribute);
         },
 
         /**
-         * Get the swatch options handler.
+         * Get the swatch attributes handler.
          */
         getSwatchHandler: function () {
             if (NbnView.isListView()) {
@@ -93,38 +111,20 @@ define([
         },
 
         /**
-         * Get an option field values selectors.
+         * Get an attribute field values selectors.
          */
-        getValuesSelectors: function (option) {
-            return this.getSwatchHandler().getValuesSelectors(option);
+        getValuesSelectors: function (attribute) {
+            return this.getSwatchHandler().getValuesSelectors(attribute);
         },
 
         /**
-         * Get a target option hidden field selector.
+         * Get a target attribute hidden field selector.
          */
-        getHiddenFieldId: function (option) {
+        getHiddenFieldId: function (attribute) {
             return this.superAttributeSelectorPrefix
-            + option['product_id']
+            + attribute['product_id']
             + '-'
-            + option['attribute_id'];
-        },
-
-        /**
-         * Update the selected product attribute value.
-         */
-        updateSelectedAttributeValue: function (option) {
-            // Prepare the parameters
-            var sourceFieldId = this.getHiddenFieldId(option);
-            var sourceFieldValue = $(sourceFieldId).val();
-            var targetFieldId = this.getAttributeFieldId(option);
-
-            // Update the option selected value
-            if (this.isSelectedValueValid(sourceFieldValue)) {
-                $(this.confirmationContainerSelector)
-                .find(targetFieldId)
-                .val(sourceFieldValue)
-                .change();
-            }
+            + attribute['attribute_id'];
         },
 
         isSelectedValueValid: function (value) {

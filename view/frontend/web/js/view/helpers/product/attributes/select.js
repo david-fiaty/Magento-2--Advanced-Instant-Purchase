@@ -27,15 +27,15 @@ define([
         /**
          * Set a product attribute events.
          */
-        initAttributeEvent: function (option) {
+        initAttributeEvent: function (attribute) {
             // Prepare variables
             var self = this;
-            var sourceFieldId = this.getAttributeFieldId(option);
+            var sourceFieldId = this.getAttributeFieldId(attribute);
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
                 // Prepare the target Id
-                var targetFieldId = self.getHiddenFieldId(option);
+                var targetFieldId = self.getHiddenFieldId(attribute);
 
                 // Assign value from source to target
                 $(targetFieldId).val($(e.currentTarget).val());
@@ -45,18 +45,18 @@ define([
         /**
          * Check if a product attributes are valid.
          */
-        getAttributeErrors: function (option, e) {
-            return this.isAttibuteInvalid(e, option)
-            ? [option]
+        getAttributeErrors: function (attribute) {
+            return this.isAttributeInvalid(attribute)
+            ? [attribute]
             : [];
         },
 
         /**
          * Check if a product attribute is valid.
          */
-        isAttibuteInvalid: function (e, option) {
+        isAttributeInvalid: function (attribute) {
             // Prepare the target Id
-            var targetId = this.getTargetValidationField(e, option);
+            var targetId = this.getTargetValidationField(attribute);
 
             // Get the field value
             var val = this.getSourceFieldValue(targetId);
@@ -68,12 +68,12 @@ define([
         },
 
         /**
-         * Get a source option field id.
+         * Get a source attribute field id.
          */
-        getAttributeFieldId: function (option) {
+        getAttributeFieldId: function (attribute) {
             return this.attributeSelectorPrefix
-                + option['product_id']
-                + '-' + option['attribute_id'];
+                + attribute['product_id']
+                + '-' + attribute['attribute_id'];
         },
 
         /**
@@ -84,23 +84,23 @@ define([
         },
 
         /**
-         * Get a target option hidden field selector.
+         * Get a target attribute hidden field selector.
          */
-        getHiddenFieldId: function (option) {
+        getHiddenFieldId: function (attribute) {
             return this.superAttributeSelectorPrefix
-            + option['product_id']
+            + attribute['product_id']
             + '-'
-            + option['attribute_id'];
+            + attribute['attribute_id'];
         },
 
         /**
-         * Get a target option hidden field selector.
+         * Get a target attribute hidden field selector.
          */
-        getTargetValidationField: function (e, option) {
+        getTargetValidationField: function (attribute) {
             return this.superAttributeSelectorPrefix
-            + $(e.currentTarget).data('product-id')
+            + attribute['product_id']
             + '-'
-            + option['attribute_id'];
+            + attribute['attribute_id'];
         },
 
         /**
