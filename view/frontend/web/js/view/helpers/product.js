@@ -19,10 +19,8 @@
     'Naxero_BuyNow/js/view/helpers/view',
     'Naxero_BuyNow/js/view/helpers/product/attributes',
     'Naxero_BuyNow/js/view/helpers/product/options',
-    'Naxero_BuyNow/js/view/helpers/product/attributes/select',
-    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, NbnProductAttributeSelect, NbnProductAttributeSwatch, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, popover) {
     'use strict';
 
     return {
@@ -39,75 +37,25 @@
         ],
 
         /**
-         * Set product attributes events.
+         * Set product validation events.
          */
-        initAttributesEvents: function (config) {
-            var attributes = this.getAttributes(config);
-            if (attributes && attributes.length > 0) {
-                for (var i = 0; i < attributes.length; i++) {
-                    this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .initAttributeEvent(attributes[i]);
-                }
-            }
+        initValidation: function (productId) {
+            NbnProductAttributes.initAttributesEvents(productId);
+            NbnProductOptions.initOptionsEvents(productId);
         },
 
         /**
-         * Set product options events.
+         * Run a product fields validation.
          */
-        initOptionsEvents: function (config) {
-            var options = this.getOptions(config);
-            if (options && options.length > 0) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['type'])
-                    .initOptionEvent(options[i]);
-                }
-            }
-        },
-
-        /**
-         * Get the option handler component.
-         */
-        getOptionHandler: function (optionType) {
-            
-        },
-
-        /**
-         * Get the attribute handler component.
-         */
-        getAttributeHandler: function (attributeType) {
-            // Argument provided
-            attributeType = attributeType || null;
-            if (attributeType) {
-                var optionComponent = 'NbnProductOption'
-                + attributeType.charAt(0).toUpperCase() + attributeType.slice(1);
-
-                return eval(optionComponent);
-            }
-
-            // No argument provided
-            if (NbnView.isPageView()) {
-                return NbnProductAttributeSwatch;
-            } else if (NbnView.isListView()) {
-                return NbnProductAttributeSwatch;
-            } else if (NbnView.isWidgetView()) {
-                return NbnProductAttributeSelect;
-            }
+        validateFields: function (productId) {
+            return NbnProductAttributes.validateAttributes(productId) || NbnProductOptions.validateOptions(productId);
         },
 
         /**
          * Update the selected product attributes values.
          */
-        updateSelectedAttributesValues: function () {
-            var attributes = this.getAttributes();
-            var condition1 = attributes && attributes.length > 0;
-            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
-            var condition3 = !NbnView.isWidgetView();
-            if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < attributes.length; i++) {
-                    this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .updateSelectedAttributeValue(attributes[i]);
-                }
-            }
+        updateSelectedAttributesValues: function (productId) {
+            NbnProductAttributes.updateSelectedAttributesValues(productId);
         },
 
         /**
@@ -166,103 +114,6 @@
             }
 
             return buyNowData;
-        },
-
-        /**
-         * Product custom options validation.
-         */
-        validateOptions: function (e) {
-            // Prepare variables
-            var options = this.getOptionsFromEvent(e);
-            var condition1 = options && options.length > 0;
-            var errors = 0;
-
-            // Loop through the product options
-            if (condition1) {
-                for (var i = 0; i < options.length; i++) {
-                    // Validate the option
-                    var error = this.getAttributeHandler(option[i]['type'])
-                    .getAttributeErrors(option[i], e)
-                    .length > 0;
-
-                    // Register the error
-                    if (error) {
-                        errors++;
-                    }
-                }
-
-                return errors == 0;
-            }
-
-            return true;
-
-        },
-
-        /**
-         * Product attributes validation.
-         */
-        validateAttributes: function (e) {
-            // Prepare variables
-            var attributes = this.getAttributesFromEvent(e);
-            var condition1 = attributes && attributes.length > 0;
-            var errors = 0;
-
-            // Loop through the product attributes
-            if (condition1) {
-                for (var i = 0; i < attributes.length; i++) {
-                    // Validate the attribute
-                    var error = this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .getAttributeErrors(attributes[i], e)
-                    .length > 0;
-
-                    // Register the error
-                    if (error) {
-                        errors++;
-                    }
-                }
-
-                return errors == 0;
-            }
-
-            return true;
-        },
-
-        /**
-         * Check if a product has attributes.
-         */
-        hasAttributes: function (productId) {
-            return this.getProductData(productId)['attributes'].length > 0;
-        },
-
-        /**
-         * Get a product attributes from a click event.
-         */
-        getAttributesFromEvent: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-            return this.getProductData(productId)['attributes'];
-        },
-
-        /**
-         * Get a product options from a click event.
-         */
-        getOptionsFromEvent: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-            return this.getProductData(productId)['options'];
-        },
-        
-        /**
-         * Get a product attributes.
-         */
-        getAttributes: function () {
-            var productId = window.naxero.nbn.current.product.id;
-            return this.getProductData(productId)['attributes'];
-        },
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (productId) {
-            return window.naxero.nbn.instances[productId];
         },
 
         /**

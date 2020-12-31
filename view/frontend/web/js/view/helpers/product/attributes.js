@@ -13,11 +13,95 @@
  */
 
  define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/select',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch'
+], function ($, NbnView, NbnProductAttributeSelect, NbnProductAttributeSwatch) {
     'use strict';
 
     return {
-        
+        /**
+         * Set product attributes events.
+         */
+        initAttributesEvents: function (productId) {
+            var attributes = this.getAttributes(productId);
+            if (attributes && attributes.length > 0) {
+                for (var i = 0; i < attributes.length; i++) {
+                    this.getAttributeHandler(attributes[i]['attribute_type']).initAttributeEvent(attributes[i]);
+                }
+            }
+        },
+
+        /**
+         * Get a product attributes.
+         */
+        getAttributes: function (productId) {
+            return window.naxero.nbn.instances[productId]['attributes'];
+        },
+
+        /**
+         * Get the attribute handler component.
+         */
+        getAttributeHandler: function (attributeType) {
+            // Argument provided
+            attributeType = attributeType || null;
+            if (attributeType == 'select') {
+               return NbnProductAttributeSelect;
+            }
+            else if (attributeType == 'swatch') {
+                return NbnProductAttributeSwatch;
+            }
+            else {
+                if (NbnView.isPageView()) return NbnProductAttributeSwatch;
+                if (NbnView.isListView()) return NbnProductAttributeSwatch;
+                if (NbnView.isWidgetView()) return NbnProductAttributeSelect;
+            }
+        },
+
+        /**
+         * Update the selected product attributes values.
+         */
+        updateSelectedAttributesValues: function (productId) {
+            var attributes = this.getAttributes(productId);
+            var condition1 = attributes && attributes.length > 0;
+            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
+            var condition3 = !NbnView.isWidgetView();
+            if (condition1 && (condition2 || condition3)) {
+                for (var i = 0; i < attributes.length; i++) {
+                    this.getAttributeHandler(attributes[i]['attribute_type'])
+                    .updateSelectedAttributeValue(attributes[i]);
+                }
+            }
+        },
+
+        /**
+         * Product attributes validation.
+         */
+        validateAttributes: function (productId) {
+            // Prepare variables
+            var attributes = this.getAttributes(productId);
+            var condition1 = attributes && attributes.length > 0;
+            var errors = 0;
+
+            // Loop through the product attributes
+            if (condition1) {
+                for (var i = 0; i < attributes.length; i++) {
+                    // Validate the attribute
+                    var error = this.getAttributeHandler(attributes[i]['attribute_type'])
+                    .getAttributeErrors(attributes[i], e)
+                    .length > 0;
+
+                    // Register the error
+                    if (error) {
+                        errors++;
+                    }
+                }
+
+                return errors == 0;
+            }
+
+            return true;
+        }
     }
 });
