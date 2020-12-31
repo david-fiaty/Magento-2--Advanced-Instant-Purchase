@@ -37,7 +37,7 @@
          */
         initValidation: function (productId) {
             NbnProductAttributes.initAttributesEvents(productId);
-            NbnProductOptions.initOptionsEvents(productId);
+            //NbnProductOptions.initOptionsEvents(productId);
         },
 
         /**
@@ -45,7 +45,6 @@
          */
         validateFields: function (productId) {
             return NbnProductAttributes.validateAttributes(productId);
-            
             //&& NbnProductOptions.validateOptions(productId);
         },
 
