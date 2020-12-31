@@ -74,11 +74,10 @@
                 for (var i = 0; i < attributes.length; i++) {
                     // Validate the attribute
                     var error = this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .getAttributeErrors(attributes[i])
-                    .length > 0;
+                    .getAttributeErrors(attributes[i]);
 
                     // Register the error
-                    if (error) {
+                    if (error.length > 0) {
                         errors++;
                     }
                 }
