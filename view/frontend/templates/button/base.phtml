@@ -92,7 +92,11 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
 
     <?php if (!empty($config['product']['attributes'])): ?>
         <?php foreach ($config['product']['attributes'] as $option): ?>
-            <input type="hidden" id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]" value="" />
+            <input
+            type="hidden"
+            id="nbn-super-attribute-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>"
+            name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]"
+            value="<?= $config['product']['attributes'][0]['values'][0]['value_index'] ?>" />
         <?php endforeach; ?>
     <?php endif; ?>
 
