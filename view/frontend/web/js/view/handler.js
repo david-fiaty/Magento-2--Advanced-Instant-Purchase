@@ -244,7 +244,6 @@ define([
 
                     // Validate the product options if needed
                     var productId = $(this).data('product-id');
-                    var isValid = ;
                     if (!NbnProduct.validateFields(productId)) {
                         // Display the errors
                         NbnProduct.clearErrors(e);
