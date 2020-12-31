@@ -66,10 +66,6 @@
             // Prepare variables
             var attributes = this.getAttributes(productId);
 
-            console.log('attributes');
-            console.log(productId);
-            console.log(attributes);
-
             var condition1 = attributes && attributes.length > 0;
             var errors = 0;
 
@@ -78,7 +74,7 @@
                 for (var i = 0; i < attributes.length; i++) {
                     // Validate the attribute
                     var error = this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .getAttributeErrors(attributes[i], e)
+                    .getAttributeErrors(attributes[i])
                     .length > 0;
 
                     // Register the error
