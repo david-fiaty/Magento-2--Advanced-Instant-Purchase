@@ -17,8 +17,8 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/select',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/select',
+    'Naxero_BuyNow/js/view/helpers/product/attributes/swatch',
     'popover',
 ], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
     'use strict';
@@ -30,7 +30,6 @@
         viewProductContainerSelector: '.product-info-main',
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
-        productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
         optionHandlers: [
             'swatch',
@@ -203,9 +202,7 @@
          * Get updated product data for events.
          */
         getProductData: function (productId) {
-            return JSON.parse(
-                $(this.productDataSelectorPrefix + productId).val()
-            );
+            return window.naxero.nbn.instances[productId];
         },
 
         /**

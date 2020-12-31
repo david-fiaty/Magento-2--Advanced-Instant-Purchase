@@ -96,8 +96,13 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
         <?php endforeach; ?>
     <?php endif; ?>
 
+    <?php if (!empty($config['product']['options'])): ?>
+        <?php foreach ($config['product']['options'] as $option): ?>
+            <input type="hidden" id="nbn-product-option-<?= $block->escapeHtmlAttr($productId) ?>-<?= $block->escapeHtmlAttr($option['option_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($productId) ?>][option][<?= $block->escapeHtmlAttr($option['option_id']) ?>]" value="" />
+        <?php endforeach; ?>
+    <?php endif; ?>
+
     <input id="nbn-form-key-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
-    <input id="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" type="hidden" name="nbn-product-data-<?= $block->escapeHtmlAttr($productId) ?>" value="<?= $block->escapeHtmlAttr(json_encode($config['product'])) ?>">
 
     <?php if (!$isPageView): ?>
     </form>

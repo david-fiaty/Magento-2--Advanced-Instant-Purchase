@@ -14,9 +14,8 @@
 
 define([
     'jquery',
-    'mage/translate',
-    'select2'
-], function ($, __, select2) {
+    'mage/translate'
+], function ($, __) {
     'use strict';
 
     return {
@@ -26,22 +25,12 @@ define([
         optionFieldSelector: '.nbn-popup-option',
 
         /**
-         * Set product options events.
+         * Set a product attribute events.
          */
         initAttributeEvent: function (option) {
             // Prepare variables
             var self = this;
             var sourceFieldId = this.getAttributeFieldId(option);
-            var placeholder = $(this.optionFieldSelector)
-            .find('option[data-placeholder="*"]')
-            .data('placeholder');
-
-            // Select 2
-            $(this.optionFieldSelector).select2({
-                placeholder: placeholder,
-                minimumResultsForSearch: -1,
-                theme: 'classic'
-            });
 
             // Set the value change events
             $(sourceFieldId).on('change', function (e) {
@@ -54,18 +43,18 @@ define([
         },
 
         /**
-         * Check if a product options are valid.
+         * Check if a product attributes are valid.
          */
         getAttributeErrors: function (option, e) {
-            return this.isOptionInvalid(e, option)
+            return this.isAttibuteInvalid(e, option)
             ? [option]
             : [];
         },
 
         /**
-         * Check if a product option is valid.
+         * Check if a product attribute is valid.
          */
-        isOptionInvalid: function (e, option) {
+        isAttibuteInvalid: function (e, option) {
             // Prepare the target Id
             var targetId = this.getTargetValidationField(e, option);
 
