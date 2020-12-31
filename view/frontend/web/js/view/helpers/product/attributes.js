@@ -60,22 +60,6 @@
         },
 
         /**
-         * Update the selected product attributes values.
-         */
-        updateSelectedAttributesValues: function (productId) {
-            var attributes = this.getAttributes(productId);
-            var condition1 = attributes && attributes.length > 0;
-            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
-            var condition3 = !NbnView.isWidgetView();
-            if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < attributes.length; i++) {
-                    this.getAttributeHandler(attributes[i]['attribute_type'])
-                    .updateSelectedAttributeValue(attributes[i]);
-                }
-            }
-        },
-
-        /**
          * Product attributes validation.
          */
         validateAttributes: function (productId) {

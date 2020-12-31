@@ -52,13 +52,6 @@
         },
 
         /**
-         * Update the selected product attributes values.
-         */
-        updateSelectedAttributesValues: function (productId) {
-            NbnProductAttributes.updateSelectedAttributesValues(productId);
-        },
-
-        /**
          * Get a product container selector.
          */
         getProductContainer: function () {
