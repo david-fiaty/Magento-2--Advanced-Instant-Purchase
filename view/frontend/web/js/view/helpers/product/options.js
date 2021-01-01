@@ -35,15 +35,16 @@
             var condition1 = options && options.length > 0;
             var errors = 0;
 
-            // Loop through the product options
+            // Validate the product options
             if (condition1) {
-                for (var i = 0; i < options.length; i++) {
-                    // Validate the option
-                    var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
-                    $(fieldSelector).validation();
-                    var error = !$(fieldSelector).validation('isValid');
+                // Form validation
+                var formSelector = '.nbn-product-options form';
+                $(formSelector).validation();
 
-                    // Register the error
+                // Field validation
+                for (var i = 0; i < options.length; i++) {
+                    var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
+                    var error = !$(fieldSelector).validation('isValid');
                     if (error) {
                         errors++;
                     }

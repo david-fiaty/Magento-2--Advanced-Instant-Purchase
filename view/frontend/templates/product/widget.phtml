@@ -74,7 +74,9 @@
         <!-- Product options -->
         <?php if ($canDisplayOptions): ?>
         <div class="nbn-field nbn-product-options">
-            <?= $block->getOptionsHtml($config['product']['id']) ?>
+            <form>
+                <?= $block->getOptionsHtml($config['product']['id']) ?>
+            </form>
         </div>
         <?php endif; ?>
     </div>
