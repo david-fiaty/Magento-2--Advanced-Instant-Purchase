@@ -39,12 +39,11 @@
             if (condition1) {
                 for (var i = 0; i < options.length; i++) {
                     // Validate the option
-                    //$('input[name="field_mobile"]').validation();
-                    //var error = $('input[name="field_mobile"]').validation('isValid');
-
-                    var error = false;
+                    var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
+                    $(fieldSelector).validation();
+                    var error = !$(fieldSelector).validation('isValid');
                     console.log('validateOptions');
-                    console.log(options[i]);
+                    console.log(error);
 
                     // Register the error
                     if (error) {
