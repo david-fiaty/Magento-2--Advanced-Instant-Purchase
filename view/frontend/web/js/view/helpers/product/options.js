@@ -38,10 +38,11 @@
             // Validate the product options
             if (condition1) {
                 // Form validation
-                var formSelector = '.nbn-product-options form';
-                $(formSelector).validation();
+                var formSelector = '#xxx';
+                $(formSelector).validate();
 
                 // Field validation
+                /*
                 for (var i = 0; i < options.length; i++) {
                     var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
                     var error = !$(fieldSelector).validation('isValid');
@@ -49,6 +50,7 @@
                         errors++;
                     }
                 }
+                */
 
                 return errors == 0;
             }
