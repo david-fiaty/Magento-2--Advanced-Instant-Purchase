@@ -13,36 +13,18 @@
  */
 
  define([
-    'jquery'
+    'jquery',
+    'mage/mage'
 ], function ($) {
     'use strict';
 
     return {
-        /**
-         * Set product options events.
-         */
-        initOptionsEvents: function (productId) {
-            var options = this.getOptions(productId);
-            if (options && options.length > 0) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['type']).initOptionEvent(options[i]);
-                }
-            }
-        },
-
         /**
          * Get a product options.
          */
         getOptions: function (productId) {
             return window.naxero.nbn.instances[productId].product.options;
         },
-
-        /**
-         * Get the option handler component.
-         */
-        getOptionHandler: function (optionType) {
-            
-        },   
 
         /**
          * Product custom options validation.
@@ -57,9 +39,12 @@
             if (condition1) {
                 for (var i = 0; i < options.length; i++) {
                     // Validate the option
-                    var error = this.getOptionHandler(option[i]['type'])
-                    .getOptionErrors(option[i], e)
-                    .length > 0;
+                    //$('input[name="field_mobile"]').validation();
+                    //var error = $('input[name="field_mobile"]').validation('isValid');
+
+                    var error = false;
+                    console.log('validateOptions');
+                    console.log(options[i]);
 
                     // Register the error
                     if (error) {
