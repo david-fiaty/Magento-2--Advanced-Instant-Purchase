@@ -14,7 +14,7 @@
 
  define([
     'jquery',
-    'mage/mage'
+    'mage/validation'
 ], function ($) {
     'use strict';
 
@@ -42,8 +42,6 @@
                     var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
                     $(fieldSelector).validation();
                     var error = !$(fieldSelector).validation('isValid');
-                    console.log('validateOptions');
-                    console.log(error);
 
                     // Register the error
                     if (error) {
