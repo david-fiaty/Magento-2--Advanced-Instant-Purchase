@@ -390,7 +390,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
         ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
         ->setData('product_quantity', $productQuantity)
-        ->setData('is_popup', false)
         ->setData('config', $config)
         ->toHtml();
     }
@@ -417,7 +416,30 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
         ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('config', $config)
-        ->setData('is_popup', false)
+        ->toHtml();
+    }
+
+    /**
+     * Render a product attributes.
+     */
+    public function getAttributesHtml($config)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Attributes')
+        ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml')
+        ->setData('config', $config)
+        ->toHtml();
+    }
+
+    /**
+     * Render a product options.
+     */
+    public function getOptionsHtml($config)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
+        ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
+        ->setData('config', $config)
         ->toHtml();
     }
 }

@@ -17,9 +17,9 @@
 namespace Naxero\BuyNow\Block\Product;
 
 /**
- * PopupBox class constructor.
+ * Options class constructor.
  */
-class PopupBox extends \Magento\Framework\View\Element\Template
+class Options extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var Block
@@ -27,7 +27,7 @@ class PopupBox extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * PopupBox class constructor.
+     * Countdown class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
