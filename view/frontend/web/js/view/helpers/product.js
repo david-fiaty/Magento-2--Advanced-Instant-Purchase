@@ -43,8 +43,8 @@
          * Run a product fields validation.
          */
         validateFields: function (productId) {
-            return NbnProductAttributes.validateAttributes(productId)
-            && NbnProductOptions.validateOptions(productId);
+            return NbnProductAttributes.validateAttributes(productId) === true
+            && NbnProductOptions.validateOptions(productId) === true;
         },
 
         /**

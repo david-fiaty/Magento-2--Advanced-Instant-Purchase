@@ -44,10 +44,8 @@
 
                 // Field validation
                 var error = $(formSelector).validation('isValid');
-                if (error) {
-                    errors++;
-                }
-
+                if (error) errors++;
+                
                 return errors == 0;
             }
 
