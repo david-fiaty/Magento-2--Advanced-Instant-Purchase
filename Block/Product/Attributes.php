@@ -22,21 +22,12 @@ namespace Naxero\BuyNow\Block\Product;
 class Attributes extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var Block
-     */
-    public $blockHelper;
-
-    /**
-     * Countdown class constructor.
+     * Attributes class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\BuyNow\Helper\Block $blockHelper,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
-
-        $this->blockHelper = $blockHelper;
     }
 }
