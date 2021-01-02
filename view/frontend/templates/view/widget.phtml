@@ -12,14 +12,11 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT License
  * @link      https://www.naxero.com
  */
-
 ?>
 
-<?php $config = $block->getConfig() ?>
-<?php if ($config): ?>
-<?php
-// Process the block display logic
-if ($block->blockHelper->bypassOos($config['product']['id'])) {
+<?php 
+$config = $block->getConfig();
+if ($config): 
     // Purchase data
     $purchaseData = $block->purchaseHelper->getPurchaseData();
 
@@ -35,13 +32,11 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $buttonText = $block->blockHelper->getButtonText();
 ?>
 
-<!-- Product box -->
-<?php if ($showProductBox): ?>
-<div class="nbn-product-box-container">
-    <?= $block->getWidgetHtml($config) ?>
-</div>
-<?php endif; ?>
+    <!-- Product box -->
+    <?php if ($showProductBox): ?>
+    <div class="nbn-product-box-container">
+        <?= $block->getWidgetHtml($config) ?>
+    </div>
+    <?php endif; ?>
 
-
-<?php } ?>
 <?php endif; ?>
