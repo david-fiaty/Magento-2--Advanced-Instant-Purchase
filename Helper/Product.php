@@ -440,6 +440,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
         ->setTemplate(Naming::getModuleName() . '::product/options.phtml')
         ->setData('config', $config)
-        ->toHtml();
+        ->getOptionsHtml($config['product']['name']);
     }
 }
