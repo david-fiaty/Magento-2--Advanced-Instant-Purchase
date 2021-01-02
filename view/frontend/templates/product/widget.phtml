@@ -66,10 +66,8 @@
                                 id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
                                 data-product-id="<?= $config['product']['id'] ?>"
                                 data-attribute-id="<?= $row['attribute_id'] ?>"
-                                class="nbn-widget-option nbn-attribute js-states form-control"
                                 data-validate="{'required':true}"
                             >
-                                <option value="">select an option</option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
                                         <?= $block->escapeHtml($item['label']) ?>
