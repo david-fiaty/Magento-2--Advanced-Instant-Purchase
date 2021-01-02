@@ -68,6 +68,7 @@
                                 data-attribute-id="<?= $row['attribute_id'] ?>"
                                 data-validate="{'required':true}"
                             >
+                                <option value="">test placeholder to remove</option>
                                 <?php foreach ($row['values'] as $item): ?>
                                     <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
                                         <?= $block->escapeHtml($item['label']) ?>
