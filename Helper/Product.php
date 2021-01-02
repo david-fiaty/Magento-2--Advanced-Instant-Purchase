@@ -391,13 +391,13 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a product price box.
      */
-    public function getPriceBoxHtml($config)
+    public function getPriceBoxHtml($config, $productQuantity)
     {
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
         ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
         ->setData('config', $config)
-        ->setData('product_quantity', null)
+        ->setData('product_quantity', $productQuantity)
         ->toHtml();
     }
 
