@@ -135,7 +135,7 @@
             // Update the button state
             button.popover({
                 title : '',
-                content : __('Please select options for this product'),
+                content : __('Please check the invalid fields'),
                 autoPlace : false,
                 trigger : 'hover',
                 placement : 'right',
