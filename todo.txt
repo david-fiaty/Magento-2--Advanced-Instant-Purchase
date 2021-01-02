@@ -58,7 +58,6 @@ HOME PAGE EXAMPLES
 https://www.channelengine.com/
 
 EXTRA
-- add button error reporting to button popover.
 - add accordion to widget config?
 
 LIBS
