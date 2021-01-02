@@ -25,6 +25,11 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Product extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var PageFactory
+     */
+    public $pageFactory;
+    
+    /**
      * @var Configurable
      */
     public $productTypeConfigurable;
@@ -83,6 +88,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Product helper constructor.
      */
     public function __construct(
+        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeConfigurable,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
@@ -95,6 +101,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\BuyNow\Helper\Tools $toolsHelper,
         \Naxero\BuyNow\Helper\Attribute $attributeHelper
     ) {
+        $this->pageFactory = $pageFactory;
         $this->productTypeConfigurable = $productTypeConfigurable;
         $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
@@ -379,7 +386,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getQuantityBoxHtml($config, $productQuantity)
     {
-        return $this->getLayout()
+        return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
         ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
         ->setData('product_quantity', $productQuantity)
@@ -393,7 +400,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getPriceBoxHtml($config, $productQuantity = 1)
     {
-        return $this->getLayout()
+        return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
         ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
         ->setData('config', $config)
@@ -406,7 +413,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCountdownBoxHtml($config)
     {
-        return $this->getLayout()
+        return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
         ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
         ->setData('config', $config)
