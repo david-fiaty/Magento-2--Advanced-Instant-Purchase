@@ -218,7 +218,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
     /**
      * Render a widget product box.
      */
-    public function getProductBoxHtml($config)
+    public function getWidgetHtml($config)
     {
         return $this->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Widget')
