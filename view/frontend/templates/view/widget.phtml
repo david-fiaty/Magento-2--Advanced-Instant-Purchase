@@ -58,8 +58,7 @@ if ($config):
 
         <!-- Product parameters -->
         <form id="nbn-product-params-form">
-            <?= $block->getAttributesHtml($config) ?>   
-            <?= $block->getOptionsHtml($config) ?>   
+            <?= $block->productHelper->getAttributesHtml($config) ?>   
         </form>
 
         <!-- Quantity box -->
