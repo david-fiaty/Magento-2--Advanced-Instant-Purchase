@@ -38,7 +38,7 @@
             // Validate the product options
             if (condition1) {
                 // Form validation
-                var formSelector = '#xxx';
+                var formSelector = '#nbn-product-params-form';
                 $(formSelector).validation();
 
                 // Field validation

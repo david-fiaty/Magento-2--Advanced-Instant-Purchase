@@ -52,33 +52,42 @@
         <?php endif; ?>
 
         <!-- Product attributes -->
-        <?php if (!empty($config['product']['attributes'])): ?>
-            <?php foreach ($config['product']['attributes'] as $row): ?>                
-                <div class="nbn-field">
-                    <label for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>">
-                        <?= $block->escapeHtml($row['label']) ?>
-                    </label>
-                    <p>
-                        <select id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>" data-product-id="<?= $config['product']['id'] ?>" data-attribute-id="<?= $row['attribute_id'] ?>" class="nbn-widget-option nbn-attribute js-states form-control" data-minimum-results-for-search="Infinity">
-                            <?php foreach ($row['values'] as $item): ?>
-                                <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
-                                    <?= $block->escapeHtml($item['label']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </p>
-                </div>
-            <?php endforeach; ?>                
-        <?php endif; ?>
+        <form id="nbn-product-params-form">
+            <?php if (!empty($config['product']['attributes'])): ?>
+                <?php foreach ($config['product']['attributes'] as $row): ?>                
+                    <div class="nbn-field">
+                        <label 
+                            for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                        >
+                            <?= $block->escapeHtml($row['label']) ?>
+                        </label>
+                        <p>
+                            <select 
+                                id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                                data-product-id="<?= $config['product']['id'] ?>"
+                                data-attribute-id="<?= $row['attribute_id'] ?>"
+                                class="nbn-widget-option nbn-attribute js-states form-control"
+                                data-validate="{'required':true}"
+                            >
+                                <option value="">select an option</option>
+                                <?php foreach ($row['values'] as $item): ?>
+                                    <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
+                                        <?= $block->escapeHtml($item['label']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </p>
+                    </div>
+                <?php endforeach; ?>                
+            <?php endif; ?>
 
-        <!-- Product options -->
-        <?php if ($canDisplayOptions): ?>
-        <div class="nbn-field nbn-product-options">
-            <form id="xxx">
+            <!-- Product options -->
+            <?php if ($canDisplayOptions): ?>
+            <div class="nbn-field nbn-product-options">
                 <?= $block->getOptionsHtml($config['product']['id']) ?>
-            </form>
-        </div>
-        <?php endif; ?>
+            </div>
+            <?php endif; ?>
+        </form>
     </div>
     <div class="nbn-clr"></div> 
 </div>
