@@ -38,7 +38,7 @@ if ($config):
 <div class="nbn-product-box-container">
     <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
     <!-- Product image -->
-    <?php if ($showProductImage): ?>
+    <?php if ($config['widgets']['widget_show_product_image']): ?>
         <style>
         #<?= $boxId ?> .nbn-product-box-image {
             width: <?= $config['widgets']['widget_image_width'] ?>
