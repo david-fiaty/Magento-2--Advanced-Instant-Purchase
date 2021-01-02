@@ -118,7 +118,7 @@
         updateSelectedAttributesValues: function (config) {
             var attributes = NbnProductAttributes.getAttributes(config.product.id);
             var condition1 = attributes && attributes.length > 0;
-            var condition2 = config.widgets.widget_show_product && NbnView.isWidgetView();
+            var condition2 = NbnView.isWidgetView();
             var condition3 = !NbnView.isWidgetView();
             if (condition1 && (condition2 || condition3)) {
                 for (var i = 0; i < attributes.length; i++) {

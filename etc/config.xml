@@ -60,7 +60,6 @@
 
             <!-- Widgets settings -->
             <widgets>
-                <widget_show_product>1</widget_show_product>
                 <widget_show_product_quantity>1</widget_show_product_quantity>
                 <widget_show_product_image>1</widget_show_product_image>
                 <widget_image_width>30%</widget_image_width>

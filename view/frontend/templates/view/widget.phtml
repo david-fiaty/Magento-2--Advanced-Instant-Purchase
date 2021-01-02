@@ -26,44 +26,41 @@ if ($config):
 
     // UI Logging
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
-    $showProductBox = $config['widgets']['widget_show_product'];
 
     // Button text
     $buttonText = $block->blockHelper->getButtonText();
 ?>
 
-    <!-- Product box -->
-    <?php if ($showProductBox): ?>
-    <div class="nbn-product-box-container">
-        <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
-        <!-- Product image -->
-        <?php if ($showProductImage): ?>
-            <style>
-            #<?= $boxId ?> .nbn-product-box-image {
-                width: <?= $config['widgets']['widget_image_width'] ?>
-            }
-            </style>
-            <div class="nbn-product-box-image" data-product-id="<?= $config['product']['id'] ?>">
-                <img src="<?= $block->escapeUrl($config['product']['images']['medium']) ?>" data-zoom-image="<?= $block->escapeUrl($config['product']['images']['large']) ?>"> 
-            </div>
-        <?php endif; ?>
-
-        <!-- Product info -->
-        <div class="nbn-product-box-info">
-            <!-- Product name -->
-            <p class="nbn-product-box-name">
-                <?= $block->escapeHtml($config['product']['name']) ?>
-            </p>
-
-            <!-- Product parameters -->
-            <form id="nbn-product-params-form">
-
-                <!-- Todo - Call Product options and attributes templates -->
-
-            </form>
+<!-- Product box -->
+<div class="nbn-product-box-container">
+    <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
+    <!-- Product image -->
+    <?php if ($showProductImage): ?>
+        <style>
+        #<?= $boxId ?> .nbn-product-box-image {
+            width: <?= $config['widgets']['widget_image_width'] ?>
+        }
+        </style>
+        <div class="nbn-product-box-image" data-product-id="<?= $config['product']['id'] ?>">
+            <img src="<?= $block->escapeUrl($config['product']['images']['medium']) ?>" data-zoom-image="<?= $block->escapeUrl($config['product']['images']['large']) ?>"> 
         </div>
-        <div class="nbn-clr"></div> 
-    </div>
     <?php endif; ?>
 
+    <!-- Product info -->
+    <div class="nbn-product-box-info">
+        <!-- Product name -->
+        <p class="nbn-product-box-name">
+            <?= $block->escapeHtml($config['product']['name']) ?>
+        </p>
+
+        <!-- Product parameters -->
+        <form id="nbn-product-params-form">
+
+            <!-- Todo - Call Product options and attributes templates -->
+
+        </form>
+    </div>
+    <div class="nbn-clr"></div> 
+</div>
 <?php endif; ?>
+
