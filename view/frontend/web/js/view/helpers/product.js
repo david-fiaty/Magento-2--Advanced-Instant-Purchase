@@ -37,8 +37,8 @@
          */
         validateFields: function (productId) {
             // Prepare variables
-            var attributes = window.config.nbn.instances[productId].product.attributes;
-            var options = window.config.nbn.instances[productId].product.options;
+            var attributes = window.naxero.nbn.instances[productId].product.attributes;
+            var options = window.naxero.nbn.instances[productId].product.options;
 
             // Check availability of product fields
             var hasAttributes = attributes && attributes.length > 0;
