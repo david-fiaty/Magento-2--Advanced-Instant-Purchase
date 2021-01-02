@@ -14,7 +14,8 @@
 
  define([
     'jquery',
-    'mage/validation'
+    'mage/validation',
+    'domReady!'
 ], function ($) {
     'use strict';
 
@@ -39,18 +40,13 @@
             if (condition1) {
                 // Form validation
                 var formSelector = '#xxx';
-                $(formSelector).validate();
+                $(formSelector).validation();
 
                 // Field validation
-                /*
-                for (var i = 0; i < options.length; i++) {
-                    var fieldSelector = '.product-custom-option[name="option[' + options[i].option_id + ']"]';
-                    var error = !$(fieldSelector).validation('isValid');
-                    if (error) {
-                        errors++;
-                    }
+                var error = $(formSelector).validation('isValid');
+                if (error) {
+                    errors++;
                 }
-                */
 
                 return errors == 0;
             }

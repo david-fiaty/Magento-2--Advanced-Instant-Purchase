@@ -1,4 +1,27 @@
 
+0 => 
+    array (size=19)
+      'option_id' => string '1' (length=1)
+      'product_id' => string '308' (length=3)
+      'type' => string 'drop_down' (length=9)
+      'is_require' => string '1' (length=1)
+      'sku' => null
+      'max_characters' => string '0' (length=1)
+      'file_extension' => null
+      'image_size_x' => string '0' (length=1)
+      'image_size_y' => string '0' (length=1)
+      'sort_order' => string '1' (length=1)
+      'default_title' => string 'Option 1' (length=8)
+      'store_title' => null
+      'title' => string 'Option 1' (length=8)
+      'default_price' => null
+      'default_price_type' => null
+      'store_price' => null
+      'store_price_type' => null
+      'price' => null
+      'price_type' => null
+
+
 !!!PRIORITY!!!
 
 - fix countdown js errors when dates not valid
@@ -116,6 +139,17 @@ https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-
 https://embed.plnkr.co/B5waxZ/
 
 NEW IDEAS
+
+- music store plugin 
+    => js plugins
+    https://github.com/katspaugh/wavesurfer.js
+    https://tympanus.net/Development/AudioPlayer/
+    http://www.mediaelementjs.com/
+
+    => example sites
+    https://airbit.com/ToneJonez
+    https://sonoiz.com/sell-loops-samples/
+    https://splice.com/
 
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
