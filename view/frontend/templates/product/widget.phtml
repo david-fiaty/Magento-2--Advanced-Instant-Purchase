@@ -16,7 +16,7 @@
 
 <?php
     // Get the data
-    $config = $block->getData('config');
+    $config = $block->getConfig();
 
     // Display settings
     $showProductImage = $config['widgets']['widget_show_product_image'];
@@ -31,7 +31,7 @@
     $showProductCountdown = $config['products']['show_product_countdown']
     && !empty($config['products']['product_time_from'])
     && !empty($config['products']['product_time_to']);
-    
+
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
 ?>

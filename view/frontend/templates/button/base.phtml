@@ -14,12 +14,11 @@
  */
 
 ?>
-
-<?php $config = $block->getConfig() ?>
-<?php if ($config): ?>
 <?php
-// Process the block display logic
-if ($block->blockHelper->bypassOos($config['product']['id'])) {
+    // Get the config
+    $config = $block->getData('config');
+
+    // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();
     $productIsFree = $block->productHelper->isFree($config['product']['id']);
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
@@ -95,5 +94,3 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
         }
     </script>
 </div>
-<?php } ?>
-<?php endif; ?>
