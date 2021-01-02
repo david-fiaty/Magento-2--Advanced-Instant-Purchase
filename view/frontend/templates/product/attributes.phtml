@@ -13,7 +13,10 @@
  * @link      https://www.naxero.com
  */
 ?>
-
+<?php
+    // Get the config
+    $config = $block->getData('config');
+?>
 <?php if (!empty($config['product']['attributes'])): ?>
     <?php foreach ($config['product']['attributes'] as $row): ?>                
         <div class="nbn-field">

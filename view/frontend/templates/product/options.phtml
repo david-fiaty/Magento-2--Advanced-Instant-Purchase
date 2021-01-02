@@ -14,7 +14,11 @@
  */
 ?>
 
-<?php if ($canDisplayOptions): ?>
+<?php
+    // Get the config
+    $config = $block->getData('config');
+?>
+<?php if (!empty($config['product']['options'])): ?>
     <div class="nbn-field nbn-product-options">
         <?= $block->getOptionsHtml($config['product']['id']) ?>
     </div>
