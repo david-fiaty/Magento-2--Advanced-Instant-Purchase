@@ -30,7 +30,7 @@ if ($block->blockHelper->bypassOos($config['product']['id'])) {
     $isPageView = $config['product']['display'] == 'page';
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
-    $showProductBox = $config['widgets']['widget_show_product'] && !in_array($config['product']['display'], ['list', 'page']);
+    $showProductBox = $isWidgetView && $config['widgets']['widget_show_product'];
     $showQuantityBox = $isWidgetView && $config['widgets']['widget_show_product_quantity'];
     $buttonText = $block->blockHelper->getButtonText();
     
