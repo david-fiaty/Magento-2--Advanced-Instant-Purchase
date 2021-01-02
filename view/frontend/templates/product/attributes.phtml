@@ -14,18 +14,29 @@
  */
 ?>
 
-<?php
-    // Get the data
-    $config = $block->getData('config');
-    $productQuantity = $block->getData('product_quantity');
-    $productId = $config['product']['id'];
-    $productPrice = $config['product']['price'];
-?>
-
-<span id="nbn-product-price-<?= $productId ?>" class="nbn-product-price">
-    <?php if ($productQuantity): ?>
-    <?= $block->productHelper->renderProductPrice($productId, $productQuantity) ?>
-    <?php else: ?>
-    <?= $productPrice ?>
-    <?php endif; ?>
-</span>
+<?php if (!empty($config['product']['attributes'])): ?>
+    <?php foreach ($config['product']['attributes'] as $row): ?>                
+        <div class="nbn-field">
+            <label 
+                for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+            >
+                <?= $block->escapeHtml($row['label']) ?>
+            </label>
+            <p>
+                <select 
+                    id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                    data-product-id="<?= $config['product']['id'] ?>"
+                    data-attribute-id="<?= $row['attribute_id'] ?>"
+                    data-validate="{'required':true, 'digits': true, 'min':1}"
+                >
+                    <option value="">test placeholder to remove</option>
+                    <?php foreach ($row['values'] as $item): ?>
+                        <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
+                            <?= $block->escapeHtml($item['label']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+        </div>
+    <?php endforeach; ?>                
+<?php endif; ?>

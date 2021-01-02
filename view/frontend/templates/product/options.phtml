@@ -14,18 +14,8 @@
  */
 ?>
 
-<?php
-    // Get the data
-    $config = $block->getData('config');
-    $productQuantity = $block->getData('product_quantity');
-    $productId = $config['product']['id'];
-    $productPrice = $config['product']['price'];
-?>
-
-<span id="nbn-product-price-<?= $productId ?>" class="nbn-product-price">
-    <?php if ($productQuantity): ?>
-    <?= $block->productHelper->renderProductPrice($productId, $productQuantity) ?>
-    <?php else: ?>
-    <?= $productPrice ?>
-    <?php endif; ?>
-</span>
+<?php if ($canDisplayOptions): ?>
+    <div class="nbn-field nbn-product-options">
+        <?= $block->getOptionsHtml($config['product']['id']) ?>
+    </div>
+<?php endif; ?>

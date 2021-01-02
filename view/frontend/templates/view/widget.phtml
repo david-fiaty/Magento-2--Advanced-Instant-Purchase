@@ -57,41 +57,11 @@ if ($config):
                 </p>
             <?php endif; ?>
 
-            <!-- Product attributes -->
+            <!-- Product parameters -->
             <form id="nbn-product-params-form">
-                <?php if (!empty($config['product']['attributes'])): ?>
-                    <?php foreach ($config['product']['attributes'] as $row): ?>                
-                        <div class="nbn-field">
-                            <label 
-                                for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
-                            >
-                                <?= $block->escapeHtml($row['label']) ?>
-                            </label>
-                            <p>
-                                <select 
-                                    id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
-                                    data-product-id="<?= $config['product']['id'] ?>"
-                                    data-attribute-id="<?= $row['attribute_id'] ?>"
-                                    data-validate="{'required':true, 'digits': true, 'min':1}"
-                                >
-                                    <option value="">test placeholder to remove</option>
-                                    <?php foreach ($row['values'] as $item): ?>
-                                        <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
-                                            <?= $block->escapeHtml($item['label']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </p>
-                        </div>
-                    <?php endforeach; ?>                
-                <?php endif; ?>
 
-                <!-- Product options -->
-                <?php if ($canDisplayOptions): ?>
-                <div class="nbn-field nbn-product-options">
-                    <?= $block->getOptionsHtml($config['product']['id']) ?>
-                </div>
-                <?php endif; ?>
+                <!-- Todo - Call Product options and attributes templates -->
+
             </form>
         </div>
         <div class="nbn-clr"></div> 

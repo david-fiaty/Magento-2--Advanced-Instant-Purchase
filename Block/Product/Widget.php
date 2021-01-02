@@ -16,6 +16,8 @@
 
 namespace Naxero\BuyNow\Block\Product;
 
+use Naxero\BuyNow\Model\Config\Naming;
+
 /**
  * Widget class constructor.
  */
@@ -62,7 +64,24 @@ class Widget extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get a custom option HTML.
+     * Get a product attributes HTML.
+     */
+    public function getAttributesHtml($productId)
+    {
+        // Prepare parameters
+        $layout = $this->getLayout();
+        $product = $this->productHelper->getProduct($productId);
+
+        // Block data
+        $block = $layout->createBlock('Magento\Framework\View\Element\Template')
+        ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml');
+
+
+        return $blockOptionData->toHtml();
+    }
+
+    /**
+     * Get a product custom options HTML.
      */
     public function getOptionsHtml($productId)
     {
