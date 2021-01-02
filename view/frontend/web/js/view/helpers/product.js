@@ -33,13 +33,6 @@
         buttonErrorClass: 'nbn-button-error',
 
         /**
-         * Set product validation events.
-         */
-        initValidation: function (productId) {
-            NbnProductAttributes.initAttributesEvents(productId);
-        },
-
-        /**
          * Run a product fields validation.
          */
         validateFields: function (productId) {

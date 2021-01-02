@@ -78,9 +78,6 @@ define([
             // Load a button instance
             NbnCore.load(this.config);
 
-            // Attributes and options validation
-            NbnProduct.initValidation(this.config.product.id);
-
             // Widget features
             if (NbnView.isWidgetView()) {
                 this.handleImageClick();
