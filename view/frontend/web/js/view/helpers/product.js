@@ -17,10 +17,10 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/attributes',
-    'Naxero_BuyNow/js/view/helpers/product/options',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, popover) {
+    'mage/validation',
+    'domReady!'
+], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
 
     return {
@@ -43,8 +43,21 @@
          * Run a product fields validation.
          */
         validateFields: function (productId) {
-            return NbnProductAttributes.validateAttributes(productId) === true
-            && NbnProductOptions.validateOptions(productId) === true;
+            // Prepare variables
+            var hasAttributes = attributes && attributes.length > 0;
+            var hasOptions = options && options.length > 0;
+
+            // Validate the product fields
+            if (hasAttributes || hasOptions) {
+                // Form validation
+                var formSelector = '#nbn-product-params-form';
+                $(formSelector).validation();
+
+                // Field validation
+                return $(formSelector).validation('isValid');
+            }
+
+            return true;
         },
 
         /**
