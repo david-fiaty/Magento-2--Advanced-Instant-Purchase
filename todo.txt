@@ -1,27 +1,3 @@
-
-0 => 
-    array (size=19)
-      'option_id' => string '1' (length=1)
-      'product_id' => string '308' (length=3)
-      'type' => string 'drop_down' (length=9)
-      'is_require' => string '1' (length=1)
-      'sku' => null
-      'max_characters' => string '0' (length=1)
-      'file_extension' => null
-      'image_size_x' => string '0' (length=1)
-      'image_size_y' => string '0' (length=1)
-      'sort_order' => string '1' (length=1)
-      'default_title' => string 'Option 1' (length=8)
-      'store_title' => null
-      'title' => string 'Option 1' (length=8)
-      'default_price' => null
-      'default_price_type' => null
-      'store_price' => null
-      'store_price_type' => null
-      'price' => null
-      'price_type' => null
-
-
 !!!PRIORITY!!!
 
 - fix countdown js errors when dates not valid
@@ -49,11 +25,8 @@ QA
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
 - check multistore behaviour
-- check if place order contains expected product attributes selected by user (request data)
-- check: multiple widgets in same page, multiple widgets in list and page view
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
-- check add to cart values and display in popup and order request
 - Test time limit to string in admin with french and other langs
 
 NOT SUPPORTED
