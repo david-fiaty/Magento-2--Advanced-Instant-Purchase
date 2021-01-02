@@ -34,7 +34,6 @@
             // Prepare variables
             var options = this.getOptions(productId);
             var condition1 = options && options.length > 0;
-            var errors = 0;
 
             // Validate the product options
             if (condition1) {
@@ -43,10 +42,7 @@
                 $(formSelector).validation();
 
                 // Field validation
-                var error = $(formSelector).validation('isValid');
-                if (error) errors++;
-                
-                return errors == 0;
+                return $(formSelector).validation('isValid');
             }
 
             return true;
