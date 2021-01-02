@@ -65,7 +65,7 @@ if ($config):
 
         <!-- Quantity box -->
         <?php if ($config['widgets']['widget_show_product_quantity']): ?>
-            <?= $block->getPriceBoxHtml($config) ?>
+            <?= $block->productHelper->getPriceBoxHtml($config) ?>
             <?= $block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
         <?php endif; ?>
 
