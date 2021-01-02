@@ -35,7 +35,66 @@ if ($config):
     <!-- Product box -->
     <?php if ($showProductBox): ?>
     <div class="nbn-product-box-container">
-        <?= $block->getWidgetHtml($config) ?>
+        <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
+        <!-- Product image -->
+        <?php if ($showProductImage): ?>
+            <style>
+            #<?= $boxId ?> .nbn-product-box-image {
+                width: <?= $config['widgets']['widget_image_width'] ?>
+            }
+            </style>
+            <div class="nbn-product-box-image" data-product-id="<?= $config['product']['id'] ?>">
+                <img src="<?= $block->escapeUrl($config['product']['images']['medium']) ?>" data-zoom-image="<?= $block->escapeUrl($config['product']['images']['large']) ?>"> 
+            </div>
+        <?php endif; ?>
+
+        <!-- Product info -->
+        <div class="nbn-product-box-info">
+            <!-- Product name -->
+            <?php if ($showProductName): ?>
+                <p class="nbn-product-box-name">
+                    <?= $block->escapeHtml($config['product']['name']) ?>
+                </p>
+            <?php endif; ?>
+
+            <!-- Product attributes -->
+            <form id="nbn-product-params-form">
+                <?php if (!empty($config['product']['attributes'])): ?>
+                    <?php foreach ($config['product']['attributes'] as $row): ?>                
+                        <div class="nbn-field">
+                            <label 
+                                for="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                            >
+                                <?= $block->escapeHtml($row['label']) ?>
+                            </label>
+                            <p>
+                                <select 
+                                    id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                                    data-product-id="<?= $config['product']['id'] ?>"
+                                    data-attribute-id="<?= $row['attribute_id'] ?>"
+                                    data-validate="{'required':true, 'digits': true, 'min':1}"
+                                >
+                                    <option value="">test placeholder to remove</option>
+                                    <?php foreach ($row['values'] as $item): ?>
+                                        <option value="<?= $block->escapeHtmlAttr($item['value_index']) ?>">
+                                            <?= $block->escapeHtml($item['label']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>                
+                <?php endif; ?>
+
+                <!-- Product options -->
+                <?php if ($canDisplayOptions): ?>
+                <div class="nbn-field nbn-product-options">
+                    <?= $block->getOptionsHtml($config['product']['id']) ?>
+                </div>
+                <?php endif; ?>
+            </form>
+        </div>
+        <div class="nbn-clr"></div> 
     </div>
     <?php endif; ?>
 
