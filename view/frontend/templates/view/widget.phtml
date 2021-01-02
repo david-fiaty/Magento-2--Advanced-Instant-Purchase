@@ -51,11 +51,9 @@ if ($config):
         <!-- Product info -->
         <div class="nbn-product-box-info">
             <!-- Product name -->
-            <?php if ($showProductName): ?>
-                <p class="nbn-product-box-name">
-                    <?= $block->escapeHtml($config['product']['name']) ?>
-                </p>
-            <?php endif; ?>
+            <p class="nbn-product-box-name">
+                <?= $block->escapeHtml($config['product']['name']) ?>
+            </p>
 
             <!-- Product parameters -->
             <form id="nbn-product-params-form">
