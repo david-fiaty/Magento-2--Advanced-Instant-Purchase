@@ -21,11 +21,17 @@
     // Display settings
     $showProductImage = $config['widgets']['widget_show_product_image'];
     $showProductName = $config['widgets']['widget_show_product_name'];
-    $showProductBox = $config['widgets']['widget_show_product'];
+    $showQuantityBox = $config['widgets']['widget_show_product_quantity'];
+
     $zoomEnabled = $config['widgets']['widget_zoom_enabled'];
     $isLightbox = $config['widgets']['widget_zoom_type'] == 'lightbox';
     $canDisplayOptions = !empty($config['product']['options']);
 
+    // Product countdown
+    $showProductCountdown = $config['products']['show_product_countdown']
+    && !empty($config['products']['product_time_from'])
+    && !empty($config['products']['product_time_to']);
+    
     // CSS selectors
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
 ?>
