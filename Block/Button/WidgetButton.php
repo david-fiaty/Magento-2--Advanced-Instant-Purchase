@@ -16,8 +16,6 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
-use Naxero\BuyNow\Model\Config\Naming;
-
 /**
  * WidgetButton class.
  */
@@ -213,46 +211,6 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
         }
 
         return $index ?? [];
-    }
-
-    /**
-     * Render a widget product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('product_quantity', $productQuantity)
-        ->setData('is_popup', false)
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a widget product price box.
-     */
-    public function getPriceBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
-        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
-        ->setData('config', $config)
-        ->setData('product_quantity', null)
-        ->toHtml();
-    }
-
-    /**
-     * Render a widget product countdown box.
-     */
-    public function getCountdownBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('config', $config)
-        ->setData('is_popup', false)
-        ->toHtml();
     }
 
     /**

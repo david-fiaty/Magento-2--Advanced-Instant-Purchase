@@ -36,12 +36,6 @@
     </div>
     <?php endif; ?>
 
-    <!-- Quantity box -->
-    <?php if ($showQuantityBox): ?>
-    <?= $block->getPriceBoxHtml($config) ?>
-    <?= $block->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
-    <?php endif; ?>
-
     <?php if (!empty($config['product']['attributes'])): ?>
         <?php foreach ($config['product']['attributes'] as $option): ?>
             <input

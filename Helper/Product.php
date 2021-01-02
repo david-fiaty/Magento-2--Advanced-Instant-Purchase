@@ -17,6 +17,7 @@
 namespace Naxero\BuyNow\Helper;
 
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
  * Class Product helper.
@@ -371,5 +372,45 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $product = $this->getProduct($productId);
 
         return $product && (int) $product->getId() > 0;
+    }
+
+    /**
+     * Render a product quantity box.
+     */
+    public function getQuantityBoxHtml($config, $productQuantity)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
+        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
+        ->setData('product_quantity', $productQuantity)
+        ->setData('is_popup', false)
+        ->setData('config', $config)
+        ->toHtml();
+    }
+
+    /**
+     * Render a product price box.
+     */
+    public function getPriceBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
+        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
+        ->setData('config', $config)
+        ->setData('product_quantity', null)
+        ->toHtml();
+    }
+
+    /**
+     * Render a product countdown box.
+     */
+    public function getCountdownBoxHtml($config)
+    {
+        return $this->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
+        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
+        ->setData('config', $config)
+        ->setData('is_popup', false)
+        ->toHtml();
     }
 }
