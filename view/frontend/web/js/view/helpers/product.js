@@ -31,7 +31,8 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-
+        formSelector: '#nbn-product-params-form', 
+        
         /**
          * Run a product fields validation.
          */
@@ -46,12 +47,8 @@
 
             // Validate the product fields
             if (hasAttributes || hasOptions) {
-                // Form validation
-                var formSelector = '#nbn-product-params-form';
-                $(formSelector).validation();
-
-                // Field validation
-                return $(formSelector).validation('isValid');
+                $(this.formSelector).validation();
+                return $(this.formSelector).validation('isValid');
             }
 
             return true;
