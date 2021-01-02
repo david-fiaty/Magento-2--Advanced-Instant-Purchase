@@ -28,7 +28,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
 {
     const MODE = 'widget';
 
-    public $_template = "button/base.phtml";
+    public $_template = "view/widget.phtml";
 
     /**
      * @var Block

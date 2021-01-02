@@ -151,6 +151,7 @@ NEW IDEAS
     https://sonoiz.com/sell-loops-samples/
     https://splice.com/
 
+- custom options in product list page not possible in core?
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 
