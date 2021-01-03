@@ -46,7 +46,7 @@ if ($config):
     <div class="nbn-product-box-info">
         <!-- Product parameters -->
         <form id="nbn-product-params-form">
-            <?= $block->productHelper->getOptionsHtml($config) ?>      
+            <?php /* $block->productHelper->getOptionsHtml($config) */ ?>      
         </form>
 
         <!-- Product countdown -->
@@ -58,8 +58,8 @@ if ($config):
         <?php endif; ?>
         <!-- Quantity box -->
         <?php if ($config['widgets']['widget_show_product_quantity']): ?>
-            <?= $block->productHelper->getPriceBoxHtml($config) ?>
-            <?= $block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+            <?php /*$block->productHelper->getPriceBoxHtml($config) */ ?>
+            <?php /*$block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) */ ?>
         <?php endif; ?>
 
         <!-- Base button -->
