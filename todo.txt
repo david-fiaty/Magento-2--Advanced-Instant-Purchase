@@ -20,6 +20,7 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - add customerData login observer to button click before login popup?
 
 QA
+- test multiple widget instances in same page
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
 - check multistore behaviour
