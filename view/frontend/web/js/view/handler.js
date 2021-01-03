@@ -90,7 +90,7 @@ define([
             NbnLogger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
-                    window.naxero.nbn.current.product.id
+                    this.config.product.id
                 ),
                 this.config
             );
@@ -248,32 +248,34 @@ define([
             $(this.buttonSelector).prop('disabled', false);
 
             // Button click event
-            $(this.buttonSelector).on('click touch', function (e) {
-                if (e.target.nodeName == 'BUTTON') {
-                    // Force Login
-                    if (!NbnLogin.isLoggedIn()) {
-                        NbnLogin.loginPopup();
-                        return;
+            $.each(window.naxero.nbn.instances, function(productId, productConfig) {
+                var buttonId = self.buttonSelectorPrefix + '-' + productId;
+                $(buttonId).on('click touch', function (e) {
+                    if (e.target.nodeName == 'BUTTON') {
+                        // Force Login
+                        if (!NbnLogin.isLoggedIn()) {
+                            NbnLogin.loginPopup();
+                            return;
+                        }
+
+                        // Validate the product options if needed
+                        if (!NbnProduct.validateFields(productId)) {
+                            // Display the errors
+                            NbnProduct.clearErrors(e);
+                            NbnProduct.displayErrors(e);
+                            return;
+                        }
+
+                        // Page view and/or all conditions valid
+                        self.purchasePopup(e);
+                    } else if (e.target.nodeName == 'A') {
+                        // Open the modal
+                        self.getLoggerModal(e);
+
+                        // Get the log data
+                        self.getLoggerData(e);
                     }
-
-                    // Validate the product options if needed
-                    var productId = $(e.currentTarget).data('product-id');
-                    if (!NbnProduct.validateFields(productId)) {
-                        // Display the errors
-                        NbnProduct.clearErrors(e);
-                        NbnProduct.displayErrors(e);
-                        return;
-                    }
-
-                    // Page view and/or all conditions valid
-                    self.purchasePopup(e);
-                } else if (e.target.nodeName == 'A') {
-                    // Open the modal
-                    self.getLoggerModal(e);
-
-                    // Get the log data
-                    self.getLoggerData(e);
-                }
+                });
             });
         },
 

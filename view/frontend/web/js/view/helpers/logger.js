@@ -38,12 +38,9 @@
         logToConsole: function (msg, data) {
             // Log title
             console.log(
-                this.getLogTitle(),
+                this.getLogTitle() + ' - ' + msg,
                 this.logTitleCss
             );
-
-            // Log the event message
-            console.log('|-- ' + msg)
 
             // Log event data
             console.log(data);
