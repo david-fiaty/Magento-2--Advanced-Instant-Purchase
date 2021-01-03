@@ -1,6 +1,7 @@
 !!!PRIORITY!!!
 
 - fix countdown js errors when dates not valid
+- fix widget confirmation popup not showing product title
 - add currency display to shipping methods list in popup
 
 - display discounted price
