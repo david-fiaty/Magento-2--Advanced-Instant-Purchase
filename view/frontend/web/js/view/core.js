@@ -33,6 +33,11 @@ define([
          * Set a button instance config.
          */
         setConfig: function (config) {
+            window.naxero = {};
+            window.naxero.nbn = {};
+            window.naxero.nbn.test = {};
+            window.naxero.nbn.test[config.product.id] = config;
+
             // Load the button instances data container
             if (!NbnUtil.has(window, 'naxero.nbn.loaded', true)) {
                 // Prepare the instance config
