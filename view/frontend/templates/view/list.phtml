@@ -34,9 +34,7 @@ if ($config):
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
 
     // Product countdown
-    $showProductCountdown = $config['products']['show_product_countdown']
-    && !empty($config['products']['product_time_from'])
-    && !empty($config['products']['product_time_to']);
+    $showProductCountdown = $block->purchaseHelper->isProductTimeValid($config);
 ?>
 
 <!-- Product box -->
@@ -46,7 +44,7 @@ if ($config):
     <div class="nbn-product-box-info">
         <!-- Product parameters -->
         <form id="nbn-product-params-form">
-            <?= $block->productHelper->getOptionsHtml($config, $block->getLayout()) ?>      
+            <?php /* $block->productHelper->getOptionsHtml($config, $block->getLayout()) */ ?>      
         </form>
 
         <!-- Product countdown -->
@@ -63,7 +61,7 @@ if ($config):
         <?php endif; ?>
 
         <!-- Base button -->
-        <?= $block->productHelper->getButtonHtml($config) ?>
+        <?php /*$block->productHelper->getButtonHtml($config, $block->getLayout()) */ ?>
 
     </div>
     <div class="nbn-clr"></div> 

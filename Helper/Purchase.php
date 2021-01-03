@@ -222,10 +222,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
         $isGroupValid = $this->customerHelper->canDisplayForGroup($config);
         $isTimeValid = $this->isProductTimeValid($config);
-
-        // Todo - check parameters override maybe not working
-        // or global time fields invalid
-        $isTimeValid = true;
         
         return $buttonEnabled && $isGroupValid && $isTimeValid
         && ($isLoggedIn || $showGuestButton);
