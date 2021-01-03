@@ -46,7 +46,7 @@ if ($config):
     <div class="nbn-product-box-info">
         <!-- Product parameters -->
         <form id="nbn-product-params-form">
-            <?php /* $block->productHelper->getOptionsHtml($config) */ ?>      
+            <?= $block->productHelper->getOptionsHtml($config, $block->getLayout()) ?>      
         </form>
 
         <!-- Product countdown -->

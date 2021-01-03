@@ -434,9 +434,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Render a product options.
      */
-    public function getOptionsHtml($config)
+    public function getOptionsHtml($config, $layout = null)
     {
-        return $this->pageFactory->create()->getLayout()
+        $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
+        return $layout
         ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
         ->getOptionsHtml($config['product']['id']);
     }
