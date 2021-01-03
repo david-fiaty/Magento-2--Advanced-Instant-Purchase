@@ -17,7 +17,6 @@ define([
     'mage/translate',
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
-    'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
     'Naxero_BuyNow/js/view/helpers/product',
@@ -28,11 +27,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/gallery',
     'Naxero_BuyNow/js/view/helpers/message',
+    'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, NbnCore, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage) {
+], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage, NbnUtil) {
     'use strict';
 
     return Component.extend({
@@ -76,7 +76,7 @@ define([
             this._super();
 
             // Load a button instance
-            NbnCore.load(this.config);
+            this.loadConfig(this.config);
 
             // Widget features
             if (NbnView.isWidgetView()) {
@@ -90,10 +90,28 @@ define([
             NbnLogger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
-                    window.naxero.nbn.current.product.id
+                    this.config.product.id
                 ),
                 this.config
             );
+        },
+
+        /**
+         * Load the current instance config.
+         */
+        loadConfig: function (config) {
+            // Prepare the module js config container
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+                window.naxero = {
+                    nbn: {
+                        instances: {},
+                        current: config
+                    }
+                };
+            }
+
+            // Store the current instance config
+            window.naxero.nbn.instances[config.product.id] = config;
         },
 
         /**
@@ -230,7 +248,7 @@ define([
             $(this.buttonSelector).prop('disabled', false);
 
             // Button click event
-            $(this.buttonSelector).on('click touch', function (e) {
+            $(this.buttonSelector).off('click touch').on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
