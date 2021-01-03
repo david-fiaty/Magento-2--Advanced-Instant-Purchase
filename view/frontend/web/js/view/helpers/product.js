@@ -51,12 +51,19 @@
                 return $(this.formSelector).validation('isValid');
             }
 
-            // List product fields validation
+            // List product swatch fields validation
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        console.log('--> attribute');
-                        console.log(attributes[i]);
+                        // Get the source field value selector
+                        var swatchValueSelector = '.swatch-opt-' 
+                        + attributes[i].product_id + '.swatch-option'
+                        + '[option-id="' + valueIndex + '"]'; 
+
+                        // Set the value change events
+                        $(swatchValueSelector).on('click touch', function (e) {
+                            $(e.originalEvent.target).attr('option-id');
+                        });
                     }
                 }
             }
