@@ -41,6 +41,7 @@ NOT SUPPORTED
 - quantity box in product list
 - countdown in product list
 - product custom options in product list
+- quantity in product list
 
 FEATURES
 - add countown display to clock icon with popover
