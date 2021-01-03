@@ -104,10 +104,8 @@ define([
             if (!NbnUtil.has(window, 'naxero.nbn.instances', true)) {
                 window.naxero = {
                     nbn: {
-                        loaded: true,
                         instances: {},
-                        current: this.config,
-                        ui: {}
+                        current: this.config
                     }
                 };
             }
