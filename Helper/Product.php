@@ -440,4 +440,16 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
         ->getOptionsHtml($config['product']['id']);
     }
+
+    /**
+     * Render a product purchase button.
+     */
+    public function getButtonHtml($config)
+    {
+        return $this->pageFactory->create()->getLayout()
+        ->createBlock(Naming::getModulePath() . '\Block\Button\BaseButton')
+        ->setTemplate(Naming::getModuleName() . '::button/base.phtml')
+        ->setData('isFree', $this->isFree($config['product']['id']))
+        ->toHtml();
+    }
 }

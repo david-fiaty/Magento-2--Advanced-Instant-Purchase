@@ -10,7 +10,6 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - *** Handle product price update with options prices in widget and popup ***
 
 - add selected options display in product summary
-- add advanced config with placeholders for all CSS selectors used in js components
 - display store > config > shipping settings > shipping policy
 
 - add time, category and product field display to calendar system.xml config  
@@ -59,6 +58,7 @@ https://www.channelengine.com/
 
 EXTRA
 - add accordion to widget config?
+- add advanced config with placeholders for all CSS selectors used in js components
 
 LIBS
 - update the slick version from 1.8.0 to 1.8.1

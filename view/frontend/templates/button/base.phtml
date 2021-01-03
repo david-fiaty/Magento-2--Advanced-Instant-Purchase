@@ -17,10 +17,10 @@
 <?php
     // Get the config
     $config = $block->getData('config');
+    $productIsFree = $block->getData('isFree');
 
     // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();
-    $productIsFree = $block->productHelper->isFree($config['product']['id']);
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];

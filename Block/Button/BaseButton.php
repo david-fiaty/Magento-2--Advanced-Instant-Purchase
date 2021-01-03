@@ -34,26 +34,17 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $purchaseHelper;
 
     /**
-     * @var Product
-     */
-    public $productHelper;
-
-    /**
      * ListButton class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
-        \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
-        $this->productHelper = $productHelper;
     }
-
-
 }
