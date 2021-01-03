@@ -76,7 +76,7 @@ define([
             this._super();
 
             // Load a button instance
-            this.loadConfig();
+            this.loadConfig(this.config);
 
             // Widget features
             if (NbnView.isWidgetView()) {
@@ -99,19 +99,19 @@ define([
         /**
          * Load the current instance config.
          */
-        loadConfig: function () {
+        loadConfig: function (config) {
             // Prepare the module js config container
             if (!NbnUtil.has(window, 'naxero.nbn.instances', true)) {
                 window.naxero = {
                     nbn: {
                         instances: {},
-                        current: this.config
+                        current: config
                     }
                 };
             }
 
             // Store the current instance config
-            window.naxero.nbn.instances[this.config.product.id] = this.config;
+            window.naxero.nbn.instances[this.config.product.id] = config;
         },
 
         /**
