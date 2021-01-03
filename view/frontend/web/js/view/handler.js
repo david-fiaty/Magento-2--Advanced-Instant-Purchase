@@ -227,7 +227,7 @@ define([
             var self = this;
 
             // Enable the buy now button
-            button.prop('disabled', false);
+            $(this.buttonSelector).prop('disabled', false);
 
             // Button click event
             $(this.buttonSelector).on('click touch', function (e) {
@@ -239,7 +239,7 @@ define([
                     }
 
                     // Validate the product options if needed
-                    var productId = $(this).data('product-id');
+                    var productId = $(e.currentTarget).data('product-id');
                     if (!NbnProduct.validateFields(productId)) {
                         // Display the errors
                         NbnProduct.clearErrors(e);
