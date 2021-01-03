@@ -408,9 +408,9 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Render a product countdown box.
+     * Render a product countdown HTML.
      */
-    public function getCountdownBoxHtml($config)
+    public function getCountdownHtml($config)
     {
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')

@@ -62,6 +62,13 @@ if ($config):
             <?= $block->productHelper->getOptionsHtml($config) ?>      
         </form>
 
+        <!-- Product countdown -->
+        <?php if ($showProductCountdown): ?>
+        <div class="nbn-product-box-countdown">
+            <?= $block->productHelper->getCountdownHtml($config); ?>
+        </div>
+
+        <?php endif; ?>
         <!-- Quantity box -->
         <?php if ($config['widgets']['widget_show_product_quantity']): ?>
             <?= $block->productHelper->getPriceBoxHtml($config) ?>

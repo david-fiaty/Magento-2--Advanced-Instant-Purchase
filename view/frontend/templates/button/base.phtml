@@ -28,31 +28,7 @@
 ?>
 
 <!-- Purchase button -->
-<div id="nbn-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" class="nbn-button-container">
-    <!-- Product countdown -->
-    <?php if ($showProductCountdown): ?>
-    <div class="nbn-product-box-countdown">
-        <?= $block->getCountdownBoxHtml($config); ?>
-    </div>
-    <?php endif; ?>
-
-    <?php if (!empty($config['product']['attributes'])): ?>
-        <?php foreach ($config['product']['attributes'] as $option): ?>
-            <input
-            type="hidden"
-            id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($option['attribute_id']) ?>"
-            name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][super_attribute][<?= $block->escapeHtmlAttr($option['attribute_id']) ?>]"
-            value="<?= $config['product']['attributes'][0]['values'][0]['value_index'] ?>" />
-        <?php endforeach; ?>
-    <?php endif; ?>
-
-    <?php if (!empty($config['product']['options'])): ?>
-        <?php foreach ($config['product']['options'] as $option): ?>
-            <input type="hidden" id="nbn-product-option-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($option['option_id']) ?>" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][option][<?= $block->escapeHtmlAttr($option['option_id']) ?>]" value="" />
-        <?php endforeach; ?>
-    <?php endif; ?>
-    
-    <!-- Button -->
+<div id="nbn-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" class="nbn-button-container">    
     <button 
         id="<?= $block->escapeHtmlAttr($config['product']['button_id']) ?>"
         data-product-id="<?= $block->escapeHtmlAttr($config['product']['id']) ?>"
