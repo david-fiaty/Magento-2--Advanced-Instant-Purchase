@@ -17,10 +17,10 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/attributes',
-    'Naxero_BuyNow/js/view/helpers/product/options',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductAttributes, NbnProductOptions, popover) {
+    'mage/validation',
+    'domReady!'
+], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
 
     return {
@@ -31,20 +31,27 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-
-        /**
-         * Set product validation events.
-         */
-        initValidation: function (productId) {
-            NbnProductAttributes.initAttributesEvents(productId);
-        },
-
+        formSelector: '#nbn-product-params-form', 
+        
         /**
          * Run a product fields validation.
          */
         validateFields: function (productId) {
-            return NbnProductAttributes.validateAttributes(productId) === true
-            && NbnProductOptions.validateOptions(productId) === true;
+            // Prepare variables
+            var attributes = window.naxero.nbn.instances[productId].product.attributes;
+            var options = window.naxero.nbn.instances[productId].product.options;
+
+            // Check availability of product fields
+            var hasAttributes = attributes && attributes.length > 0;
+            var hasOptions = options && options.length > 0;
+
+            // Validate the product fields
+            if (hasAttributes || hasOptions) {
+                $(this.formSelector).validation();
+                return $(this.formSelector).validation('isValid');
+            }
+
+            return true;
         },
 
         /**
@@ -103,22 +110,6 @@
             }
 
             return buyNowData;
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedAttributesValues: function (config) {
-            var attributes = NbnProductAttributes.getAttributes(config.product.id);
-            var condition1 = attributes && attributes.length > 0;
-            var condition2 = config.widgets.widget_show_product && NbnView.isWidgetView();
-            var condition3 = !NbnView.isWidgetView();
-            if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < attributes.length; i++) {
-                    NbnProductAttributes.getAttributeHandler(attributes[i]['attribute_type'])
-                    .updateSelectedAttributeValue(attributes[i]);
-                }
-            }
         },
 
         /**

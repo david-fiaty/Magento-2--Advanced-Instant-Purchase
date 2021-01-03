@@ -17,52 +17,29 @@
 namespace Naxero\BuyNow\Block\Product;
 
 /**
- * Widget class constructor.
+ * Options class constructor.
  */
-class Widget extends \Magento\Framework\View\Element\Template
+class Options extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * @var Block
-     */
-    public $blockHelper;
-
     /**
      * @var Product
      */
     public $productHelper;
 
     /**
-     * Widget class constructor.
+     * Options class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Naxero\BuyNow\Helper\Block $blockHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
-
-        $this->blockHelper = $blockHelper;
         $this->productHelper = $productHelper;
     }
 
     /**
-     * Get the block config.
-     */
-    public function getConfig()
-    {
-        // Get the base the config
-        $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
-        );
-
-        // Update with block config
-        return $this->blockHelper->updateAttributesData($config);
-    }
-
-    /**
-     * Get a custom option HTML.
+     * Get a product custom options HTML.
      */
     public function getOptionsHtml($productId)
     {

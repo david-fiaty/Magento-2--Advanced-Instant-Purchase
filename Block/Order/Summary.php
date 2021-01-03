@@ -57,33 +57,6 @@ class Summary extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a popup product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('config', $config)
-        ->setData('product_quantity', $productQuantity)
-        ->setData('is_popup', true)
-        ->toHtml();
-    }
-
-    /**
-     * Render a product price box.
-     */
-    public function getPriceBoxHtml($config, $productQuantity)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
-        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
-        ->setData('config', $config)
-        ->setData('product_quantity', $productQuantity)
-        ->toHtml();
-    }
-
-    /**
      * Render a product coupon box.
      */
     public function getCouponBoxHtml($config)

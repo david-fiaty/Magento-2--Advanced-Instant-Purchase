@@ -66,16 +66,6 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Can the button be displayed for out of stock products.
-     */
-    public function bypassOos($productId)
-    {
-        return !$this->productHelper->isInStock($productId)
-        ? $this->value('buttons/bypass_oos')
-        : true;
-    }
-
-    /**
      * Get the Buy Now button text.
      */
     public function getButtonText()

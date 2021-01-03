@@ -1,27 +1,3 @@
-
-0 => 
-    array (size=19)
-      'option_id' => string '1' (length=1)
-      'product_id' => string '308' (length=3)
-      'type' => string 'drop_down' (length=9)
-      'is_require' => string '1' (length=1)
-      'sku' => null
-      'max_characters' => string '0' (length=1)
-      'file_extension' => null
-      'image_size_x' => string '0' (length=1)
-      'image_size_y' => string '0' (length=1)
-      'sort_order' => string '1' (length=1)
-      'default_title' => string 'Option 1' (length=8)
-      'store_title' => null
-      'title' => string 'Option 1' (length=8)
-      'default_price' => null
-      'default_price_type' => null
-      'store_price' => null
-      'store_price_type' => null
-      'price' => null
-      'price_type' => null
-
-
 !!!PRIORITY!!!
 
 - fix countdown js errors when dates not valid
@@ -33,14 +9,7 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 
 - *** Handle product price update with options prices in widget and popup ***
 
-- do not display timer if time limit passed => currently creating js error
 - add selected options display in product summary
-- when select list option attributes implemented, check other filed types
-- add advanced config with placeholders for all CSS selectors used in js components
-- handle non swatch options values (list, input) in page view
-- handle non swatch options values (list, input) in list view
-- fix buy now options validation in product list
-- split base list and page phtml into different templates
 - display store > config > shipping settings > shipping policy
 
 - add time, category and product field display to calendar system.xml config  
@@ -49,17 +18,12 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - handle 0 product found in category for widget category filter.
 - add customerData login observer to button click before login popup?
 
-- make sure getButtonCss method uses config as argument instead of core config values
-
 QA
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
 - check multistore behaviour
-- check if place order contains expected product attributes selected by user (request data)
-- check: multiple widgets in same page, multiple widgets in list and page view
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
-- check add to cart values and display in popup and order request
 - Test time limit to string in admin with french and other langs
 
 NOT SUPPORTED
@@ -93,8 +57,8 @@ HOME PAGE EXAMPLES
 https://www.channelengine.com/
 
 EXTRA
-- add button error reporting to button popover.
 - add accordion to widget config?
+- add advanced config with placeholders for all CSS selectors used in js components
 
 LIBS
 - update the slick version from 1.8.0 to 1.8.1
@@ -151,6 +115,7 @@ NEW IDEAS
     https://sonoiz.com/sell-loops-samples/
     https://splice.com/
 
+- custom options in product list page not possible in core?
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
 

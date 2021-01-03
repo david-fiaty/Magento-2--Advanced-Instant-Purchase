@@ -42,19 +42,6 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Render a popup product countdown box.
-     */
-    public function getCountdownBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('is_popup', true)
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
      * Render a popup summary box.
      */
     public function getSummaryBoxHtml($data, $productQuantity)

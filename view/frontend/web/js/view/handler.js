@@ -78,9 +78,6 @@ define([
             // Load a button instance
             NbnCore.load(this.config);
 
-            // Attributes and options validation
-            NbnProduct.initValidation(this.config.product.id);
-
             // Widget features
             if (NbnView.isWidgetView()) {
                 this.handleImageClick();
@@ -293,9 +290,6 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
-
-                    // Update the selected product options values
-                    NbnProduct.updateSelectedAttributesValues(self.config);
 
                     // Initialise the select lists
                     NbnSelect.build(self);
