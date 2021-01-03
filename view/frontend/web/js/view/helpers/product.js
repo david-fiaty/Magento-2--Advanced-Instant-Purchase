@@ -45,10 +45,20 @@
             var hasAttributes = attributes && attributes.length > 0;
             var hasOptions = options && options.length > 0;
 
-            // Validate the product fields
-            if (hasAttributes || hasOptions) {
+            // Widget product fields validation
+            if (NbnView.isWidgetView() && (hasAttributes || hasOptions)) {
                 $(this.formSelector).validation();
                 return $(this.formSelector).validation('isValid');
+            }
+
+            // List product fields validation
+            if (NbnView.isListView() && hasAttributes) {
+                for (var i = 0; i < attributes.length; i++) {
+                    if (attributes[i].attribute_type == 'swatch') {
+                        console.log('--> attribute');
+                        console.log(attributes[i]);
+                    }
+                }
             }
 
             return true;
