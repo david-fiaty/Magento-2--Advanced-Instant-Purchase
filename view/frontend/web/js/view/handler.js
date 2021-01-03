@@ -101,7 +101,7 @@ define([
          */
         loadConfig: function (config) {
             // Prepare the module js config container
-            if (!NbnUtil.has(window, 'naxero.nbn.instances', true)) {
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
                 window.naxero = {
                     nbn: {
                         instances: {},
