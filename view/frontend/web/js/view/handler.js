@@ -249,7 +249,7 @@ define([
 
             // Button click event
             $.each(window.naxero.nbn.instances, function(productId, productConfig) {
-                var buttonId = self.buttonSelectorPrefix + '-' + productId;
+                var buttonId = '#' + self.buttonSelectorPrefix + '-' + productId;
                 $(buttonId).on('click touch', function (e) {
                     if (e.target.nodeName == 'BUTTON') {
                         // Force Login
