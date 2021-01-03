@@ -449,6 +449,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->pageFactory->create()->getLayout()
         ->createBlock(Naming::getModulePath() . '\Block\Button\BaseButton')
         ->setTemplate(Naming::getModuleName() . '::button/base.phtml')
+        ->setData('config', $config)
         ->setData('isFree', $this->isFree($config['product']['id']))
         ->toHtml();
     }

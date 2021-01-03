@@ -32,6 +32,11 @@ if ($config):
 
     // Display
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
+
+    // Product countdown
+    $showProductCountdown = $config['products']['show_product_countdown']
+    && !empty($config['products']['product_time_from'])
+    && !empty($config['products']['product_time_to']);
 ?>
 
 <!-- Product box -->
