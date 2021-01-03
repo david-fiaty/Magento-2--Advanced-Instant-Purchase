@@ -225,13 +225,12 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + this.config.product.id);
 
             // Enable the buy now button
             button.prop('disabled', false);
 
             // Button click event
-            button.on('click touch', function (e) {
+            $(this.buttonSelector).on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
