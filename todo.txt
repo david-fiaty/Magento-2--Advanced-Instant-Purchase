@@ -38,8 +38,12 @@ NOT SUPPORTED
 - swatch rendering in widgets: swatch options are rendered as select lists
 - only options with fixed price types 
 - image switch to product widget display when product attribute changed and has image
+- quantity box in product list
+- countdown in product list
+- product custom options in product list
 
 FEATURES
+- add countown display to clock icon with popover
 - configuration manager with list and detail view to create configs and apply them globally to layouts and urls
 - add T&C handling
 - add new address handling on confirmation screen

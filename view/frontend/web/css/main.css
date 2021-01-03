@@ -35,7 +35,6 @@
 }
 
 .nbn-button-container {
-    margin-top: 1.1em;
     position: relative;
 }
 
@@ -199,7 +198,6 @@
 .nbn-product-box-info {
     float: left;
     width: 70%;
-    padding-left: 1em;
 }
 
 .nbn-product-box-name {
