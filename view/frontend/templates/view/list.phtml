@@ -42,27 +42,8 @@ if ($config):
     <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
     <!-- Product info -->
     <div class="nbn-product-box-info">
-        <!-- Product parameters -->
-        <form id="nbn-product-params-form">
-            <?php /* $block->productHelper->getOptionsHtml($config, $block->getLayout()) */ ?>      
-        </form>
-
-        <!-- Product countdown -->
-        <?php if ($showProductCountdown): ?>
-        <div class="nbn-product-box-countdown">
-            <?= $block->productHelper->getCountdownHtml($config); ?>
-        </div>
-
-        <?php endif; ?>
-        <!-- Quantity box -->
-        <?php if ($config['widgets']['widget_show_product_quantity']): ?>
-            <?php /*$block->productHelper->getPriceBoxHtml($config) */ ?>
-            <?php /*$block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) */ ?>
-        <?php endif; ?>
-
         <!-- Base button -->
-        <?php /*$block->productHelper->getButtonHtml($config, $block->getLayout()) */ ?>
-
+        <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
     </div>
     <div class="nbn-clr"></div> 
 </div>
