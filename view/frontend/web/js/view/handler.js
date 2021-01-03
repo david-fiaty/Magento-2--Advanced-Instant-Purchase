@@ -112,7 +112,6 @@ define([
 
             // Store the current instance config
             window.naxero.nbn.instances[this.config.product.id] = this.config;
-
         },
 
         /**
