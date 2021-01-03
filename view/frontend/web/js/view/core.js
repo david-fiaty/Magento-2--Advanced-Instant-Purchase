@@ -33,30 +33,21 @@ define([
          * Set a button instance config.
          */
         setConfig: function (config) {
-            window.naxero = {};
-            window.naxero.nbn = {};
-            window.naxero.nbn.test = {};
-            window.naxero.nbn.test[config.product.id] = config;
+            var instances = {};
+            instances[config.product.id] = config;
 
-            // Load the button instances data container
-            if (!NbnUtil.has(window, 'naxero.nbn.loaded', true)) {
-                // Prepare the instance config
-                var instances = {};
-                instances[config.product.id] = config;
+            // Build the config data
+            window.naxero = {
+                nbn: {
+                    loaded: true,
+                    instances: instances,
+                    current: config,
+                    ui: {}
+                }
+            };
 
-                // Build the config data
-                window.naxero = {
-                    nbn: {
-                        loaded: true,
-                        instances: instances,
-                        current: config,
-                        ui: {}
-                    }
-                };
-
-                // Get the spinner HTML
-                window.naxero.nbn.ui.loader = this.getSpinnerHtml();
-            }
+            // Get the spinner HTML
+            window.naxero.nbn.ui.loader = this.getSpinnerHtml();
         },
 
         /**
