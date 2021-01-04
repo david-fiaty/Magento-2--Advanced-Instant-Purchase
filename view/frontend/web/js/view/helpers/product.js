@@ -48,13 +48,11 @@
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
                         // Set the value change events
-                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', function (e) {
-                            console.log('attributes[i]');
-                            console.log(attributes[i]);
-
+                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', {attribute: attributes[i]}, function (e) {
                             // Build the hidden field selector
-                            var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
-                            + '-' + attributes[i].attribute_id;
+                            var hiddenField = '#nbn-super-attribute-'
+                            + e.data.attribute.product_id
+                            + '-' + e.data.attribute.attribute_id;
 
                             // Assign the attribute value to the hidden field
                             $(hiddenField).val($(e.currentTarget).attr('option-id'));
