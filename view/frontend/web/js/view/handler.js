@@ -269,7 +269,7 @@ define([
                     }
 
                     // Page view and/or all conditions valid
-                    self.purchasePopup(e);
+                    self.getConfirmationModal(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
                     self.getLoggerModal(e);
@@ -326,7 +326,7 @@ define([
         /**
          * Purchase popup.
          */
-        purchasePopup: function (e) {
+        getConfirmationModal: function (e) {
             // Get the current form
             var form = NbnProduct.getProductForm();
 

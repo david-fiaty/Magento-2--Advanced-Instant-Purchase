@@ -3,6 +3,7 @@
 - fix countdown js errors when dates not valid
 - fix widget confirmation popup not showing product title
 - add currency display to shipping methods list in popup
+- improve the product container code in product.js => avoid depending on container, use product id instead
 
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
