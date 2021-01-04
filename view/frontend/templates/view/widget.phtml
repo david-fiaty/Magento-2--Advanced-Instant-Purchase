@@ -81,6 +81,18 @@ if ($config):
         <!-- Base button -->
         <?= $block->productHelper->getButtonHtml($config) ?>
 
+        <!-- Product attributes -->
+        <?php if (!empty($config['product']['attributes'])): ?>
+            <?php foreach ($config['product']['attributes'] as $attribute): ?>
+                <input
+                    type="hidden"
+                    id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>"
+                    name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][super_attribute][<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>]"
+                    value="" 
+                >
+            <?php endforeach; ?>
+        <?php endif; ?>
+
     </div>
     <div class="nbn-clr"></div> 
 </div>
