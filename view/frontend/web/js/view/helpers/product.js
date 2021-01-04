@@ -17,11 +17,12 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/attributes',
     'popover',
     'mage/validation',
     'mage/cookies',
     'domReady!'
-], function ($, __, NbnLogger, NbnView, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributes, popover) {
     'use strict';
 
     return {
@@ -48,16 +49,7 @@
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        // Set the attribute value change events
-                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', {attribute: attributes[i]}, function (e) {
-                            // Build the hidden field selector
-                            var hiddenField = '#nbn-super-attribute-'
-                            + e.data.attribute.product_id
-                            + '-' + e.data.attribute.attribute_id;
-
-                            // Assign the attribute value to the hidden field
-                            $(hiddenField).val($(e.currentTarget).attr('option-id'));
-                        });
+                        NbnProductAttributes.initFields(attributes[i]);
                     }
                 }
             }
@@ -103,24 +95,6 @@
             }
 
             return true;
-        },
-
-        /**
-         * Get a product swatch attributes selectors.
-         */
-        getSwatchAttributesSelectors: function (attribute) {
-            var selectors = [];
-            for (var i = 0; i < attribute.values.length; i++) {
-                // Build the selector
-                var swatchValueSelector = '.swatch-opt-' 
-                + attribute.product_id + ' .swatch-option'
-                + '[option-id="' + attribute.values[i].value_index + '"]'; 
-
-                // Add to the list
-                selectors.push(swatchValueSelector);
-            }
-
-            return selectors.join(', ');
         },
 
         /**
