@@ -5,6 +5,8 @@
 - add currency display to shipping methods list in popup
 - improve the product container code in product.js => avoid depending on container, use product id instead
 
+- restore options selection state after login
+
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
@@ -15,15 +17,14 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - display store > config > shipping settings > shipping policy
 
 - add time, category and product field display to calendar system.xml config  
-- quantity in product list? countdown in product list? countown in product detail?
 - display UI error messages for widget products not found with category filters
+- add UI error display for unsupported product custom options like date
 - handle 0 product found in category for widget category filter.
 - add customerData login observer to button click before login popup?
 
 QA
 - test multiple widget instances in same page
 - make sure payment tokens are filtered by store
-- Make sure we can Run NBN and core IP feature at the same time on a site
 - check multistore behaviour
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
@@ -48,6 +49,7 @@ NOT SUPPORTED
 - quantity in product list
 
 FEATURES
+- quantity in product list? countdown in product list? countown in product detail?
 - add accordion to widget config?
 - add advanced config with placeholders for all CSS selectors used in js components
 - add countown display to clock icon with popover
@@ -107,8 +109,7 @@ https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-
 https://embed.plnkr.co/B5waxZ/
 
 NEW IDEAS
-
-- music store plugin 
+- audio store plugin 
     => js plugins
     https://github.com/katspaugh/wavesurfer.js
     https://tympanus.net/Development/AudioPlayer/
@@ -122,7 +123,7 @@ NEW IDEAS
 - custom options in product list page not possible in core?
 - fancy interactive product grid in category views with masonry
 - fancy interactive images grid in product details view with masonry
-
+- facebook pages plugin
 
 SCRIPTS
 phpcbf --standard=PSR2 app/code/Naxero/BuyNow

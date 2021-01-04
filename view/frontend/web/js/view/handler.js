@@ -29,7 +29,6 @@ define([
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
-    'mage/cookies',
     'elevatezoom',
     'domReady!'
 ], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage, NbnUtil) {

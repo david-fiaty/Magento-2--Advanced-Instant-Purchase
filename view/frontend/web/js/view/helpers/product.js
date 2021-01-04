@@ -19,6 +19,7 @@
     'Naxero_BuyNow/js/view/helpers/view',
     'popover',
     'mage/validation',
+    'mage/cookies',
     'domReady!'
 ], function ($, __, NbnLogger, NbnView, popover) {
     'use strict';
@@ -47,7 +48,7 @@
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        // Set the value change events
+                        // Set the attribute value change events
                         $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', {attribute: attributes[i]}, function (e) {
                             // Build the hidden field selector
                             var hiddenField = '#nbn-super-attribute-'
