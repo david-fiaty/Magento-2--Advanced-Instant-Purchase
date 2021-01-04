@@ -14,12 +14,14 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Product;
+namespace Naxero\BuyNow\Block\Button;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * PopupBox class constructor.
+ * BaseButton class.
  */
-class PopupBox extends \Magento\Framework\View\Element\Template
+class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
      * @var Block
@@ -27,30 +29,22 @@ class PopupBox extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * PopupBox class constructor.
+     * @var Purchase
+     */
+    public $purchaseHelper;
+
+    /**
+     * ListButton class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
-    }
-
-    /**
-     * Get the block config.
-     */
-    public function getConfig()
-    {
-        // Get the base the config
-        $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
-        );
-
-        // Update with block config
-        return $this->blockHelper->updateAttributesData($config);
+        $this->purchaseHelper = $purchaseHelper;
     }
 }

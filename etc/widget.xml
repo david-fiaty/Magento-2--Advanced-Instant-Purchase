@@ -138,18 +138,6 @@
                 <label translate="true">Customer groups</label>
             </parameter>
 
-            <parameter name="bypass_oos" xsi:type="select" visible="true">
-                <label translate="true">Bypass out of stock</label>
-                <options>
-                    <option name="yes" value="1">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0" selected="true">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-
             <parameter name="button_classes" xsi:type="text" visible="true">
                 <label translate="true">Button classes</label>
                 <value>primary button</value>
@@ -163,36 +151,8 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="widget_show_product" xsi:type="select" visible="true">
-                <label translate="true">Show product</label>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
-            <parameter name="widget_show_product_name" xsi:type="select" visible="true">
-                <label translate="true">Show product name</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
-                <options>
-                    <option name="yes" value="1" selected="true">
-                        <label translate="true">Yes</label>
-                    </option>
-                    <option name="no" value="0">
-                        <label translate="true">No</label>
-                    </option>
-                </options>
-            </parameter>
             <parameter name="widget_show_product_quantity" xsi:type="select" visible="true">
                 <label translate="true">Show product quantity</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>
@@ -205,9 +165,6 @@
 
             <parameter name="widget_show_product_image" xsi:type="select" visible="true">
                 <label translate="true">Show product image</label>
-                <depends>
-                    <parameter name="widget_show_product" value="1" />
-                </depends>
                 <options>
                     <option name="yes" value="1" selected="true">
                         <label translate="true">Yes</label>

@@ -39,7 +39,7 @@
       <td><?= $data['config']['product']['name'] ?></td>
       <td><?= $data['config']['product']['price'] ?></td>
       <td><?= $productQantity ?></td>
-      <td><?= $block->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+      <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>

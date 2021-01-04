@@ -17,7 +17,6 @@ define([
     'mage/translate',
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
-    'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
     'Naxero_BuyNow/js/view/helpers/product',
@@ -28,11 +27,12 @@ define([
     'Naxero_BuyNow/js/view/helpers/template',
     'Naxero_BuyNow/js/view/helpers/gallery',
     'Naxero_BuyNow/js/view/helpers/message',
+    'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
     'mage/cookies',
     'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, NbnCore, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage) {
+], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage, NbnUtil) {
     'use strict';
 
     return Component.extend({
@@ -76,10 +76,10 @@ define([
             this._super();
 
             // Load a button instance
-            NbnCore.load(this.config);
+            this.loadConfig(this.config);
 
-            // Attributes and options validation
-            NbnProduct.initValidation(this.config.product.id);
+            // Set the product fields events
+            NbnProduct.initFields(this.config.product.id);
 
             // Widget features
             if (NbnView.isWidgetView()) {
@@ -93,10 +93,28 @@ define([
             NbnLogger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
-                    window.naxero.nbn.current.product.id
+                    this.config.product.id
                 ),
                 this.config
             );
+        },
+
+        /**
+         * Load the current instance config.
+         */
+        loadConfig: function (config) {
+            // Prepare the module js config container
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+                window.naxero = {
+                    nbn: {
+                        instances: {},
+                        current: config
+                    }
+                };
+            }
+
+            // Store the current instance config
+            window.naxero.nbn.instances[config.product.id] = config;
         },
 
         /**
@@ -228,13 +246,12 @@ define([
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + this.config.product.id);
 
             // Enable the buy now button
-            button.prop('disabled', false);
+            $(this.buttonSelector).prop('disabled', false);
 
             // Button click event
-            button.on('click touch', function (e) {
+            $(this.buttonSelector).off('click touch').on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
@@ -243,7 +260,7 @@ define([
                     }
 
                     // Validate the product options if needed
-                    var productId = $(this).data('product-id');
+                    var productId = $(e.currentTarget).data('product-id');
                     if (!NbnProduct.validateFields(productId)) {
                         // Display the errors
                         NbnProduct.clearErrors(e);
@@ -293,9 +310,6 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
-
-                    // Update the selected product options values
-                    NbnProduct.updateSelectedAttributesValues(self.config);
 
                     // Initialise the select lists
                     NbnSelect.build(self);

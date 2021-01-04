@@ -107,12 +107,6 @@
                     <comment>Display the button only for the selected customer groups. No cutomer groups selected above is the same as all customer groups selected.</comment>
                 </field>
 
-                <field id="bypass_oos" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Bypass out of stock</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Display the button even if the product is out of stock.</comment>
-                </field>
-
                 <field id="button_classes" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button classes</label>
                     <comment>Add custom class names separated by a white space.</comment>
@@ -159,31 +153,13 @@
             <!-- Widgets settings -->
             <group id="widgets" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Widgets settings</label>
-                <field id="widget_show_product" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Show the product in the purchase popup windwow.</comment>
-                </field>
-                <field id="widget_show_product_name" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product name</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
-                </field>
                 <field id="widget_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product quantity</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
                 </field>
                 <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show product image</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product">1</field>
-                    </depends>
                 </field>
                 <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Image width</label>
