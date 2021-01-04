@@ -48,7 +48,7 @@
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
                         // Set the value change events
-                        $(this.getSwatchAttributesSelectors(attribute[i])).on('click touch', function (e) {
+                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', function (e) {
                             // Build the hidden field selector
                             var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
                             + '-' + attributes[i].attribute_id;
