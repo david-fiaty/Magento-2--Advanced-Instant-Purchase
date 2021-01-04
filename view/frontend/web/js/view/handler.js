@@ -282,7 +282,7 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function (e) {
+        getConfirmationContent: function (e) {
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
@@ -294,7 +294,7 @@ define([
                 product_quantity: productQuantity
             };
 
-            console.log('getConfirmContent');
+            console.log('getConfirmationContent');
             console.log($('#nbn-product-params-form').serialize());
 
             // Log the parameters
@@ -342,7 +342,7 @@ define([
             this.getOrderModal(e.currentTarget);
 
             // Get the AJAX content
-            this.getConfirmContent(e);
+            this.getConfirmationContent(e);
         },
 
         /**
