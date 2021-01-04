@@ -34,6 +34,34 @@
         formSelector: '#nbn-product-params-form', 
         
         /**
+         * Initialise the product fields events
+         */
+        initFields: function (productId) {
+            // Prepare variables
+            var attributes = window.naxero.nbn.instances[productId].product.attributes;
+
+            // Check availability of product fields
+            var hasAttributes = attributes && attributes.length > 0;
+
+            // List product swatch fields events
+            if (NbnView.isListView() && hasAttributes) {
+                for (var i = 0; i < attributes.length; i++) {
+                    if (attributes[i].attribute_type == 'swatch') {
+                        // Set the value change events
+                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', function (e) {
+                            // Build the hidden field selector
+                            var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
+                            + '-' + attributes[i].attribute_id;
+
+                            // Assign the attribute value to the hidden field
+                            $(hiddenField).val($(e.currentTarget).attr('option-id'));
+                        });
+                    }
+                }
+            }
+        },
+
+        /**
          * Run a product fields validation.
          */
         validateFields: function (productId) {
@@ -45,13 +73,52 @@
             var hasAttributes = attributes && attributes.length > 0;
             var hasOptions = options && options.length > 0;
 
-            // Validate the product fields
-            if (hasAttributes || hasOptions) {
+            // Widget product fields validation
+            if (NbnView.isWidgetView() && (hasAttributes || hasOptions)) {
                 $(this.formSelector).validation();
                 return $(this.formSelector).validation('isValid');
             }
 
+            // List product swatch fields validation
+            if (NbnView.isListView() && hasAttributes) {
+                var errors = 0;
+                for (var i = 0; i < attributes.length; i++) {
+                    if (attributes[i].attribute_type == 'swatch') {
+                        // Build the target hidden field selector
+                        var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
+                        + '-' + attributes[i].attribute_id;
+
+                        // Check the hidden field value
+                        var val = $(hiddenField).val();
+                        var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
+
+                        // Update the error count
+                        errors = !fieldIsValid ? errors++ : errors;
+                    }
+                }
+
+                return errors == 0;
+            }
+
             return true;
+        },
+
+        /**
+         * Get a product swatch attributes selectors.
+         */
+        getSwatchAttributesSelectors: function (attribute) {
+            var selectors = [];
+            for (var i = 0; i < attribute.values.length; i++) {
+                // Build the selector
+                var swatchValueSelector = '.swatch-opt-' 
+                + attribute.product_id + ' .swatch-option'
+                + '[option-id="' + attribute.values[i].value_index + '"]'; 
+
+                // Add to the list
+                selectors.push(swatchValueSelector);
+            }
+
+            return selectors.join(', ');
         },
 
         /**

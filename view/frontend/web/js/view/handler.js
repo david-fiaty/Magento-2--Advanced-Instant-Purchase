@@ -78,6 +78,9 @@ define([
             // Load a button instance
             this.loadConfig(this.config);
 
+            // Set the product fields events
+            NbnProduct.initFields(this.config.product.id);
+
             // Widget features
             if (NbnView.isWidgetView()) {
                 this.handleImageClick();

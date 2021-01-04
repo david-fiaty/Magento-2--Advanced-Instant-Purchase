@@ -20,12 +20,14 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - add customerData login observer to button click before login popup?
 
 QA
+- test multiple widget instances in same page
 - make sure payment tokens are filtered by store
 - Make sure we can Run NBN and core IP feature at the same time on a site
 - check multistore behaviour
 - fix/improve lightbox gallery images display
 - recheck all zoom modes
 - Test time limit to string in admin with french and other langs
+- Update external js libs before release
 
 NOT SUPPORTED
 - table rate shipping
@@ -45,6 +47,8 @@ NOT SUPPORTED
 - quantity in product list
 
 FEATURES
+- add accordion to widget config?
+- add advanced config with placeholders for all CSS selectors used in js components
 - add countown display to clock icon with popover
 - configuration manager with list and detail view to create configs and apply them globally to layouts and urls
 - add T&C handling
@@ -62,13 +66,6 @@ https://magento.stackexchange.com/questions/261560/magento-2-how-to-get-the-best
 HOME PAGE EXAMPLES
 https://www.channelengine.com/
 
-EXTRA
-- add accordion to widget config?
-- add advanced config with placeholders for all CSS selectors used in js components
-
-LIBS
-- update the slick version from 1.8.0 to 1.8.1
-- check other libraries versions
 
 EXPLORE
 - add buynow external widgets

@@ -34,55 +34,16 @@ if ($config):
     $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
 
     // Product countdown
-    $showProductCountdown = $config['products']['show_product_countdown']
-    && !empty($config['products']['product_time_from'])
-    && !empty($config['products']['product_time_to']);
+    $showProductCountdown = $block->purchaseHelper->isProductTimeValid($config);
 ?>
 
 <!-- Product box -->
 <div class="nbn-product-box-container">
     <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
-    <!-- Product image -->
-    <?php if ($config['widgets']['widget_show_product_image']): ?>
-        <style>
-        #<?= $boxId ?> .nbn-product-box-image {
-            width: <?= $config['widgets']['widget_image_width'] ?>
-        }
-        </style>
-        <div class="nbn-product-box-image" data-product-id="<?= $config['product']['id'] ?>">
-            <img src="<?= $block->escapeUrl($config['product']['images']['medium']) ?>" data-zoom-image="<?= $block->escapeUrl($config['product']['images']['large']) ?>"> 
-        </div>
-    <?php endif; ?>
-
     <!-- Product info -->
     <div class="nbn-product-box-info">
-        <!-- Product name -->
-        <p class="nbn-product-box-name">
-            <?= $block->escapeHtml($config['product']['name']) ?>
-        </p>
-
-        <!-- Product parameters -->
-        <form id="nbn-product-params-form">
-            <?= $block->productHelper->getAttributesHtml($config) ?>
-            <?= $block->productHelper->getOptionsHtml($config) ?>      
-        </form>
-
-        <!-- Product countdown -->
-        <?php if ($showProductCountdown): ?>
-        <div class="nbn-product-box-countdown">
-            <?= $block->productHelper->getCountdownHtml($config); ?>
-        </div>
-
-        <?php endif; ?>
-        <!-- Quantity box -->
-        <?php if ($config['widgets']['widget_show_product_quantity']): ?>
-            <?= $block->productHelper->getPriceBoxHtml($config) ?>
-            <?= $block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
-        <?php endif; ?>
-
         <!-- Base button -->
-        <?= $block->productHelper->getButtonHtml($config) ?>
-
+        <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
     </div>
     <div class="nbn-clr"></div> 
 </div>
