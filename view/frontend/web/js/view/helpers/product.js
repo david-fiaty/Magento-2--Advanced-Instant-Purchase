@@ -112,7 +112,7 @@
                 // Build the selector
                 var swatchValueSelector = '.swatch-opt-' 
                 + attribute.product_id + ' .swatch-option'
-                + '[option-id="' + attributes.values[i].value_index + '"]'; 
+                + '[option-id="' + attribute.values[i].value_index + '"]'; 
 
                 // Add to the list
                 selectors.push(swatchValueSelector);
