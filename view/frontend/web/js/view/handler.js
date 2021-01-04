@@ -294,8 +294,8 @@ define([
                 product_quantity: productQuantity
             };
 
-            console.log('getConfirmationContent');
-            console.log($('#nbn-product-params-form').serialize());
+            // Open the modal
+            this.getOrderModal(e.currentTarget);
 
             // Log the parameters
             NbnLogger.log(
@@ -337,9 +337,6 @@ define([
             if (!condition1) {
                 return;
             }
-
-            // Open the modal
-            this.getOrderModal(e.currentTarget);
 
             // Get the AJAX content
             this.getConfirmationContent(e);
