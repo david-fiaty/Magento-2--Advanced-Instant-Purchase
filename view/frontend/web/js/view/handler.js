@@ -295,6 +295,9 @@ define([
                 product_quantity: productQuantity
             };
 
+            console.log('getConfirmContent');
+            console.log($('#nbn-product-params-form').serialize());
+
             // Log the parameters
             NbnLogger.log(
                 __('Confirmation window request parameters'),
@@ -324,7 +327,7 @@ define([
         },
 
         /**
-         * Purchase popup.
+         * Order confirmation modal window.
          */
         getConfirmationModal: function (e) {
             // Get the current form
