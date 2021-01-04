@@ -94,7 +94,7 @@
                         var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
 
                         // Update the error count
-                        errors = !fieldIsValid ? errors++ : errors;
+                        if (!fieldIsValid) errors++;
                     }
                 }
 
