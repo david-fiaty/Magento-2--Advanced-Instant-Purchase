@@ -28,6 +28,7 @@
             <p>
                 <select 
                     id="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
+                    name="nbn-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
                     data-product-id="<?= $config['product']['id'] ?>"
                     data-attribute-id="<?= $row['attribute_id'] ?>"
                     data-validate="{'required':true, 'digits': true, 'min':1}"
