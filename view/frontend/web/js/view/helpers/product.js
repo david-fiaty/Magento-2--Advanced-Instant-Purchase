@@ -81,11 +81,23 @@
 
             // List product swatch fields validation
             if (NbnView.isListView() && hasAttributes) {
+                var errors = 0;
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
+                        // Build the target hidden field selector
+                        var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
+                        + '-' + attributes[i].attribute_id;
 
+                        // Check the hidden field value
+                        var val = $(hiddenField).val();
+                        var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
+
+                        // Update the error count
+                        errors = !fieldIsValid ? errors++ : errors;
                     }
                 }
+
+                return errors == 0;
             }
 
             return true;
