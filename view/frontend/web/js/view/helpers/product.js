@@ -34,6 +34,34 @@
         formSelector: '#nbn-product-params-form', 
         
         /**
+         * Initialise the product fields events
+         */
+        initFields: function (productId) {
+            // Prepare variables
+            var attributes = window.naxero.nbn.instances[productId].product.attributes;
+
+            // Check availability of product fields
+            var hasAttributes = attributes && attributes.length > 0;
+
+            // List product swatch fields events
+            if (NbnView.isListView() && hasAttributes) {
+                for (var i = 0; i < attributes.length; i++) {
+                    if (attributes[i].attribute_type == 'swatch') {
+                        // Set the value change events
+                        $(this.getSwatchAttributesSelectors(attribute[i])).on('click touch', function (e) {
+                            // Build the hidden field selector
+                            var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
+                            + '-' + attributes[i].attribute_id;
+
+                            // Assign the attribute value to the hidden field
+                            $(hiddenField).val($(e.currentTarget).attr('option-id'));
+                        });
+                    }
+                }
+            }
+        },
+
+        /**
          * Run a product fields validation.
          */
         validateFields: function (productId) {
@@ -55,32 +83,30 @@
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        // Get the source field value selectors
-                        var selectors = [];
-                        for (var j = 0; j < attributes[i].values.length; j++) {
-                            // Build the selector
-                            var swatchValueSelector = '.swatch-opt-' 
-                            + attributes[i].product_id + ' .swatch-option'
-                            + '[option-id="' + attributes[i].values[j].value_index + '"]'; 
 
-                            // Add to the list
-                            selectors.push(swatchValueSelector);
-                        }
-
-                        // Set the value change events
-                        $(selectors.join(', ')).on('click touch', function (e) {
-                            // Build the hidden field selector
-                            var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
-                            + '-' + attributes[i].attribute_id;
-
-                            // Assign the attribute value to the hidden field
-                            $(hiddenField).val($(e.currentTarget).attr('option-id'));
-                        });
                     }
                 }
             }
 
             return true;
+        },
+
+        /**
+         * Get a product swatch attributes selectors.
+         */
+        getSwatchAttributesSelectors: function (attribute) {
+            var selectors = [];
+            for (var j = 0; j < attributes[i].values.length; j++) {
+                // Build the selector
+                var swatchValueSelector = '.swatch-opt-' 
+                + attributes[i].product_id + ' .swatch-option'
+                + '[option-id="' + attributes[i].values[j].value_index + '"]'; 
+
+                // Add to the list
+                selectors.push(swatchValueSelector);
+            }
+
+            return selectors.join(', ');
         },
 
         /**
