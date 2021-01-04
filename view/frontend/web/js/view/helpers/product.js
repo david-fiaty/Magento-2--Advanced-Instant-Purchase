@@ -108,11 +108,11 @@
          */
         getSwatchAttributesSelectors: function (attribute) {
             var selectors = [];
-            for (var j = 0; j < attributes[i].values.length; j++) {
+            for (var i = 0; i < attribute.values.length; i++) {
                 // Build the selector
                 var swatchValueSelector = '.swatch-opt-' 
-                + attributes[i].product_id + ' .swatch-option'
-                + '[option-id="' + attributes[i].values[j].value_index + '"]'; 
+                + attribute.product_id + ' .swatch-option'
+                + '[option-id="' + attributes.values[i].value_index + '"]'; 
 
                 // Add to the list
                 selectors.push(swatchValueSelector);
