@@ -55,15 +55,17 @@
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        // Get the source field value selector
-                        var swatchValueSelector = '.swatch-opt-' 
-                        + attributes[i].product_id + '.swatch-option'
-                        + '[option-id="' + valueIndex + '"]'; 
+                        for (var j = 0; j < attributes[i].values.length; j++) {
+                            // Get the source field value selector
+                            var swatchValueSelector = '.swatch-opt-' 
+                            + attributes[i].product_id 
+                            + '[option-id="' + attributes[i].values[j].value_index + '"]'; 
 
-                        // Set the value change events
-                        $(swatchValueSelector).on('click touch', function (e) {
-                            $(e.originalEvent.target).attr('option-id');
-                        });
+                            // Set the value change events
+                            $(swatchValueSelector).on('click touch', function (e) {
+                                $(e.originalEvent.target).attr('option-id');
+                            });
+                        }
                     }
                 }
             }
