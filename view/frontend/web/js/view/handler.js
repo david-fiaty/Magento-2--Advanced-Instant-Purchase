@@ -330,7 +330,7 @@ define([
          */
         getConfirmationModal: function (e) {
             // Get the current form
-            var form = NbnProduct.getProductForm();
+            var form = $(NbnProduct.getProductFormSelector());
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');

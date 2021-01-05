@@ -98,31 +98,12 @@
         },
 
         /**
-         * Get a product container selector.
+         * Get a product form selector.
          */
-        getProductContainer: function () {
-            return NbnView.isListView()
-            ? this.listProductContainerSelector
-            : this.viewProductContainerSelector;
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductForm: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get product form selector
-            var productFormSelector = NbnView.isListView()
-            ? this.listProductFormSelector
-            : this.viewProductFormSelector;
-
-            // Get the form
-            var form = $(window.naxero.nbn.current.product.button_selector).closest(productContainerSelector)
-            .find(productFormSelector);
-
-            return form;
+        getProductFormSelector: function () {
+            if (NbnView.isListView()) return  '#nbn-list-form';
+            else if (NbnView.isWidgetView()) return  '#nbn-widget-form';
+            else return  '#product_addtocart_form';
         },
 
         /**
