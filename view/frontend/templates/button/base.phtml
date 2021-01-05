@@ -46,7 +46,6 @@
             </div>
         <?php endif; ?> 
     </button>
-    </form>
 
     <!-- Hidden fields -->
     <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>">

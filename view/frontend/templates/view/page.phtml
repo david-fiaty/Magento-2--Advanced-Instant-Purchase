@@ -37,15 +37,7 @@ if ($config):
     $showProductCountdown = $block->purchaseHelper->isProductTimeValid($config);
 ?>
 
-<!-- Product box -->
-<div class="nbn-product-box-container">
-    <div id="<?= $block->escapeHtmlAttr($boxId) ?>" class="nbn-product-box">
-    <!-- Product info -->
-    <div class="nbn-product-box-info">
-        <!-- Base button -->
-        <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
-    </div>
-    <div class="nbn-clr"></div> 
-</div>
+            <!-- Base button -->
+            <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
 <?php endif; ?>
 
