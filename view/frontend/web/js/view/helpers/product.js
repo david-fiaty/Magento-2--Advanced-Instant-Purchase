@@ -111,10 +111,15 @@
          */
         getProductFormData: function () {
             // Product container selector
-            var productContainerSelector = this.getProductContainer();
+            var productFormSelector = this.getProductFormSelector();
+
+            console.log('-----> productFormSelector');
+            console.log(productFormSelector);
+            console.log(productFormSelector.serializeArray());
+
 
             // Get the buy now data
-            var buyNowData = this.getProductForm().serialize();
+            var buyNowData = $(productFormSelector).serialize();
 
             // Log the purchase data
             NbnLogger.log(
@@ -125,8 +130,7 @@
             // Get the cart form data if list view
             if (NbnView.isListView()) {
                 var cartFormData = $(window.naxero.nbn.current.product.button_selector)
-                .closest(productContainerSelector)
-                .find(this.listProductCartFormSelector)
+                .closest(productFormSelector)
                 .serialize();
 
                 // Add the cart form data to the purchase data
