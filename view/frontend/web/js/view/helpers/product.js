@@ -33,7 +33,7 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        formSelector: '#nbn-product-params-form', 
+        formSelector: '#nbn-widget-form', 
         
         /**
          * Initialise the product fields events

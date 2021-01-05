@@ -297,9 +297,6 @@ define([
             // Open the modal
             this.getOrderModal(e.currentTarget);
 
-            console.log('xx');
-            console.log($('#nbn-product-params-form').serializeArray());
-
             // Log the parameters
             NbnLogger.log(
                 __('Confirmation window request parameters'),

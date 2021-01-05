@@ -109,6 +109,7 @@ https://www.hiddentechies.com/blog/magento-2/magento-2-get-product-attribute-id-
 https://embed.plnkr.co/B5waxZ/
 
 NEW IDEAS
+- single page store module
 - audio store plugin 
     => js plugins
     https://github.com/katspaugh/wavesurfer.js
