@@ -118,10 +118,10 @@
             // Product container selector
             var productFormSelector = this.getProductFormSelector(productId);
 
+            // Todo - remove logging code
             console.log('-----> getProductFormData');
             console.log(productFormSelector);
             console.log(productFormSelector.serializeArray());
-
 
             // Get the buy now data
             var buyNowData = $(productFormSelector).serialize();
