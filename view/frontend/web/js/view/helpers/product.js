@@ -132,16 +132,6 @@
                 this.getProductForm().serializeArray()
             );
 
-            // Get the cart form data if list view
-            if (NbnView.isListView()) {
-                var cartFormData = $(window.naxero.nbn.current.product.button_selector)
-                .closest(productFormSelector)
-                .serialize();
-
-                // Add the cart form data to the purchase data
-                buyNowData += '&' + cartFormData;
-            }
-
             return buyNowData;
         },
 
