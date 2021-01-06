@@ -25,19 +25,18 @@
     $showSummary = $data['config']['popups']['popup_show_summary'];
 ?>
 
-
-<!-- Order summary -->
-<?php if ($showSummary): ?>
-    <div class="nbn-product-summary-container">
-        <?= $block->getSummaryBoxHtml($data, $productQantity) ?>
-    </div>
-<?php endif; ?>
-
-<!-- Header text -->
-<p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
-
 <!-- Form-->
 <form id="nbn-order-form-<?= $data['product']['id'] ?>" name="nbn-order-form-<?= $data['product']['id'] ?>" method="POST" class="nbn-order-form">
+    <!-- Order summary -->
+    <?php if ($showSummary): ?>
+        <div class="nbn-product-summary-container">
+            <?= $block->getSummaryBoxHtml($data, $productQantity) ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Header text -->
+    <p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
+
     <!-- Shipping method -->
     <?php if (!empty($data['addresses']) && !empty($data['savedCards']) && !$data['product']['is_free']): ?>
     <div class="nbn-fields">

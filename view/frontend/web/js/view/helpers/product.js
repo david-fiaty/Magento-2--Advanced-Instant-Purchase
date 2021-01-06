@@ -129,10 +129,13 @@
          * Get the order confirmation form data.
          */
         getOrderFormData: function (productId) {
+            var orderFormSelector = '#nbn-order-form-' + productId;
+            var form = $(window.naxero.nbn.instances[productId].product.button_selector)
+            .closest(orderFormSelector);
+
             console.log('getOrderFormData');
             console.log($('#nbn-order-form-' + productId));
-
-            console.log($('#nbn-order-form-' + productId).serializeArray());
+            console.log($(form).serializeArray());
 
             return $('#nbn-order-form-' + productId).serialize();
         },
