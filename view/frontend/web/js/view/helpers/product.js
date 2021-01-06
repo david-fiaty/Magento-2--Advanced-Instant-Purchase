@@ -26,14 +26,8 @@
     'use strict';
 
     return {
-        listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.nbn-list-form',
-        listProductCartFormSelector: 'form[data-role="tocart-form"]',
-        viewProductContainerSelector: '.product-info-main',
-        viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        formSelector: '#nbn-widget-form', 
         
         /**
          * Initialise the product fields events
@@ -62,6 +56,7 @@
             // Prepare variables
             var attributes = window.naxero.nbn.instances[productId].product.attributes;
             var options = window.naxero.nbn.instances[productId].product.options;
+            var productFormSelector = this.getProductFormSelector(productId);
 
             // Check availability of product fields
             var hasAttributes = attributes && attributes.length > 0;
@@ -69,8 +64,8 @@
 
             // Widget product fields validation
             if (NbnView.isWidgetView() && (hasAttributes || hasOptions)) {
-                $(this.formSelector).validation();
-                return $(this.formSelector).validation('isValid');
+                $(productFormSelector).validation();
+                return $(productFormSelector).validation('isValid');
             }
 
             // List product swatch fields validation
