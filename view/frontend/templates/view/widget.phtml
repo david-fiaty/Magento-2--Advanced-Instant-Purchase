@@ -54,33 +54,47 @@ if ($config):
 
     <!-- Product info -->
     <div class="nbn-product-box-info">
-        <!-- Product name -->
-        <p class="nbn-product-box-name">
-            <?= $block->escapeHtml($config['product']['name']) ?>
-        </p>
+        <form id="nbn-widget-form-<?= $config['product']['id'] ?>" name="nbn-widget-form-<?= $config['product']['id'] ?>" method="POST" class="nbn-list-form">
+            <!-- Product name -->
+            <p class="nbn-product-box-name">
+                <?= $block->escapeHtml($config['product']['name']) ?>
+            </p>
 
-        <!-- Product parameters -->
-        <form id="nbn-product-params-form">
-            <?= $block->productHelper->getAttributesHtml($config) ?>
-            <?= $block->productHelper->getOptionsHtml($config) ?>      
+            <div class="nbn-product-attributes">
+                <?= $block->productHelper->getAttributesHtml($config) ?>
+            </div>
+            <div class="nbn-product-options">
+                <?= $block->productHelper->getOptionsHtml($config) ?>      
+            </div>
+
+            <!-- Product countdown -->
+            <?php if ($showProductCountdown): ?>
+            <div class="nbn-product-box-countdown">
+                <?= $block->productHelper->getCountdownHtml($config); ?>
+            </div>
+            <?php endif; ?>
+            
+            <!-- Quantity box -->
+            <?php if ($config['widgets']['widget_show_product_quantity']): ?>
+                <?= $block->productHelper->getPriceBoxHtml($config) ?>
+                <?= $block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
+            <?php endif; ?>
+
+            <!-- Base button -->
+            <?= $block->productHelper->getButtonHtml($config) ?>
+
+            <!-- Product attributes hidden fields-->
+            <?php if (!empty($config['product']['attributes'])): ?>
+                <?php foreach ($config['product']['attributes'] as $attribute): ?>
+                    <input
+                        type="hidden"
+                        id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>"
+                        name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][super_attribute][<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>]"
+                        value="" 
+                    >
+                <?php endforeach; ?>
+            <?php endif; ?>
         </form>
-
-        <!-- Product countdown -->
-        <?php if ($showProductCountdown): ?>
-        <div class="nbn-product-box-countdown">
-            <?= $block->productHelper->getCountdownHtml($config); ?>
-        </div>
-        <?php endif; ?>
-        
-        <!-- Quantity box -->
-        <?php if ($config['widgets']['widget_show_product_quantity']): ?>
-            <?= $block->productHelper->getPriceBoxHtml($config) ?>
-            <?= $block->productHelper->getQuantityBoxHtml($config, $config['product']['quantity_limits']['min']) ?>
-        <?php endif; ?>
-
-        <!-- Base button -->
-        <?= $block->productHelper->getButtonHtml($config) ?>
-
     </div>
     <div class="nbn-clr"></div> 
 </div>

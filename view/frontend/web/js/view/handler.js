@@ -29,7 +29,6 @@ define([
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
-    'mage/cookies',
     'elevatezoom',
     'domReady!'
 ], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage, NbnUtil) {
@@ -269,7 +268,7 @@ define([
                     }
 
                     // Page view and/or all conditions valid
-                    self.purchasePopup(e);
+                    self.getConfirmationModal(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
                     self.getLoggerModal(e);
@@ -283,7 +282,7 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function (e) {
+        getConfirmationContent: function (e) {
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
@@ -294,6 +293,15 @@ define([
                 form_key: formKey,
                 product_quantity: productQuantity
             };
+
+            var productFormSelector = NbnProduct.getProductFormSelector(productId);
+
+            console.log('-----> getConfirmationContent');
+            console.log(productFormSelector);
+            console.log($(productFormSelector).serializeArray());
+
+            // Open the modal
+            this.getOrderModal(e.currentTarget);
 
             // Log the parameters
             NbnLogger.log(
@@ -324,11 +332,11 @@ define([
         },
 
         /**
-         * Purchase popup.
+         * Order confirmation modal window.
          */
-        purchasePopup: function (e) {
+        getConfirmationModal: function (e) {
             // Get the current form
-            var form = NbnProduct.getProductForm();
+            var form = $(NbnProduct.getProductFormSelector());
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
@@ -336,11 +344,8 @@ define([
                 return;
             }
 
-            // Open the modal
-            this.getOrderModal(e.currentTarget);
-
             // Get the AJAX content
-            this.getConfirmContent(e);
+            this.getConfirmationContent(e);
         },
 
         /**
@@ -427,7 +432,7 @@ define([
                         $.ajax({
                             cache: false,
                             url: NbnPaths.get(self.orderUrl),
-                            data: NbnProduct.getProductFormData(),
+                            data: NbnProduct.getProductFormData(config.product.id),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {

@@ -47,29 +47,16 @@
         <?php endif; ?> 
     </button>
 
-    <!-- Form -->
-    <form name="nbn-list-form" method="post" class="nbn-list-form">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>">
-        <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>">
-        <input id="nbn-form-key-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
+    <!-- Hidden fields -->
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>">
+    <input id="nbn-form-key-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
 
-        <!-- Product attributes -->
-        <?php if (!empty($config['product']['attributes'])): ?>
-        <?php foreach ($config['product']['attributes'] as $attribute): ?>
-            <input
-                type="hidden"
-                id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>"
-                name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][super_attribute][<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>]"
-                value="" 
-            >
-        <?php endforeach; ?>
-    <?php endif; ?>
-    </form>
-
+    <!-- Js component initilisation -->
     <script type="text/x-magento-init">
         {
             "*": {
