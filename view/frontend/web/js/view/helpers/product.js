@@ -140,6 +140,7 @@
          */
         getOrderFormData: function (productId) {
             console.log('getOrderFormData');
+            console.log($('#nbn-order-form-' + productId));
 
             console.log($('#nbn-order-form-' + productId).serializeArray());
 
