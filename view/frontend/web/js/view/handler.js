@@ -432,7 +432,7 @@ define([
                         $.ajax({
                             cache: false,
                             url: NbnPaths.get(self.orderUrl),
-                            data: NbnProduct.getProductFormData(config.product.id),
+                            data: NbnProduct.getOrderFormData(config.product.id),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
