@@ -105,16 +105,8 @@
          * Get the product form data.
          */
         getProductFormData: function (productId) {
-            // Product container selector
-            var productFormSelector = this.getProductFormSelector(productId);
-
-            // Todo - remove logging code
-            console.log('-----> getProductFormData');
-            console.log(productFormSelector);
-            console.log(productFormSelector.serializeArray());
-
             // Get the buy now data
-            var buyNowData = $(productFormSelector).serialize();
+            var buyNowData = $(this.getProductFormSelector(productId)).serialize();
 
             // Log the purchase data
             NbnLogger.log(
@@ -129,12 +121,7 @@
          * Get the order confirmation form data.
          */
         getOrderFormData: function (productId) {
-            var orderFormSelector = '#nbn-order-form-' + productId;
-
-            console.log('getOrderFormData');
-            console.log($(orderFormSelector).serializeArray());
-
-            return $(orderFormSelector).serialize();
+            return $('#nbn-order-form-' + productId).serialize();
         },
 
         /**
