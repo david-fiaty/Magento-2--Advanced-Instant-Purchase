@@ -118,10 +118,10 @@
             // Product container selector
             var productFormSelector = this.getProductFormSelector(productId);
 
+            // Todo - remove logging code
             console.log('-----> getProductFormData');
             console.log(productFormSelector);
             console.log(productFormSelector.serializeArray());
-
 
             // Get the buy now data
             var buyNowData = $(productFormSelector).serialize();
@@ -131,16 +131,6 @@
                 __('Place order form data'),
                 this.getProductForm().serializeArray()
             );
-
-            // Get the cart form data if list view
-            if (NbnView.isListView()) {
-                var cartFormData = $(window.naxero.nbn.current.product.button_selector)
-                .closest(productFormSelector)
-                .serialize();
-
-                // Add the cart form data to the purchase data
-                buyNowData += '&' + cartFormData;
-            }
 
             return buyNowData;
         },
