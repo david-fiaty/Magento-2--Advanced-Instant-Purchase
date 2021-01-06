@@ -296,6 +296,7 @@ define([
 
             var productFormSelector = NbnProduct.getProductFormSelector(productId);
 
+            // Todo - move place order event to confirmation.phtml
             console.log('-----> getConfirmationContent');
             console.log(productFormSelector);
             console.log($(productFormSelector).serializeArray());
