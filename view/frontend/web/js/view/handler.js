@@ -298,7 +298,7 @@ define([
 
             console.log('-----> getConfirmationContent');
             console.log(productFormSelector);
-            console.log(productFormSelector.serializeArray());
+            console.log($(productFormSelector).serializeArray());
 
             // Open the modal
             this.getOrderModal(e.currentTarget);
