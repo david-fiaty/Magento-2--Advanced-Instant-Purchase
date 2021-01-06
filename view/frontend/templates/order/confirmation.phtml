@@ -42,7 +42,7 @@
         <label for="nbn-shipping-method-select">
             <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
             <p>
-                <select id="nbn-shipping-method-select" data-field="instant_purchase_shipping" class="nbn-select js-states form-control">
+                <select id="nbn-shipping-method-select" data-field="shipping_method_code" class="nbn-select js-states form-control">
                     <?php foreach ($data['shippingRates'] as $item): ?>
                         <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
                             <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
@@ -68,7 +68,7 @@
         </a>
         <p>
             <?php if (!empty($data['addresses'])): ?>
-                <select id="nbn-shipping-address-select" data-field="instant_purchase_shipping_address" class="nbn-select js-states form-control">
+                <select id="nbn-shipping-address-select" data-field="shipping_address" class="nbn-select js-states form-control">
                     <?php foreach ($data['addresses'] as $item): ?>
                         <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
                             <?= $block->escapeHtml($item['street']) ?>&nbsp;
@@ -97,7 +97,7 @@
         </a>
         <p>
             <?php if (!empty($data['addresses'])): ?>
-                <select id="nbn-billing-address-select" data-field="instant_purchase_billing_address" class="nbn-select js-states form-control">
+                <select id="nbn-billing-address-select" data-field="billing_address" class="nbn-select js-states form-control">
                     <?php foreach ($data['addresses'] as $item): ?>
                         <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
                             <?= $block->escapeHtml($item['street']) ?>&nbsp;
@@ -123,7 +123,7 @@
             </span>
             <p>
                 <?php if (!empty($data['savedCards'])): ?>
-                    <select id="nbn-payment-method-select" data-field="instant_purchase_payment_token" class="nbn-select nbn-payment-method-select js-states form-control">
+                    <select id="nbn-payment-method-select" data-field="payment_token" class="nbn-select nbn-payment-method-select js-states form-control">
                         <?php foreach ($data['savedCards'] as $item): ?>
                             <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
                                 &nbsp;&nbsp;<?= $item['token'] ?>

@@ -34,10 +34,10 @@ class Request extends \Magento\Framework\App\Action\Action
     public static $knownRequestParams = [
         'form_key',
         'product',
-        'instant_purchase_payment_token',
-        'instant_purchase_method_code',
-        'instant_purchase_shipping_address',
-        'instant_purchase_billing_address',
+        'payment_token',
+        'payment_method_code',
+        'shipping_address',
+        'billing_address',
     ];
 
     /**
@@ -149,12 +149,12 @@ class Request extends \Magento\Framework\App\Action\Action
         
         // Prepare the payment data
         $paymentData = [
-            'paymentTokenPublicHash' => (string) $request['instant_purchase_payment_token'],
-            'paymentMethodCode' => (string) $request['instant_purchase_method_code'],
-            'shippingAddressId' => (int) $request['instant_purchase_shipping_address'],
-            'billingAddressId' => (int) $request['instant_purchase_billing_address'],
-            'carrierCode' => (string) $request['instant_purchase_carrier'],
-            'shippingMethodCode' => (string) $request['instant_purchase_shipping'],
+            'paymentTokenPublicHash' => (string) $request['payment_token'],
+            'paymentMethodCode' => (string) $request['payment_method_code'],
+            'shippingAddressId' => (int) $request['shipping_address'],
+            'billingAddressId' => (int) $request['billing_address'],
+            'carrierCode' => (string) $request['carrier_code'],
+            'shippingMethodCode' => (string) $request['shipping_method_code'],
             'productId' => (int) $request['product'],
             'productRequest' => $this->getRequestUnknownParams($request)
         ];
