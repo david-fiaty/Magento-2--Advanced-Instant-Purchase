@@ -54,7 +54,7 @@ if ($config):
 
     <!-- Product info -->
     <div class="nbn-product-box-info">
-        <form id="nbn-widget-form">
+        <form id="nbn-widget-form-<?= $config['product']['id'] ?>" name="nbn-widget-form-<?= $config['product']['id'] ?>" method="POST" class="nbn-list-form">
             <!-- Product name -->
             <p class="nbn-product-box-name">
                 <?= $block->escapeHtml($config['product']['name']) ?>

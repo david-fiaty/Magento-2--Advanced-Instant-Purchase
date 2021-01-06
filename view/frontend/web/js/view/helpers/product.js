@@ -100,18 +100,18 @@
         /**
          * Get a product form selector.
          */
-        getProductFormSelector: function () {
-            if (NbnView.isListView()) return  '#nbn-list-form';
-            else if (NbnView.isWidgetView()) return  '#nbn-widget-form';
+        getProductFormSelector: function (productId) {
+            if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
+            else if (NbnView.isWidgetView()) return  '#nbn-widget-form-' + productId;
             else return  '#product_addtocart_form';
         },
 
         /**
          * Get the product form data.
          */
-        getProductFormData: function () {
+        getProductFormData: function (productId) {
             // Product container selector
-            var productFormSelector = this.getProductFormSelector();
+            var productFormSelector = this.getProductFormSelector(productId);
 
             console.log('-----> getProductFormData');
             console.log(productFormSelector);

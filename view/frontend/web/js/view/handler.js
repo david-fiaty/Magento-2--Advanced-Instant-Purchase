@@ -294,7 +294,7 @@ define([
                 product_quantity: productQuantity
             };
 
-            var productFormSelector = NbnProduct.getProductFormSelector();
+            var productFormSelector = NbnProduct.getProductFormSelector(productId);
 
             console.log('-----> getConfirmationContent');
             console.log(productFormSelector);
@@ -432,7 +432,7 @@ define([
                         $.ajax({
                             cache: false,
                             url: NbnPaths.get(self.orderUrl),
-                            data: NbnProduct.getProductFormData(),
+                            data: NbnProduct.getProductFormData(config.product.id),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {
