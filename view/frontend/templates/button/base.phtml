@@ -25,12 +25,13 @@
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $buttonText = $block->blockHelper->getButtonText();
+    $buttonId = $config['product']['button_id'];
 ?>
 
 <!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" class="nbn-button-container">    
     <button 
-        id="<?= $block->escapeHtmlAttr($config['product']['button_id']) ?>"
+        id="<?= $block->escapeHtmlAttr($buttonId) ?>"
         data-product-id="<?= $block->escapeHtmlAttr($config['product']['id']) ?>"
         type="button"
         disabled="disabled"
