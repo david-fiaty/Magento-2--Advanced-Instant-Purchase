@@ -314,7 +314,7 @@ define([
                     self.addHtml(self.popupContentSelector, data.html);
 
                     // Initialise the select lists
-                    NbnSelect.build(self);
+                    NbnSelect.build(productId);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
