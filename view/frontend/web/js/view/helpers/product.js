@@ -17,10 +17,12 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
+    'Naxero_BuyNow/js/view/helpers/product/attributes',
     'popover',
     'mage/validation',
+    'mage/cookies',
     'domReady!'
-], function ($, __, NbnLogger, NbnView, popover) {
+], function ($, __, NbnLogger, NbnView, NbnProductAttributes, popover) {
     'use strict';
 
     return {
@@ -31,7 +33,7 @@
         viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        formSelector: '#nbn-product-params-form', 
+        formSelector: '#nbn-widget-form', 
         
         /**
          * Initialise the product fields events
@@ -47,16 +49,7 @@
             if (NbnView.isListView() && hasAttributes) {
                 for (var i = 0; i < attributes.length; i++) {
                     if (attributes[i].attribute_type == 'swatch') {
-                        // Set the value change events
-                        $(this.getSwatchAttributesSelectors(attributes[i])).on('click touch', {attribute: attributes[i]}, function (e) {
-                            // Build the hidden field selector
-                            var hiddenField = '#nbn-super-attribute-'
-                            + e.data.attribute.product_id
-                            + '-' + e.data.attribute.attribute_id;
-
-                            // Assign the attribute value to the hidden field
-                            $(hiddenField).val($(e.currentTarget).attr('option-id'));
-                        });
+                        NbnProductAttributes.initFields(attributes[i]);
                     }
                 }
             }
@@ -93,6 +86,11 @@
                         var val = $(hiddenField).val();
                         var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
 
+                        console.log('-----> fieldIsValid');
+                        console.log(hiddenField);
+
+                        console.log(val);
+
                         // Update the error count
                         if (!fieldIsValid) errors++;
                     }
@@ -105,60 +103,28 @@
         },
 
         /**
-         * Get a product swatch attributes selectors.
+         * Get a product form selector.
          */
-        getSwatchAttributesSelectors: function (attribute) {
-            var selectors = [];
-            for (var i = 0; i < attribute.values.length; i++) {
-                // Build the selector
-                var swatchValueSelector = '.swatch-opt-' 
-                + attribute.product_id + ' .swatch-option'
-                + '[option-id="' + attribute.values[i].value_index + '"]'; 
-
-                // Add to the list
-                selectors.push(swatchValueSelector);
-            }
-
-            return selectors.join(', ');
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductContainer: function () {
-            return NbnView.isListView()
-            ? this.listProductContainerSelector
-            : this.viewProductContainerSelector;
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductForm: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get product form selector
-            var productFormSelector = NbnView.isListView()
-            ? this.listProductFormSelector
-            : this.viewProductFormSelector;
-
-            // Get the form
-            var form = $(window.naxero.nbn.current.product.button_selector).closest(productContainerSelector)
-            .find(productFormSelector);
-
-            return form;
+        getProductFormSelector: function (productId) {
+            if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
+            else if (NbnView.isWidgetView()) return  '#nbn-widget-form-' + productId;
+            else return  '#product_addtocart_form';
         },
 
         /**
          * Get the product form data.
          */
-        getProductFormData: function () {
+        getProductFormData: function (productId) {
             // Product container selector
-            var productContainerSelector = this.getProductContainer();
+            var productFormSelector = this.getProductFormSelector(productId);
+
+            console.log('-----> getProductFormData');
+            console.log(productFormSelector);
+            console.log(productFormSelector.serializeArray());
+
 
             // Get the buy now data
-            var buyNowData = this.getProductForm().serialize();
+            var buyNowData = $(productFormSelector).serialize();
 
             // Log the purchase data
             NbnLogger.log(
@@ -169,8 +135,7 @@
             // Get the cart form data if list view
             if (NbnView.isListView()) {
                 var cartFormData = $(window.naxero.nbn.current.product.button_selector)
-                .closest(productContainerSelector)
-                .find(this.listProductCartFormSelector)
+                .closest(productFormSelector)
                 .serialize();
 
                 // Add the cart form data to the purchase data
