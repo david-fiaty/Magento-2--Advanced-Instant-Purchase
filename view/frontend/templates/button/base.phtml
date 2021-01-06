@@ -25,12 +25,13 @@
     $formKey = $config['product']['form_key'];
     $uiLogging = $config['debug']['debug_enabled'] && $config['debug']['ui_logging_enabled'];
     $buttonText = $block->blockHelper->getButtonText();
+    $buttonId = $config['product']['button_id'];
 ?>
 
 <!-- Purchase button -->
 <div id="nbn-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" class="nbn-button-container">    
     <button 
-        id="<?= $block->escapeHtmlAttr($config['product']['button_id']) ?>"
+        id="<?= $block->escapeHtmlAttr($buttonId) ?>"
         data-product-id="<?= $block->escapeHtmlAttr($config['product']['id']) ?>"
         type="button"
         disabled="disabled"
@@ -48,12 +49,12 @@
     </button>
 
     <!-- Hidden fields -->
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>">
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_method_code]" value="<?= $methodCode ?>">
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>">
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>">
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_carrier]" value="<?= $purchaseData['shipping_method']['carrier'] ?>">
-    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][instant_purchase_shipping]" value="<?= $purchaseData['shipping_method']['method'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][payment_token]" value="<?= $purchaseData['payment_token']['public_hash'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][payment_method_code]" value="<?= $methodCode ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][shipping_address]" value="<?= $purchaseData['shipping_address']['id'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][billing_address]" value="<?= $purchaseData['billing_address']['id'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][carrier_code]" value="<?= $purchaseData['shipping_method']['carrier'] ?>">
+    <input type="hidden" name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][shipping_method_code]" value="<?= $purchaseData['shipping_method']['method'] ?>">
     <input id="nbn-form-key-<?= $block->escapeHtmlAttr($config['product']['id']) ?>" type="hidden" name="form_key" value="<?= $block->escapeHtmlAttr($formKey) ?>">
 
     <!-- Js component initilisation -->

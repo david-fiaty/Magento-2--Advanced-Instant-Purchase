@@ -47,7 +47,7 @@
                 var thisFieldValue = $(this).val();
 
                 // Set the new field value
-                var newFieldValue = $(this).data('field') == 'instant_purchase_payment_token'
+                var newFieldValue = $(this).data('field') == 'payment_token'
                 ? NbnUtil.getOptionPublicHash(thisFieldValue)
                 : thisFieldValue;
 
