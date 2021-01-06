@@ -294,6 +294,12 @@ define([
                 product_quantity: productQuantity
             };
 
+            var productFormSelector = NbnProduct.getProductFormSelector();
+
+            console.log('-----> getConfirmationContent');
+            console.log(productFormSelector);
+            console.log(productFormSelector.serializeArray());
+
             // Open the modal
             this.getOrderModal(e.currentTarget);
 

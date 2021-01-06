@@ -113,7 +113,7 @@
             // Product container selector
             var productFormSelector = this.getProductFormSelector();
 
-            console.log('-----> productFormSelector');
+            console.log('-----> getProductFormData');
             console.log(productFormSelector);
             console.log(productFormSelector.serializeArray());
 
