@@ -40,12 +40,6 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <input
-                    type="hidden"
-                    id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($row['attribute_id']) ?>"
-                    name="nbn[<?= $block->escapeHtmlAttr($config['product']['id']) ?>][super_attribute][<?= $block->escapeHtmlAttr($row['attribute_id']) ?>]"
-                    value=""
-                >
             </p>
         </div>
     <?php endforeach; ?>                

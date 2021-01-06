@@ -83,7 +83,7 @@ if ($config):
             <!-- Base button -->
             <?= $block->productHelper->getButtonHtml($config) ?>
 
-            <!-- Product attributes -->
+            <!-- Product attributes hidden fields-->
             <?php if (!empty($config['product']['attributes'])): ?>
                 <?php foreach ($config['product']['attributes'] as $attribute): ?>
                     <input
