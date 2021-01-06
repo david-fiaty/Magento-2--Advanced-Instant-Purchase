@@ -80,12 +80,7 @@
                         // Check the hidden field value
                         var val = $(hiddenField).val();
                         var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
-
-                        console.log('-----> fieldIsValid');
-                        console.log(hiddenField);
-
-                        console.log(val);
-
+                        
                         // Update the error count
                         if (!fieldIsValid) errors++;
                     }
