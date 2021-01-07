@@ -14,7 +14,7 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Plugin\CustomerSessionContext;
+namespace Naxero\BuyNow\Plugin;
 
 /**
  * Class CustomerSessionContext.
