@@ -19,7 +19,8 @@
     $config = $block->getData('config');
     $productIsFree = $block->getData('isFree');
 
-    var_dump($block->getCustomerData());
+    echo '--------->';
+    var_dump($block->blockHelper->getCustomerData());
 
     // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();

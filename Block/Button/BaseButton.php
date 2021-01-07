@@ -24,11 +24,6 @@ use Naxero\BuyNow\Model\Config\Naming;
 class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
-     * @var Context
-     */
-    public $httpContext;
-
-    /**
      * @var Block
      */
     public $blockHelper;
@@ -39,23 +34,17 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $purchaseHelper;
 
     /**
-     * ListButton class constructor.
+     * BaseButton class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
-        \Magento\Framework\App\Http\Context $httpContext,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-    	$this->httpContext = $httpContext;
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
-    }
-
-    public function getCustomerData() {
-        return $this->httpContext->getValue('customer_data');
     }
 }
