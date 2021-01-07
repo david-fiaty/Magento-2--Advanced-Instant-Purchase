@@ -19,6 +19,9 @@
     $config = $block->getData('config');
     $productIsFree = $block->getData('isFree');
 
+    var_dump($block->getCustomerData());
+    exit('pp');
+
     // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
