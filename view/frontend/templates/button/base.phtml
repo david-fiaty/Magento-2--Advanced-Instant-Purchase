@@ -16,15 +16,14 @@
 ?>
 <?php
     // Get the config
-    $config = $block->getData('config');
+    $config = $block->getConfig();
     $productIsFree = $block->getData('isFree');
 
     // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();
 
     var_dump($config);
-    var_dump($purchaseData);
-
+    exit('xxx');
 
     $methodCode = $productIsFree ? 'free' : $purchaseData['payment_token']['method_code'];
     $formKey = $config['product']['form_key'];

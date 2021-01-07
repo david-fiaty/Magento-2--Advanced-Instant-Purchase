@@ -128,8 +128,6 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             'shipping_method' => $this->buildShippingMethodArray()
         ];
 
-        var_dump($data);
-
         return $data;
     }
 
