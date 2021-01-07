@@ -147,18 +147,15 @@ class Request extends \Magento\Framework\App\Action\Action
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/aa.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
-        $logger->info(print_r($request->getParams(), 1));
-
-        // Check the payment token
-        $paymentToken = $params['nbn-payment-method-select'];
+        $logger->info(print_r($params, 1));
 
         // Prepare the payment data
         $paymentData = [
-            'paymentTokenPublicHash' => (string) $request['payment_token'],
+            'paymentTokenPublicHash' => (string) $request['nbn-payment-method-select'],
             'paymentMethodCode' => (string) $request['payment_method_code'],
-            'shippingAddressId' => (int) $request['shipping_address'],
-            'billingAddressId' => (int) $request['billing_address'],
-            'carrierCode' => (string) $request['carrier_code'],
+            'shippingAddressId' => (int) $request['nbn-shipping-address-select'],
+            'billingAddressId' => (int) $request['nbn-billing-address-select'],
+            'carrierCode' => (string) $request['nbn-shipping-method-select'],
             'shippingMethodCode' => (string) $request['shipping_method_code'],
             'productId' => (int) $request['product'],
             'productRequest' => $this->getRequestUnknownParams($request)
