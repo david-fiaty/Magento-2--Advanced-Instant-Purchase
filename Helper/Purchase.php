@@ -120,9 +120,15 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         // Set the instant purchase availability
         $data = ['available' => true];
 
+        // Get the customer data
+        $customerData = $this->blockHelper->getCustomerData();
+
+        // Get the payment token
+        $paymentToken = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
+        
         // Data
         $data += [
-            'payment_token' => $this->vaultHandler->preparePaymentToken(),
+            'payment_token' => $paymentToken,
             'shipping_address' => $this->buildShippingAddressArray(),
             'billing_address' => $this->buildBillingAddressArray(),
             'shipping_method' => $this->buildShippingMethodArray()
