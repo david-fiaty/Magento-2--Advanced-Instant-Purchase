@@ -27,13 +27,10 @@ define([
                 return state.text;
             }
 
-            // Get the icon URL
-            var iconUrl = state.element.dataset['icon-url'];
-
             // Build the icon HTML
             var iconHtml = $(
                 '<span class="nbn-card-icon">'
-                + '<img src="' + iconUrl + '">'
+                + '<img src="' + $(state.element).data('icon-url') + '">'
                 + state.text + '</span>'
             );
 

@@ -153,7 +153,6 @@
                         >
                             <?php foreach ($data['savedCards'] as $item): ?>
                                 <option value="<?= $item['instance']->getPublicHash() ?>" data-icon-url="<?= $item['icon'] ?>">
-                                    &nbsp;&nbsp;<?= $item['token'] ?>">
                                     &nbsp;&nbsp;<?= $item['token'] ?>
                                 </option>
                             <?php endforeach; ?>
