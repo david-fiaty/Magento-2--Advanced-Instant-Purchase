@@ -151,14 +151,14 @@ class Request extends \Magento\Framework\App\Action\Action
 
         // Prepare the payment data
         $paymentData = [
-            'paymentTokenPublicHash' => (string) $request['nbn-payment-method-select'],
-            'paymentMethodCode' => (string) $request['payment_method_code'],
-            'shippingAddressId' => (int) $request['nbn-shipping-address-select'],
-            'billingAddressId' => (int) $request['nbn-billing-address-select'],
-            'carrierCode' => (string) $request['nbn-shipping-method-select'],
-            'shippingMethodCode' => (string) $request['shipping_method_code'],
-            'productId' => (int) $request['product'],
-            'productRequest' => $this->getRequestUnknownParams($request)
+            'paymentTokenPublicHash' => (string) $params['nbn-payment-method-select'],
+            'paymentMethodCode' => (string) $params['payment_method_code'],
+            'shippingAddressId' => (int) $params['nbn-shipping-address-select'],
+            'billingAddressId' => (int) $params['nbn-billing-address-select'],
+            'carrierCode' => (string) $params['nbn-shipping-method-select'],
+            'shippingMethodCode' => (string) $params['shipping_method_code'],
+            'productId' => (int) $params['product'],
+            'productRequest' => [] // Todo - Check what this does exactly
         ];
 
         try {
