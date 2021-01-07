@@ -304,7 +304,7 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function createGenericErrorMessage(): string
     {
-        return (string)__('Something went wrong while processing your order. Please try again later.');
+        return (string)__('The request could not be processed because of invalid or missing parameters.');
     }
 
     /**

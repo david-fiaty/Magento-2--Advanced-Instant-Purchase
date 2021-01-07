@@ -121,7 +121,10 @@
          * Get the order confirmation form data.
          */
         getOrderFormData: function (productId) {
-            return $('#nbn-order-form-' + productId).serialize();
+            var productData = $(this.getProductFormSelector(productId)).serialize();
+            var orderData = $('#nbn-order-form-' + productId).serialize();
+
+            return productData + '&' + orderData;
         },
 
         /**

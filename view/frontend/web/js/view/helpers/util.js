@@ -19,13 +19,6 @@ define([
 
     return {
         /**
-         * Get a card option public hash.
-         */
-        getOptionPublicHash: function (val) {
-            return val.split('*~*')[0];
-        },
-
-        /**
          * Format a card icon.
          */
         formatIcon: function (state) {
