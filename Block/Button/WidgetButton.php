@@ -84,6 +84,12 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
             $this->getProduct()->getId()
         );
 
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
+        
         // Update the config with tag parameters
         $config = $this->updateWidgetConfig($config);
 

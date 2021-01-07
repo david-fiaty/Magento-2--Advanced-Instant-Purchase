@@ -47,4 +47,21 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
     }
+
+    /**
+     * Get the block config.
+     */
+    public function getConfig()
+    {
+        // Get the config
+        $config = $this->getData('config');
+
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
+
+        return $config;
+    }
 }

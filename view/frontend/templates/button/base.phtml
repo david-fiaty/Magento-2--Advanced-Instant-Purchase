@@ -16,11 +16,11 @@
 ?>
 <?php
     // Get the config
-    $config = $block->getData('config');
+    $config = $block->getConfig();
     $productIsFree = $block->getData('isFree');
 
     echo '--------->';
-    var_dump($block->blockHelper->getCustomerData());
+    var_dump($config);
 
     // Process the block display logic
     $purchaseData = $block->purchaseHelper->getPurchaseData();

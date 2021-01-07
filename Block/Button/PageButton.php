@@ -81,6 +81,12 @@ class PageButton extends \Magento\Framework\View\Element\Template
             $this->getProduct()->getId()
         );
 
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
+        
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
