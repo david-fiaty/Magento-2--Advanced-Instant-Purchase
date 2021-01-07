@@ -53,21 +53,10 @@ class CustomerSessionContext
     	\Closure $proceed,
     	\Magento\Framework\App\RequestInterface $request
     ) {
+        // Get the customer data
     	$this->httpContext->setValue(
-        	'customer_id',
-        	$this->customerSession->getCustomerId(),
-        	false
-    	);
-
-    	$this->httpContext->setValue(
-        	'customer_name',
-        	$this->customerSession->getCustomer()->getName(),
-        	false
-    	);
-
-    	$this->httpContext->setValue(
-        	'customer_email',
-        	$this->customerSession->getCustomer()->getEmail(),
+        	'customer_data',
+        	$this->customerSession->getCustomer()->getData(),
         	false
     	);
 

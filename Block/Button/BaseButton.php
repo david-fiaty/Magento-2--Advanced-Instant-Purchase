@@ -56,6 +56,6 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     }
 
     public function getCustomerData() {
-        return $this->httpContext->getValue('customer_id');
+        return $this->httpContext->getValue('customer_data');
     }
 }
