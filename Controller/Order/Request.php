@@ -141,10 +141,16 @@ class Request extends \Magento\Framework\App\Action\Action
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
         
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/params.log');
+        // Get the request parameters
+        $params = $request->getParams();
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/aa.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         $logger->info(print_r($request->getParams(), 1));
+
+        // Check the payment token
+        $paymentToken = $params['nbn-payment-method-select'];
 
         // Prepare the payment data
         $paymentData = [

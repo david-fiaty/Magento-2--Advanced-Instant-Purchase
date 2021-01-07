@@ -28,6 +28,9 @@ define([
             }
 
             // Get the icon URL
+            console.log('-----> state.element');
+            console.log(state.element);
+
             var iconUrl = state.element.value.split('*~*')[1];
 
             // Build the icon HTML

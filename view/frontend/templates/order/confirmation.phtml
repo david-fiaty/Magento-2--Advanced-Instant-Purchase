@@ -152,7 +152,8 @@
                             class="nbn-select nbn-payment-method-select js-states form-control"
                         >
                             <?php foreach ($data['savedCards'] as $item): ?>
-                                <option value="<?= $item['instance']->getPublicHash() . '*~*' . $item['icon'] ?>">
+                                <option value="<?= $item['instance']->getPublicHash() ?>" data-icon="<?= $item['icon'] ?>">
+                                    &nbsp;&nbsp;<?= $item['token'] ?>">
                                     &nbsp;&nbsp;<?= $item['token'] ?>
                                 </option>
                             <?php endforeach; ?>
