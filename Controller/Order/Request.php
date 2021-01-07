@@ -135,18 +135,17 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        // Validate the form key
-        $params = $this->getRequest();
-        if (!$this->formKeyValidator->validate($params) || !$params->isAjax()) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
-        }
-
-        // Validate the request parameters
-        $request = $this->getRequestData($params);
-        if (!$this->doesRequestContainAllKnowParams($request)) {
+        // Validate the request
+        $request = $this->getRequest();
+        if (!$this->formKeyValidator->validate($request) || !$request->isAjax()) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
         }
         
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/params.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($request->getParams(), 1));
+
         // Prepare the payment data
         $paymentData = [
             'paymentTokenPublicHash' => (string) $request['payment_token'],
@@ -284,19 +283,6 @@ class Request extends \Magento\Framework\App\Action\Action
         return $additionalInformation;
     }
 
-    /* Get the request data.
-     *
-     * @return string
-     */
-    public function getRequestData($request)
-    {
-        $params = $request->getParams();
-        $formatted = array_merge($params['nbn'], []);
-        unset($params['nbn']);
-
-        return array_merge($params, $formatted[0]);
-    }
-
     /**
      * Creates error message without exposing error details.
      *
@@ -304,7 +290,7 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function createGenericErrorMessage(): string
     {
-        return (string)__('The request could not be processed because of invalid or missing parameters.');
+        return (string)__('The request in invalid. Please refresh the page and try again.');
     }
 
     /**
