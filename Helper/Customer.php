@@ -155,7 +155,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'user' => [
                 'connected' => $this->isLoggedIn(),
-                'language' => $this->getUserLanguage()
+                'language' => $this->getUserLanguage(),
+                'id' => (int) $this->getCustomer()->getId()
+
             ]
         ];
     }
