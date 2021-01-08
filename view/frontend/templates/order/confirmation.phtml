@@ -91,7 +91,7 @@
                                 $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/o.log');
                                 $logger = new \Zend\Log\Logger();
                                 $logger->addWriter($writer);
-                                $logger->info(print_r($item->toArray(), 1));
+                                $logger->info(print_r($item->getStreet(), 1));
                             ?>
                             <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
                                 <?= $block->escapeHtml($item['street']) ?>&nbsp;
