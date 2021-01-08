@@ -20,6 +20,8 @@ https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-d
 - handle 0 product found in category for widget category filter.
 - add customerData login observer to button click before login popup?
 
+- add customer 'is active' restriction to button display permissions
+
 QA
 - make sure payment tokens are filtered by store
 - check multistore behaviour
@@ -80,6 +82,9 @@ https://meetanshi.com/blog/override-catalog-widget-block-in-magento-2/
 - marketplaces and ecommerce platforms available on https://www.channelengine.com/
 
 RESOURCES
+- customer data with block and cache
+https://aureatelabs.com/magento-2/how-to-get-customer-session-data-when-a-cache-is-enabled-in-magento-2/
+
 - execute php code from string
 https://gonzalo123.com/2012/03/12/how-to-use-eval-without-using-eval-in-php/
 

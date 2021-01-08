@@ -24,11 +24,6 @@ use Naxero\BuyNow\Model\Config\Naming;
 class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
-     * @var Session
-     */
-    public $customerSession;
-
-    /**
      * @var Block
      */
     public $blockHelper;
@@ -39,18 +34,16 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
     public $purchaseHelper;
 
     /**
-     * ListButton class constructor.
+     * BaseButton class constructor.
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
-        \Magento\Customer\Model\Session $customerSession,
         \Naxero\BuyNow\Helper\Block $blockHelper,
         \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-        $this->customerSession = $customerSession;
         $this->blockHelper = $blockHelper;
         $this->purchaseHelper = $purchaseHelper;
     }
@@ -60,11 +53,14 @@ class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
      */
     public function getConfig()
     {
-        // Prepare the config
+        // Get the config
         $config = $this->getData('config');
 
         // Update the customer data
-        $config['user']['id'] = $this->customerSession->getCustomer()->getId();
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
 
         return $config;
     }

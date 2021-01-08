@@ -22,6 +22,11 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var CustomerRepositoryInterface
+     */
+    public $customerRepositoryInterface;
+
+    /**
      * @var AuthorizationLink
      */
     public $authLink;
@@ -65,6 +70,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer helper constructor.
      */
     public function __construct(
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
@@ -74,6 +80,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
         \Naxero\BuyNow\Helper\Config $configHelper
     ) {
+        $this->customerRepositoryInterface = $customerRepositoryInterface;
         $this->authLink = $authLink;
         $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
@@ -87,38 +94,40 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a customer.
      */
-    public function getCustomer()
+    public function getCustomer($customerId = null)
     {
-        return $this->customerSession->getCustomer();
+        return $customerId 
+        ? $this->customerRepositoryInterface->getById($customerId) 
+        : $this->customerSession->getCustomer();
     }
 
     /**
      * Get a billing address.
      */
-    public function getBillingAddress()
+    public function getBillingAddress($customerId = null)
     {
         return $this->addressModel->load(
-            $this->getCustomer()->getDefaultBilling()
+            $this->getCustomer($customerId)->getDefaultBilling()
         );
     }
 
     /**
      * Get a shipping address.
      */
-    public function getShippingAddress()
+    public function getShippingAddress($customerId = null)
     {
         return $this->addressModel->load(
-            $this->getCustomer()->getDefaultShipping()
+            $this->getCustomer($customerId)->getDefaultShipping()
         );
     }
 
     /**
      * Get the customer addresses.
      */
-    public function getAddresses()
+    public function getAddresses($customerId = null)
     {
         $output = [];
-        $addresses = $this->getCustomer()->getAddresses();
+        $addresses = $this->getCustomer($customerId)->getAddresses();
         if (!empty($addresses)) {
             foreach ($addresses as $address) {
                 $addressArray = $address->toArray();
@@ -156,8 +165,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
             'user' => [
                 'connected' => $this->isLoggedIn(),
                 'language' => $this->getUserLanguage(),
-                'id' => (int) $this->getCustomer()->getId()
-
             ]
         ];
     }
