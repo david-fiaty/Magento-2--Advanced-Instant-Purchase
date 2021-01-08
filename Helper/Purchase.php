@@ -244,7 +244,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             $customer = $this->customerHelper->getCustomer($customerData['entity_id']);
 
             // Confirmation data
-            $confirmationData['addresses'] = $customer->getAddresses();
+            $confirmationData['addresses'] = $this->customerHelper->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
