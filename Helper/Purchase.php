@@ -142,8 +142,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildShippingAddressArray()
     {
+        // Get the customer data
+        $customerData = $this->blockHelper->getCustomerData();
+
         // Get the shipping address data
-        $shippingAddress = $this->customerHelper->getShippingAddress();
+        $shippingAddress = $this->customerHelper->getShippingAddress($customerData['entity_id']);
 
         // Return the shipping address array
         return [
@@ -157,7 +160,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildBillingAddressArray()
     {
-        $billingAddress = $this->customerHelper->getBillingAddress();
+        // Get the customer data
+        $customerData = $this->blockHelper->getCustomerData();
+
+        // Get the billing address data
+        $billingAddress = $this->customerHelper->getBillingAddress($customerData['entity_id']);
 
         return [
             'id' => !$billingAddress ? 0 : $billingAddress->getId(),
@@ -199,8 +206,11 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Build the confirmation data
         if ($this->customerHelper->isLoggedIn()) {
+            // Get the customer data
+            $customerData = $this->blockHelper->getCustomerData();
+
             // Load the customer
-            $customer = $this->customerHelper->getCustomer();
+            $customer = $this->customerHelper->getCustomer($customerData['entity_id']);
 
             // Confirmation data
             $confirmationData['addresses'] = $customer->getAddresses();
