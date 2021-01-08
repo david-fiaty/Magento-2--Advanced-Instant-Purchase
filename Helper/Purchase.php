@@ -136,15 +136,22 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function buildPaymentTokenArray($paymentToken = null)
     {
+        // Prepare the output array
+        $paymentTokenData = [
+            'public_hash' => '',
+            'summary' => '',
+            'method_code' => ''
+        ];
+
         // Get the customer data
         $customerData = $this->blockHelper->getCustomerData();
 
-        // Get the payment token
+        // Get the payment token data
         if ($this->customerDataValid($customerData)) {
-            $paymentToken = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
+            $paymentTokenData = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
         }
 
-        return $paymentToken ? $paymentToken : '';
+        return $paymentTokenData;
     }
 
     /**
