@@ -87,11 +87,11 @@
                         class="nbn-select js-states form-control"
                     >
                         <?php foreach ($data['addresses'] as $item): ?>
-                            <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
-                                <?= $block->escapeHtml($item['street']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['city']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['country_id']) ?>
+                            <option value="<?= $block->escapeHtmlAttr($item->getId()) ?>" <?= $item->getId() == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
+                                <?= $block->escapeHtml($item->getStreet()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getPostcode()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getCity()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getCountryId()) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -121,11 +121,11 @@
                         class="nbn-select js-states form-control"
                     >
                         <?php foreach ($data['addresses'] as $item): ?>
-                            <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
-                                <?= $block->escapeHtml($item['street']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['postcode']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['city']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['country_id']) ?>
+                            <option value="<?= $block->escapeHtmlAttr($item->getId()) ?>" <?= $item->getId() == $data['purchase_data']['billing_address']['id'] ? 'selected' : '' ?>>
+                                <?= $block->escapeHtml($item->getStreet()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getPostcode()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getCity()) ?>&nbsp;
+                                <?= $block->escapeHtml($item->getCountryId()) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
