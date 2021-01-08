@@ -98,7 +98,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $customerId = $customerId ? $customerId : $this->customerSession->getCustomer()->getId();
 
-        return $this->customerRepositoryInterface->getById($customerId);
+        if ((int) $customerId > 0) {
+            return $this->customerRepositoryInterface->getById($customerId);
+        }
+
+        return null;
     }
 
     /**
