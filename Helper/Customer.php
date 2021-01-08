@@ -22,9 +22,9 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var CustomerRepositoryInterface
+     * @var Customer
      */
-    public $customerRepositoryInterface;
+    public $customerModel;
 
     /**
      * @var AuthorizationLink
@@ -70,7 +70,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer helper constructor.
      */
     public function __construct(
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
+        \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
@@ -80,7 +80,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
         \Naxero\BuyNow\Helper\Config $configHelper
     ) {
-        $this->customerRepositoryInterface = $customerRepositoryInterface;
+        $this->customerModel = $customerModel;
         $this->authLink = $authLink;
         $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
@@ -92,13 +92,17 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a customer.
+     * Get a customer by id.
      */
     public function getCustomer($customerId = null)
     {
-        return $customerId 
-        ? $this->customerRepositoryInterface->getById($customerId) 
-        : $this->customerSession->getCustomer();
+        $customerId = $customerId ? $customerId : $this->customerSession->getCustomer()->getId();
+
+        if ((int) $customerId > 0) {
+            return $this->customerModel->load($customerId);
+        }
+
+        return null;
     }
 
     /**

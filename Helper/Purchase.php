@@ -206,9 +206,17 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the shipping method array.
      */
-    public function buildShippingMethodArray()
+    public function buildShippingMethodArray($shippingMethod = null)
     {
-        $shippingMethod = $this->shippingSelector->getShippingMethod($this->customerHelper->getCustomer());
+        // Get the customer data
+        $customerData = $this->blockHelper->getCustomerData();
+
+        // Get the shipping method data
+        if ($this->customerDataValid($customerData)) {
+            $shippingMethod = $this->shippingSelector->getShippingMethod(
+                $this->customerHelper->getCustomer($customerData['entity_id'])
+            );
+        }
 
         return [
             'carrier' => !$shippingMethod ? '' : $shippingMethod->getCarrierCode(),
@@ -244,7 +252,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
             $customer = $this->customerHelper->getCustomer($customerData['entity_id']);
 
             // Confirmation data
-            $confirmationData['addresses'] = $customer->getAddresses();
+            $confirmationData['addresses'] = $this->customerHelper->getAddresses();
             $confirmationData['savedCards'] = $this->vaultHandler->getAllowedCards();
             $confirmationData['shippingRates'] = $this->shippingSelector->getShippingRates($customer);
 
