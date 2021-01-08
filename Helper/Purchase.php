@@ -119,22 +119,43 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Set the instant purchase availability
         $data = ['available' => true];
-
-        // Get the customer data
-        $customerData = $this->blockHelper->getCustomerData();
-
-        // Get the payment token
-        $paymentToken = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
         
         // Data
         $data += [
-            'payment_token' => $paymentToken,
+            'payment_token' => $this->buildPaymentTokenArray(),
             'shipping_address' => $this->buildShippingAddressArray(),
             'billing_address' => $this->buildBillingAddressArray(),
             'shipping_method' => $this->buildShippingMethodArray()
         ];
 
         return $data;
+    }
+
+    /**
+     * Build the payment token array.
+     */
+    public function buildPaymentTokenArray()
+    {
+        // Get the customer data
+        $customerData = $this->blockHelper->getCustomerData();
+
+        // Get the payment token
+        $paymentToken = '';
+        if ($this->customerDataValid($customerData)) {
+            $paymentToken = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
+        }
+
+        return $paymentToken;
+    }
+
+    /**
+     * Check if the customer data is valid.
+     */
+    public function customerDataValid($customerData)
+    {
+        return $customerData && !empty($customerData)
+        && isset($customerData['entity_id']) 
+        && (int) $customerData['entity_id'] > 0;
     }
 
     /**
@@ -146,7 +167,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $customerData = $this->blockHelper->getCustomerData();
 
         // Get the shipping address data
-        $shippingAddress = $this->customerHelper->getShippingAddress($customerData['entity_id']);
+        if ($this->customerDataValid($customerData)) {
+            $shippingAddress = $this->customerHelper->getShippingAddress($customerData['entity_id']);
+        }
 
         // Return the shipping address array
         return [
@@ -164,8 +187,10 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $customerData = $this->blockHelper->getCustomerData();
 
         // Get the billing address data
-        $billingAddress = $this->customerHelper->getBillingAddress($customerData['entity_id']);
-
+        if ($this->customerDataValid($customerData)) {
+            $billingAddress = $this->customerHelper->getBillingAddress($customerData['entity_id']);
+        }
+        
         return [
             'id' => !$billingAddress ? 0 : $billingAddress->getId(),
             'summary' => !$billingAddress ? '' : $this->customerAddressesFormatter->format($billingAddress)
