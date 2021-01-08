@@ -134,18 +134,17 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the payment token array.
      */
-    public function buildPaymentTokenArray()
+    public function buildPaymentTokenArray($paymentToken = null)
     {
         // Get the customer data
         $customerData = $this->blockHelper->getCustomerData();
 
         // Get the payment token
-        $paymentToken = '';
         if ($this->customerDataValid($customerData)) {
             $paymentToken = $this->vaultHandler->preparePaymentToken($customerData['entity_id']);
         }
 
-        return $paymentToken;
+        return $paymentToken ? $paymentToken : '';
     }
 
     /**
@@ -161,7 +160,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the shipping address array.
      */
-    public function buildShippingAddressArray()
+    public function buildShippingAddressArray($shippingAddress = null)
     {
         // Get the customer data
         $customerData = $this->blockHelper->getCustomerData();
@@ -181,7 +180,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Build the billing address array.
      */
-    public function buildBillingAddressArray()
+    public function buildBillingAddressArray($billingAddress = null)
     {
         // Get the customer data
         $customerData = $this->blockHelper->getCustomerData();
