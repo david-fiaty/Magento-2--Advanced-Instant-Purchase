@@ -286,6 +286,7 @@ define([
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
+            /*
             var formKey = $(this.formKeySelectorPrefix + productId).val();
             var productQuantity = parseInt($(e.currentTarget).parents().find('.nbn-qty').val());
             var params = {
@@ -293,6 +294,15 @@ define([
                 form_key: formKey,
                 product_quantity: productQuantity
             };
+
+            */
+            // Get the current form
+            console.log('------- >>>>>>');
+            console.log($(NbnProduct.getProductFormSelector(productId)).serializeArray());
+
+
+            var params = $(NbnProduct.getProductFormSelector(productId)).serialize();
+
 
             // Open the modal
             this.getOrderModal(e.currentTarget);
