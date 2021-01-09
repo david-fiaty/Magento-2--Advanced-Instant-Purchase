@@ -36,7 +36,8 @@
         step="1"
         min="<?= $quantityLimits['min'] ?>"
         max="<?= $quantityLimits['max'] ?>"
-        name="nbn[<?= $config['product']['id'] ?>][purchase_quantity]"
+        id="nbn[<?= $config['product']['id'] ?>][purchase_quantity]"
+        name="qty"
         value="<?= $productQuantity ?>" title="<?= __('Qty') ?>"
         class="input-text nbn-qty text"
     >
