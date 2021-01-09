@@ -144,6 +144,12 @@ class Request extends \Magento\Framework\App\Action\Action
         // Get the request parameters
         $params = $request->getParams();
 
+        #write log file
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($params, 1));
+
         // Get the product id
         $productId = (int) $params['product'];
 
