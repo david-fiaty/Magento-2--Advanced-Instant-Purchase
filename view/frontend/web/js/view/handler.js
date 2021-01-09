@@ -297,21 +297,13 @@ define([
 
             */
             // Get the current form
-            console.log('------- >>>>>>');
-            console.log($(NbnProduct.getProductFormSelector(productId)).serializeArray());
-
-
-            var params = $(NbnProduct.getProductFormSelector(productId)).serialize();
+            var params = NbnProduct.getProductFormData(productId);
+            console.log('------- >>>>>> params');
+            console.log(params);
 
 
             // Open the modal
             this.getOrderModal(e.currentTarget);
-
-            // Log the parameters
-            NbnLogger.log(
-                __('Confirmation window request parameters'),
-                params
-            );
 
             // Send the request
             $.ajax({
