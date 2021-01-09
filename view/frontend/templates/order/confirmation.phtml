@@ -87,12 +87,6 @@
                         class="nbn-select js-states form-control"
                     >
                         <?php foreach ($data['addresses'] as $item): ?>
-                            <?php 
-                                $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/x.log');
-                                $logger = new \Zend\Log\Logger();
-                                $logger->addWriter($writer);
-                                $logger->info(print_r($item, 1));
-                            ?>
                             <option value="<?= $block->escapeHtmlAttr($item['entity_id']) ?>" <?= $item['entity_id'] == $data['purchase_data']['shipping_address']['id'] ? 'selected' : '' ?>>
                                 <?= $block->escapeHtml($item['street']) ?>&nbsp;
                                 <?= $block->escapeHtml($item['postcode']) ?>&nbsp;

@@ -106,15 +106,15 @@
          */
         getProductFormData: function (productId) {
             // Get the buy now data
-            var buyNowData = $(this.getProductFormSelector(productId)).serialize();
+            var data = $(this.getProductFormSelector(productId)).serialize();
 
             // Log the purchase data
             NbnLogger.log(
                 __('Place order form data'),
-                this.getProductForm().serializeArray()
+                $(this.getProductFormSelector(productId)).serializeArray()
             );
 
-            return buyNowData;
+            return data;
         },
 
         /**

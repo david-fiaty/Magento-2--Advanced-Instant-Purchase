@@ -286,6 +286,7 @@ define([
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
+            /*
             var formKey = $(this.formKeySelectorPrefix + productId).val();
             var productQuantity = parseInt($(e.currentTarget).parents().find('.nbn-qty').val());
             var params = {
@@ -294,14 +295,15 @@ define([
                 product_quantity: productQuantity
             };
 
+            */
+            // Get the current form
+            var params = NbnProduct.getProductFormData(productId);
+            console.log('------- >>>>>> params');
+            console.log(params);
+
+
             // Open the modal
             this.getOrderModal(e.currentTarget);
-
-            // Log the parameters
-            NbnLogger.log(
-                __('Confirmation window request parameters'),
-                params
-            );
 
             // Send the request
             $.ajax({
