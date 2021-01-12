@@ -54,12 +54,12 @@
     <?php
       if ($data['config']['product']['has_options']):
         foreach ($data['config']['product']['options'] as $option): 
-        $optionData = $block->getSelectedOptionData($option, $data);
+        $option = $block->getSelectedOptionData($option, $params);
     ?>
         <tr>
           <td>&nbsp;</td>
-          <td><?= $optionData['title'] ?>: [value]</td>
-          <td><?= $optionData['price'] ?></td>
+          <td><?= $option['title'] ?>: <?= $option['selected_value'] ?></td>
+          <td><?= $option['price'] ?></td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>    

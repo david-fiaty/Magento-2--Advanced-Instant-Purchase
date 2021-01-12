@@ -100,8 +100,18 @@ class Summary extends \Magento\Framework\View\Element\Template
     /**
      * Get a selected option data.
      */
-    public function getSelectedOptionData($option, $data)
+    public function getSelectedOptionData($option, $requestParams)
     {
+        if (isset($requestParams['options'][$option['option_id']])) {
+            return array_merge(
+                $option,
+                [
+                    'selected_value' => $requestParams['options'][$option['option_id']]
+                ]
+            )
+        }
+
+
         return $option;
     }
 
