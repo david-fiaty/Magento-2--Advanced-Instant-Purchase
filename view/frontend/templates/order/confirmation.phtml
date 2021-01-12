@@ -18,6 +18,9 @@
     // Get the confirmation content
     $data = $block->getData('data');
 
+    // Get the confirmation request parameters
+    $params = $block->getData('params');
+
     $productQantity = $block->getData('product_quantity');
     $productId = $data['config']['product']['id'];
 
@@ -35,7 +38,7 @@
     <!-- Order summary -->
     <?php if ($showSummary): ?>
         <div class="nbn-product-summary-container">
-            <?= $block->getSummaryBoxHtml($data, $productQantity) ?>
+            <?= $block->getSummaryBoxHtml($data, $productQantity, $params) ?>
         </div>
     <?php endif; ?>
 

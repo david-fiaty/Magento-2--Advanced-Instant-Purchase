@@ -67,6 +67,7 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->setData('config', $config)
         ->toHtml();
     }
+
     /**
      * Get the summary total.
      */
@@ -87,4 +88,21 @@ class Summary extends \Magento\Framework\View\Element\Template
 
         return $this->toolsHelper->renderAmount($total, true, false);
     }
+
+    /**
+     * Get a selected attribute data.
+     */
+    public function getSelectedAttributeData($attribute, $data)
+    {
+
+    }
+
+    /**
+     * Get a selected option data.
+     */
+    public function getSelectedOptionData($option, $data)
+    {
+        return $option;
+    }
+
 }

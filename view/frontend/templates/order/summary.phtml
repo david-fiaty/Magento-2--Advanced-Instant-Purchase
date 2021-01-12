@@ -17,6 +17,11 @@
 <?php
     // Get the data
     $data = $block->getData('data');
+    $params = $block->getData('params');
+
+    var_dump($params);
+    //var_dump($data);
+
     $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
     $productQantity = $block->getData('product_quantity');
     $showDiscountForm = $data['config']['popups']['popup_show_discount_form'];
@@ -42,17 +47,22 @@
       <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
 
-    <?php if ($data['config']['product']['has_options']): ?>
-      <?php foreach ($data['config']['product']['options'] as $option): ?>
-      <tr>
-        <td>&nbsp;</td>
-        <td><?= $option['title'] ?>: [value]</td>
-        <td><?= $option['price'] ?></td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>    
-      <?php endforeach; ?>
-    <?php endif; ?>
+    <?php
+      if ($data['config']['product']['has_options']):
+        foreach ($data['config']['product']['options'] as $option): 
+        $optionData = $block->getSelectedOptionData($option, $data);
+    ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td><?= $optionData['title'] ?>: [value]</td>
+          <td><?= $optionData['price'] ?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>    
+    <?php
+        endforeach; 
+      endif;
+    ?>
   </tbody>
   <tfoot>
     <tr id="nbn-discount-row">
