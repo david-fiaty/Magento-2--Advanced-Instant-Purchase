@@ -234,12 +234,28 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $options = $product->getOptions();
 
         if (!empty($options)) {
-            foreach ($options as $key => $option) {
-                $output[] = $option->getData();
+            foreach ($options as $option) {
+                $output[] = array_merge(
+                    $option->getData(),
+                    ['values' => $this->getOptionValuesData($option)]
+                );
             }
         }
 
         return  $output;
+    }
+
+    /**
+     * Get a product option values data.
+     */
+    public function getOptionValuesData($option)
+    {
+        $output = [];
+        foreach ($option->getValues() as $value) {
+            $output[] = $value->getData();
+        }
+
+        return $output;
     }
 
     /**
