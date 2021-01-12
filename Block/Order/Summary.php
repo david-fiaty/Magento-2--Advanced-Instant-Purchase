@@ -108,7 +108,7 @@ class Summary extends \Magento\Framework\View\Element\Template
                 [
                     'selected_value' => $requestParams['options'][$option['option_id']]
                 ]
-            )
+            );
         }
 
 
