@@ -24,12 +24,6 @@
     $showDiscountForm = $data['config']['popups']['popup_show_discount_form'];
 ?>
 
-<pre>
-<?php
-    var_dump($data);
-?>
-</pre>
-
 <div class="nbn-summary-box">
 <table>
   <thead>
@@ -53,15 +47,15 @@
     <?php
       if ($data['config']['product']['has_options']):
         foreach ($data['config']['product']['options'] as $option): 
-        $option = $block->getSelectedOptionData($option, $params);
+        $selectedValue = $block->getSelectedOptionData($option, $data['config'], $params);
     ?>
-        <tr>
-          <td>&nbsp;</td>
-          <td><?= $option['title'] ?>: <?= $option['selected_value'] ?></td>
-          <td><?= $option['price'] ?></td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>    
+      <tr>
+        <td>&nbsp;</td>
+        <td><?= $option['title'] ?>: <?= $selectedValue['title'] ?></td>
+        <td><?= $selectedValue['price'] ?></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>   
     <?php
         endforeach; 
       endif;

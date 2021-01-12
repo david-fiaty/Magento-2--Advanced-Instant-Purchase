@@ -252,7 +252,10 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $output = [];
         foreach ($option->getValues() as $value) {
-            $output[] = $value->getData();
+            $output[] = array_merge(
+                $value->getData(),
+                ['value_id' => $value->getId()]
+            );
         }
 
         return $output;
