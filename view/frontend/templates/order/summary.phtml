@@ -43,15 +43,15 @@
     </tr>
 
     <?php if ($data['config']['product']['has_options']): ?>
-    <?php foreach ($data['config']['product']['options'] as $option): ?>
-    <tr>
-      <td>&nbsp;</td>
-      <td>Option title</td>
-      <td>option price</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>    
-    <?php endforeach; ?>
+      <?php foreach ($data['config']['product']['options'] as $option): ?>
+      <tr>
+        <td>&nbsp;</td>
+        <td><?= $option['title'] ?>: [value]</td>
+        <td><?= $option['price'] ?></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>    
+      <?php endforeach; ?>
     <?php endif; ?>
   </tbody>
   <tfoot>
