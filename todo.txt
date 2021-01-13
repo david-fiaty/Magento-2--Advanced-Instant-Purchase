@@ -1,6 +1,7 @@
 !!!PRIORITY!!!
 
 - fix order total calculation in confirmation with js error when changing shipping option
+- fix discount code form validation broken with page refresh
 - fix countdown js errors when dates not valid
 - fix widget confirmation popup not showing product title
 - add currency display to shipping methods list in popup
