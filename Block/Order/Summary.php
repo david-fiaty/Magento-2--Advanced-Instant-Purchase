@@ -67,6 +67,7 @@ class Summary extends \Magento\Framework\View\Element\Template
         ->setData('config', $config)
         ->toHtml();
     }
+
     /**
      * Get the summary total.
      */

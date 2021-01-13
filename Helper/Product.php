@@ -135,6 +135,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'has_parents' => $this->hasParents($product),
                 'in_stock' => $this->isInStock($productId),
                 'quantity_limits' => $this->getQuantityLimits($productId),
+                'has_attributes' => (bool) $this->hasAttributes($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
@@ -174,6 +175,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if a product has attributes.
+     */
+    public function hasAttributes($productId)
+    {
+        // Get the attributes array
+        $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+            $this->getProduct($productId)
+        );
+
+        return !empty($attributesArray);
+    }
+
+    /**
      * Check if a product has parent products.
      */
     public function hasParents($product)
@@ -186,24 +200,24 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getAttributes($productId)
     {
-        // Get the options array
+        // Get the attributes array
         $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
 
-        // Add extra fields to each option
+        // Add extra fields to each attribute
         $output = [];
         foreach ($attributesArray as $key => $option) {
             // Product id
             $option['product_id'] = $productId;
 
-            // Option id
+            // Attribute id
             $option['attribute_id'] = $key;
 
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
 
-            // Add the full option data
+            // Add the full attribute data
             $output[] = $option;
         }
 
@@ -220,12 +234,31 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $options = $product->getOptions();
 
         if (!empty($options)) {
-            foreach ($options as $key => $option) {
-                $output[] = $option->getData();
+            foreach ($options as $option) {
+                $output[] = array_merge(
+                    $option->getData(),
+                    ['values' => $this->getOptionValuesData($option)]
+                );
             }
         }
 
         return  $output;
+    }
+
+    /**
+     * Get a product option values data.
+     */
+    public function getOptionValuesData($option)
+    {
+        $output = [];
+        foreach ($option->getValues() as $value) {
+            $output[] = array_merge(
+                $value->getData(),
+                ['value_id' => $value->getId()]
+            );
+        }
+
+        return $output;
     }
 
     /**

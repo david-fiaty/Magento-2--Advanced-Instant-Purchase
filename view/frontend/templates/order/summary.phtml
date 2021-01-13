@@ -17,6 +17,8 @@
 <?php
     // Get the data
     $data = $block->getData('data');
+    $params = $block->getData('params');
+
     $shippingRate = !empty($data['shippingRates'][0]) ? $data['shippingRates'][0]['carrier_price'] : null;
     $productQantity = $block->getData('product_quantity');
     $showDiscountForm = $data['config']['popups']['popup_show_discount_form'];
@@ -24,49 +26,28 @@
 
 <div class="nbn-summary-box">
 <table>
-  <thead>
-    <tr>
-      <th><?= __('Reference') ?></th>
-      <th><?= __('Name') ?></th>
-      <th><?= __('Price') ?></th>
-      <th><?= __('Quantity') ?></th>
-      <th><?= __('Total') ?></th>
-    </tr>
-  </thead>
   <tbody>
     <tr>
-      <td><?= $data['config']['product']['sku'] ?></td>
-      <td><?= $data['config']['product']['name'] ?></td>
-      <td><?= $data['config']['product']['price'] ?></td>
-      <td><?= $productQantity ?></td>
-      <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+      <td><?= __('Product total') ?></td>
+      <td align="right"><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
     <tr id="nbn-discount-row">
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
       <td><?= __('Discount') ?></td>
-      <td class="nbn-discounted-amount"></td>
+      <td align="right" class="nbn-discounted-amount"></td>
     </tr>
     <tr>
-    <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
      <td><?= __('Shipping') ?></td>
-      <td class="nbn-summary-shipping">
+      <td align="right" class="nbn-summary-shipping">
         <?php if ($shippingRate): ?>
         <?= $block->toolsHelper->renderAmount($shippingRate) ?>
         <?php endif; ?>
       </td>
     </tr>
     <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-      <td><?= __('Total') ?></td>
-      <td class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
+      <td><?= __('Order total') ?></td>
+      <td align="right" class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
   </tfoot>
 </table>
