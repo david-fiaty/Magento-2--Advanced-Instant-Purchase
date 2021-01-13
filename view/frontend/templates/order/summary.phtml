@@ -25,21 +25,22 @@
 ?>
 
 <div class="nbn-summary-box">
-<table>
+<span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
+<table border="0">
   <tbody>
     <tr>
       <td><?= __('Product total') ?></td>
-      <td align="right"><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+      <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
     <tr id="nbn-discount-row">
       <td><?= __('Discount') ?></td>
-      <td align="right" class="nbn-discounted-amount"></td>
+      <td class="nbn-discounted-amount"></td>
     </tr>
     <tr>
      <td><?= __('Shipping') ?></td>
-      <td align="right" class="nbn-summary-shipping">
+      <td class="nbn-summary-shipping">
         <?php if ($shippingRate): ?>
         <?= $block->toolsHelper->renderAmount($shippingRate) ?>
         <?php endif; ?>
@@ -47,7 +48,7 @@
     </tr>
     <tr>
       <td><?= __('Order total') ?></td>
-      <td align="right" class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
+      <td class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
   </tfoot>
 </table>
