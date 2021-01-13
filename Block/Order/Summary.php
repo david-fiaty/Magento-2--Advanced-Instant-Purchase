@@ -88,38 +88,4 @@ class Summary extends \Magento\Framework\View\Element\Template
 
         return $this->toolsHelper->renderAmount($total, true, false);
     }
-
-    /**
-     * Get a selected attribute data.
-     */
-    public function getSelectedAttributeData($attribute, $data)
-    {
-
-    }
-
-    /**
-     * Get a selected option data.
-     */
-    public function getSelectedOptionData($option, $config, $requestParams)
-    {
-        if (isset($requestParams['options'][$option['option_id']])) {
-            // Get the option array index from config data
-            $optionsArray = $config['product']['options'];
-            $optionIndex = array_search(
-                $option['option_id'],
-                array_column($optionsArray, 'option_id')
-            );
-
-            // Get the option values from the index
-            $valuesArray = $config['product']['options'][$optionIndex]['values'];
-            $valueIndex = array_search(
-                $option['value_id'],
-                array_column($valuesArray, 'value_id')
-            );
-        }
-
-
-        return $valuesArray[$valueIndex];
-    }
-
 }
