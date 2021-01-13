@@ -30,7 +30,7 @@
   <tbody>
     <tr>
       <td><?= __('Product total') ?></td>
-      <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+      <td class="nbn-align-right"><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
   <tfoot>
@@ -40,7 +40,7 @@
     </tr>
     <tr>
      <td><?= __('Shipping') ?></td>
-      <td class="nbn-summary-shipping">
+      <td class="nbn-summary-shipping nbn-align-right">
         <?php if ($shippingRate): ?>
         <?= $block->toolsHelper->renderAmount($shippingRate) ?>
         <?php endif; ?>
@@ -48,7 +48,7 @@
     </tr>
     <tr>
       <td><?= __('Order total') ?></td>
-      <td class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
+      <td class="nbn-summary-total nbn-align-right"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
   </tfoot>
 </table>
