@@ -28,7 +28,7 @@
 <table>
   <tbody>
     <tr>
-      <td><?= __('Order total') ?></td>
+      <td><?= __('Product total') ?></td>
       <td><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
     </tr>
   </tbody>
@@ -46,7 +46,6 @@
       </td>
     </tr>
     <tr>
-    <td>&nbsp;</td>
       <td><?= __('Total') ?></td>
       <td class="nbn-summary-total"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
