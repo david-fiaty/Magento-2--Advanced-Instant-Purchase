@@ -29,11 +29,10 @@
 <table border="0">
   <tbody>
     <tr>
-      <td><?= __('Order total') ?></td>
+      <td><?= $data['config']['product']['name'] ?></td>
       <td class="nbn-align-right">
-        <?= $data['config']['product']['title'] ?>
         <?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?>
-        </td>
+      </td>
     </tr>
   </tbody>
   <tfoot>
