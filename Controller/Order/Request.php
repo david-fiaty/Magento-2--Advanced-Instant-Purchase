@@ -154,7 +154,7 @@ class Request extends \Magento\Framework\App\Action\Action
             'shippingAddressId' => (int) $params['nbn-shipping-address-select'],
             'billingAddressId' => (int) $params['nbn-billing-address-select'],
             'carrierCode' => (string) $params['nbn-shipping-method-select'],
-            'shippingMethodCode' => (string) $params['shipping_method_code'],
+            'shippingMethodCode' => (string) $params['nbn-shipping-method-select'],
             'productId' => (int) $productId,
             'productRequest' => [] // Todo - Check what this does exactly
         ];
