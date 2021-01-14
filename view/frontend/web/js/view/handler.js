@@ -298,9 +298,6 @@ define([
             */
             // Get the current form
             var params = NbnProduct.getProductFormData(productId);
-            console.log('------- >>>>>> params');
-            console.log(params);
-
 
             // Open the modal
             this.getOrderModal(e.currentTarget);
