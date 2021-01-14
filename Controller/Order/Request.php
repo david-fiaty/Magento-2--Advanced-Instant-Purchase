@@ -144,19 +144,13 @@ class Request extends \Magento\Framework\App\Action\Action
         // Get the request parameters
         $params = $request->getParams();
 
-        #write log file
-$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($params, 1));
-
         // Get the product id
         $productId = (int) $params['product'];
 
         // Prepare the payment data
         $paymentData = [
             'paymentTokenPublicHash' => (string) $params['nbn-payment-method-select'],
-            'paymentMethodCode' => (string) $params[$productId]['payment_method_code'],
+            'paymentMethodCode' => (string) $params['nbn'][$productId]['payment_method_code'],
             'shippingAddressId' => (int) $params['nbn-shipping-address-select'],
             'billingAddressId' => (int) $params['nbn-billing-address-select'],
             'carrierCode' => (string) $params['nbn-shipping-method-select'],
