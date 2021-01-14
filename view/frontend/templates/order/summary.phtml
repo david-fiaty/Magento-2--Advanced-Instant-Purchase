@@ -29,8 +29,11 @@
 <table border="0">
   <tbody>
     <tr>
-      <td><?= __('Product total') ?></td>
-      <td class="nbn-align-right"><?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?></td>
+      <td><?= __('Order total') ?></td>
+      <td class="nbn-align-right">
+        <?= $data['config']['product']['title'] ?>
+        <?= $block->productHelper->getPriceBoxHtml($data['config'], $productQantity) ?>
+        </td>
     </tr>
   </tbody>
   <tfoot>
@@ -47,7 +50,7 @@
       </td>
     </tr>
     <tr>
-      <td><?= __('Order total') ?></td>
+      <td><?= __('Payment total') ?></td>
       <td class="nbn-summary-total nbn-align-right"><?= $block->getTotal($data, $productQantity, $shippingRate) ?></td>
     </tr>
   </tfoot>
