@@ -128,7 +128,7 @@ class VaultHandlerService
         if ($publicHash) {
             $cardList = $this->getUserCards($customerId);
             foreach ($cardList as $card) {
-                if ($card->getPublicHash() == $publicHash) {
+                if ($card['instance']->getPublicHash() == $publicHash) {
                     return $card;
                 }
             }
