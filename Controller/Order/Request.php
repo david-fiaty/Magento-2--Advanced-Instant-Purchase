@@ -20,31 +20,13 @@ use Magento\Framework\Controller\Result\Json as JsonResult;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\RequestInterface;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
+use Magento\Vault\Model\Ui\VaultConfigProvider;
 
 /**
  * Order controller class
  */
 class Request extends \Magento\Framework\App\Action\Action
 {
-    /**
-     * List of request params handled by the controller.
-     *
-     * @var array
-     */
-    public static $knownRequestParams = [
-        'form_key',
-        'product',
-        'payment_token',
-        'payment_method_code',
-        'shipping_address',
-        'billing_address',
-    ];
-
-    /**
-     * @var IntegrationsManager
-     */
-    public $integrationsManager;
-
     /**
      * @var StoreManagerInterface
      */
@@ -54,6 +36,11 @@ class Request extends \Magento\Framework\App\Action\Action
      * @var Validator
      */
     public $formKeyValidator;
+
+    /**
+     * @var CartManagementInterface
+     */
+    private $quoteManagement;
 
     /**
      * @var CartRepositoryInterface
@@ -66,19 +53,14 @@ class Request extends \Magento\Framework\App\Action\Action
     public $productRepository;
 
     /**
-     * @var CustomerRepositoryInterface
+     * @var OrderRepositoryInterface
      */
-    public $customerRepository;
+    public $orderRepository;
 
     /**
      * @var QuoteCreation
      */
     public $quoteCreation;
-
-    /**
-     * @var QuoteFilling
-     */
-    public $quoteFilling;
 
     /**
      * @var UrlInterface
@@ -100,29 +82,26 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\InstantPurchase\PaymentMethodIntegration\IntegrationsManager $integrationsManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Quote\Api\CartManagementInterface $quoteManagement,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
-
     ) {
         parent::__construct($context);
 
-        $this->integrationsManager = $integrationsManager;
         $this->storeManager = $storeManager;
         $this->formKeyValidator = $formKeyValidator;
+        $this->quoteManagement = $quoteManagement;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->customerRepository  = $customerRepository;
+        $this->orderRepository = $orderRepository;
         $this->quoteCreation = $quoteCreation;
-        $this->quoteFilling = $quoteFilling;
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
         $this->vaultHandlerService = $vaultHandlerService;
@@ -156,7 +135,7 @@ class Request extends \Magento\Framework\App\Action\Action
             'carrierCode' => (string) $params['nbn-shipping-method-select'],
             'shippingMethodCode' => (string) $params['nbn-shipping-method-select'],
             'productId' => (int) $productId,
-            'productRequest' => [] // Todo - Check what this does exactly
+            'qty' => (int) $params['qty']
         ];
 
         try {
@@ -172,14 +151,6 @@ class Request extends \Magento\Framework\App\Action\Action
             $shippingAddress->setCollectShippingRates(true);
             $shippingAddress->setShippingMethod($paymentData['carrierCode']);
 
-            // Load the product
-            $product = $this->productRepository->getById(
-                $paymentData['productId'],
-                false,
-                $store->getId(),
-                false
-            );
-
             // Create the quote
             $quote = $this->quoteCreation->createQuote(
                 $store,
@@ -191,12 +162,42 @@ class Request extends \Magento\Framework\App\Action\Action
             // Set the store
             $quote->setStore($store)->save();
 
-            // Fill the quote
-            $quote = $this->quoteFilling->fillQuote(
-                $quote,
-                $product,
-                $paymentData['productRequest']
+            // Load the product
+            $product = $this->productRepository->getById(
+                $paymentData['productId'],
+                false,
+                $store->getId(),
+                false
             );
+
+            // Add the product data
+            $productData = new \Magento\Framework\DataObject([
+                'product' => $paymentData['productId'],
+                'qty' => $paymentData['qty'],
+
+            ]);
+
+            // Product options
+            if (!empty($paymentData['options'])) {
+                $productData['options'] = [];
+                foreach($paymentData['options'] as $k => $v) {
+                    $productData['options'][$k] = $v;
+                }
+            }
+
+            // Product attributes
+            /*
+            if (!empty($paymentData['super_attribute'])) {
+                $productData['selected_configurable_option'] = 1;
+                $productData['super_attribute'] = [];
+                foreach($paymentData['super_attribute'] as $k => $v) {
+                    $productData['super_attribute'][$k] = $v;
+                }
+            }
+
+            */
+
+            $quote->addProduct($product, $productData);
 
             // Set the shipping method
             $quote->getShippingAddress()->addData($shippingAddress->getData());
@@ -214,10 +215,14 @@ class Request extends \Magento\Framework\App\Action\Action
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
                 $payment->importData(['method' => $paymentData['paymentMethodCode']]);
+
+                // Todo - Set additional payment information
+                /* 
                 $payment->setAdditionalInformation($this->buildPaymentAdditionalInformation(
                     $paymentToken,
                     $quote->getStoreId()
                 ));
+                */
 
                 $payment->save();
             }
@@ -228,12 +233,11 @@ class Request extends \Magento\Framework\App\Action\Action
             $quote = $this->quoteRepository->get($quote->getId());
 
             // Send the payment request and get the response
-            $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
-            $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
+            $orderId = $this->quoteManagement->placeOrder($quote->getId());
 
-            // Create the order
-            if ($paymentResponse->paymentSuccess()) {
-                $order = $paymentResponse->createOrder($quote, $paymentResponse);
+            // Build the response
+            if ((int) $orderId > 0) {
+                $order = $this->orderRepository->get($orderId);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
@@ -266,19 +270,19 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param int $storeId
      * @return array
      */
-    public function buildPaymentAdditionalInformation(PaymentTokenInterface $paymentToken, int $storeId): array
+    public function buildPaymentAdditionalInformation($paymentToken, int $storeId): array
     {
         $common = [
-            PaymentTokenInterface::CUSTOMER_ID => $paymentToken->getCustomerId(),
-            PaymentTokenInterface::PUBLIC_HASH => $paymentToken->getPublicHash(),
+            PaymentTokenInterface::CUSTOMER_ID => $paymentToken['instance']->getCustomerId(),
+            PaymentTokenInterface::PUBLIC_HASH => $paymentToken['instance']->getPublicHash(),
             VaultConfigProvider::IS_ACTIVE_CODE => true,
 
             // mark payment
             self::MARKER => 'true',
         ];
 
-        $integration = $this->integrationManager->getByToken($paymentToken, $storeId);
-        $specific = $integration->getAdditionalInformation($paymentToken);
+        $integration = $this->integrationManager->getByToken($paymentToken['instance'], $storeId);
+        $specific = $integration->getAdditionalInformation($paymentToken['instance']);
 
         $additionalInformation = array_merge($common, $specific);
         return $additionalInformation;
@@ -292,39 +296,6 @@ class Request extends \Magento\Framework\App\Action\Action
     public function createGenericErrorMessage(): string
     {
         return (string)__('The request in invalid. Please refresh the page and try again.');
-    }
-
-    /**
-     * Checks if all parameters that should be handled are passed.
-     *
-     * @param  RequestInterface $request
-     * @return bool
-     */
-    public function doesRequestContainAllKnowParams(array $request): bool
-    {
-        foreach (self::$knownRequestParams as $knownRequestParam) {
-            if ($request[$knownRequestParam] === null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Filters out parameters that handled by controller.
-     *
-     * @param  RequestInterface $request
-     * @return array
-     */
-    public function getRequestUnknownParams(array $requestParams): array
-    {
-        $unknownParams = [];
-        foreach ($requestParams as $param => $value) {
-            if (!isset(self::$knownRequestParams[$param])) {
-                $unknownParams[$param] = $value;
-            }
-        }
-        return $unknownParams;
     }
 
     /**

@@ -128,7 +128,7 @@ class VaultHandlerService
         if ($publicHash) {
             $cardList = $this->getUserCards($customerId);
             foreach ($cardList as $card) {
-                if ($card->getPublicHash() == $publicHash) {
+                if ($card['instance']->getPublicHash() == $publicHash) {
                     return $card;
                 }
             }
@@ -146,6 +146,8 @@ class VaultHandlerService
         $cardList = $this->getUserCards($customerId);
         if (!empty($cardList)) {
             // Sort the array by date
+            // Todo - Fix the latest card sort
+            /*
             usort(
                 $cardList,
                 function ($a, $b) {
@@ -154,6 +156,7 @@ class VaultHandlerService
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());
                 }
             );
+            */
 
             // Return the most recent
             return $cardList[0];
