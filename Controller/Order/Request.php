@@ -28,25 +28,6 @@ use Magento\Vault\Model\Ui\VaultConfigProvider;
 class Request extends \Magento\Framework\App\Action\Action
 {
     /**
-     * List of request params handled by the controller.
-     *
-     * @var array
-     */
-    public static $knownRequestParams = [
-        'form_key',
-        'product',
-        'payment_token',
-        'payment_method_code',
-        'shipping_address',
-        'billing_address',
-    ];
-
-    /**
-     * @var IntegrationsManager
-     */
-    public $integrationsManager;
-
-    /**
      * @var StoreManagerInterface
      */
     public $storeManager;
@@ -67,9 +48,9 @@ class Request extends \Magento\Framework\App\Action\Action
     public $productRepository;
 
     /**
-     * @var CustomerRepositoryInterface
+     * @var OrderRepositoryInterface
      */
-    public $customerRepository;
+    public $orderRepository;
 
     /**
      * @var QuoteCreation
@@ -96,26 +77,23 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\InstantPurchase\PaymentMethodIntegration\IntegrationsManager $integrationsManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
-
     ) {
         parent::__construct($context);
 
-        $this->integrationsManager = $integrationsManager;
         $this->storeManager = $storeManager;
         $this->formKeyValidator = $formKeyValidator;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
-        $this->customerRepository  = $customerRepository;
+        $this->orderRepository = $orderRepository;
         $this->quoteCreation = $quoteCreation;
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
@@ -212,8 +190,6 @@ class Request extends \Magento\Framework\App\Action\Action
 
             */
 
-
-
             $quote->addProduct($product, $productData);
 
             // Set the shipping method
@@ -232,10 +208,14 @@ class Request extends \Magento\Framework\App\Action\Action
                 $payment->setQuote($quote);
                 $payment->setMethod($paymentData['paymentMethodCode']);
                 $payment->importData(['method' => $paymentData['paymentMethodCode']]);
+
+                // Todo - Set additional payment information
+                /* 
                 $payment->setAdditionalInformation($this->buildPaymentAdditionalInformation(
                     $paymentToken,
                     $quote->getStoreId()
                 ));
+                */
 
                 $payment->save();
             }
@@ -246,12 +226,11 @@ class Request extends \Magento\Framework\App\Action\Action
             $quote = $this->quoteRepository->get($quote->getId());
 
             // Send the payment request and get the response
-            $paymentMethod = $this->paymentHandler->loadMethod($paymentData['paymentMethodCode']);
-            $paymentResponse = $paymentMethod->sendRequest($quote, $paymentData);
+            $orderId = $this->quoteManagement->placeOrder($quote->getId());
 
-            // Create the order
-            if ($paymentResponse->paymentSuccess()) {
-                $order = $paymentResponse->createOrder($quote, $paymentResponse);
+            // Build the response
+            if ((int) $orderId > 0) {
+                $order = $this->orderRepository->get($orderId);
                 if ($order) {
                     $message = json_encode([
                         'order_url' => $this->urlBuilder->getUrl('sales/order/view/order_id/' . $order->getId()),
@@ -310,39 +289,6 @@ class Request extends \Magento\Framework\App\Action\Action
     public function createGenericErrorMessage(): string
     {
         return (string)__('The request in invalid. Please refresh the page and try again.');
-    }
-
-    /**
-     * Checks if all parameters that should be handled are passed.
-     *
-     * @param  RequestInterface $request
-     * @return bool
-     */
-    public function doesRequestContainAllKnowParams(array $request): bool
-    {
-        foreach (self::$knownRequestParams as $knownRequestParam) {
-            if ($request[$knownRequestParam] === null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Filters out parameters that handled by controller.
-     *
-     * @param  RequestInterface $request
-     * @return array
-     */
-    public function getRequestUnknownParams(array $requestParams): array
-    {
-        $unknownParams = [];
-        foreach ($requestParams as $param => $value) {
-            if (!isset(self::$knownRequestParams[$param])) {
-                $unknownParams[$param] = $value;
-            }
-        }
-        return $unknownParams;
     }
 
     /**
