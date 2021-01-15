@@ -247,18 +247,13 @@ class VaultHandlerService
         $card = $this->getLastSavedCard($customerId);
 
         // Summary
-        $summary = isset($card['instance'])
-        ? $this->formatPaymentToken($card['instance'])
-        : '';
+        $summary = $card ? $this->formatPaymentToken($card) : '';
 
         // Public hash
-        $publicHash = isset($card['instance'])
-        ? $card['instance']->getPublicHash()
-        : '';
+        $publicHash = $card ? $card->getPublicHash() : '';
 
-        $methodCode = isset($card['instance'])
-        ? $card['instance']->getPaymentMethodCode()
-        : '';
+        // Method code
+        $methodCode = $card ? $card->getPaymentMethodCode(): '';
 
         return [
             'public_hash' => $publicHash,
