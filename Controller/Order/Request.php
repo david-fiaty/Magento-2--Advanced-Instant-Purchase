@@ -149,7 +149,7 @@ class Request extends \Magento\Framework\App\Action\Action
             'carrierCode' => (string) $params['nbn-shipping-method-select'],
             'shippingMethodCode' => (string) $params['nbn-shipping-method-select'],
             'productId' => (int) $productId,
-            'productRequest' => [] // Todo - Check what this does exactly
+            'qty' => (int) $params['qty']
         ];
 
         try {
@@ -165,14 +165,6 @@ class Request extends \Magento\Framework\App\Action\Action
             $shippingAddress->setCollectShippingRates(true);
             $shippingAddress->setShippingMethod($paymentData['carrierCode']);
 
-            // Load the product
-            $product = $this->productRepository->getById(
-                $paymentData['productId'],
-                false,
-                $store->getId(),
-                false
-            );
-
             // Create the quote
             $quote = $this->quoteCreation->createQuote(
                 $store,
@@ -184,12 +176,44 @@ class Request extends \Magento\Framework\App\Action\Action
             // Set the store
             $quote->setStore($store)->save();
 
-            // Add the product data
-            $quote = $this->quoteFilling->fillQuote(
-                $quote,
-                $product,
-                $paymentData['productRequest']
+            // Load the product
+            $product = $this->productRepository->getById(
+                $paymentData['productId'],
+                false,
+                $store->getId(),
+                false
             );
+
+            // Add the product data
+            $productData = new \Magento\Framework\DataObject([
+                'product' => $paymentData['productId'],
+                'qty' => $paymentData['qty'],
+
+            ]);
+
+            // Product options
+            if (!empty($paymentData['options'])) {
+                $productData['options'] = [];
+                foreach($paymentData['options'] as $k => $v) {
+                    $productData['options'][$k] = $v;
+                }
+            }
+
+            // Product attributes
+            /*
+            if (!empty($paymentData['super_attribute'])) {
+                $productData['selected_configurable_option'] = 1;
+                $productData['super_attribute'] = [];
+                foreach($paymentData['super_attribute'] as $k => $v) {
+                    $productData['super_attribute'][$k] = $v;
+                }
+            }
+
+            */
+
+
+
+            $quote->addProduct($product, $productData);
 
             // Set the shipping method
             $quote->getShippingAddress()->addData($shippingAddress->getData());
