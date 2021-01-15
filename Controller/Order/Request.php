@@ -76,11 +76,6 @@ class Request extends \Magento\Framework\App\Action\Action
     public $quoteCreation;
 
     /**
-     * @var QuoteFilling
-     */
-    public $quoteFilling;
-
-    /**
      * @var UrlInterface
      */
     public $urlBuilder;
@@ -107,7 +102,6 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\InstantPurchase\Model\QuoteManagement\QuoteCreation $quoteCreation,
-        \Magento\InstantPurchase\Model\QuoteManagement\QuoteFilling $quoteFilling,
         \Magento\Framework\UrlInterface $urlBuilder,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandlerService
@@ -122,7 +116,6 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->productRepository = $productRepository;
         $this->customerRepository  = $customerRepository;
         $this->quoteCreation = $quoteCreation;
-        $this->quoteFilling = $quoteFilling;
         $this->urlBuilder = $urlBuilder;
         $this->customerHelper = $customerHelper;
         $this->vaultHandlerService = $vaultHandlerService;
@@ -191,7 +184,7 @@ class Request extends \Magento\Framework\App\Action\Action
             // Set the store
             $quote->setStore($store)->save();
 
-            // Fill the quote
+            // Add the product data
             $quote = $this->quoteFilling->fillQuote(
                 $quote,
                 $product,
