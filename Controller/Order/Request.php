@@ -283,19 +283,19 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param int $storeId
      * @return array
      */
-    public function buildPaymentAdditionalInformation(PaymentTokenInterface $paymentToken, int $storeId): array
+    public function buildPaymentAdditionalInformation($paymentToken, int $storeId): array
     {
         $common = [
-            PaymentTokenInterface::CUSTOMER_ID => $paymentToken->getCustomerId(),
-            PaymentTokenInterface::PUBLIC_HASH => $paymentToken->getPublicHash(),
+            PaymentTokenInterface::CUSTOMER_ID => $paymentToken['instance']->getCustomerId(),
+            PaymentTokenInterface::PUBLIC_HASH => $paymentToken['instance']->getPublicHash(),
             VaultConfigProvider::IS_ACTIVE_CODE => true,
 
             // mark payment
             self::MARKER => 'true',
         ];
 
-        $integration = $this->integrationManager->getByToken($paymentToken, $storeId);
-        $specific = $integration->getAdditionalInformation($paymentToken);
+        $integration = $this->integrationManager->getByToken($paymentToken['instance'], $storeId);
+        $specific = $integration->getAdditionalInformation($paymentToken['instance']);
 
         $additionalInformation = array_merge($common, $specific);
         return $additionalInformation;
