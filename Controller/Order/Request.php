@@ -38,6 +38,11 @@ class Request extends \Magento\Framework\App\Action\Action
     public $formKeyValidator;
 
     /**
+     * @var CartManagementInterface
+     */
+    private $quoteManagement;
+
+    /**
      * @var CartRepositoryInterface
      */
     public $quoteRepository;
@@ -79,6 +84,7 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
+        \Magento\Quote\Api\CartManagementInterface $quoteManagement,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
@@ -91,6 +97,7 @@ class Request extends \Magento\Framework\App\Action\Action
 
         $this->storeManager = $storeManager;
         $this->formKeyValidator = $formKeyValidator;
+        $this->quoteManagement = $quoteManagement;
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
         $this->orderRepository = $orderRepository;
