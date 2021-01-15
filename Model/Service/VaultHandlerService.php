@@ -146,6 +146,8 @@ class VaultHandlerService
         $cardList = $this->getUserCards($customerId);
         if (!empty($cardList)) {
             // Sort the array by date
+            // Todo - Fix the latest card sort
+            /*
             usort(
                 $cardList,
                 function ($a, $b) {
@@ -154,6 +156,7 @@ class VaultHandlerService
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());
                 }
             );
+            */
 
             // Return the most recent
             return $cardList[0];
@@ -247,13 +250,18 @@ class VaultHandlerService
         $card = $this->getLastSavedCard($customerId);
 
         // Summary
-        $summary = $card ? $this->formatPaymentToken($card) : '';
+        $summary = isset($card['instance'])
+        ? $this->formatPaymentToken($card['instance'])
+        : '';
 
         // Public hash
-        $publicHash = $card ? $card->getPublicHash() : '';
+        $publicHash = isset($card['instance'])
+        ? $card['instance']->getPublicHash()
+        : '';
 
-        // Method code
-        $methodCode = $card ? $card->getPaymentMethodCode(): '';
+        $methodCode = isset($card['instance'])
+        ? $card['instance']->getPaymentMethodCode()
+        : '';
 
         return [
             'public_hash' => $publicHash,
