@@ -71,7 +71,7 @@ class Form extends \Magento\Backend\App\Action
         $categoryId = (int) $this->getRequest()->getParam('category_id');
 
         // Load the requested item
-        $html .= $this->renderProductAttributes($categoryId);
+        $html .= $this->renderProductListOption($categoryId);
 
         // Return the response
         return $this->resultJsonFactory->create()->setData([
@@ -80,13 +80,13 @@ class Form extends \Magento\Backend\App\Action
     }
 
     /**
-     * Render the product attributes.
+     * Render a product list option.
      */
-    public function renderProductAttributes($categoryId)
+    public function renderProductListOption($categoryId)
     {
         return $this->pageFactory->create()->getLayout()
             ->createBlock('Magento\Backend\Block\Template')
-            ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml')
+            ->setTemplate(Naming::getModuleName() . '::product/form/list-option.phtml')
             ->setData('products', $this->productHelper->getProducts($categoryId))
             ->toHtml();
     }
