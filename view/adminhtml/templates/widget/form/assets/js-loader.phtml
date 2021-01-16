@@ -57,17 +57,9 @@ require([
     // Product selector default values
     var selectedCategoryId = parseInt(categorySelector.val());
     var selectedProductId = parseInt(productSelector.val());
-    if (selectedCategoryId > 0 && selectedProductId > 0) {
+    if (selectedProductId > 0) {
         updateProductSelector(selectedProductId);
     }
-
-    // Product filter selector
-    var productFilterSelector = $('#' + $('#nbn-product-filter-selector').val());
-    productFilterSelector.select2({
-        placeholder: __('Select an option'),
-        minimumResultsForSearch: -1,
-        theme: 'classic'
-    });
 
     // Functions
     function updateProductSelector(selectedProductId) {
@@ -75,6 +67,7 @@ require([
         selectedProductId = selectedProductId || null;
 
         // Prepare the parameters
+        // Todo - Get "naxero-buynow" url prefix from config, not hard coded. Also check all remaining hard coded in code base
         var updateUrl = '<?= $block->escapeUrl($block->getUrl('naxero-buynow/widget/form')); ?>';
         var params = {
             category_id: categorySelector.val(),

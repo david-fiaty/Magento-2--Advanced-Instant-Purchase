@@ -82,7 +82,7 @@ class Form extends \Magento\Backend\App\Action
     }
 
     /**
-     * Get the terms and conditions.
+     * Render the product attributes.
      */
     public function renderProductAttributes($categoryId)
     {
