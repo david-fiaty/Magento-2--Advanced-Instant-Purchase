@@ -313,6 +313,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
+
         if ((int) $categoryId > 0) {
             $collection->addCategoriesFilter(['in' => [$categoryId]]);
         }

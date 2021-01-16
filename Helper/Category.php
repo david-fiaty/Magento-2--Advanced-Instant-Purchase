@@ -78,11 +78,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the catalog categories.
+     * Get the catalog categories tree.
      */
-    public function getCategories($categories = null, $output = [], $i = 0)
+    public function getCategoryTree($categoryId = 0, $output = [], $i = 0)
     {
-        $categories = $categories ?? $this->getTree();
+        $categories = $this->getCategories($categoryId);
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
@@ -97,11 +97,9 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 ];
 
                 // Check subcategories recursively
-                $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
-                if ($condition) {
-                    $i++;
-                    $children = $this->getCategories($category['children'], $output, $i);
-                    return $children;
+                $children = $category->getChildren();
+                if ($children && !empty($children)) {
+                    return $this->getCategories($children, $output, $i + 1);
                 }
             }
         }
@@ -112,28 +110,19 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the catalog root categories.
      */
-    public function getRootCategories()
+    public function getCategories($categoryId = 0)
     {
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
-        foreach ($collection as $item) {
-            $items[] = [
-                'value' => $item->getId(),
-                'label' => __($item->getName())
-            ];
+        if ($categoryId > 0) {
+            $collection->addAttributeToFilter(
+                'parent_id',
+                ['eq' => $categoryId]
+            );
         }
 
-        return $items;
-    }
-
-    /**
-     * Get the catalog categories tree.
-     */
-    public function getTree()
-    {
-        return $this->categoryTree->getTree();
+        return $collection;
     }
 
     /**

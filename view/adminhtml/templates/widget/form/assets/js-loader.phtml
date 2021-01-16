@@ -32,7 +32,7 @@ require([
         placeholder: __('Filter by category'),
         theme: 'classic',
         templateResult: function (data) { 
-            // Hierarchical display for sub categories
+            // Hierarchical indentation for sub categories
             if (!data.element) {
                 return data.text;
             }
