@@ -53,10 +53,6 @@
                     </data>
                 </block>
             </parameter>
-
-            <parameter name="product_tree_filter" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter">
-                <label translate="true">Product tree filter</label>
-            </parameter>
             
             <parameter name="product_selection_mode" xsi:type="select" visible="true" source_model="Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode">
                 <label translate="true">Product selection mode</label>

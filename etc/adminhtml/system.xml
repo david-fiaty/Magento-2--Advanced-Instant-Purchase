@@ -46,10 +46,6 @@
             <!-- Products settings-->
             <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Products settings</label>
-                <field id="product_tree_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product tree filter</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductTreeFilter</source_model>
-                </field>
                 <field id="product_selection_mode" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Product selection mode</label>
                     <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode</source_model>
