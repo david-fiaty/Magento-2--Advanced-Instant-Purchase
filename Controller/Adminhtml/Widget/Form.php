@@ -67,13 +67,11 @@ class Form extends \Magento\Backend\App\Action
         // Prepare the output
         $html = '';
 
-        // Get the file id
-        $categoryId = $this->getRequest()->getParam('category_id');
+        // Get the category id
+        $categoryId = (int) $this->getRequest()->getParam('category_id');
 
         // Load the requested item
-        if ((int) $categoryId > 0) {
-            $html .= $this->renderProductAttributes($categoryId);
-        }
+        $html .= $this->renderProductAttributes($categoryId);
 
         // Return the response
         return $this->resultJsonFactory->create()->setData([
