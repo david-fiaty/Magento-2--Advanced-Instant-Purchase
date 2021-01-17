@@ -97,10 +97,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 ];
 
                 // Check subcategories recursively
+                /*
                 $children = $category->getChildrenCategories();
                 if ($children && !empty($children)) {
                     return $this->getCategories($category->getId());
                 }
+                */
             }
         }
 
@@ -116,20 +118,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        if ($categoryId > 0) {
-            // Parent category filter
-            $collection->addAttributeToFilter(
-                'parent_id',
-                ['eq' => $categoryId]
-            );
-        }
-        else {
-            // Category level filter
-            $collection->addAttributeToFilter(
-                'level',
-                ['in' => [0, 1]]
-            );  
-        }
 
         return $collection;
     }
