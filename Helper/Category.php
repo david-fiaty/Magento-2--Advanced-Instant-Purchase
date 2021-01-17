@@ -116,13 +116,19 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-
-        // Parent category filter
         if ($categoryId > 0) {
+            // Parent category filter
             $collection->addAttributeToFilter(
                 'parent_id',
                 ['eq' => $categoryId]
             );
+        }
+        else {
+            // Category level filter
+            $collection->addAttributeToFilter(
+                'level',
+                ['in' => [0, 1]]
+            );  
         }
 
         return $collection;
