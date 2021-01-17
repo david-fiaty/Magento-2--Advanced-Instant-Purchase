@@ -17,9 +17,9 @@ use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\InstantPurchase\Model\InstantPurchaseOptionLoadingFactory;
-use Magento\InstantPurchase\Model\PlaceOrder as PlaceOrderModel;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Naxero\BuyNow\Model\Order\PlaceOrder as PlaceOrderModel;
 
 /**
  * Instant Purchase order placement.
@@ -116,14 +116,19 @@ class Request extends Action
     {
         $request = $this->getRequest();
         if (!$this->doesRequestContainAllKnowParams($request)) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
+            //return $this->createResponse($this->createGenericErrorMessage(), false);
         }
         if (!$this->formKeyValidator->validate($request)) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
+            //return $this->createResponse($this->createGenericErrorMessage(), false);
         }
 
         // Get the request parameters
         $params = $request->getParams();
+
+        return $this->createResponse(
+            json_encode($request->getParams()),
+            false
+        );
 
         // Get the product id
         $productId = (int) $params['product'];
@@ -158,7 +163,8 @@ class Request extends Action
                 $customer,
                 $instantPurchaseOption,
                 $product,
-                $productRequest
+                $productRequest,
+                $params
             );
         } catch (NoSuchEntityException $e) {
             return $this->createResponse($this->createGenericErrorMessage(), false);
