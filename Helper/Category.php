@@ -86,12 +86,12 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
-                $categoryProductCount = $this->getProductCollection($category['id'])->count();
+                $categoryProductCount = $this->getProductCollection($category->getId())->count();
 
                 // Add the category
                 $output[] = [
-                    'id' => $category['id'],
-                    'name' => $category['text'],
+                    'id' => $category->getId(),
+                    'name' => $category->getName(),
                     'level' => $i,
                     'has_products' => $categoryProductCount > 0
                 ];
@@ -99,7 +99,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 // Check subcategories recursively
                 $children = $category->getChildren();
                 if ($children && !empty($children)) {
-                    return $this->getCategories($children, $output, $i + 1);
+                    return $this->getCategories($category->getId(), $output, $i + 1);
                 }
             }
         }
