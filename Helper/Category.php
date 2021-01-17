@@ -95,14 +95,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                     'level' => $category->getLevel(),
                     'has_products' => $categoryProductCount > 0
                 ];
-
-                // Check subcategories recursively
-                /*
-                $children = $category->getChildrenCategories();
-                if ($children && !empty($children)) {
-                    return $this->getCategories($category->getId());
-                }
-                */
             }
         }
 
