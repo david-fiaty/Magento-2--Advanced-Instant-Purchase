@@ -14,7 +14,6 @@
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
 - add payment total next to place order button
-- add selected options display in product summary
 - display store > config > shipping settings > shipping policy
 
 - add time, category and product field display to calendar system.xml config  
