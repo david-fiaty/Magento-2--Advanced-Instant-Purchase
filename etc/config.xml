@@ -27,7 +27,6 @@
 
             <!-- Products settings-->
             <products>
-                <product_tree_filter>parent</product_tree_filter>
                 <product_selection_mode>product</product_selection_mode>
                 <category_id></category_id>
                 <product_id></product_id>

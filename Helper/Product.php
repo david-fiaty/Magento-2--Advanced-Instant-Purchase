@@ -307,17 +307,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a product collection.
      */
-    public function getProducts($categoryId = null)
+    public function getProducts($categoryId = 0)
     {
-        // Todo - Add the category filter to collection
+        // Get the product collection
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
-        $collection->addAttributeToFilter('status', Status::STATUS_ENABLED);
-        if ($categoryId && (int) $categoryId > 0) {
+
+        if ((int) $categoryId > 0) {
             $collection->addCategoriesFilter(['in' => [$categoryId]]);
         }
+
+        // Prepare the product data
         foreach ($collection as $item) {
             $items[] = [
                 'value' => $item->getId(),

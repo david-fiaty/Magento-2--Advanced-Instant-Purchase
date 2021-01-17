@@ -18,6 +18,8 @@
 // Get the block data
 $element = $block->getData('element');
 $categories = $block->getData('categories');
+
+// Todo - Move css styles below to admin css file
 ?>
 
 <!-- Select 2 CSS -->
@@ -51,12 +53,12 @@ $categories = $block->getData('categories');
 <!-- Category selector -->
 <div>
     <select id="<?= $element->getId() ?>" name="<?= $element->getName() ?>">
+    <option value="0"><?= __('All categories') ?></option>
     <?php foreach ($categories as $category): ?>
         <option class="nbn-category-select-level-<?= $category['level'] ?>" value="<?= $category['id'] ?>" <?= $category['id'] == $element->getValue() ? 'selected' : '' ?>>
             <?php
             for ($i = 0; $i < (int) $category['level']; $i++) {
-                if ($i >= 0) { echo '-';
-                }
+                if ($i >= 0) echo '-';
             }
             ?>
             <?= $category['name'] ?>

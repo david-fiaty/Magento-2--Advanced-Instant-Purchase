@@ -47,7 +47,6 @@ class ProductList implements \Magento\Framework\Option\ArrayInterface
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
         foreach ($collection as $item) {
             $items[] = [
                 'value' => $item->getId(),

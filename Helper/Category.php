@@ -78,31 +78,31 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the catalog categories.
+     * Get the catalog categories tree.
      */
-    public function getCategories($categories = null, $output = [], $i = 0)
+    public function getCategoryTree($categoryId = 0, $output = [])
     {
-        $categories = $categories ?? $this->getTree();
+        $categories = $this->getCategories($categoryId);
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
-                $categoryProductCount = $this->getProductCollection($category['id'])->count();
+                $categoryProductCount = $this->getProductCollection($category->getId())->count();
 
                 // Add the category
                 $output[] = [
-                    'id' => $category['id'],
-                    'name' => $category['text'],
-                    'level' => $i,
+                    'id' => $category->getId(),
+                    'name' => $category->getName(),
+                    'level' => $category->getLevel(),
                     'has_products' => $categoryProductCount > 0
                 ];
 
                 // Check subcategories recursively
-                $condition = isset($category['children']) && is_array($category['children']) && !empty($category['children']);
-                if ($condition) {
-                    $i++;
-                    $children = $this->getCategories($category['children'], $output, $i);
-                    return $children;
+                /*
+                $children = $category->getChildrenCategories();
+                if ($children && !empty($children)) {
+                    return $this->getCategories($category->getId());
                 }
+                */
             }
         }
 
@@ -112,28 +112,14 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the catalog root categories.
      */
-    public function getRootCategories()
+    public function getCategories($categoryId = 0)
     {
+        // Prepare the collection
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
-        foreach ($collection as $item) {
-            $items[] = [
-                'value' => $item->getId(),
-                'label' => __($item->getName())
-            ];
-        }
 
-        return $items;
-    }
-
-    /**
-     * Get the catalog categories tree.
-     */
-    public function getTree()
-    {
-        return $this->categoryTree->getTree();
+        return $collection;
     }
 
     /**
@@ -142,7 +128,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getProductCollection($categoryId)
     {
         return $this->productCollectionFactory->create()
-            ->addCategoriesFilter(['in' => $categoryId])
+            ->addCategoriesFilter(['in' => [$categoryId]])
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
             ->setStore($this->storeManager->getStore());

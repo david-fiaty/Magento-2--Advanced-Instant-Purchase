@@ -101,31 +101,10 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
 
         // Check the global display conditions
         if ($this->purchaseHelper->canDisplayButton($config)) {
-            // Check the widget display conditions
-            if ($this->canDisplayButton($config)) {
-                return $config;
-            }
-
-            return null;
+            return $config;
         }
 
         return null;
-    }
-
-    /**
-     * Check if the widget can be displayed.
-     */
-    public function canDisplayButton($config)
-    {
-        // Cand display parents
-        $condition1 = !$config['product']['has_parents']
-        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'parent');
-
-        // Cand display children
-        $condition2 = $config['product']['has_parents']
-        && ($config['products']['product_tree_filter'] == 'all' || $config['products']['product_tree_filter'] == 'child');
-
-        return $condition1 || $condition2;
     }
 
     /**
@@ -139,7 +118,7 @@ class WidgetButton extends \Magento\Framework\View\Element\Template implements \
 
         // Handle the category case
         if ($selectionMode == 'category') {
-            // Prepare teh parameters
+            // Prepare the parameters
             $productFilter = $this->getData('product_filter');
             $categoryId = $this->getData('category_id');
 

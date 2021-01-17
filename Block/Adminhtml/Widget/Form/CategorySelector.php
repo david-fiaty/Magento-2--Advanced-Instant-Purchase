@@ -51,7 +51,7 @@ class CategorySelector extends \Magento\Backend\Block\Template
         $blockHtml = $this->getLayout()->createBlock('Magento\Backend\Block\Template')
             ->setTemplate(Naming::getModuleName() . '::widget/form/category.phtml')
             ->setData('element', $element)
-            ->setData('categories', $this->categoryHelper->getCategories())
+            ->setData('categories', $this->categoryHelper->getCategoryTree())
             ->toHtml();
 
         // Render the HTML
