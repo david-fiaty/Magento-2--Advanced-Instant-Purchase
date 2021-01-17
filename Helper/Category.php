@@ -82,7 +82,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCategoryTree($categoryId = 0, $output = [], $i = 0)
     {
-        $categories = $this->getCategories($categoryId);
+        $categories = $this->getCategories($categoryId, $i);
         if (!empty($categories)) {
             foreach ($categories as $category) {
                 // Load the category product count
@@ -99,7 +99,7 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
                 // Check subcategories recursively
                 $children = $category->getChildren();
                 if ($children && !empty($children)) {
-                    return $this->getCategories($category->getId(), $output, $i + 1);
+                    return $this->getCategories($category->getId(), $i + 1);
                 }
             }
         }
@@ -110,11 +110,20 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the catalog root categories.
      */
-    public function getCategories($categoryId = 0)
+    public function getCategories($categoryId = 0, $i = 0)
     {
+        // Prepare the collection
         $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
+
+        // Category level filter
+        $collection->addAttributeToFilter(
+            'level',
+            ['eq' => $i]
+        );       
+
+        // Parent category filter
         if ($categoryId > 0) {
             $collection->addAttributeToFilter(
                 'parent_id',
