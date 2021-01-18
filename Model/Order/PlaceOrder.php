@@ -113,8 +113,8 @@ class PlaceOrder
         $quote = $this->quoteCreation->createQuote(
             $store,
             $customer,
-            $this->customerHelper->getAddressData($params['nbn-shipping-address-select']),
-            $this->customerHelper->getAddressData($params['nbn-billing-address-select'])
+            $this->customerHelper->loadAddress($params['nbn-shipping-address-select']),
+            $this->customerHelper->loadAddress($params['nbn-billing-address-select'])
         );
         $quote = $this->quoteFilling->fillQuote(
             $quote,

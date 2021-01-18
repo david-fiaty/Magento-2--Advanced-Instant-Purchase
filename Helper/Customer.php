@@ -22,9 +22,9 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var AddressRepositoryInterface
+     * @var Address
      */
-    public $addressRepository;
+    public $addressModel;
 
     /**
      * @var Customer
@@ -35,11 +35,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * @var AuthorizationLink
      */
     public $authLink;
-
-    /**
-     * @var Address
-     */
-    public $addressModel;
 
     /**
      * @var Resolver
@@ -75,10 +70,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer helper constructor.
      */
     public function __construct(
-        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
+        \Magento\Customer\Model\Address $addressModel,
         \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
-        \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -86,10 +80,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
         \Naxero\BuyNow\Helper\Config $configHelper
     ) {
-        $this->addressRepository = $addressRepository;
+        $this->addressModel = $addressModel;
         $this->customerModel = $customerModel;
         $this->authLink = $authLink;
-        $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
         $this->storeManager = $storeManager;
         $this->customerFactory = $customerFactory;
@@ -152,19 +145,17 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * @param $addressId
-     *
-     * @return \Magento\Customer\Api\Data\AddressInterface
+     * Get a customer address by id.
      */
-    public function getAddressData($addressId)
+    public function loadAddress($addressId)
     {
         try {
-            $addressData = $this->addressRepository->getById($addressId);
+            $address = $this->addressModel->load($addressId);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
         
-        return $addressData;
+        return $address;
     }
 
     /**
