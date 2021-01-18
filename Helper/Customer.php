@@ -22,6 +22,11 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var AddressRepositoryInterface
+     */
+    public $addressRepository;
+
+    /**
      * @var Customer
      */
     public $customerModel;
@@ -70,6 +75,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer helper constructor.
      */
     public function __construct(
+        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
         \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Customer\Model\Address $addressModel,
@@ -80,6 +86,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
         \Naxero\BuyNow\Helper\Config $configHelper
     ) {
+        $this->addressRepository = $addressRepository;
         $this->customerModel = $customerModel;
         $this->authLink = $authLink;
         $this->addressModel = $addressModel;
@@ -142,6 +149,22 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * @param $addressId
+     *
+     * @return \Magento\Customer\Api\Data\AddressInterface
+     */
+    public function getAddressData($addressId)
+    {
+        try {
+            $addressData = $this->addressRepository->getById($addressId);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+        
+        return $addressData;
     }
 
     /**

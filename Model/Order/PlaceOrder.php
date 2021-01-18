@@ -57,6 +57,11 @@ class PlaceOrder
     private $purchase;
 
     /**
+     * @var Customer
+     */
+    private $customerHelper;
+
+    /**
      * PlaceOrder constructor.
      * @param CartRepositoryInterface $quoteRepository
      * @param QuoteCreation $quoteCreation
@@ -64,6 +69,7 @@ class PlaceOrder
      * @param ShippingConfiguration $shippingConfiguration
      * @param PaymentConfiguration $paymentConfiguration
      * @param Purchase $purchase
+     * @param Customer $customerHelper
      */
     public function __construct(
         CartRepositoryInterface $quoteRepository,
@@ -71,7 +77,8 @@ class PlaceOrder
         QuoteFilling $quoteFilling,
         ShippingConfiguration $shippingConfiguration,
         PaymentConfiguration $paymentConfiguration,
-        Purchase $purchase
+        Purchase $purchase,
+        \Naxero\BuyNow\Helper\Customer $customerHelper
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->quoteCreation = $quoteCreation;
@@ -79,6 +86,7 @@ class PlaceOrder
         $this->shippingConfiguration = $shippingConfiguration;
         $this->paymentConfiguration = $paymentConfiguration;
         $this->purchase = $purchase;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -105,8 +113,8 @@ class PlaceOrder
         $quote = $this->quoteCreation->createQuote(
             $store,
             $customer,
-            $params['nbn-shipping-address-select'],
-            $params['nbn-billing-address-select']
+            $this->customerHelper->getAddressData($params['nbn-shipping-address-select']),
+            $this->customerHelper->getAddressData($params['nbn-billing-address-select'])
         );
         $quote = $this->quoteFilling->fillQuote(
             $quote,
