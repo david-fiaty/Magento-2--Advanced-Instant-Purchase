@@ -125,10 +125,13 @@ class Request extends Action
         // Get the request parameters
         $params = $request->getParams();
 
+        // Todo - Remove test
+        /*
         return $this->createResponse(
             json_encode($request->getParams()),
             false
         );
+        */
 
         // Get the product id
         $productId = (int) $params['product'];
