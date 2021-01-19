@@ -107,13 +107,31 @@ class ShippingSelector
 
     /**
      * Load a shipping method.
-     *
-     * @param  Address $address
-     * @return Rate
      */
-    public function loadShippingMethod($methodCode)
+    public function loadShippingMethod($customer, $methodCode)
     {
+        // Get the shipping rates
+        $rates = $this->getShippingRates($customer);
+        
+        // Build the shipping method
+        if ($rates && is_array($rates) && isset($rates[0]) && !empty($rates[0])) {
+            // Get the carrier
+            if (isset($rates['carrier_code']) && $rates['carrier_code'] == $methodCode) {
+                $shippingMethod = $this->shippingMethodFactory->create();
+                $shippingMethod->setCarrierCode($rates['carrier_code']);
+                $shippingMethod->setMethodTitle($rates['carrier_title']);
+                $shippingMethod->setMethodCode($rates['method_code']);
+                $shippingMethod->setAvailable(
+                    $this->areShippingMethodsAvailable(
+                        $this->customerHelper->getShippingAddress()
+                    )
+                );
 
+                return $shippingMethod;
+            }
+        }
+
+        return null;
     }
 
     /**

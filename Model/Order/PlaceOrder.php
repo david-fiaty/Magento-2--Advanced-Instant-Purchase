@@ -140,7 +140,10 @@ class PlaceOrder
         try {
             $quote = $this->shippingConfiguration->configureShippingMethod(
                 $quote,
-                $this->shippingSelector->loadShippingMethod($params['nbn-shipping-method-select'])
+                $this->shippingSelector->loadShippingMethod(
+                    $customer,
+                    $params['nbn-shipping-method-select']
+                )
             );
             $quote = $this->paymentConfiguration->configurePayment(
                 $quote,
