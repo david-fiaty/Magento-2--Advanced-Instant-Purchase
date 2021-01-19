@@ -84,7 +84,7 @@ class ShippingSelector
         // Get the shipping rates
         $rates = $this->getShippingRates($customer);
 
-        // Get the shipping and payment methods
+        // Build the shipping method
         if ($rates && is_array($rates) && isset($rates[0]) && !empty($rates[0])) {
             // Get the carrier
             if (isset($rates['carrier_code'])) {
