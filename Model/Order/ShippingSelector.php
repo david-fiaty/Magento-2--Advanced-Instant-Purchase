@@ -106,6 +106,17 @@ class ShippingSelector
     }
 
     /**
+     * Load a shipping method.
+     *
+     * @param  Address $address
+     * @return Rate
+     */
+    public function loadShippingMethod($methodCode)
+    {
+
+    }
+
+    /**
      * Gets all shipping methods avaiable.
      *
      * @param  Customer $customer

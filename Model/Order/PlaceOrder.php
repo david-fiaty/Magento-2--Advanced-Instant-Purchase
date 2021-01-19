@@ -29,37 +29,42 @@ class PlaceOrder
     /**
      * @var CartRepositoryInterface
      */
-    private $quoteRepository;
+    public $quoteRepository;
 
     /**
      * @var QuoteCreation
      */
-    private $quoteCreation;
+    public $quoteCreation;
 
     /**
      * @var QuoteFilling
      */
-    private $quoteFilling;
+    public $quoteFilling;
 
     /**
      * @var ShippingConfiguration
      */
-    private $shippingConfiguration;
+    public $shippingConfiguration;
 
     /**
      * @var PaymentConfiguration
      */
-    private $paymentConfiguration;
+    public $paymentConfiguration;
 
     /**
      * @var Purchase
      */
-    private $purchase;
+    public $purchase;
 
     /**
      * @var Customer
      */
-    private $customerHelper;
+    public $customerHelper;
+
+    /**
+     * @var VaultHandlerService
+     */
+    public $vaultHandler;
 
     /**
      * PlaceOrder constructor.
@@ -70,6 +75,8 @@ class PlaceOrder
      * @param PaymentConfiguration $paymentConfiguration
      * @param Purchase $purchase
      * @param Customer $customerHelper
+     * @param ShippingSelector $shippingSelector
+     * @param VaultHandlerService $vaultHandlerService
      */
     public function __construct(
         CartRepositoryInterface $quoteRepository,
@@ -78,7 +85,9 @@ class PlaceOrder
         ShippingConfiguration $shippingConfiguration,
         PaymentConfiguration $paymentConfiguration,
         Purchase $purchase,
-        \Naxero\BuyNow\Helper\Customer $customerHelper
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Naxero\BuyNow\Model\Order\ShippingSelector $shippingSelector,
+        \Naxero\BuyNow\Model\Service\VaultHandlerService $vaultHandler
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->quoteCreation = $quoteCreation;
@@ -87,6 +96,8 @@ class PlaceOrder
         $this->paymentConfiguration = $paymentConfiguration;
         $this->purchase = $purchase;
         $this->customerHelper = $customerHelper;
+        $this->shippingSelector = $shippingSelector;
+        $this->vaultHandler = $vaultHandler;
     }
 
     /**
@@ -129,11 +140,14 @@ class PlaceOrder
         try {
             $quote = $this->shippingConfiguration->configureShippingMethod(
                 $quote,
-                $instantPurchaseOption->getShippingMethod()
+                $this->shippingSelector->loadShippingMethod($params['nbn-shipping-method-select'])
             );
             $quote = $this->paymentConfiguration->configurePayment(
                 $quote,
-                $instantPurchaseOption->getPaymentToken()
+                $this->vaultHandler->getCardFromHash(
+                    $params['nbn-payment-method-select'],
+                    $customer->getId()
+                )
             );
             $orderId = $this->purchase->purchase(
                 $quote
