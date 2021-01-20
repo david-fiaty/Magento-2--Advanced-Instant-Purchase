@@ -141,7 +141,7 @@ class PlaceOrder
             $quote = $this->shippingConfiguration->configureShippingMethod(
                 $quote,
                 $this->shippingSelector->loadShippingMethod(
-                    $customer,
+                    $quote->getShippingAddress(),
                     $params['nbn-shipping-method-select']
                 )
             );
