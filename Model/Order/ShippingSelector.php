@@ -115,7 +115,7 @@ class ShippingSelector
         $shippingRates = $address->getAllShippingRates();
 
         #write log file
-$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a.log');
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
 $logger = new \Zend\Log\Logger();
 $logger->addWriter($writer);
 
