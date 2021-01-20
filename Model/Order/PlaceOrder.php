@@ -138,6 +138,7 @@ class PlaceOrder
         $quote = $this->quoteRepository->get($quote->getId());
 
         try {
+            // Shipping configuration
             $quote = $this->shippingConfiguration->configureShippingMethod(
                 $quote,
                 $this->shippingSelector->loadShippingMethod(
@@ -145,6 +146,8 @@ class PlaceOrder
                     $params['nbn-shipping-method-select']
                 )
             );
+
+            // Payment configuration
             $quote = $this->paymentConfiguration->configurePayment(
                 $quote,
                 $this->vaultHandler->getCardFromHash(
@@ -152,9 +155,12 @@ class PlaceOrder
                     $customer->getId()
                 )
             );
+
+            // Place order
             $orderId = $this->purchase->purchase(
                 $quote
             );
+            
             return $orderId;
         } catch (Throwable $e) {
             $quote->setIsActive(false);

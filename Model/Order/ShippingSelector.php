@@ -108,22 +108,26 @@ class ShippingSelector
     /**
      * Load a shipping method.
      */
-    public function loadShippingMethod($address, $carrierCode)
+    public function loadShippingMethod($address, $code)
     {
         $address->setCollectShippingRates(true);
         $address->collectShippingRates();
         $shippingRates = $address->getAllShippingRates();
 
-        #write log file
-$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-
-
         foreach ($shippingRates as $shippingRate) {
-            $logger->info(print_r($shippingRate->getCarrier() . ' -- ' . $carrierCode, 1));
-            if ($shippingRate->getCarrier() == $carrierCode) {
-                return $shippingRate;
+            $rate = $shippingRate->getData();
+            if ($rate['code'] == $code) {
+                $shippingMethod = $this->shippingMethodFactory->create();
+                $shippingMethod->setCarrierCode($rate['carrier_code']);
+                $shippingMethod->setMethodTitle($rate['carrier_title']);
+                $shippingMethod->setMethodCode($rate['method_code']);
+                $shippingMethod->setAvailable(
+                    $this->areShippingMethodsAvailable(
+                        $this->customerHelper->getShippingAddress()
+                    )
+                );
+
+                return $shippingMethod;
             }
         }
 
