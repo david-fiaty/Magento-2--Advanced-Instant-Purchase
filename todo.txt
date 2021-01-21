@@ -116,6 +116,7 @@ NEW IDEAS
 - single page store module
 - audio store plugin 
     => js plugins
+    https://www.cssscript.com/visualize-audio-waveform-wfplayer/
     https://github.com/katspaugh/wavesurfer.js
     https://tympanus.net/Development/AudioPlayer/
     http://www.mediaelementjs.com/
