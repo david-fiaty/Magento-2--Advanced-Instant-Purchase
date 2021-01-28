@@ -50,6 +50,7 @@ NOT SUPPORTED
 - quantity in product list
 
 FEATURES
+- add buynow product list blocks to replace core modules product list blocks
 - quantity in product list? countdown in product list? countown in product detail?
 - add accordion to widget config?
 - add advanced config with placeholders for all CSS selectors used in js components
