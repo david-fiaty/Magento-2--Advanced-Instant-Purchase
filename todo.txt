@@ -1,5 +1,8 @@
 !!!PRIORITY!!!
 
+- fix product stock reading issue creating error with new products:
+https://magento.stackexchange.com/questions/295661/main-critical-the-stock-item-with-the-37520-id-wasnt-found-verify-the-id-an
+
 - fix order total calculation in confirmation with js error when changing shipping option
 - fix discount code form validation broken with page refresh
 - fix countdown js errors when dates not valid
