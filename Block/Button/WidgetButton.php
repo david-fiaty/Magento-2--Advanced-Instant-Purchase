@@ -16,12 +16,11 @@
 
 namespace Naxero\BuyNow\Block\Button;
 
+use Magento\Framework\View\Element\Template;
+
 /**
  * WidgetButton class.
  */
-use Magento\Framework\View\Element\Template;
-use Magento\Widget\Block\BlockInterface;
-
 class WidgetButton extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
     const MODE = 'widget';

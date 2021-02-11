@@ -42,16 +42,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $localeResolver;
 
     /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
-
-    /**
-     * @var CustomerFactory
-     */
-    public $customerFactory;
-
-    /**
      * @var Session
      */
     public $customerSession;
@@ -62,11 +52,6 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
-     * @var Config
-     */
-    public $configHelper;
-
-    /**
      * Class Customer helper constructor.
      */
     public function __construct(
@@ -74,21 +59,15 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Framework\Locale\Resolver $localeResolver,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
-        \Naxero\BuyNow\Helper\Config $configHelper
+        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection
     ) {
         $this->addressModel = $addressModel;
         $this->customerModel = $customerModel;
         $this->authLink = $authLink;
         $this->localeResolver = $localeResolver;
-        $this->storeManager = $storeManager;
-        $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
-        $this->configHelper = $configHelper;
     }
 
     /**
