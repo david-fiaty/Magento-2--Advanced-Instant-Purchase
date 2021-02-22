@@ -53,6 +53,9 @@ NOT SUPPORTED
 - quantity in product list
 
 FEATURES
+- maybe remove core instant purchase button: 
+<referenceBlock name="core.instant.purchase.block" remove="true"/>
+
 - add buynow product list blocks to replace core modules product list blocks
 - quantity in product list? countdown in product list? countown in product detail?
 - add accordion to widget config?
@@ -76,6 +79,9 @@ https://www.channelengine.com/
 
 
 EXPLORE
+- override core widget templates by injecting a template option in widget config:
+https://magento.stackexchange.com/questions/97396/magento2-how-to-override-widget-template/171394
+
 - add buynow external widgets
 - improved category UI selector:
 https://webkul.com/blog/magento2-create-multi-select-ui-field-frontend-admin/
