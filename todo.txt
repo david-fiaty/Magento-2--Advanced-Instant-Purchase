@@ -1,5 +1,9 @@
 !!!PRIORITY!!!
 
+- check if select 2 parameters valid:
+    //templateResult: NbnUtil.formatIcon,
+    //templateSelection: NbnUtil.formatIcon
+
 - fix product stock reading issue creating error with new products:
 https://magento.stackexchange.com/questions/295661/main-critical-the-stock-item-with-the-37520-id-wasnt-found-verify-the-id-an
 
