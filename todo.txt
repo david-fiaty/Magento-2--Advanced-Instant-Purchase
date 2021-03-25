@@ -1,5 +1,9 @@
 !!!PRIORITY!!!
 
+- call plugins only on module
+[app/code/Naxero/BuyNow/Plugin/CustomerSessionContext.php:63]
+
+
 - check if select 2 parameters valid:
     //templateResult: NbnUtil.formatIcon,
     //templateSelection: NbnUtil.formatIcon
