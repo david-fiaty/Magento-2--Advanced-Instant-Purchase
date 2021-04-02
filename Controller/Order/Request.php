@@ -80,28 +80,29 @@ class Request extends \Magento\Framework\App\Action\Action
         $logger->addWriter($writer);
         $logger->info(print_r($params, 1));
 
+        // Todo - Check why payment request called twice, once with empty array
+        if (isset($params['product']) && (int) $params['product'] > 0) {
+            // Prepare the order parameters
+            $productId = $params['product'];
+            $paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
+            $shippingAddressId = (int)$params['nbn-shipping-address-select'];
+            $billingAddressId = (int)$params['nbn-billing-address-select'];
+            $carrierCode = (string)$params['nbn-shipping-method-select'];
+            $shippingMethodCode = (string)$params['nbn-shipping-method-select'];
 
-        // Prepare the order parameters
-        $productId = (int) $params['product'];
-        $paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
-        $shippingAddressId = (int)$params['nbn-shipping-address-select'];
-        $billingAddressId = (int)$params['nbn-billing-address-select'];
-        $carrierCode = (string)$params['nbn-shipping-method-select'];
-        $shippingMethodCode = (string)$params['nbn-shipping-method-select'];
+            // Place the order
+            try {
+                $order = $this->orderHelper->placeOrder();
+            } catch (\Exception $e) {
+                return $this->createResponse(
+                    $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
+                    false
+                );
+            }
 
-        // Place the order
-        try {
-            $order = $this->orderHelper->placeOrder();
-        } catch (\Exception $e) {
-            return $this->createResponse(
-                $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
-                false
-            );
+            $order = $this->orderRepository->get($orderId);
+            $message = __('Your order number is: %1.', $order->getIncrementId());
         }
-
-        $order = $this->orderRepository->get($orderId);
-        $message = __('Your order number is: %1.', $order->getIncrementId());
-
         return $this->createResponse($message, true);
     }
 
