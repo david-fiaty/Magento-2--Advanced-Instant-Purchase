@@ -45,6 +45,11 @@ class Request extends \Magento\Framework\App\Action\Action
     public $customerSession;
 
     /**
+     * @var Order
+     */
+    public $orderHelper;
+
+    /**
      * Request class constructor
      */
     public function __construct(
@@ -52,7 +57,8 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Naxero\BuyNow\Helper\Order $orderHelper
     ) {
         parent::__construct($context);
 
@@ -60,6 +66,7 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->formKey = $formKey;
         $this->productRepository = $productRepository;
         $this->customerSession = $customerSession;
+        $this->orderHelper = $orderHelper;
     }
 
     /**
@@ -69,44 +76,21 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        // Validate the request
         $request = $this->getRequest();
-        /*
-        if (!$this->formKeyValidator->validate($request)) {
-            return $this->createResponse($this->createGenericErrorMessage(), false);
-        }
-        */
 
         // Get the request parameters
         $params = $request->getParams();
-
-        // Todo - Remove test
-        /*
-        return $this->createResponse(
-            json_encode($request->getParams()),
-            false
-        );
-        */
-
-        // Get the product id
         $productId = (int) $params['product'];
-
         $paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
         $shippingAddressId = (int)$params['nbn-shipping-address-select'];
         $billingAddressId = (int)$params['nbn-billing-address-select'];
         $carrierCode = (string)$params['nbn-shipping-method-select'];
         $shippingMethodCode = (string)$params['nbn-shipping-method-select'];
 
+        // Place the order
         try {
-            $customer = $this->customerSession->getCustomer();
-            $store = $this->storeManager->getStore();
-            $product = $this->productRepository->getById(
-                $productId,
-                false,
-                $store->getId(),
-                false
-            );
-
-            $orderId = '//place order call';
+            $order = $this->orderHelper->placeOrder();
         } catch (\Exception $e) {
             return $this->createResponse(
                 $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),

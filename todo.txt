@@ -180,3 +180,14 @@ $this->curl->setOption(CURLOPT_POSTFIELDS, $data);
 
 // Send the request
 $this->curl->post($this->url, []);
+
+
+// ORDER NEEDED DATA
+$customer = $this->customerSession->getCustomer();
+$store = $this->storeManager->getStore();
+$product = $this->productRepository->getById(
+    $productId,
+    false,
+    $store->getId(),
+    false
+);

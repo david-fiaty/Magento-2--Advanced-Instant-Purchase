@@ -50,6 +50,15 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Place an order.
+     */
+    public function placeOrder()
+    {
+
+
+    }
+
+    /**
      * Apply a discount code to an amount.
      */
     public function applyDiscount($rule, $amount)
