@@ -103,6 +103,10 @@ class Request extends \Magento\Framework\App\Action\Action
             $order = $this->orderRepository->get($orderId);
             $message = __('Your order number is: %1.', $order->getIncrementId());
         }
+        else {
+            $message = __('No product found for the payment request');
+        }
+
         return $this->createResponse($message, true);
     }
 
