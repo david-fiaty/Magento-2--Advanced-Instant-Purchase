@@ -86,7 +86,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the response
         $response = $this->curl->getBody();
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/r.log');
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         $logger->info(print_r($response, 1));

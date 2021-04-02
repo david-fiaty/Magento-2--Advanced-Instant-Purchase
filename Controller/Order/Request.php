@@ -74,6 +74,14 @@ class Request extends \Magento\Framework\App\Action\Action
 
         // Get the request parameters
         $params = $request->getParams();
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($params, 1));
+
+
+        // Prepare the order parameters
         $productId = (int) $params['product'];
         $paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
         $shippingAddressId = (int)$params['nbn-shipping-address-select'];
