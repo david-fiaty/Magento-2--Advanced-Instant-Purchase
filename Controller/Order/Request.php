@@ -16,7 +16,6 @@
 namespace Naxero\BuyNow\Controller\Order;
 
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Controller\ResultFactory;
 
 /**
  * Instant Purchase order placement.
@@ -24,6 +23,11 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class Request extends \Magento\Framework\App\Action\Action
 {
+    /**
+     * @var JsonFactory
+     */
+    public $jsonFactory;
+
     /**
      * @var Validator
      */
@@ -49,6 +53,7 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Model\Session $customerSession,
@@ -56,6 +61,7 @@ class Request extends \Magento\Framework\App\Action\Action
     ) {
         parent::__construct($context);
 
+        $this->jsonFactory = $jsonFactory;
         $this->formKey = $formKey;
         $this->productRepository = $productRepository;
         $this->customerSession = $customerSession;
@@ -129,10 +135,12 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function createResponse(string $message, bool $successMessage): JsonResult
     {
-        $result = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $result->setData([
+        // Prepare the result
+        $result = $this->jsonFactory->create()->setData([
             'response' => $message
         ]);
+
+        // Handle the response
         if ($successMessage) {
             $this->messageManager->addSuccessMessage($message);
         } else {
