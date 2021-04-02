@@ -84,7 +84,7 @@ class ShippingSelector
         // Get the shipping rates
         $rates = $this->getShippingRates($customer);
 
-        // Get the shipping and payment methods
+        // Build the shipping method
         if ($rates && is_array($rates) && isset($rates[0]) && !empty($rates[0])) {
             // Get the carrier
             if (isset($rates['carrier_code'])) {
@@ -92,6 +92,35 @@ class ShippingSelector
                 $shippingMethod->setCarrierCode($rates['carrier_code']);
                 $shippingMethod->setMethodTitle($rates['carrier_title']);
                 $shippingMethod->setMethodCode($rates['method_code']);
+                $shippingMethod->setAvailable(
+                    $this->areShippingMethodsAvailable(
+                        $this->customerHelper->getShippingAddress()
+                    )
+                );
+
+                return $shippingMethod;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Load a shipping method.
+     */
+    public function loadShippingMethod($address, $code)
+    {
+        $address->setCollectShippingRates(true);
+        $address->collectShippingRates();
+        $shippingRates = $address->getAllShippingRates();
+
+        foreach ($shippingRates as $shippingRate) {
+            $rate = $shippingRate->getData();
+            if ($rate['code'] == $code) {
+                $shippingMethod = $this->shippingMethodFactory->create();
+                $shippingMethod->setCarrierCode($rate['carrier_code']);
+                $shippingMethod->setMethodTitle($rate['carrier_title']);
+                $shippingMethod->setMethodCode($rate['method_code']);
                 $shippingMethod->setAvailable(
                     $this->areShippingMethodsAvailable(
                         $this->customerHelper->getShippingAddress()

@@ -22,6 +22,11 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Address
+     */
+    public $addressModel;
+
+    /**
      * @var Customer
      */
     public $customerModel;
@@ -32,24 +37,9 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $authLink;
 
     /**
-     * @var Address
-     */
-    public $addressModel;
-
-    /**
      * @var Resolver
      */
     public $localeResolver;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
-
-    /**
-     * @var CustomerFactory
-     */
-    public $customerFactory;
 
     /**
      * @var Session
@@ -62,33 +52,22 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
-     * @var Config
-     */
-    public $configHelper;
-
-    /**
      * Class Customer helper constructor.
      */
     public function __construct(
+        \Magento\Customer\Model\Address $addressModel,
         \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
-        \Magento\Customer\Model\Address $addressModel,
         \Magento\Framework\Locale\Resolver $localeResolver,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
-        \Naxero\BuyNow\Helper\Config $configHelper
+        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection
     ) {
+        $this->addressModel = $addressModel;
         $this->customerModel = $customerModel;
         $this->authLink = $authLink;
-        $this->addressModel = $addressModel;
         $this->localeResolver = $localeResolver;
-        $this->storeManager = $storeManager;
-        $this->customerFactory = $customerFactory;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
-        $this->configHelper = $configHelper;
     }
 
     /**
@@ -142,6 +121,20 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Get a customer address by id.
+     */
+    public function loadAddress($addressId)
+    {
+        try {
+            $address = $this->addressModel->load($addressId);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+        
+        return $address;
     }
 
     /**
