@@ -22,6 +22,11 @@ namespace Naxero\BuyNow\Helper;
 class Order extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
+
+    /**
      * @var Coupon
      */
     public $couponModel;
@@ -40,10 +45,12 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Order helper constructor.
      */
     public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\SalesRule\Model\Coupon $couponModel,
         \Magento\SalesRule\Api\RuleRepositoryInterface $ruleRepository,
         \Magento\Framework\HTTP\Client\Curl $curl
     ) {
+        $this->storeManager = $storeManager;
         $this->couponModel = $couponModel;
         $this->ruleRepository = $ruleRepository;
         $this->curl = $curl;
@@ -55,6 +62,34 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     public function placeOrder()
     {
 
+
+    }
+
+    /**
+     * Create a quote.
+     */
+    public function createQuote()
+    {
+        // Prepare the needed parameters
+        $store = $this->storeManager->getStore();
+        $storeCode = $store->getCode();
+        $data = [];
+
+        // Prepare the request URL
+        $baseUrl = $store->getBaseUrl();
+        $url = $baseUrl . 'rest/' . $storeCode . '/V1/carts/mine';
+
+        // Send the request
+        $this->curl->setOption(CURLOPT_POSTFIELDS, $data);
+        $this->curl->post($url, []);
+
+        // Get the response
+        $response = $this->curl->getBody();
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/r.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($response, 1));
 
     }
 

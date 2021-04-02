@@ -25,11 +25,6 @@ use Magento\Framework\Controller\ResultFactory;
 class Request extends \Magento\Framework\App\Action\Action
 {
     /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
-
-    /**
      * @var Validator
      */
     public $formKey;
@@ -54,7 +49,6 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Model\Session $customerSession,
@@ -62,7 +56,6 @@ class Request extends \Magento\Framework\App\Action\Action
     ) {
         parent::__construct($context);
 
-        $this->storeManager = $storeManager;
         $this->formKey = $formKey;
         $this->productRepository = $productRepository;
         $this->customerSession = $customerSession;
