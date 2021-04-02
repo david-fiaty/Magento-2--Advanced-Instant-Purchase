@@ -1,5 +1,17 @@
 !!!PRIORITY!!!
 
+PAYMENT APPROACHES FOR PLACE ORDER
+- using core rest api 
+https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-intro.html
+https://magento.stackexchange.com/questions/136028/magento-2-create-order-using-rest-api
+https://magento.stackexchange.com/questions/149909/magento-rest-api-for-order
+
+- using php
+https://magento.stackexchange.com/questions/190113/how-to-capture-braintree-using-customer-token-in-magento2
+
+
+
+
 - call plugins only on module
 [app/code/Naxero/BuyNow/Plugin/CustomerSessionContext.php:63]
 
