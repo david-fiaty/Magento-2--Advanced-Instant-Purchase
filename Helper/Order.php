@@ -32,14 +32,21 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     public $ruleRepository;
 
     /**
+     * @var Curl
+     */
+    public $curl;
+
+    /**
      * Class Order helper constructor.
      */
     public function __construct(
         \Magento\SalesRule\Model\Coupon $couponModel,
-        \Magento\SalesRule\Api\RuleRepositoryInterface $ruleRepository
+        \Magento\SalesRule\Api\RuleRepositoryInterface $ruleRepository,
+        \Magento\Framework\HTTP\Client\Curl $curl
     ) {
         $this->couponModel = $couponModel;
         $this->ruleRepository = $ruleRepository;
+        $this->curl = $curl;
     }
 
     /**

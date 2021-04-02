@@ -40,20 +40,10 @@ class Request extends \Magento\Framework\App\Action\Action
     public $productRepository;
 
     /**
-     * @var OrderRepositoryInterface
-     */
-    public $orderRepository;
-
-    /**
      * @var Session
      */
     public $customerSession;
 
-    /**
-     * @var Curl
-     */
-    public $curl;
-    
     /**
      * Request class constructor
      */
@@ -62,18 +52,14 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Framework\HTTP\Client\Curl $curl
+        \Magento\Customer\Model\Session $customerSession
     ) {
         parent::__construct($context);
 
         $this->storeManager = $storeManager;
         $this->formKey = $formKey;
         $this->productRepository = $productRepository;
-        $this->orderRepository = $orderRepository;
         $this->customerSession = $customerSession;
-        $this->curl = $curl;
     }
 
     /**
