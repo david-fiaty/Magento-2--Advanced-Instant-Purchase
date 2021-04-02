@@ -168,3 +168,15 @@ vendor/bin/phpcbf /home/hnid/dev/m234/app/code/Naxero/BuyNow --standard=Magento2
 
 bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
 bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv
+
+
+CURL QUERY
+
+// Initialize the request
+$this->curl->setOption(CURLOPT_SSLCERT, $params['merchantCertificate']);
+$this->curl->setOption(CURLOPT_SSLKEY, $params['processingCertificate']);
+$this->curl->setOption(CURLOPT_SSLKEYPASSWD, $params['processingCertificatePass']);
+$this->curl->setOption(CURLOPT_POSTFIELDS, $data);
+
+// Send the request
+$this->curl->post($this->url, []);

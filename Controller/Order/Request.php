@@ -50,6 +50,11 @@ class Request extends \Magento\Framework\App\Action\Action
     public $customerSession;
 
     /**
+     * @var Curl
+     */
+    public $curl;
+    
+    /**
      * Request class constructor
      */
     public function __construct(
@@ -58,7 +63,8 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\HTTP\Client\Curl $curl
     ) {
         parent::__construct($context);
 
@@ -67,6 +73,7 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->productRepository = $productRepository;
         $this->orderRepository = $orderRepository;
         $this->customerSession = $customerSession;
+        $this->curl = $curl;
     }
 
     /**
