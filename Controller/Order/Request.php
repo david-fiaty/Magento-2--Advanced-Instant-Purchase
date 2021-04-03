@@ -75,23 +75,9 @@ class Request extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        // Validate the request
-        $request = $this->getRequest();
-
-        // Get the request parameters
-        $params = $request->getParams();
-
-        // Todo - Check why payment request called twice, once with empty array
-        if (isset($params['product']) && (int) $params['product'] > 0) {
-            // Prepare the order parameters
-            $productId = $params['product'];
-            $paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
-            $shippingAddressId = (int)$params['nbn-shipping-address-select'];
-            $billingAddressId = (int)$params['nbn-billing-address-select'];
-            $carrierCode = (string)$params['nbn-shipping-method-select'];
-            $shippingMethodCode = (string)$params['nbn-shipping-method-select'];
-
-            // Place the order
+        // Place the order
+        $params = $this->getRequestParams();
+        if ($params) {
             try {
                 $order = $this->placeOrderService->placeOrder($params);
             } 
@@ -112,11 +98,26 @@ class Request extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Get request params.
+     */
+    public function getRequestParams()
+    {
+        // Get the request parameters
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        if (isset($params['product']) && (int) $params['product'] > 0) {
+            return $params;
+        }
+
+        return null;
+    }
+
+    /**
      * Creates error message without exposing error details.
      *
      * @return string
      */
-    private function createGenericErrorMessage(): string
+    public function createGenericErrorMessage(): string
     {
         return (string)__('Something went wrong while processing your order. Please try again later.');
     }

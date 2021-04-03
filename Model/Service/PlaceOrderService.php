@@ -36,23 +36,71 @@ class PlaceOrderService
     public $customerHelper;
 
     /**
+     * @var array
+     */
+    public $params;
+
+    /**
+     * @var array
+     */
+    public $headers;
+
+    /**
+     * @var string
+     */
+    public $accessToken;
+
+    /**
      * PlaceOrderService constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Naxero\BuyNow\Helper\Customer $customerHelper
+        \Naxero\BuyNow\Helper\Customer $customerHelper,
+        \Magento\Framework\HTTP\Client\Curl $curl
     ) {
         $this->storeManager = $storeManager;
         $this->customerHelper = $customerHelper;
+        $this->curl = $curl;
     }
 
     /**
      * Place an order.
      */
-    public function placeOrder($productId)
+    public function placeOrder($params)
     {
-        $this->createQuote();
+        $order = $this->loadData($params)
+        ->createQuote();
+    }
 
+    /**
+     * Load the obect instance data.
+     */
+    public function loadData($params)
+    {
+        // Set the access token
+        $this->accessToken = $this->customerHelper->getAccessToken(
+            $this->customerHelper->getCustomer()->getId()
+        );
+
+        // Store data
+        $this->store = $this->storeManager->getStore();
+
+        // Product data
+        $this->product = $this->productRepository->getById(
+            $this->params['product'], false,
+            $this->store->getId(), false
+        );
+
+        // Request parameters
+        $this->params = $params;
+
+        // Request headers
+        $this->headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => $this->accessToken
+        ];
+
+        return $this;
     }
 
     /**
@@ -60,29 +108,18 @@ class PlaceOrderService
      */
     public function createQuote()
     {
-        $token = $this->customerHelper->getAccessToken(1);
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($token, 1));
-
-        exit();
-
-        // Prepare the needed parameters
-        $store = $this->storeManager->getStore();
-        $storeCode = $store->getCode();
-        $data = [];
-
-        // Prepare the request URL
-        $baseUrl = $store->getBaseUrl();
-        $url = $baseUrl . 'rest/' . $storeCode . '/V1/carts/mine';
+        // Request URL
+        $url = $this->store->getBaseUrl()
+        . 'rest/' . $this->store->getCode() 
+        . '/V1/carts/mine';
 
         // Send the request
-        $this->curl->setOption(CURLOPT_POSTFIELDS, $data);
-        $this->curl->post($url, []);
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, []);
 
         // Get the response
-        $response = $this->curl->getBody();
+        $response = $request->getBody();
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/3.log');
         $logger = new \Zend\Log\Logger();

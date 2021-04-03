@@ -191,3 +191,14 @@ $product = $this->productRepository->getById(
     $store->getId(),
     false
 );
+
+
+REQUEST DATA
+
+// Prepare the order parameters
+$productId = $params['product'];
+$paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
+$shippingAddressId = (int)$params['nbn-shipping-address-select'];
+$billingAddressId = (int)$params['nbn-billing-address-select'];
+$carrierCode = (string)$params['nbn-shipping-method-select'];
+$shippingMethodCode = (string)$params['nbn-shipping-method-select'];
