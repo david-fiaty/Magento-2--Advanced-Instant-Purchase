@@ -21,6 +21,11 @@ namespace Naxero\BuyNow\Model\Service;
 class PlaceOrderService
 {
     /**
+     * @var Session
+     */
+    public $customerSession;
+
+    /**
      * @var StoreManagerInterface
      */
     public $storeManager;
@@ -59,11 +64,13 @@ class PlaceOrderService
      * PlaceOrderService constructor.
      */
     public function __construct(
+        \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Magento\Framework\HTTP\Client\Curl $curl
     ) {
+        $this->customerSession = $customerSession;
         $this->storeManager = $storeManager;
         $this->productRepository = $productRepository;
         $this->customerHelper = $customerHelper;
@@ -89,9 +96,12 @@ class PlaceOrderService
      */
     public function loadData($params)
     {
+        // Request parameters
+        $this->params = $params;
+
         // Set the access token
         $this->accessToken = $this->customerHelper->getAccessToken(
-            $this->customerHelper->getCustomer()->getId()
+            $this->customerSession->getId()
         );
 
         // Store data
@@ -103,13 +113,11 @@ class PlaceOrderService
             $this->store->getId(), false
         );
 
-        // Request parameters
-        $this->params = $params;
-
         // Request headers
         $this->headers = [
             'Content-Type' => 'application/json',
-            'Authorization' => $this->accessToken
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->accessToken
         ];
 
         return $this;
