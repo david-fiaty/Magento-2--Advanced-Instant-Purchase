@@ -69,7 +69,10 @@ class PlaceOrderService
     public function placeOrder($params)
     {
         $order = $this->loadData($params)
-        ->createQuote();
+        ->createQuote()
+        ->addQuoteItem();
+
+        exit();
     }
 
     /**
@@ -126,5 +129,14 @@ class PlaceOrderService
         $logger->addWriter($writer);
         $logger->info(print_r($response, 1));
 
+        return $this;
+    }
+
+    /**
+     * Add a product to the quote.
+     */
+    public function addQuoteItem()
+    {
+        return $this;
     }
 }
