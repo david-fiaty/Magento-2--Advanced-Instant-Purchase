@@ -42,18 +42,25 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     public $curl;
 
     /**
+     * @var Customer
+     */
+    public $customerHelper;
+
+    /**
      * Class Order helper constructor.
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\SalesRule\Model\Coupon $couponModel,
         \Magento\SalesRule\Api\RuleRepositoryInterface $ruleRepository,
-        \Magento\Framework\HTTP\Client\Curl $curl
+        \Magento\Framework\HTTP\Client\Curl $curl,
+        \Naxero\BuyNow\Helper\Customer $customerHelper
     ) {
         $this->storeManager = $storeManager;
         $this->couponModel = $couponModel;
         $this->ruleRepository = $ruleRepository;
         $this->curl = $curl;
+        $this->customerHelper = $customerHelper;
     }
 
     /**
@@ -70,6 +77,14 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function createQuote()
     {
+        $token = $this->customerHelper->getAccessToken(1);
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($token, 1));
+
+        exit();
+
         // Prepare the needed parameters
         $store = $this->storeManager->getStore();
         $storeCode = $store->getCode();
@@ -86,7 +101,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
         // Get the response
         $response = $this->curl->getBody();
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/3.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
         $logger->info(print_r($response, 1));
