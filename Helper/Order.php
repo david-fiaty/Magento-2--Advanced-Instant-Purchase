@@ -59,7 +59,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Place an order.
      */
-    public function placeOrder()
+    public function placeOrder($productId)
     {
         $this->createQuote();
 

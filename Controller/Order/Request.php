@@ -98,8 +98,9 @@ class Request extends \Magento\Framework\App\Action\Action
 
             // Place the order
             try {
-                $order = $this->orderHelper->placeOrder();
-            } catch (\Exception $e) {
+                $order = $this->orderHelper->placeOrder($productId);
+            } 
+            catch (\Exception $e) {
                 return $this->createResponse(
                     $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
                     false
