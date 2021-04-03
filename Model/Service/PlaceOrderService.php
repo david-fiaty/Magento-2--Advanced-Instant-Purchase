@@ -26,6 +26,11 @@ class PlaceOrderService
     public $storeManager;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    public $productRepository;
+
+    /**
      * @var Curl
      */
     public $curl;
@@ -55,10 +60,12 @@ class PlaceOrderService
      */
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Magento\Framework\HTTP\Client\Curl $curl
     ) {
         $this->storeManager = $storeManager;
+        $this->productRepository = $productRepository;
         $this->customerHelper = $customerHelper;
         $this->curl = $curl;
     }
@@ -73,6 +80,8 @@ class PlaceOrderService
         ->addQuoteItem();
 
         exit();
+
+        return $order;
     }
 
     /**
