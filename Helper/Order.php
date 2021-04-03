@@ -61,7 +61,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function placeOrder()
     {
-
+        $this->createQuote();
 
     }
 

@@ -106,7 +106,6 @@ class Request extends \Magento\Framework\App\Action\Action
                 );
             }
 
-            $order = $this->orderRepository->get($orderId);
             $message = __('Your order number is: %1.', $order->getIncrementId());
         }
         else {
