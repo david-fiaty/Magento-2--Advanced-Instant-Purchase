@@ -44,9 +44,9 @@ class Request extends \Magento\Framework\App\Action\Action
     public $customerSession;
 
     /**
-     * @var Order
+     * @var PlaceOrderService
      */
-    public $orderHelper;
+    public $placeOrderService;
 
     /**
      * Request class constructor
@@ -57,7 +57,7 @@ class Request extends \Magento\Framework\App\Action\Action
         \Magento\Framework\Data\Form\FormKey\Validator $formKey,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Model\Session $customerSession,
-        \Naxero\BuyNow\Helper\Order $orderHelper
+        \Naxero\BuyNow\Model\Service\PlaceOrderService $placeOrderService
     ) {
         parent::__construct($context);
 
@@ -65,7 +65,7 @@ class Request extends \Magento\Framework\App\Action\Action
         $this->formKey = $formKey;
         $this->productRepository = $productRepository;
         $this->customerSession = $customerSession;
-        $this->orderHelper = $orderHelper;
+        $this->placeOrderService = $placeOrderService;
     }
 
     /**
@@ -81,11 +81,6 @@ class Request extends \Magento\Framework\App\Action\Action
         // Get the request parameters
         $params = $request->getParams();
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/1.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($params, 1));
-
         // Todo - Check why payment request called twice, once with empty array
         if (isset($params['product']) && (int) $params['product'] > 0) {
             // Prepare the order parameters
@@ -98,7 +93,7 @@ class Request extends \Magento\Framework\App\Action\Action
 
             // Place the order
             try {
-                $order = $this->orderHelper->placeOrder($productId);
+                $order = $this->placeOrderService->placeOrder($params);
             } 
             catch (\Exception $e) {
                 return $this->createResponse(

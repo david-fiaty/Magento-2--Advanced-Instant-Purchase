@@ -197,7 +197,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the customer access token.
      */
-    public function getAccessToken($customerId)
+    public function getAccessToken($customerId = null)
     {
         $token = $this->tokenModelFactory->create()
         ->createCustomerToken($customerId)
