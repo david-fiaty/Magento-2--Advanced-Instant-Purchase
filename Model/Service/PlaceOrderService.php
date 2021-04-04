@@ -96,7 +96,7 @@ class PlaceOrderService
         $this->data['params'] = $params;
 
         // Set the access token
-        $this->data['accessToken'] = $this->customerHelper->getAccessToken(
+        $this->data['access_token'] = $this->customerHelper->getAccessToken(
             $this->customerSession->getId()
         );
 
@@ -115,7 +115,7 @@ class PlaceOrderService
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->data['accessToken']
+            'Authorization' => 'Bearer ' . $this->data['access_token']
         ];
 
         return $this;
