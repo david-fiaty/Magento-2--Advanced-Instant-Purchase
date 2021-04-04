@@ -142,12 +142,12 @@ class PlaceOrderService
 
         // Billing address
         $this->data['billing_address'] = $this->prepareAddress(
-            $this->data['params']['nbn-billing-address-id']
+            $this->data['params']['billing_address_id']
         );
         
         // Shipping address
         $this->data['shipping_address'] = $this->prepareAddress(
-            $this->data['params']['nbn-shipping-address-id']
+            $this->data['params']['shipping_address_id']
         );
 
         return $this;
@@ -220,8 +220,8 @@ class PlaceOrderService
                 'shipping_address' => $this->data['shipping_address'],
                 'billing_address' => $this->data['billing_address']
             ],
-            'shipping_carrier_code' => $this->data['params']['nbn-shipping-method-id'],
-            'shipping_method_code' => $this->data['params']['nbn-shipping-method-id']
+            'shipping_carrier_code' => $this->data['params']['shipping_carrier_code'],
+            'shipping_method_code' => $this->data['params']['shipping_method_code']
         ];
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a2.log');
@@ -248,7 +248,7 @@ class PlaceOrderService
         // Prepare the payload
         $payload = [
             'paymentMethod' => [
-                'method' => $this->data['params']['nbn-payment-method-code']
+                'method' => $this->data['params']['payment_method_code']
             ],
             'billing_address' => $this->data['billing_address']
         ];

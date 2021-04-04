@@ -32,7 +32,7 @@ https://magento.stackexchange.com/questions/295661/main-critical-the-stock-item-
 - *** Handle product price update with options prices in widget and popup ***
 
 - restore options selection state after login
-
+- improve/cleanup payment request parameters structure
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
