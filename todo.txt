@@ -202,3 +202,35 @@ $shippingAddressId = (int)$params['nbn-shipping-address-select'];
 $billingAddressId = (int)$params['nbn-billing-address-select'];
 $carrierCode = (string)$params['nbn-shipping-method-select'];
 $shippingMethodCode = (string)$params['nbn-shipping-method-select'];
+
+
+2021-04-04T14:55:12+00:00 INFO (6): Array
+(
+    [entity_id] => 1
+    [increment_id] =>
+    [parent_id] => 1
+    [created_at] => 2020-10-22 23:22:50
+    [updated_at] => 2020-10-22 23:22:50
+    [is_active] => 1
+    [vat_id] =>
+    [vat_is_valid] =>
+    [vat_request_date] =>
+    [vat_request_id] =>
+    [vat_request_success] =>
+
+    
+    [city] => Calder
+    [company] =>
+    [country_id] => US
+    [fax] =>
+    [firstname] => Veronica
+    [lastname] => Costello
+    [middlename] =>
+    [postcode] => 49628-7978
+    [prefix] =>
+    [region] => Michigan
+    [region_id] => 33
+    [street] => 6146 Honey Bluff Parkway
+    [suffix] =>
+    [telephone] => (555) 229-3326
+)

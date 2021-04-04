@@ -82,10 +82,7 @@ class Request extends \Magento\Framework\App\Action\Action
                 $order = $this->placeOrderService->placeOrder($params);
             } 
             catch (\Exception $e) {
-                return $this->createResponse(
-                    $e instanceof LocalizedException ? $e->getMessage() : $this->createGenericErrorMessage(),
-                    false
-                );
+                return $this->createResponse($e->getMessage(), false);
             }
 
             $message = __('Your order number is: %1.', $order->getIncrementId());
@@ -124,12 +121,8 @@ class Request extends \Magento\Framework\App\Action\Action
 
     /**
      * Creates response with a operation status message.
-     *
-     * @param string $message
-     * @param bool $successMessage
-     * @return JsonResult
      */
-    public function createResponse(string $message, bool $successMessage): JsonResult
+    public function createResponse($message, $successMessage)
     {
         // Prepare the result
         $result = $this->jsonFactory->create()->setData([

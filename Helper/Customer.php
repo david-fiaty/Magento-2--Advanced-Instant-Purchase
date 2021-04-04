@@ -22,14 +22,14 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var Address
+     * @var AddressFactory
      */
-    public $addressModel;
+    public $addressFactory;
 
     /**
-     * @var Customer
+     * @var CustomerFactory
      */
-    public $customerModel;
+    public $customerFactory;
 
     /**
      * @var AuthorizationLink
@@ -60,16 +60,16 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      * Class Customer helper constructor.
      */
     public function __construct(
-        \Magento\Customer\Model\Address $addressModel,
-        \Magento\Customer\Model\Customer $customerModel,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
+        \Magento\Customer\Model\CustomerFactory $customerFactory,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
         \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory
     ) {
-        $this->addressModel = $addressModel;
-        $this->customerModel = $customerModel;
+        $this->addressFactory = $addressFactory;
+        $this->customerFactory = $customerFactory;
         $this->authLink = $authLink;
         $this->localeResolver = $localeResolver;
         $this->customerSession = $customerSession;
@@ -85,7 +85,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $customerId = $customerId ? $customerId : $this->customerSession->getCustomer()->getId();
 
         if ((int) $customerId > 0) {
-            return $this->customerModel->load($customerId);
+            return $this->customerFactory->create()->load($customerId);
         }
 
         return null;
@@ -96,7 +96,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getBillingAddress($customerId = null)
     {
-        return $this->addressModel->load(
+        return $this->addressFactory->create()->load(
             $this->getCustomer($customerId)->getDefaultBilling()
         );
     }
@@ -106,7 +106,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getShippingAddress($customerId = null)
     {
-        return $this->addressModel->load(
+        return $this->addressFactory->create()->load(
             $this->getCustomer($customerId)->getDefaultShipping()
         );
     }
@@ -131,12 +131,12 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a customer address by id.
+     * Load a customer address.
      */
     public function loadAddress($addressId)
     {
         try {
-            $address = $this->addressModel->load($addressId);
+            $address =$this->addressFactory->create()->load($addressId);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }

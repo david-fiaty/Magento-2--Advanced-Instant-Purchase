@@ -21,6 +21,22 @@ namespace Naxero\BuyNow\Model\Service;
 class PlaceOrderService
 {
     /**
+     * @var array
+     */
+    public $removeAddressFields = [
+        'entity_id',
+        'increment_id',
+        'parent_id',
+        'created_at',
+        'updated_at',
+        'is_active',
+        'vat_is_valid',
+        'vat_request_date',
+        'vat_request_id',
+        'vat_request_success'
+    ];
+
+    /**
      * @var Session
      */
     public $customerSession;
@@ -48,27 +64,12 @@ class PlaceOrderService
     /**
      * @var array
      */
-    public $params;
+    public $headers;
 
     /**
      * @var array
      */
-    public $headers;
-
-    /**
-     * @var string
-     */
-    public $accessToken;
-
-    /**
-     * @var int
-     */
-    public $quoteId;
-
-    /**
-     * @var Object
-     */
-    public $product;
+    public $data = [];
 
     /**
      * PlaceOrderService constructor.
@@ -94,10 +95,9 @@ class PlaceOrderService
     {
         $order = $this->loadData($params)
         ->createQuote()
-        ->addQuoteItem()
-        ->prepareCheckout();
-
-        exit();
+        ->addProduct()
+        ->prepareCheckout()
+        ->createOrder();
 
         return $order;
     }
@@ -108,28 +108,40 @@ class PlaceOrderService
     public function loadData($params)
     {
         // Request parameters
-        $this->params = $params;
+        $this->data['params'] = $params;
 
         // Set the access token
-        $this->accessToken = $this->customerHelper->getAccessToken(
+        $this->data['access_token'] = $this->customerHelper->getAccessToken(
             $this->customerSession->getId()
         );
 
         // Store data
-        $this->store = $this->storeManager->getStore();
-
-        // Product data
-        $this->product = $this->productRepository->getById(
-            $this->params['product'], false,
-            $this->store->getId(), false
-        );
+        $this->data['store'] = $this->storeManager->getStore();
 
         // Request headers
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->accessToken
+            'Authorization' => 'Bearer ' . $this->data['access_token']
         ];
+
+        // Product data
+        $this->data['product'] = $this->productRepository->getById(
+            $params['product'],
+            false,
+            $this->data['store']->getId(),
+            false
+        );
+
+        // Billing address
+        $this->data['billing_address'] = $this->prepareAddress(
+            $this->data['params']['nbn-billing-address-select']
+        );
+        
+        // Shipping address
+        $this->data['shipping_address'] = $this->prepareAddress(
+            $this->data['params']['nbn-shipping-address-select']
+        );
 
         return $this;
     }
@@ -140,9 +152,7 @@ class PlaceOrderService
     public function createQuote()
     {
         // Request URL
-        $url = $this->store->getBaseUrl()
-        . 'rest/' . $this->store->getCode() 
-        . '/V1/carts/mine';
+        $url = $this->getUrl('carts/mine');
 
         // Send the request
         $request = $this->curl;
@@ -150,7 +160,8 @@ class PlaceOrderService
         $request->post($url, []);
 
         // Get the response
-        $this->quoteId = (int) $request->getBody();
+        // $response = json_decode($request->getBody(), true);
+        $this->data['quote_id'] = (int) $request->getBody();
 
         return $this;
     }
@@ -158,31 +169,31 @@ class PlaceOrderService
     /**
      * Add a product to the quote.
      */
-    public function addQuoteItem()
+    public function addProduct()
     {
         // Prepare the URL
         // Todo - handle different product types
         // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
-        $url = $this->store->getBaseUrl()
-        . 'rest/' . $this->store->getCode() 
-        . '/V1/carts/mine/items';
+        $url = $this->getUrl('carts/mine/items');
 
         // Prepare the payload
         $payload = [
             'cartItem' => [
-                'sku' => $this->product->getSku(),
+                'sku' => $this->data['product']->getSku(),
                 'qty' => 1, // Todo - get qty from request
-                'quote_id' => $this->quoteId
+                'quote_id' => $this->data['quote_id']
             ]
         ];
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
 
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
         $request->post($url, $payload);
-
-        // Get the response for error handling
-        // $response = $request->getBody();
 
         return $this;
     }
@@ -192,12 +203,30 @@ class PlaceOrderService
      */
     public function prepareCheckout()
     {
-        // Set billing and shipping information
-        //<host>/rest/<store_code>/V1/carts/mine/shipping-information
+        // Get the request URL
+        $url = $this->getUrl('carts/mine/shipping-information');
 
+        // Prepare the payload
+        $payload = [
+            'addressInformation' => [
+                'shipping_address' => $this->data['shipping_address'],
+                'billing_address' => $this->data['billing_address']
+            ],
+            'shipping_carrier_code' => $this->data['params']['nbn-shipping-method-select'],
+            'shipping_method_code' => $this->data['params']['nbn-shipping-method-select']
+        ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
+
+        // Send the request
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, $payload);
+        
         return $this;
-
     }
 
     /**
@@ -205,29 +234,56 @@ class PlaceOrderService
      */
     public function createOrder()
     {
-        //<host>/rest/<store_code>/V1/carts/mine/payment-information
-        // payload
-        /*
-        {
-            "paymentMethod": {
-                        "method": "banktransfer"
-            },
-            "billing_address": {
-                        "email": "jdoe@example.com",
-                    "region": "New York",
-                    "region_id": 43,
-                    "region_code": "NY",
-                        "country_id": "US",
-                        "street": ["123 Oak Ave"],
-                        "postcode": "10577",
-                        "city": "Purchase",
-                        "telephone": "512-555-1111",
-                        "firstname": "Jane",
-                        "lastname": "Doe"
-            }
-        }       
-    */
+        // Get the request URL
+        $url = $this->getUrl('carts/mine/payment-information');
 
-        //return $order;
+        // Prepare the payload
+        $payload = [
+            'paymentMethod' => [
+                'method' => $this->data['params']['nbn-payment-method-select']
+            ],
+            'billing_address' => $this->data['billing_address']
+        ];
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a3.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
+
+        // Send the request
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, $payload);
+
+        return $order;
+    }
+
+    /**
+     * Get the endpoint URL.
+     */
+    public function getUrl($endpoint)
+    {
+        return $this->data['store']->getBaseUrl()
+        . 'rest/' . $this->data['store']->getCode() 
+        . '/' . 'V1/' . $endpoint;
+    }
+
+    /**
+     * Prepare an address for the request.
+     */
+    public function prepareAddress($addressId)
+    {
+        // Get the address data
+        $data = $this->customerHelper->loadAddress($addressId)->getData();
+
+        // Update the address street field
+        if (isset($data['street'])) {
+            $data['street'] = [$data['street']];
+        }
+
+        // Remove non relevant fields
+        $data = array_diff($data, $this->removeAddressFields);
+
+        return $data;
     }
 }
