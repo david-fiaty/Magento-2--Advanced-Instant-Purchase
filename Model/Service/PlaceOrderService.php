@@ -180,8 +180,21 @@ class PlaceOrderService
      */
     public function prepareCheckout()
     {
-        // Set billing and shipping information
+        // Get the request URL
         $url = $this->getUrl('carts/mine/shipping-information');
+
+        $billingAddress = $this->customerHelper->loadAddress(
+            $this->data['params']['nbn-billing-address-select']
+        );
+
+        $shippingAddress = $this->customerHelper->loadAddress(
+            $this->data['params']['nbn-shipping-address-select']
+        );
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($billingAddress->getData(), 1));
 
         return $this;
     }
