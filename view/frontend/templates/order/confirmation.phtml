@@ -30,8 +30,8 @@
 
 <!-- Form-->
 <form 
-    id="nbn-order-form-<?= $data['product']['id'] ?>"
-    name="nbn-order-form-<?= $data['product']['id'] ?>"
+    id="nbn-order-form-<?= $productId ?>"
+    name="nbn-order-form-<?= $productId ?>"
     method="POST"
     class="nbn-order-form"
 >
@@ -46,7 +46,8 @@
     <p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
 
     <!-- Product info -->
-    <input type="hidden" name="nbn[params][product_id]"
+    <input type="hidden" name="nbn[params][product_id]" value="<?= $productId ?>">
+    <input type="hidden" name="nbn[params][qty]" value="<?= $productQantity ?>">
 
     <!-- Shipping method -->
     <?php if (!empty($data['addresses']) && !empty($data['savedCards']) && !$data['product']['is_free']): ?>

@@ -124,7 +124,8 @@
             var productData = $(this.getProductFormSelector(productId)).serialize();
             var orderData = $('#nbn-order-form-' + productId).serialize();
 
-            return productData + '&' + orderData;
+            return productData;
+            //return productData + '&' + orderData;
         },
 
         /**
