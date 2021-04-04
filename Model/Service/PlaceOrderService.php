@@ -79,7 +79,7 @@ class PlaceOrderService
     {
         $order = $this->loadData($params)
         ->createQuote()
-        ->addQuoteItem()
+        ->addProduct()
         ->prepareCheckout();
 
         exit();
@@ -143,7 +143,7 @@ class PlaceOrderService
     /**
      * Add a product to the quote.
      */
-    public function addQuoteItem()
+    public function addProduct()
     {
         // Prepare the URL
         // Todo - handle different product types
@@ -167,6 +167,11 @@ class PlaceOrderService
         // Get the response for error handling
         // $response = $request->getBody();
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($request->getBody(), 1));
+
         return $this;
     }
 
@@ -176,11 +181,9 @@ class PlaceOrderService
     public function prepareCheckout()
     {
         // Set billing and shipping information
-        //<host>/rest/<store_code>/V1/carts/mine/shipping-information
-
+        $url = $this->getUrl('carts/mine/shipping-information');
 
         return $this;
-
     }
 
     /**
