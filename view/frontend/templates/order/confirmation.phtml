@@ -63,7 +63,7 @@
                         class="nbn-select js-states form-control"
                     >
                         <?php foreach ($data['shippingRates'] as $item): ?>
-                            <option value="<?= $block->escapeHtmlAttr($item['carrier_code']) ?>">
+                            <option value="<?= json_encode($item) ?>">
                                 <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
                                 <?= $block->escapeHtml($item['carrier_price']) ?>
                             </option>
@@ -192,10 +192,11 @@ require([
     // Shipping method change event
     $('#nbn-shipping-method-id').on('change', function(e) {
         // Prepare the parameters
+        var shippingData = JSON.parse($(e.currentTarget).val());
         var params = {
             product_id: productId,
             product_quantity: productQantity,
-            carrier_code: $(e.currentTarget).val(),
+            shipping_data: shippingData,
             coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
@@ -214,6 +215,9 @@ require([
             coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
+
+        console.log('-------');
+        console.log(params);
 
         // Update the totals
         updateTotals(params);
