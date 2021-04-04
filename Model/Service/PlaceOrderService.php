@@ -105,7 +105,7 @@ class PlaceOrderService
 
         // Product data
         $this->data['product'] = $this->productRepository->getById(
-            $this->data['product'],
+            $params['product'],
             false,
             $this->data['store']->getId(),
             false

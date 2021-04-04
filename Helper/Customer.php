@@ -27,6 +27,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $addressModel;
 
     /**
+     * @var AddressFactory
+     */
+    public $addressFactory;
+
+    /**
      * @var Customer
      */
     public $customerModel;
@@ -61,6 +66,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Customer\Model\Address $addressModel,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Magento\Customer\Model\Customer $customerModel,
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Framework\Locale\Resolver $localeResolver,
@@ -69,6 +75,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory
     ) {
         $this->addressModel = $addressModel;
+        $this->addressFactory = $addressFactory;
         $this->customerModel = $customerModel;
         $this->authLink = $authLink;
         $this->localeResolver = $localeResolver;
