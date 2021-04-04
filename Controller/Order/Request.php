@@ -129,7 +129,7 @@ class Request extends \Magento\Framework\App\Action\Action
      * @param bool $successMessage
      * @return JsonResult
      */
-    public function createResponse(string $message, bool $successMessage): JsonResult
+    public function createResponse($message, $successMessage)
     {
         // Prepare the result
         $result = $this->jsonFactory->create()->setData([
