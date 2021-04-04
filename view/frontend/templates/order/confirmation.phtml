@@ -45,16 +45,19 @@
     <!-- Header text -->
     <p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
 
+    <!-- Product info -->
+    <input type="hidden" name="nbn[params][product_id]"
+
     <!-- Shipping method -->
     <?php if (!empty($data['addresses']) && !empty($data['savedCards']) && !$data['product']['is_free']): ?>
     <div class="nbn-fields">
         <div class="nbn-field">
-            <label for="nbn-shipping-method-select">
+            <label for="nbn-shipping-method-id">
                 <span class="nbn-label"><?= $block->escapeHtml(__('Shipping method')) ?></span>
                 <p>
                     <select
-                        id="nbn-shipping-method-select"
-                        name="nbn-shipping-method-select"
+                        id="nbn-shipping-method-id"
+                        name="nbn[params][shipping_method_id]"
                         data-field="shipping_method_code"
                         class="nbn-select js-states form-control"
                     >
@@ -73,7 +76,7 @@
 
     <!-- Shipping address -->
     <div class="nbn-field">
-        <label for="nbn-shipping-address-select">
+        <label for="nbn-shipping-address-id">
             <span class="nbn-label">
                 <?= $block->escapeHtml(__('Shipping address')) ?>
             </span>
@@ -84,8 +87,8 @@
             <p>
                 <?php if (!empty($data['addresses'])): ?>
                     <select
-                        id="nbn-shipping-address-select"
-                        name="nbn-shipping-address-select"
+                        id="nbn-shipping-address-id"
+                        name="nbn[params][shipping_address_id]"
                         data-field="shipping_address"
                         class="nbn-select js-states form-control"
                     >
@@ -107,7 +110,7 @@
 
     <!-- Billing address -->
     <div class="nbn-field">
-        <label for="nbn-billing-address-select">
+        <label for="nbn-billing-address-id">
             <span class="nbn-label">
                 <?= $block->escapeHtml(__('Billing address')) ?>
             </span>
@@ -118,8 +121,8 @@
             <p>
                 <?php if (!empty($data['addresses'])): ?>
                     <select
-                        id="nbn-billing-address-select"
-                        name="nbn-billing-address-select"
+                        id="nbn-billing-address-id"
+                        name="nbn[params][billing_address_id]"
                         data-field="billing_address"
                         class="nbn-select js-states form-control"
                     >
@@ -142,17 +145,17 @@
     <!-- Saved cards -->
     <?php if (!$data['product']['is_free']): ?>
         <div class="nbn-field">
-            <label for="nbn-payment-method-select">
+            <label for="nbn-payment-method-code">
                 <span class="nbn-label">
                     <?= $block->escapeHtml(__('Saved cards')) ?>
                 </span>
                 <p>
                     <?php if (!empty($data['savedCards'])): ?>
                         <select
-                            id="nbn-payment-method-select"
-                            name="nbn-payment-method-select"
+                            id="nbn-payment-method-code"
+                            name="nbn[params][payment_method_code]"
                             data-field="payment_token"
-                            class="nbn-select nbn-payment-method-select js-states form-control"
+                            class="nbn-select nbn-payment-method-code js-states form-control"
                         >
                             <?php foreach ($data['savedCards'] as $item): ?>
                                 <option value="<?= $item['instance']->getPublicHash() ?>" data-icon-url="<?= $item['icon'] ?>">
@@ -186,7 +189,7 @@ require([
     var productQantity = <?= $productQantity ?>;
 
     // Shipping method change event
-    $('#nbn-shipping-method-select').on('change', function(e) {
+    $('#nbn-shipping-method-id').on('change', function(e) {
         // Prepare the parameters
         var params = {
             product_id: productId,
@@ -206,7 +209,7 @@ require([
         var params = {
             product_id: productId,
             product_quantity: productQantity,
-            carrier_code: $('#nbn-shipping-method-select').val(),
+            carrier_code: $('#nbn-shipping-method-id').val(),
             coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };

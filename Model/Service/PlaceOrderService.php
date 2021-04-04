@@ -107,6 +107,13 @@ class PlaceOrderService
      */
     public function loadData($params)
     {
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($params, 1));
+
+
         // Request parameters
         $this->data['params'] = $params;
 
@@ -135,12 +142,12 @@ class PlaceOrderService
 
         // Billing address
         $this->data['billing_address'] = $this->prepareAddress(
-            $this->data['params']['nbn-billing-address-select']
+            $this->data['params']['nbn-billing-address-id']
         );
         
         // Shipping address
         $this->data['shipping_address'] = $this->prepareAddress(
-            $this->data['params']['nbn-shipping-address-select']
+            $this->data['params']['nbn-shipping-address-id']
         );
 
         return $this;
@@ -213,8 +220,8 @@ class PlaceOrderService
                 'shipping_address' => $this->data['shipping_address'],
                 'billing_address' => $this->data['billing_address']
             ],
-            'shipping_carrier_code' => $this->data['params']['nbn-shipping-method-select'],
-            'shipping_method_code' => $this->data['params']['nbn-shipping-method-select']
+            'shipping_carrier_code' => $this->data['params']['nbn-shipping-method-id'],
+            'shipping_method_code' => $this->data['params']['nbn-shipping-method-id']
         ];
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a2.log');
@@ -241,7 +248,7 @@ class PlaceOrderService
         // Prepare the payload
         $payload = [
             'paymentMethod' => [
-                'method' => $this->data['params']['nbn-payment-method-select']
+                'method' => $this->data['params']['nbn-payment-method-code']
             ],
             'billing_address' => $this->data['billing_address']
         ];

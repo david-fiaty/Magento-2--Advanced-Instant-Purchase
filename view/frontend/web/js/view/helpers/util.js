@@ -23,7 +23,7 @@ define([
          */
         formatIcon: function (state) {
             // Check the element state
-            if (!state.id || !state.element.parentElement.className.includes('nbn-payment-method-select')) {
+            if (!state.id || !state.element.parentElement.className.includes('nbn-payment-method-code')) {
                 return state.text;
             }
 

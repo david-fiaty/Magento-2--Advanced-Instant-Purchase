@@ -197,11 +197,11 @@ REQUEST DATA
 
 // Prepare the order parameters
 $productId = $params['product'];
-$paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
-$shippingAddressId = (int)$params['nbn-shipping-address-select'];
-$billingAddressId = (int)$params['nbn-billing-address-select'];
-$carrierCode = (string)$params['nbn-shipping-method-select'];
-$shippingMethodCode = (string)$params['nbn-shipping-method-select'];
+$paymentTokenPublicHash = (string)$params['nbn-payment-method-code'];
+$shippingAddressId = (int)$params['nbn-shipping-address-id'];
+$billingAddressId = (int)$params['nbn-billing-address-id'];
+$carrierCode = (string)$params['nbn-shipping-method-id'];
+$shippingMethodCode = (string)$params['nbn-shipping-method-id'];
 
 
 2021-04-04T14:55:12+00:00 INFO (6): Array
