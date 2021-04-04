@@ -80,9 +80,8 @@ class PlaceOrderService
         $order = $this->loadData($params)
         ->createQuote()
         ->addProduct()
-        ->prepareCheckout();
-
-        exit();
+        ->prepareCheckout()
+        ->createOrder();
 
         return $order;
     }
@@ -145,6 +144,7 @@ class PlaceOrderService
         $request->post($url, []);
 
         // Get the response
+        // $response = json_decode($request->getBody(), true);
         $this->data['quote_id'] = (int) $request->getBody();
 
         return $this;
@@ -174,14 +174,6 @@ class PlaceOrderService
         $request->setHeaders($this->headers);
         $request->post($url, $payload);
 
-        // Get the response for error handling
-        // $response = $request->getBody();
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/1.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(var_dump($request->getBody()));
-
         return $this;
     }
 
@@ -203,20 +195,10 @@ class PlaceOrderService
             'shipping_method_code' => $this->data['params']['nbn-shipping-method-select']
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($payload, 1));
-
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
         $request->post($url, $payload);
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/3.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(var_dump($request->getBody()));
         
         return $this;
     }
@@ -226,30 +208,23 @@ class PlaceOrderService
      */
     public function createOrder()
     {
-        //<host>/rest/<store_code>/V1/carts/mine/payment-information
-        // payload
-        /*
-        {
-            "paymentMethod": {
-                        "method": "banktransfer"
-            },
-            "billing_address": {
-                        "email": "jdoe@example.com",
-                    "region": "New York",
-                    "region_id": 43,
-                    "region_code": "NY",
-                        "country_id": "US",
-                        "street": ["123 Oak Ave"],
-                        "postcode": "10577",
-                        "city": "Purchase",
-                        "telephone": "512-555-1111",
-                        "firstname": "Jane",
-                        "lastname": "Doe"
-            }
-        }       
-    */
+        // Get the request URL
+        $url = $this->getUrl('carts/mine/payment-information');
 
-        //return $order;
+        // Prepare the payload
+        $payload = [
+            'paymentMethod' => [
+                'method' => $this->data['params']['nbn-payment-method-select']
+            ],
+            'billing_address' => $this->data['billing_address']
+        ];
+
+        // Send the request
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, $payload);
+
+        return $order;
     }
 
     /**
