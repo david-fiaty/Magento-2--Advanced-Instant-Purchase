@@ -138,7 +138,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get a customer address by id.
+     * Load a customer address.
      */
     public function loadAddress($addressId)
     {
@@ -151,6 +151,19 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         return $address;
     }
 
+    /**
+     * Load a customer quote address.
+     */
+    public function loadQuoteAddress($addressId)
+    {
+        try {
+            $address =$this->addressFactory->create()->load($addressId);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+        
+        return $address;
+    }
     /**
      * Get the user locale.
      */

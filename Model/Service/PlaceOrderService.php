@@ -183,12 +183,18 @@ class PlaceOrderService
         // Get the request URL
         $url = $this->getUrl('carts/mine/shipping-information');
 
+        /*
         $billingAddress = $this->customerHelper->loadAddress(
             $this->data['params']['nbn-billing-address-select']
         );
 
         $shippingAddress = $this->customerHelper->loadAddress(
             $this->data['params']['nbn-shipping-address-select']
+        );
+        */
+
+        $billingAddress = $this->customerHelper->loadQuoteAddress(
+            $this->data['params']['nbn-billing-address-select']
         );
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
