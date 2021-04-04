@@ -103,6 +103,13 @@ class PlaceOrderService
         // Store data
         $this->data['store'] = $this->storeManager->getStore();
 
+        // Request headers
+        $this->headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->data['access_token']
+        ];
+
         // Product data
         $this->data['product'] = $this->productRepository->getById(
             $params['product'],
@@ -111,12 +118,15 @@ class PlaceOrderService
             false
         );
 
-        // Request headers
-        $this->headers = [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->data['access_token']
-        ];
+        // Billing address
+        $this->data['billing_address'] = $this->customerHelper->loadAddress(
+            $this->data['params']['nbn-billing-address-select']
+        )->getData();
+
+        // Shipping address
+        $this->data['shipping_address'] = $this->customerHelper->loadAddress(
+            $this->data['params']['nbn-shipping-address-select']
+        )->getData();
 
         return $this;
     }
@@ -170,7 +180,7 @@ class PlaceOrderService
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/1.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
-        $logger->info(print_r($request->getBody(), 1));
+        $logger->info(var_dump($request->getBody()));
 
         return $this;
     }
@@ -183,25 +193,31 @@ class PlaceOrderService
         // Get the request URL
         $url = $this->getUrl('carts/mine/shipping-information');
 
-        /*
-        $billingAddress = $this->customerHelper->loadAddress(
-            $this->data['params']['nbn-billing-address-select']
-        );
-
-        $shippingAddress = $this->customerHelper->loadAddress(
-            $this->data['params']['nbn-shipping-address-select']
-        );
-        */
-
-        $billingAddress = $this->customerHelper->loadQuoteAddress(
-            $this->data['params']['nbn-billing-address-select']
-        );
+        // Prepare the payload
+        $payload = [
+            'addressInformation' => [
+                'shipping_address' => $this->data['shipping_address'],
+                'billing_address' => $this->data['billing_address']
+            ],
+            'shipping_carrier_code' => $this->data['params']['nbn-shipping-method-select'],
+            'shipping_method_code' => $this->data['params']['nbn-shipping-method-select']
+        ];
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/2.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
-        $logger->info(print_r($billingAddress->getData(), 1));
+        $logger->info(print_r($payload, 1));
 
+        // Send the request
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, $payload);
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/3.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(var_dump($request->getBody()));
+        
         return $this;
     }
 
