@@ -115,7 +115,7 @@ class PlaceOrderService
 
 
         // Request parameters
-        $this->data['params'] = $data['params'];
+        $this->data['params'] = $data['nbn']['params'];
 
         // Set the access token
         $this->data['access_token'] = $this->customerHelper->getAccessToken(
