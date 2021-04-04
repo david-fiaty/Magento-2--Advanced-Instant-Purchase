@@ -61,6 +61,16 @@ class PlaceOrderService
     public $accessToken;
 
     /**
+     * @var int
+     */
+    public $quoteId;
+
+    /**
+     * @var Object
+     */
+    public $product;
+
+    /**
      * PlaceOrderService constructor.
      */
     public function __construct(
@@ -84,7 +94,8 @@ class PlaceOrderService
     {
         $order = $this->loadData($params)
         ->createQuote()
-        ->addQuoteItem();
+        ->addQuoteItem()
+        ->prepareCheckout();
 
         exit();
 
@@ -139,12 +150,7 @@ class PlaceOrderService
         $request->post($url, []);
 
         // Get the response
-        $response = $request->getBody();
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/3.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($response, 1));
+        $this->quoteId = (int) $request->getBody();
 
         return $this;
     }
@@ -154,6 +160,74 @@ class PlaceOrderService
      */
     public function addQuoteItem()
     {
+        // Prepare the URL
+        // Todo - handle different product types
+        // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
+        $url = $this->store->getBaseUrl()
+        . 'rest/' . $this->store->getCode() 
+        . '/V1/carts/mine/items';
+
+        // Prepare the payload
+        $payload = [
+            'cartItem' => [
+                'sku' => $this->product->getSku(),
+                'qty' => 1, // Todo - get qty from request
+                'quote_id' => $this->quoteId
+            ]
+        ];
+
+        // Send the request
+        $request = $this->curl;
+        $request->setHeaders($this->headers);
+        $request->post($url, $payload);
+
+        // Get the response for error handling
+        // $response = $request->getBody();
+
         return $this;
+    }
+
+    /**
+     * Prepare the order checkout.
+     */
+    public function prepareCheckout()
+    {
+        // Set billing and shipping information
+        //<host>/rest/<store_code>/V1/carts/mine/shipping-information
+
+
+        return $this;
+
+    }
+
+    /**
+     * Create the order.
+     */
+    public function createOrder()
+    {
+        //<host>/rest/<store_code>/V1/carts/mine/payment-information
+        // payload
+        /*
+        {
+            "paymentMethod": {
+                        "method": "banktransfer"
+            },
+            "billing_address": {
+                        "email": "jdoe@example.com",
+                    "region": "New York",
+                    "region_id": 43,
+                    "region_code": "NY",
+                        "country_id": "US",
+                        "street": ["123 Oak Ave"],
+                        "postcode": "10577",
+                        "city": "Purchase",
+                        "telephone": "512-555-1111",
+                        "firstname": "Jane",
+                        "lastname": "Doe"
+            }
+        }       
+    */
+
+        //return $order;
     }
 }
