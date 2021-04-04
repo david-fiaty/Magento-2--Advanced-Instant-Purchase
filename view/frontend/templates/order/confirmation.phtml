@@ -196,7 +196,7 @@ require([
         var params = {
             product_id: productId,
             product_quantity: productQantity,
-            shipping_data: shippingData,
+            carrier_code: shippingData['carrier_code'],
             coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
@@ -208,16 +208,14 @@ require([
     // Discount code submit event
     $('.nbn-coupon-box button').on('click touch', function(e) {
         // Prepare the parameters
+        var shippingData = JSON.parse($('#nbn-shipping-method-id').val());
         var params = {
             product_id: productId,
             product_quantity: productQantity,
-            carrier_code: $('#nbn-shipping-method-id').val(),
+            carrier_code: shippingData['carrier_code'],
             coupon_code: $('#nbn-coupon-code').val(),
             form_key: $(this.formKeySelectorPrefix + productId).val()
         };
-
-        console.log('-------');
-        console.log(params);
 
         // Update the totals
         updateTotals(params);
