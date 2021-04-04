@@ -284,13 +284,13 @@ class PlaceOrderService
         // Get the address data
         $data = $this->customerHelper->loadAddress($addressId)->getData();
 
+        // Remove non relevant fields
+        $data = array_diff($data, $this->removeAddressFields);
+        
         // Update the address street field
         if (isset($data['street'])) {
             $data['street'] = [$data['street']];
         }
-
-        // Remove non relevant fields
-        $data = array_diff($data, $this->removeAddressFields);
 
         return $data;
     }
