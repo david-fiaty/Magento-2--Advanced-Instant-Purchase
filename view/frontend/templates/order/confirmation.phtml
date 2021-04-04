@@ -69,6 +69,16 @@
                             </option>
                         <?php endforeach; ?>
                     </select>
+                    <input
+                        type="hidden"
+                        name="nbn[params][shipping_carrier_code]"
+                        value="<?= $data['shippingRates'][0]['carrier_code'] ?>"
+                    >
+                    <input
+                        type="hidden"
+                        name="nbn[params][shipping_method_code]"
+                        value="<?= $data['shippingRates'][0]['method_code'] ?>"
+                    >
                 </p>
             </label>
         </div>
@@ -159,7 +169,10 @@
                             class="nbn-select nbn-payment-method-code js-states form-control"
                         >
                             <?php foreach ($data['savedCards'] as $item): ?>
-                                <option value="<?= $item['instance']->getPublicHash() ?>" data-icon-url="<?= $item['icon'] ?>">
+                                <option
+                                    value="<?= $item['instance']->getPublicHash() ?>"
+                                    data-icon-url="<?= $item['icon'] ?>"
+                                >
                                     &nbsp;&nbsp;<?= $item['token'] ?>
                                 </option>
                             <?php endforeach; ?>
