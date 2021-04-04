@@ -18,6 +18,11 @@
     // Get the confirmation content
     $data = $block->getData('data');
 
+    $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/rates.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($data['shippingRates'], 1));
+
     // Get the confirmation request parameters
     $params = $block->getData('params');
 
