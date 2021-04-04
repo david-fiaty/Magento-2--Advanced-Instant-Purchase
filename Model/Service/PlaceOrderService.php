@@ -161,6 +161,7 @@ class PlaceOrderService
 
         // Get the response
         // $response = json_decode($request->getBody(), true);
+        // $response->getStatus()
         $this->data['quote_id'] = (int) $request->getBody();
 
         return $this;
