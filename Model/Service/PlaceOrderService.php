@@ -21,6 +21,22 @@ namespace Naxero\BuyNow\Model\Service;
 class PlaceOrderService
 {
     /**
+     * @var array
+     */
+    public $removeAddressFields = [
+        'entity_id',
+        'increment_id',
+        'parent_id',
+        'created_at',
+        'updated_at',
+        'is_active',
+        'vat_is_valid',
+        'vat_request_date',
+        'vat_request_id',
+        'vat_request_success'
+    ];
+
+    /**
      * @var Session
      */
     public $customerSession;
@@ -118,14 +134,14 @@ class PlaceOrderService
         );
 
         // Billing address
-        $this->data['billing_address'] = $this->customerHelper->loadAddress(
+        $this->data['billing_address'] = $this->prepareAddress(
             $this->data['params']['nbn-billing-address-select']
-        )->getData();
-
+        );
+        
         // Shipping address
-        $this->data['shipping_address'] = $this->customerHelper->loadAddress(
+        $this->data['shipping_address'] = $this->prepareAddress(
             $this->data['params']['nbn-shipping-address-select']
-        )->getData();
+        );
 
         return $this;
     }
@@ -169,6 +185,11 @@ class PlaceOrderService
             ]
         ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
+
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
@@ -195,6 +216,11 @@ class PlaceOrderService
             'shipping_method_code' => $this->data['params']['nbn-shipping-method-select']
         ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
+
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
@@ -219,6 +245,11 @@ class PlaceOrderService
             'billing_address' => $this->data['billing_address']
         ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a3.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(json_encode($payload));
+
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
@@ -235,5 +266,24 @@ class PlaceOrderService
         return $this->data['store']->getBaseUrl()
         . 'rest/' . $this->data['store']->getCode() 
         . '/' . 'V1/' . $endpoint;
+    }
+
+    /**
+     * Prepare an address for the request.
+     */
+    public function prepareAddress($addressId)
+    {
+        // Get the address data
+        $data = $this->customerHelper->loadAddress($addressId)->getData();
+
+        // Update the address street field
+        if (isset($data['street'])) {
+            $data['street'] = [$data['street']];
+        }
+
+        // Remove non relevant fields
+        $data = array_diff($data, $this->removeAddressFields);
+
+        return $data;
     }
 }
