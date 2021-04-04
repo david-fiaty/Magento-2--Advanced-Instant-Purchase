@@ -48,27 +48,12 @@ class PlaceOrderService
     /**
      * @var array
      */
-    public $params;
+    public $headers;
 
     /**
      * @var array
      */
-    public $headers;
-
-    /**
-     * @var string
-     */
-    public $accessToken;
-
-    /**
-     * @var int
-     */
-    public $quoteId;
-
-    /**
-     * @var Object
-     */
-    public $product;
+    public $data = [];
 
     /**
      * PlaceOrderService constructor.
@@ -108,27 +93,29 @@ class PlaceOrderService
     public function loadData($params)
     {
         // Request parameters
-        $this->params = $params;
+        $this->data['params'] = $params;
 
         // Set the access token
-        $this->accessToken = $this->customerHelper->getAccessToken(
+        $this->data['accessToken'] = $this->customerHelper->getAccessToken(
             $this->customerSession->getId()
         );
 
         // Store data
-        $this->store = $this->storeManager->getStore();
+        $this->data['store'] = $this->storeManager->getStore();
 
         // Product data
-        $this->product = $this->productRepository->getById(
-            $this->params['product'], false,
-            $this->store->getId(), false
+        $this->data['product'] = $this->productRepository->getById(
+            $this->data['product'],
+            false,
+            $this->data['store']->getId(),
+            false
         );
 
         // Request headers
         $this->headers = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->accessToken
+            'Authorization' => 'Bearer ' . $this->data['accessToken']
         ];
 
         return $this;
@@ -140,9 +127,7 @@ class PlaceOrderService
     public function createQuote()
     {
         // Request URL
-        $url = $this->store->getBaseUrl()
-        . 'rest/' . $this->store->getCode() 
-        . '/V1/carts/mine';
+        $url = $this->getUrl('carts/mine');
 
         // Send the request
         $request = $this->curl;
@@ -150,7 +135,7 @@ class PlaceOrderService
         $request->post($url, []);
 
         // Get the response
-        $this->quoteId = (int) $request->getBody();
+        $this->data['quote_id'] = (int) $request->getBody();
 
         return $this;
     }
@@ -163,16 +148,14 @@ class PlaceOrderService
         // Prepare the URL
         // Todo - handle different product types
         // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
-        $url = $this->store->getBaseUrl()
-        . 'rest/' . $this->store->getCode() 
-        . '/V1/carts/mine/items';
+        $url = $this->getUrl('carts/mine/items');
 
         // Prepare the payload
         $payload = [
             'cartItem' => [
-                'sku' => $this->product->getSku(),
+                'sku' => $this->data['product']->getSku(),
                 'qty' => 1, // Todo - get qty from request
-                'quote_id' => $this->quoteId
+                'quote_id' => $this->data['quote_id']
             ]
         ];
 
@@ -229,5 +212,15 @@ class PlaceOrderService
     */
 
         //return $order;
+    }
+
+    /**
+     * Get the endpoint URL.
+     */
+    public function getUrl($endpoint)
+    {
+        return $this->data['store']->getBaseUrl()
+        . 'rest/' . $this->data['store']->getCode() 
+        . '/' . 'V1/' . $endpoint;
     }
 }
