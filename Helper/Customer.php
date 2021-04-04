@@ -52,6 +52,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
+     * @var TokenFactory
+     */
+    public $tokenModelFactory;
+
+    /**
      * Class Customer helper constructor.
      */
     public function __construct(
@@ -60,7 +65,8 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Block\Account\AuthorizationLink $authLink,
         \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection
+        \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
+        \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory
     ) {
         $this->addressModel = $addressModel;
         $this->customerModel = $customerModel;
@@ -68,6 +74,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $this->localeResolver = $localeResolver;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
+        $this->tokenModelFactory = $tokenModelFactory;
     }
 
     /**
@@ -185,5 +192,17 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         $noGroupFound = empty($customerGroups) || (isset($customerGroups[0]) && empty($customerGroups[0]));
 
         return $noGroupFound || in_array($cutomerGroupId, $customerGroups);
+    }
+
+    /**
+     * Get the customer access token.
+     */
+    public function getAccessToken($customerId = null)
+    {
+        $token = $this->tokenModelFactory->create()
+        ->createCustomerToken($customerId)
+        ->getToken();
+
+        return $token;
     }
 }
