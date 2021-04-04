@@ -105,17 +105,17 @@ class PlaceOrderService
     /**
      * Load the obect instance data.
      */
-    public function loadData($params)
+    public function loadData($data)
     {
 
         $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
         $logger = new \Zend\Log\Logger();
         $logger->addWriter($writer);
-        $logger->info(print_r($params, 1));
+        $logger->info(print_r($data, 1));
 
 
         // Request parameters
-        $this->data['params'] = $params;
+        $this->data['params'] = $data['params'];
 
         // Set the access token
         $this->data['access_token'] = $this->customerHelper->getAccessToken(
@@ -134,7 +134,7 @@ class PlaceOrderService
 
         // Product data
         $this->data['product'] = $this->productRepository->getById(
-            $params['product'],
+            $this->data['params']['product_id'],
             false,
             $this->data['store']->getId(),
             false
