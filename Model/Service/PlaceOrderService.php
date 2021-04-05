@@ -222,7 +222,8 @@ class PlaceOrderService
         $payload = [
             'paymentMethod' => [
                 //'method' => $this->data['params']['payment_method_code']
-                'method' => 'checkmo'
+                //'method' => 'checkmo'
+                'method' => 'free'
             ],
             'billing_address' => $this->data['billing_address']
         ];
