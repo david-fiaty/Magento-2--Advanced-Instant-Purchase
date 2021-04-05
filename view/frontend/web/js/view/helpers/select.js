@@ -23,7 +23,7 @@
     return {
         listSelector: '.nbn-select',
         linkSelector: '.nbn-new, .nbn-plus-icon',
-        paymentMethodSelector: '#nbn-payment-method-select',
+        paymentMethodSelector: '#nbn-payment-method-code',
         otherMethodsToggleSelector: '#nbn-show-other-methods',
         otherMethodsSelector: '#nbn-other-method-select',
 

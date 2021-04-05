@@ -32,7 +32,7 @@ https://magento.stackexchange.com/questions/295661/main-critical-the-stock-item-
 - *** Handle product price update with options prices in widget and popup ***
 
 - restore options selection state after login
-
+- improve/cleanup payment request parameters structure
 - display discounted price
 https://www.magemonkeys.com/how-to-display-product-discount-percent-on-product-details-page-in-magento2/
 
@@ -197,11 +197,11 @@ REQUEST DATA
 
 // Prepare the order parameters
 $productId = $params['product'];
-$paymentTokenPublicHash = (string)$params['nbn-payment-method-select'];
-$shippingAddressId = (int)$params['nbn-shipping-address-select'];
-$billingAddressId = (int)$params['nbn-billing-address-select'];
-$carrierCode = (string)$params['nbn-shipping-method-select'];
-$shippingMethodCode = (string)$params['nbn-shipping-method-select'];
+$paymentTokenPublicHash = (string)$params['nbn-payment-method-code'];
+$shippingAddressId = (int)$params['nbn-shipping-address-id'];
+$billingAddressId = (int)$params['nbn-billing-address-id'];
+$carrierCode = (string)$params['nbn-shipping-method-id'];
+$shippingMethodCode = (string)$params['nbn-shipping-method-id'];
 
 
 2021-04-04T14:55:12+00:00 INFO (6): Array
