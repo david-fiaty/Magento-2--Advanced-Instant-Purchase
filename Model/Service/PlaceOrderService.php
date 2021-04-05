@@ -107,13 +107,6 @@ class PlaceOrderService
      */
     public function loadData($data)
     {
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($data, 1));
-
-
         // Request parameters
         $this->data['params'] = $data['nbn']['params'];
 
@@ -193,11 +186,6 @@ class PlaceOrderService
             ]
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a1.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(json_encode($payload));
-
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
@@ -224,11 +212,6 @@ class PlaceOrderService
             'shipping_method_code' => $this->data['params']['shipping_method_code']
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a2.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(json_encode($payload));
-
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
@@ -252,11 +235,6 @@ class PlaceOrderService
             ],
             'billing_address' => $this->data['billing_address']
         ];
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/a3.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(json_encode($payload));
 
         // Send the request
         $request = $this->curl;
