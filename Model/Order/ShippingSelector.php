@@ -154,9 +154,9 @@ class ShippingSelector
                         $carrierTitle = $this->getCarrierTitle($shippingCode);
                         $methods[] = [
                             'carrier_code' => $carrier->getCarrierCode(),
-                            'carrier_title' => $carrierTitle,
-                            'carrier_price' => $carrierPrice ? $carrierPrice : 0,
-                            'method_code' => $methodCode
+                            'carrier_title' => $carrier->getCarrierTitle(),
+                            'carrier_price' => $carrier->getAmount(),
+                            'method_code' => $carrier->getMethodCode()
                         ];
                     }
                 }
@@ -179,29 +179,6 @@ class ShippingSelector
         }
 
         return null;
-    }
-
-    /**
-     * Get the carrier price.
-     */
-    // Todo - Use getCarrierData method to get the price
-    public function getCarrierPrice($shippingCode)
-    {
-        return $this->configHelper->value(
-            'carriers/' . $shippingCode . '/price',
-            true
-        );
-    }
-
-    /**
-     * Get the carrier title.
-     */
-    public function getCarrierTitle($shippingCode)
-    {
-        return $this->configHelper->value(
-            'carriers/' . $shippingCode . '/title',
-            true
-        );
     }
 
     /**
