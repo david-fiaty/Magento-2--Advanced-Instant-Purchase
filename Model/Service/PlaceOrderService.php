@@ -30,6 +30,7 @@ class PlaceOrderService
         'created_at',
         'updated_at',
         'is_active',
+        'vat_id',
         'vat_is_valid',
         'vat_request_date',
         'vat_request_id',
@@ -151,18 +152,11 @@ class PlaceOrderService
      */
     public function createQuote()
     {
-        // Request URL
-        $url = $this->getUrl('carts/mine');
-
         // Send the request
-        $request = $this->curl;
-        $request->setHeaders($this->headers);
-        $request->post($url, []);
+        $response = $this->sendRequest('carts/mine'); 
 
         // Get the response
-        // $response = json_decode($request->getBody(), true);
-        // $response->getStatus()
-        $this->data['quote_id'] = (int) $request->getBody();
+        $this->data['quote_id'] = (int) $response;
 
         return $this;
     }
@@ -175,7 +169,6 @@ class PlaceOrderService
         // Prepare the URL
         // Todo - handle different product types
         // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
-        $url = $this->getUrl('carts/mine/items');
 
         // Prepare the payload
         $payload = [
@@ -187,9 +180,7 @@ class PlaceOrderService
         ];
 
         // Send the request
-        $request = $this->curl;
-        $request->setHeaders($this->headers);
-        $request->post($url, $payload);
+        $response = $this->sendRequest('carts/mine/items', $payload); 
 
         return $this;
     }
@@ -199,9 +190,6 @@ class PlaceOrderService
      */
     public function prepareCheckout()
     {
-        // Get the request URL
-        $url = $this->getUrl('carts/mine/shipping-information');
-
         // Prepare the payload
         $payload = [
             'addressInformation' => [
@@ -212,20 +200,8 @@ class PlaceOrderService
             ]
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/cko1.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($payload, 1));
-
         // Send the request
-        $request = $this->curl;
-        $request->setHeaders($this->headers);
-        $request->post($url, $payload);
-        
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/cko2.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r(json_decode($request->getBody()), 1));
+        $response = $this->sendRequest('carts/mine/shipping-information', $payload); 
 
         return $this;
     }
@@ -235,9 +211,6 @@ class PlaceOrderService
      */
     public function createOrder()
     {
-        // Get the request URL
-        $url = $this->getUrl('carts/mine/payment-information');
-
         // Prepare the payload
         $payload = [
             'paymentMethod' => [
@@ -247,22 +220,29 @@ class PlaceOrderService
             'billing_address' => $this->data['billing_address']
         ];
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/pay1.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r($payload, 1));
-
         // Send the request
-        $request = $this->curl;
-        $request->setHeaders($this->headers);
-        $request->post($url, $payload);
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/pay2.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(print_r(json_decode($request->getBody()), 1));
+        $response = $this->sendRequest('carts/mine/payment-information', $payload); 
 
         return $order;
+    }
+
+    /**
+     * Send a request.
+     */
+    public function sendRequest($endpoint, $payload = [])
+    {
+        // Prepare parameters
+        $url = $this->getUrl($endpoint);
+        $request = $this->curl;
+
+        // Send the request
+        $request->setHeaders($this->headers);
+        $request->post($url, json_encode($payload));
+
+        // Process the response
+        $response = json_decode($request->getBody(), true);
+
+        return $response;
     }
 
     /**
@@ -270,6 +250,9 @@ class PlaceOrderService
      */
     public function getUrl($endpoint)
     {
+
+        return 'https://enag0ei84vpte.x.pipedream.net/';
+
         return $this->data['store']->getBaseUrl()
         . 'rest/' . $this->data['store']->getCode() 
         . '/' . 'V1/' . $endpoint;
@@ -284,7 +267,7 @@ class PlaceOrderService
         $data = $this->customerHelper->loadAddress($addressId)->getData();
 
         // Remove non relevant fields
-        $data = array_diff_key($data, $this->removeAddressFields);
+        $data = array_diff_key($data, array_flip($this->removeAddressFields));
         
         // Update the address street field
         if (isset($data['street'])) {
