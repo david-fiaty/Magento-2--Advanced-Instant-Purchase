@@ -212,11 +212,21 @@ class PlaceOrderService
             ]
         ];
 
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/cko1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($payload, 1));
+
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
         $request->post($url, $payload);
         
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/cko2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r(json_decode($request->getBody()), 1));
+
         return $this;
     }
 
@@ -231,15 +241,26 @@ class PlaceOrderService
         // Prepare the payload
         $payload = [
             'paymentMethod' => [
-                'method' => $this->data['params']['payment_method_code']
+                //'method' => $this->data['params']['payment_method_code']
+                'method' => 'checkmo'
             ],
             'billing_address' => $this->data['billing_address']
         ];
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/pay1.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r($payload, 1));
 
         // Send the request
         $request = $this->curl;
         $request->setHeaders($this->headers);
         $request->post($url, $payload);
+
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/pay2.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+        $logger->info(print_r(json_decode($request->getBody()), 1));
 
         return $order;
     }
@@ -263,7 +284,7 @@ class PlaceOrderService
         $data = $this->customerHelper->loadAddress($addressId)->getData();
 
         // Remove non relevant fields
-        $data = array_diff($data, $this->removeAddressFields);
+        $data = array_diff_key($data, $this->removeAddressFields);
         
         // Update the address street field
         if (isset($data['street'])) {
