@@ -206,10 +206,10 @@ class PlaceOrderService
         $payload = [
             'addressInformation' => [
                 'shipping_address' => $this->data['shipping_address'],
-                'billing_address' => $this->data['billing_address']
-            ],
-            'shipping_carrier_code' => $this->data['params']['shipping_carrier_code'],
-            'shipping_method_code' => $this->data['params']['shipping_method_code']
+                'billing_address' => $this->data['billing_address'],
+                'shipping_carrier_code' => $this->data['params']['shipping_carrier_code'],
+                'shipping_method_code' => $this->data['params']['shipping_method_code']
+            ]
         ];
 
         // Send the request
