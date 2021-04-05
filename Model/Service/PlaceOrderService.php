@@ -53,6 +53,11 @@ class PlaceOrderService
     public $productRepository;
 
     /**
+     * @var OrderRepositoryInterface
+     */
+    public $orderRepository;
+
+    /**
      * @var Curl
      */
     public $curl;
@@ -79,12 +84,14 @@ class PlaceOrderService
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Magento\Framework\HTTP\Client\Curl $curl
     ) {
         $this->customerSession = $customerSession;
         $this->storeManager = $storeManager;
         $this->productRepository = $productRepository;
+        $this->orderRepository = $orderRepository;
         $this->customerHelper = $customerHelper;
         $this->curl = $curl;
     }
@@ -153,10 +160,10 @@ class PlaceOrderService
     public function createQuote()
     {
         // Send the request
-        $response = $this->sendRequest('carts/mine'); 
+        $quoteId = (int) $this->sendRequest('carts/mine'); 
 
         // Get the response
-        $this->data['quote_id'] = (int) $response;
+        $this->data['quote_id'] = (int) $quoteId;
 
         return $this;
     }
@@ -221,9 +228,12 @@ class PlaceOrderService
         ];
 
         // Send the request
-        $response = $this->sendRequest('carts/mine/payment-information', $payload); 
+        $orderId = (int) $this->sendRequest('carts/mine/payment-information', $payload); 
 
-        return $order;
+        // Check the order
+        if ($orderId > 0) {
+            return $this->orderRepository->get($orderId);
+        }
     }
 
     /**
@@ -237,7 +247,9 @@ class PlaceOrderService
 
         // Send the request
         $request->setHeaders($this->headers);
-        $request->post($url, json_encode($payload));
+        $request->setOption(CURLOPT_RETURNTRANSFER, true);
+        $request->setOption(CURLOPT_POSTFIELDS, json_encode($payload));
+        $request->post($url, []);
 
         // Process the response
         $response = json_decode($request->getBody(), true);
@@ -250,9 +262,6 @@ class PlaceOrderService
      */
     public function getUrl($endpoint)
     {
-
-        return 'https://enag0ei84vpte.x.pipedream.net/';
-
         return $this->data['store']->getBaseUrl()
         . 'rest/' . $this->data['store']->getCode() 
         . '/' . 'V1/' . $endpoint;
