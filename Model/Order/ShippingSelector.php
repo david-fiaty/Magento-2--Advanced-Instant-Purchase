@@ -145,10 +145,9 @@ class ShippingSelector
         $carriers = $this->shippingModel->getActiveCarriers();
         $methods = [];
         foreach ($carriers as $shippingCode => $carrier) {
-            $carrierMethods = $shippingModel->getAllowedMethods();
+            $carrierMethods = $carrier->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    //$code = $shippingCode . '_' . $methodCode;
                     $isTableRate = $shippingCode == 'tablerate';
                     if (!$isTableRate) {
                         $carrierPrice = $this->getCarrierPrice($shippingCode);
