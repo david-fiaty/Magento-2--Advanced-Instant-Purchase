@@ -163,15 +163,16 @@ define([
             // Button click event
             $(this.buttonSelector).off('click touch').on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
+                    // Redirect to product page if needed
+                    if (NbnView.hasOptions() || NbnView.hasAttributes()) {
+                        window.location.href = self.config.product.page_url;
+                        return;
+                    }
+                    
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
                         NbnLogin.loginPopup();
                         return;
-                    }
-
-                    // Redirect to product page if needed
-                    if (NbnView.hasOptions() || NbnView.hasAttributes()) {
-                        window.location.href = self.config.product.page_url;
                     }
 
                     // Page view and/or all conditions valid
