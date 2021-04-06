@@ -74,9 +74,6 @@ define([
             // Load a button instance
             this.loadConfig(this.config);
 
-            // Set the product fields events
-            NbnProduct.initFields(this.config.product.id);
-
             // Button click event
             this.handleButtonClick();
 

@@ -43,6 +43,7 @@ if ($config):
         <form id="nbn-list-form-<?= $config['product']['id'] ?>" name="nbn-list-form-<?= $config['product']['id'] ?>" method="POST" class="nbn-list-form">
             <!-- Base button -->
             <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
+            <input type="hidden" name="product" value="<?= $config['product']['id'] ?>">
         </form>
     </div>
     <div class="nbn-clr"></div> 
