@@ -29,16 +29,23 @@ class Confirmation extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
+     * @var Tools
+     */
+    public $toolsHelper;
+
+    /**
      * Confirmation class constructor.
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Tools $toolsHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
+        $this->toolsHelper = $toolsHelper;
     }
 
     /**

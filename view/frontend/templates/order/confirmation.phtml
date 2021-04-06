@@ -65,8 +65,9 @@
                         <?php foreach ($data['shippingRates'] as $item): ?>
                             <option value="<?= json_encode($item) ?>">
                                 <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['carrier_price']) ?>
-                            </option>
+                                <?= $block->toolsHelper->renderAmount($item['carrier_price'], true, false) ?>
+                            </option>       
+
                         <?php endforeach; ?>
                     </select>
                     <input
