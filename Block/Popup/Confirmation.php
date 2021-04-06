@@ -47,18 +47,4 @@ class Confirmation extends \Magento\Framework\View\Element\Template
         $this->blockHelper = $blockHelper;
         $this->toolsHelper = $toolsHelper;
     }
-
-    /**
-     * Render a popup summary box.
-     */
-    public function getSummaryBoxHtml($data, $productQuantity, $params)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Order\Summary')
-        ->setTemplate(Naming::getModuleName() . '::order/summary.phtml')
-        ->setData('data', $data)
-        ->setData('params', $params)
-        ->setData('product_quantity', $productQuantity)
-        ->toHtml();
-    }
 }

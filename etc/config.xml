@@ -40,8 +40,6 @@
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
-                <popup_show_summary>1</popup_show_summary>
-                <popup_show_discount_form>1</popup_show_discount_form>
             </popups>
 
             <!-- Debug settings-->

@@ -181,15 +181,6 @@
     font-size: 1.2em;
 }
 
-/* Discount box */
-#nbn-coupon-box {
-    margin-bottom: 2em;
-}
-
-#nbn-coupon-code {
-    max-width: 17em;
-}
-
 /* Spinner icon */
 .nbn-ajax-loader-container {
     width: 100%;
@@ -201,24 +192,6 @@
 .nbn-ajax-loader-container img {
     display: block;
     margin: auto;
-}
-
-
-/* Popup order summary */
-.nbn-summary-box {
-    margin-bottom: 1em;
-}
-
-.nbn-product-summary-container {
-    margin-bottom: 1.5em;
-}
-
-.nbn-summary-box table {
-    border: solid 1px #f1f1f1;
-}
-
-tr#nbn-discount-row {
-    display: none;
 }
 
 /* Card icons */

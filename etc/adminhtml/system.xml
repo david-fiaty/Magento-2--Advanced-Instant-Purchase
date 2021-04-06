@@ -94,14 +94,6 @@
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Place order button text</label>
                 </field>
-                <field id="popup_show_summary" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show order summary</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="popup_show_discount_form" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show discount form</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
             </group>
 
             <!-- Debug settings-->
