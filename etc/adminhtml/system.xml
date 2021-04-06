@@ -65,12 +65,6 @@
                         </depends>
                 </field>
 
-                <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Customer group</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
-                    <comment>Display the button only for the selected customer groups. No cutomer groups selected above is the same as all customer groups selected.</comment>
-                </field>
-
                 <field id="button_classes" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Button classes</label>
                     <comment>Add custom class names separated by a white space.</comment>

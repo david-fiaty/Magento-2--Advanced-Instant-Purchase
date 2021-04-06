@@ -30,7 +30,6 @@
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_text>Buy Now</guest_button_text>
-                <customer_groups></customer_groups>
                 <button_classes>primary button</button_classes>
             </buttons>     
 
