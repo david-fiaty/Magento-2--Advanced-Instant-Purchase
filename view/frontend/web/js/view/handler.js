@@ -162,11 +162,13 @@ define([
 
             // Button click event
             $(this.buttonSelector).off('click touch').on('click touch', function (e) {
-                if (e.target.nodeName == 'BUTTON') {
-                    // Redirect to product page if needed
+                if (e.target.nodeName == 'BUTTON') {                    
+                    // Validate attributes in list view
                     if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
-                        window.location.href = self.config.product.page_url;
-                        return;
+                        if (!NbnProduct.attributesValid(self.config.product)) {
+                            return;
+                        }
+                        //window.location.href = self.config.product.page_url;
                     }
                     
                     // Force Login

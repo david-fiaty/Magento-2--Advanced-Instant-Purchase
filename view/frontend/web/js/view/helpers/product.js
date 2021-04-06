@@ -58,6 +58,23 @@
             var orderData = $('#nbn-order-form-' + productId).serialize();
 
             return productData + '&' + orderData;
+        },
+
+        /**
+         * Validate product list attributes.
+         */
+        attributesValid: function (product) {
+            // Swatch option
+            var success = true;
+            var cartForm = $('form[data-product-sku="' + self.config.product.sku + '"]');
+            cartForm.find('input[name$="super_attribute"]').each(function(i, elt) { 
+                console.log(elt.val());
+                if (elt.val().length === 0) {
+                    success = false;
+                }
+            });
+
+            return success;
         }
     };
 });
