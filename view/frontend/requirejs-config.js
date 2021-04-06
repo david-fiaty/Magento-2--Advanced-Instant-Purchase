@@ -14,8 +14,7 @@
 
  var config = {
         paths: {
-            slick: 'Naxero_BuyNow/js/lib/slick/slick',
-            popover: 'Naxero_BuyNow/js/lib/popover/popover'
+            slick: 'Naxero_BuyNow/js/lib/slick/slick'
         },
         urlArgs: "bust=" + (new Date()).getTime()
     };

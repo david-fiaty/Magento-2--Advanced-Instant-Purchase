@@ -8,14 +8,9 @@
 - add currency display to shipping methods list in popup
 - improve/cleanup payment request parameters structure
 
-- category and product field display to calendar system.xml config  
-
 QA
 - make sure payment tokens are filtered by store
 - check multistore behaviour
-- fix/improve lightbox gallery images display
-- recheck all zoom modes
-- Test time limit to string in admin with french and other langs
 - Update external js libs before release
 
 NOT SUPPORTED
@@ -47,7 +42,6 @@ FEATURES
 - quantity in product list? countdown in product list? countown in product detail?
 - add accordion to widget config?
 - add advanced config with placeholders for all CSS selectors used in js components
-- add countown display to clock icon with popover
 - configuration manager with list and detail view to create configs and apply them globally to layouts and urls
 - add T&C handling
 - add new address handling on confirmation screen
