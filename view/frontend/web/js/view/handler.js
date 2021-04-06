@@ -164,7 +164,7 @@ define([
             $(this.buttonSelector).off('click touch').on('click touch', function (e) {
                 if (e.target.nodeName == 'BUTTON') {
                     // Redirect to product page if needed
-                    if (NbnView.hasOptions() || NbnView.hasAttributes()) {
+                    if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
                         window.location.href = self.config.product.page_url;
                         return;
                     }
