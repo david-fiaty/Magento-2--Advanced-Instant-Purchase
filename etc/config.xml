@@ -25,23 +25,11 @@
                 <product_list>1</product_list>
             </general>
 
-            <!-- Products settings-->
-            <products>
-                <product_selection_mode>product</product_selection_mode>
-                <category_id></category_id>
-                <product_id></product_id>
-                <product_filter>latest</product_filter>
-                <product_time_from></product_time_from>
-                <product_time_to></product_time_to>
-                <show_product_countdown>1</show_product_countdown>
-            </products>   
-
             <!-- Buttons settings -->
             <buttons>
                 <button_text>Buy Now</button_text>
                 <show_guest_button>1</show_guest_button>
                 <guest_button_text>Buy Now</guest_button_text>
-                <customer_groups></customer_groups>
                 <button_classes>primary button</button_classes>
             </buttons>     
 
@@ -52,19 +40,9 @@
                 <popup_header_text>Please review the options and place your order.</popup_header_text>
                 <popup_footer_text>Submitting this form will process a payment and place an order.</popup_footer_text>
                 <popup_confirm_button_text>Place order</popup_confirm_button_text>
-                <show_product_countdown>1</show_product_countdown>
                 <popup_show_summary>1</popup_show_summary>
                 <popup_show_discount_form>1</popup_show_discount_form>
             </popups>
-
-            <!-- Widgets settings -->
-            <widgets>
-                <widget_show_product_quantity>1</widget_show_product_quantity>
-                <widget_show_product_image>1</widget_show_product_image>
-                <widget_image_width>30%</widget_image_width>
-                <widget_zoom_enabled>1</widget_zoom_enabled>
-                <widget_zoom_type>lens</widget_zoom_type>
-            </widgets>
 
             <!-- Debug settings-->
             <debug>

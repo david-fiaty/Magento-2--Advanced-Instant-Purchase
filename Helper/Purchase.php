@@ -275,33 +275,9 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         $buttonEnabled = $config['general']['enabled'];
         $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
-        $isGroupValid = $this->customerHelper->canDisplayForGroup($config);
-        $isTimeValid = $this->isProductTimeValid($config);
         
-        return $buttonEnabled && $isGroupValid && $isTimeValid
+        return $buttonEnabled
         && ($isLoggedIn || $showGuestButton);
-    }
-
-    /**
-     * Check if a product time limit is valid.
-     */
-    public function isProductTimeValid($config)
-    {
-        // Get the displayb time parameters
-        $productTimeFrom = $config['products']['product_time_from'];
-        $productTimeTo = $config['products']['product_time_to'];
-        $now =  strtotime('now');
-
-        // Update the time limits
-        $productTimeFrom = !empty($productTimeFrom) ? strtotime($productTimeFrom) : $now;
-        $productTimeTo = !empty($productTimeTo) ? strtotime($productTimeTo) : null;
-
-        // Test the contitions
-        $condition1 = $productTimeFrom <= $now;
-        $condition2 = $productTimeTo ? ($productTimeTo  >= $now) : true;
-        $condition3 = $productTimeTo > $now;
-
-        return $condition1 && $condition2 && $condition3;
     }
 
     /**

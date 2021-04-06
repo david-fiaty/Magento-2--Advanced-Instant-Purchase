@@ -43,38 +43,6 @@
                 </field>
             </group>
 
-            <!-- Products settings-->
-            <group id="products" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Products settings</label>
-                <field id="product_selection_mode" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product selection mode</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductSelectionMode</source_model>
-                </field>
-                <field id="category_id" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Category</label>
-                </field>
-                <field id="product_id" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product</label>
-                </field>
-                <field id="product_filter" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Product filter</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ProductFilterSelector</source_model>
-                </field>
-
-                <field id="product_time_from" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Start date</label>
-                </field>
-
-                <field id="product_time_to" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>End date</label>
-                </field>
-
-                <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show countdown timer</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-            </group>
-
             <!-- Button settings -->
             <group id="buttons" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Button settings</label>
@@ -95,12 +63,6 @@
                         <depends>
                             <field id="show_guest_button">1</field>
                         </depends>
-                </field>
-
-                <field id="customer_groups" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Customer group</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\CustomerGroup</source_model>
-                    <comment>Display the button only for the selected customer groups. No cutomer groups selected above is the same as all customer groups selected.</comment>
                 </field>
 
                 <field id="button_classes" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -132,10 +94,6 @@
                 <field id="popup_confirm_button_text" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Place order button text</label>
                 </field>
-                <field id="show_product_countdown" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show countdown timer</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
                 <field id="popup_show_summary" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show order summary</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -143,39 +101,6 @@
                 <field id="popup_show_discount_form" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show discount form</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-            </group>
-
-            <!-- Widgets settings -->
-            <group id="widgets" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Widgets settings</label>
-                <field id="widget_show_product_quantity" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product quantity</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="widget_show_product_image" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show product image</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="widget_image_width" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Image width</label>
-                    <depends>
-                        <field id="widget_show_product_image">1</field>
-                    </depends>
-                </field>
-                <field id="widget_zoom_enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable zoom</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="widget_show_product_image">1</field>
-                    </depends>
-                </field>
-                <field id="widget_zoom_type" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Zoom type</label>
-                    <source_model>Naxero\BuyNow\Model\Config\Backend\Source\ZoomType</source_model>
-                    <depends>
-                        <field id="widget_zoom_enabled">1</field>
-                    </depends>
                 </field>
             </group>
 
