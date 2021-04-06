@@ -13,8 +13,5 @@
  */
 
  var config = {
-        paths: {
-            slick: 'Naxero_BuyNow/js/lib/slick/slick'
-        },
         urlArgs: "bust=" + (new Date()).getTime()
     };
