@@ -66,14 +66,18 @@
         attributesValid: function (product) {
             // Swatch option
             var success = true;
-            var cartForm = $('form[data-product-sku="' + self.config.product.sku + '"]');
-            cartForm.find('input[name$="super_attribute"]').each(function(i, elt) { 
-                console.log(elt.val());
-                if (elt.val().length === 0) {
+            //var cartForm = $('form[data-product-sku="' + product.sku + '"]');
+            var attributeSelector = '.swatch-opt-' + product.id + ' .swatch-option .selected';
+            //var attributes = cartForm.find(attributeSelector);
+
+            $(attributeSelector).each(function(i, elt) { 
+                console.log($(elt).attr('option-id'));
+                if ($(elt).val() === 0) {
                     success = false;
                 }
             });
 
+            return false;
             return success;
         }
     };
