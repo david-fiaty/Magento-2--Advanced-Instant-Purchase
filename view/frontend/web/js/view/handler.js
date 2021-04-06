@@ -25,13 +25,11 @@ define([
     'Naxero_BuyNow/js/view/helpers/login',
     'Naxero_BuyNow/js/view/helpers/tree',
     'Naxero_BuyNow/js/view/helpers/template',
-    'Naxero_BuyNow/js/view/helpers/gallery',
     'Naxero_BuyNow/js/view/helpers/message',
     'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
-    'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage, NbnUtil) {
+], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnMessage, NbnUtil) {
     'use strict';
 
     return Component.extend({
@@ -45,7 +43,6 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
-            galleryUrl: 'product/gallery',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
@@ -79,11 +76,6 @@ define([
 
             // Set the product fields events
             NbnProduct.initFields(this.config.product.id);
-
-            // Widget features
-            if (NbnView.isWidgetView()) {
-                this.handleImageClick();
-            }
 
             // Button click event
             this.handleButtonClick();
@@ -128,40 +120,6 @@ define([
         },
 
         /**
-         * Build a product gallery.
-         */
-        getGalleryData: function (e) {
-            // Prepare variables
-            var self = this;
-            var productId = $(e.currentTarget).data('product-id');
-            var params = {
-                product_id: productId,
-                form_key: $(this.formKeySelectorPrefix + productId).val()
-            };
-
-            // Set the data viewer button event
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: NbnPaths.get(self.galleryUrl),
-                data: params,
-                success: function (data) {
-                    // Get the HTML content
-                    self.addHtml(self.popupContentSelector, data.html);
-
-                    // Build the gallery
-                    NbnGallery.build();
-                },
-                error: function (request, status, error) {
-                    NbnLogger.log(
-                        __('Error retrieving the product gallery data'),
-                        error
-                    );
-                }
-            });
-        },
-
-        /**
          * Build a browsable tree with log data.
          */
         getLoggerData: function (e) {
@@ -191,50 +149,6 @@ define([
                         __('Error retrieving the UI logging data'),
                         error
                     );
-                }
-            });
-        },
-
-        /**
-         * Handle the image click event.
-         */
-        handleImageClick: function () {
-            // Prepare variables
-            var self = this;
-
-            // Selectors
-            var boxId = '#nbn-widget-product-box-' + this.config.product.id;
-            var imageContainer = boxId + ' .nbn-product-box-image';
-            var image = imageContainer + ' img';
-
-            // Zoom parameters
-            var zoomType = this.config.widgets.widget_zoom_type;
-            var isLightbox = this.config.widgets.widget_zoom_type == 'lightbox';
-            var params = {
-                responsive: true,
-                zoomType: zoomType
-            };
-
-            // Image initial state
-            if (!isLightbox) {
-                // Zoom initialisation
-                $(image).elevateZoom(params);
-            } else {
-                // Image state
-                $(imageContainer).css('cursor', 'zoom-in');
-            }
-
-            // Image container click event
-            $(imageContainer).on('click touch', function (e) {
-                if (isLightbox) {
-                    // Image state
-                    $(this).css('cursor', 'zoom-in');
-
-                    // Open the modal
-                    self.getGalleryModal(e);
-
-                    // Get the log data
-                    self.getGalleryData(e);
                 }
             });
         },
@@ -347,31 +261,6 @@ define([
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getLogger({}),
-                buttons: [{
-                    text: __('Close'),
-                    class: self.cancelButtonClasses,
-                    click: function (e) {
-                        $(self.cancelButtonSelector).trigger('click');
-                    }
-                }]
-            });
-        },
-
-        /**
-         * Get the product media gallery modal.
-         */
-        getGalleryModal: function (e) {
-            // Prepare parameters
-            var self = this;
-            var productId = $(e.currentTarget).data('product-id');
-            var title = window.naxero.nbn.instances[productId].product.title;
-
-            // Build the modal
-            ConfirmModal({
-                title: title,
-                innerScroll: true,
-                modalClass: 'nbn-modal',
-                content: NbnTemplate.getGallery({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,

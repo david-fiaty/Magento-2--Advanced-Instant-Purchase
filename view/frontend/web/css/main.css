@@ -221,40 +221,6 @@
     max-width: 17em;
 }
 
-/* Countdown box */
-.nbn-product-box-countdown {
-    margin-bottom: 1.5em;
-}
-
-.nbn-countown-box {
-    font-family: sans-serif;
-    color: #999999;
-    display: inline-block;
-    display: none;
-}
-
-.nbn-countown-box .nbn-countdown-digit-box {
-    padding: 0.7em;
-    border-radius: 3px;
-    background: white;
-    display: inline-block;
-    border: solid 1px #f1f1f1;
-}
-
-.nbn-countown-box div > span {
-    padding: 0.5em;
-    border-radius: 3px;
-    background: #f1f1f1;
-    display: inline-block;
-    font-size: 1.2em;
-    color: #333333;
-}
-
-.nbn-countown-box .nbn-smalltext {
-    padding-top: 0.7em;
-    font-size: 0.8em;
-}
-
 /* Spinner icon */
 .nbn-ajax-loader-container {
     width: 100%;

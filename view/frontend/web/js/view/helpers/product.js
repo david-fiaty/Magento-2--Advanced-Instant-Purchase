@@ -62,8 +62,8 @@
             var hasAttributes = attributes && attributes.length > 0;
             var hasOptions = options && options.length > 0;
 
-            // Widget product fields validation
-            if (NbnView.isWidgetView() && (hasAttributes || hasOptions)) {
+            // Product fields validation
+            if (hasAttributes || hasOptions) {
                 $(productFormSelector).validation();
                 return $(productFormSelector).validation('isValid');
             }
@@ -97,7 +97,6 @@
          */
         getProductFormSelector: function (productId) {
             if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
-            else if (NbnView.isWidgetView()) return  '#nbn-widget-form-' + productId;
             else return  '#product_addtocart_form';
         },
 

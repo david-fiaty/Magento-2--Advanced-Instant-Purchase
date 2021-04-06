@@ -140,7 +140,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
-                'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
                 'attributes' => $this->getAttributes($productId),
                 'options' => $this->getOptions($productId)
@@ -368,44 +367,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current product image url.
-     */
-    public function getProductImages($productId)
-    {
-        // Get the product
-        $product = $this->getProduct($productId);
-
-        // Add the main image data
-        $output = [
-            'small' => $this->imageHelper->init($product, 'product_page_image_small')->getUrl(),
-            'medium' => $this->imageHelper->init($product, 'product_page_image_medium')->getUrl(),
-            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl(),
-            'gallery' => []
-        ];
-
-        // Add the media gallery images data
-        $galleryImages = $product->getMediaGalleryImages();
-        if ($galleryImages && !empty($galleryImages)) {
-            foreach ($galleryImages as $galleryImage) {
-                $output['gallery'][] = $galleryImage->getData();
-            }
-
-            // Sort by position field
-            usort($output['gallery'], function ($a, $b) {
-                $val1 = (int) $a['position'];
-                $val2 = (int) $b['position'];
-
-                if ($val1 == $val2) {
-                    return 0;
-                }
-                return $val1 < $val2 ? -1 : 1;
-            });
-        }
-
-        return $output;
-    }
-
-    /**
      * Check if a product exists.
      */
     public function isProduct($productId)
@@ -413,19 +374,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $product = $this->getProduct($productId);
 
         return $product && (int) $product->getId() > 0;
-    }
-
-    /**
-     * Render a product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('product_quantity', $productQuantity)
-        ->setData('config', $config)
-        ->toHtml();
     }
 
     /**
@@ -439,42 +387,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
-    }
-
-    /**
-     * Render a product countdown HTML.
-     */
-    public function getCountdownHtml($config, $layout = null)
-    {
-        $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
-        return $layout
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a product attributes.
-     */
-    public function getAttributesHtml($config)
-    {
-        return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Attributes')
-        ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml')
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a product options.
-     */
-    public function getOptionsHtml($config, $layout = null)
-    {
-        $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
-        return $layout
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
-        ->getOptionsHtml($config['product']['id']);
     }
 
     /**

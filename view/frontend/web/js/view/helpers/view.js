@@ -27,17 +27,10 @@ define([
         },
 
         /**
-         * Check if the current product is in block view.
-         */
-        isWidgetView: function () {
-            return window.naxero.nbn.current.product.display == 'widget';
-        },
-
-        /**
          * Check if the current product is in page view.
          */
         isPageView: function () {
-            return !this.isWidgetView() && !this.isListView();
+            return !this.isListView();
         },
 
         /**
