@@ -38,6 +38,13 @@ define([
          */
         hasOptions: function () {
             return window.naxero.nbn.current.product.has_options;
+        },
+
+        /**
+         * Check if the current product has attributes.
+         */
+        hasAttributes: function () {
+            return window.naxero.nbn.current.product.has_attributes;
         }
     };
 

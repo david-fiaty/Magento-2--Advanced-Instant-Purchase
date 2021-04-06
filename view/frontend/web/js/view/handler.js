@@ -169,13 +169,9 @@ define([
                         return;
                     }
 
-                    // Validate the product options if needed
-                    var productId = $(e.currentTarget).data('product-id');
-                    if (!NbnProduct.validateFields(productId)) {
-                        // Display the errors
-                        NbnProduct.clearErrors(e);
-                        NbnProduct.displayErrors(e);
-                        return;
+                    // Redirect to product page if needed
+                    if (NbnView.hasOptions() || NbnView.hasAttributes()) {
+                        window.location.href = self.config.product.page_url;
                     }
 
                     // Page view and/or all conditions valid
