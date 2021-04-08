@@ -97,7 +97,7 @@
             // Update the button state
             $(target).popover({
                 title : '',
-                content : __('Please check the invalid fields'),
+                content : __('Options required'),
                 autoPlace : false,
                 trigger : 'hover',
                 placement : 'right',

@@ -162,19 +162,18 @@ define([
 
             // Button click event
             $(this.buttonSelector).off('click touch').on('click touch', function (e) {
-                if (e.target.nodeName == 'BUTTON') {                    
+                if (e.target.nodeName == 'BUTTON') { 
+                    // Force Login
+                    if (!NbnLogin.isLoggedIn()) {
+                        NbnLogin.loginPopup();
+                        return;
+                    }
+                                       
                     // Validate attributes in list view
                     if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
                         if (!NbnProduct.attributesValid(e.target)) {
                             return;
                         }
-                        //window.location.href = self.config.product.page_url;
-                    }
-                    
-                    // Force Login
-                    if (!NbnLogin.isLoggedIn()) {
-                        NbnLogin.loginPopup();
-                        return;
                     }
 
                     // Page view and/or all conditions valid
