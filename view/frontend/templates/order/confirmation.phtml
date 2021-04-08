@@ -23,9 +23,6 @@
 
     $productQantity = $block->getData('product_quantity');
     $productId = $data['config']['product']['id'];
-
-    // Display parameters
-    $showSummary = $data['config']['popups']['popup_show_summary'];
 ?>
 
 <!-- Form-->
@@ -35,13 +32,6 @@
     method="POST"
     class="nbn-order-form"
 >
-    <!-- Order summary -->
-    <?php if ($showSummary): ?>
-        <div class="nbn-product-summary-container">
-            <?= $block->getSummaryBoxHtml($data, $productQantity, $params) ?>
-        </div>
-    <?php endif; ?>
-
     <!-- Header text -->
     <p><?= $block->escapeHtml($data['popup']['header_text'])?></p>
 
@@ -65,8 +55,8 @@
                         <?php foreach ($data['shippingRates'] as $item): ?>
                             <option value="<?= json_encode($item) ?>">
                                 <?= $block->escapeHtml($item['carrier_title']) ?>&nbsp;
-                                <?= $block->escapeHtml($item['carrier_price']) ?>
-                            </option>
+                                <?= $block->toolsHelper->renderAmount($item['carrier_price'], true, false) ?>
+                            </option>       
                         <?php endforeach; ?>
                     </select>
                     <input
@@ -188,77 +178,3 @@
 
 <!-- Footer text -->
 <p><?= $block->escapeHtml($data['popup']['footer_text']) ?></p>
-
-<script>
-require([
-    'jquery',
-    'mage/translate',
-    'Naxero_BuyNow/js/view/helpers/paths',
-    'Naxero_BuyNow/js/view/helpers/util',
-    'domReady!'
-], function($, __, NbnPaths, NbnUtil) {
-    'use strict';
-
-    var productId = <?= $productId ?>;
-    var productQantity = <?= $productQantity ?>;
-
-    // Shipping method change event
-    $('#nbn-shipping-method-id').on('change', function(e) {
-        // Prepare the parameters
-        var shippingData = JSON.parse($(e.currentTarget).val());
-        var params = {
-            product_id: productId,
-            product_quantity: productQantity,
-            carrier_code: shippingData['carrier_code'],
-            coupon_code: $('#nbn-coupon-code').val(),
-            form_key: $(this.formKeySelectorPrefix + productId).val()
-        };
-
-        // Update the totals
-        updateTotals(params);
-    });
-
-    // Discount code submit event
-    $('.nbn-coupon-box button').on('click touch', function(e) {
-        // Prepare the parameters
-        var shippingData = JSON.parse($('#nbn-shipping-method-id').val());
-        var params = {
-            product_id: productId,
-            product_quantity: productQantity,
-            carrier_code: shippingData['carrier_code'],
-            coupon_code: $('#nbn-coupon-code').val(),
-            form_key: $(this.formKeySelectorPrefix + productId).val()
-        };
-
-        // Update the totals
-        updateTotals(params);
-    });
-
-    function updateTotals(params) {
-       // Send the update request
-       $.ajax({
-            type: 'POST',
-            url: NbnPaths.get('order/total'),
-            data: params,
-            success: function (res) {
-                // Base total display
-                $('.nbn-summary-shipping').html(res.data.shipping.rendered);
-                $('.nbn-summary-total').html(res.data.total.rendered);
-
-                // Discount display
-                if (NbnUtil.has(res, 'data.discount.id') && parseInt(res.data.discount.id) > 0) {
-                    $('#nbn-discount-row').show();
-                    $('.nbn-discounted-amount').html('-' + res.data.discount.rendered);
-                    $('#nbn-coupon-code').prop('disabled', true);
-                }
-            },
-            error: function (request, status, error) {
-                console.log(
-                    __('Error retrieving the updated shipping data'),
-                    error
-                );
-            }
-        });
-    }
-});
-</script>

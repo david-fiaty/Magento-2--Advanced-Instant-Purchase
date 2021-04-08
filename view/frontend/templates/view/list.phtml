@@ -31,10 +31,7 @@ if ($config):
     $buttonText = $block->blockHelper->getButtonText();
 
     // Display
-    $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
-
-    // Product countdown
-    $showProductCountdown = $block->purchaseHelper->isProductTimeValid($config);
+    $boxId = 'nbn-product-box-' . $config['product']['id'];
 ?>
 
 <!-- Product box -->
@@ -46,24 +43,7 @@ if ($config):
         <form id="nbn-list-form-<?= $config['product']['id'] ?>" name="nbn-list-form-<?= $config['product']['id'] ?>" method="POST" class="nbn-list-form">
             <!-- Base button -->
             <?= $block->productHelper->getButtonHtml($config, $block->getLayout()) ?>
-
-            <!-- Other base fields -->
             <input type="hidden" name="product" value="<?= $config['product']['id'] ?>">
-            <input type="hidden" name="selected_configurable_option" value="">
-            <input type="hidden" name="related_product" value="">
-            <input type="hidden" name="item" value="<?= $config['product']['id'] ?>">
-
-            <!-- Product attributes hidden fields-->
-            <?php if (!empty($config['product']['attributes'])): ?>
-                <?php foreach ($config['product']['attributes'] as $attribute): ?>
-                    <input
-                        type="hidden"
-                        id="nbn-super-attribute-<?= $block->escapeHtmlAttr($config['product']['id']) ?>-<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>"
-                        name="super_attribute[<?= $block->escapeHtmlAttr($attribute['attribute_id']) ?>]"
-                        value="" 
-                    >
-                <?php endforeach; ?>
-            <?php endif; ?>
         </form>
     </div>
     <div class="nbn-clr"></div> 

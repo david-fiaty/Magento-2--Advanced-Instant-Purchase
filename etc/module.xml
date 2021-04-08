@@ -19,7 +19,6 @@
     <module name="Naxero_BuyNow" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Customer" />
-            <module name="Magento_Widget" />
         </sequence>
     </module>
 </config>
