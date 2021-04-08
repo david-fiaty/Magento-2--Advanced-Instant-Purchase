@@ -68,9 +68,12 @@
             var success = true;
             var productId = $(target).data('product-id');
             $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
-                var selectedValue = parseInt($(elt).attr('option-selected'));
-                if (isNaN(selectedValue)) {
-                    success = false;
+                var isRequired = $(elt).find('.swatch-attribute-options').attr('aria-required');
+                if (isRequired === 'true') {
+                    var selectedValue = parseInt($(elt).attr('option-selected'));
+                    if (isNaN(selectedValue)) {
+                        success = false;
+                    }
                 }
             });
 
