@@ -58,6 +58,26 @@
             var orderData = $('#nbn-order-form-' + productId).serialize();
 
             return productData + '&' + orderData;
+        },
+
+        /**
+         * Validate product list attributes.
+         */
+        attributesValid: function (target) {
+            // Swatch option
+            var success = true;
+            var productId = $(target).data('product-id');
+            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
+                var isRequired = $(elt).find('.swatch-attribute-options').attr('aria-required');
+                if (isRequired === 'true') {
+                    var selectedValue = parseInt($(elt).attr('option-selected'));
+                    if (isNaN(selectedValue)) {
+                        success = false;
+                    }
+                }
+            });
+
+            return success;
         }
     };
 });
