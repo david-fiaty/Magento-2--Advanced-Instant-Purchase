@@ -229,11 +229,6 @@ class PlaceOrderService
         // Send the request
         $response = $this->sendRequest('carts/mine/payment-information', $payload);
 
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info(var_dump($response));
-
         // Check the order
         if ((int) $response > 0) {
             return $this->orderRepository->get($response);
