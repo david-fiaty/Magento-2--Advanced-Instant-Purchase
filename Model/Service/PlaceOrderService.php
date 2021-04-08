@@ -228,18 +228,26 @@ class PlaceOrderService
 
         // Send the request
         $response = $this->sendRequest('carts/mine/payment-information', $payload);
+        $orderId = (int) $response;
 
         // Check the order
-        if ((int) $response > 0) {
-            return $this->orderRepository->get($response);
-        } else if ($response && isset($response['message'])) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                $response['message']
-            );
-        }
+        if ($orderId  > 0) {
+            return $this->orderRepository->get($orderId);
+        } 
         else {
+            try {
+                $response = json_decode($response);
+                if (isset($response['message'])) {
+                    $response = $response['message'];
+                }
+            }
+            catch (\Exception $e) {
+                $response = $e->getMessage();
+            }
+
+            // Error message handling
             throw new \Magento\Framework\Exception\LocalizedException(
-                __('The order could not be placed. Please contact the store owner.')
+                __($response)
             );
         }
 
