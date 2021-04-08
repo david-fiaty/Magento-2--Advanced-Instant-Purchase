@@ -63,21 +63,17 @@
         /**
          * Validate product list attributes.
          */
-        attributesValid: function (product) {
+        attributesValid: function (target) {
             // Swatch option
             var success = true;
-            //var cartForm = $('form[data-product-sku="' + product.sku + '"]');
-            var attributeSelector = '.swatch-opt-' + product.id + ' .swatch-option .selected';
-            //var attributes = cartForm.find(attributeSelector);
-
-            $(attributeSelector).each(function(i, elt) { 
-                console.log($(elt).attr('option-id'));
-                if ($(elt).val() === 0) {
+            var productId = $(target).data('product-id');
+            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
+                var selectedValue = parseInt($(elt).attr('option-selected'));
+                if (isNaN(selectedValue)) {
                     success = false;
                 }
             });
 
-            return false;
             return success;
         }
     };

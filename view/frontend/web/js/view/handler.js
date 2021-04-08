@@ -165,7 +165,7 @@ define([
                 if (e.target.nodeName == 'BUTTON') {                    
                     // Validate attributes in list view
                     if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
-                        if (!NbnProduct.attributesValid(self.config.product)) {
+                        if (!NbnProduct.attributesValid(e.target)) {
                             return;
                         }
                         //window.location.href = self.config.product.page_url;
