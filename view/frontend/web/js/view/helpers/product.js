@@ -19,11 +19,13 @@
     'Naxero_BuyNow/js/view/helpers/view',
     'mage/validation',
     'mage/cookies',
+    'popover',
     'domReady!'
 ], function ($, __, NbnLogger, NbnView) {
     'use strict';
 
     return {
+        popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
 
         /**
@@ -77,7 +79,40 @@
                 }
             });
 
+            // Error display
+            if (!success) {
+                this.displayErrors(target);
+            }
+
             return success;
+        },
+
+        /**
+         * Display the product options errors.
+         */
+         displayErrors: function (target) {
+            // Clear previous errors
+            this.clearErrors(target);
+
+            // Update the button state
+            $(target).popover({
+                title : '',
+                content : __('Please check the invalid fields'),
+                autoPlace : false,
+                trigger : 'hover',
+                placement : 'right',
+                delay : 10
+            })
+            .addClass(this.buttonErrorClass)
+            .trigger('mouseover');
+        },
+
+        /**
+         * Clear UI error messages.
+         */
+         clearErrors: function (target) {
+            $(target).removeClass(this.buttonErrorClass);
+            $(this.popoverSelector).remove();
         }
     };
 });
