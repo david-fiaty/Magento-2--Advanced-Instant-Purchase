@@ -80,15 +80,17 @@ class Request extends \Magento\Framework\App\Action\Action
         if ($params) {
             try {
                 $order = $this->placeOrderService->placeOrder($params);
+                if ($order) {
+                    $message = __('Your order number is: %1.', $order->getIncrementId());
+                }
+                else {
+                    $message = __('The payment could not be processed.');
+                }
             } 
             catch (\Exception $e) {
                 return $this->createResponse($e->getMessage(), false);
             }
 
-            $message = __('Your order number is: %1.', $order->getIncrementId());
-        }
-        else {
-            $message = __('No product found for the payment request');
         }
 
         return $this->createResponse($message, true);

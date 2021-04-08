@@ -233,6 +233,8 @@ class PlaceOrderService
         if ($orderId > 0) {
             return $this->orderRepository->get($orderId);
         }
+
+        return null;
     }
 
     /**
