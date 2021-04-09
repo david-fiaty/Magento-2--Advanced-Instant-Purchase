@@ -88,7 +88,7 @@ class Request extends \Magento\Framework\App\Action\Action
                 }
             } 
             catch (\Exception $e) {
-                return $this->createResponse($e->getMessage(), false);
+                $message = $e->getMessage();
             }
 
         }

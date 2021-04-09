@@ -68,9 +68,9 @@ class PlaceOrderService
     public $customerHelper;
 
     /**
-     * @var array
+     * @var ApiHandlerService
      */
-    public $headers;
+    public $apiHandlerService;
 
     /**
      * @var array
@@ -85,15 +85,17 @@ class PlaceOrderService
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \Magento\Framework\HTTP\Client\Curl $curl,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
-        \Magento\Framework\HTTP\Client\Curl $curl
+        \Naxero\BuyNow\Model\Service\ApiHandlerService $apiHandlerService
     ) {
         $this->customerSession = $customerSession;
         $this->storeManager = $storeManager;
         $this->productRepository = $productRepository;
         $this->orderRepository = $orderRepository;
-        $this->customerHelper = $customerHelper;
         $this->curl = $curl;
+        $this->customerHelper = $customerHelper;
+        $this->apiHandlerService = $apiHandlerService;
     }
 
     /**
@@ -118,20 +120,11 @@ class PlaceOrderService
         // Request parameters
         $this->data['params'] = $data['nbn']['params'];
 
-        // Set the access token
-        $this->data['access_token'] = $this->customerHelper->getAccessToken(
-            $this->customerSession->getId()
-        );
-
         // Store data
         $this->data['store'] = $this->storeManager->getStore();
 
         // Request headers
-        $this->headers = [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $this->data['access_token']
-        ];
+        $this->data['headers'] = $this->apiHandlerService->getHeaders();
 
         // Product data
         $this->data['product'] = $this->productRepository->getById(
@@ -160,7 +153,8 @@ class PlaceOrderService
     public function createQuote()
     {
         // Send the request
-        $quoteId = (int) $this->sendRequest('carts/mine'); 
+        $url = $this->apiHandlerService->getCreateQuoteUrl();
+        $quoteId = (int) $this->sendRequest($url); 
 
         // Get the response
         $this->data['quote_id'] = (int) $quoteId;
@@ -181,13 +175,15 @@ class PlaceOrderService
         $payload = [
             'cartItem' => [
                 'sku' => $this->data['product']->getSku(),
-                'qty' => 1, // Todo - get qty from request
+                'qty' => $this->data['params']['qty'],
                 'quote_id' => $this->data['quote_id']
             ]
         ];
 
-        // Send the request
-        $response = $this->sendRequest('carts/mine/items', $payload); 
+        // Get the request URL
+        $url = $this->apiHandlerService->getAddProductUrl();
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
+        $response = $this->sendRequest($url, $payload); 
 
         return $this;
     }
@@ -208,7 +204,9 @@ class PlaceOrderService
         ];
 
         // Send the request
-        $response = $this->sendRequest('carts/mine/shipping-information', $payload); 
+        $url = $this->apiHandlerService->getPrepareCheckoutUrl();
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
+        $response = $this->sendRequest($url, $payload); 
 
         return $this;
     }
@@ -227,11 +225,30 @@ class PlaceOrderService
         ];
 
         // Send the request
-        $orderId = (int) $this->sendRequest('carts/mine/payment-information', $payload); 
+        $url = $this->apiHandlerService->getCreateOrderUrl();
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
+        $response = $this->sendRequest($url, $payload);
+        $orderId = (int) $response;
 
         // Check the order
-        if ($orderId > 0) {
+        if ($orderId  > 0) {
             return $this->orderRepository->get($orderId);
+        } 
+        else {
+            try {
+                $response = json_decode($response);
+                if (isset($response['message'])) {
+                    $response = $response['message'];
+                }
+            }
+            catch (\Exception $e) {
+                $response = $e->getMessage();
+            }
+
+            // Error message handling
+            throw new \Magento\Framework\Exception\LocalizedException(
+                __($response)
+            );
         }
 
         return null;
@@ -240,14 +257,11 @@ class PlaceOrderService
     /**
      * Send a request.
      */
-    public function sendRequest($endpoint, $payload = [])
+    public function sendRequest($url, $payload = [])
     {
-        // Prepare parameters
-        $url = $this->getUrl($endpoint);
-        $request = $this->curl;
-
         // Send the request
-        $request->setHeaders($this->headers);
+        $request = $this->curl;
+        $request->setHeaders($this->data['headers']);
         $request->setOption(CURLOPT_RETURNTRANSFER, true);
         $request->setOption(CURLOPT_POSTFIELDS, json_encode($payload));
         $request->post($url, []);
@@ -256,16 +270,6 @@ class PlaceOrderService
         $response = json_decode($request->getBody(), true);
 
         return $response;
-    }
-
-    /**
-     * Get the endpoint URL.
-     */
-    public function getUrl($endpoint)
-    {
-        return $this->data['store']->getBaseUrl()
-        . 'rest/' . $this->data['store']->getCode() 
-        . '/' . 'V1/' . $endpoint;
     }
 
     /**

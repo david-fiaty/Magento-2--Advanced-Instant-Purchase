@@ -1,6 +1,6 @@
 !!!PRIORITY!!!
-- see how to validate list swatch attributes before popup => currently redirects to product page
-- fix order total calculation in confirmation with js error when changing shipping option
+- separate guest/registered order placement
+- handle order payment status validation after payment request
 - improve/cleanup payment request parameters structure
 
 QA
