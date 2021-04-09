@@ -175,14 +175,14 @@ class PlaceOrderService
         $payload = [
             'cartItem' => [
                 'sku' => $this->data['product']->getSku(),
-                'qty' => 1, // Todo - get qty from request
+                'qty' => $this->data['params']['qty'],
                 'quote_id' => $this->data['quote_id']
             ]
         ];
 
         // Get the request URL
         $url = $this->apiHandlerService->getAddProductUrl();
-        $url = str_replace('<cartId>', $this->data['quote_id']);
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
         $response = $this->sendRequest($url, $payload); 
 
         return $this;
@@ -205,7 +205,7 @@ class PlaceOrderService
 
         // Send the request
         $url = $this->apiHandlerService->getPrepareCheckoutUrl();
-        $url = str_replace('<cartId>', $this->data['quote_id']);
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
         $response = $this->sendRequest($url, $payload); 
 
         return $this;
@@ -226,6 +226,7 @@ class PlaceOrderService
 
         // Send the request
         $url = $this->apiHandlerService->getCreateOrderUrl();
+        $url = str_replace('<cartId>', $this->data['quote_id'], $url);
         $response = $this->sendRequest($url, $payload);
         $orderId = (int) $response;
 
