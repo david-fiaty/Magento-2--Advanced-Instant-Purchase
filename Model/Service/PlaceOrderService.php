@@ -151,12 +151,6 @@ class PlaceOrderService
             $this->data['params']['shipping_address_id']
         );
 
-
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/z.log');
-$logger = new \Zend\Log\Logger();
-$logger->addWriter($writer);
-$logger->info(print_r($this->data, 1));
-
         return $this;
     }
 
