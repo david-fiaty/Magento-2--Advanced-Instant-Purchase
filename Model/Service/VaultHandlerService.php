@@ -128,7 +128,7 @@ class VaultHandlerService
         if ($publicHash) {
             $cardList = $this->getUserCards($customerId);
             foreach ($cardList as $card) {
-                if ($card->getPublicHash() == $publicHash) {
+                if ($card['instance']->getPublicHash() == $publicHash) {
                     return $card;
                 }
             }
@@ -140,12 +140,14 @@ class VaultHandlerService
     /**
      * Get a user's last saved card.
      */
-    public function getLastSavedCard()
+    public function getLastSavedCard($customerId = null)
     {
         // Get the cards list
-        $cardList = $this->getUserCards();
+        $cardList = $this->getUserCards($customerId);
         if (!empty($cardList)) {
             // Sort the array by date
+            // Todo - Fix the latest card sort
+            /*
             usort(
                 $cardList,
                 function ($a, $b) {
@@ -154,6 +156,7 @@ class VaultHandlerService
                     return strtotime($a->getCreatedAt()) - strtotime($b->getCreatedAt());
                 }
             );
+            */
 
             // Return the most recent
             return $cardList[0];
@@ -196,13 +199,13 @@ class VaultHandlerService
     /**
      * Get allowed cards
      */
-    public function getAllowedCards()
+    public function getAllowedCards($customerId = null)
     {
         // Prepare the output
         $output = [];
 
         // Get the user cards list
-        $cardList = $this->getUserCards();
+        $cardList = $this->getUserCards($customerId);
 
         // Filter the user cards list
         if (!empty($cardList)) {
@@ -241,10 +244,10 @@ class VaultHandlerService
         );
     }
 
-    public function preparePaymentToken()
+    public function preparePaymentToken($customerId = null)
     {
         // Get the last saved cards
-        $card = $this->getLastSavedCard();
+        $card = $this->getLastSavedCard($customerId);
 
         // Summary
         $summary = isset($card['instance'])

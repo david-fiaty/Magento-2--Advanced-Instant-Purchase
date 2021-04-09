@@ -31,10 +31,7 @@ if ($config):
     $buttonText = $block->blockHelper->getButtonText();
 
     // Display
-    $boxId = 'nbn-widget-product-box-' . $config['product']['id'];
-
-    // Product countdown
-    $showProductCountdown = $block->purchaseHelper->isProductTimeValid($config);
+    $boxId = 'nbn-product-box-' . $config['product']['id'];
 ?>
 
 <!-- Base button -->
