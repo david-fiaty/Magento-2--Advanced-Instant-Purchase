@@ -101,8 +101,11 @@ class Confirmation extends \Magento\Framework\App\Action\Action
      */
     public function newConfirmationBlock()
     {
+        // Get the request parameters
+        $params = $this->getRequest()->getParams();
+
         // Get the product id from request
-        $productId = (int) $this->getRequest()->getParam('product_id');
+        $productId = (int) $params['product'];
 
         // Confirmation content
         $html = '';
@@ -110,6 +113,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
             $html = $this->pageFactory->create()->getLayout()
                 ->createBlock(Naming::getModulePath() . '\Block\Popup\Confirmation')
                 ->setTemplate(Naming::getModuleName() . '::order/confirmation.phtml')
+                ->setData('params', $params)
                 ->setData('data', $this->purchaseHelper->getConfirmContent($productId))
                 ->setData('product_quantity', $this->getProductQuantity($productId))
                 ->toHtml();
@@ -125,7 +129,7 @@ class Confirmation extends \Magento\Framework\App\Action\Action
     public function getProductQuantity($productId)
     {
         // Get the request parameters
-        $productQuantity = (int) $this->getRequest()->getParam('product_quantity');
+        $productQuantity = (int) $this->getRequest()->getParam('qty');
 
         // Get the quantity limits
         $quantityLimits = $this->productHelper->getQuantityLimits($productId);

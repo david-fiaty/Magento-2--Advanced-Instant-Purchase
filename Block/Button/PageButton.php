@@ -81,11 +81,19 @@ class PageButton extends \Magento\Framework\View\Element\Template
             $this->getProduct()->getId()
         );
 
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
+        
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton($config);
+        // Todo - Fix condition
+        //$condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton($config);
+        $condition = true;
 
         if ($condition) {
             return $this->updateAttributesData($config);

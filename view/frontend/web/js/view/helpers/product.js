@@ -17,87 +17,22 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/attributes',
-    'popover',
     'mage/validation',
     'mage/cookies',
+    'popover',
     'domReady!'
-], function ($, __, NbnLogger, NbnView, NbnProductAttributes, popover) {
+], function ($, __, NbnLogger, NbnView) {
     'use strict';
 
     return {
         popoverSelector: '.popover',
         buttonErrorClass: 'nbn-button-error',
-        
-        /**
-         * Initialise the product fields events
-         */
-        initFields: function (productId) {
-            // Prepare variables
-            var attributes = window.naxero.nbn.instances[productId].product.attributes;
-
-            // Check availability of product fields
-            var hasAttributes = attributes && attributes.length > 0;
-
-            // List product swatch fields events
-            if (NbnView.isListView() && hasAttributes) {
-                for (var i = 0; i < attributes.length; i++) {
-                    if (attributes[i].attribute_type == 'swatch') {
-                        NbnProductAttributes.initFields(attributes[i]);
-                    }
-                }
-            }
-        },
-
-        /**
-         * Run a product fields validation.
-         */
-        validateFields: function (productId) {
-            // Prepare variables
-            var attributes = window.naxero.nbn.instances[productId].product.attributes;
-            var options = window.naxero.nbn.instances[productId].product.options;
-            var productFormSelector = this.getProductFormSelector(productId);
-
-            // Check availability of product fields
-            var hasAttributes = attributes && attributes.length > 0;
-            var hasOptions = options && options.length > 0;
-
-            // Widget product fields validation
-            if (NbnView.isWidgetView() && (hasAttributes || hasOptions)) {
-                $(productFormSelector).validation();
-                return $(productFormSelector).validation('isValid');
-            }
-
-            // List product swatch fields validation
-            if (NbnView.isListView() && hasAttributes) {
-                var errors = 0;
-                for (var i = 0; i < attributes.length; i++) {
-                    if (attributes[i].attribute_type == 'swatch') {
-                        // Build the target hidden field selector
-                        var hiddenField = '#nbn-super-attribute-' + attributes[i].product_id
-                        + '-' + attributes[i].attribute_id;
-
-                        // Check the hidden field value
-                        var val = $(hiddenField).val();
-                        var fieldIsValid = val && val.length > 0 && parseInt(val) > 0;
-                        
-                        // Update the error count
-                        if (!fieldIsValid) errors++;
-                    }
-                }
-
-                return errors == 0;
-            }
-
-            return true;
-        },
 
         /**
          * Get a product form selector.
          */
         getProductFormSelector: function (productId) {
             if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
-            else if (NbnView.isWidgetView()) return  '#nbn-widget-form-' + productId;
             else return  '#product_addtocart_form';
         },
 
@@ -106,15 +41,15 @@
          */
         getProductFormData: function (productId) {
             // Get the buy now data
-            var buyNowData = $(this.getProductFormSelector(productId)).serialize();
+            var data = $(this.getProductFormSelector(productId)).serialize();
 
             // Log the purchase data
             NbnLogger.log(
                 __('Place order form data'),
-                this.getProductForm().serializeArray()
+                $(this.getProductFormSelector(productId)).serializeArray()
             );
 
-            return buyNowData;
+            return data;
         },
 
         /**
@@ -128,34 +63,55 @@
         },
 
         /**
+         * Validate product list attributes.
+         */
+        attributesValid: function (target) {
+            // Swatch option
+            var success = true;
+            var productId = $(target).data('product-id');
+            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
+                var isRequired = $(elt).find('.swatch-attribute-options').attr('aria-required');
+                if (isRequired === 'true') {
+                    var selectedValue = parseInt($(elt).attr('option-selected'));
+                    if (isNaN(selectedValue)) {
+                        success = false;
+                    }
+                }
+            });
+
+            // Error display
+            if (!success) {
+                this.displayErrors(target);
+            }
+
+            return success;
+        },
+
+        /**
          * Display the product options errors.
          */
-        displayErrors: function (e) {
-            // Prepare variables
-            var self = this;
-            var button = $(e.currentTarget);
-
+         displayErrors: function (target) {
             // Clear previous errors
-            self.clearErrors(e);
+            this.clearErrors(target);
 
             // Update the button state
-            button.popover({
+            $(target).popover({
                 title : '',
-                content : __('Please check the invalid fields'),
+                content : __('Options required'),
                 autoPlace : false,
                 trigger : 'hover',
                 placement : 'right',
                 delay : 10
-            });
-            button.addClass(this.buttonErrorClass);
-            button.trigger('mouseover');
+            })
+            .addClass(this.buttonErrorClass)
+            .trigger('mouseover');
         },
 
         /**
          * Clear UI error messages.
          */
-        clearErrors: function (e) {
-            $(e.currentTarget).removeClass(this.buttonErrorClass);
+         clearErrors: function (target) {
+            $(target).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

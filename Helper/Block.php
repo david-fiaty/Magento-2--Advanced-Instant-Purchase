@@ -24,6 +24,11 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Context
+     */
+    public $httpContext;
+
+    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -52,12 +57,14 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Block helper class constructor.
      */
     public function __construct(
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
+    	$this->httpContext = $httpContext;
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
@@ -80,6 +87,13 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         return $isLoggedIn
         ? $config['buttons']['button_text']
         : $config['buttons']['guest_button_text'];
+    }
+
+    /**
+     * Get the block customer data.
+     */
+    public function getCustomerData() {
+        return $this->httpContext->getValue('customer_data');
     }
 
     /**

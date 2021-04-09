@@ -27,17 +27,10 @@ define([
         },
 
         /**
-         * Check if the current product is in block view.
-         */
-        isWidgetView: function () {
-            return window.naxero.nbn.current.product.display == 'widget';
-        },
-
-        /**
          * Check if the current product is in page view.
          */
         isPageView: function () {
-            return !this.isWidgetView() && !this.isListView();
+            return !this.isListView();
         },
 
         /**
@@ -45,6 +38,13 @@ define([
          */
         hasOptions: function () {
             return window.naxero.nbn.current.product.has_options;
+        },
+
+        /**
+         * Check if the current product has attributes.
+         */
+        hasAttributes: function () {
+            return window.naxero.nbn.current.product.has_attributes;
         }
     };
 

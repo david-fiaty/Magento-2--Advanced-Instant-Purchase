@@ -21,7 +21,7 @@
             <block name="product.info.addtocart.instantPurchase" class="Naxero\BuyNow\Block\Button\PageButton" template="Naxero_BuyNow::view/page.phtml" before="-" />
         </referenceBlock>
         <referenceBlock name="product.info.addtocart.additional">
-            <block name="product.info.addtocart.instantPurchase.additional" cacheable="false" class="Naxero\BuyNow\Block\Button\PageButton" template="Naxero_BuyNow::view/page.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase.additional" class="Naxero\BuyNow\Block\Button\PageButton" template="Naxero_BuyNow::view/page.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

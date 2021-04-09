@@ -135,11 +135,11 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
                 'has_parents' => $this->hasParents($product),
                 'in_stock' => $this->isInStock($productId),
                 'quantity_limits' => $this->getQuantityLimits($productId),
+                'has_attributes' => (bool) $this->hasAttributes($productId),
                 'has_options' => (bool) $this->hasOptions($productId),
                 'button_id' => $this->getButtonId($productId),
                 'button_container_selector' => '#nbn-' . $productId,
                 'button_selector' => '#' . $this->getButtonId($productId),
-                'images' => $this->getProductImages($productId),
                 'page_url' => $product->getProductUrl(),
                 'attributes' => $this->getAttributes($productId),
                 'options' => $this->getOptions($productId)
@@ -174,6 +174,19 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if a product has attributes.
+     */
+    public function hasAttributes($productId)
+    {
+        // Get the attributes array
+        $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
+            $this->getProduct($productId)
+        );
+
+        return !empty($attributesArray);
+    }
+
+    /**
      * Check if a product has parent products.
      */
     public function hasParents($product)
@@ -186,24 +199,24 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getAttributes($productId)
     {
-        // Get the options array
+        // Get the attributes array
         $attributesArray = $this->productTypeConfigurable->getConfigurableAttributesAsArray(
             $this->getProduct($productId)
         );
 
-        // Add extra fields to each option
+        // Add extra fields to each attribute
         $output = [];
         foreach ($attributesArray as $key => $option) {
             // Product id
             $option['product_id'] = $productId;
 
-            // Option id
+            // Attribute id
             $option['attribute_id'] = $key;
 
             // Attribute type info
             $option = $this->attributeHelper->addAttributeData($option);
 
-            // Add the full option data
+            // Add the full attribute data
             $output[] = $option;
         }
 
@@ -220,12 +233,31 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $options = $product->getOptions();
 
         if (!empty($options)) {
-            foreach ($options as $key => $option) {
-                $output[] = $option->getData();
+            foreach ($options as $option) {
+                $output[] = array_merge(
+                    $option->getData(),
+                    ['values' => $this->getOptionValuesData($option)]
+                );
             }
         }
 
         return  $output;
+    }
+
+    /**
+     * Get a product option values data.
+     */
+    public function getOptionValuesData($option)
+    {
+        $output = [];
+        foreach ($option->getValues() as $value) {
+            $output[] = array_merge(
+                $value->getData(),
+                ['value_id' => $value->getId()]
+            );
+        }
+
+        return $output;
     }
 
     /**
@@ -274,17 +306,18 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get a product collection.
      */
-    public function getProducts($categoryId = null)
+    public function getProducts($categoryId = 0)
     {
-        // Todo - Add the category filter to collection
+        // Get the product collection
         $items = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->setStore($this->storeManager->getStore());
-        $collection->addAttributeToFilter('status', Status::STATUS_ENABLED);
-        if ($categoryId && (int) $categoryId > 0) {
+
+        if ((int) $categoryId > 0) {
             $collection->addCategoriesFilter(['in' => [$categoryId]]);
         }
+
+        // Prepare the product data
         foreach ($collection as $item) {
             $items[] = [
                 'value' => $item->getId(),
@@ -334,44 +367,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Get the current product image url.
-     */
-    public function getProductImages($productId)
-    {
-        // Get the product
-        $product = $this->getProduct($productId);
-
-        // Add the main image data
-        $output = [
-            'small' => $this->imageHelper->init($product, 'product_page_image_small')->getUrl(),
-            'medium' => $this->imageHelper->init($product, 'product_page_image_medium')->getUrl(),
-            'large' => $this->imageHelper->init($product, 'product_page_image_large')->getUrl(),
-            'gallery' => []
-        ];
-
-        // Add the media gallery images data
-        $galleryImages = $product->getMediaGalleryImages();
-        if ($galleryImages && !empty($galleryImages)) {
-            foreach ($galleryImages as $galleryImage) {
-                $output['gallery'][] = $galleryImage->getData();
-            }
-
-            // Sort by position field
-            usort($output['gallery'], function ($a, $b) {
-                $val1 = (int) $a['position'];
-                $val2 = (int) $b['position'];
-
-                if ($val1 == $val2) {
-                    return 0;
-                }
-                return $val1 < $val2 ? -1 : 1;
-            });
-        }
-
-        return $output;
-    }
-
-    /**
      * Check if a product exists.
      */
     public function isProduct($productId)
@@ -379,19 +374,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         $product = $this->getProduct($productId);
 
         return $product && (int) $product->getId() > 0;
-    }
-
-    /**
-     * Render a product quantity box.
-     */
-    public function getQuantityBoxHtml($config, $productQuantity)
-    {
-        return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Quantity')
-        ->setTemplate(Naming::getModuleName() . '::product/quantity.phtml')
-        ->setData('product_quantity', $productQuantity)
-        ->setData('config', $config)
-        ->toHtml();
     }
 
     /**
@@ -405,42 +387,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
-    }
-
-    /**
-     * Render a product countdown HTML.
-     */
-    public function getCountdownHtml($config, $layout = null)
-    {
-        $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
-        return $layout
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a product attributes.
-     */
-    public function getAttributesHtml($config)
-    {
-        return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Attributes')
-        ->setTemplate(Naming::getModuleName() . '::product/attributes.phtml')
-        ->setData('config', $config)
-        ->toHtml();
-    }
-
-    /**
-     * Render a product options.
-     */
-    public function getOptionsHtml($config, $layout = null)
-    {
-        $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
-        return $layout
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Options')
-        ->getOptionsHtml($config['product']['id']);
     }
 
     /**
