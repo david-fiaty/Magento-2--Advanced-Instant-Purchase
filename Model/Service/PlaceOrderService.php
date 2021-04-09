@@ -256,13 +256,10 @@ class PlaceOrderService
     /**
      * Send a request.
      */
-    public function sendRequest($endpoint, $payload = [])
+    public function sendRequest($url, $payload = [])
     {
-        // Prepare parameters
-        $url = $this->getUrl($endpoint);
-        $request = $this->curl;
-
         // Send the request
+        $request = $this->curl;
         $request->setHeaders($this->data['headers']);
         $request->setOption(CURLOPT_RETURNTRANSFER, true);
         $request->setOption(CURLOPT_POSTFIELDS, json_encode($payload));
