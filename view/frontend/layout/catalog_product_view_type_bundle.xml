@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 /**
  * Naxero.com
@@ -17,7 +18,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="product.info.addtocart.bundle">
-            <block name="product.info.addtocart.instantPurchase" cacheable="false" class="Naxero\BuyNow\Block\Button\PageButton" template="Naxero_BuyNow::button/base.phtml" before="-" />
+            <block name="product.info.addtocart.instantPurchase" class="Naxero\BuyNow\Block\Button\PageButton" template="Naxero_BuyNow::view/page.phtml" before="-" />
         </referenceBlock>
     </body>
 </page>

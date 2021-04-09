@@ -22,29 +22,24 @@ namespace Naxero\BuyNow\Helper;
 class Customer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var AuthorizationLink
+     * @var AddressFactory
      */
-    public $authLink;
-
-    /**
-     * @var Address
-     */
-    public $addressModel;
-
-    /**
-     * @var Resolver
-     */
-    public $localeResolver;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
+    public $addressFactory;
 
     /**
      * @var CustomerFactory
      */
     public $customerFactory;
+
+    /**
+     * @var AuthorizationLink
+     */
+    public $authLink;
+
+    /**
+     * @var Resolver
+     */
+    public $localeResolver;
 
     /**
      * @var Session
@@ -57,68 +52,72 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public $customerGroupCollection;
 
     /**
-     * @var Config
+     * @var TokenFactory
      */
-    public $configHelper;
+    public $tokenModelFactory;
 
     /**
      * Class Customer helper constructor.
      */
     public function __construct(
-        \Magento\Customer\Block\Account\AuthorizationLink $authLink,
-        \Magento\Customer\Model\Address $addressModel,
-        \Magento\Framework\Locale\Resolver $localeResolver,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
         \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Customer\Block\Account\AuthorizationLink $authLink,
+        \Magento\Framework\Locale\Resolver $localeResolver,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Model\ResourceModel\Group\Collection $customerGroupCollection,
-        \Naxero\BuyNow\Helper\Config $configHelper
+        \Magento\Integration\Model\Oauth\TokenFactory $tokenModelFactory
     ) {
-        $this->authLink = $authLink;
-        $this->addressModel = $addressModel;
-        $this->localeResolver = $localeResolver;
-        $this->storeManager = $storeManager;
+        $this->addressFactory = $addressFactory;
         $this->customerFactory = $customerFactory;
+        $this->authLink = $authLink;
+        $this->localeResolver = $localeResolver;
         $this->customerSession = $customerSession;
         $this->customerGroupCollection = $customerGroupCollection;
-        $this->configHelper = $configHelper;
+        $this->tokenModelFactory = $tokenModelFactory;
     }
 
     /**
-     * Get a customer.
+     * Get a customer by id.
      */
-    public function getCustomer()
+    public function getCustomer($customerId = null)
     {
-        return $this->customerSession->getCustomer();
+        $customerId = $customerId ? $customerId : $this->customerSession->getCustomer()->getId();
+
+        if ((int) $customerId > 0) {
+            return $this->customerFactory->create()->load($customerId);
+        }
+
+        return null;
     }
 
     /**
      * Get a billing address.
      */
-    public function getBillingAddress()
+    public function getBillingAddress($customerId = null)
     {
-        return $this->addressModel->load(
-            $this->getCustomer()->getDefaultBilling()
+        return $this->addressFactory->create()->load(
+            $this->getCustomer($customerId)->getDefaultBilling()
         );
     }
 
     /**
      * Get a shipping address.
      */
-    public function getShippingAddress()
+    public function getShippingAddress($customerId = null)
     {
-        return $this->addressModel->load(
-            $this->getCustomer()->getDefaultShipping()
+        return $this->addressFactory->create()->load(
+            $this->getCustomer($customerId)->getDefaultShipping()
         );
     }
 
     /**
      * Get the customer addresses.
      */
-    public function getAddresses()
+    public function getAddresses($customerId = null)
     {
         $output = [];
-        $addresses = $this->getCustomer()->getAddresses();
+        $addresses = $this->getCustomer($customerId)->getAddresses();
         if (!empty($addresses)) {
             foreach ($addresses as $address) {
                 $addressArray = $address->toArray();
@@ -129,6 +128,20 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         return $output;
+    }
+
+    /**
+     * Load a customer address.
+     */
+    public function loadAddress($addressId)
+    {
+        try {
+            $address =$this->addressFactory->create()->load($addressId);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+        
+        return $address;
     }
 
     /**
@@ -155,7 +168,7 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
         return [
             'user' => [
                 'connected' => $this->isLoggedIn(),
-                'language' => $this->getUserLanguage()
+                'language' => $this->getUserLanguage(),
             ]
         ];
     }
@@ -169,15 +182,14 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if the customer group is valid for button display.
+     * Get the customer access token.
      */
-    public function canDisplayForGroup($config)
+    public function getAccessToken($customerId = null)
     {
-        // Prepare the parameters
-        $cutomerGroupId = $this->customerSession->getCustomer()->getGroupId();
-        $customerGroups = explode(',', $config['buttons']['customer_groups']);
-        $noGroupFound = empty($customerGroups) || (isset($customerGroups[0]) && empty($customerGroups[0]));
+        $token = $this->tokenModelFactory->create()
+        ->createCustomerToken($customerId)
+        ->getToken();
 
-        return $noGroupFound || in_array($cutomerGroupId, $customerGroups);
+        return $token;
     }
 }

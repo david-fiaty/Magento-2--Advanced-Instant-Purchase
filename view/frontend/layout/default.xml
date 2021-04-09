@@ -19,8 +19,6 @@
     <head>
         <css src="Naxero_BuyNow::css/main.css" />
         <css src="Naxero_BuyNow::css/lib/select2/select2.css" />
-        <css src="Naxero_BuyNow::css/lib/slick/slick.css" />
-        <css src="Naxero_BuyNow::css/lib/slick/slick-theme.css" />
         <css src="Naxero_BuyNow::css/lib/popover/popover.css" />
     </head>
 </page>

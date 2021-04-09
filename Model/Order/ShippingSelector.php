@@ -84,7 +84,7 @@ class ShippingSelector
         // Get the shipping rates
         $rates = $this->getShippingRates($customer);
 
-        // Get the shipping and payment methods
+        // Build the shipping method
         if ($rates && is_array($rates) && isset($rates[0]) && !empty($rates[0])) {
             // Get the carrier
             if (isset($rates['carrier_code'])) {
@@ -92,6 +92,35 @@ class ShippingSelector
                 $shippingMethod->setCarrierCode($rates['carrier_code']);
                 $shippingMethod->setMethodTitle($rates['carrier_title']);
                 $shippingMethod->setMethodCode($rates['method_code']);
+                $shippingMethod->setAvailable(
+                    $this->areShippingMethodsAvailable(
+                        $this->customerHelper->getShippingAddress()
+                    )
+                );
+
+                return $shippingMethod;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Load a shipping method.
+     */
+    public function loadShippingMethod($address, $code)
+    {
+        $address->setCollectShippingRates(true);
+        $address->collectShippingRates();
+        $shippingRates = $address->getAllShippingRates();
+
+        foreach ($shippingRates as $shippingRate) {
+            $rate = $shippingRate->getData();
+            if ($rate['code'] == $code) {
+                $shippingMethod = $this->shippingMethodFactory->create();
+                $shippingMethod->setCarrierCode($rate['carrier_code']);
+                $shippingMethod->setMethodTitle($rate['carrier_title']);
+                $shippingMethod->setMethodCode($rate['method_code']);
                 $shippingMethod->setAvailable(
                     $this->areShippingMethodsAvailable(
                         $this->customerHelper->getShippingAddress()
@@ -115,17 +144,16 @@ class ShippingSelector
     {
         $carriers = $this->shippingModel->getActiveCarriers();
         $methods = [];
-        foreach ($carriers as $shippingCode => $shippingModel) {
-            $carrierMethods = $shippingModel->getAllowedMethods();
+        foreach ($carriers as $shippingCode => $carrier) {
+            $carrierMethods = $carrier->getAllowedMethods();
             if ($carrierMethods) {
                 foreach ($carrierMethods as $methodCode => $method) {
-                    $code = $shippingCode . '_' . $methodCode;
                     $isTableRate = $shippingCode == 'tablerate';
                     if (!$isTableRate) {
                         $carrierPrice = $this->getCarrierPrice($shippingCode);
                         $carrierTitle = $this->getCarrierTitle($shippingCode);
                         $methods[] = [
-                            'carrier_code' => $code,
+                            'carrier_code' => $carrier->getCarrierCode(),
                             'carrier_title' => $carrierTitle,
                             'carrier_price' => $carrierPrice ? $carrierPrice : 0,
                             'method_code' => $methodCode

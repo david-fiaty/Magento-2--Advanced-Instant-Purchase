@@ -17,226 +17,101 @@
     'mage/translate',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/view',
-    'Naxero_BuyNow/js/view/helpers/product/option/select',
-    'Naxero_BuyNow/js/view/helpers/product/option/swatch',
+    'mage/validation',
+    'mage/cookies',
     'popover',
-], function ($, __, NbnLogger, NbnView, NbnProductOptionSelect, NbnProductOptionSwatch, popover) {
+    'domReady!'
+], function ($, __, NbnLogger, NbnView) {
     'use strict';
 
     return {
-        listProductContainerSelector: '.product-item',
-        listProductFormSelector: '.nbn-list-form',
-        listProductCartFormSelector: 'form[data-role="tocart-form"]',
-        viewProductContainerSelector: '.product-info-main',
-        viewProductFormSelector: '#product_addtocart_form',
         popoverSelector: '.popover',
-        productDataSelectorPrefix: '#nbn-product-data-',
         buttonErrorClass: 'nbn-button-error',
-        optionHandlers: [
-            'swatch',
-            'select'
-        ],
 
         /**
-         * Set product options events.
+         * Get a product form selector.
          */
-        initOptionsEvents: function (config) {
-            var options = this.getOptions(config);
-            if (options && options.length > 0) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['attribute_type'])
-                    .initOptionEvent(options[i]);
-                }
-            }
-        },
-
-        /**
-         * Get the option handler component.
-         */
-        getOptionHandler: function (optionType) {
-            // Argument provided
-            optionType = optionType || null;
-            if (optionType) {
-                var optionComponent = 'NbnProductOption'
-                + optionType.charAt(0).toUpperCase() + optionType.slice(1);
-
-                return eval(optionComponent);
-            }
-
-            // No argument provided
-            if (NbnView.isPageView()) {
-                return NbnProductOptionSwatch;
-            } else if (NbnView.isListView()) {
-                return NbnProductOptionSwatch;
-            } else if (NbnView.isWidgetView()) {
-                return NbnProductOptionSelect;
-            }
-        },
-
-        /**
-         * Update the selected product options values.
-         */
-        updateSelectedOptionsValues: function () {
-            var options = this.getOptions();
-            var condition1 = options && options.length > 0;
-            var condition2 = window.naxero.nbn.current.widgets.widget_show_product && NbnView.isWidgetView();
-            var condition3 = !NbnView.isWidgetView();
-            if (condition1 && (condition2 || condition3)) {
-                for (var i = 0; i < options.length; i++) {
-                    this.getOptionHandler(options[i]['attribute_type'])
-                    .updateSelectedOptionValue(options[i]);
-                }
-            }
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductContainer: function () {
-            return NbnView.isListView()
-            ? this.listProductContainerSelector
-            : this.viewProductContainerSelector;
-        },
-
-        /**
-         * Get a product container selector.
-         */
-        getProductForm: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
-            // Get product form selector
-            var productFormSelector = NbnView.isListView()
-            ? this.listProductFormSelector
-            : this.viewProductFormSelector;
-
-            // Get the form
-            var form = $(window.naxero.nbn.current.product.button_selector).closest(productContainerSelector)
-            .find(productFormSelector);
-
-            return form;
+        getProductFormSelector: function (productId) {
+            if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
+            else return  '#product_addtocart_form';
         },
 
         /**
          * Get the product form data.
          */
-        getProductFormData: function () {
-            // Product container selector
-            var productContainerSelector = this.getProductContainer();
-
+        getProductFormData: function (productId) {
             // Get the buy now data
-            var buyNowData = this.getProductForm().serialize();
+            var data = $(this.getProductFormSelector(productId)).serialize();
 
             // Log the purchase data
             NbnLogger.log(
                 __('Place order form data'),
-                this.getProductForm().serializeArray()
+                $(this.getProductFormSelector(productId)).serializeArray()
             );
 
-            // Get the cart form data if list view
-            if (NbnView.isListView()) {
-                var cartFormData = $(window.naxero.nbn.current.product.button_selector)
-                .closest(productContainerSelector)
-                .find(this.listProductCartFormSelector)
-                .serialize();
-
-                // Add the cart form data to the purchase data
-                buyNowData += '&' + cartFormData;
-            }
-
-            return buyNowData;
+            return data;
         },
 
         /**
-         * Product options validation.
+         * Get the order confirmation form data.
          */
-        validateOptions: function (e) {
-            // Prepare variables
-            var options = this.getOptionsFromEvent(e);
-            var condition1 = options && options.length > 0;
-            var errors = 0;
+        getOrderFormData: function (productId) {
+            var productData = $(this.getProductFormSelector(productId)).serialize();
+            var orderData = $('#nbn-order-form-' + productId).serialize();
 
-            // Loop through the product options
-            if (condition1) {
-                for (var i = 0; i < options.length; i++) {
-                    // Validate the option
-                    var error = this.getOptionHandler(options[i]['attribute_type'])
-                    .getOptionErrors(options[i], e)
-                    .length > 0;
+            return productData + '&' + orderData;
+        },
 
-                    // Register the error
-                    if (error) {
-                        errors++;
+        /**
+         * Validate product list attributes.
+         */
+        attributesValid: function (target) {
+            // Swatch option
+            var success = true;
+            var productId = $(target).data('product-id');
+            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
+                var isRequired = $(elt).find('.swatch-attribute-options').attr('aria-required');
+                if (isRequired === 'true') {
+                    var selectedValue = parseInt($(elt).attr('option-selected'));
+                    if (isNaN(selectedValue)) {
+                        success = false;
                     }
                 }
+            });
 
-                return errors == 0;
+            // Error display
+            if (!success) {
+                this.displayErrors(target);
             }
 
-            return true;
-        },
-
-        /**
-         * Check if a product has options.
-         */
-        hasOptions: function (e) {
-            return this.getProductData(e)['options'].length > 0;
-        },
-
-        /**
-         * Get a product options from a click even.
-         */
-        getOptionsFromEvent: function (e) {
-            var productId = $(e.currentTarget).data('product-id');
-            return this.getProductData(productId)['options'];
-        },
-
-        /**
-         * Get a product options.
-         */
-        getOptions: function () {
-            var productId = window.naxero.nbn.current.product.id;
-            return this.getProductData(productId)['options'];
-        },
-
-        /**
-         * Get updated product data for events.
-         */
-        getProductData: function (productId) {
-            return JSON.parse(
-                $(this.productDataSelectorPrefix + productId).val()
-            );
+            return success;
         },
 
         /**
          * Display the product options errors.
          */
-        displayErrors: function (e) {
-            // Prepare variables
-            var self = this;
-            var button = $(e.currentTarget);
-
+         displayErrors: function (target) {
             // Clear previous errors
-            self.clearErrors(e);
+            this.clearErrors(target);
 
             // Update the button state
-            button.popover({
+            $(target).popover({
                 title : '',
-                content : __('Please select options for this product'),
+                content : __('Options required'),
                 autoPlace : false,
                 trigger : 'hover',
                 placement : 'right',
                 delay : 10
-            });
-            button.addClass(this.buttonErrorClass);
-            button.trigger('mouseover');
+            })
+            .addClass(this.buttonErrorClass)
+            .trigger('mouseover');
         },
 
         /**
          * Clear UI error messages.
          */
-        clearErrors: function (e) {
-            $(e.currentTarget).removeClass(this.buttonErrorClass);
+         clearErrors: function (target) {
+            $(target).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }
     };

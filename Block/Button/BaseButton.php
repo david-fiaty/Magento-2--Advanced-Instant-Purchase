@@ -14,12 +14,14 @@
  * @link      https://www.naxero.com
  */
 
-namespace Naxero\BuyNow\Block\Product;
+namespace Naxero\BuyNow\Block\Button;
+
+use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Countdown class constructor.
+ * BaseButton class.
  */
-class Countdown extends \Magento\Framework\View\Element\Template
+class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {
     /**
      * @var Block
@@ -27,17 +29,23 @@ class Countdown extends \Magento\Framework\View\Element\Template
     public $blockHelper;
 
     /**
-     * Countdown class constructor.
+     * @var Purchase
+     */
+    public $purchaseHelper;
+
+    /**
+     * BaseButton class constructor.
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Naxero\BuyNow\Helper\Block $blockHelper,
+        \Naxero\BuyNow\Helper\Purchase $purchaseHelper,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
 
         $this->blockHelper = $blockHelper;
+        $this->purchaseHelper = $purchaseHelper;
     }
 
     /**
@@ -45,12 +53,15 @@ class Countdown extends \Magento\Framework\View\Element\Template
      */
     public function getConfig()
     {
-        // Get the base the config
-        $config = $this->blockHelper->getConfig(
-            $this->getData('product_id')
+        // Get the config
+        $config = $this->getData('config');
+
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
         );
 
-        // Update with block config
-        return $this->blockHelper->updateAttributesData($config);
+        return $config;
     }
 }

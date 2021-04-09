@@ -24,6 +24,11 @@ use Naxero\BuyNow\Model\Config\Naming;
 class Block extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
+     * @var Context
+     */
+    public $httpContext;
+
+    /**
      * @var PageFactory
      */
     public $pageFactory;
@@ -52,27 +57,19 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
      * Block helper class constructor.
      */
     public function __construct(
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Naxero\BuyNow\Helper\Customer $customerHelper,
         \Naxero\BuyNow\Helper\Config $configHelper,
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
+    	$this->httpContext = $httpContext;
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
         $this->productHelper = $productHelper;
         $this->filterHandler = $filterHandler;
-    }
-
-    /**
-     * Can the button be displayed for out of stock products.
-     */
-    public function bypassOos($productId)
-    {
-        return !$this->productHelper->isInStock($productId)
-        ? $this->value('buttons/bypass_oos')
-        : true;
     }
 
     /**
@@ -90,6 +87,13 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         return $isLoggedIn
         ? $config['buttons']['button_text']
         : $config['buttons']['guest_button_text'];
+    }
+
+    /**
+     * Get the block customer data.
+     */
+    public function getCustomerData() {
+        return $this->httpContext->getValue('customer_data');
     }
 
     /**
@@ -143,7 +147,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Update the attribute display parameters
         if ($config['product']['has_options']) {
-            foreach ($config['product']['options'] as $option) {
+            foreach ($config['product']['attributes'] as $option) {
                 $isSwatch = $option['attribute_type'] == 'swatch';
                 if ($isSwatch && $force) {
                     $option['attribute_type'] = 'select';
@@ -152,7 +156,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
                 $updatedOptions[] = $option;
             }
 
-            $config['product']['options'] = $updatedOptions;
+            $config['product']['attributes'] = $updatedOptions;
         }
 
         return $config;

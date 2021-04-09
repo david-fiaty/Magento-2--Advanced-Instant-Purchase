@@ -17,7 +17,6 @@ define([
     'mage/translate',
     'uiComponent',
     'Magento_Ui/js/modal/confirm',
-    'Naxero_BuyNow/js/view/core',
     'Naxero_BuyNow/js/view/helpers/logger',
     'Naxero_BuyNow/js/view/helpers/select',
     'Naxero_BuyNow/js/view/helpers/product',
@@ -26,13 +25,11 @@ define([
     'Naxero_BuyNow/js/view/helpers/login',
     'Naxero_BuyNow/js/view/helpers/tree',
     'Naxero_BuyNow/js/view/helpers/template',
-    'Naxero_BuyNow/js/view/helpers/gallery',
     'Naxero_BuyNow/js/view/helpers/message',
+    'Naxero_BuyNow/js/view/helpers/util',
     'mage/validation',
-    'mage/cookies',
-    'elevatezoom',
     'domReady!'
-], function ($, __, Component, ConfirmModal, NbnCore, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnGallery, NbnMessage) {
+], function ($, __, Component, ConfirmModal, NbnLogger, NbnSelect, NbnProduct, NbnView, NbnPaths, NbnLogin, NbnTree, NbnTemplate, NbnMessage, NbnUtil) {
     'use strict';
 
     return Component.extend({
@@ -46,7 +43,6 @@ define([
             uuid: null,
             showButton: false,
             loggerUrl: 'logs/index',
-            galleryUrl: 'product/gallery',
             confirmationUrl: 'order/confirmation',
             buttonContainerSelector: '.nbn-button-container',
             popupContentSelector: '#nbn-confirmation-content',
@@ -76,15 +72,7 @@ define([
             this._super();
 
             // Load a button instance
-            NbnCore.load(this.config);
-
-            // Options validation
-            NbnProduct.initOptionsEvents(this.config);
-
-            // Widget features
-            if (NbnView.isWidgetView()) {
-                this.handleImageClick();
-            }
+            this.loadConfig(this.config);
 
             // Button click event
             this.handleButtonClick();
@@ -93,10 +81,28 @@ define([
             NbnLogger.log(
                 __('Configuration loaded for product id %1').replace(
                     '%1',
-                    window.naxero.nbn.current.product.id
+                    this.config.product.id
                 ),
                 this.config
             );
+        },
+
+        /**
+         * Load the current instance config.
+         */
+        loadConfig: function (config) {
+            // Prepare the module js config container
+            if (!NbnUtil.has(window, 'naxero.nbn.instances')) {
+                window.naxero = {
+                    nbn: {
+                        instances: {},
+                        current: config
+                    }
+                };
+            }
+
+            // Store the current instance config
+            window.naxero.nbn.instances[config.product.id] = config;
         },
 
         /**
@@ -108,40 +114,6 @@ define([
                 {minHeight: $(target).height()  + 'px'},
                 300
             );
-        },
-
-        /**
-         * Build a product gallery.
-         */
-        getGalleryData: function (e) {
-            // Prepare variables
-            var self = this;
-            var productId = $(e.currentTarget).data('product-id');
-            var params = {
-                product_id: productId,
-                form_key: $(this.formKeySelectorPrefix + productId).val()
-            };
-
-            // Set the data viewer button event
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: NbnPaths.get(self.galleryUrl),
-                data: params,
-                success: function (data) {
-                    // Get the HTML content
-                    self.addHtml(self.popupContentSelector, data.html);
-
-                    // Build the gallery
-                    NbnGallery.build();
-                },
-                error: function (request, status, error) {
-                    NbnLogger.log(
-                        __('Error retrieving the product gallery data'),
-                        error
-                    );
-                }
-            });
         },
 
         /**
@@ -179,80 +151,33 @@ define([
         },
 
         /**
-         * Handle the image click event.
-         */
-        handleImageClick: function () {
-            // Prepare variables
-            var self = this;
-
-            // Selectors
-            var boxId = '#nbn-widget-product-box-' + this.config.product.id;
-            var imageContainer = boxId + ' .nbn-product-box-image';
-            var image = imageContainer + ' img';
-
-            // Zoom parameters
-            var zoomType = this.config.widgets.widget_zoom_type;
-            var isLightbox = this.config.widgets.widget_zoom_type == 'lightbox';
-            var params = {
-                responsive: true,
-                zoomType: zoomType
-            };
-
-            // Image initial state
-            if (!isLightbox) {
-                // Zoom initialisation
-                $(image).elevateZoom(params);
-            } else {
-                // Image state
-                $(imageContainer).css('cursor', 'zoom-in');
-            }
-
-            // Image container click event
-            $(imageContainer).on('click touch', function (e) {
-                if (isLightbox) {
-                    // Image state
-                    $(this).css('cursor', 'zoom-in');
-
-                    // Open the modal
-                    self.getGalleryModal(e);
-
-                    // Get the log data
-                    self.getGalleryData(e);
-                }
-            });
-        },
-
-        /**
          * Handle the button click event.
          */
         handleButtonClick: function () {
             // Prepare variables
             var self = this;
-            var button = $(this.buttonSelectorPrefix + this.config.product.id);
 
             // Enable the buy now button
-            button.prop('disabled', false);
+            $(this.buttonSelector).prop('disabled', false);
 
             // Button click event
-            button.on('click touch', function (e) {
-                if (e.target.nodeName == 'BUTTON') {
+            $(this.buttonSelector).off('click touch').on('click touch', function (e) {
+                if (e.target.nodeName == 'BUTTON') { 
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
                         NbnLogin.loginPopup();
                         return;
                     }
-
-                    // Validate the product options if needed
-                    var optionsValid = NbnProduct.validateOptions(e);
-                    if (!optionsValid) {
-                        // Display the errors
-                        NbnProduct.clearErrors(e);
-                        NbnProduct.displayErrors(e);
-                        return;
+                                       
+                    // Validate attributes in list view
+                    if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
+                        if (!NbnProduct.attributesValid(e.target)) {
+                            return;
+                        }
                     }
 
                     // Page view and/or all conditions valid
-                    self.purchasePopup(e);
+                    self.getConfirmationModal(e);
                 } else if (e.target.nodeName == 'A') {
                     // Open the modal
                     self.getLoggerModal(e);
@@ -266,23 +191,16 @@ define([
         /**
          * Get the confirmation page content.
          */
-        getConfirmContent: function (e) {
+        getConfirmationContent: function (e) {
             // Prepare the parameters
             var self = this;
             var productId = $(e.currentTarget).data('product-id');
-            var formKey = $(this.formKeySelectorPrefix + productId).val();
-            var productQuantity = parseInt($(e.currentTarget).parents().find('.nbn-qty').val());
-            var params = {
-                product_id: productId,
-                form_key: formKey,
-                product_quantity: productQuantity
-            };
 
-            // Log the parameters
-            NbnLogger.log(
-                __('Confirmation window request parameters'),
-                params
-            );
+            // Get the current form
+            var params = NbnProduct.getProductFormData(productId);
+
+            // Open the modal
+            this.getOrderModal(e.currentTarget);
 
             // Send the request
             $.ajax({
@@ -294,11 +212,8 @@ define([
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
 
-                    // Update the selected product options values
-                    NbnProduct.updateSelectedOptionsValues(self);
-
                     // Initialise the select lists
-                    NbnSelect.build(self);
+                    NbnSelect.build(productId);
                 },
                 error: function (request, status, error) {
                     NbnLogger.log(
@@ -310,11 +225,11 @@ define([
         },
 
         /**
-         * Purchase popup.
+         * Order confirmation modal window.
          */
-        purchasePopup: function (e) {
+        getConfirmationModal: function (e) {
             // Get the current form
-            var form = NbnProduct.getProductForm();
+            var form = $(NbnProduct.getProductFormSelector());
 
             // Check the validation rules
             var condition1 = form.validation() && form.validation('isValid');
@@ -322,11 +237,8 @@ define([
                 return;
             }
 
-            // Open the modal
-            this.getOrderModal(e.currentTarget);
-
             // Get the AJAX content
-            this.getConfirmContent(e);
+            this.getConfirmationContent(e);
         },
 
         /**
@@ -344,31 +256,6 @@ define([
                 innerScroll: true,
                 modalClass: 'nbn-modal',
                 content: NbnTemplate.getLogger({}),
-                buttons: [{
-                    text: __('Close'),
-                    class: self.cancelButtonClasses,
-                    click: function (e) {
-                        $(self.cancelButtonSelector).trigger('click');
-                    }
-                }]
-            });
-        },
-
-        /**
-         * Get the product media gallery modal.
-         */
-        getGalleryModal: function (e) {
-            // Prepare parameters
-            var self = this;
-            var productId = $(e.currentTarget).data('product-id');
-            var title = window.naxero.nbn.instances[productId].product.title;
-
-            // Build the modal
-            ConfirmModal({
-                title: title,
-                innerScroll: true,
-                modalClass: 'nbn-modal',
-                content: NbnTemplate.getGallery({}),
                 buttons: [{
                     text: __('Close'),
                     class: self.cancelButtonClasses,
@@ -413,7 +300,7 @@ define([
                         $.ajax({
                             cache: false,
                             url: NbnPaths.get(self.orderUrl),
-                            data: NbnProduct.getProductFormData(),
+                            data: NbnProduct.getOrderFormData(config.product.id),
                             type: 'post',
                             dataType: 'json',
                             success: function (data) {

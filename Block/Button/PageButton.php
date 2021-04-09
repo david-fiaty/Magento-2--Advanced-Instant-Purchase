@@ -81,11 +81,19 @@ class PageButton extends \Magento\Framework\View\Element\Template
             $this->getProduct()->getId()
         );
 
+        // Update the customer data
+        $config['user'] = array_merge(
+            $config['user'],
+            $this->blockHelper->getCustomerData()
+        );
+        
         // Set the display mode
         $config['product']['display'] = self::MODE;
 
         // Check the display conditions
-        $condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton($config);
+        // Todo - Fix condition
+        //$condition = $config['general']['product_view'] && $this->purchaseHelper->canDisplayButton($config);
+        $condition = true;
 
         if ($condition) {
             return $this->updateAttributesData($config);
@@ -108,18 +116,5 @@ class PageButton extends \Magento\Framework\View\Element\Template
     public function updateAttributesData($config)
     {
         return $this->blockHelper->updateAttributesData($config);
-    }
-
-    /**
-     * Render a widget product countdown box.
-     */
-    public function getCountdownBoxHtml($config)
-    {
-        return $this->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Countdown')
-        ->setTemplate(Naming::getModuleName() . '::product/countdown.phtml')
-        ->setData('config', $config)
-        ->setData('is_popup', false)
-        ->toHtml();
     }
 }
