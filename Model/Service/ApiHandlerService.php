@@ -72,7 +72,7 @@ class ApiHandlerService
 
         // Bearer token
         if (!$this->isGuest()) {
-            $headers['Authorization'] = $auth . 'Bearer ' . $this->getAccessToken();
+            $headers['Authorization'] = 'Bearer ' . $this->getAccessToken();
         }
 
         return $headers;
