@@ -126,10 +126,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
 
         // Module title
-        $config['module']['title'] = Naming::getModuleTitle();
+        $config['module']['title'] = Naming::MODULE_TITLE();
 
         // Module route
-        $config['module']['route'] = Naming::getModuleRoute();
+        $config['module']['route'] = Naming::MODULE_ROUTE();
 
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler

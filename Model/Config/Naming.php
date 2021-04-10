@@ -21,43 +21,29 @@ namespace Naxero\BuyNow\Model\Config;
  */
 class Naming
 {
-    /**
-     * Get the module name.
-     */
-    public static function getModuleName()
-    {
-        return 'Naxero_BuyNow';
-    }
 
     /**
-     * Get the module alias.
+     * Module name
      */
-    public static function getModuleAlias()
-    {
-        return 'naxero_buy_now';
-    }
+    const MODULE_NAME = 'Naxero_BuyNow';
 
     /**
-     * Get the module path.
+     * Module alias
      */
-    public static function getModulePath()
-    {
-        return 'Naxero\BuyNow';
-    }
+    const MODULE_ALIAS = 'naxero_buy_now';
 
     /**
-     * Get the module route.
+     * Module path
      */
-    public static function getModuleRoute()
-    {
-        return 'naxero-buynow';
-    }
+    const MODULE_PATH = 'Naxero\BuyNow';
 
     /**
-     * Get the module title.
+     * Module route
      */
-    public static function getModuleTitle()
-    {
-        return __('Naxero Buy Now');
-    }
+    const MODULE_ROUTE = 'naxero-buynow';
+
+    /**
+     * Module title
+     */
+    const MODULE_TITLE = 'Naxero Buy Now';
 }

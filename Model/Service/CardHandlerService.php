@@ -97,7 +97,7 @@ class CardHandlerService
     public function getCardIcon($code)
     {
         return $this->assetRepository ->getUrl(
-            Naming::getModuleName() . '::images/cards/' . strtolower($code) . '.svg'
+            Naming::MODULE_NAME() . '::images/cards/' . strtolower($code) . '.svg'
         );
     }
 
