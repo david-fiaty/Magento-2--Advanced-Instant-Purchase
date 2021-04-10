@@ -203,7 +203,7 @@ class PlaceOrderService
             }
 
             // Update the payload
-            $payload['product_option'] = $options;
+            $payload['cartItem']['product_option'] = $options;
         }
 
         // Get the request URL
