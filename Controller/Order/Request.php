@@ -82,15 +82,12 @@ class Request extends \Magento\Framework\App\Action\Action
                 $order = $this->placeOrderService->placeOrder($params);
                 if ($order) {
                     $message = __('Your order number is: %1.', $order->getIncrementId());
-                }
-                else {
+                } else {
                     $message = __('The payment could not be processed.');
                 }
-            } 
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $message = $e->getMessage();
             }
-
         }
 
         return $this->createResponse($message, true);

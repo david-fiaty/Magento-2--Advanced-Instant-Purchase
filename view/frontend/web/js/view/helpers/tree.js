@@ -26,7 +26,6 @@
          */
         build: function (productId) {
             if (this.needsUiLogging(productId)) {
-
             }
         },
 

@@ -162,7 +162,7 @@ define([
 
             // Button click event
             $(this.buttonSelector).off('click touch').on('click touch', function (e) {
-                if (e.target.nodeName == 'BUTTON') { 
+                if (e.target.nodeName == 'BUTTON') {
                     // Force Login
                     if (!NbnLogin.isLoggedIn()) {
                         NbnLogin.loginPopup();
@@ -287,8 +287,7 @@ define([
                     click: function (e) {
                         if (self.isSubView) {
                             self.slider.toggleView(e);
-                        }
-                        else {
+                        } else {
                             $(self.cancelButtonSelector).trigger('click');
                         }
                     }

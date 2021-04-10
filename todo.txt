@@ -1,14 +1,14 @@
 # collect phrases
-bin/magento i18n:collect-phrases app/code/Naxero/SearchAutoComplete/ -o app/code/Naxero/SearchAutoComplete/i18n/en_US.csv
-bin/magento i18n:collect-phrases app/code/Naxero/SearchAutoComplete/ -o app/code/Naxero/SearchAutoComplete/i18n/en_GB.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv
 
 #phpcs
-phpcs --standard=PSR2 --no-cache app/code/Naxero/SearchAutoComplete
-/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcs app/code/Naxero/SearchAutoComplete --standard=Magento2 --no-cache
+phpcs --standard=PSR2 --no-cache app/code/Naxero/BuyNow
+/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcs app/code/Naxero/BuyNow --standard=Magento2 --no-cache
 
 #phpcbf
-phpcbf --standard=PSR2 --no-cache app/code/Naxero/SearchAutoComplete
-/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcbf app/code/Naxero/SearchAutoComplete --standard=Magento2 --no-cache
+phpcbf --standard=PSR2 --no-cache app/code/Naxero/BuyNow
+/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcbf app/code/Naxero/BuyNow --standard=Magento2 --no-cache
 
 
 

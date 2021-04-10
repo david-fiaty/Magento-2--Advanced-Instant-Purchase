@@ -175,7 +175,7 @@ class ShippingSelector
         foreach ($methods as $method) {
             if ($method['carrier_code'] == $carrierCode) {
                 return $method;
-            }   
+            }
         }
 
         return null;

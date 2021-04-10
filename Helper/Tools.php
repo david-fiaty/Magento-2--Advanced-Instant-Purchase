@@ -59,7 +59,8 @@ class Tools extends \Magento\Framework\App\Helper\AbstractHelper
             $amount,
             $format,
             $includeContainer
-        );;
+        );
+        ;
     }
 
     /**

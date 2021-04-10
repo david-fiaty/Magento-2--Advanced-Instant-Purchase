@@ -47,4 +47,3 @@ class Price extends \Magento\Framework\View\Element\Template
         $this->productHelper = $productHelper;
     }
 }
-

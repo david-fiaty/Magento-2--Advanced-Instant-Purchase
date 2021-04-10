@@ -64,7 +64,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
-    	$this->httpContext = $httpContext;
+        $this->httpContext = $httpContext;
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
@@ -92,7 +92,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the block customer data.
      */
-    public function getCustomerData() {
+    public function getCustomerData()
+    {
         return $this->httpContext->getValue('customer_data');
     }
 
