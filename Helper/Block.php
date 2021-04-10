@@ -64,7 +64,7 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         \Naxero\BuyNow\Helper\Product $productHelper,
         \Naxero\BuyNow\Model\Service\FilterHandlerService $filterHandler
     ) {
-    	$this->httpContext = $httpContext;
+        $this->httpContext = $httpContext;
         $this->pageFactory = $pageFactory;
         $this->customerHelper = $customerHelper;
         $this->configHelper = $configHelper;
@@ -92,7 +92,8 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Get the block customer data.
      */
-    public function getCustomerData() {
+    public function getCustomerData()
+    {
         return $this->httpContext->getValue('customer_data');
     }
 
@@ -125,10 +126,10 @@ class Block extends \Magento\Framework\App\Helper\AbstractHelper
         $config['ui']['loader'] = $this->configHelper->getLoaderIconUrl();
 
         // Module title
-        $config['module']['title'] = Naming::getModuleTitle();
+        $config['module']['title'] = Naming::MODULE_TITLE;
 
         // Module route
-        $config['module']['route'] = Naming::getModuleRoute();
+        $config['module']['route'] = Naming::MODULE_ROUTE;
 
         // Prepare the popup window title
         $config['popups']['popup_title'] = $this->filterHandler

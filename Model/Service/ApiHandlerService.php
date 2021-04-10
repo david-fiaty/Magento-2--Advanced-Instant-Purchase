@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Model\Service;
 
 /**
- * Class ApiHandlerService.
+ * Class REST API ApiHandlerService.
  */
 class ApiHandlerService
 {
@@ -135,7 +135,7 @@ class ApiHandlerService
         $store = $this->storeManager->getStore();
 
         // Build the URL
-        $url = $store->getBaseUrl() . 'rest/' . $store->getCode() 
+        $url = $store->getBaseUrl() . 'rest/' . $store->getCode()
         . '/' . 'V1/' . $endpoint;
 
         return $url;

@@ -160,7 +160,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     public function customerDataValid($customerData)
     {
         return $customerData && !empty($customerData)
-        && isset($customerData['entity_id']) 
+        && isset($customerData['entity_id'])
         && (int) $customerData['entity_id'] > 0;
     }
 

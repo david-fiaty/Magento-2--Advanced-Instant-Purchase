@@ -81,19 +81,31 @@ class Request extends \Magento\Framework\App\Action\Action
             try {
                 $order = $this->placeOrderService->placeOrder($params);
                 if ($order) {
-                    $message = __('Your order number is: %1.', $order->getIncrementId());
+                    $this->messageManager->addComplexSuccessMessage(
+                        'nbnOrderSuccessMessage',[
+                            'data' => json_encode($order->getData())
+                        ]
+                    );
+                } else {
+                    $this->messageManager->addErrorMessage(
+                        __('The payment could not be processed.')
+                    );
                 }
-                else {
-                    $message = __('The payment could not be processed.');
-                }
-            } 
-            catch (\Exception $e) {
-                $message = $e->getMessage();
+            } catch (\Exception $e) {
+                $this->messageManager->addErrorMessage(
+                    $e->getMessage()
+                );
             }
-
         }
 
-        return $this->createResponse($message, true);
+        // Build the response
+        // Todo - Review response => AJAX handling or not?
+        // Current logic not needed if no ajax
+        return $this->jsonFactory->create()->setData([
+            'response' => [
+                'success' => true
+            ]
+        ]);
     }
 
     /**
@@ -109,35 +121,5 @@ class Request extends \Magento\Framework\App\Action\Action
         }
 
         return null;
-    }
-
-    /**
-     * Creates error message without exposing error details.
-     *
-     * @return string
-     */
-    public function createGenericErrorMessage(): string
-    {
-        return (string)__('Something went wrong while processing your order. Please try again later.');
-    }
-
-    /**
-     * Creates response with a operation status message.
-     */
-    public function createResponse($message, $successMessage)
-    {
-        // Prepare the result
-        $result = $this->jsonFactory->create()->setData([
-            'response' => $message
-        ]);
-
-        // Handle the response
-        if ($successMessage) {
-            $this->messageManager->addSuccessMessage($message);
-        } else {
-            $this->messageManager->addErrorMessage($message);
-        }
-
-        return $result;
     }
 }

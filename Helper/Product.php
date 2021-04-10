@@ -382,8 +382,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function getPriceBoxHtml($config, $productQuantity = 1)
     {
         return $this->pageFactory->create()->getLayout()
-        ->createBlock(Naming::getModulePath() . '\Block\Product\Price')
-        ->setTemplate(Naming::getModuleName() . '::product/price.phtml')
+        ->createBlock(Naming::MODULE_PATH . '\Block\Product\Price')
+        ->setTemplate(Naming::MODULE_NAME . '::product/price.phtml')
         ->setData('config', $config)
         ->setData('product_quantity', $productQuantity)
         ->toHtml();
@@ -396,8 +396,8 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     {
         $layout = $layout ? $layout : $this->pageFactory->create()->getLayout();
         return $layout
-        ->createBlock(Naming::getModulePath() . '\Block\Button\BaseButton')
-        ->setTemplate(Naming::getModuleName() . '::button/base.phtml')
+        ->createBlock(Naming::MODULE_PATH . '\Block\Button\BaseButton')
+        ->setTemplate(Naming::MODULE_NAME . '::button/base.phtml')
         ->setData('config', $config)
         ->setData('isFree', $this->isFree($config['product']['id']))
         ->toHtml();

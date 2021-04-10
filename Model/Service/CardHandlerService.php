@@ -20,7 +20,7 @@ use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Class CardHandlerService.
+ * Class user cards CardHandlerService.
  */
 class CardHandlerService
 {
@@ -97,7 +97,7 @@ class CardHandlerService
     public function getCardIcon($code)
     {
         return $this->assetRepository ->getUrl(
-            Naming::getModuleName() . '::images/cards/' . strtolower($code) . '.svg'
+            Naming::MODULE_NAME . '::images/cards/' . strtolower($code) . '.svg'
         );
     }
 

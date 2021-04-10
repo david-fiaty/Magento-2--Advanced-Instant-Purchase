@@ -1,6 +1,20 @@
+# collect phrases
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_US.csv
+bin/magento i18n:collect-phrases app/code/Naxero/BuyNow/ -o app/code/Naxero/BuyNow/i18n/en_GB.csv
+
+#phpcs
+phpcs --standard=PSR2 --no-cache app/code/Naxero/BuyNow
+/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcs app/code/Naxero/BuyNow --standard=Magento2 --no-cache
+
+#phpcbf
+phpcbf --standard=PSR2 --no-cache app/code/Naxero/BuyNow
+/home/hnid/dev/tools/magento-coding-standard/vendor/bin/phpcbf app/code/Naxero/BuyNow --standard=Magento2 --no-cache
+
+
 
 !!!PRIORITY!!!
 - handle order payment status validation after payment request
+- review place order js result handling
 - improve/cleanup payment request parameters structure
 - exclude bundle product type
 
@@ -9,7 +23,7 @@ QA
 - check multistore behaviour
 - Update external js libs before release
 
-NOT SUPPORTED
+PROBLEMS AND LIMITATIONS WITH WIDGET  
 - table rate shipping
 - product price handling with price rules (qty > 1, or other conditions...)
     => solution in Product\Price controller: add product + quantity to quote, get quote total, then delete quote and keep total.

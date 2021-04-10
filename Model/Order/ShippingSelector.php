@@ -19,7 +19,7 @@ namespace Naxero\BuyNow\Model\Order;
 use Magento\Framework\DataObject;
 
 /**
- * Class ShippingSelector.
+ * Class order checkout ShippingSelector.
  */
 class ShippingSelector
 {
@@ -175,7 +175,7 @@ class ShippingSelector
         foreach ($methods as $method) {
             if ($method['carrier_code'] == $carrierCode) {
                 return $method;
-            }   
+            }
         }
 
         return null;

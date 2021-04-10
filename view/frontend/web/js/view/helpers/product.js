@@ -32,8 +32,11 @@
          * Get a product form selector.
          */
         getProductFormSelector: function (productId) {
-            if (NbnView.isListView()) return  '#nbn-list-form-' + productId;
-            else return  '#product_addtocart_form';
+            if (NbnView.isListView()) {
+                return  '#nbn-list-form-' + productId;
+            } else {
+                return  '#product_addtocart_form';
+            }
         },
 
         /**
@@ -69,7 +72,7 @@
             // Swatch option
             var success = true;
             var productId = $(target).data('product-id');
-            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function(i, elt) { 
+            $('.swatch-opt-' + productId).find('.swatch-attribute').each(function (i, elt) {
                 var isRequired = $(elt).find('.swatch-attribute-options').attr('aria-required');
                 if (isRequired === 'true') {
                     var selectedValue = parseInt($(elt).attr('option-selected'));
@@ -90,7 +93,7 @@
         /**
          * Display the product options errors.
          */
-         displayErrors: function (target) {
+        displayErrors: function (target) {
             // Clear previous errors
             this.clearErrors(target);
 
@@ -110,7 +113,7 @@
         /**
          * Clear UI error messages.
          */
-         clearErrors: function (target) {
+        clearErrors: function (target) {
             $(target).removeClass(this.buttonErrorClass);
             $(this.popoverSelector).remove();
         }

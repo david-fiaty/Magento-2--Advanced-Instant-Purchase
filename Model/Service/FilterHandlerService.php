@@ -17,17 +17,10 @@
 namespace Naxero\BuyNow\Model\Service;
 
 /**
- * Class FilterHandlerService.
+ * Class content tag FilterHandlerService.
  */
 class FilterHandlerService
 {
-    /**
-     * FilterHandlerService constructor.
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Filter content placeholders.
      */

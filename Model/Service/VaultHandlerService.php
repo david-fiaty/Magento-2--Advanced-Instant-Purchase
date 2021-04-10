@@ -19,7 +19,7 @@ namespace Naxero\BuyNow\Model\Service;
 use Magento\Vault\Api\Data\PaymentTokenInterface;
 
 /**
- * Class VaultHandlerService.
+ * Class saved cards VaultHandlerService.
  */
 class VaultHandlerService
 {

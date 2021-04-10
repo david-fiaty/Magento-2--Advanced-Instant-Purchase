@@ -97,10 +97,10 @@ class Index extends \Magento\Framework\App\Action\Action
 
         // Render the block
         $blockHtml = $this->pageFactory->create()->getLayout()
-            ->createBlock(Naming::getModulePath() . '\Block\Debug\UiLogger')
-            ->setTemplate(Naming::getModuleName() . '::messages/ui-logger.phtml')
+            ->createBlock(Naming::MODULE_PATH . '\Block\Debug\UiLogger')
+            ->setTemplate(Naming::MODULE_NAME . '::messages/ui-logger.phtml')
             ->setData('product_id', $productId)
-            ->setData('title', Naming::getModuleTitle())
+            ->setData('title', Naming::MODULE_TITLE)
             ->toHtml();
 
         return $blockHtml;

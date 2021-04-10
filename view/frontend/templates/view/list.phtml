@@ -14,9 +14,9 @@
  */
 ?>
 
-<?php 
+<?php
 $config = $block->getConfig();
-if ($config): 
+if ($config):
     // Purchase data
     $purchaseData = $block->purchaseHelper->getPurchaseData();
 
@@ -32,7 +32,7 @@ if ($config):
 
     // Display
     $boxId = 'nbn-product-box-' . $config['product']['id'];
-?>
+    ?>
 
 <!-- Product box -->
 <div class="nbn-product-box-container">

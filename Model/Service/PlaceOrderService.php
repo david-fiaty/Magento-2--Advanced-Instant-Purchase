@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Model\Service;
 
 /**
- * Class PlaceOrderService.
+ * Class order checkout PlaceOrderService.
  */
 class PlaceOrderService
 {
@@ -159,7 +159,7 @@ class PlaceOrderService
     {
         // Send the request
         $url = $this->apiHandlerService->getCreateQuoteUrl();
-        $quoteId = (int) $this->sendRequest($url); 
+        $quoteId = (int) $this->sendRequest($url);
 
         // Get the response
         $this->data['quote_id'] = (int) $quoteId;
@@ -172,10 +172,6 @@ class PlaceOrderService
      */
     public function addProduct()
     {
-        // Prepare the URL
-        // Todo - handle different product types
-        // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
-
         // Prepare the payload
         $payload = [
             'cartItem' => [
@@ -207,10 +203,9 @@ class PlaceOrderService
         }
 
         // Get the request URL
-        //$url = $this->apiHandlerService->getAddProductUrl();
-        $url = 'https://enax6z4178xr.x.pipedream.net/';
+        $url = $this->apiHandlerService->getAddProductUrl();
         $url = str_replace('<cartId>', $this->data['quote_id'], $url);
-        $response = $this->sendRequest($url, $payload); 
+        $response = $this->sendRequest($url, $payload);
 
         return $this;
     }
@@ -233,7 +228,7 @@ class PlaceOrderService
         // Send the request
         $url = $this->apiHandlerService->getPrepareCheckoutUrl();
         $url = str_replace('<cartId>', $this->data['quote_id'], $url);
-        $response = $this->sendRequest($url, $payload); 
+        $response = $this->sendRequest($url, $payload);
 
         return $this;
     }
@@ -260,15 +255,13 @@ class PlaceOrderService
         // Check the order
         if ($orderId  > 0) {
             return $this->orderRepository->get($orderId);
-        } 
-        else {
+        } else {
             try {
                 $response = json_decode($response);
                 if (isset($response['message'])) {
                     $response = $response['message'];
                 }
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $response = $e->getMessage();
             }
 

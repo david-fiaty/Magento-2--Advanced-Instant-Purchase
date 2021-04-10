@@ -59,17 +59,18 @@ class Tools extends \Magento\Framework\App\Helper\AbstractHelper
             $amount,
             $format,
             $includeContainer
-        );;
+        );
+        ;
     }
 
     /**
      * Get array keys recursively.
      */
-    public function array_keys_recursive(array $array): array
+    public function arrayKeysRecursive(array $array): array
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $index[$key] = $this->array_keys_recursive($value);
+                $index[$key] = $this->arrayKeysRecursive($value);
             } else {
                 $index[] = $key;
             }

@@ -17,13 +17,13 @@
 namespace Naxero\BuyNow\Plugin;
 
 /**
- * Class CustomerSessionContext.
+ * Class user CustomerSessionContext.
  */
 class CustomerSessionContext
 {
     /**
- 	 * @var \Magento\Customer\Model\Session
- 	 */
+     * @var \Magento\Customer\Model\Session
+     */
     public $customerSession;
 
     /**
@@ -35,31 +35,31 @@ class CustomerSessionContext
      * CustomerSessionContext constructor.
      */
     public function __construct(
-    	\Magento\Customer\Model\Session $customerSession,
-    	\Magento\Framework\App\Http\Context $httpContext
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\App\Http\Context $httpContext
     ) {
-    	$this->customerSession = $customerSession;
-    	$this->httpContext = $httpContext;
+        $this->customerSession = $customerSession;
+        $this->httpContext = $httpContext;
     }
 
     /**
- 	* @param \Magento\Framework\App\ActionInterface $subject
- 	* @param callable $proceed
- 	* @param \Magento\Framework\App\RequestInterface $request
- 	* @return mixed
- 	*/
-     public function aroundDispatch(
-    	\Magento\Framework\App\ActionInterface $subject,
-    	\Closure $proceed,
-    	\Magento\Framework\App\RequestInterface $request
+     * @param \Magento\Framework\App\ActionInterface $subject
+     * @param callable $proceed
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @return mixed
+     */
+    public function aroundDispatch(
+        \Magento\Framework\App\ActionInterface $subject,
+        \Closure $proceed,
+        \Magento\Framework\App\RequestInterface $request
     ) {
         // Get the customer data
-    	$this->httpContext->setValue(
-        	'customer_data',
-        	$this->customerSession->getCustomer()->getData(),
-        	false
-    	);
+        $this->httpContext->setValue(
+            'customer_data',
+            $this->customerSession->getCustomer()->getData(),
+            false
+        );
 
-    	return $proceed($request);
+        return $proceed($request);
     }
 }

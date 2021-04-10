@@ -88,7 +88,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
 
         // Write the data to the log file
         if ($debug && $fileLogging) {
-            $filePath = BP . '/var/log/' . Naming::getModuleAlias() . '.log';
+            $filePath = BP . '/var/log/' . Naming::MODULE_ALIAS . '.log';
             $writer = new \Zend\Log\Writer\Stream($filePath);
             $logger = new \Zend\Log\Logger();
             $logger->addWriter($writer);
@@ -123,8 +123,8 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         $uiLogging = $this->configHelper->value('debug/ui_logging_enabled');
         if ($debug && $uiLogging) {
             return $this->getPageLayout()
-            ->createBlock(Naming::getModulePath() . '\Block\Debug\ErrorMessage')
-            ->setTemplate(Naming::getModuleName() . '::messages/error.phtml')
+            ->createBlock(Naming::MODULE_PATH . '\Block\Debug\ErrorMessage')
+            ->setTemplate(Naming::MODULE_NAME . '::messages/error.phtml')
             ->setData('msg', $data)
             ->toHtml();
         }
@@ -143,7 +143,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
         // Store the data
         $currentData['logs'][] = $data;
         $this->customerSession->setData(
-            Naming::getModuleAlias(),
+            Naming::MODULE_ALIAS,
             $currentData
         );
     }
@@ -155,7 +155,7 @@ class Logger extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Get the current session data
         $currentData = $this->customerSession->getData(
-            Naming::getModuleAlias()
+            Naming::MODULE_ALIAS
         );
 
         // Check for existing data
