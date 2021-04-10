@@ -48,7 +48,6 @@
                 <p>
                     <select
                         id="nbn-shipping-method-id"
-                        name="nbn[params][shipping_method_id]"
                         data-field="shipping_method_code"
                         class="nbn-select js-states form-control"
                     >
@@ -154,16 +153,19 @@
                     <?php if (!empty($data['savedCards'])): ?>
                         <select
                             id="nbn-payment-method-code"
-                            name="nbn[params][payment_method_code]"
+                            name="nbn[params][public_hash]"
                             data-field="payment_token"
                             class="nbn-select nbn-payment-method-code js-states form-control"
                         >
                             <?php foreach ($data['savedCards'] as $item): ?>
+                                <?php
+                                    $value = $item['method_code'] . '{nbn}'.  $item['instance']->getPublicHash();
+                                ?>
                                 <option
-                                    value="<?= $item['instance']->getPublicHash() ?>"
-                                    data-icon-url="<?= $item['icon'] ?>"
+                                    value="<?= $block->escapeHtmlAttr($value) ?>"
+                                    data-icon-url="<?= $block->escapeUrl($item['icon']) ?>"
                                 >
-                                    &nbsp;&nbsp;<?= $item['token'] ?>
+                                    &nbsp;&nbsp;<?= $block->escapeHtml($item['token']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>

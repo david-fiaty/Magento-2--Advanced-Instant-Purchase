@@ -135,7 +135,7 @@ class PlaceOrderService
         );
 
         // Handle product attributes
-        if ($data['super_attribute']) {
+        if (isset($data['super_attribute'])) {
             $this->data['params']['super_attribute'] = $data['super_attribute'];
         }
 
@@ -239,12 +239,16 @@ class PlaceOrderService
     public function createOrder()
     {
         // Prepare the payload
+        $methodData = explode('{nbn}', $this->data['params']['public_hash']);
         $payload = [
             'paymentMethod' => [
-                'method' => $this->data['params']['payment_method_code']
+                'method' => $methodData[0]
             ],
             'billing_address' => $this->data['billing_address']
         ];
+
+        // Set the public hash
+        $payload['paymentMethod']['additional_data']['public_hash'] = $methodData[1];
 
         // Send the request
         $url = $this->apiHandlerService->getCreateOrderUrl();
