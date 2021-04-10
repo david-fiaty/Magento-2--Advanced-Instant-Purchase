@@ -19,7 +19,7 @@ namespace Naxero\BuyNow\Block\Button;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * PageButton class.
+ * Purchase PageButton class.
  */
 class PageButton extends \Magento\Framework\View\Element\Template
 {

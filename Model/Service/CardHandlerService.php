@@ -20,7 +20,7 @@ use Magento\Vault\Api\Data\PaymentTokenInterface;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * Class CardHandlerService.
+ * Class user cards CardHandlerService.
  */
 class CardHandlerService
 {

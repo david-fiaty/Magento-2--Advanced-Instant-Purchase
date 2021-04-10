@@ -17,7 +17,7 @@
 namespace Naxero\BuyNow\Block\Debug;
 
 /**
- * ErrorMessage class constructor.
+ * Debug ErrorMessage class.
  */
 class ErrorMessage extends \Magento\Framework\View\Element\Template
 {

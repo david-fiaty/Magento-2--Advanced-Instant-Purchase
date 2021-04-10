@@ -17,6 +17,8 @@
 <?php $msg = $block->getData('msg') ?>
 <div class="messages">
     <div class="message error">
-        <div class="message-text"><?= $block->escapeHtml($msg) ?></div>
+        <div class="message-text">
+            <?= $block->escapeHtml($msg) ?>
+        </div>
     </div>
 </div>

@@ -17,7 +17,7 @@
 namespace Naxero\BuyNow\Plugin;
 
 /**
- * Class CustomerSessionContext.
+ * Class user CustomerSessionContext.
  */
 class CustomerSessionContext
 {

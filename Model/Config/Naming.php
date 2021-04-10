@@ -17,33 +17,33 @@
 namespace Naxero\BuyNow\Model\Config;
 
 /**
- * Class Naming.
+ * Class Naming module constants.
  */
 class Naming
 {
 
     /**
-     * Module name
+     * @var string Module name
      */
     const MODULE_NAME = 'Naxero_BuyNow';
 
     /**
-     * Module alias
+     * @var string Module alias
      */
     const MODULE_ALIAS = 'naxero_buy_now';
 
     /**
-     * Module path
+     * @var string Module path
      */
     const MODULE_PATH = 'Naxero\BuyNow';
 
     /**
-     * Module route
+     * @var string Module route
      */
     const MODULE_ROUTE = 'naxero-buynow';
 
     /**
-     * Module title
+     * @var string Module title
      */
     const MODULE_TITLE = 'Naxero Buy Now';
 }

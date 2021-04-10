@@ -19,7 +19,7 @@ namespace Naxero\BuyNow\Model\Order;
 use Magento\Framework\DataObject;
 
 /**
- * Class ShippingSelector.
+ * Class order checkout ShippingSelector.
  */
 class ShippingSelector
 {

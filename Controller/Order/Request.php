@@ -130,6 +130,12 @@ class Request extends \Magento\Framework\App\Action\Action
 
         // Handle the response
         if ($successMessage) {
+            $this->messageManager->addComplexSuccessMessage(
+                'foomanExample',
+                [
+                    'url' => $this->_helper->getUrl('to/our/route')
+                ]
+                );
             $this->messageManager->addSuccessMessage($message);
         } else {
             $this->messageManager->addErrorMessage($message);

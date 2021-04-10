@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Model\Service;
 
 /**
- * Class ApiHandlerService.
+ * Class REST API ApiHandlerService.
  */
 class ApiHandlerService
 {

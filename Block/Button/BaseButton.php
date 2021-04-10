@@ -19,7 +19,7 @@ namespace Naxero\BuyNow\Block\Button;
 use Naxero\BuyNow\Model\Config\Naming;
 
 /**
- * BaseButton class.
+ * Purchase BaseButton class.
  */
 class BaseButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
 {

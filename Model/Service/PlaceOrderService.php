@@ -16,7 +16,7 @@
 namespace Naxero\BuyNow\Model\Service;
 
 /**
- * Class PlaceOrderService.
+ * Class order checkout PlaceOrderService.
  */
 class PlaceOrderService
 {

@@ -14,10 +14,5 @@
  */
 ?>
 
-<?php $data = json_decode($block->getData('message')) ?>
-<p>
-    <?= $block->escapeHtml(__('Your order heas been created successfully. Order reference:')); ?>
-    <a href="<?= $block->escapeHtmlAttr($data->order_url) ?>">
-        <?= $block->escapeHtml($data->order_increment_id) ?>
-    </a>
-</p>
+Test link <a href="#">Order creation success</a>
+
