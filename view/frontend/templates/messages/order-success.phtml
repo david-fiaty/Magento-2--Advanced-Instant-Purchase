@@ -14,5 +14,12 @@
  */
 ?>
 
-Test link <a href="#">Order creation success</a>
-
+<?php $data = json_decode($block->getData('data')) ?>
+<p>
+    <?= $block->escapeHtml(__('Your order heas been created successfully. Order reference:')); ?>
+    <a
+        href="<?= $block->getUrl('sales/order/view/order_id' . $data['entity_id']) ?>"
+    >
+        <?= $block->escapeHtml($data->increment_id) ?>
+    </a>
+</p>

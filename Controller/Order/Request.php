@@ -82,8 +82,9 @@ class Request extends \Magento\Framework\App\Action\Action
                 $order = $this->placeOrderService->placeOrder($params);
                 if ($order) {
                     $this->messageManager->addComplexSuccessMessage(
-                        'nbnOrderSuccessMessage',
-                        $order->getData()
+                        'nbnOrderSuccessMessage',[
+                            'data' => json_encode($order->getData())
+                        ]
                     );
                 } else {
                     $this->messageManager->addErrorMessage(
@@ -91,14 +92,16 @@ class Request extends \Magento\Framework\App\Action\Action
                     );
                 }
             } catch (\Exception $e) {
-                $message = $e->getMessage();
+                $this->messageManager->addErrorMessage(
+                    $e->getMessage()
+                );
             }
         }
 
         // Build the response
         // Todo - Review response => AJAX handling or not?
         // Current logic not needed if no ajax
-        $this->jsonFactory->create()->setData([
+        return $this->jsonFactory->create()->setData([
             'response' => [
                 'success' => true
             ]
