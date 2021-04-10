@@ -14,6 +14,7 @@ phpcbf --standard=PSR2 --no-cache app/code/Naxero/BuyNow
 
 !!!PRIORITY!!!
 - handle order payment status validation after payment request
+- review place order js result handling
 - improve/cleanup payment request parameters structure
 - exclude bundle product type
 
