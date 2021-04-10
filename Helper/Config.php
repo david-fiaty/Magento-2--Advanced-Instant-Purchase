@@ -121,7 +121,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getLoaderIconUrl()
     {
-        return $this->assetRepository->getUrl(Naming::MODULE_NAME() . '::images/ajax-loader.gif');
+        return $this->assetRepository->getUrl(Naming::MODULE_NAME . '::images/ajax-loader.gif');
     }
 
     /**
@@ -134,7 +134,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->moduleDirReader->getModuleDir(
             \Magento\Framework\Module\Dir::MODULE_ETC_DIR,
-            Naming::MODULE_NAME()
+            Naming::MODULE_NAME
         ) . '/' . $fileName;
     }
 }

@@ -111,8 +111,8 @@ class Confirmation extends \Magento\Framework\App\Action\Action
         $html = '';
         if ($productId > 0) {
             $html = $this->pageFactory->create()->getLayout()
-                ->createBlock(Naming::MODULE_PATH() . '\Block\Popup\Confirmation')
-                ->setTemplate(Naming::MODULE_NAME() . '::order/confirmation.phtml')
+                ->createBlock(Naming::MODULE_PATH . '\Block\Popup\Confirmation')
+                ->setTemplate(Naming::MODULE_NAME . '::order/confirmation.phtml')
                 ->setData('params', $params)
                 ->setData('data', $this->purchaseHelper->getConfirmContent($productId))
                 ->setData('product_quantity', $this->getProductQuantity($productId))
