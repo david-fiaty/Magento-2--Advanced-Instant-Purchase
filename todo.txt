@@ -2,6 +2,7 @@
 !!!PRIORITY!!!
 - handle order payment status validation after payment request
 - improve/cleanup payment request parameters structure
+- exclude bundle product type
 
 QA
 - make sure payment tokens are filtered by store
