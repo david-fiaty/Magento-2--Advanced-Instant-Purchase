@@ -104,10 +104,10 @@ class PlaceOrderService
     public function placeOrder($params)
     {
         $order = $this->loadData($params)
-        ->createQuote()
-        ->addProduct()
-        ->prepareCheckout()
-        ->createOrder();
+            ->createQuote()
+            ->addProduct()
+            ->prepareCheckout()
+            ->createOrder();
 
         return $order;
     }
@@ -133,6 +133,11 @@ class PlaceOrderService
             $this->data['store']->getId(),
             false
         );
+
+        // Handle product attributes
+        if ($data['super_attribute']) {
+            $this->data['params']['super_attribute'] = $data['super_attribute'];
+        }
 
         // Billing address
         $this->data['billing_address'] = $this->prepareAddress(
@@ -180,8 +185,30 @@ class PlaceOrderService
             ]
         ];
 
+        // Add the product attributes
+        if (isset($this->data['params']['super_attribute'])) {
+            // Product options array
+            $options = [
+                'extension_attributes' => [
+                    'configurable_item_options' => []
+                ]
+            ];
+
+            // Add the product attributes
+            foreach ($this->data['params']['super_attribute'] as $id => $value) {
+                $options['extension_attributes']['configurable_item_options'][] = [
+                    'option_id' => $id,
+                    'option_value' => $value
+                ];
+            }
+
+            // Update the payload
+            $payload['product_option'] = $options;
+        }
+
         // Get the request URL
-        $url = $this->apiHandlerService->getAddProductUrl();
+        //$url = $this->apiHandlerService->getAddProductUrl();
+        $url = 'https://enax6z4178xr.x.pipedream.net/';
         $url = str_replace('<cartId>', $this->data['quote_id'], $url);
         $response = $this->sendRequest($url, $payload); 
 
