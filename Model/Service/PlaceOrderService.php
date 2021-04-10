@@ -172,10 +172,6 @@ class PlaceOrderService
      */
     public function addProduct()
     {
-        // Prepare the URL
-        // Todo - handle different product types
-        // https://devdocs.magento.com/guides/v2.2/rest/tutorials/orders/order-add-items.html
-
         // Prepare the payload
         $payload = [
             'cartItem' => [
@@ -207,8 +203,7 @@ class PlaceOrderService
         }
 
         // Get the request URL
-        //$url = $this->apiHandlerService->getAddProductUrl();
-        $url = 'https://enax6z4178xr.x.pipedream.net/';
+        $url = $this->apiHandlerService->getAddProductUrl();
         $url = str_replace('<cartId>', $this->data['quote_id'], $url);
         $response = $this->sendRequest($url, $payload);
 
