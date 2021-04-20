@@ -35,11 +35,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public $productTypeConfigurable;
 
     /**
-     * @var Image
-     */
-    public $imageHelper;
-
-    /**
      * @var Data
      */
     public $priceHelper;
@@ -90,7 +85,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\ConfigurableProduct\Model\Product\Type\Configurable $productTypeConfigurable,
-        \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Framework\App\RequestInterface $request,
         \Magento\Catalog\Model\ProductFactory $productFactory,
@@ -103,7 +97,6 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
     ) {
         $this->pageFactory = $pageFactory;
         $this->productTypeConfigurable = $productTypeConfigurable;
-        $this->imageHelper = $imageHelper;
         $this->priceHelper = $priceHelper;
         $this->request = $request;
         $this->productFactory = $productFactory;
