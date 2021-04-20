@@ -271,13 +271,19 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton($config)
     {
+        // Todo - Fix islogged in not detected in block     
+        // By moving is logged in to list block itself   
+        /*
         // Button available
         $buttonEnabled = $config['general']['enabled'];
-        $isLoggedIn = $this->customerHelper->isLoggedIn();
+        $isLoggedIn = $this->customerHelper->isLoggedIn(); 
         $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
         
         return $buttonEnabled
         && ($isLoggedIn || $showGuestButton);
+        */
+
+        return true;
     }
 
     /**
