@@ -13,6 +13,9 @@ phpcbf --standard=PSR2 --no-cache app/code/Naxero/BuyNow
 
 
 !!!PRIORITY!!!
+- add "new" link in confirmation box when no saved cards available, in order to add new
+- fix list button block display breaking addto block display
+- fix user logged in not detected in block, breaking the canDisplay() conditions
 - handle order payment status validation after payment request
 - review place order js result handling
 - improve/cleanup payment request parameters structure
