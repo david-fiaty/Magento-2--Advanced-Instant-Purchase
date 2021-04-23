@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -47,7 +48,7 @@ class ApiHandlerService
         $this->customerSession = $customerSession;
         $this->customerHelper = $customerHelper;
     }
-    
+
     /**
      * Get a request URL.
      */
@@ -125,7 +126,7 @@ class ApiHandlerService
 
         return $this->getRequestUrl($url);
     }
-    
+
     /**
      * Get the endpoint URL.
      */

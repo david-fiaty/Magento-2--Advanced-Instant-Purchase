@@ -119,7 +119,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
     {
         // Set the instant purchase availability
         $data = ['available' => true];
-        
+
         // Data
         $data += [
             'payment_token' => $this->buildPaymentTokenArray(),
@@ -196,7 +196,7 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
         if ($this->customerDataValid($customerData)) {
             $billingAddress = $this->customerHelper->getBillingAddress($customerData['entity_id']);
         }
-        
+
         return [
             'id' => !$billingAddress ? 0 : $billingAddress->getId(),
             'summary' => !$billingAddress ? '' : $this->customerAddressesFormatter->format($billingAddress)
@@ -271,14 +271,14 @@ class Purchase extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canDisplayButton($config)
     {
-        // Todo - Fix islogged in not detected in block     
-        // By moving is logged in to list block itself   
+        // Todo - Fix islogged in not detected in block
+        // By moving is logged in to list block itself
         /*
         // Button available
         $buttonEnabled = $config['general']['enabled'];
-        $isLoggedIn = $this->customerHelper->isLoggedIn(); 
+        $isLoggedIn = $this->customerHelper->isLoggedIn();
         $showGuestButton = !$isLoggedIn && $config['buttons']['show_guest_button'];
-        
+
         return $buttonEnabled
         && ($isLoggedIn || $showGuestButton);
         */

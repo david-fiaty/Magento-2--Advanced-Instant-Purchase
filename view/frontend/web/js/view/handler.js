@@ -137,7 +137,7 @@ define([
                 success: function (data) {
                     // Get the HTML content
                     self.addHtml(self.popupContentSelector, data.html);
-                  
+
                     // Build the data tree
                     NbnTree.build(productId);
                 },
@@ -168,7 +168,7 @@ define([
                         NbnLogin.loginPopup();
                         return;
                     }
-                                       
+
                     // Validate attributes in list view
                     if (NbnView.isListView() && (NbnView.hasOptions() || NbnView.hasAttributes())) {
                         if (!NbnProduct.attributesValid(e.target)) {

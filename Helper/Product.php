@@ -28,7 +28,7 @@ class Product extends \Magento\Framework\App\Helper\AbstractHelper
      * @var PageFactory
      */
     public $pageFactory;
-    
+
     /**
      * @var Configurable
      */

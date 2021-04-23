@@ -79,10 +79,10 @@ class ListButton extends \Magento\Catalog\Block\Product\ProductList\Item\Block
             $config['user'],
             $this->blockHelper->getCustomerData()
         );
-        
+
         // Update the product attributes data
         $config = $this->updateAttributesData($config);
-        
+
         // Set the display mode
         $config['product']['display'] = self::MODE;
 

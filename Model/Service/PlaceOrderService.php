@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -143,7 +144,7 @@ class PlaceOrderService
         $this->data['billing_address'] = $this->prepareAddress(
             $this->data['params']['billing_address_id']
         );
-        
+
         // Shipping address
         $this->data['shipping_address'] = $this->prepareAddress(
             $this->data['params']['shipping_address_id']
@@ -306,7 +307,7 @@ class PlaceOrderService
 
         // Remove non relevant fields
         $data = array_diff_key($data, array_flip($this->removeAddressFields));
-        
+
         // Update the address street field
         if (isset($data['street'])) {
             $data['street'] = [$data['street']];

@@ -136,11 +136,11 @@ class Customer extends \Magento\Framework\App\Helper\AbstractHelper
     public function loadAddress($addressId)
     {
         try {
-            $address =$this->addressFactory->create()->load($addressId);
+            $address = $this->addressFactory->create()->load($addressId);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
-        
+
         return $address;
     }
 

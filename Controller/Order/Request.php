@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naxero.com
  * Professional ecommerce integrations for Magento.
@@ -82,7 +83,8 @@ class Request extends \Magento\Framework\App\Action\Action
                 $order = $this->placeOrderService->placeOrder($params);
                 if ($order) {
                     $this->messageManager->addComplexSuccessMessage(
-                        'nbnOrderSuccessMessage',[
+                        'nbnOrderSuccessMessage',
+                        [
                             'data' => json_encode($order->getData())
                         ]
                     );
