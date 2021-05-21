@@ -107,7 +107,6 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function getCategories($categoryId = 0)
     {
         // Prepare the collection
-        $items = [];
         $collection = $this->categoryCollectionFactory->create();
         $collection->addAttributeToSelect('*');
 
